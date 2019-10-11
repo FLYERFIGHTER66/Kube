@@ -1,0 +1,289 @@
+     A*%%TS  SD  20000603  083448  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000603  083448  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A  41                                  CF05
+     A                                      HELP
+     A                                      CF03
+     A                                      CF02
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPA)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A                                  1  2'GLR200A'
+     A                                  1 26' General Ledger Journal Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  5  2'Action:'
+     A            ACTION         1X  B  5 11DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.         Press Reset')
+     A                                  5 28'Prefix:'
+     A            JEPR           2A  B  5 48DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A                                  7  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  7 28'Number:'
+     A            JENM           6Y 0B  7 48DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  20N21N22                            ERRMSG('*** Journal Entry Number Is-
+     A                                       Required.    Press Reset')
+     A  20 21N22                            ERRMSG('*** Can Not Change or Delet-
+     A                                      e  - JE Number Does Not Exist.     -
+     A                                       Press Reset')
+     A  20N21 22                            ERRMSG('*** Can Not Add - JE Number-
+     A                                       Exists.    Press Reset')
+     A                                  8  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                  9  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                  9 28'Suffix:'
+     A            JESF           2A  B  9 48DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  24
+     AO 25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Suffix Can Not be AL, R-
+     A                                      E, RV. They are Reserved      Press-
+     A                                       Reset')
+     A                                 11 28'Description:'
+     A            JEDS          30A  B 11 48DSPATR(CS)
+     A                                      CHECK(LC)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Description is Required-
+     A                                      .           Press Reset')
+     A                                 13 28'Acctg Period Date:'
+     A            ACDT           6Y 0B 13 48DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  40N42                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  40 42                               ERRMSG('*** Entered Date is Prior t-
+     A                                      o Current Year Start.       Press R-
+     A                                      ESET')
+     A                                 15  9' Accounting Period Date Is For Fut-
+     A                                      ure Year. Press F5 to Accept. '
+     A  41                                  DSPATR(RI)
+     A N41                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process       F2=Displ-
+     A                                      ay Acctg Period        F3/F7=End of-
+     A                                       Job     '
+     A                                      DSPATR(UL)
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R HELPA
+     A*%%TS  SD  19990428  063441  GL          REL-V3R1M0  5763-PW1
+     A                                  2  2' G/L Journal Entry                -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  4  2' This is the program where you ent-
+     A                                      er regular journal entries. After e-
+     A                                      ntering, '
+     A                                      DSPATR(HI)
+     A                                  5  2' you run the edit report so that y-
+     A                                      ou can verify that the data is corr-
+     A                                      ect.     '
+     A                                      DSPATR(HI)
+     A                                  6  2' After the edit you can either add-
+     A                                      , change or delete entries or run t-
+     A                                      he post, '
+     A                                      DSPATR(HI)
+     A                                  7  2' which puts this data in your g/l -
+     A                                      files.                             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2' Prefix - is an alphanumeric field-
+     A                                       that further defines the j/e.  It -
+     A                                      is       '
+     A                                      DSPATR(HI)
+     A                                 10  2'          optional.               -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2' Number - is a 6 position numeric -
+     A                                      field that identifies this particul-
+     A                                      ar j/e.  '
+     A                                      DSPATR(HI)
+     A                                 12  2'          It is required and must -
+     A                                      be a unique number for this batch o-
+     A                                      f j/e.   '
+     A                                      DSPATR(HI)
+     A                                 14  2'          optional.  You can not u-
+     A                                      se these suffixes, they are reserve-
+     A                                      d:       '
+     A                                      DSPATR(HI)
+     A                                 23  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2' Acctg Date - enter a date that is-
+     A                                       a valid date within the accounting-
+     A                                       period  '
+     A                                      DSPATR(HI)
+     A                                 21  2'          to which you want this j-
+     A                                      /e posted.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2' Suffix - is an alphanumeric field-
+     A                                       that further defines the j/e.  It -
+     A                                      is       '
+     A                                      DSPATR(HI)
+     A                                 15  2'                     AL = Allocati-
+     A                                      on J/E                             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                     RE = Recurrin-
+     A                                      g J/E                              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                     RV = Reversin-
+     A                                      g J/E                              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' Description - enter up to 30 char-
+     A                                      acters to describe this j/e. This  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'          description will print o-
+     A                                      n various reports.                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19990508  070809  GLAP        REL-V3R1M0  5763-PW1
+     A            ODESC         30A  H
+     A            GWSEQ#         3S 0H
+     A            GLNO           8Y 0B  9  3EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A            DEBIT         11Y 2B  9 16EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A            CREDIT        11Y 2B  9 33EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A                                      CHECK(RB)
+     A            DESC          30A  B  9 48DSPATR(CS)
+     A                                      CHECK(LC)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19990723  070708  TGMS        REL-V4R2M0  5769-PW1
+     A  *DS3                                SFLSIZ(0200)
+     A  *DS4                                SFLSIZ(0200)
+     A  *DS3                                SFLPAG(0015)
+     A  *DS4                                SFLPAG(0012)
+     A  98                                  CF01
+     A                                      CF02
+     A  40N11N31
+     A N32N33                               CF11
+     A                                      CF05
+     A                                      CF06
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  11                                  SFLMSG('*** Invalid G/L Number.    -
+     A                                          Press Reset')
+     A  32                                  SFLMSG('*** Only A Debit or Credit -
+     A                                      Amount.     Press Reset')
+     A  31                                  SFLMSG('*** Enter Either A Debit or-
+     A                                       Credit Amount.   Press Reset')
+     A  40                                  SFLMSG('*** G/L Distribution Does N-
+     A                                      ot Equal Zero.  Press Reset  (F11-A-
+     A                                      ccept as is)')
+     A  33                                  SFLMSG('*** Only enter positive num-
+     A                                      bers for Debit or Credit.    Press -
+     A                                      RESET')
+     A            LINE           5S 0H
+     A                                  1  4' - Roll -     Enter to Verify     -
+     A                                      F2=G/L Lookup     F6=Restart(No Upd-
+     A                                      ate) '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  2 33' Journal Entry '
+     A                                      DSPATR(RI)
+     A                                  2 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'GLR200SFL'
+     A                                  3 73TIME
+     A                                  4  2'Company:'
+     A            LCO            2S 0O  4 11DSPATR(HI)
+     A            RGNAME        30A  O  4 15DSPATR(HI)
+     A                                  6 34' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A  99                                  DSPATR(BL)
+     A N99                                  DSPATR(ND)
+     A                                  5  5'Desc:'
+     A            JEDS          30A  O  5 15DSPATR(HI)
+     A                                  6 15' F1=Update Data '
+     A  98                                  DSPATR(RI)
+     A  98                                  DSPATR(BL)
+     A N98                                  DSPATR(ND)
+     A                                  7  5'Totals:'
+     A            TOTDEB        11Y 2O  7 14EDTCDE(1)
+     A                                      DSPATR(HI)
+     A            TOTCRD        11Y 2O  7 31EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  7 48'Balance:'
+     A            TOTBAL        11Y 2O  7 57EDTCDE(J)
+     A                                      DSPATR(RI)
+     A                                  8  2' G/L Acct           Debit         -
+     A                                      Credit      Account Description    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4 50'Accounting Period:'
+     A            ACTPER         2S 0O  4 69DSPATR(HI)
+     A                                  5 50'From:'
+     A            BEGDAT         6Y 0O  5 56EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A            ENDDAT         6Y 0O  5 69EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A                                  5 65'To:'

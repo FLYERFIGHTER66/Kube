@@ -1,0 +1,213 @@
+     A*%%TS  SD  20100514  151811  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20100514  151811  BILLB       REL-V5R3M0  5722-WDS
+     A                                  1  2'NCR227A'
+     A                                  2  2USER
+     A                                  9 27'Ship Date:'
+     A            SHPDAT         6Y 0B  9 41EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Ship Week Enter-
+     A                                      ed.    Press RESET')
+     A                                 12 27'Enter Item #:'
+     A            ITEM          12A  B 12 41
+     A  13                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  13                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** Invalid Item/Size Code -
+     A                                      Entered.    Press RESET')
+     A            SIZE           3A  B 13 41
+     A            IMDES1        30A  O 14 41
+     A                                 22 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 30' Item / Cart Inquiry '
+     A                                      DSPATR(RI)
+     A                                 13 33'Size #:'
+     A                                 10 27'Master:'
+     A            SMASTER        2Y 0B 10 41EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A          R CRTSFL                    SFL
+     A*%%TS  SD  20100514  151811  BILLB       REL-V5R3M0  5722-WDS
+     A            OPTION02       1A  B 11  2DSPATR(CS)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            SSTIME         6Y 0O 11 31EDTWRD('  :  :  ')
+     A  55
+     AO 56                                  DSPATR(ND)
+     A                                 11 70'** END ***'
+     A  55                                  DSPATR(HI)
+     A N55                                  DSPATR(ND)
+     A            SSCART    R        O 11  5REFFLD(RCART/CTCART *LIBL/FCART)
+     A  55
+     AO 56                                  DSPATR(ND)
+     A            SSDTLA         6Y 0O 11 22EDTCDE(Y)
+     A  55
+     AO 56                                  DSPATR(ND)
+     A            SSCNTL         6Y 0O 11 14EDTCDE(4)
+     A  55
+     AO 56                                  DSPATR(ND)
+     A            SSTRAY         3Y 0O 11 66
+     A  55                                  DSPATR(ND)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            SSORD#    R        O 11 44REFFLD(RCART/CTORD# FINISHED/FCARTD-
+     A                                      IC)
+     A  55                                  DSPATR(ND)
+     A            SSSEQ#    R        O 11 51REFFLD(RCART/CTSEQ# FINISHED/FCARTD-
+     A                                      IC)
+     A  55                                  DSPATR(ND)
+     A            SSLOC     R        O 11 55REFFLD(RCART/CTLOC FINISHED/FCARTDI-
+     A                                      C)
+     A  55                                  DSPATR(ND)
+     A                                 11 41'|'
+     A                                      COLOR(BLU)
+     A  55                                  DSPATR(ND)
+     A          R CRTCTL                    SFLCTL(CRTSFL)
+     A*%%TS  SD  20100514  151811  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0013)
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'NCR227SFL'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  2 14'Ship Date:'
+     A            SHPDAT         6Y 0O  2 25EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  5  7'The selected item was logged in to-
+     A                                       shipping on the following carts.'
+     A            LINE           5S 0H
+     A                                  2 36'Item Carts for'
+     A            IMITEM    R        O  2 51REFFLD(RMINVT/IMITEM *LIBL/FMINVT)
+     A                                      DSPATR(HI)
+     A            IMSIZE    R        O  2 64REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A                                      DSPATR(HI)
+     A            IMDES1    R        O  3 51REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      COLOR(PNK)
+     A                                  1 30' Item / Cart Inquiry '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  7 62'Active Trays:'
+     A            STRAYS         5Y 0O  7 76DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  8  2'Options=>'
+     A                                      COLOR(BLU)
+     A                                  8 40'5=Tray Details'
+     A                                      COLOR(BLU)
+     A                                  8 56'6=Reprint'
+     A                                      COLOR(BLU)
+     A                                  8 30'4=Cancel'
+     A                                      COLOR(BLU)
+     A                                  8 67'Deleted:'
+     A            STRAYSD        5Y 0O  8 76DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  4 30'F6'
+     A                                      DSPATR(HI)
+     A                                  4 33'=Restart'
+     A                                      COLOR(BLU)
+     A                                  4 44'F3'
+     A                                      DSPATR(HI)
+     A                                  4 47'=Exit'
+     A                                      COLOR(BLU)
+     A                                  8 13'1=Order Details'
+     A                                      COLOR(BLU)
+     A                                 10  6'Cart # / Ctl.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 10 45'Order/Seq'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 10 55'Location'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 10 23'Cart Date / Time'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 10 66'Qty'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 17'Master:'
+     A            SMASTER        2S 0O  3 25DSPATR(HI)
+     A          R TRYSFL                    SFL
+     A*%%TS  SD  20100514  151811  BILLB       REL-V5R3M0  5722-WDS
+     A            CODE           1A  B  8  2
+     A N55                                  DSPATR(CS)
+     A                                      VALUES(' ' 'D')
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            CTTAG#         8Y 0O  8  4EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A            CTITEM        12A  O  8 13
+     A  55                                  DSPATR(ND)
+     A            CTSIZE         3A  O  8 26
+     A  55                                  DSPATR(ND)
+     A            IMDES1        30A  O  8 30
+     A            CTORD#         6Y 0O  8 61EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A            CTLOC          8A  O  8 68
+     A  55                                  DSPATR(ND)
+     A            CTCSEQ         3S 0H
+     A          R TRYCTL                    SFLCTL(TRYSFL)
+     A*%%TS  SD  20100514  151811  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0016)
+     A                                      CF10
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  25                                  SFLMSG('*** No Records were selecte-
+     A                                      d for cancel.  Press RESET')
+     A                                  1  2'NCR227TRY'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 30' Cart Details Screen '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  7  2'|   Tag #  Item        Size Descri-
+     A                                      ption                   Order # Loc-
+     A                                      ation'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 17'Cart #:'
+     A            CARTNO         8Y 0O  2 25DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  2 48'Control #:'
+     A            CONTRL         6Y 0O  2 59DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  4  2'F3=End Job'
+     A                                      DSPATR(HI)
+     A                                  6  2'5= Disply Tray Details'
+     A                                      COLOR(BLU)
+     A                                  4 15'F6=Restart'
+     A                                      DSPATR(HI)
+     A                                  2 35'Master:'
+     A            SMASTER        2S 0O  2 43DSPATR(HI)

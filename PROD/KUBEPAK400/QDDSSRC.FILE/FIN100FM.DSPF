@@ -1,0 +1,367 @@
+     A*%%TS  SD  20041221  104255  BILLB       REL-V5R2M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF06
+     A                                      CF03
+     A                                      CF07
+     A                                      CF02
+     A          R SCRNA
+     A*%%TS  SD  20041215  153200  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Enter Date')
+     A                                  1  2'CHR100A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            FRMDAT         6Y 0B  4  9
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11N12                            ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A  12                                  ERRMSG('*** Weekly Control record i-
+     A                                      s not in file. Press RESET')
+     A                                  6  3'or Year:'
+     A            BEGYY          4Y 0B  6 13
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  7  3'and Week:'
+     A            BEGWW          2Y 0B  7 15
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                  9  3'Enter to Process'
+     A                                 10  4'F3=Cancel Job'
+     A                                  4  3'Date:'
+     A          R SCRNB
+     A*%%TS  SD  20041221  104255  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Enter Section, Bay, N/S')
+     A                                  1  2'CHR100B'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  3'Section:'
+     A            FRMDAT         6Y 0B  1 11EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            SECT           2Y 0B  3 16
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Section Entered-
+     A                                      .  Press RESET')
+     A                                  5  3'Bay:'
+     A            BAY            2Y 0B  5 16
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Bay is not in selected -
+     A                                      section. Press RESET')
+     A  22                                  ERRMSG('*** Invalid Bay Entered.  P-
+     A                                      ress RESET')
+     A                                  7  3'North/South:'
+     A            NORS           1A  B  7 16
+     A  15                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** North or South Must be -
+     A                                      N or S.     Press RESET')
+     A                                      CHECK(ER)
+     A                                  7 18'(N/S)'
+     A                                 11  2'F2=Previous Screen'
+     A                                 12  2'F3=Cancel Job'
+     A          R SCRNC
+     A*%%TS  SD  20041215  153200  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Enter Left/Right, Pole #')
+     A                                  1  2'CHR100C'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2  2'Section:'
+     A            FRMDAT         6Y 0B  1 11EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            SECT           2Y 0B  2 11EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  2 14'Bay:'
+     A            BAY            2Y 0B  2 19EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  8  1'Pole:'
+     A            POLE           2Y 0B  8 13
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A  21                                  ERRMSG('*** Invalid Pole number ent-
+     A                                      ered.      Press RESET')
+     A  22                                  ERRMSG('*** This section only has 1-
+     A                                      2 poles.  Press RESET')
+     A  23                                  ERRMSG('*** This section only has 1-
+     A                                      4 poles.  Press RESET')
+     A  24                                  ERRMSG('*** This pole has been comp-
+     A                                      letely scheduled.    Press RESET')
+     A            DIRECT         5A  O  3  2DSPATR(UL)
+     A                                  5  1'Left/Right:'
+     A            LORR           1A  B  5 14
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Must be L or R.  Press -
+     A                                      RESET')
+     A                                  5 16'(L/R)'
+     A            POLEDS         6A  O  8 16
+     A                                 11  2'F2=Previous Screen'
+     A                                 12  2'F3=Cancel Job'
+     A                                  6 16'(1/2)'
+     A          R SCRND
+     A*%%TS  SD  20041215  153200  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Enter Tag Number')
+     A                                  1  2'CHR100D'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2  2'Section:'
+     A            FRMDAT         6Y 0B  1 11EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            SECT           2Y 0B  2 11EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  2 14'Bay:'
+     A            BAY            2Y 0B  2 19EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  3  9'Pole:'
+     A            POLE           2Y 0B  3 15EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            DIRECT         5A  O  3  2DSPATR(UL)
+     A            LORR           1A  O  3 19DSPATR(UL)
+     A                                  6  2'Tag Number:'
+     A            TAG#           8Y 0B  6 14
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Tag Number does not exi-
+     A                                      st.         Press RESET')
+     A                                      CHECK(ER)
+     A                                 11  2'F2=Previous Screen'
+     A                                 12  2'F3=Cancel Job'
+     A          R SCRNE
+     A*%%TS  SD  20041215  153200  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Enter Number of Trays or Pole-
+     A                                      s')
+     A                                  1 46'CHR100E'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2 72TIME
+     A                                  1  3'Section:'
+     A            FRMDAT         6Y 0B  1 54EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            SECT           2Y 0B  1 12EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  1 15'Bay:'
+     A            BAY            2Y 0B  1 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  2 10'Pole:'
+     A            POLE           2Y 0B  2 16EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            DIRECT         5A  O  2  3DSPATR(UL)
+     A            LORR           1A  O  2 20DSPATR(UL)
+     A                                 13  2'F2=Previous Screen'
+     A                                 14  2'F3=Cancel Job'
+     A            DES1          30A  O  4  1
+     A                                  5  1'Ready Date:'
+     A            RDYDAT         6Y 0O  5 13EDTCDE(Y)
+     A                                  6  1'Sown'
+     A            SOWQ           4Y 0O  6  6EDTCDE(4)
+     A                                  6 12'Series'
+     A            SERTOT         4Y 0O  6 19EDTCDE(4)
+     A                                  7 15'Poles'
+     A            POLEFT         2Y 0O  7 21EDTCDE(4)
+     A                                  7  1'Trays'
+     A            POLFLT         4Y 0O  7  7EDTCDE(2)
+     A                                  9  1'Trays'
+     A            TRAYIN         4Y 0B  9  7
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  11                                  ERRMSG('*** You must enter Flats or-
+     A                                       Poles.     Press RESET')
+     A  12                                  ERRMSG('*** You cannot enter both F-
+     A                                      lats and Poles.                    -
+     A                                                     Press RESET')
+     A  13                                  ERRMSG('*** You entered more flats -
+     A                                      than there are left in this bay.   -
+     A                                      Press RESET')
+     A                                  9 15'Poles'
+     A            POLEIN         2Y 0B  9 21
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** You entered more poles -
+     A                                      than there are left in this bay.   -
+     A                                       Press RESET')
+     A          R SCRNF
+     A*%%TS  SD  20041216  082134  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Enter Chemical and PPM')
+     A                                  1 46'CHR100F'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2 72TIME
+     A                                  1  3'Section:'
+     A            FRMDAT         6Y 0B  1 54EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            SECT           2Y 0B  1 12EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  1 15'Bay:'
+     A            BAY            2Y 0B  1 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  2 10'Pole:'
+     A            POLE           2Y 0B  2 16EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            DIRECT         5A  O  2  3DSPATR(UL)
+     A            LORR           1A  O  2 20DSPATR(UL)
+     A                                 13  2'F2=Previous Screen'
+     A                                 14  2'F3=Cancel Job'
+     A                                  4  2'Trays'
+     A            TRAYIN         4Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  4 15'Poles'
+     A            POLEIN         2Y 0B  4 21EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  6  1'Product'
+     A            PROD           4A  B  6 10
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** You must enter a produc-
+     A                                      t code.   Press RESET')
+     A  12                                  ERRMSG('*** Product/PPM entered not-
+     A                                       on this week schedule.  Press RESE-
+     A                                      T')
+     A  13                                  ERRMSG('*** Invalid Product code en-
+     A                                      tered.  Press RESET')
+     A                                  7  1'PPM'
+     A            PPM            7Y 0B  7  7CHECK(ER)
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20
+     AON31                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** You must enter Parts pe-
+     A                                      r Million.  Press RESET')
+     A                                      EDTCDE(4)
+     A            SPDES1         8A  O  9  1
+     A            PPMI           7Y 2B  9 11CHECK(ER)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(PR)
+     A          R SCRNG
+     A*%%TS  SD  20041216  120813  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Select Chemical')
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CHM01         10A  B  6  1
+     A            CHM02         10A  B  6 13
+     A            CHM03         10A  B  7  1
+     A            CHM04         10A  B  7 13
+     A            CHM05         10A  B  8  1
+     A            CHM06         10A  B  8 13
+     A            CHM07         10A  B  9  1
+     A            CHM08         10A  B  9 13
+     A            CHM09         10A  B 10  1
+     A            CHM10         10A  B 10 13
+     A            CHM11         10A  B 11  1
+     A            CHM12         10A  B 11 13
+     A            CHM13         10A  B 12  1
+     A            CHM14         10A  B 12 13
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  3'Section:'
+     A            SECT           2Y 0B  1 12EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  1 15'Bay:'
+     A            BAY            2Y 0B  1 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  1 46'CHR100F'
+     A            FRMDAT         6Y 0B  1 54EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A            DIRECT         5A  O  2  3DSPATR(UL)
+     A                                  2 10'Pole:'
+     A            POLE           2Y 0B  2 16EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            LORR           1A  O  2 20DSPATR(UL)
+     A                                  2 72TIME
+     A                                  4  2'Trays'
+     A            TRAYIN         4Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  4 15'Poles'
+     A            POLEIN         2Y 0B  4 21EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 13  2'F2=Previous Screen'
+     A                                 14  2'F3=Cancel Job'
+     A                                  5  5'Select'
+     A                                  5 12'Chemical'
+     A          R SCRNH
+     A*%%TS  SD  20041216  113545  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Select PPM')
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            PPM01          6Y 2B  6  1EDTCDE(4)
+     A            PPM02          6Y 2B  6  9EDTCDE(4)
+     A            PPM03          6Y 2B  6 17EDTCDE(4)
+     A            PPM04          6Y 2B  7  1EDTCDE(4)
+     A            PPM05          6Y 2B  7  9EDTCDE(4)
+     A            PPM06          6Y 2B  7 17EDTCDE(4)
+     A            PPM07          6Y 2B  8  1EDTCDE(4)
+     A            PPM08          6Y 2B  8  9EDTCDE(4)
+     A            PPM09          6Y 2B  8 17EDTCDE(4)
+     A            PPM10          6Y 2B  9  1EDTCDE(4)
+     A            PPM11          6Y 2B  9  9EDTCDE(4)
+     A            PPM12          6Y 2B  9 17EDTCDE(4)
+     A            PPM13          6Y 2B 10  1EDTCDE(4)
+     A            PPM14          6Y 2B 10  9EDTCDE(4)
+     A            PPM15          6Y 2B 10 17EDTCDE(4)
+     A            PPM16          6Y 2B 11  1EDTCDE(4)
+     A            PPM17          6Y 2B 11  9EDTCDE(4)
+     A            PPM18          6Y 2B 11 17EDTCDE(4)
+     A            PPM19          6Y 2B 12  1EDTCDE(4)
+     A            PPM20          6Y 2B 12  9EDTCDE(4)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  3'Section:'
+     A            SECT           2Y 0B  1 12EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  1 15'Bay:'
+     A            BAY            2Y 0B  1 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  1 46'CHR100F'
+     A            FRMDAT         6Y 0B  1 54EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A            DIRECT         5A  O  2  3DSPATR(UL)
+     A                                  2 10'Pole:'
+     A            POLE           2Y 0B  2 16EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            LORR           1A  O  2 20DSPATR(UL)
+     A                                  2 72TIME
+     A            SPDES1         8A  O  5  9DSPATR(HI)
+     A                                  4  2'Trays'
+     A            TRAYIN         4Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  4 15'Poles'
+     A            POLEIN         2Y 0B  4 21EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 13  2'F2=Previous Screen'
+     A                                 14  2'F3=Cancel Job'

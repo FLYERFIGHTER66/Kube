@@ -1,0 +1,528 @@
+     A*%%TS  SD  20160721  155207  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R LOT20001                  SFL
+     A*%%TS  SD  20160721  154919  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            IN84           1A  H
+     A            LDITEM    R        H      REFFLD(RDLOT/LDITEM *LIBL/FDLOT)
+     A            LDSOWD    R        H      REFFLD(RDLOT/LDSOWD *LIBL/FDLOT)
+     A            LDSHPD    R        H      REFFLD(RDLOT/LDSHPD *LIBL/FDLOT)
+     A            LDCRDY    R        H      REFFLD(RDLOT/LDCRDY *LIBL/FDLOT)
+     A            LDSOWN5        5S 0H
+     A            LDQFIX5        5S 0H
+     A            LDQDMP5        5S 0H
+     A            LDQTOH5        5S 0H
+     A            LDQTAL5        5S 0H
+     A            LDQTAV5        5S 0H
+     A            LDSOWD6   R   -1   O  7  3REFFLD(RDLOT/LDSOWD *LIBL/FDLOT)
+     A                                      EDTCDE(Y)
+     A            LDCRDY6   R   -1   O  7 13REFFLD(RDLOT/LDCRDY *LIBL/FDLOT)
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            LDITEM5   R   -7   O  7 23REFFLD(RDLOT/LDITEM *LIBL/FDLOT)
+     A                                  7 29'/'
+     A            LDSIZE    R        O  7 31REFFLD(RDLOT/LDSIZE *LIBL/FDLOT)
+     A            IMDES1    R        O  7 36REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      DSPATR(HI)
+     A            LDFIXD    R        O  7 69REFFLD(RDLOT/LDFIXD *LIBL/FDLOT)
+     A            LDGLOC    R        O  7 74REFFLD(RDLOT/LDGLOC *LIBL/FDLOT)
+     A                                      DSPATR(HI)
+     A            IMLOOK    R        O  7 80REFFLD(RMINVT/IMLOOK *LIBL/FMINVT)
+     A                                  7 97'|'
+     A                                      COLOR(BLU)
+     A            FLD002         5Y 0O  7101EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            LOT_QTAL       5Y 0O  7112EDTCDE(K)
+     A            QTOH990        5Y 0O  7123EDTCDE(K)
+     A                                      DSPATR(HI)
+     A                                  9  5'Quantity'
+     A                                      DSPATR(HI)
+     A                                  9 16'Quantity'
+     A                                  9 28'|<--- Alternate Availability --->|'
+     A                                      COLOR(BLU)
+     A                                  9 97'|'
+     A                                      COLOR(BLU)
+     A                                 10  5'Sown'
+     A                                      DSPATR(HI)
+     A                                 10 16'Lost'
+     A                                 10 28'-2 week'
+     A                                 10 37'-1 week'
+     A                                      DSPATR(HI)
+     A                                 10 46'+1 week'
+     A                                 10 55'+2 week'
+     A                                      DSPATR(HI)
+     A                                 10 97'|'
+     A                                      COLOR(BLU)
+     A            LOT_QTSW       5Y 0O 11  5EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            LOT_QTLS       5Y 0O 11 16EDTCDE(K)
+     A            FLD003         5Y 0O 11 28EDTCDE(K)
+     A            FLD004         5Y 0O 11 37EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            FLD005         5Y 0O 11 46EDTCDE(K)
+     A            FLD006         5Y 0O 11 55EDTCDE(K)
+     A                                      DSPATR(HI)
+     A                                 11 97'|'
+     A                                      COLOR(BLU)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                                               |         -
+     A                                                             '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  8 97'|'
+     A                                      COLOR(BLU)
+     A          R LOT20001C                 SFLCTL(LOT20001)
+     A*%%TS  SD  20160721  154919  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0003)
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Restart')
+     A                                      CF08(08 'Toggle All / Eligible')
+     A                                      CF01(01 'Update')
+     A                                      CF05(05 'Refresh')
+     A                                      CF04(04 'View Details')
+     A                                      KEEP
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN1)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A                                      MOUBTN(*URP *URR CF10)
+     A                                      MOUBTN(*ULP *ULR CF04)
+     A                                      MOUBTN(*ULD ROLLDOWN)
+     A                                      MOUBTN(*URD ROLLUP)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            SFLCSRRRN1     5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 48'   Work with Lot Errors and Shorts-
+     A                                         '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1125DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2125TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  3 96'Right Click to Add or Remove Crite-
+     A                                      ria'
+     A                                      COLOR(BLU)
+     A                                  3 30'Search:'
+     A            SEARCH        15A  B  3 38COLOR(YLW)
+     A                                      DSPATR(PC)
+     A                                  3 54'(Searches Item Alpha and Descripti-
+     A                                      ons)'
+     A                                      COLOR(BLU)
+     A                                  1 96'Use "*" for all locations'
+     A                                      COLOR(RED)
+     A                                  5  3'Sow Date'
+     A                                  5 13'Rdy Date'
+     A                                      DSPATR(HI)
+     A                                  5 23'Item  /Size'
+     A                                  5 67'Fixd'
+     A                                  5 74'Loc'
+     A                                      DSPATR(HI)
+     A            SELLDSOWD6     6Y 0B  6  3EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A            SELLDCRDY6     6Y 0B  6 13EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A            SELLDSIZE      3A  B  6 31COLOR(PNK)
+     A            SELLDITEM5     5A  B  6 23COLOR(PNK)
+     A            SELIMLOOK R     A  B  6 80REFFLD(RMINVT/IMLOOK *LIBL/FMINVT)
+     A                                      COLOR(PNK)
+     A            SELLDFIXD R     A  B  6 69REFFLD(RDLOT/LDFIXD *LIBL/FDLOT)
+     A                                      COLOR(PNK)
+     A            SELLDGLOC      3A  B  6 74COLOR(PNK)
+     A                                  2 96'Use "*" for all Fixd     '
+     A                                      COLOR(RED)
+     A                                  5 80'Alpha Search'
+     A            SELIMDES1     30A  B  6 36COLOR(PNK)
+     A                                  5 36'Description'
+     A                                  4123'Quantity'
+     A                                      DSPATR(HI)
+     A                                  5123'Over'
+     A                                      DSPATR(HI)
+     A                                  6123'Allocated'
+     A                                      DSPATR(HI)
+     A                                  5112'Quantity'
+     A                                  5101'Quantity'
+     A                                      DSPATR(HI)
+     A                                  6112'Allocated'
+     A                                  6101'On-Hand'
+     A                                      DSPATR(HI)
+     A                                  5 97'|'
+     A                                      COLOR(BLU)
+     A                                  6 97'|'
+     A                                      COLOR(BLU)
+     A                                  6 29'/'
+     A                                      COLOR(PNK)
+     A          R LOT20001F
+     A*%%TS  SD  20120330  135645  BILLB       REL-V7R1M0  5770-WDS
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                     LOT20001   '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 38'F05'
+     A                                      DSPATR(HI)
+     A                                 26 42'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 22'F01'
+     A                                      DSPATR(HI)
+     A                                 26 26'=Update'
+     A                                      COLOR(BLU)
+     A                                 26 55'F06'
+     A                                      DSPATR(HI)
+     A                                 26 59'=Restart'
+     A                                      COLOR(BLU)
+     A          R LOT20002                  SFL
+     A*%%TS  SD  20121127  150037  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            OIPOST         1A  H
+     A            IN84           1A  H
+     A            IN96           1   H
+     A            IN97           1A  H
+     A            OILOTC    R        H      REFFLD(RIORDR/OILOTC *LIBL/FIORDR)
+     A            OILOT#    R        H      REFFLD(RIORDR/OILOT# *LIBL/FIORDR)
+     A            OIRVDT         7S 0H
+     A            OIORD#    R        O 13  2REFFLD(RIORDR/OIORD# *LIBL/FIORDR)
+     A                                      DSPATR(HI)
+     A  55                                  DSPATR(RI)
+     A            OISEQ#    R        O 13  9REFFLD(RIORDR/OISEQ# *LIBL/FIORDR)
+     A                                      DSPATR(HI)
+     A  55                                  DSPATR(RI)
+     A            OICUST    R        O 13 13REFFLD(RIORDR/OICUST *LIBL/FIORDR)
+     A                                      EDTCDE(Z)
+     A            CUSNAME       24A  O 13 20
+     A            OIQORD    R   -6 -1O 13 51REFFLD(RIORDR/OIQORD *LIBL/FIORDR)
+     A                                      EDTCDE(1)
+     A            OIQSHP    R   -6 -1O 13 58REFFLD(RIORDR/OIQSHP *LIBL/FIORDR)
+     A                                      DSPATR(HI)
+     A                                      EDTCDE(1)
+     A            OIRQTY    R   -2   O 13 65REFFLD(RIORDR/OIRQTY *LIBL/FIORDR)
+     A                                      EDTCDE(1)
+     A                                 13 72'|'
+     A                                      COLOR(BLU)
+     A            QTOA      R        O 13 74REFFLD(RALITEM/AIQTOA *LIBL/FALITEM)
+     A                                      COLOR(PNK)
+     A  97                                  DSPATR(ND)
+     A            NEW_QTOA  R   -3 -1B 13 88REFFLD(RALITEM/AIQTOA *LIBL/FALITEM)
+     A                                      DSPATR(HI)
+     A  97                                  DSPATR(ND)
+     A  51                                  DSPATR(BL)
+     A  51                                  COLOR(RED)
+     A  51                                  DSPATR(PC)
+     A  97                                  DSPATR(PR)
+     A                                      EDTCDE(J)
+     A                                 13100'|'
+     A                                      COLOR(BLU)
+     A            QTOA_P    R        O 13102REFFLD(RALITEM/AIQTOA *LIBL/FALITEM)
+     A                                      COLOR(PNK)
+     A N97                                  DSPATR(ND)
+     A            NEW_QTOA_PR   -3 -1B 13116REFFLD(RALITEM/AIQTOA *LIBL/FALITEM)
+     A N96                                  DSPATR(ND)
+     A  52                                  DSPATR(BL)
+     A  52                                  COLOR(RED)
+     A  52                                  DSPATR(PC)
+     A N96                                  DSPATR(PR)
+     A                                      EDTCDE(J)
+     A          R LOT20002C                 SFLCTL(LOT20002)
+     A*%%TS  SD  20160721  154919  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0012)
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Restart')
+     A                                      CF07(07 'Quit')
+     A  98                                  CF01(01 'Update')
+     A                                      CF05(05 'Refresh')
+     A                                      CF10(10 'Mouse Button')
+     A                                      CF11(11 'Edit Order')
+     A                                      KEEP
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN2)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      MOUBTN(*ULP *ULR CF11)
+     A                                      MOUBTN(*ULD ROLLDOWN)
+     A                                      MOUBTN(*URD ROLLUP)
+     A            IMLOOK        15A  H
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            SFLCSRRRN2     5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1125DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2125TIME
+     A                                      COLOR(BLU)
+     A                                 12  2'Order /Seq'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 12 13'Customer                       '
+     A                                      DSPATR(UL)
+     A                                 12 52'Order'
+     A                                      DSPATR(UL)
+     A                                 12 59'Shipd'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 12 66'Relsd'
+     A                                      DSPATR(UL)
+     A            ORIGINAL       5Y 0O  5 25DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                      EDTCDE(J)
+     A                                  1 48'   Work with Lot Errors and Shorts-
+     A                                         '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  3 41'Item:'
+     A            LDITEM5        5A  O  3 47COLOR(PNK)
+     A            LDSIZE         3A  O  3 55COLOR(PNK)
+     A            IMDES1        30A  O  3 61COLOR(PNK)
+     A                                  3 59'-'
+     A                                      COLOR(PNK)
+     A                                  4 58'Sow Date'
+     A                                  5 58'Rdy Date'
+     A                                      DSPATR(HI)
+     A                                  2102'Sown'
+     A                                  3101'-Fixers'
+     A                                      DSPATR(HI)
+     A                                  4101'-Dumped'
+     A                                      DSPATR(UL)
+     A                                  5102'OnHand'
+     A                                      DSPATR(HI)
+     A                                  6101'-Allocd'
+     A                                      DSPATR(UL)
+     A                                  7102'Avail'
+     A                                      DSPATR(HI)
+     A            LDSOWD6   R   -1   O  4 67REFFLD(RDLOT/LDSOWD *LIBL/FDLOT)
+     A                                      EDTCDE(Y)
+     A            LDCRDY6   R   -1   O  5 67REFFLD(RDLOT/LDCRDY *LIBL/FDLOT)
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            LDFIXD    R        O  7 81REFFLD(RDLOT/LDFIXD *LIBL/FDLOT)
+     A                                      DSPATR(HI)
+     A            LDSOWN5   R   -6 -1O  2109REFFLD(RDLOT/LDSOWN *LIBL/FDLOT)
+     A                                      EDTCDE(K)
+     A            LDQFIX5   R   -6 -1O  3109REFFLD(RDLOT/LDQFIX *LIBL/FDLOT)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            LDQDMP5   R   -6 -1O  4109REFFLD(RDLOT/LDQDMP *LIBL/FDLOT)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(UL)
+     A            LDQTOH5   R   -6 -1O  5109REFFLD(RDLOT/LDQTOH *LIBL/FDLOT)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            LDQTAL5   R   -6 -1O  6109REFFLD(RDLOT/LDQTAL *LIBL/FDLOT)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(UL)
+     A            LDQTAV5   R   -6 -1O  7109REFFLD(RDLOT/LDQTAV *LIBL/FDLOT)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(HI)
+     A                                 12 74' Orig Alloc.   New Alloc.'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 12102' Orig Alloc.   New Alloc.'
+     A                                      DSPATR(UL)
+     A                                 12100'|'
+     A                                      COLOR(BLU)
+     A                                 12 72'|'
+     A                                      COLOR(BLU)
+     A                                  5  4'Original Allocations'
+     A                                      DSPATR(HI)
+     A                                  7  5'Current Allocations'
+     A                                      DSPATR(HI)
+     A                                  8  4'- Target Allocations'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            CURRENT        5Y 0O  7 25DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                      EDTCDE(J)
+     A            TARGET         5Y 0O  8 25DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                      EDTCDE(J)
+     A                                  9  7'Total to be moved'
+     A                                      DSPATR(HI)
+     A            TOMOVE         5Y 0O  9 25DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                      EDTCDE(J)
+     A  98                              8 50'                                 '
+     A                                      DSPATR(RI)
+     A  98                              9 50'   The Lot is back in Balance    '
+     A                                      DSPATR(RI)
+     A  98                             10 50'                                 '
+     A                                      DSPATR(RI)
+     A            LOT_QTSW_W     8Y 0O 11 88DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            LOT_QTSW_P     8Y 0O 11116DSPATR(RI)
+     A                                      EDTCDE(J)
+     A                                 11 75'Whole Trays'
+     A                                      DSPATR(HI)
+     A                                 11106'Partials'
+     A                                  4  2'       Allocation Summary       '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  7  2'|'
+     A                                      COLOR(BLU)
+     A                                  7 33'|'
+     A                                      COLOR(BLU)
+     A                                  8  2'|'
+     A                                      COLOR(BLU)
+     A                                  8 33'|'
+     A                                      COLOR(BLU)
+     A                                  9  2'|'
+     A                                      COLOR(BLU)
+     A                                  9 33'|'
+     A                                      COLOR(BLU)
+     A                                 10  2'|                              |'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                 10 88'  Target   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                 10116'  Target   '
+     A                                      DSPATR(RI)
+     A                                  1 99'      LOT TOTALS      '
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  3 53'/'
+     A                                      COLOR(PNK)
+     A                                  5  2'|'
+     A                                      COLOR(BLU)
+     A                                  5 33'|'
+     A                                      COLOR(BLU)
+     A                                  6  2'|'
+     A                                      COLOR(BLU)
+     A                                  6  4'----------------------------'
+     A                                      COLOR(BLU)
+     A                                  6 33'|'
+     A                                      COLOR(BLU)
+     A                                  7 52'Has lot been through fixing:'
+     A                                  2 99'|'
+     A                                      COLOR(PNK)
+     A                                  2120'|'
+     A                                      COLOR(PNK)
+     A                                  3 99'|'
+     A                                      COLOR(PNK)
+     A                                  3120'|'
+     A                                      COLOR(PNK)
+     A                                  4 99'|'
+     A                                      COLOR(PNK)
+     A                                  4120'|'
+     A                                      COLOR(PNK)
+     A                                  5 99'|'
+     A                                      COLOR(PNK)
+     A                                  5120'|'
+     A                                      COLOR(PNK)
+     A                                  6 99'|'
+     A                                      COLOR(PNK)
+     A                                  6120'|'
+     A                                      COLOR(PNK)
+     A                                  7 99'|'
+     A                                      COLOR(PNK)
+     A                                  7120'|'
+     A                                      COLOR(PNK)
+     A                                  8 99'|                    |'
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A N53                              5116'ok'
+     A  53                              5118'X'
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A  54                              7118'X'
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A N53                              5117'ok'
+     A N54                              7117'ok'
+     A          R LOT20002F
+     A*%%TS  SD  20121127  150037  BILLB       REL-V7R1M0  5770-WDS
+     A                                 25  2' LOT20002                         -
+     A                                                                         -
+     A                                       |               ==========  |     -
+     A                                                ==========      '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 38'F05'
+     A                                      DSPATR(HI)
+     A                                 26 42'=Refresh'
+     A                                      COLOR(BLU)
+     A  98                             26 22'F01'
+     A                                      DSPATR(HI)
+     A  98                             26 26'=Update'
+     A                                      COLOR(BLU)
+     A                                 26 55'F06'
+     A                                      DSPATR(HI)
+     A                                 26 59'=Restart'
+     A                                      COLOR(BLU)
+     A            NEWQTY         8Y 0O 26 88DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                      DSPATR(RI)
+     A            NEWQTYP        8Y 0O 26116EDTCDE(J)
+     A                                      DSPATR(RI)
+     A                                 26 75'Whole Total:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                 26102'Part''l Total:'
+     A                                      DSPATR(RI)
+     A                                 26 72'|'
+     A                                      COLOR(BLU)
+     A                                 26100'|'
+     A                                      COLOR(BLU)
+     A                                 27100'|'
+     A                                      COLOR(BLU)
+     A                                 27 72'|'
+     A                                      COLOR(BLU)
+     A                                 27 55'F11'
+     A                                      DSPATR(HI)
+     A                                 27 59'=Edit Order'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS4                                SFLMSGRCD(27)
+     A            MSGKEY                    SFLMSGKEY
+     A            PGMQ                      SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS4                                SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ
+     A          R ASSUME132
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

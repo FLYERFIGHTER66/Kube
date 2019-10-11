@@ -1,0 +1,170 @@
+     A*%%TS  SD  20001229  134911  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20001229  131051  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'CSR010A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 20'Customer Options Master File Maint-
+     A                                      ainence '
+     A                                      DSPATR(RI)
+     A                                  6 24'Option I.D.?'
+     A            OPTION        10A  B  6 38
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Option Exists you canno-
+     A                                      t ADD it.   Press RESET')
+     A  22                                  ERRMSG('*** Option does not Exist, -
+     A                                      you cannot change it.     Press RES-
+     A                                      ET')
+     A  23                                  ERRMSG('*** Option does not Exist, -
+     A                                      you cannot delete it.      Press RE-
+     A                                      SET')
+     A  20N21N22
+     A N23                                  ERRMSG('*** Option cannot be Blank.-
+     A                                              Press RESET')
+     A                                  6  2'Action:'
+     A            ACTION         1A  B  6 10
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Action Code. Mu-
+     A                                      st be A , C , or D.     Press RESET-
+     A                                      ')
+     A                                  7  9' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  8  9' C = Change '
+     A                                      DSPATR(RI)
+     A                                  9  9' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 23  2'Enter To Process              F6=R-
+     A                                      estart                         F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20001229  134911  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'CSR010B'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3 25'Option I.D.:'
+     A            OPTION        10A  B  3 38DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                  6 17'Description:'
+     A            OPDESC        30A  B  6 37
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** You Must enter a descri-
+     A                                      ption.      Press RESET')
+     A                                 10 17'Dates Required:'
+     A            OPDATR         1A  B 10 37
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Dates Required Must be -
+     A                                      Y or N.     Press RESET')
+     A                                 10 40'Enter Y if start and end dates are'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 40'required to assign to a customer.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter To Process              F6=R-
+     A                                      estart                         F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 20 10' Verify data if OK press ENTER to -
+     A                                      update, else make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  1 19' Customer Options Master File Main-
+     A                                      tainence '
+     A                                      DSPATR(RI)
+     A                                  8 17'Alpha Search:'
+     A            OPLOOK        15A  B  8 37
+     A                                 13 17'Vendor Number:'
+     A                                 14 15'or Alpha Search:'
+     A            OPVEND         6Y 0B 13 37EDTCDE(4)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Vendor Number E-
+     A                                      ntered.     Press RESET')
+     A            VMNAME        30A  O 13 44
+     A            VLOOK         15A  B 14 37
+     A          R SCRNBD
+     A*%%TS  SD  20001229  131051  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF10
+     A                                      CF23
+     A                                  1  2'CSR010B'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3 25'Option I.D.:'
+     A            OPTION        10A  B  3 38DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                  6 17'Description:'
+     A            OPDESC        30A  B  6 37DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 10 17'Dates Required:'
+     A            OPDATR         1A  B 10 37DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 10 40'Enter Y if start and end dates are'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 40'required to assign to a customer.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter To Process              F6=R-
+     A                                      estart                         F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 19' Customer Options Master File Main-
+     A                                      tainence '
+     A                                      DSPATR(RI)
+     A                                  8 17'Alpha Search:'
+     A            OPLOOK        15A  B  8 37DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 13 17'Vendor Number:'
+     A                                 14 15'or Alpha Search:'
+     A            OPVEND         6Y 0B 13 37EDTCDE(4)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PR)
+     A            VMNAME        30A  O 13 44
+     A            VMLOOK        15A  B 14 37DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 16 11' Press F10/F23 to Confirm Delete. -
+     A                                        Press F6 to NOT Delete. '
+     A                                      DSPATR(RI)
+     A                                  5 11' Press F10/F23 to Confirm Delete. -
+     A                                        Press F6 to NOT Delete. '
+     A                                      DSPATR(RI)

@@ -1,0 +1,102 @@
+     A*? Program        : WSIFSDIRFM
+     A*?
+     A*? Description    : This Display file used to show List Of Directories
+     A*?                  in IFS based on parameter
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 10 Jun 2019
+     A**********************************************************************
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A*****************************************************************
+     A*? Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      INDARA
+     A*****************************************************************
+     A*? Subfile Display Part
+     A          R IFSDIRS01                 SFL
+     A*
+     A  15                                  SFLNXTCHG
+     A*
+     A            S01RRN         4S 0H
+     A            S01OPT         1Y 0B  6  2
+     A  16                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A            S01DIRECT    100   O  6  4DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Control Part
+     A          R IFSDIRC01                 SFLCTL(IFSDIRS01)
+     A*
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0019)
+     A*
+     A                                      CF03(03 'Exit')
+     A*
+     A                                      OVERLAY
+     A  11                                  SFLDSP
+     A  12                                  SFLDSPCTL
+     A  13                                  SFLCLR
+     A  14                                  SFLEND(*MORE)
+     A*
+     A            C01PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 39'Webservices_Retention_Policy File -
+     A                                      Directories'
+     A                                      COLOR(WHT)
+     A                                  1113'IFSDIRS01'
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A            C01SYS        10A  O  2  2COLOR(BLU)
+     A                                  2 44'List Of Unique Directories in File'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(RI)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Option : 1=Select'
+     A                                      COLOR(BLU)
+     A*
+     A                                  5  2'O'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  5  4'Directory                         -
+     A                                                                         -
+     A                                                                     '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R IFSDIRF01
+     A                                 26  2'F3=Exit  Enter to Process'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A**
+     A                                      HELP
+     A                                      OVERLAY
+     A**
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N03                                  SFLEND
+     A**
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

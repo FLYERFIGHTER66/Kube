@@ -1,0 +1,172 @@
+     A*%%TS  SD  20161108  161342  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R LKLATE01                  SFL
+     A*%%TS  SD  20161108  155424  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            ARDAYS    R        O 10  5REFFLD(RARLCD/ARDAYS *LIBL/FARLCD)
+     A                                      EDTCDE(Z)
+     A            ARMAMT2   R    5 02O 10 12REFFLD(RARLCD/ARMAMT *LIBL/FARLCD)
+     A                                      EDTCDE(J $)
+     A            DATELATE       8Y 0O 10 23EDTWRD('  /  /    ')
+     A            POSTEDON       8Y 0O 10 66EDTWRD('  /  /    ')
+     A            ARINVB    R        O 10 35REFFLD(RARLCD/ARINVB *LIBL/FARLCD)
+     A                                      EDTCDE(J $)
+     A            ARBASE    R        O 10 50REFFLD(RARLCD/ARBASE *LIBL/FARLCD)
+     A                                      EDTCDE(J $)
+     A          R LKLATE01C                 SFLCTL(LKLATE01)
+     A*%%TS  SD  20161108  161342  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                SFLSIZ(0400)
+     A  *DS4                                SFLSIZ(0400)
+     A  *DS3                                SFLPAG(0010)
+     A  *DS4                                SFLPAG(0010)
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Alt Exit')
+     A                                      CF06(06 'Cancel')
+     A                                      CF10(10 'Selected with Mouse')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 28'   Late Charge Inquiry   '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 56'Invoice:'
+     A            ARINV#    R        O  1 65REFFLD(RARLCD/ARINV# *LIBL/FARLCD)
+     A                                      DSPATR(HI)
+     A                                  1 11'Cust:'
+     A            ARCUST    R        O  1 17REFFLD(RARLCD/ARCUST *LIBL/FARLCD)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  2 17DSPATR(HI)
+     A                                  8  5'Days'
+     A                                      COLOR(PNK)
+     A                                  8 14'Late'
+     A                                      COLOR(PNK)
+     A                                  8 23'Calculated'
+     A                                      COLOR(PNK)
+     A                                  9  5'Late'
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  9 13'Charge'
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  9 23'as of Date'
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  9 67'Posted on'
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                  2 52'Inv Amt:'
+     A            INV$           7Y 2O  2 61DSPATR(HI)
+     A                                      EDTCDE(J $)
+     A                                  8 36'Invoice Bal.'
+     A                                      COLOR(PNK)
+     A                                  8 52'Amount L/C '
+     A                                      COLOR(PNK)
+     A                                  9 36'When Charged'
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  9 52'  Based on'
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  3 52'L/C Due:'
+     A                                  4 50'Total L/C:'
+     A            LCDUE$         7Y 2O  3 61DSPATR(HI)
+     A                                      EDTCDE(J $)
+     A            LCTOT$         7Y 2O  4 61DSPATR(HI)
+     A                                      EDTCDE(J $)
+     A            ARTMCD    R        O  3 17REFFLD(RARLC/ARTMCD *LIBL/FARLC)
+     A            ARTERM    R        O  3 20REFFLD(RARLC/ARTERM *LIBL/FARLC)
+     A            ARTMTS    R        O  4 17REFFLD(RARLC/ARTMTS *LIBL/FARLC)
+     A                                      COLOR(BLU)
+     A                                  4 10'as of:'
+     A            ARINVD    R        O  6  4REFFLD(RARLC/ARINVD *LIBL/FARLC)
+     A                                      DSPATR(HI)
+     A                                      DATFMT(*USA)
+     A            ARDAYD    R        O  6 17REFFLD(RARLC/ARDAYD *LIBL/FARLC)
+     A                                      COLOR(BLU)
+     A            ARDUED    R        O  6 21REFFLD(RARLC/ARDUED *LIBL/FARLC)
+     A                                      DSPATR(HI)
+     A                                      DATFMT(*USA)
+     A                                  5  4' Inv Date  |  Invoice Due   | A/R -
+     A                                      Wait Time  |  Grace Period  |  1st -
+     A                                      Late '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(RI)
+     A            ARWAIT    R        O  6 34REFFLD(RARLC/ARWAIT *LIBL/FARLC)
+     A                                      COLOR(BLU)
+     A            ARALWD    R        O  6 38REFFLD(RARLC/ARALWD *LIBL/FARLC)
+     A                                      DSPATR(HI)
+     A                                      DATFMT(*USA)
+     A            ARGRAC    R        O  6 51REFFLD(RARLC/ARGRAC *LIBL/FARLC)
+     A                                      COLOR(BLU)
+     A            ARDGRC    R        O  6 55REFFLD(RARLC/ARDGRC *LIBL/FARLC)
+     A                                      DSPATR(HI)
+     A                                      DATFMT(*USA)
+     A                                  6 32'|'
+     A                                  6 15'|'
+     A                                  6 49'|'
+     A                                  6 66'|'
+     A            AR1STL    R        O  6 68REFFLD(RARLC/AR1STL *LIBL/FARLC)
+     A                                      DSPATR(HI)
+     A                                      DATFMT(*USA)
+     A                                      TEXT('First L/C Date')
+     A                                  3 10'Terms:'
+     A          R LKLATE01F
+     A*%%TS  SD  20040621  104522  BILLB       REL-V5R1M0  5722-WDS
+     A                                 22  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 23 69'F06'
+     A                                      DSPATR(HI)
+     A                                 23 73'=Restart'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS3                                SFLMSGRCD(24)
+     A  *DS4                                SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS3                                SFLSIZ(0002)
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS3                                SFLPAG(0001)
+     A  *DS4                                SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

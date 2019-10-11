@@ -1,0 +1,419 @@
+     A*%%TS  SD  19941129  170850  GINNY       REL-V2R2M0  5738-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A          R SAV910A
+     A*%%TS  SD  19941129  170850  GINNY       REL-V2R2M0  5738-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A            CODE           1A  I  1  2DFT('A')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A            PROCNM         7A  O  1  3
+     A                                  1 67'Date:'
+     A            UDATE          8A  O  1 73
+     A                                  2 67'Time:'
+     A            TIMOD          8A  O  2 73
+     A            PRGTIT        46A  O  1 18DSPATR(RI)
+     A            FLDA          38A  O  2 21DSPATR(RI)
+     A  30                                  DSPATR(ND)
+     A                                  3 13'Enter No. of'
+     A  30                                  DSPATR(ND)
+     A            FLDB           9A  O  3 26
+     A  30                                  DSPATR(ND)
+     A                                  3 36'to be Ranked:'
+     A  30                                  DSPATR(ND)
+     A            TOPX           5M  B  3 55CHECK(RZ)
+     A                                      DSPATR(MDT)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  30                                  DSPATR(ND)
+     A                                  4  6'(If no number entered, ALL'
+     A  30                                  DSPATR(ND)
+     A            F#0001         9A  O  4 33
+     A  30                                  DSPATR(ND)
+     A                                  4 43'will be ranked)'
+     A  30                                  DSPATR(ND)
+     A                                  6 23'Enter Reporting Period:'
+     A                                  6 58'(Example:'
+     A            REPMON         2M  B  6 53CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PC)
+     A                                      DSPATR(MDT)
+     A  11                                  DSPATR(RI)
+     A                                  8 23'Enter Company Number:'
+     A            COMP           2M  B  8 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A                                  9 23'or ALL'
+     A            ALL            3X  B  9 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  64                                  DSPATR(RI)
+     A  64                                  DSPATR(PC)
+     A                                 11 23'Print Dollars or Units:'
+     A            DOLUNT         7A  B 11 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A                                 13 23'Print Gross Profit: '
+     A            GRSPRO         1A  B 13 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A                                 15 23'Forms Number:'
+     A            FORMS          4A  B 15 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                 16 23'Number of Copies:'
+     A            NCOPY          2M  B 16 53CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A                                 17 23'Printer ID:'
+     A            DEV#           2A  B 17 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                 18 23'JOBQ (Y/N):  '
+     A            YORN           1A  B 18 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A            ERR           75A  O 21  3
+     A  99                                  MSGID(USR &MIC0000001 &MBR0000001)
+     A                                      MSGID(*NONE)
+     A  99                                  DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process     F2=Display -
+     A                                      Acctg. Period         F7=Cancel Job-
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  2  2USER
+     A                                  6 68'02)'
+     A                                 13 58'(% or $)'
+     A            MIC0000001     4A  P
+     A            MBR0000001     2A  P
+     A          R SAV910B
+     A*%%TS  SD  19941129  170850  GINNY       REL-V2R2M0  5738-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A            CODE           1A  I  1  2DFT('B')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A            PROCNM         7A  O  1  4
+     A                                  1 28' MONTHLY PROCESS OPTIONS '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A            UDATE          8A  O  1 73
+     A                                  2 67'Time:'
+     A            VTIME          8A  O  2 73
+     A                                  3 28'Accounting Period Display'
+     A                                      DSPATR(UL)
+     A                                  5  2'Company:'
+     A            COMP           2A  O  5 12
+     A            VNAM          30A  O  5 16
+     A            VMONTH         7A  O  7  4
+     A            PER1           2A  O  8  6
+     A            FRM1           8A  O  8 11
+     A            TO1            8A  O  8 21
+     A            PER2           2A  O  9  6
+     A            FRM2           8A  O  9 11
+     A            TO2            8A  O  9 21
+     A            PER3           2A  O 10  6
+     A            FRM3           8A  O 10 11
+     A            TO3            8A  O 10 21
+     A            PER4           2A  O 11  6
+     A            FRM4           8A  O 11 11
+     A            TO4            8A  O 11 21
+     A            PER5           2A  O 12  6
+     A            FRM5           8A  O 12 11
+     A            TO5            8A  O 12 21
+     A            PER6           2A  O 13  6
+     A            FRM6           8A  O 13 11
+     A            TO6            8A  O 13 21
+     A            PER7           2A  O 14  6
+     A            FRM7           8A  O 14 11
+     A            TO7            8A  O 14 21
+     A            PER8           2A  O 15  6
+     A            FRM8           8A  O 15 11
+     A            TO8            8A  O 15 21
+     A            PER9           2A  O 16  6
+     A            FRM9           8A  O 16 11
+     A            TO9            8A  O 16 21
+     A            PER10          2A  O 17  6
+     A            FRM10          8A  O 17 11
+     A            TO10           8A  O 17 21
+     A            PER11          2A  O 18  6
+     A            FRM11          8A  O 18 11
+     A            TO11           8A  O 18 21
+     A            PER12          2A  O 19  6
+     A            FRM12          8A  O 19 11
+     A            TO12           8A  O 19 21
+     A            PER13          2A  O 20  6
+     A            FRM13          8A  O 20 11
+     A            TO13           8A  O 20 21
+     A                                 23  1'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A  *DS4                           23  1
+     A                                 24 30'Enter to Process'
+     A                                  2  4USER
+     A          R QPK340A
+     A*%%TS  SD  19941129  170850  GINNY       REL-V2R2M0  5738-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A            CODE           1A  I  1  3DFT('C')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A            PROCNM         7A  O  1  5
+     A            PRGTIT        46A  O  1 18DSPATR(RI)
+     A                                  1 67'Date:'
+     A            UDATE          8A  O  1 73
+     A            FLDA          38A  O  2 21DSPATR(RI)
+     A  30                                  DSPATR(ND)
+     A                                  2 67'Time:'
+     A            TIMOD          8A  O  2 73
+     A                                  4 23'Enter Date Range:    '
+     A            BEGPER         4D  B  4 53DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A                                  4 59'-'
+     A            ENDPER         4D  B  4 62DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  46                                  DSPATR(RI)
+     A  46                                  DSPATR(PC)
+     A                                  5 23'(Enter as MMYR)'
+     A                                  7 23'Product Class Range:'
+     A            BEGPC          2A  B  7 53DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                  7 57'-'
+     A            ENDPC          2A  B  7 60DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                  9 23'Enter Company Number:'
+     A            COMP           2M  B  9 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A                                 10 23'or ALL'
+     A            ALL            3X  B 10 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  64                                  DSPATR(RI)
+     A  64                                  DSPATR(PC)
+     A                                 17 23'Print Dollars or Units:'
+     A                                      DSPATR(ND)
+     A            DOLUNT         7A  B 17 53DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                 16 23'Print Gross Profit: '
+     A                                      DSPATR(ND)
+     A            GRSPRO         1A  B 16 53DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                 12 23'Forms Number:'
+     A            FORMS          4A  B 12 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                 13 23'Number of Copies:'
+     A            NCOPY          2M  B 13 53CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A                                 14 23'Printer ID:'
+     A            DEV#           2A  B 14 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                 15 23'JOBQ (Y/N):  '
+     A            YORN           1A  B 15 53DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A            ERR           75A  O 21  3
+     A  99                                  MSGID(USR &MIC0000001 &MBR0000001)
+     A                                      MSGID(*NONE)
+     A  99                                  DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process         F2=Disp-
+     A                                      lay Acctg Period      F7=Cancel Opt-
+     A                                      ions     '
+     A                                  2  5USER
+     A            MIC0000001     4A  P
+     A            MBR0000001     2A  P
+     A          R QPK340B
+     A*%%TS  SD  19941129  170850  GINNY       REL-V2R2M0  5738-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A            CODE           1A  I  1  3DFT('D')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A            PROCNM         7A  O  1  5
+     A            PRGTIT        46A  O  1 18DSPATR(RI)
+     A                                  1 67'Date:'
+     A            UDATE          8A  O  1 73
+     A            FLDA          38A  O  2 21DSPATR(RI)
+     A  30                                  DSPATR(ND)
+     A                                  2 67'Time:'
+     A            TIMOD          8A  O  2 73
+     A                                  4 23'Date Range:'
+     A            BEGPER         4D  B  4 46DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A                                  4 52'-'
+     A            ENDPER         4D  B  4 55DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  46                                  DSPATR(RI)
+     A  46                                  DSPATR(PC)
+     A                                  4 61'(Enter as MMYY)'
+     A                                  6 23'Company Number:'
+     A            COMP           2M  B  6 46DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A                                  7 23'or ALL'
+     A            ALL            3X  B  7 46DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  64                                  DSPATR(RI)
+     A  64                                  DSPATR(PC)
+     A                                  9 23'Customer Type Range:'
+     A            BCTYP          2A  B  9 46DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                  9 50'-'
+     A            ECTYP          2A  B  9 53DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                 11 23'Customer Number:'
+     A            VCUST          6D  B 11 46CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                 11 61'(0 = Print All)'
+     A                                 13 23'Product Class Range:'
+     A            BEGPC          2A  B 13 46DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                 13 50'-'
+     A            ENDPC          2A  B 13 53DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                 15 23'Forms Number:'
+     A            FORMS          4A  B 15 46DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                 16 23'Number of Copies:'
+     A            NCOPY          2M  B 16 46CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A                                 17 23'Printer ID:'
+     A            DEV#           2A  B 17 46DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                 18 23'JOBQ (Y/N):  '
+     A            YORN           1A  B 18 46DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A            ERR           75A  O 21  3
+     A  99                                  MSGID(USR &MIC0000001 &MBR0000001)
+     A                                      MSGID(*NONE)
+     A  99                                  DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process          F2=Dis-
+     A                                      play Acctg Period      F7=Cancel Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)
+     A                                  2  5USER
+     A            MIC0000001     4A  P
+     A            MBR0000001     2A  P

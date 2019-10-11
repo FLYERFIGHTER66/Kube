@@ -1,0 +1,13 @@
+CREATE OR REPLACE TABLE GL_Cash_Deposit_History_File
+        FOR SYSTEM NAME FGLDEPHST (
+
+    GL_Year             FOR COLUMN CDYEAR DEC(4,0)      NOT NULL WITH DEFAULT ,
+    GL_Week             FOR COLUMN CDWEEK DEC(2,0)      NOT NULL WITH DEFAULT ,
+    GL_WeekDay          FOR COLUMN CDWKDY DEC(2,0)      NOT NULL WITH DEFAULT ,
+    Transaction_Date    FOR COLUMN CDDATE DATE          NOT NULL WITH DEFAULT ,
+    GL_Number           FOR COLUMN CDGLNO DEC(8, 0)     NOT NULL WITH DEFAULT ,
+    Description         FOR COLUMN CDDESC CHAR(30)      NOT NULL WITH DEFAULT ,
+    Transaction_Amount  FOR COLUMN CD$AMT DEC(11, 2)    NOT NULL WITH DEFAULT ,
+    --
+    created_ts          FOR COLUMN aucrttime TIMESTAMP  NOT NULL WITH DEFAULT CURRENT TIMESTAMP
+    )  RCDFMT RGLDEPHST;

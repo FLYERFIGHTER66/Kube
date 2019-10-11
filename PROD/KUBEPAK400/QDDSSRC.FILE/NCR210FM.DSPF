@@ -1,0 +1,125 @@
+     A*%%TS  SD  20100513  113028  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20100513  113028  BILLB       REL-V5R3M0  5722-WDS
+     A                                  1  2'NCR210A'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  8 28'Enter Ship Date:'
+     A            SHPDAT         6Y 0B  8 45
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                          Press RESET')
+     A  12                                  ERRMSG('*** Date Must be a Monday D-
+     A                                      ate.    Press RESET')
+     A                                 23 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 30' Enter One Item Carts '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 37'Master:'
+     A            SMASTER        2Y 0B  9 45EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A          R SCRNA1
+     A*%%TS  SD  20100513  113028  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF08(08 'Toggle Item Length')
+     A                                  1  2'NCR210A1'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  3 30'Ship Week:'
+     A            SHPDAT         6Y 0B  3 41EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                 12 28'Enter Cart #:'
+     A            CARTNO         8Y 0B 12 44
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20
+     AO 60                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Cart Number Ent-
+     A                                      ered.    Press RESET')
+     A                                 24 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 30' Enter One Item Carts '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A  41                              7 28'Item Number?:'
+     A  41                              9 28'Size Code:'
+     A  40        ITEMSIZE       7A  B  7 44
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10
+     AON20N30                               DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Item/Size Code -
+     A                                      Entered.    Press RESET')
+     A  41        SIZE           3A  B  9 44COLOR(TRQ)
+     A            IMDES1        30A  O  8 44
+     A                                 15 28'Quantity:'
+     A            QTY            3Y 0B 15 44
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  31                                  ERRMSG('*** Quantity can NOT be zer-
+     A                                      o.      Press reset')
+     A  32                                  ERRMSG('*** Quantity Can NOT be Gre-
+     A                                      ater than Seventy.   Press RESET')
+     A                                 18 10' Verify Data if OK, Press Enter to-
+     A                                       print. Else Make Changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A  41        ITEM          12A  B  7 44
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10
+     AON20N30                               DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Item/Size Code -
+     A                                      Entered.    Press RESET')
+     A  42                              7 65'=Scan Item '
+     A                                      COLOR(BLU)
+     A                                  7 62'F8'
+     A                                      DSPATR(HI)
+     A  40                              7 65'=Enter Item'
+     A                                      COLOR(BLU)
+     A  40                              7 28'Scan Item/Size:'
+     A  41                              7 65'=Enter UPC '
+     A                                      COLOR(BLU)
+     A  42        UPC           12Y 0B  7 44COLOR(TRQ)
+     A  10
+     AON20N30                               DSPATR(PC)
+     A                                      EDTWRD('            ')
+     A  42                              7 32'UPC Code:'
+     A                                  4 33'Master:'
+     A            SMASTER        2Y 0B  4 41DSPATR(PR)
+     A                                      EDTCDE(4)
+     A                                      COLOR(PNK)

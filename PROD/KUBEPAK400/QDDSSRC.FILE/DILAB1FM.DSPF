@@ -1,0 +1,65 @@
+     A*%%TS  SD  20010711  101032  JEFF        REL-V3R7M0  5716-PW1
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20010711  101032  JEFF        REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 22' Print Individual Product Labels/C-
+     A                                      ards '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 24'Item Number?'
+     A            VITEM         12A  B  5 43DSPATR(CS)
+     A  12                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Item Numb-
+     A                                      er.     Press Reset')
+     A                                  6 24'Size?'
+     A            VSIZE          3A  B  6 43DSPATR(CS)
+     A                                      DSPATR(PR)
+     A            DESP          50A  O  7 29
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process              -
+     A                                      F6=Restart            F3/F7=End of -
+     A                                      Job      '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  9 24'Quantity to Print:'
+     A            VQTY           5Y 0B  9 43CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(3)
+     A  11                                  ERRMSG('*** Enter Quantity -
+     A                                        - Press Reset')
+     A  52                                  DSPATR(PC)
+     A                                 16 13' Enter Quantity - or press "F6" to-
+     A                                       bypass this product '
+     A                                      DSPATR(RI)
+     A  53                                  DSPATR(ND)
+     A                                 17 13'Enter the next Item / Quantity or -
+     A                                      F3/F7 for End of Job'
+     A                                      DSPATR(RI)
+     A  54                                  DSPATR(ND)

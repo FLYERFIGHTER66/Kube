@@ -1,0 +1,108 @@
+     A*%%***********************************************************************
+     A*%%TS  RD  20060322  140807  BILLB       REL-V5R3M0  5722-WDS
+     A*%%FI+10660100000000000000000000000000000000000000000000000000
+     A*%%FI       0000000000000000000000000000000000000000000000000
+     A*%%***********************************************************************
+      *****************************************************************
+      **                                                             **
+      **  FILE:       SDR362P                                        **
+      **  FUNCTION:   Print Cost Vs. Price Report                    **
+      **  CREATED BY: R. PIASECKI 8/18/2003                          **
+      **                                                             **
+      **                                                             **
+      *****************************************************************
+     A                                      REF(*LIBL/KPREF  KPREFR)
+     A          R CHGHDR
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 006
+     A*%%***********************************************************************
+      *
+     A                                      SKIPB(007)
+     A                                      SPACEA(001)
+     A                                     1
+     A                                      'SCR230P'
+     A                                    27
+     A                                      'Kube-Pak Shipping Reporting'
+     A                                      UNDERLINE
+     A                                      HIGHLIGHT
+     A                                    66
+     A                                      'Page:'
+     A                                    76
+     A                                      PAGNBR
+     A                                      EDTCDE(Z)
+     A                                     1
+     A                                      'Run Date:'
+     A                                      SPACEB(001)
+     A                                    11
+     A                                      DATE
+     A                                      EDTCDE(Y)
+     A                                    +9
+     A                                      'Order Modification Request'
+     A                                    66
+     A                                      'Time:'
+     A                                    72
+     A                                      TIME
+     A                                     2
+     A                                      'The Following Orders called for pa-
+     A                                      rtial flats but were filled with fu-
+     A                                      ll flats.'
+     A                                      SPACEB(002)
+     A                                     1
+     A                                      'Order Number'
+     A                                      SPACEB(002)
+     A                                      UNDERLINE
+     A                                    +2
+     A                                      'Location'
+     A                                      UNDERLINE
+     A                                    +2
+     A                                      'Cust#'
+     A                                      UNDERLINE
+     A                                    +3
+     A                                      'Item & Size'
+     A                                      UNDERLINE
+     A                                    +6
+     A                                      'Description'
+     A                                    +5
+     A                                      'Comment       '
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001                                                    es
+     A*%%CL 002
+     A*%%CL 001
+     A*%%CL 001                                        m &
+     A*%%CL 001
+     A*%%***********************************************************************
+     A          R CHGDET
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A                                      SPACEB(001)
+     A            PDORD#    R        O     1
+     A                                      REFFLD(RPUTORD/PDORD# *LIBL/FPUTORD)
+     A                                    +1
+     A                                      '-'
+     A            PDSEQ#    R        O    +1
+     A                                      REFFLD(RPUTORD/PDSEQ# *LIBL/FPUTORD)
+     A            PDLOC     R        O    +2
+     A                                      REFFLD(RPUTORD/PDLOC *LIBL/FPUTORD)
+     A            PDCUST    R        O    +2
+     A                                      REFFLD(RPUTORD/PDCUST *LIBL/FPUTORD)
+     A            PDITEM    R        O    +2
+     A                                      REFFLD(RPUTORD/PDITEM *LIBL/FPUTORD)
+     A            PDSIZE    R        O    +0
+     A                                      REFFLD(RPUTORD/PDSIZE *LIBL/FPUTORD)
+     A            PDLOOK    R        O    +2
+     A                                      REFFLD(RPUTORD/PDLOOK *LIBL/FPUTORD)
+     A                                    +1
+     A                                      '              '
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CP+999CRTPRTF
+     A*%%CP+    FORMTYPE(*NAR)
+     A*%%CP+    FILE(TESTPAK400/SDR362P)
+     A*%%CP+    DEVTYPE(*SCS)
+     A*%%CP     PAGESIZE(60       080      *N     )
+     A*%%***********************************************************************

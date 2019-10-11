@@ -1,0 +1,396 @@
+000100950922      *--------------------------------------------------------------
+000200950922      *
+000300991011      *  COPYRIGHT EFD ENTERPRISES, INC.    1999
+000400950922      *
+000500950922      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600950922      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700950922      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800950922      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900950922      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000950922      *       BY EXPRESS WRITTEN PERMISSION OF
+001100950922      *            EFD ENTERPRISES, INC.     215-643-5352
+001200950922      *
+001300950922      *--------------------------------------------------------------
+001400010201      *PROGRAM NAME-------- LKITCM
+001500991011      *SYSTEM-------------- LOOKUP
+001600991011      *DESCRIPTION--------- ITEM ALPHA SEARCH
+001700991011      *
+001800950922      *
+001900950922      *            CHANGE--DATE-------DESCRIPTION
+002000990611      * 6/11/98 EFD IF ALLOCATED < 0 DO NOT ADD TO AVAILABLE
+002100950922      *
+002200991011      *
+002300010201     FFLKITMCA  IF   E           K DISK
+002400980216     FFMINVT    IF   E           K DISK
+002500010201     FLKITCMFM  CF   E             WORKSTN
+002600980216     F                                     SFILE(ITMSFL:RECNO)
+002700980216      * MESSAGE ARRAY
+002800980216     D MSG             S             30    DIM(1) CTDATA PERRCD(1)              MESSAGE
+002900980216      * ALPHA ARRAY
+003000980216     D ALP             S              1    DIM(15)                              ALPHA SEARCH
+003100980216      *
+003200980216      ***********************
+003300980216      * PROG DATA STRUCTURE *
+003400980216      ***********************
+003500980216     D                SDS
+003600980612      * PROGRAM NAME
+003700991011     D  PROGID                 1     10
+003800980612      * RUN LIBRARY
+003900991011     D  RLIBR                 81     90
+004000980216      * USER I.D.
+004100991011     D  USERID               254    263
+004200980612      * SOURCE LIBRARY
+004300991011     D  SLIBR                314    323
+004400940118      *
+004500940118      ****************************************************************
+004600940118      *
+004700940118     C     *ENTRY        PLIST
+004800940711     C                   PARM                    IMLOOK           15
+004900950922     C                   PARM                    IMITEM           12
+005000950922     C                   PARM                    IMSIZE            3
+005100951011     C                   PARM                    IMWHSE            3
+005200940711     C                   PARM                    IMDES1           30
+005300951004     C                   PARM                    IMDES2           30
+005400951004     C                   PARM                    IMDES3           30
+005500951004     C                   PARM                    IMDES4           30
+005600010201     C                   PARM                    COMP              2 0
+005700940711     C                   MOVE      IMLOOK        HLDLOK           15
+005800981017     C                   MOVE      IMSIZE        HLDSIZ            3
+005900990702     C                   MOVE      IMSIZE        NSIZE
+006000980216     C                   MOVE      IMLOOK        ALPHA
+006100940118     C                   MOVE      *BLANKS       OLDSRC           15
+006200980305     C                   MOVE      *ZEROS        *IN
+006300980216      *  CHECK FOR FINAL END PROGRAM
+006400980216     C     IMLOOK        IFGE      '99999999'
+006500980216     C                   GOTO      ENDLR
+006600980216     C                   END
+006700980216      *
+006800980216     C     RSTRT         TAG
+006900980216     C                   EXSR      GETALL
+007000980216     C                   EXSR      BLDSFL
+007100980216     C     NXTC          TAG
+007200980216     C                   Z-ADD     0             LINE              5 0
+007300980219     C                   Z-ADD     0             VLINE
+007400980216     C                   EXFMT     ITMCTL
+007500990726     C                   SETOFF                                       90
+007600981021     C   KE              GOTO      RSTRT
+007700990311     C   KF              DO
+007800980216     C                   MOVE      *BLANKS       IMITEM
+007900980216     C                   MOVE      *BLANKS       IMSIZE
+008000980216     C                   GOTO      END
+008100980216     C                   ENDDO
+008200980216      ** SEE IF ON A SUBFILE LINE
+008300980216     C     LINE          IFGT      0
+008400990722     C     LINE          ANDLE     LSTLIN
+008500980216     C     LINE          CHAIN     ITMSFL                             90
+008600980216     C     MINKEY        KLIST
+008700980216     C                   KFLD                    LKITEM
+008800980216     C                   KFLD                    LKSIZE
+008900010201     C                   KFLD                    LKWHSE
+009000980216     C     MINKEY        CHAIN     FMINVT                             90
+009100990311     C   KA              DO
+009200990311     C                   CALL      'LKNEXT'
+009300990311     C                   PARM                    IMITEM
+009400990311     C                   PARM                    IMSIZE
+009500990311     C                   PARM                    IMWHSE
+009600990311     C                   GOTO      NXTC
+009700990311     C                   ENDDO
+009800980216     C                   GOTO      END
+009900990722     C                   ELSE
+010000990722     C                   Z-ADD     0             LINE
+010100980216     C                   END
+010200980216      ** SEE IF LINE NUMBER ENTERED
+010300980216     C     VLINE         IFGT      0
+010400980216     C     VLINE         IFGT      LSTLIN
+010500980216     C                   SETON                                        70
+010600980216     C                   GOTO      NXTC
+010700980216     C                   END
+010800980216     C     VLINE         CHAIN     ITMSFL                             90
+010900980216     C     MINKEY        CHAIN     FMINVT                             90
+011000980216     C                   GOTO      END
+011100980216     C                   END
+011200990702      * SEE IF WE NEED SEARCH
+011300990702     C                   MOVEL     NSIZE         TST1              1
+011400990702     C     TST1          IFEQ      '?'
+011500990702     C     TST1          OREQ      '/'
+011600990702     C                   MOVE      *BLANKS       NSIZE             3
+011700990702     C                   CALL      'LKSIZE'
+011800990702     C                   PARM                    NSIZE
+011900990702     C                   PARM                    SZDESC           10
+012000990702     C                   ENDIF
+012100990702      *
+012200980216      ** SEE IF ALPHA CHANGED
+012300980216     C     ALPHA         IFNE      IMLOOK
+012400990702     C                   MOVEL     NSIZE         HLDSIZ
+012500980216     C                   MOVEL     ALPHA         IMLOOK
+012600980216     C                   EXSR      GETALL
+012700980216     C                   EXSR      BLDSFL
+012800980216     C                   END
+012900990702      ** SEE IF SIZE CHANGED
+013000990702     C     NSIZE         IFNE      HLDSIZ
+013100990702     C                   MOVEL     NSIZE         HLDSIZ
+013200990702     C                   EXSR      BLDSFL
+013300990702     C                   END
+013400980216     C                   GOTO      NXTC
+013500980216      *** END PROGRAM
+013600980216     C     END           TAG
+013700980409     C                   MOVEA     '0'           *IN
+013800980216     C                   RETURN
+013900980216     C     ENDLR         TAG
+014000980216     C                   SETON                                        LR
+014100980216      *********************
+014200980216      * GET ALPHA LENGTH
+014300980216      *********************
+014400980216      ** GET ALPHA SEARCH COMPARE CHAR
+014500980216     C     GETALL        BEGSR
+014600980216     C                   MOVE      *BLANKS       ALC15
+014700980216     C                   MOVE      *BLANKS       ALC14
+014800980216     C                   MOVE      *BLANKS       ALC13
+014900980216     C                   MOVE      *BLANKS       ALC12
+015000980216     C                   MOVE      *BLANKS       ALC11
+015100980216     C                   MOVE      *BLANKS       ALC10
+015200980216     C                   MOVE      *BLANKS       ALC9
+015300980216     C                   MOVE      *BLANKS       ALC8
+015400980216     C                   MOVE      *BLANKS       ALC7
+015500980216     C                   MOVE      *BLANKS       ALC6
+015600980216     C                   MOVE      *BLANKS       ALC5
+015700980216     C                   MOVE      *BLANKS       ALC4
+015800980216     C                   MOVE      *BLANKS       ALC3
+015900980216     C                   MOVE      *BLANKS       ALC2
+016000980216     C                   MOVE      *BLANKS       ALC1
+016100980216     C                   SETOFF                                       010203
+016200980216     C                   SETOFF                                       040506
+016300980216     C                   SETOFF                                       070809
+016400980216     C                   SETOFF                                       101213
+016500980216     C                   SETOFF                                       141516
+016600980219     C     ALPHA         IFGT      *BLANKS
+016700980216     C                   MOVEA     ALPHA         ALP
+016800980216     C     ALP(15)       IFGT      *BLANKS
+016900980216     C                   MOVEL     ALPHA         ALC15            15
+017000980216     C                   SETON                                        15
+017100980216     C                   GOTO      ENDALP
+017200980216     C                   END
+017300980216     C     ALP(14)       IFGT      *BLANKS
+017400980216     C                   MOVEL     ALPHA         ALC14            14
+017500980216     C                   SETON                                        14
+017600980216     C                   GOTO      ENDALP
+017700980216     C                   END
+017800980216     C     ALP(13)       IFGT      *BLANKS
+017900980216     C                   MOVEL     ALPHA         ALC13            13
+018000980216     C                   SETON                                        13
+018100980216     C                   GOTO      ENDALP
+018200980216     C                   END
+018300980216     C     ALP(12)       IFGT      *BLANKS
+018400980216     C                   MOVEL     ALPHA         ALC12            12
+018500980216     C                   SETON                                        12
+018600980216     C                   GOTO      ENDALP
+018700980216     C                   END
+018800980216     C     ALP(11)       IFGT      *BLANKS
+018900980216     C                   MOVEL     ALPHA         ALC11            11
+019000980216     C                   SETON                                        11
+019100980216     C                   GOTO      ENDALP
+019200980216     C                   END
+019300980216     C     ALP(10)       IFGT      *BLANKS
+019400980216     C                   MOVEL     ALPHA         ALC10            10
+019500980216     C                   SETON                                        10
+019600980216     C                   GOTO      ENDALP
+019700980216     C                   END
+019800980216     C     ALP(9)        IFGT      *BLANKS
+019900980216     C                   MOVEL     ALPHA         ALC9              9
+020000980216     C                   SETON                                        09
+020100980216     C                   GOTO      ENDALP
+020200980216     C                   END
+020300980216     C     ALP(8)        IFGT      *BLANKS
+020400980216     C                   MOVEL     ALPHA         ALC8              8
+020500980216     C                   SETON                                        08
+020600980216     C                   GOTO      ENDALP
+020700980216     C                   END
+020800980216     C     ALP(7)        IFGT      *BLANKS
+020900980216     C                   MOVEL     ALPHA         ALC7              7
+021000980216     C                   SETON                                        07
+021100980216     C                   GOTO      ENDALP
+021200980216     C                   END
+021300980216     C     ALP(6)        IFGT      *BLANKS
+021400980216     C                   MOVEL     ALPHA         ALC6              6
+021500980216     C                   SETON                                        06
+021600980216     C                   GOTO      ENDALP
+021700980216     C                   END
+021800980216     C     ALP(5)        IFGT      *BLANKS
+021900980216     C                   MOVEL     ALPHA         ALC5              5
+022000980216     C                   SETON                                        05
+022100980216     C                   GOTO      ENDALP
+022200980216     C                   END
+022300980216     C     ALP(4)        IFGT      *BLANKS
+022400980216     C                   MOVEL     ALPHA         ALC4              4
+022500980216     C                   SETON                                        04
+022600980216     C                   GOTO      ENDALP
+022700980216     C                   END
+022800980216     C     ALP(3)        IFGT      *BLANKS
+022900980216     C                   MOVEL     ALPHA         ALC3              3
+023000980216     C                   SETON                                        03
+023100980216     C                   GOTO      ENDALP
+023200980216     C                   END
+023300980216     C     ALP(2)        IFGT      *BLANKS
+023400980216     C                   MOVEL     ALPHA         ALC2              2
+023500980216     C                   SETON                                        02
+023600980216     C                   GOTO      ENDALP
+023700980216     C                   END
+023800980216     C     ALP(1)        IFGT      *BLANKS
+023900980216     C                   MOVEL     ALPHA         ALC1              1
+024000980216     C                   SETON                                        01
+024100980216     C                   GOTO      ENDALP
+024200980216     C                   END
+024300980216      ** IF ALPHA BLANK SETON 16
+024400980216     C                   ELSE
+024500980216     C                   SETON                                        16
+024600010201     C     COMP          SETLL     FLKITMCA
+024700980216     C     ENDALP        TAG
+024800980216     C                   END
+024900980216     C                   ENDSR
+025000980216      *********************
+025100980216      * BUILD SUB FILE
+025200980216      *********************
+025300980216     C     BLDSFL        BEGSR
+025400980216     C     VKEY          KLIST
+025500010201     C                   KFLD                    COMP
+025600980216     C                   KFLD                    ALPHA
+025700980216     C                   SETON                                        80
+025800980216     C                   WRITE     ITMCTL
+025900980216     C                   SETOFF                                       80
+026000980216     C                   Z-ADD     0             RECNO             5 0
+026100010201     C  N16VKEY          SETLL     FLKITMCA
+026200980216     C     NXTBLD        TAG
+026300010201     C                   READ      FLKITMCA                               90
+026400980216     C   90              GOTO      ENDBLD
+026500010201     C     LKCOMP        IFNE      COMP
+026600010201     C                   GOTO      ENDBLD
+026700010201     C                   END
+026800981017     C     HLDSIZ        IFGT      *BLANKS
+026900981017     C     LKSIZE        ANDNE     HLDSIZ
+027000981017     C                   GOTO      NXTBLD
+027100981017     C                   END
+027200980216      ** NO ALPHA ENTERED DISPLAY RECORD
+027300980216     C   16              GOTO      ALOK
+027400980216      ** NOW CHECK REST OF FIELDS
+027500980216     C   01              DO
+027600980219     C                   MOVEL     LKLOOK        TST1              1
+027700980216     C     TST1          IFEQ      ALC1
+027800980216     C                   GOTO      ALOK
+027900980216     C                   END
+028000980216     C                   ENDDO
+028100980216     C   02              DO
+028200980219     C                   MOVEL     LKLOOK        TST2              2
+028300980216     C     TST2          IFEQ      ALC2
+028400980216     C                   GOTO      ALOK
+028500980216     C                   END
+028600980216     C                   ENDDO
+028700980216     C   03              DO
+028800980219     C                   MOVEL     LKLOOK        TST3              3
+028900980216     C     TST3          IFEQ      ALC3
+029000980216     C                   GOTO      ALOK
+029100980216     C                   END
+029200980216     C                   ENDDO
+029300980216     C   04              DO
+029400980219     C                   MOVEL     LKLOOK        TST4              4
+029500980216     C     TST4          IFEQ      ALC4
+029600980216     C                   GOTO      ALOK
+029700980216     C                   END
+029800980216     C                   ENDDO
+029900980216     C   05              DO
+030000980219     C                   MOVEL     LKLOOK        TST5              5
+030100980216     C     TST5          IFEQ      ALC5
+030200980216     C                   GOTO      ALOK
+030300980216     C                   END
+030400980216     C                   ENDDO
+030500980216     C   06              DO
+030600980219     C                   MOVEL     LKLOOK        TST6              6
+030700980216     C     TST6          IFEQ      ALC6
+030800980216     C                   GOTO      ALOK
+030900980216     C                   END
+031000980216     C                   ENDDO
+031100980216     C   07              DO
+031200980219     C                   MOVEL     LKLOOK        TST7              7
+031300980216     C     TST7          IFEQ      ALC7
+031400980216     C                   GOTO      ALOK
+031500980216     C                   END
+031600980216     C                   ENDDO
+031700980216     C   08              DO
+031800980219     C                   MOVEL     LKLOOK        TST8              8
+031900980216     C     TST8          IFEQ      ALC8
+032000980216     C                   GOTO      ALOK
+032100980216     C                   END
+032200980216     C                   ENDDO
+032300980216     C   09              DO
+032400980219     C                   MOVEL     LKLOOK        TST9              9
+032500980216     C     TST9          IFEQ      ALC9
+032600980216     C                   GOTO      ALOK
+032700980216     C                   END
+032800980216     C                   ENDDO
+032900980216     C   10              DO
+033000980219     C                   MOVEL     LKLOOK        TST10            10
+033100980216     C     TST10         IFEQ      ALC10
+033200980216     C                   GOTO      ALOK
+033300980216     C                   END
+033400980216     C                   ENDDO
+033500980216     C   11              DO
+033600980219     C                   MOVEL     LKLOOK        TST11            11
+033700980216     C     TST11         IFEQ      ALC11
+033800980216     C                   GOTO      ALOK
+033900980216     C                   END
+034000980216     C                   ENDDO
+034100980216     C   12              DO
+034200980219     C                   MOVEL     LKLOOK        TST12            12
+034300980216     C     TST12         IFEQ      ALC12
+034400980216     C                   GOTO      ALOK
+034500980216     C                   END
+034600980216     C                   ENDDO
+034700980216     C   13              DO
+034800980219     C                   MOVEL     LKLOOK        TST13            13
+034900980216     C     TST13         IFEQ      ALC13
+035000980216     C                   GOTO      ALOK
+035100980216     C                   END
+035200980216     C                   ENDDO
+035300980216     C   14              DO
+035400980219     C                   MOVEL     LKLOOK        TST14            14
+035500980216     C     TST14         IFEQ      ALC14
+035600980216     C                   GOTO      ALOK
+035700980216     C                   END
+035800980216     C                   ENDDO
+035900980216     C   15              DO
+036000980219     C                   MOVEL     LKLOOK        TST15            15
+036100980216     C     TST15         IFEQ      ALC15
+036200980216     C                   GOTO      ALOK
+036300980216     C                   END
+036400980216     C                   ENDDO
+036500980219     C                   GOTO      ENDBLD
+036600980216     C     ALOK          TAG
+036700991011      * WRITE THE SUB FILE
+036800990611     C     LKPAL         IFGE      0
+036900980216     C     LKPOH         SUB       LKPAL         QTYNOW
+037000990611     C                   ELSE
+037100990611     C                   Z-ADD     LKPOH         QTYNOW
+037200990611     C                   END
+037300010201     C**         LKNOH     SUB  LKNAL     QTYNXT
+037400980216     C                   ADD       1             RECNO
+037500980216     C                   Z-ADD     RECNO         LINE#
+037600980216     C                   Z-ADD     RECNO         LSTLIN            5 0
+037700980216     C                   WRITE     ITMSFL
+037800981111     C   16RECNO         IFLT      2000
+037900980216     C                   GOTO      NXTBLD
+038000980216     C                   END
+038100980216     C  N16              GOTO      NXTBLD
+038200980216     C     ENDBLD        TAG
+038300980216     C                   Z-ADD     0             QTYNOW
+038400010201     C**                   Z-ADD0         QTYNXT
+038500980216     C                   Z-ADD     0             LKUPRI
+038600980216     C                   Z-ADD     0             LINE#
+038700980216     C                   MOVE      *BLANKS       LKITEM
+038800980216     C                   MOVE      *BLANKS       LKSIZE
+038900010201     C                   MOVE      *BLANKS       LKWHSE
+039000980216     C                   MOVE      *BLANKS       LKDES1
+039100980216     C                   MOVEL     MSG(1)        LKDES1
+039200980216     C                   ADD       1             RECNO
+039300980216     C                   WRITE     ITMSFL
+039400980216     C                   ENDSR
+039500980606** MESSAGE
+039600980606  **** End of Data ****

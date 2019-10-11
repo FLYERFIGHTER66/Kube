@@ -1,0 +1,121 @@
+     A*%%TS  SD  20170512  135158  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R ASSUME
+     A*%%TS  SD  20000721  125226  TGMS        REL-V4R4M0  5769-PW1
+     A                                      ASSUME
+     A                                  4  2'.'
+     A          R DET10                     SFL
+     A*%%TS  SD  20170512  135051  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CHGINPDFT
+     A            DTEN           6Y 0B 11  4EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A            CMNT          56A  B 11 13DSPATR(CS)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A            DTFL           6Y 0B 11 70EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A            OPTN           1A  B 11  2
+     A            CNTR           5S 0H
+     A            CMNT2     R        B 12 13REFFLD(RARCMN/ACCMNT2 *LIBL/FARCMN)
+     A                                      COLOR(TRQ)
+     A            CMNT3     R        B 13 13REFFLD(RARCMN/ACCMNT3 *LIBL/FARCMN)
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(UL)
+     A          R CTL10                     SFLCTL(DET10)
+     A*%%TS  SD  20170512  135051  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                SFLSIZ(0011)
+     A  *DS4                                SFLSIZ(0011)
+     A  *DS3                                SFLPAG(0004)
+     A  *DS4                                SFLPAG(0005)
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CF09
+     A                                      CF02
+     A                                      CF12
+     A                                      CF10
+     A                                      KEEP
+     A  90                                  SFLDSP
+     A  91                                  SFLDSPCTL
+     A  92                                  SFLDLT
+     A  93                                  SFLCLR
+     A  94                                  SFLEND(*MORE)
+     A  13                                  SFLMSG('*** Only Valid Option Is D -
+     A                                      - To Delete.  Press Reset')
+     A  14                                  SFLMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  15                                  SFLMSG('*** Comment Cannot be Blank-
+     A                                      .    Press Reset')
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A                                  1 10' Enter to Continue   "D"=Delete Li-
+     A                                      ne     F10=Add Line   F6=Restart   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  3'Company:'
+     A            LCO            2S 0O  2 12DSPATR(HI)
+     A                                  2 31'Aged as of:'
+     A            VDATE          6Y 0O  2 43EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4  3'AR Cust:'
+     A            VACUST         6Y 0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  3 54' --Aging----Past Due Amt-'
+     A                                  4 57'1'
+     A                                  4 59'-'
+     A            #WKP1          3Y 0O  4 61EDTCDE(Z)
+     A            #PF$1         11Y 2O  4 66EDTCDE(M)
+     A                                      COLOR(YLW)
+     A                                  5  3'Contact:'
+     A            CMCNAM        30A  O  5 19DSPATR(HI)
+     A            #WKP1A         3Y 0O  5 55EDTCDE(Z)
+     A                                  5 59'-'
+     A            #WKP2          3Y 0O  5 61EDTCDE(Z)
+     A            #PF$2         11Y 2O  5 66EDTCDE(M)
+     A                                      COLOR(YLW)
+     A                                  6  3'Phone #:'
+     A            CMPHON        10Y 0O  6 19EDTWRD('   -   -    ')
+     A                                      DSPATR(HI)
+     A            #WKP2A         3Y 0O  6 55EDTCDE(Z)
+     A                                  6 59'-'
+     A            #WKP3          3Y 0O  6 61EDTCDE(Z)
+     A            #PF$3         11Y 2O  6 66EDTCDE(M)
+     A                                      COLOR(YLW)
+     A                                  7  4'Orders:'
+     A            CMVOPO         9Y 2O  7 14EDTCDE(M)
+     A                                      DSPATR(HI)
+     A                                  7 30'Current:'
+     A            #WKCR$        11Y 2O  7 39EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            #WKP3A         3Y 0O  7 55EDTCDE(Z)
+     A                                  7 59'& Over'
+     A            #PF$4         11Y 2O  7 66EDTCDE(M)
+     A                                      COLOR(YLW)
+     A                                  8  1'Total Due:'
+     A            #WKAT$        11Y 2O  8 12EDTCDE(M)
+     A                                      DSPATR(HI)
+     A                                  8 29'Cr Limit:'
+     A            CMCRL$         9Y 2O  8 41EDTCDE(M)
+     A  16                                  DSPATR(RI)
+     A  16                                  COLOR(RED)
+     A                                  1  2'ARR223'
+     A                                  9  4'  Date                            -
+     A                                                                      Dat-
+     A                                      e To '
+     A                                 10  4' Entered             Collection No-
+     A                                      tes                            Foll-
+     A                                      ow Up'
+     A                                      DSPATR(UL)

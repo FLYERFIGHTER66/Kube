@@ -1,0 +1,183 @@
+     A*%%TS  SD  20001208  140958  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20001208  115645  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 21' Sales to Open Order Comparison Re-
+     A                                      port '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 12'Shipped Order Dates From:'
+     A            SOFROM         6Y 0B  5 38EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  12                                  ERRMSG('*** From Date Must be less -
+     A                                      than To date.        Press Reset')
+     A                                  9 12'Include Customer Types?'
+     A                                 14 27'Printer ID:'
+     A            LPRTR         10A  B 14 45DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 15 27'Forms Number:'
+     A            LFORM         10A  B 15 45DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 16 27'Number of Copies:'
+     A            LCOPY          2Y 0B 16 53
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 17 27'Run From JobQ:'
+     A            LJOBQ          1A  B 17 54DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 18 27'Print Status:'
+     A            VOUT           1Y 0B 18 54
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 18 58'1 = Print'
+     A                                 19 58'2 = Print/Save'
+     A                                 20 58'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                   Enter to Proces-
+     A                                      s         F3/F7=Cancel Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1  2'GETSLSA'
+     A                                  5 47'To:'
+     A            SOTO           6Y 0B  5 51EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                  7 12'Open Order Dates From:'
+     A            OOFROM         6Y 0B  7 38EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  22                                  ERRMSG('*** From Date Must be less -
+     A                                      than to Date.      Press RESET')
+     A                                  7 47'To:'
+     A            OOTO           6Y 0B  7 51EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            CTYP1          2   B  9 38DSPATR(CS)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A  31N30                               ERRMSG('*** Invalid Customer Type  -
+     A                                                 Press RESET')
+     A  30                                  ERRMSG('*** You Must enter at least-
+     A                                       one Customer type.      Press RESE-
+     A                                      T')
+     A            CTYP2          2   B  9 42DSPATR(CS)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Invalid Customer Type e-
+     A                                      ntered.     Press RESET')
+     A            CTYP3          2   B  9 46DSPATR(CS)
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A  33                                  ERRMSG('*** Invalid Customer Type E-
+     A                                      ntered.     Press RESET')
+     A            CTYP4          2   B  9 50DSPATR(CS)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Invalid Customer Type e-
+     A                                      ntered.     Press RESET')
+     A                                  9 53'Enter up To 4 Customer Types'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 12'Include Size Codes?'
+     A            SIZE1          3   B 11 38
+     A  41                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  41                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A  40N41                               ERRMSG('*** You Must enter at least-
+     A                                       one Size Code.     Press RESET')
+     A            SIZE2          3   B 11 42
+     A  42                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  42                                  DSPATR(PC)
+     A  42                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A            SIZE3          3   B 11 46
+     A  43                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  43                                  DSPATR(PC)
+     A  43                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A            SIZE4          3   B 11 50
+     A  44                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  44                                  DSPATR(PC)
+     A  44                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A            SIZE5          3   B 11 54
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A            SIZE6          3   B 11 58
+     A  46                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  46                                  DSPATR(PC)
+     A  46                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A                                 11 62'Enter up to 6 Sizes'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)

@@ -1,0 +1,318 @@
+     A*%%TS  SD  20150630  160310  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20150630  154721  BILLB       REL-V7R1M0  5770-WDS
+     A                                  1  2'SDR010A'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 24' Series Master File Maintainence '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  6 29'Series I.D.?'
+     A            SERIES        10A  B  6 43
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Series Exists you canno-
+     A                                      t ADD it.   Press RESET')
+     A  22                                  ERRMSG('*** Series does not Exist, -
+     A                                      you cannot change it.     Press RES-
+     A                                      ET')
+     A  23                                  ERRMSG('*** Series does not Exist, -
+     A                                      you cannot delete it.      Press RE-
+     A                                      SET')
+     A  20N21N22
+     A N23                                  ERRMSG('*** Series cannot be Blank.-
+     A                                              Press RESET')
+     A                                  6  2'Action:'
+     A            ACTION         1A  B  6 10
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Action Code. Mu-
+     A                                      st be A , C , or D.     Press RESET-
+     A                                      ')
+     A                                  5 13' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  6 13' C = Change '
+     A                                      DSPATR(RI)
+     A                                  7 13' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 23  2'Enter To Process              F6=R-
+     A                                      estart                         F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20150630  160310  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF11
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  2'SDR010B'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 24' Series Master File Maintainence '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 25'Series I.D.:'
+     A            SERIES        10A  B  3 38DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  6  2'Description:'
+     A            SEDESC        30A  B  6 16
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** You Must enter a descri-
+     A                                      ption.      Press RESET')
+     A                                 15 52'Selected Seed Form:'
+     A            SEFORM         1Y 0B 15 72
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('*** Selected Form Must be 1-
+     A                                      ,2, or 3.   Press RESET')
+     A                                 19  2'Highest Price:'
+     A            SEHVND         6Y 0O 19 17EDTCDE(4)
+     A            HVNAME        30A  O 19 24
+     A            SEHPRC         9Y 4O 19 56EDTCDE(4)
+     A                                 19 68'Per/1000'
+     A                                 18  2'Lowest Price:'
+     A            SELVND         6Y 0O 18 17EDTCDE(4)
+     A            LVNAME        30A  O 18 24
+     A            SELPRC         9Y 4O 18 56EDTCDE(4)
+     A                                 18 68'Per/1000'
+     A                                 17  2'Date Prices Last Calculated:'
+     A            SEDTLA         6Y 0O 17 31EDTWRD('  /  /  ')
+     A                                      COLOR(PNK)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  7 10' Verify data if OK press ENTER to -
+     A                                      update, else make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  6 49'Series Type?:'
+     A            SETYPE         5A  B  6 63
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Series Type.   -
+     A                                             Press RESET')
+     A                                 16  2'                             Prici-
+     A                                      ng Information                     -
+     A                                               '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  9 47'|'
+     A                                      COLOR(BLU)
+     A                                  9  2'      SERIES INFORMATION          -
+     A                                                '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9 49'     SEED FORM INFORMATION     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 50'Seed Form 1'
+     A            SISFM1    R        B 10 65REFFLD(RSERINF/SISFM1 *LIBL/FSERINF)
+     A                                      FLDCSRPRG(SISFM2)
+     A                                      COLOR(TRQ)
+     A            SISFM2    R        B 11 65REFFLD(RSERINF/SISFM2 *LIBL/FSERINF)
+     A                                      FLDCSRPRG(SISFM3)
+     A                                      COLOR(TRQ)
+     A            SISFM3    R        B 12 65REFFLD(RSERINF/SISFM3 *LIBL/FSERINF)
+     A                                      COLOR(TRQ)
+     A                                 10 62'*'
+     A                                      DSPATR(HI)
+     A                                 11 50'Seed Form 2'
+     A                                 12 50'Seed Form 3'
+     A                                 13 55'*'
+     A                                      DSPATR(HI)
+     A                                 13 57'= Preffered'
+     A                                 10 47'|'
+     A                                      COLOR(BLU)
+     A                                 11 47'|'
+     A                                      COLOR(BLU)
+     A                                 12 47'|'
+     A                                      COLOR(BLU)
+     A                                 13 47'|'
+     A                                      COLOR(BLU)
+     A            SIPLNT    R        B 10 11REFFLD(RSERINF/SIPLNT *LIBL/FSERINF)
+     A                                      FLDCSRPRG(SISERN)
+     A                                      COLOR(TRQ)
+     A            SISERN    R        B 11 11REFFLD(RSERINF/SISERN *LIBL/FSERINF)
+     A                                      FLDCSRPRG(SIBRED)
+     A                                      COLOR(TRQ)
+     A            SIBRED    R        B 12 11REFFLD(RSERINF/SIBRED *LIBL/FSERINF)
+     A                                      FLDCSRPRG(SISFM1)
+     A                                      COLOR(TRQ)
+     A                                 12  2'Breeder:'
+     A                                 11  2'Series:'
+     A                                 14 47'|'
+     A                                      COLOR(BLU)
+     A                                 15 47'|'
+     A                                      COLOR(BLU)
+     A                                  6 71'Active:'
+     A            SISTAT    R        B  6 79REFFLD(RSERINF/SISTAT *LIBL/FSERINF)
+     A                                      COLOR(TRQ)
+     A                                      VALUES('A' 'D')
+     A                                  5  2'      SERIES MASTER FILE          -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10  2'Plant:'
+     A                                 23  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 23 10'=Process'
+     A                                      COLOR(BLU)
+     A                                 23 22'F11'
+     A                                      DSPATR(HI)
+     A                                 23 26'=Seed Form'
+     A                                      COLOR(BLU)
+     A                                 23 40'F6'
+     A                                      DSPATR(HI)
+     A                                 23 43'=Restart'
+     A                                      COLOR(BLU)
+     A                                 23 55'F3'
+     A                                      DSPATR(HI)
+     A                                 23 58'=Exit'
+     A                                      COLOR(BLU)
+     A          R SCRNBD
+     A*%%TS  SD  20000818  161614  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF10
+     A                                      CF23
+     A                                  1  2'SDR010BD'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 24' Series Master File Maintainence '
+     A                                      DSPATR(RI)
+     A                                  3 25'Series I.D.:'
+     A            SERIES        10A  B  3 38DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                  6 17'Description:'
+     A            SEDESC        30A  B  6 37
+     A  10                                  ERRMSG('*** You Must enter a descri-
+     A                                      ption.      Press RESET')
+     A                                      DSPATR(PR)
+     A                                  8 17'Selected Seed Form:'
+     A            SEFORM         1Y 0B  8 37EDTCDE(4)
+     A  20                                  ERRMSG('*** Selected Form Must be 1-
+     A                                      ,2, or 3.   Press RESET')
+     A                                      DSPATR(PR)
+     A                                  8 40'Seed Form is 1 thru 3 and is based-
+     A                                       on'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 40'the types of seed.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 18  2'Highest Price:'
+     A            SEHVND         6Y 0O 18 17EDTCDE(4)
+     A            HVNAME        30A  O 18 24
+     A            SEHPRC         9Y 4O 18 56EDTCDE(4)
+     A                                 18 68'Per/1000'
+     A                                 16  2'Lowest Price:'
+     A            SELVND         6Y 0O 16 17EDTCDE(4)
+     A            LVNAME        30A  O 16 24
+     A            SELPRC         9Y 4O 16 56EDTCDE(4)
+     A                                 16 68'Per/1000'
+     A                                 14  2'Date Prices Last Calculated:'
+     A            SEDTLA         6Y 0O 14 31EDTWRD('  /  /  ')
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter To Process              F6=R-
+     A                                      estart                         F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 13' Press F10/F23 to Confirm delete T-
+     A                                      o Not Delete Press F6 '
+     A                                      DSPATR(RI)
+     A                                 11 13' Press F10/F23 to Confirm delete T-
+     A                                      o Not Delete Press F6 '
+     A                                      DSPATR(RI)
+     A          R SCRNBHELP
+     A*%%TS  SD  20081010  144948  BILLB       REL-V5R3M0  5722-WDS
+     A                                      WINDOW(7 50 15 25)
+     A                                  1  1'      Series Type:       '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  3  2'A'
+     A                                      DSPATR(HI)
+     A                                  3  5'= Annual           '
+     A                                  4  2'H'
+     A                                      DSPATR(HI)
+     A                                  5  2'H1'
+     A                                      DSPATR(HI)
+     A                                  6  2'P'
+     A                                      DSPATR(HI)
+     A                                  7  2'R'
+     A                                      DSPATR(HI)
+     A                                  8  2'R1'
+     A                                      DSPATR(HI)
+     A                                  9  2'R2'
+     A                                      DSPATR(HI)
+     A                                 10  2'R3'
+     A                                      DSPATR(HI)
+     A                                 11  2'R?'
+     A                                      DSPATR(HI)
+     A                                 12  2'V'
+     A                                      DSPATR(HI)
+     A                                  4  5'= Herbs (Seed)     '
+     A                                  5  5'= Herbs (R/C)      '
+     A                                  6  5'= Perrenials       '
+     A                                  7  5'= Rooted Cuttings  '
+     A                                  8  5'= Flowering Fields '
+     A                                  9  5'= Ecke             '
+     A                                 10  5'= Harmony          '
+     A                                 11  5'= Undefined R/C    '
+     A                                 12  5'= Vegetables       '
+     A                                 13  2'Enter Selection:'
+     A                                      COLOR(PNK)
+     A            SETYPE         5A  B 13 20COLOR(TRQ)

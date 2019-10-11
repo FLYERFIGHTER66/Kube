@@ -1,0 +1,81 @@
+000100121017      // $LotPartPct  - Returns the Percentage of the Partials on a LOT
+000200121017      // $OrdSeq990   - Returns TRUE if a 990 exists for a lot this Ord#/Seq# is allocated against.
+000300121023      // $OrdSeq997   - Returns TRUE if a 997 exists for a lot this Ord#/Seq# is allocated against.
+000400121023     // $Get990Key   - Returns the Keys to the 990 Lot for a given Order&Seq#.
+000500121023     // $Update990   - Update Quantities on Specified 990 records.
+000600121023      // $Write990    - Writes an FDLOTRD 990 record for specified Lot & Qty Returns Logical Conf.
+000700121023     // $Update997   - Update Quantities on Specified 997 records.
+000800121017
+000900121023      /If Not Defined($LotPartPct)
+001000121018     *$LotPartPct     EXTPROCReturns decimal value
+001100121018    *$LotPartPct Returns the Percentage of the Partials on a LOT
+001200121018    D $LotPartPct     PR             4S 2 ExtProc('$LotPartPct')
+001300121018PARM D  $Item                        12A                                        Item Number
+001400121018PARM D  $Size                         3A                                        Size Code
+001500121018PARM D  $SowD                         7P 0                                      Sow Date
+001600121018PARM D  $Ready                        7P 0                                      Current Ready Date
+001700121023      /EndIf
+001800121018
+001900121023      /If Not Defined($OrdSeq990 )
+002000121017     *$OrdSeq990      EXTPROCReturns Logical
+002100121017    *$OrdSeq990 Returns TRUE if a 990 exists for a lot this Ord#/Seq# is allocated against.
+002200121017    D $OrdSeq990      PR              N   ExtProc('$OrdSeq990')
+002300121022PARM D  $Ord#_6P0                     6P 0 Const                                Order Number
+002400121022PARM D  $Seq#_3P0                     3P 0 Const                                Order Sequence #
+002500121023      /EndIf
+002600121023
+002700121023      /If Not Defined($OrdSeq997 )
+002800121017     *$OrdSeq997      EXTPROCReturns Logical
+002900121017    *$OrdSeq997 Returns TRUE if a 997 exists for a lot this Ord#/Seq# is allocated against.
+003000121017    D $OrdSeq997      PR              N   ExtProc('$OrdSeq997')
+003100121022PARM D  $Ord#_6P0                     6P 0 Const                                Order Number
+003200121022PARM D  $Seq#_3P0                     3P 0 Const                                Order Sequence #
+003300121023      /EndIf
+003400121023
+003500121023      /If Not Defined($Get990Key )
+003600121018     *$Get990Key      EXTPROCReturns Data Structure
+003700121018    *$Get990Key Returns the Keys to the 990 Lot for a given Order&Seq#.
+003800121022    D $Get990Key      PR           256    ExtProc('$Get990Key')
+003900121022PARM D  $Ord#_6P0                     6P 0 Const                                Order Number
+004000121022PARM D  $Seq#_3P0                     3P 0 Const                                Order Sequence #
+004100121023      /EndIf
+004200121023
+004300121023      /If Not Defined($Update990 )
+004400121023     *$Update990      EXTPROCReturns Logical Confirmation
+004500121023    *$Update990 Update Quantities on Specified 990 records.
+004600121023    D $Update990      PR              N   ExtProc('$Update990')
+004700121023PARM D  $Item                        12A   Const
+004800121023     D  $Size                         3A   Const
+004900121023     D  $SowD                         7P 0 Const
+005000121023     D  $CRdy                         7P 0 Const
+005100121023     D  $Add2OH                       7P 1 Const
+005200121023     D  $Add2AL                       7P 1 Const
+005300121023     D  $Add2AV                       7P 1 Const
+005400121023     D  $UserID                      10A   Const
+005500121023      /EndIf
+005600121023
+005700121023      /If Not Defined($Write990)
+005800121023     *$Write990       EXTPROCReturns Logical Confirmation of Write
+005900121023    *$Write990   Writes an FDLOTRD 990 record for specified Lot & Qty
+006000121023    D $Write990       PR              N   ExtProc('$Write990')
+006100121023     D  $Item                        12A   Const
+006200121023     D  $Size                         3A   Const
+006300121023     D  $SowD                         7P 0 Const
+006400121023     D  $CRdy                         7P 0 Const
+006500121023     D  $Qty                          7P 1 Const
+006600121023     D  $UserID                      10A   Const
+006700121023      /EndIf
+006800121023
+006900121023      /If Not Defined($Update997 )
+007000121023     *$Update997      EXTPROCReturns Logical Confirmation
+007100121023    *$Update997 Update Quantities on Specified 997 records.
+007200121023    D $Update997      PR              N   ExtProc('$Update997')
+007300121023PARM D  $Item                        12A   Const
+007400121023     D  $Size                         3A   Const
+007500121023     D  $SowD                         7P 0 Const
+007600121023     D  $CRdy                         7P 0 Const
+007700121023     D  $Add2OH                       7P 1 Const
+007800121023     D  $Add2AL                       7P 1 Const
+007900121023     D  $Add2AV                       7P 1 Const
+008000121023     D  $UserID                      10A   Const
+008100121023      /EndIf

@@ -1,0 +1,105 @@
+             PGM
+
+             DCL        VAR(&PGMLIB) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&EOJ) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&JUL) TYPE(*CHAR) LEN(5)
+             DCL        VAR(&DAT7) TYPE(*CHAR) LEN(7)
+             DCL        VAR(&SLS) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&TYPE) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&COMP) TYPE(*CHAR) LEN(2)
+             DCL        VAR(&DATE) TYPE(*CHAR) LEN(6)
+
+             RTVSYSVAL  SYSVAL(QDATE) RTNVAR(&DATE)
+
+             RTVOBJD    OBJ(PGMLIB) OBJTYPE(*FILE) RTNLIB(&PGMLIB)
+
+             CHGDTAARA  DTAARA(*LDA (*ALL)) VALUE(' ')
+             CHGDTAARA  DTAARA(*LDA (134 8)) VALUE('BIC330')
+             CHGDTAARA  DTAARA(*LDA (142 30)) VALUE('        Print +
+                          Invoices     ')
+
+             CALL       PGM(DEF998)
+             RTVDTAARA  DTAARA(*LDA (62 1)) RTNVAR(&EOJ)
+             IF         COND(&EOJ = 'X') THEN(GOTO CMDLBL(END))
+
+             CHGDTAARA  DTAARA(*LDA (3 38)) VALUE('NN     000000000000     +
+                          ')
+
+             CVTDAT     DATE(&DATE) TOVAR(&JUL) FROMFMT(*SYSVAL) +
+                          TOFMT(*JUL) TOSEP(*NONE)
+             CHGDTAARA  DTAARA(*LDA (041 06)) VALUE(&DATE)
+             CHGDTAARA  DTAARA(*LDA (144 06)) VALUE(&JUL)
+             CHGDTAARA  DTAARA(*LDA (050 12)) VALUE('000000000000')
+             CHGDTAARA  DTAARA(*LDA (123 03)) VALUE('*NO')
+             CHGDTAARA  DTAARA(*LDA (127 03)) VALUE('*NO')
+             CHGDTAARA  DTAARA(*LDA (201 07)) VALUE('01YYDOP')
+
+             CALL       PGM(BIR440)
+
+             OVRPRTF    FILE(ARR371) TOFILE(*LIBL/QSYSPRT) DEV(P9) +
+                          PAGESIZE(88 120) LPI(8) CPI(15) ALIGN(*NO) +
+                          PRTQLTY(*DRAFT) FORMTYPE(*NAR) HOLD(*NO)
+             CALL       PGM(ARR371)
+
+ /* SUBMIT AUTO RUN CREDIT LIMIT REPORT                 */
+             CALL       PGM(&PGMLIB/ARC370ACL)
+
+             CHGDTAARA  DTAARA(*LDA *ALL) VALUE(' ')
+             CHGDTAARA  DTAARA(*LDA (134 8)) VALUE('BIC550')
+             CHGDTAARA  DTAARA(*LDA (142 30)) VALUE('     Daily Billing +
+                          Post    ')
+             CALL       PGM(DEF998)
+             QSYS/RTVDTAARA DTAARA(*LDA (133 1)) RTNVAR(&EOJ)
+             IF         COND(&EOJ = 'X') THEN(GOTO CMDLBL(END))
+
+/*             CALL       BIC550A                      */
+
+             RTVJOBA    TYPE(&TYPE)
+             CHGDTAARA  DTAARA(*LDA (100 10)) VALUE('P9        ') /* +
+                          PRINTER */
+             CHGDTAARA  DTAARA(*LDA (110 10)) VALUE('*NAR      ') /* +
+                          FORM    */
+             CHGDTAARA  DTAARA(*LDA (120 02)) VALUE('01') /* COPIES  */
+             CHGDTAARA  DTAARA(*LDA (123 04)) VALUE('*NO ') /* HOLD    */
+             CHGDTAARA  DTAARA(*LDA (127 04)) VALUE('*YES') /* SAVE    */
+             CHGDTAARA  DTAARA(*LDA (004 01)) VALUE('Y') /* SLS JOURNAL */
+             CHGDTAARA  DTAARA(*LDA (172 07)) VALUE('1000000') /* Date 7*/
+             CHGDTAARA  DTAARA(*LDA (173 02)) VALUE(%SST(&DATE 5 2))
+             CHGDTAARA  DTAARA(*LDA (175 04)) VALUE(%SST(&DATE 1 4))
+
+
+             QSYS/RTVDTAARA DTAARA(*LDA (1 2)) RTNVAR(&COMP)
+
+/* PROCESS DAILY INVOICE REGISTER                                    */
+             CALL       PGM(BIR340CL)
+
+/* POST TO A/R                                                       */
+             CALL       PGM(BIR430CL)
+
+/* PROCESS DAILY SALES REGISTER IF WANTED                            */
+             RTVDTAARA  DTAARA(*LDA (4 1)) RTNVAR(&SLS)
+             IF         COND(&EOJ *EQ 'N') THEN(GOTO CMDLBL(NOSLS))
+             CALL       PGM(BIR350CL)
+
+/* PROCESS DAILY CASH REGISTER                                       */
+ NOSLS:      RTVDTAARA  DTAARA(*LDA (172 7)) RTNVAR(&DAT7)
+             CHGDTAARA  DTAARA(*LDA (3 9)) VALUE(&DAT7)
+             CHGDTAARA  DTAARA(*LDA (10 10)) VALUE('          ')
+             CALL       PGM(ARC350CLJQ)
+
+/* LOAD THE LOCAL DATA AREA  FOR STATUS UPDATE */
+             CHGDTAARA  DTAARA(*LDA (200 44)) VALUE(' ')
+/* PROGRAM NAME  */
+             CHGDTAARA  DTAARA(*LDA (201 10)) VALUE('AUTOPOST  ')
+/* COMPANY NUMBER */
+             CHGDTAARA  DTAARA(*LDA (211 2)) VALUE(&COMP)
+/* ACCOUNTING PERIOD */
+             CHGDTAARA  DTAARA(*LDA (213 2)) VALUE('00')
+/* DESCRIPTION */
+             CHGDTAARA  DTAARA(*LDA (215 30)) VALUE('Auto Billing Post')
+             CALL       PGM(STSUPD)
+
+ END:        CHGDTAARA  DTAARA(*LDA *ALL) VALUE(' ')
+
+             ENDPGM
+

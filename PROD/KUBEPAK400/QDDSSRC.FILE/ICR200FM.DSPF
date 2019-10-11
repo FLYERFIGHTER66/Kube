@@ -1,0 +1,861 @@
+     A*%%TS  SD  20160923  104233  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20160208  105516  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Item and Size')
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR200A'
+     A                                  1 29' Inventory Transactions '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Type:'
+     A            VTYPE          1X  B  4 10DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10
+     AON11                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Type.    -
+     A                                        Press Enter')
+     A                                  4 30'Item/Size:'
+     A            VITEM         12A  B  4 45
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20
+     AO 11                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Enter A Valid Item/Size-
+     A                                      /Location.      Press Reset')
+     A  22                                  ERRMSG('*** This Is A Lot Controlle-
+     A                                      d Item - Use Lot Trans. Entry.   Pr-
+     A                                      ess Reset')
+     A            VSIZE          3A  B  4 59DSPATR(CS)
+     A                                  5 30'Alpha Search:'
+     A            VALPHA        15A  B  5 45DSPATR(CS)
+     A                                  6  2' R=Receipt    '
+     A                                      DSPATR(RI)
+     A                                  7  2' A=Adjustment '
+     A                                      DSPATR(RI)
+     A                                  7 30'Loc?'
+     A            VLOC           3A  B  7 38DSPATR(CS)
+     A  29                                  DSPATR(PR)
+     A                                  8  2' O=On P.O.    '
+     A                                      DSPATR(RI)
+     A                                  9  2' I=Issue      '
+     A                                      DSPATR(RI)
+     A                                  9 30'Date:'
+     A            VDATE          6Y 0B  9 38DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 14 13'Last Entry ====>'
+     A                                 14 32'Type:'
+     A            OTYPE          1A  O 14 39
+     A                                 15 32'Item:'
+     A            OITEM         12A  O 15 39
+     A            ODESC         28A  O 15 52
+     A                                 16 32'Size:'
+     A            OSIZE          3A  O 16 39
+     A                                 17 33'Loc:'
+     A            OLOC           3A  O 17 39
+     A                                 18 32'Date:'
+     A            ODATE          6Y 0O 18 39EDTWRD('  /  / 0')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'              Enter to Process    -
+     A                                           F3/F7=End of Job              -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 10  2' T=Transfer   '
+     A                                      DSPATR(RI)
+     A                                  5  2' P=Projection '
+     A                                      DSPATR(RI)
+     A          R SCRNB
+     A*%%TS  SD  20081003  154106  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Receipt')
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      CF03
+     A                                      CF06
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR200B'
+     A                                  1 29' Inventory Transactions '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2' R=Receipt '
+     A                                      DSPATR(RI)
+     A                                  4 14'For Item:'
+     A            VITEM         12A  O  4 24DSPATR(HI)
+     A                                  4 37'Size:'
+     A            VSIZE          3A  O  4 43DSPATR(HI)
+     A                                  4 48'Loc:'
+     A            VLOC           3A  O  4 53DSPATR(HI)
+     A                                  4 58'Date:'
+     A            VDATE          6Y 0O  4 64EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            DESP          50A  O  5 24DSPATR(HI)
+     A                                  7  2'Current Data:'
+     A                                  7 18'Average Cost:'
+     A            OLUCST         9Y 4O  7 36EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  7 51'Last Cost:'
+     A            IMLCST         9Y 4O  7 62EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  8 18'Qty On Hand:'
+     A            IMQTOH        11Y 1O  8 32EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8 51'UOM:'
+     A                                  8 56'1.'
+     A            IMPUOM         2A  O  8 59DSPATR(HI)
+     A                                  8 64'2.'
+     A            IMSUOM         2A  O  8 67DSPATR(HI)
+     A                                  8 72'3.'
+     A            IM3UOM         2A  O  8 75DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 11  2'Quantity Received:'
+     A            ITTQTY        11Y 1B 11 21DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Quantity Received Is Re-
+     A                                      quired.   Press Reset')
+     A                                 11 38'Receiving U/M?'
+     A            ITTUOM         2A  B 11 54DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Unit Of M-
+     A                                      easure Defined For This Item.     P-
+     A                                      ress Reset')
+     A                                 11 59'Receipt on PO:'
+     A            VREPO          1A  B 11 75DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A  32                                  ERRMSG('*** Can Not Receive On P.O.-
+     A                                       - No Quantity On Order.    Press R-
+     A                                      eset')
+     A                                 13  2'Cost:'
+     A            VCOST          9Y 4B 13 10DSPATR(CS)
+     A                                      EDTCDE(1)
+     A            VUORE          1A  B 13 25DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Valid Entries Are U or -
+     A                                      E.     Press Reset')
+     A                                 13 28'U = Unit Cost  E = Extended Cost'
+     A                                 15  4'Ref:'
+     A            VREF          30A  B 15  9DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 15 41'Comment:'
+     A            VCOMM         30A  B 15 50DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 16  1'Vendor:'
+     A            VVEND          6Y 0B 16  9DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.    Press Reset')
+     A            VNAME         19A  B 16 16
+     A                                 16 37'Vendor Item:'
+     A            VVITEM        30A  B 16 50DSPATR(CS)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 19  6'New Data:'
+     A N98                                  DSPATR(ND)
+     A                                 19 17'Qty On Hand:'
+     A N98                                  DSPATR(ND)
+     A            NQTYOH        11Y 1O 19 31EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A                                 20 17'Average Cost:'
+     A N98                                  DSPATR(ND)
+     A            NUCST          9Y 4O 20 35EDTCDE(1)
+     A N98                                  DSPATR(ND)
+     A                                 20 50'Last Cost:'
+     A N98                                  DSPATR(ND)
+     A            NLCST          9Y 4O 20 61EDTCDE(1)
+     A N98                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process     F2=Lookup V-
+     A                                      endor     F6=Restart     F3/F7=End -
+     A                                      of Job   '
+     A                                      DSPATR(UL)
+     A          R SCRNC
+     A*%%TS  SD  20081003  154106  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Issue')
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      CF03
+     A                                      CF06
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR200C'
+     A                                  1 29' Inventory Transactions '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2' I=Issue '
+     A                                      DSPATR(RI)
+     A                                  4 14'For Item:'
+     A            VITEM         12A  O  4 24DSPATR(HI)
+     A                                  4 37'Size:'
+     A            VSIZE          3A  O  4 43DSPATR(HI)
+     A                                  4 48'Loc:'
+     A            VLOC           3A  O  4 53DSPATR(HI)
+     A                                  4 58'Date:'
+     A            VDATE          6Y 0O  4 64EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            DESP          50A  O  5 24DSPATR(HI)
+     A                                  7  2'Current Data:'
+     A                                  7 18'Average Cost:'
+     A            IMUCST         9Y 4O  7 36EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  7 51'Last Cost:'
+     A            IMLCST         9Y 4O  7 62EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  8 18'Qty On Hand:'
+     A            IMQTOH        11Y 1O  8 32EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8 51'UOM:'
+     A                                  8 56'1.'
+     A            IMPUOM         2A  O  8 59DSPATR(HI)
+     A                                  8 64'2.'
+     A            IMSUOM         2A  O  8 67DSPATR(HI)
+     A                                  8 72'3.'
+     A            IM3UOM         2A  O  8 75DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 12  8'Quantity Issued:'
+     A            ITTQTY        11Y 1B 12 25DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Quantity Received Is Re-
+     A                                      quired.   Press Reset')
+     A                                 12 46'Issuing U/M?'
+     A            ITTUOM         2A  B 12 62DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Unit Of M-
+     A                                      easure Defined For This Item.     P-
+     A                                      ress Reset')
+     A                                 14  8'Reference:'
+     A            VREF          30A  B 14 20DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 16  8'Comment:'
+     A            VCOMM         30A  B 16 20DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 19  6'New Data:'
+     A N98                                  DSPATR(ND)
+     A                                 19 17'Qty On Hand:'
+     A N98                                  DSPATR(ND)
+     A            NQTYOH        11Y 1O 19 31EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'            Enter to Process     F-
+     A                                      6=Restart      F3/F7=End of Job    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R SCRND
+     A*%%TS  SD  20081003  154106  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('On Order')
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      CF03
+     A                                      CF06
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR200D'
+     A                                  1 29' Inventory Transactions '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  1' O=On Order '
+     A                                      DSPATR(RI)
+     A                                  4 14'For Item:'
+     A            VITEM         12A  O  4 24DSPATR(HI)
+     A                                  4 37'Size:'
+     A            VSIZE          3A  O  4 43DSPATR(HI)
+     A                                  4 48'Loc:'
+     A            VLOC           3A  O  4 53DSPATR(HI)
+     A                                  4 58'Date:'
+     A            VDATE          6Y 0O  4 64EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            DESP          50A  O  5 24DSPATR(HI)
+     A                                  7  2'Current Data:'
+     A                                  7 18'Average Cost:'
+     A            IMUCST         9Y 4O  7 36EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  7 51'Last Cost:'
+     A            IMLCST         9Y 4O  7 62EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  8 18'Qty On Hand:'
+     A            IMQTOH        11Y 1O  8 32EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8 51'UOM:'
+     A                                  8 56'1.'
+     A            IMPUOM         2A  O  8 59DSPATR(HI)
+     A                                  8 64'2.'
+     A            IMSUOM         2A  O  8 67DSPATR(HI)
+     A                                  8 72'3.'
+     A            IM3UOM         2A  O  8 75DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 11  2'Quantity Ordered:'
+     A            ITTQTY        11Y 1B 11 20DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Quantity Received Is Re-
+     A                                      quired.   Press Reset')
+     A                                 11 39'Ordering U/M?'
+     A            ITTUOM         2A  B 11 54DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Unit Of M-
+     A                                      easure Defined For This Item.     P-
+     A                                      ress Reset')
+     A                                 13  5'Ref:'
+     A            VREF          30A  B 13 10DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 13 42'Comment:'
+     A            VCOMM         30A  B 13 51DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 15  2'Vendor:'
+     A            VVEND          6Y 0B 15 10DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.    Press Reset')
+     A            VNAME         19A  B 15 17
+     A                                 15 38'Vendor Item:'
+     A            VVITEM        30A  B 15 51DSPATR(CS)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 19  6'New Data:'
+     A N98                                  DSPATR(ND)
+     A                                 19 17'Qty On Hand:'
+     A N98                                  DSPATR(ND)
+     A            NQTYOH        11Y 1O 19 30EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process     F2=Lookup V-
+     A                                      endor     F6=Restart     F3/F7=End -
+     A                                      of Job   '
+     A                                      DSPATR(UL)
+     A                                 19 49'Qty On Order:'
+     A N98                                  DSPATR(ND)
+     A            FLD001        11Y 1O 19 63EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A          R SCRNE
+     A*%%TS  SD  20160923  104233  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Adjustments')
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      CF03
+     A                                      CF06
+     A                                      CF10
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR200E'
+     A                                  1 29' Inventory Transactions '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2' A=Adjustment '
+     A                                      DSPATR(RI)
+     A                                  4 17'For Item:'
+     A            VITEM         12A  O  4 27DSPATR(HI)
+     A                                  4 40'Size:'
+     A            VSIZE          3A  O  4 46DSPATR(HI)
+     A                                  4 51'Loc:'
+     A            VLOC           3A  O  4 56DSPATR(HI)
+     A                                  4 61'Date:'
+     A            VDATE          6Y 0O  4 67EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            DESP          50A  O  5 27DSPATR(HI)
+     A                                  7  2'Current Data:'
+     A                                  7 23'Average Cost:'
+     A            OLUCST         9Y 4O  7 37EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  8 26'Last Cost:'
+     A            IMLCST         9Y 4O  8 37EDTCDE(1)
+     A                                      DSPATR(HI)
+     A            IMQTOH        11Y 1O  7 54EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8  2'UOM:'
+     A            IMPUOM         2A  O  8  9DSPATR(HI)
+     A            IMSUOM         2A  O  8 14DSPATR(HI)
+     A            IM3UOM         2A  O  8 19DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 10  2'Reason Code?'
+     A            VCODE          3A  B 10 17DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Reason Code Is Required-
+     A                                      .    Press Reset')
+     A            PDESC         30A  O 10 22
+     A            QTYPLS        11Y 1B 13 18DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Either Quantity or Cost-
+     A                                       Is Required.   Press Reset')
+     A  22                                  ERRMSG('*** Enter Either Quantity o-
+     A                                      r Cost - Not Both.     Press Reset')
+     A  23                                  ERRMSG('*** Only enter Quantity in -
+     A                                      Add to or Subtract from Not Both.  -
+     A                                        Press RESET')
+     A                                 10 56'U/M?'
+     A            ITTUOM         2A  B 10 61DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                 16  6'Cost:'
+     A            VCOST          9Y 4B 16 12DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                 16 27'<== Cash Only Adjustment'
+     A                                 16 52'(To Affect Average Cost)'
+     A                                 18  4'Ref:'
+     A            VREF          30A  B 18  9DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 18 41'Comment:'
+     A            VCOMM         30A  B 18 50DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 20  6'New Data:'
+     A N98                                  DSPATR(ND)
+     A                                 20 17'Qty On Hand:'
+     A N98                                  DSPATR(ND)
+     A            NQTYOH        11Y 1O 20 31EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A                                 20 50'Average Cost:'
+     A N98                                  DSPATR(ND)
+     A            NUCST          9Y 4O 20 68EDTCDE(1)
+     A N98                                  DSPATR(ND)
+     A                                 21  2' Validate Data - Change or Press E-
+     A                                      nter to Accept, use F10=Process & M-
+     A                                      ark ''Gone'''
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process   F6=Restart   F-
+     A                                      3/F7=End of Job   F10=Process & Mar-
+     A                                      k ''Gone'' '
+     A                                      DSPATR(UL)
+     A            QTYMIN        11Y 1B 13 60DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  20                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Either Quantity or Cost-
+     A                                       Is Required.   Press Reset')
+     A  22                                  ERRMSG('*** Enter Either Quantity o-
+     A                                      r Cost - Not Both.     Press Reset')
+     A                                 13  2'Add to On-Hand:'
+     A                                 13 37'Subtract From On-Hand:'
+     A                                 12  1'Enter Quantity to change On-Hand. -
+     A                                      Enter quantity in only Add to or Su-
+     A                                      btract from'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 14 18'NOTE: Only enter positive numbers -
+     A                                      in either field.'
+     A                                      DSPATR(HI)
+     A                                  7 71'On Hand'
+     A                                  8  7'1'
+     A                                  8 12'2'
+     A                                  8 17'3'
+     A            IMQTAV    R        O  8 54REFFLD(IMQTAV *LIBL/FMINVT)
+     A                                      EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8 71'Available'
+     A          R SCRNERR
+     A*%%TS  SD  20081003  154106  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Error')
+     A                                  1  2'ICR200ERR'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Inventory Transaction Entry '
+     A                                      DSPATR(RI)
+     A                                  5  9' You are not enrolled in User File-
+     A                                      . The system cannot determine '
+     A                                  8  9' what department to use. '
+     A                                 12 27' Press Enter to end program '
+     A                                      DSPATR(RI)
+     A          R SCRNT
+     A*%%TS  SD  20081003  154106  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Transfer')
+     A                                      CF07
+     A                                      HELP
+     A                                      CF02
+     A                                      CF03
+     A                                      CF06
+     A                                      CF09
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR200T'
+     A                                  1 29' Inventory Transactions '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  4' T=Transfer '
+     A                                      DSPATR(RI)
+     A            VITEM         12A  O  4 24DSPATR(HI)
+     A                                  4 37'Size:'
+     A            VSIZE          3A  O  4 43DSPATR(HI)
+     A                                  4 48'Loc:'
+     A            VLOC           3A  O  4 53DSPATR(HI)
+     A                                  4 58'Date:'
+     A            VDATE          6Y 0O  4 64EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            DESP          50A  O  5 24DSPATR(HI)
+     A                                  7  2'Current Data:'
+     A                                  7 18'Average Cost:'
+     A            IMUCST         9Y 4O  7 36EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  7 51'Last Cost:'
+     A            IMLCST         9Y 4O  7 62EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  8 18'Qty On Hand:'
+     A            IMQTOH        11Y 1O  8 32EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8 51'UOM:'
+     A                                  8 56'1.'
+     A            IMPUOM         2A  O  8 59DSPATR(HI)
+     A                                  8 64'2.'
+     A            IMSUOM         2A  O  8 67DSPATR(HI)
+     A                                  8 72'3.'
+     A            IM3UOM         2A  O  8 75DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 13  8'Quantity Issued:'
+     A            ITTQTY        11Y 1B 13 25DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Quantity Received Is Re-
+     A                                      quired.   Press Reset')
+     A                                 15  8'Reference:'
+     A            VREF          30A  B 15 20DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 17  8'Comment:'
+     A            VCOMM         30A  B 17 20DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 19  6'New Data:'
+     A N98                                  DSPATR(ND)
+     A                                 19 17'Qty On Hand:'
+     A N98                                  DSPATR(ND)
+     A            NQTYOH        11Y 1O 19 31EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'            Enter to Process     F-
+     A                                      6=Restart      F3/F7=End of Job    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 11  8'Transfer To?'
+     A            TOWHSE         3A  B 11 22DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid To Department E-
+     A                                      ntered.     Press RESET')
+     A                                 11 30'Cost Each:'
+     A            TRNCST         9Y 4O 11 41EDTCDE(1)
+     A                                      DSPATR(CS)
+     A            CURWHS        30A  O 19 49
+     A N98                                  DSPATR(ND)
+     A            TQTYOH        11Y 1O 20 31EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A            TWHSNM        30A  O 20 49
+     A N98                                  DSPATR(ND)
+     A                                 12 49' This item does not exist in '
+     A  57                                  DSPATR(RI)
+     A N57                                  DSPATR(ND)
+     A                                 13 49' to location.   Press F9 to  '
+     A  57                                  DSPATR(RI)
+     A N57                                  DSPATR(ND)
+     A                                 14 49' Create it in new location.  '
+     A  57                                  DSPATR(RI)
+     A N57                                  DSPATR(ND)
+     A          R SCRNF
+     A*%%TS  SD  20081003  154106  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Projections')
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      CF03
+     A                                      CF06
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR200E'
+     A                                  1 29' Inventory Transactions '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2' P=Projection '
+     A                                      DSPATR(RI)
+     A                                  4 17'For Item:'
+     A            VITEM         12A  O  4 27DSPATR(HI)
+     A                                  4 40'Size:'
+     A            VSIZE          3A  O  4 46DSPATR(HI)
+     A                                  4 51'Loc:'
+     A            VLOC           3A  O  4 56DSPATR(HI)
+     A                                  4 61'Date:'
+     A            VDATE          6Y 0O  4 67EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            DESP          50A  O  5 27DSPATR(HI)
+     A                                  7  2'Current Data:'
+     A                                  7 18'Average Cost:'
+     A            OLUCST         9Y 4O  7 36EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  7 51'Last Cost:'
+     A            IMLCST         9Y 4O  7 62EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  8 18'Qty On Hand:'
+     A            IMQTOH        11Y 1O  8 32EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8 51'UOM:'
+     A                                  8 56'1.'
+     A            IMPUOM         2A  O  8 59DSPATR(HI)
+     A                                  8 64'2.'
+     A            IMSUOM         2A  O  8 67DSPATR(HI)
+     A                                  8 72'3.'
+     A            IM3UOM         2A  O  8 75DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 10  2'Reason Code?'
+     A            QTYPLS        11Y 1B 13 18DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Either Quantity or Cost-
+     A                                       Is Required.   Press Reset')
+     A  22                                  ERRMSG('*** Enter Either Quantity o-
+     A                                      r Cost - Not Both.     Press Reset')
+     A  23                                  ERRMSG('*** Only enter Quantity in -
+     A                                      Add to or Subtract from Not Both.  -
+     A                                        Press RESET')
+     A                                 10 56'U/M?'
+     A            ITTUOM         2A  B 10 61DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                 18  4'Ref:'
+     A            VREF          30A  B 18  9DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 18 41'Comment:'
+     A            VCOMM         30A  B 18 50DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 20  6'New Data:'
+     A N98                                  DSPATR(ND)
+     A                                 20 17'Qty On Hand:'
+     A N98                                  DSPATR(ND)
+     A            NQTYOH        11Y 1O 20 31EDTCDE(J)
+     A N98                                  DSPATR(ND)
+     A                                 20 50'Average Cost:'
+     A N98                                  DSPATR(ND)
+     A            NUCST          9Y 4O 20 68EDTCDE(1)
+     A N98                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'            Enter to Process     F-
+     A                                      6=Restart      F3/F7=End of Job    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            QTYMIN        11Y 1B 13 60DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  20                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Either Quantity or Cost-
+     A                                       Is Required.   Press Reset')
+     A  22                                  ERRMSG('*** Enter Either Quantity o-
+     A                                      r Cost - Not Both.     Press Reset')
+     A                                 13  2'Add to On-Hand:'
+     A                                 13 37'Subtract From On-Hand:'
+     A                                 12  1'Enter Quantity to change On-Hand. -
+     A                                      Enter quantity in only Add to or Su-
+     A                                      btract from'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 14 18'NOTE: Only enter positive numbers -
+     A                                      in either field.'
+     A                                      DSPATR(HI)
+     A                                 10 17'PRJ'
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                 10 22'Projections                   '
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)

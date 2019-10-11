@@ -1,0 +1,158 @@
+     A*?Program        : WSPLG003FM
+     A*?
+     A*?Description    : This display file for Plug Order Item View Screen
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 23 Jul 2018
+     A**********************************************************************
+     A*?Special Notes  : Subfile Type : Load All - Output Subfile
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**************************************************************************
+     A*?Subfile Display Part
+     A          R PLGSFL3                   SFL
+     A  25                                  SFLNXTCHG
+     A            S03RRN         4S 0H
+     A            S03ITEM        5A  O  6  2
+     A            IMSIZE    R        O  6  8REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A            IMDES1    R        O  6 12REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      COLOR(BLU)
+     A            IMLOOK    R        O  6 43REFFLD(RMINVT/IMLOOK *LIBL/FMINVT)
+     A                                      COLOR(WHT)
+     A            S03PRICE       6Y 2O  6 59COLOR(BLU)
+     A                                      EDTCDE(3)
+     A            S3AVQTY1       4A  O  6 67COLOR(BLU)
+     A                                      DSPATR(UL)
+     A            S3ORQTY1       4Y 0O  6 73EDTCDE(Z)
+     A                                      DSPATR(UL)
+     A            S3AVQTY2       4A  O  6 80COLOR(BLU)
+     A                                      DSPATR(UL)
+     A            S3ORQTY2       4Y 0O  6 86EDTCDE(Z)
+     A                                      DSPATR(UL)
+     A            S3AVQTY3       4A  O  6 93COLOR(BLU)
+     A                                      DSPATR(UL)
+     A            S3ORQTY3       4Y 0O  6 99EDTCDE(Z)
+     A                                      DSPATR(UL)
+     A            S3AVQTY4       4A  O  6106COLOR(BLU)
+     A                                      DSPATR(UL)
+     A            S3ORQTY4       4Y 0O  6112EDTCDE(Z)
+     A                                      DSPATR(UL)
+     A            S3AVQTY5       4A  O  6119COLOR(BLU)
+     A                                      DSPATR(UL)
+     A            S3ORQTY5       4Y 0O  6125EDTCDE(Z)
+     A                                      DSPATR(UL)
+     A**********************************************************************
+     A*?Subfile Control Part
+     A          R PLGCTL3                   SFLCTL(PLGSFL3)
+     A*
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0018)
+     A*
+     A                                      CF07(07 'Backward')
+     A                                      CF08(08 'Forward')
+     A                                      CF10(10 'Summary')
+     A                                      CF12(12 'Cancel')
+     A*
+     A                                      OVERLAY
+     A*
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A*
+     A                                  1  2'WSPLG003FM'
+     A                                      COLOR(BLU)
+     A                                  1 53' Plug Order Item View Screen'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  3 68'Week'
+     A                                  3 81'Week'
+     A                                  3 94'Week'
+     A                                  3107'Week'
+     A                                  3120'Week'
+     A            C03WK1         2  0O  3 74
+     A            C03WK2         2  0O  3 87
+     A            C03WK3         2  0O  3100
+     A            C03WK4         2  0O  3113
+     A            C03WK5         2  0O  3126
+     A*
+     A            C03DTE1         L  O  4 67COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C03DTE2         L  O  4 80COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C03DTE3         L  O  4 93COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C03DTE4         L  O  4106COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C03DTE5         L  O  4119COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A*
+     A                                  5  2'Item Size Description             -
+     A                                             Alpha          '
+     A                                      COLOR(WHT)
+     A                                  5 59'Price  Avail OrdQty Avail OrdQty A-
+     A                                      vail OrdQty Avail OrdQty Avail OrdQ-
+     A                                      ty'
+     A                                      COLOR(WHT)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R PLGFTR3
+     A                                 26  2'F7'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Backward'
+     A                                      COLOR(BLU)
+     A                                 26 16'F8'
+     A                                      COLOR(WHT)
+     A                                 26 19'=Forward'
+     A                                      COLOR(BLU)
+     A                                 26 29'F10'
+     A                                      COLOR(WHT)
+     A                                 26 33'=Summary'
+     A                                      COLOR(BLU)
+     A                                 26 43'F12'
+     A                                      COLOR(WHT)
+     A                                 26 47'=Cancel'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

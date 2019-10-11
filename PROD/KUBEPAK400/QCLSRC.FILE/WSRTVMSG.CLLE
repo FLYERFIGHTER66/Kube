@@ -1,0 +1,24 @@
+/*     ? Program        : WSRTVMSG                                  */
+/*     ?                                                            */
+/*     ? Description    : This pgm to Retrieve Error Messages from  */
+/*     ?                  Message file and return Message           */
+/*     ? Created By     : S.Uthayadurga                             */
+/*     ?                                                            */
+/*     ? Date           : 10/13/2017                                */
+/********************************************************************/
+         PGM   PARM(&MSGID &MSGF &MSGTXT &MSGDTA)
+
+         DCL VAR(&MSGID)  TYPE(*CHAR) LEN(07)
+         DCL VAR(&MSGF)   TYPE(*CHAR) LEN(10)
+         DCL VAR(&MSGTXT) TYPE(*CHAR) LEN(132)
+         DCL VAR(&MSGDTA) TYPE(*CHAR) LEN(10)
+
+/*     ? Check Blank Message ID                                     */
+         IF      COND(&MSGID *NE '          ') THEN(DO)
+
+/*     ? Retrieve Message                                           */
+             RTVMSG     MSGID(&MSGID) MSGF(&MSGF) MSGDTA(&MSGDTA) +
+                    MSG(&MSGTXT)
+         ENDDO
+
+         ENDPGM

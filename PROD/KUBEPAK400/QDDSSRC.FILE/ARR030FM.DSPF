@@ -1,0 +1,430 @@
+     A*%%TS  SD  19990610  073612  APGL        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990610  073612  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(05 011 05 046)
+     A  *DS4                                HLPARA(05 054 05 055)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 04 080)
+     A  *DS4                                HLPARA(01 002 04 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 32' Salesperson File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  2'Action:'
+     A            VACT           1A  B  5 11DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10 99                               ERRMSG('*** Valid Codes are A C D o-
+     A                                      r I.      Press Reset')
+     A                                  5 30'Salesperson Code?'
+     A            VSLS           2A  B  5 49DSPATR(CS)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A  11 99                               ERRMSG('*** Salesperson Code is Req-
+     A                                      uired.      Press Reset')
+     A  12 99                               ERRMSG('*** This Salesperson Code i-
+     A                                      s Active.   Press Reset')
+     A  13 99                               ERRMSG('*** This Salesperson Code i-
+     A                                      s not Active.   Press Reset')
+     A  15 99                               ERRMSG('*** This Salesperson Code i-
+     A                                      s Deleted.  Press Reset')
+     A            SNAME         30A  O  6 49
+     A                                  7  2' A = Add     '
+     A                                      DSPATR(RI)
+     A                                  8  2' C = Change  '
+     A                                      DSPATR(RI)
+     A                                  9  2' D = Delete  '
+     A                                      DSPATR(RI)
+     A                                 10  2' I = Inquire '
+     A                                      DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process    F3/F7=End -
+     A                                      of Job     F13=Print Salesperson Li-
+     A                                      sting    '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990610  073612  APGL        REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  2  3'  Salesperson Master Maintenance  -
+     A                                                                       Ov-
+     A                                      erview  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                                     The billing, account-
+     A                                      s receivable and sales analysis app-
+     A                                      lications use            data that -
+     A                                      is maintained in the Salesperson Ma-
+     A                                      ster File.                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                Billing:  Order entry pro-
+     A                                      mpts for the salesperson that is to-
+     A                                       receive                      credi-
+     A                                      t for the sale to this customer.   -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                           Accounts Receivable:  Salesper-
+     A                                      son''s commission reports are run f-
+     A                                      rom                                -
+     A                                         a/r.                            -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                       Sales Analysis:  Sales analysis re-
+     A                                      ports showing the current year and -
+     A                                                                  previou-
+     A                                      s year sales activities in summary -
+     A                                      by sales-                          -
+     A                                         person or a detailed customer wi-
+     A                                      thin salesperson                   -
+     A                                                   report.               -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                      A salesperson numbe-
+     A                                      r is required in different areas th-
+     A                                      roughout the system.      Therefore-
+     A                                      , even if your business does not tr-
+     A                                      ack sales to salespersons          -
+     A                                       you must enter data for at least o-
+     A                                      ne salesperson, such as House Accou-
+     A                                      nt.                                -
+     A                                                                         -
+     A                                                     '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  19990401  154355  EFD         REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF23
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPB1)
+     A  *DS3                                HLPARA(07 015 07 016)
+     A  *DS4                                HLPARA(07 015 07 016)
+     A          H                           HLPRCD(HELPB2)
+     A  *DS3                                HLPARA(09 015 09 044)
+     A  *DS4                                HLPARA(09 015 09 044)
+     A          H                           HLPRCD(HELPB3)
+     A  *DS3                                HLPARA(10 016 13 062)
+     A  *DS4                                HLPARA(10 016 13 062)
+     A          H                           HLPRCD(HELPB4)
+     A  *DS3                                HLPARA(15 016 15 055)
+     A  *DS4                                HLPARA(15 016 15 055)
+     A          H                           HLPRCD(HELPB5)
+     A  *DS3                                HLPARA(17 023 17 027)
+     A  *DS4                                HLPARA(17 023 17 027)
+     A          H                           HLPRCD(HELPB6)
+     A  *DS3                                HLPARA(17 052 17 052)
+     A  *DS4                                HLPARA(17 052 17 052)
+     A            PROGID        10A  O  1  2
+     A                                  1 17'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 31' Salesperson Master '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Salesperson:'
+     A            SMSLSM         2A  O  5 16DSPATR(HI)
+     A  50                                  DSPATR(PC)
+     A                                  7  3'Territory?'
+     A            SMTERR         2A  B  7 16
+     A N50                                  DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  20 99N21                            ERRMSG('*** Territory Is Required. -
+     A                                                  Press Reset')
+     A  21 20 99                            ERRMSG('*** This Is Not A Valid Ter-
+     A                                      ritory.     Press Reset')
+     A            TENAME        30A  O  7 21
+     A                                  9  3'Name:'
+     A            SMNAME        30A  B  9 16
+     A N50                                  DSPATR(CS)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  23 99                               ERRMSG('*** Saleperson Name Is Requ-
+     A                                      ired.       Press Reset')
+     A                                 10  3'Address:'
+     A            SMADD2        30A  B 10 16
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(PR)
+     A                                 11  3'Address:'
+     A            SMADD3        30A  B 11 16
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(PR)
+     A                                 12  3'Address:'
+     A            SMADD4        30A  B 12 16
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(PR)
+     A                                 13  3'City:'
+     A            SMCITY        18A  B 13 16
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(PR)
+     A                                 13 36'State:'
+     A            SMSTST         2A  B 13 44
+     A N50                                  DSPATR(CS)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  24 99                               ERRMSG('*** State Not In State Mast-
+     A                                      er File.    Press Reset')
+     A                                 13 48'Zip:'
+     A            SMZIP          9A  B 13 54
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A                                 15  3'Telephone:'
+     A            SMPHON        10Y 0B 15 16
+     A N50                                  DSPATR(CS)
+     A                                      EDTWRD('   -   -    ')
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(RB)
+     A                                 15 36'Fax:'
+     A            SMFAX         10Y 0B 15 44
+     A N50                                  DSPATR(CS)
+     A                                      EDTWRD('   -   -    ')
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(RB)
+     A                                 17  3'Commission Pct:'
+     A            SMCOMM         4Y 2B 17 23
+     A N50                                  DSPATR(CS)
+     A                                      EDTCDE(3)
+     A  50                                  DSPATR(PR)
+     A                                 17 36'Outside Agent:'
+     A            SMAGNT         1X  B 17 52
+     A N50                                  DSPATR(CS)
+     A  37                                  DSPATR(RI)
+     A  37                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  25 99                               ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                 17 55'(Y/N)'
+     A                                 19  3'EMail Address:'
+     A            SMEML         33A  B 19 19
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(PR)
+     A                                 20 15' Press F23 to Delete - F6 to Resta-
+     A                                      rt without Delete '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                 21 16' Validate Date - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELPB1
+     A*%%TS  SD  19990610  073612  APGL        REL-V3R1M0  5763-PW1
+     A                                 19  2' Territory                        -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2' Enter the Territory with which th-
+     A                                      is Salesperson is associated.  This-
+     A                                       must be '
+     A                                      DSPATR(HI)
+     A                                 22  2' defined in the Territory Master F-
+     A                                      ile.                               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R HELPB2
+     A*%%TS  SD  19990610  073612  APGL        REL-V3R1M0  5763-PW1
+     A                                 20  2' Salesperson Name                 -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2'  Enter up to 30 characters for th-
+     A                                      e Salespersons''s name.            -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R HELPB3
+     A*%%TS  SD  19990610  073612  APGL        REL-V3R1M0  5763-PW1
+     A                                 20  2' Salesperson Address              -
+     A                                                                      Opt-
+     A                                      ional    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2'  You can optionally enter the sal-
+     A                                      esperson''s address.               -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R HELPB4
+     A*%%TS  SD  19970715  100400  EFD         REL-V3R1M0  5763-PW1
+     A                                 20  2' Telephone and Fax Numbers        -
+     A                                                                      Opt-
+     A                                      ional    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' Enter as 215-643-5352 or 21564353-
+     A                                      52.  Press Field Exit after enterin-
+     A                                      g.       '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A          R HELPB5
+     A*%%TS  SD  19970715  100400  EFD         REL-V3R1M0  5763-PW1
+     A                                 19  2' Commission                       -
+     A                                                                    Optio-
+     A                                      nal      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'  If you pay this salesperson comm-
+     A                                      ission, enter the percent here.   E-
+     A                                      nter     '
+     A                                      DSPATR(HI)
+     A                                 22  2'  5.25% as 5.25.  Press Field Exit-
+     A                                       after entering this data.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A          R HELPB6
+     A*%%TS  SD  19970715  100400  EFD         REL-V3R1M0  5763-PW1
+     A                                 18  2' Outside Agent                    -
+     A                                                                 Required-
+     A                                       Y/N     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2' If this salesperson is an employe-
+     A                                      e of your company - Enter - N      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' If this salesperson is not employ-
+     A                                      ed by your company - Enter - Y     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2' This data is informational and is-
+     A                                       not used by TGMS.                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '

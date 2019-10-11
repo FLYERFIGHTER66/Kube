@@ -1,0 +1,202 @@
+     A*%%***********************************************************************
+     A*%%TS  RD  20180604  160021  BILLB       REL-V7R2M0  5770-WDS
+     A*%%FI+30660100000000000000000000000000000000000000000000000000
+     A*%%FI       0000000000000000000000000000000000000000000000000
+     A*%%***********************************************************************
+      *****************************************************************
+      **                                                             **
+      **  FILE:       SDR362P                                        **
+      **  FUNCTION:   Print Cost Vs. Price Report                    **
+      **  CREATED BY: R. PIASECKI 8/18/2003                          **
+      **                                                             **
+      **                                                             **
+      *****************************************************************
+     A                                      REF(*LIBL/KPREF  KPREFR)
+     A          R HEADER
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 011
+     A*%%***********************************************************************
+     A                                      SKIPB(012)
+     A            ACCOUNT        6S  O     1
+     A                                      EDTCDE(Z)
+     A                                   +61
+     A                                      'D-U-N-S 01-105-3410'
+     A            CMNAME    R        O     7
+     A                                      SPACEB(001)
+     A                                      REFFLD(RMCUST/CMNAME *LIBL/FMCUST)
+     A            ADDRESS1      30A  O     7
+     A                                      SPACEB(001)
+     A                                   +35
+     A                                      'Date:'
+     A            ASOFDATE       6S 0O    +1
+     A                                      EDTCDE(Y)
+     A            ADDRESS2      30A  O     7
+     A                                      SPACEB(001)
+     A            ADDRESS3      30A  O     7
+     A                                      SPACEB(001)
+     A                                   +41
+     A                                      'Page'
+     A            CUSTPAGE       3S 0O    +1
+     A                                      EDTCDE(Z)
+     A            ADDRESS4      30A  O     7
+     A                                      SPACEB(001)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CL 001
+     A*%%CL 001
+     A*%%CL 001
+     A*%%CL 001
+     A*%%NP
+     A*%%***********************************************************************
+     A          R CONTINUE
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 011
+     A*%%***********************************************************************
+     A                                      SKIPB(012)
+     A            ACCOUNT        6S  O     1
+     A                                      EDTCDE(Z)
+     A                                      SPACEB(001)
+     A            CMNAME    R        O     9
+     A                                      REFFLD(RMCUST/CMNAME *LIBL/FMCUST)
+     A                                    +9
+     A                                      'Continuation'
+     A                                    +9
+     A                                      'Date:'
+     A            ASOFDATE       6S 0O    +1
+     A                                      EDTCDE(Y)
+     A                                    +6
+     A                                      'Page'
+     A            CUSTPAGE       3S 0O    +1
+     A                                      EDTCDE(Z)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%***********************************************************************
+     A          R COLUMNS
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 002
+     A*%%***********************************************************************
+     A                                      SPACEB(003)
+     A                                     1
+     A                                      'Invoice  Invoice    Due           -
+     A                                                      Invoice      Adjust-
+     A                                      /      Late       Balance  '
+     A                                      SPACEB(001)
+     A                                      HIGHLIGHT
+     A                                     1
+     A                                      'Number    Date      Date     Refer-
+     A                                      ence             Total      Payment-
+     A                                      s     Charges       Due    '
+     A                                      SPACEB(001)
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CL+001
+     A*%%CL                                Due
+     A*%%***********************************************************************
+      *
+     A          R INVDETL
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A  50                                  HIGHLIGHT
+     A                                      SPACEB(001)
+     A            SAVEINV        6S 0O     1
+     A                                      EDTCDE(Z)
+     A            INVDATE        6S 0O    +4
+     A                                      EDTCDE(Y)
+     A            DUEDATE        6S 0O    +1
+     A                                      EDTCDE(Y)
+     A            REFERENCE     20A  O    +1
+     A            INVTOTAL       8S 2O    +1
+     A                                      EDTCDE(J)
+     A            INVPAYADJ      8S 2O    +1
+     A                                      EDTCDE(J)
+     A            INVLATECHG     8S 2O    +1
+     A                                      EDTCDE(J)
+     A            INVBALDUE      8S 2O    +1
+     A                                      EDTCDE(J)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%SN INVTOTAL   99999999
+     A*%%SN INVPAYADJ  99999999
+     A*%%SN INVBALDUE  99999999
+     A*%%***********************************************************************
+     A          R CUSTTOTAL
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 037
+     A*%%***********************************************************************
+     A                                      HIGHLIGHT
+     A                                      SKIPB(057)
+     A                                     1
+     A                                      '******************'
+     A                                      SPACEB(001)
+     A                                    24
+     A                                      'A g i n g'
+     A                                    38
+     A                                      '******************'
+     A                                   +32
+     A                                      'Total'
+     A                                     1
+     A                                      '     Current       01 - 30       3-
+     A                                      1 - 60       Over 60               -
+     A                                                     Balance Due '
+     A                                      SPACEB(001)
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A            CUST31TO60     9S 2O    29
+     A                                      SPACEB(001)
+     A                                      EDTCDE(J)
+     A            CUSTOVER60     9S 2O    43
+     A                                      EDTCDE(J)
+     A            CUSTTOTAL$     9S 2O    84
+     A                                      EDTCDE(J)
+     A            CUSTCURR       9S 2O     1
+     A                                      EDTCDE(J)
+     A            CUST01TO30     9S 2O    15
+     A                                      EDTCDE(J)
+     A  40                                23
+     A                                      'FAXED TO:'
+     A                                      SPACEB(002)
+     A  40        EMAIL15       15A  O    +2
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CL 001
+     A*%%CL 001
+     A*%%SN CUST31TO60 999999999
+     A*%%SN CUSTOVER60 999999999
+     A*%%SN CUSTTOTAL$ 999999999
+     A*%%SN CUSTCURR   999999999
+     A*%%SN CUST01TO30 999999999
+     A*%%CL 002
+     A*%%***********************************************************************
+     A          R NODATA
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 007
+     A*%%***********************************************************************
+     A                                      SPACEB(008)
+     A                                    23
+     A                                      'No Data Found for this Customer'
+     A                                      SPACEB(001)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CP+999CRTPRTF
+     A*%%CP+    FILE(KUBEPAK400/STATEMENTP)
+     A*%%CP+    DEVTYPE(*AFPDS)
+     A*%%CP+    PAGESIZE(*N 096)
+     A*%%CP+    CPI(12)
+     A*%%CP+    PAGRTT(0)
+     A*%%CP+    REDUCE(*NONE)
+     A*%%CP+    FRONTOVL(*LIBL/STATEMNT)
+     A*%%CP     FORMTYPE(*NAR)
+     A*%%***********************************************************************

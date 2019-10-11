@@ -1,0 +1,165 @@
+     A*%%TS  SD  20000412  114141  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19980910  204545  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF01
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 21' Change Requested Ship Date By Ord-
+     A                                      er '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 24'Order Number:'
+     A            VORDER         6Y 0B  3 46DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10N11                               ERRMSG('*** Enter A Valid Order Num-
+     A                                      ber.   Press Reset')
+     A  10 11                               ERRMSG('*** Order is from a differe-
+     A                                      nt Department.   Press RESET')
+     A                                  5 24'Current Due Date:'
+     A            CDATE          6Y 0B  5 44DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A                                  7 24'New Due Date:'
+     A            NDATE          6Y 0B  7 44DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  32                                  ERRMSG('*** New Date Cannot Be Prio-
+     A                                      r To Current System Date.   Press R-
+     A                                      eset')
+     A                                 13  2' This program will change the requ-
+     A                                      ested ship date on all of the open -
+     A                                      line    '
+     A                                 14  2' items with the current due date a-
+     A                                      s above to the new due date as abov-
+     A                                      e.      '
+     A                                 16  3'If all the open line items on an o-
+     A                                      rder have the same requested ship d-
+     A                                      ate, '
+     A                                 17  3'the requested ship date will also -
+     A                                      be changed in the order header reco-
+     A                                      rd.  '
+     A                                 19  3'If no items are found to be change-
+     A                                      d, a message will be displayed.    -
+     A                                            '
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                           F3/F7=End of Job              -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  9 24'Audit Report:'
+     A            VAUDIT         1A  B  9 51DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.        Press Reset')
+     A                                 21  3'Audit Report prints a before and a-
+     A                                      fter for each line changed.'
+     A                                 11 11' New Due Date Is Prior To Todays D-
+     A                                      ate - Press F1 To Accept '
+     A  77                                  DSPATR(RI)
+     A N77                                  DSPATR(ND)
+     A          R SCRNB
+     A*%%TS  SD  19970220  121806  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' Order Due Date Modification '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Order No:'
+     A            VORDER         6Y 0O  4 13DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  4 24'Current Due Date:'
+     A            CDATE          6Y 0O  4 42DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  4 54'New Due Date:'
+     A            NDATE          6Y 0O  4 68DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  6  4'Ship To:'
+     A                                      DSPATR(UL)
+     A            OHCUST         6Y 0O  6 14DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  6 46'Bill To:'
+     A                                      DSPATR(UL)
+     A            OHBLCU         6Y 0O  6 56DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            OHNAME        30A  O  7  4DSPATR(HI)
+     A            OHSLD1        30A  O  7 46DSPATR(HI)
+     A            OHSHP2        30A  O  8  4DSPATR(HI)
+     A            OHSLD2        30A  O  8 46DSPATR(HI)
+     A            OHSHP3        30A  O  9  4DSPATR(HI)
+     A            OHSLD3        30A  O  9 46DSPATR(HI)
+     A            OHSHP4        30A  O 10  4DSPATR(HI)
+     A            OHSLD4        30A  O 10 46DSPATR(HI)
+     A            OHSHCT        18A  O 11  4DSPATR(HI)
+     A            OHSHST         2A  O 11 23DSPATR(HI)
+     A            OHSHZP         9A  O 11 26DSPATR(HI)
+     A            OHSLCT        18A  O 11 46DSPATR(HI)
+     A            OHSLST         2A  O 11 65DSPATR(HI)
+     A            OHSLZP         9A  O 11 68DSPATR(HI)
+     A                                 15  1' Press ENTER to Change Requested S-
+     A                                      hip Date on ALL Line Items With Cur-
+     A                                      rent Date '
+     A                                 18  3'No Open Line Items On This Order H-
+     A                                      ave'
+     A N60                                  DSPATR(ND)
+     A            CBDATE         6Y 0O 18 42EDTCDE(Y)
+     A N60                                  DSPATR(ND)
+     A                                 18 52'As The Current Due Date '
+     A N60                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process  F6=Cancel Sh-
+     A                                      ip Date Change  -  Return to First -
+     A                                      Screen   '
+     A                                      DSPATR(UL)

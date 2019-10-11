@@ -1,0 +1,229 @@
+     A*%%TS  SD  19990303  144253  STEVE       REL-V4R2M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      REF(*LIBL/SECSYS SYSTM)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      HELP(47 'Help Key')
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A                                      CF01(01 'Help')
+     A                                      CF03(03 'Exit')
+     A                                      CF11(11 'Toggle 1-10/11-20')
+     A                                      CF12(12 'Previous Screen')
+     A*
+     A*
+     A          R SCREEN01
+     A*%%TS  SD  19990303  144253  STEVE       REL-V4R2M0  5769-PW1
+     A                                      CHANGE(28)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1  3'SS0002S'
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                      MSGID(KP0 0001 KPMSGF)
+     A                                  1 72TIME
+     A                                  2  3'SCREEN01'
+     A            PGTL##        40A  O  2 21DSPATR(HI)
+     A                                      MSGID(SS0 0001 KPMSGF)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  8'System'
+     A  31                                  DSPATR(RI)
+     A            SYSYS     R        B  5 15DSPATR(HI)
+     A  66                                  DSPATR(UL)
+     A  31                                  DSPATR(PC)
+     A N66                                  DSPATR(PR)
+     A                                  6  3'Description'
+     A  32                                  DSPATR(RI)
+     A            SYDESC    R        B  6 15DSPATR(HI)
+     A                                      DSPATR(UL)
+     A  32                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                  8  7'Column'
+     A                                      DSPATR(HI)
+     A                                  9  6'Headings'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 16' Text               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SYCH01    R        B 10  8CHECK(LC)
+     A            SYTX01    R        B 10 16CHECK(LC)
+     A            SYVE01    R        B 10 39
+     A            SYCH02    R        B 11  8CHECK(LC)
+     A            SYTX02    R        B 11 16CHECK(LC)
+     A            SYVE02    R        B 11 39
+     A            SYCH03    R        B 12  8CHECK(LC)
+     A            SYTX03    R        B 12 16CHECK(LC)
+     A            SYVE03    R        B 12 39
+     A            SYCH04    R        B 13  8CHECK(LC)
+     A            SYTX04    R        B 13 16CHECK(LC)
+     A            SYVE04    R        B 13 39
+     A            SYCH05    R        B 14  8CHECK(LC)
+     A            SYTX05    R        B 14 16CHECK(LC)
+     A            SYVE05    R        B 14 39
+     A            SYCH06    R        B 15  8CHECK(LC)
+     A            SYTX06    R        B 15 16CHECK(LC)
+     A            SYVE06    R        B 15 39
+     A            SYCH07    R        B 16  8CHECK(LC)
+     A            SYTX07    R        B 16 16CHECK(LC)
+     A            SYVE07    R        B 16 39
+     A            SYCH08    R        B 17  8CHECK(LC)
+     A            SYTX08    R        B 17 16CHECK(LC)
+     A            SYVE08    R        B 17 39
+     A            SYCH09    R        B 18  8CHECK(LC)
+     A            SYTX09    R        B 18 16CHECK(LC)
+     A            SYVE09    R        B 18 39
+     A            SYCH10    R        B 19  8CHECK(LC)
+     A            SYTX10    R        B 19 16CHECK(LC)
+     A            SYVE10    R        B 19 39
+     A                                 23  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 23 70'F12=Return'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                  8 41'Valid'
+     A                                      DSPATR(HI)
+     A                                  9 39' Entries            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 30'F11=Show 11-20'
+     A                                      COLOR(BLU)
+     A                                 10  2' 1'
+     A                                 11  2' 2'
+     A                                 12  2' 3'
+     A                                 13  2' 4'
+     A                                 14  2' 5'
+     A                                 15  2' 6'
+     A                                 16  2' 7'
+     A                                 17  2' 8'
+     A                                 18  2' 9'
+     A                                 19  2'10'
+     A*
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ
+     A*
+     A          R SCREEN02
+     A*%%TS  SD  19990303  144253  STEVE       REL-V4R2M0  5769-PW1
+     A                                      CHANGE(28)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1  3'SS0002S'
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                      MSGID(KP0 0001 KPMSGF)
+     A                                  1 72TIME
+     A                                  2  3'SCREEN01'
+     A            PGTL##        40A  O  2 21DSPATR(HI)
+     A                                      MSGID(SS0 0001 KPMSGF)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  8'System'
+     A  31                                  DSPATR(RI)
+     A            SYSYS     R        B  5 15DSPATR(HI)
+     A  66                                  DSPATR(UL)
+     A  31                                  DSPATR(PC)
+     A N66                                  DSPATR(PR)
+     A                                  6  3'Description'
+     A  32                                  DSPATR(RI)
+     A            SYDESC    R        B  6 15DSPATR(HI)
+     A                                      DSPATR(UL)
+     A  32                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                  8  7'Column'
+     A                                      DSPATR(HI)
+     A                                  9  6'Headings'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 16' Text               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SYCH11    R        B 10  8CHECK(LC)
+     A            SYTX11    R        B 10 16CHECK(LC)
+     A            SYVE11    R        B 10 39
+     A            SYCH12    R        B 11  8CHECK(LC)
+     A            SYTX12    R        B 11 16CHECK(LC)
+     A            SYVE12    R        B 11 39
+     A            SYCH13    R        B 12  8CHECK(LC)
+     A            SYTX13    R        B 12 16CHECK(LC)
+     A            SYVE13    R        B 12 39
+     A            SYCH14    R        B 13  8CHECK(LC)
+     A            SYTX14    R        B 13 16CHECK(LC)
+     A            SYVE14    R        B 13 39
+     A            SYCH15    R        B 14  8CHECK(LC)
+     A            SYTX15    R        B 14 16CHECK(LC)
+     A            SYVE15    R        B 14 39
+     A            SYCH16    R        B 15  8CHECK(LC)
+     A            SYTX16    R        B 15 16CHECK(LC)
+     A            SYVE16    R        B 15 39
+     A            SYCH17    R        B 16  8CHECK(LC)
+     A            SYTX17    R        B 16 16CHECK(LC)
+     A            SYVE17    R        B 16 39
+     A            SYCH18    R        B 17  8CHECK(LC)
+     A            SYTX18    R        B 17 16CHECK(LC)
+     A            SYVE18    R        B 17 39
+     A            SYCH19    R        B 18  8CHECK(LC)
+     A            SYTX19    R        B 18 16CHECK(LC)
+     A            SYVE19    R        B 18 39
+     A            SYCH20    R        B 19  8CHECK(LC)
+     A            SYTX20    R        B 19 16CHECK(LC)
+     A            SYVE20    R        B 19 39
+     A                                 23  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 23 70'F12=Return'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                  8 41'Valid'
+     A                                      DSPATR(HI)
+     A                                  9 39' Entries            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 30'F11=Show 1-10'
+     A                                      COLOR(BLU)
+     A                                 10  2'11'
+     A                                 11  2'12'
+     A                                 12  2'13'
+     A                                 13  2'14'
+     A                                 14  2'15'
+     A                                 15  2'16'
+     A                                 16  2'17'
+     A                                 17  2'18'
+     A                                 18  2'19'
+     A                                 19  2'20'

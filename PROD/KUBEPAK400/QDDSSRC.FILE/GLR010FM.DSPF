@@ -1,0 +1,332 @@
+     A*%%TS  SD  19990729  163919  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990607  070716  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(05 012 11 064)
+     A  *DS4                                HLPARA(05 012 11 064)
+     A                                  1 29' G/L Chart of Accounts '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  1 17'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  5  2'Action:'
+     A            VACT           1A  B  5 12DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.    Press Reset')
+     A                                  7  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  5 29'G/L Account Number:'
+     A            VGL            4Y 0B  5 50DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** G/L Number Is Required.-
+     A                                             Press Reset')
+     A  22                                  ERRMSG('*** This Account Is On File-
+     A                                      .      Press Reset')
+     A  23                                  ERRMSG('*** This Account Is Not On -
+     A                                      File.   Press Reset')
+     A  45                                  ERRMSG('*** Cannot Delete - Account-
+     A                                       Has a Balance.    Press Reset')
+     A                                  8  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                  9  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                  7 29'Department Number:'
+     A            VDEPT          4Y 0B  7 50DSPATR(CS)
+     A                                      EDTWRD('    ')
+     A                                  9 29'Alpha Search'
+     A            VALPHA        15A  B  9 50DSPATR(CS)
+     A            GCDESC        30A  O 10 50DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process        F3/F7=End-
+     A                                       of Job        F13=Print Chart of A-
+     A                                      ccounts  '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  2 33'For Company:'
+     A            LCO            2  0O  2 46DSPATR(HI)
+     A          R HELP
+     A*%%TS  SD  19990614  074653  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                  5  2' G/L Chart of Accounts            -
+     A                                                                       Ov-
+     A                                      erview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2' EFD automatically transfers all a-
+     A                                      ppropriate data from its sub-ledger-
+     A                                      s to     '
+     A                                      DSPATR(HI)
+     A                                  8  2' general ledger.   In some instanc-
+     A                                      es, you are requested to enter the -
+     A                                      account  '
+     A                                      DSPATR(HI)
+     A                                  9  2' number to which the data should b-
+     A                                      e posted.  In other instances, the -
+     A                                      system   '
+     A                                      DSPATR(HI)
+     A                                 10  2' automatically assigns the g/l num-
+     A                                      ber based on the numbers that were -
+     A                                      set up   '
+     A                                      DSPATR(HI)
+     A                                 11  2' in the G/L Posting Defaults progr-
+     A                                      am.                                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2' You must create separate g/l numb-
+     A                                      ers for each company you run in the-
+     A                                       system. '
+     A                                      DSPATR(HI)
+     A                                 17  2' If you are not going to use G/L, -
+     A                                      set up one dummy number, e.g. 9999--
+     A                                      9999.    '
+     A                                      DSPATR(HI)
+     A                                 19  2' The g/l number is a ten digit num-
+     A                                      ber:  CC-AAAA-DDDD                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                            C    Company Number          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'                                  -
+     A                                            A    Account Number          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                            D    Department Number       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2' However, there is an option in g/-
+     A                                      l master files to copy the chart of-
+     A                                       accounts'
+     A                                      DSPATR(HI)
+     A                                 15  2' from one company to another.     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  19990729  163919  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF23
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPB)
+     A  *DS3                                HLPARA(10 021 17 021)
+     A  *DS4                                HLPARA(10 021 17 021)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 29' G/L Chart of Accounts '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  2'Company:'
+     A            LCO            2S 0O  5 21DSPATR(HI)
+     A            MCNAME        30A  O  5 24DSPATR(HI)
+     A                                  7  2'G/L Account:'
+     A            GCGLNO         8Y 0O  7 21EDTWRD('    -    ')
+     A                                      DSPATR(HI)
+     A                                 10  2'G/L Description:'
+     A            GCDESC        30A  B 10 21
+     A N77                                  DSPATR(CS)
+     A  30N77                               DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  30                                  ERRMSG('*** Description Is Required-
+     A                                      .     Press Reset')
+     A  77                                  DSPATR(HI)
+     A  77                                  DSPATR(PR)
+     A                                 10 60'  Account Types  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 60'1 = Asset'
+     A                                 12  2'Account Type: '
+     A            GCATYP         1Y 0B 12 21EDTCDE(Z)
+     A  32N77                               DSPATR(RI)
+     A N77                                  DSPATR(CS)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Valid Types Are 1 2 3 o-
+     A                                      r 4.    Press Reset')
+     A  77                                  DSPATR(HI)
+     A  77                                  DSPATR(PR)
+     A                                 12 60'2 = Liability/Equity'
+     A                                 13 60'3 = Revenue'
+     A                                 14  2'G/L Alpha Search:'
+     A            GCLOOK        15A  B 14 21
+     A N77                                  DSPATR(CS)
+     A  34N77                               DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Alpha Search Is Require-
+     A                                      d.       Press Reset')
+     A  77                                  DSPATR(HI)
+     A  77                                  DSPATR(PR)
+     A                                 14 60'4 = Expense'
+     A                                 16  2'Consolidate G/L'
+     A                                 17  2'Detail:'
+     A            GCCONF         1A  B 17 21
+     A N77                                  DSPATR(CS)
+     A  36N77                               DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A  77                                  DSPATR(HI)
+     A  77                                  DSPATR(PR)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'           Enter to Process       -
+     A                                      F6=Restart      F3/F7=End of Job   -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                 20 13' Press F23 to Delete - or F6 to Re-
+     A                                      start without Delete '
+     A  77                                  DSPATR(RI)
+     A N77                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R HELPB
+     A*%%TS  SD  19990607  070716  APGL        REL-V3R1M0  5763-PW1
+     A                                  8  2' G/L Chart of Accounts Fields     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2' G/L Description    Enter up to 30-
+     A                                       characters to describe this g/l nu-
+     A                                      mber.    '
+     A                                      DSPATR(HI)
+     A                                 11  2'                    This descripti-
+     A                                      on prints on g/l reports.          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2' Account Type       Enter the type-
+     A                                       of account for this g/l number.   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2' Alpha Search       Enter up to 15-
+     A                                       characters you will use to look up-
+     A                                       this    '
+     A                                      DSPATR(HI)
+     A                                 16  2'                    g/l number.   -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2' Detail             transferred to-
+     A                                       g/l - enter Y.  If consolidated, g-
+     A                                      /L will  '
+     A                                      DSPATR(HI)
+     A                                 20  2'                    create 1 recor-
+     A                                      d for each g/l number from each sub-
+     A                                       ledger  '
+     A                                      DSPATR(HI)
+     A                                 21  2'                    for each date.-
+     A                                        When transferring to g/l, a repor-
+     A                                      t will   '
+     A                                      DSPATR(HI)
+     A                                 22  2'                    print showing -
+     A                                      all the detail that was consolidate-
+     A                                      d.       '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2' Consolidate        If you do not -
+     A                                      want all the transactional detail t-
+     A                                      o be     '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)

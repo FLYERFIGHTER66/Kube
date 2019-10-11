@@ -1,0 +1,264 @@
+     A*%%TS  SD  19990712  094916  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990712  094916  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF05
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(05 046 14 053)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  1 27' Manual Pay Of Open Payable '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Vendor Number:'
+     A            VVEND          6Y 0B  5 46DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  17                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.   Press Reset')
+     A  16                                  ERRMSG('*** There Are No Open Payab-
+     A                                      les For This Vendor.    Press Reset-
+     A                                      ')
+     A                                  6 25'Alpha Search'
+     A            VALPHA        15A  B  6 46DSPATR(CS)
+     A            VMNAME        30A  O  7 46
+     A                                  9 25'Check Number:'
+     A            VCHECK         6Y 0B  9 46DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Check Number Is Require-
+     A                                      d.       Press Reset')
+     A  22                                  ERRMSG('*** Check Number Is Already-
+     A                                       On File.   Press Reset')
+     A                                 11 25'Check Date:'
+     A            VCKDTE         6Y 0B 11 46DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Y)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  27                                  ERRMSG('*** Enter A Valid Date.   P-
+     A                                      ress Reset')
+     A  26                                  ERRMSG('*** Check Date Cannot Be Lo-
+     A                                      wer Than Starting Date of Fiscal Ye-
+     A                                      ar.   Reset')
+     A                                 13 25'Check Amount:'
+     A            VAMT          11Y 2B 13 42DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(3)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Check Amount Is Require-
+     A                                      d.    Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'          Enter to Process    F6=R-
+     A                                      efresh Screen    F3/F7=End of Job  -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19980105  060619  GINNY       REL-V3R1M0  5763-PW1
+     A            CODE           1A  B 10  4DSPATR(CS)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A            PAY           11Y 2B 10  8EDTCDE(M)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A            DISC           7Y 2B 10 23EDTCDE(M)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A            VOUCH          6Y 0O 10 36DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            INV#          10A  O 10 44DSPATR(HI)
+     A            ITYP           1A  O 10 56DSPATR(HI)
+     A            IDATE          6Y 0O 10 59DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A            DDATE          6Y 0O 10 69DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19990603  104245  APGL        REL-V3R1M0  5763-PW1
+     A  *DS3                                SFLSIZ(0200)
+     A  *DS4                                SFLSIZ(0200)
+     A  *DS3                                SFLPAG(0013)
+     A  *DS4                                SFLPAG(0012)
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CF09
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  31                                  SFLMSG('*** Valid Codes Are Y or N.-
+     A                                            Press Reset')
+     A  10                                  SFLMSG('*** Amount Paid Cannot Be 0-
+     A                                      .      Press Reset')
+     A  40                                  SFLMSG('*** Vouchers Selected Do No-
+     A                                      t Equal Check Amount.    Press Rese-
+     A                                      t')
+     A                                  1  7' Roll For Addl Vouchers    F1=Acce-
+     A                                      pt Entry    F6=Restart(No Update) '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'Vendor:'
+     A            VVEND          6Y 0O  3 10EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VMNAME        30A  O  3 17DSPATR(HI)
+     A                                  3 50'Company:'
+     A            LCO            2Y 0O  3 59EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  5  2'Check#:'
+     A            VCHECK         6Y 0O  5 10EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  5 19'Date:'
+     A            VCKDTE         6Y 0O  5 25EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  5 35'Acctg Period:'
+     A  88                                  DSPATR(ND)
+     A            BDATE          6Y 0O  5 49EDTCDE(Y)
+     A  88                                  DSPATR(ND)
+     A N88                                  DSPATR(HI)
+     A                                  5 59'-'
+     A  88                                  DSPATR(ND)
+     A            EDATE          6Y 0O  5 62EDTCDE(Y)
+     A  88                                  DSPATR(ND)
+     A N88                                  DSPATR(HI)
+     A                                  7  2'Amount of Check:'
+     A            VAMT          11Y 2O  7 19EDTCDE(3)
+     A                                      DSPATR(RI)
+     A                                  7 48' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A  99                                  DSPATR(BL)
+     A N99                                  DSPATR(ND)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  9  2'PayCd     Amount    Disc Avail   V-
+     A                                      oucher     Invoice Tp  Due Date  Di-
+     A                                      sc Date  '
+     A                                      DSPATR(UL)
+     A                                  5 72'=Future'
+     A N89                                  DSPATR(ND)
+     A  89                                  DSPATR(RI)
+     A          R HELP
+     A*%%TS  SD  19980105  065501  GINNY       REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  3  3' Overview Manual Pay of an Open Pa-
+     A                                      yable                              -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5  3' If you pay a vendor invoice that -
+     A                                      is in the open payables file by any-
+     A                                       other  '
+     A                                      DSPATR(HI)
+     A                                  6  3' method than process payments, ent-
+     A                                      er the data about that payment here-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                  8  3' Enter the vendor number, check nu-
+     A                                      mber, check date and the amount of -
+     A                                      the     '
+     A                                      DSPATR(HI)
+     A                                  9  3' check.  All of the open payables -
+     A                                      for that vendor will then be displa-
+     A                                      yed     '
+     A                                      DSPATR(HI)
+     A                                 12  3' Select the vouchers that are bein-
+     A                                      g paid by this check by entering a -
+     A                                      Y       '
+     A                                      DSPATR(HI)
+     A                                 13  3' in the pay code field.   If you a-
+     A                                      re only making a partial payment on-
+     A                                       a      '
+     A                                      DSPATR(HI)
+     A                                 14  3' voucher, change the amount paid t-
+     A                                      o the amount you are paying.       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' A report will print listing the v-
+     A                                      ouchers that have been updated as p-
+     A                                      aid.   '
+     A                                      DSPATR(HI)
+     A                                 10  3' showing the balance due on each i-
+     A                                      nvoice and any discount that is ava-
+     A                                      ilable. '
+     A                                      DSPATR(HI)
+     A                                 16  3' If a discount was applied to the -
+     A                                      invoice amount, enter the amount of-
+     A                                       the    '
+     A                                      DSPATR(HI)
+     A                                  4  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' discount in the discount taken fi-
+     A                                      eld.                               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' To accept the data - Enter F1.  T-
+     A                                      o restart with no update - Enter F6-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)

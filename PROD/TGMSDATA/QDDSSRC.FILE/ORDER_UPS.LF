@@ -1,0 +1,29 @@
+     A          R ORDERS                    JFILE(FHORDR FMCUST FCUSTCOM)
+     A          J                           JOIN(FHORDR FMCUST)
+     A                                      JFLD(OHCUST CMCUST)
+     A          J                           JOIN(FHORDR FCUSTCOM)
+     A                                      JFLD(OHCUST CCUST)
+      * FHORDR
+     A            STATUS                    RENAME(OHSTAT)
+     A            ORDER                     RENAME(OHORD#)
+     A            CUSTNO                    RENAME(OHCUST)
+     A            NAME                      RENAME(OHNAME)
+     A            ADDRESS1                  RENAME(OHSHP2)
+     A            ADDRESS2                  RENAME(OHSHP3)
+     A            ADDRESS3                  RENAME(OHSHP4)
+     A            CITY                      RENAME(OHSHCT)
+     A            STATE                     RENAME(OHSHST)
+     A            ZIPCODE                   RENAME(OHSHZP)
+     A            PO_NUMBER                 RENAME(OHPONO)
+     A            SHIP_INSTR                RENAME(OHSHIN)
+     A            SPEC_INSTR                RENAME(OHSPIN)
+     A            SHIP_VIA                  RENAME(OHSHPC)
+      *  FMCUST
+     A            CONTACT                   RENAME(CMCNME)
+     A            PHONE                     RENAME(CMPHON)
+      *  FCUSTCOM
+     A            EMAIL                     RENAME(CCEML)
+     A            CCSEQ
+      *
+     A          K ORDER
+     A          O CCSEQ                     COMP(NE 1)

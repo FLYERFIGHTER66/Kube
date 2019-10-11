@@ -1,0 +1,550 @@
+     A*%%TS  SD  20000728  073610  JEFF        REL-V3R7M0  5716-PW1
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990523  104143  JEFF        REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPA1)
+     A  *DS3                                HLPARA(05 055 06 069)
+     A  *DS4                                HLPARA(05 055 06 069)
+     A          H
+     A N95                                  HLPRCD(HELPA1)
+     A  *DS3                                HLPARA(05 055 06 069)
+     A  *DS4                                HLPARA(05 055 06 069)
+     A                                  1  2'DILCBR-A'
+     A                                  1 21' Update Customer''s Branch Salespe-
+     A                                      rson '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A                                      COLOR(GRN)
+     A            VACT           1A  B  5 12DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10 99                               ERRMSG('*** Valid Entries are C or -
+     A                                      I.  Press Reset')
+     A  07                                  ERRMSG('*** Control Record for Comp-
+     A                                      any 00 is Missing.  Press F7 to Can-
+     A                                      cel Job.')
+     A                                  5 26'Customer Number:'
+     A            VCUST          6Y 0B  5 47
+     A     95                               DSPATR(RI)
+     A                                      DSPATR(CS)
+     A     95                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  94 95 99                            ERRMSG('*** Either Customer Number -
+     A                                      or Alpha Search is Required.   Pres-
+     A                                      s Reset')
+     A  17 95 99                            ERRMSG('*** Either Customer Number -
+     A                                      or Alpha Search Can Be Entered - No-
+     A                                      t Both')
+     A  36 95 99                            ERRMSG('*** This Customer Number Is-
+     A                                       Not on File.     Press Reset')
+     A  37 95 99                            ERRMSG('*** Customer Number is Dele-
+     A                                      ted.                Press Reset')
+     A                                  6 26'or Alpha Search'
+     A            VALPHA        15A  B  6 47DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A     95                               DSPATR(RI)
+     A            CMNAME        30A  O  7 47
+     A                                  7  3' C = Change     '
+     A                                  9 26'Company Number:'
+     A            VCO            2D 0B  9 47CHECK(RZ)
+     A                                      DSPATR(CS)
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A  19    99                            ERRMSG('*** Company Number is Inval-
+     A                                      id.         Press Reset')
+     A                                  8  3' I = Inquiry    '
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                 Enter to Continue-
+     A                                               F3/F7=End of Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20000728  073610  JEFF        REL-V3R7M0  5716-PW1
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HBNAME)
+     A  *DS3                                HLPARA(06 015 06 044)
+     A  *DS4                                HLPARA(06 015 06 044)
+     A          H                           HLPRCD(HBALPHA)
+     A  *DS3                                HLPARA(06 063 06 077)
+     A  *DS4                                HLPARA(06 063 06 077)
+     A          H                           HLPRCD(HBADDR)
+     A  *DS3                                HLPARA(07 015 09 044)
+     A  *DS4                                HLPARA(07 015 09 044)
+     A          H                           HLPRCD(HBCSZ)
+     A  *DS3                                HLPARA(10 015 10 070)
+     A  *DS4                                HLPARA(10 015 10 070)
+     A          H                           HLPRCD(HBTEL)
+     A  *DS3                                HLPARA(12 015 13 052)
+     A  *DS4                                HLPARA(12 015 13 052)
+     A          H                           HLPRCD(HBCAR)
+     A  *DS3                                HLPARA(15 020 15 025)
+     A  *DS4                                HLPARA(15 020 15 025)
+     A          H                           HLPRCD(HBSLSP)
+     A  *DS3                                HLPARA(15 049 15 050)
+     A  *DS4                                HLPARA(15 049 15 050)
+     A          H                           HLPRCD(HBTYPE)
+     A  *DS3                                HLPARA(15 075 15 076)
+     A  *DS4                                HLPARA(15 075 15 076)
+     A          H                           HLPRCD(HBCSA)
+     A  *DS3                                HLPARA(16 020 16 025)
+     A  *DS4                                HLPARA(16 020 16 025)
+     A          H                           HLPRCD(HBTERR)
+     A  *DS3                                HLPARA(16 049 16 050)
+     A  *DS4                                HLPARA(16 049 16 050)
+     A          H                           HLPRCD(HBORDL)
+     A  *DS3                                HLPARA(16 071 16 076)
+     A  *DS4                                HLPARA(16 071 16 076)
+     A          H                           HLPRCD(HBCBI)
+     A  *DS3                                HLPARA(17 020 17 025)
+     A  *DS4                                HLPARA(17 020 17 025)
+     A          H                           HLPRCD(HBCOMM)
+     A  *DS3                                HLPARA(17 046 17 050)
+     A  *DS4                                HLPARA(17 046 17 050)
+     A          H                           HLPRCD(HBBROK)
+     A  *DS3                                HLPARA(17 076 17 076)
+     A  *DS4                                HLPARA(17 076 17 076)
+     A          H                           HLPRCD(HBXREF)
+     A  *DS3                                HLPARA(18 020 18 025)
+     A  *DS4                                HLPARA(18 020 18 025)
+     A          H                           HLPRCD(HBNOTES)
+     A  *DS3                                HLPARA(20 011 20 076)
+     A  *DS4                                HLPARA(20 013 20 076)
+     A          H                           HLPRCD(HBCNAM)
+     A  *DS3                                HLPARA(11 015 11 044)
+     A  *DS4                                HLPARA(11 015 11 044)
+     A          H                           HLPRCD(HBPORQ)
+     A  *DS3                                HLPARA(18 050 18 050)
+     A  *DS4                                HLPARA(18 050 18 050)
+     A                                  1  2'DILCBR-B'
+     A                                  1 21' Update Customer''s Branch Salespe-
+     A                                      rson '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 35DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3  2'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  3 13' -* DPC *- '
+     A N43                                  DSPATR(ND)
+     A  43                                  DSPATR(HI)
+     A  43                                  DSPATR(BL)
+     A  43                                  DSPATR(RI)
+     A                                  5  5'Number:'
+     A            CMCUST         6Y 0O  5 15EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  6  7'Name:'
+     A            CMNAME        30A  B  6 15DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      DSPATR(RI)
+     A                                      CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  6 49'Alpha Search:'
+     A            CMLOOK        15A  B  6 63DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  7  2'Address 2:'
+     A            CMADD2        30A  B  7 15CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  8  2'Address 3:'
+     A            CMADD3        30A  B  8 15CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  9  2'Address 4:'
+     A            CMADD4        30A  B  9 15CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 10  7'City:'
+     A            CMCITY        18A  B 10 15CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 10 36'State:'
+     A            CMSTST         2A  B 10 43DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 10 48'Zip Code:'
+     A            CMZIP          9A  B 10 58DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 11  4'Country:'
+     A            CMCOUN        10A  B 11 15DSPATR(PR)
+     A                                      CHECK(LC)
+     A                                      DSPATR(HI)
+     A                                 12  4'Contact:'
+     A            CMCNME        30A  B 12 15CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 13  4'Tel. #1:'
+     A            CMPHON        10Y 0B 13 15EDTWRD('   -   -    ')
+     A                                      CHECK(FE)
+     A                                      DSPATR(PR)
+     A                                      CHECK(RB)
+     A                                      DSPATR(HI)
+     A                                 13 30'Tel. #2:'
+     A            CMPHO2        10Y 0B 13 41EDTWRD('   -   -    ')
+     A                                      CHECK(FE)
+     A                                      DSPATR(PR)
+     A                                      CHECK(RB)
+     A                                      DSPATR(HI)
+     A                                 13 55'Fax:'
+     A            HSFAX         10Y 0B 13 62EDTWRD('   -   -    ')
+     A                                      DSPATR(PR)
+     A                                      CHECK(FE)
+     A                                      CHECK(RB)
+     A                                      DSPATR(HI)
+     A                                 14 30'Customer Type:'
+     A            CMCTYP         2A  B 14 46DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 23  2'    Enter to Continue           F6-
+     A                                      =Restart            F3/F7=End of Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)
+     A                                  5 25'Old Customer Number:'
+     A            OLDNO          5A  O  5 47DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 14  1'Speed Dial:'
+     A            CASPDL         3Y 0B 14 15CHECK(FE)
+     A                                      DSPATR(PR)
+     A                                      CHECK(RB)
+     A                                      DSPATR(HI)
+     A                                 14 55'Call before Faxing:'
+     A            HSFXCF         1A  B 14 76DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 18 12' Press ENTER to Continue to Branch-
+     A                                       Salesperson Info Screen '
+     A                                      DSPATR(RI)
+     A                                 22 80' '
+     A* COMPANY NAME
+     A          R SCRNC
+     A*%%TS  SD  19990825  071256  JEFF        REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'DILCBR-C'
+     A                                  1 21' Update Customer''s Branch Salespe-
+     A                                      rson '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 35DSPATR(RI)
+     A N77                                  DSPATR(BL)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 13' -* DPC *- '
+     A N43                                  DSPATR(ND)
+     A  43                                  DSPATR(HI)
+     A  43                                  DSPATR(BL)
+     A  43                                  DSPATR(RI)
+     A                                  4  2'Customer:'
+     A            CMCUST         6Y 0O  4 13EDTCDE(Z)
+     A            CMNAME        30A  O  4 22
+     A*
+     A                                  6 52'Note: Put an X under'
+     A                                  7 58'Day to call.'
+     A                                  8 15'---User----'
+     A                                  8 54'Mon   Wed   Fri'
+     A                                  8 75'Call'
+     A                                  9 15'I.D.'
+     A                                  9 21'Name'
+     A                                  9 75'Time'
+     A                                  9 57'Tue   Thr   Sat'
+     A*
+      *** FRESH CUT  *********************************
+     A                                      DSPATR(UL)
+     A                                 10  2'Bloom Fresh?'
+     A            USERF          5A  B 10 15
+     A                                      DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Invalid User I.D.      -
+     A                                                  Press RESET')
+     A  12                                  ERRMSG('*** User in wrong departmen-
+     A                                      t.          Press RESET')
+     A  13                                  ERRMSG('*** User Not found in F400U-
+     A                                      SR file.    Press RESET')
+     A  14                                  ERRMSG('*** No Valid Sys/36 USER-ID-
+     A                                       in SALESFL:  Prs RESET')
+     A*
+     A            USENMF        30A  O 10 21
+     A*
+     A            CTIMF          4Y 0B 10 75DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A                                      EDTWRD('  :  ')
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** Invalid time entered. M-
+     A                                      ust be between 00:00 and 24:00   Pr-
+     A                                      ess RESET')
+     A            CMOF           1A  B 10 55DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTUF           1A  B 10 58DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CWEF           1A  B 10 61DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTHF           1A  B 10 64DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CFRF           1A  B 10 67DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CSAF           1A  B 10 70DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A*
+      *** SCRANTON ***********************************
+     A                                 12  2'Scranton?'
+     A            USERD          5A  B 12 15
+     A                                      DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Invalid User I.D.      -
+     A                                                  Press RESET')
+     A  22                                  ERRMSG('*** User in wrong departmen-
+     A                                      t.          Press RESET')
+     A  23                                  ERRMSG('*** User Not found in F400U-
+     A                                      SR file.    Press RESET')
+     A  24                                  ERRMSG('*** No Valid Sys/36 USER-ID-
+     A                                       in SALESFL:  Prs RESET')
+     A*
+     A            USENMD        30A  O 12 21
+     A*
+     A            CTIMD          4Y 0B 12 75DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A                                      EDTWRD('  :  ')
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Invalid time entered. M-
+     A                                      ust be between 00:00 and 24:00   Pr-
+     A                                      ess RESET')
+     A            CMOD           1A  B 12 55DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTUD           1A  B 12 58DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CWED           1A  B 12 61DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTHD           1A  B 12 64DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CFRD           1A  B 12 67DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CSAD           1A  B 12 70DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A*
+      *** LEHIGH VALLEY  *****************************
+     A                                 14  2'L.V.?'
+     A            USERL          5A  B 14 15
+     A                                      DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Invalid User I.D.      -
+     A                                                  Press RESET')
+     A  32                                  ERRMSG('*** User in wrong departmen-
+     A                                      t.          Press RESET')
+     A  33                                  ERRMSG('*** User Not found in F400U-
+     A                                      SR file.    Press RESET')
+     A  34                                  ERRMSG('*** No Valid Sys/36 USER-ID-
+     A                                       in SALESFL:  Prs RESET')
+     A*
+     A            USENML        30A  O 14 21
+     A*
+     A            CTIML          4Y 0B 14 75DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A                                      EDTWRD('  :  ')
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Invalid time entered. M-
+     A                                      ust be between 00:00 and 24:00   Pr-
+     A                                      ess RESET')
+     A*
+     A            CMOL           1A  B 14 55DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTUL           1A  B 14 58DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CWEL           1A  B 14 61DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTHL           1A  B 14 64DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CFRL           1A  B 14 67DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CSAL           1A  B 14 70DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A*
+      *** PK   ***************************************
+     A                                 16  2'P.K.?'
+     A            USERP          5A  B 16 15
+     A                                      DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Invalid User I.D.      -
+     A                                                  Press RESET')
+     A  42                                  ERRMSG('*** User in wrong departmen-
+     A                                      t.          Press RESET')
+     A  43                                  ERRMSG('*** User Not found in F400U-
+     A                                      SR file.    Press RESET')
+     A  44                                  ERRMSG('*** No Valid Sys/36 USER-ID-
+     A                                       in SALESFL:  Prs RESET')
+     A*
+     A            USENMP        30A  O 16 21
+     A*
+     A            CTIMP          4Y 0B 16 75DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A                                      EDTWRD('  :  ')
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Invalid time entered. M-
+     A                                      ust be between 00:00 and 24:00   Pr-
+     A                                      ess RESET')
+     A            CMOP           1A  B 16 55DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTUP           1A  B 16 58DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CWEP           1A  B 16 61DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTHP           1A  B 16 64DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CFRP           1A  B 16 67DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CSAP           1A  B 16 70DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A*
+      *** SUPPLY *************************************
+     A                                 18  2'Supply?'
+     A            USERS          5A  B 18 15
+     A                                      DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Invalid User I.D.      -
+     A                                                  Press RESET')
+     A  52                                  ERRMSG('*** User in wrong departmen-
+     A                                      t.          Press RESET')
+     A  53                                  ERRMSG('*** User Not found in F400U-
+     A                                      SR file.    Press RESET')
+     A  54                                  ERRMSG('*** No Valid Sys/36 USER-ID-
+     A                                       in SALESFL:  Prs RESET')
+     A*
+     A            USENMS        30A  O 18 21
+     A*
+     A            CTIMS          4Y 0B 18 75DSPATR(CS)
+     A  77                                  DSPATR(PR)
+     A                                      EDTWRD('  :  ')
+     A  55                                  DSPATR(RI)
+     A  55                                  DSPATR(PC)
+     A  55                                  ERRMSG('*** Invalid time entered. M-
+     A                                      ust be between 00:00 and 24:00   Pr-
+     A                                      ess RESET')
+     A            CMOS           1A  B 18 55DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTUS           1A  B 18 58DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CWES           1A  B 18 61DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CTHS           1A  B 18 64DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CFRS           1A  B 18 67DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A            CSAS           1A  B 18 70DSPATR(CS)
+     A                                      VALUES('X' ' ')
+     A  77                                  DSPATR(PR)
+     A  77                             20  9'No Updates occur during Inquiry Mo-
+     A                                      de - Press Enter to resume  '
+     A  98                             20 15' Verify Data is OK. Press Enter; e-
+     A                                      lse make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A N77                             19 33'          (2:05PM would be entered-
+     A                                       as --> 1405 )'
+     A                                 20  7' '
+     A                                 21 80' '
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process             F6-
+     A                                      =Restart           F3/F7=End of Job-
+     A                                               '

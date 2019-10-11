@@ -1,0 +1,30 @@
+000100040617     H/Copy QFunctDefn,@CopyRight                                               Copyright Info.
+000200000000     H DATFMT(*USA)
+000300000000     H NOMAIN
+000400000000
+000500000000      * Function Prototype(s)
+000600040412     D/Copy QFunctDefn,$MDYDate
+000700000000     D/Copy QFunctDefn,$isDate#
+000800000000
+000900000000
+001000000000     *   ..................................................................
+001100040412     *   :  $MDYDate                                             function :
+001200000000     *   :................................................................:
+001300000000
+001400040412     P $MDYDate        B                   Export
+001500040412     D $MDYDate        PI             6S 0
+001600040412     D   $date                         D   const
+001700000000
+001800040412    *  The $MDYDate function returns a 6 digit daye in MDY format for Date field passed
+001900040412    *  ie. you pass (01/15/2006) and you get 011506
+002000000000
+002100040412     D  DateDS         DS
+002200000000     D  DateWk                 1      8  0
+002300040412     D    Last6                3      8  0
+002400000000
+002500000000
+002600040412     C     *ISO          Move      $date         DateWk
+002700040412     C                   Mult      100.0001      Last6
+002800040412     C                   return    Last6
+002900000000
+003000040412     P   $MDYDate      E

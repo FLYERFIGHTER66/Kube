@@ -1,0 +1,578 @@
+     A*%%TS  SD  20060112  120605  BILLB       REL-V5R3M0  5722-WDS
+0000 A*0IGC 0DS4  V3R7M0                    910710
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20060112  093908  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A                                  1  3'GRF030A'
+     A                                      COLOR(BLU)
+     A                                  7  7'Enter Ship Date:'
+     A                                  7 38'NOTE: Date must be a Monday Date.'
+     A                                      DSPATR(HI)
+     A                                  8 44'Enter Date as 060599 or 6/05/99'
+     A                                      DSPATR(HI)
+     A                                 11  7'Enter Size Wanted:'
+     A            SIZE           3A  B 11 26DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                 11 38'Enter Alpha Search:'
+     A            ALPHA          3A  B 11 60DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                 13  5'                         '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 13 38'NOTE: Enter First Three letters of-
+     A                                       Variety'
+     A                                      DSPATR(HI)
+     A                                 14  5' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 14  9'Valid Size Codes'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                 14 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 14 44'wanted or "A" for ALL Varieties.  -
+     A                                        '
+     A                                      DSPATR(HI)
+     A                                 15  5' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 15 10'512 = 512 Tray'
+     A                                 15 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 16  5' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 16 10'288 = 288 Tray'
+     A                                 16 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 17  5' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 17 10'162 = 162 Tray'
+     A                                 17 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 18  5' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 18 10'105 = 105 Tray'
+     A                                 18 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 19  5'                         '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 23  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 24 13'Enter'
+     A                                      DSPATR(HI)
+     A                                  2  3USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            SHPDAT         6Y 0B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Must be A -
+     A                                      Monday Date.     Press RESET(left C-
+     A                                      ontrol)')
+     A  10 11                               ERRMSG('*** There is nothing availa-
+     A                                      ble for selected week.     Press RE-
+     A                                      SET')
+     A                                  1 23'  Griffin Availability Order Entry-
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 24 45'F3/F7'
+     A                                      DSPATR(HI)
+     A                                 24 51'= End of Job'
+     A                                      COLOR(BLU)
+     A                                 24 19'=Continue'
+     A                                      COLOR(BLU)
+     A                                 16 34'WARNING:'
+     A                                      COLOR(RED)
+     A                                 16 43'If you enter any selection criteri-
+     A                                      a  '
+     A                                      COLOR(BLU)
+     A                                 17 43'on this screen, the order you crea-
+     A                                      te '
+     A                                      COLOR(BLU)
+     A                                 18 43'is limited to'
+     A                                      COLOR(BLU)
+     A                                 19 43'put PET in the Alpha search if you-
+     A                                         '
+     A                                      COLOR(BLU)
+     A                                 20 43'are ever going to want GERANIUM on-
+     A                                         '
+     A                                      COLOR(BLU)
+     A                                 21 43'the order.                        -
+     A                                         '
+     A                                      COLOR(BLU)
+     A                                 18 57'THIS CRITERIA.'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 18 72' DO NOT'
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20060111  092527  BILLB       REL-V5R3M0  5722-WDS
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF05
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  3'GRF030B'
+     A                                      COLOR(BLU)
+     A            SCRID          1A  I  2 14DFT('B')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1 23'  Griffin Availability Order Entry-
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 23'   Customer Shipping Information  -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4  1'Broker Name:'
+     A            BRKNAM        30A  O  4 14DSPATR(HI)
+     A                                 18  4'Enter Your P.O. #:'
+     A            BRKPO         15A  B 18 23DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** P.O. # is a required fi-
+     A                                      eld.        Press RESET')
+     A                                  8 14'Name:'
+     A            OHNAME        30A  B  8 20
+     A  20N98                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  20N98                               DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A  20                                  ERRMSG('*** Ship to Name is a Requi-
+     A                                      red Field.  Press RESET')
+     A                                  8 51'*'
+     A  98                                  DSPATR(ND)
+     A                                  9  9'Address 1:'
+     A            OHSHP2        30A  B  9 20
+     A  21N98                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  21N98                               DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A  21                                  ERRMSG('*** Adderess line 1 is a re-
+     A                                      quired filed.  Press RESET')
+     A                                  9 51'*'
+     A  98                                  DSPATR(ND)
+     A                                 10  9'Address 2:'
+     A            OHSHP3        30A  B 10 20DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  98                                  DSPATR(PR)
+     A                                 11  9'Address 3:'
+     A            OHSHP4        30A  B 11 20DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  98                                  DSPATR(PR)
+     A                                 12 14'City:'
+     A            OHSHCT        18A  B 12 20
+     A  22N98                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  22N98                               DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A  22                                  ERRMSG('*** City is a required fiel-
+     A                                      d.       Press RESET')
+     A                                 12 39'*'
+     A  98                                  DSPATR(ND)
+     A                                 12 41'State:'
+     A            OHSHST         2A  B 12 48
+     A  23N98                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  23N98                               DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A  23                                  ERRMSG('*** State is a required fie-
+     A                                      ld.         Press RESET')
+     A                                 12 51'*'
+     A  98                                  DSPATR(ND)
+     A                                 12 53'Zip:'
+     A            OHSHZP         9D  B 12 58
+     A  24N98                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  24N98                               DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A  24                                  ERRMSG('*** Zip Code is a required -
+     A                                      field.      Press RESET')
+     A                                 12 68'*'
+     A  98                                  DSPATR(ND)
+     A                                 13  2'Telephone Number:'
+     A            PHON1          3D  B 13 20
+     A  30                                  DSPATR(PC)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A  30                                  ERRMSG('*** Phone number is a requi-
+     A                                      red filed.  Press RESET')
+     A                                 13 24'-'
+     A            PHON2          3D  B 13 26DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A                                 13 30'-'
+     A            PHON3          4D  B 13 32DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  98                                  DSPATR(PR)
+     A                                 13 37'*'
+     A  98                                  DSPATR(ND)
+     A                                  4 46'Requested Ship Date:'
+     A                                 16  4'Enter Ship Via:'
+     A                                 20  4'Comments:'
+     A            COMM1         30A  B 20 14DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A            COMM2         30A  B 21 14DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                 23  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 14  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A            SHPVIA         2D  B 16 20CHECK(RB)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A            SVDESC        30A  O 16 23
+     A            COMM3         30A  B 22 14DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                  5  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 16 56'F5'
+     A                                      DSPATR(HI)
+     A                                 20 46'NOTE: Comments appear on order'
+     A                                      COLOR(PNK)
+     A                                  9 54'NOTE: (*) Indicates a '
+     A  98                                  DSPATR(ND)
+     A                                 10 60'Required Field on'
+     A  98                                  DSPATR(ND)
+     A                                 11 60'an Add Customer'
+     A  98                                  DSPATR(ND)
+     A            SHPDAT         6Y 0O  4 67EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  8 56'F1'
+     A                                      DSPATR(HI)
+     A                                  8 59'= Customer Search'
+     A                                      COLOR(BLU)
+     A                                 16 59'= Ship Via Search'
+     A                                      COLOR(BLU)
+     A                                 24  9'F2'
+     A                                      DSPATR(HI)
+     A                                 24 12'= Accecpt Order'
+     A                                      COLOR(BLU)
+     A                                 24 49'F3'
+     A                                      DSPATR(HI)
+     A                                 24 52'= Cancel Order'
+     A                                      COLOR(BLU)
+     A                                  7  2'Ship to Information:'
+     A                                      COLOR(YLW)
+     A          R SCRNBO
+     A*%%TS  SD  19990215  190819  EFD         REL-V3R7M0  5716-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      CF05
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      CF10
+     A                                      CF11
+     A                                      CF12
+     A                                      CF13
+     A                                      CF14
+     A                                      CF15
+     A                                      CF16
+     A                                      CF17
+     A                                      CF18
+     A                                      CF19
+     A                                      CF20
+     A                                      CF21
+     A                                      CF22
+     A                                      CF23
+     A                                      CF24
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  2  3'GRF030BO'
+     A            SCRID          1A  I  2 14DFT('B')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  2 25' PLUG AVAILABILITY ORDER ENTRY '
+     A                                      DSPATR(RI)
+     A                                  3 25' Customer Shipping Information '
+     A                                      DSPATR(RI)
+     A                                  5  1'Broker Name:'
+     A            BRKNAM        30A  O  5 14DSPATR(HI)
+     A                                 17  4'Enter Your P.O. #:'
+     A            BRKPO         15A  O 17 23
+     A                                  8 14'Name:'
+     A            OHNAME        30A  O  8 20
+     A                                  9  9'Address 1:'
+     A            OHSHP2        30A  O  9 20
+     A                                 10  9'Address 2:'
+     A            OHSHP3        30A  O 10 20
+     A                                 11  9'Address 3:'
+     A            OHSHP4        30A  O 11 20
+     A                                 12 14'City:'
+     A            OHSHCT        18A  O 12 20
+     A                                 12 41'State:'
+     A            OHSHST         2A  O 12 48
+     A                                 12 53'Zip:'
+     A            OHSHZP         9A  O 12 58
+     A                                 13  2'Telephone Number:'
+     A            PHON1          3A  O 13 20
+     A                                 13 24'-'
+     A            PHON2          3A  O 13 26
+     A                                 13 30'-'
+     A            PHON3          4A  O 13 32
+     A                                  5 46'Requested Ship Date:'
+     A            REQSHP         8A  O  5 67DSPATR(HI)
+     A                                 19  4'Comments:'
+     A            COMM1         30A  O 19 14
+     A            COMM2         30A  O 20 14
+     A                                 23  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                 24  4'                     Press Enter T-
+     A                                      o Continue                         -
+     A                                            '
+     A                                 14  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A            SHPVIA         2A  O 15 20
+     A            SVDESC        30A  O 15 23
+     A            COM3          30A  O 21 14
+     A                                  7  1'                   Ship to Informa-
+     A                                      tion                               -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                 15 10'Ship Via:'
+     A                                 22  5'Now Processing this as an open ord-
+     A                                      er. Our order number:'
+     A                                      DSPATR(RI)
+     A            ORDNUM         6Y 0O 22 61DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                  2 73DATE
+     A                                      EDTCDE(Y)
+     A                                  3 73TIME
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  20060112  120605  BILLB       REL-V5R3M0  5722-WDS
+     A            LRITEM        12A  O  8  2
+     A            LRSIZE         3A  O  8 16
+     A            IMDES1        30A  O  8 21
+     A            QTYORD         6Y 0B  8 63
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            QTYAV          7Y 0O  8 71EDTCDE(4)
+     A            LRSOWD         7S 0H
+     A            LRCRDY         7S 0H
+     A            LRGLOC         3A  H
+     A            LRCLOC         3A  H
+     A            LRCODE         1A  H
+     A            LRCUST         6S 0H
+     A            TOT_AVAIL      7Y 0O  8 53EDTCDE(4)
+     A            GRF_OIRVDTR        H      REFFLD(RIORDR/OIRVDT *LIBL/FIORDR)
+     A            GRF_OISTATR        H      REFFLD(RIORDR/OISTAT *LIBL/FIORDR)
+     A            GRF_OISIZER        H      REFFLD(RIORDR/OISIZE *LIBL/FIORDR)
+     A            GRF_OIITMAR        H      REFFLD(RIORDR/OIITMA *LIBL/FIORDR)
+     A            GRF_OIITEMR        H      REFFLD(RIORDR/OIITEM *LIBL/FIORDR)
+     A            GRF_OIORD#R        H      REFFLD(RIORDR/OIORD# *LIBL/FIORDR)
+     A            GRF_OISEQ#R        H      REFFLD(RIORDR/OISEQ# *LIBL/FIORDR)
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  20060112  092348  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLSIZ(0500)
+     A  *DS4                                SFLSIZ(0500)
+     A  *DS3                                SFLPAG(0017)
+     A  *DS4                                SFLPAG(0001)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A  98                                  CF02
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  11                                  SFLMSG('*** You Cannot order more t-
+     A                                      han available.     Press RESET')
+     A  71                                  SFLMSG('*** There are no items orde-
+     A                                      red.        Press RESET')
+     A                                  1  2'GRF030SFL'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 22' Order Entry from Griffin Speculat-
+     A                                      ion '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            BRKNAM        30A  O  2 26
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Enter to Verify   Roll Keys       -
+     A                                                  F6=Restart         F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7  2'Item         Size  Description    -
+     A                                                       On Hand   Order  A-
+     A                                      vailable'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 54'----Quantity----'
+     A                                      DSPATR(HI)
+     A                                  5  2'Quantity on Order:'
+     A            TOTQTY         7Y 0O  5 21EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                  6  2' CORRECT ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  5 64' CORRECT ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  5 32' Press F2 To Create Order '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R SCRNC
+     A*%%TS  SD  19990224  152131  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A                                  1  2'GRF030C'
+     A            SCRID          1A  I  1 13DFT('A')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1 25' Plug Availability Order Entry '
+     A                                      DSPATR(RI)
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                 23  2'                               Ent-
+     A                                      er to Process                      -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  7  5'Enter Customer Number:'
+     A                                 12  6'or Alpha Search:'
+     A            CUSTNO         6Y 0B  7 28
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                  7 35'NOTE: If you know the ship to cust-
+     A                                      omer number'
+     A                                  8 41'Enter it here or enter an alphabet-
+     A                                      ic'
+     A                                  9 41'Search Word.'
+     A                                 10 41'Example customer name=The Garden C-
+     A                                      enter'
+     A                                 11 41'Enter Search Word GARDEN'
+     A            CMLOOK        15A  B 12 24DSPATR(CS)
+     A                                 16  4' *** Invalid Customer Number Enter-
+     A                                      ed. Please Re-Enter or Usa Alpha Se-
+     A                                      arch '
+     A  10                                  DSPATR(RI)
+     A N10                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)

@@ -1,0 +1,15 @@
+000100000000      * Fields
+000200050203     D $CMD_Command    S            100A   Inz(*Blanks)                         System Command
+000300050203
+000400050203 |P  D $CMD_Printer    S             10A   Inz(*Blanks)                         Printer to Use
+000500050203 |L  D $CMD_Library    S             10A   Inz(*Blanks)                         Library
+000600050203 |F  D $CMD_FileName   S             10A   Inz(*Blanks)                         File Name
+000700050203 |M  D $CMD_Member     S             10A   Inz(*Blanks)                         Member
+000800050203 |J  D $CMD_JobName    S             10A   Inz(*Blanks)                         Job Name
+000900000000      * Arrays
+001000120208     D*$CMD_CMD        S            100A   Dim(0004) CtData PerRcd(1)           System Commands
+001100050203      * Function Prototypes
+001200050203    D/COPY QFunctDefn,QCmdExc
+001300050203      * Sample Subroutine Usage
+001400050203     C*                  Eval      $CMD_Command = $CMD_CMD(3)                   Remove Override
+001500050203     C*                  ExSr      $Command

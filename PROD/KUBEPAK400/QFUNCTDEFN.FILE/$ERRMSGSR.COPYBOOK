@@ -1,0 +1,38 @@
+000100050221      *  ...........................................................
+000200050221      *  :      $ClrError - Clear Error Message Subfile            :
+000300050221      *  :.........................................................:
+000400050221    C     $ClrError     BegSr                                                  
+000500050221
+000600050221     C                   MOVE      'C'           $ERR_SorC         1            
+000700050221     C                   ExSr      SRMSGF                                       
+000800050221     C                   Eval      *In50 = *Off                                 Error Alarm Indicat
+000900050221
+001000050221    C                   EndSr                                                  
+001100050221      *  ...........................................................
+001200050221      *  :      $SndError - Send an Error Message to the PGMMSGQ   :
+001300050221      *  :.........................................................:
+001400050221    C     $SndError     BegSr                                                  
+001500050221
+001600050221     C                   MOVE      'S'           $ERR_SorC         1            
+001700050221     C                   ExSr      SRMSGF                                       
+001800050221     C                   Eval      *In50 = *On                                  Error Alarm Indicat
+001900050221
+002000050221    C                   EndSr                                                  
+002100050221
+002200050221      *  ...........................................................
+002300050221      *  :      SRMSGF - Clear or send messages to Pgm msg queue   :
+002400050221      *  :.........................................................:
+002500050221    C     SRMSGF        BegSr                                                  
+002600050221
+002700050221      * Call Msg processing CL                           
+002800050221
+002900050221     C                   CALL      'XAMSFC'
+003000050221     C                   Parm                    $ERR_PROG                      Pgm Msg Queue
+003100050221     C                   Parm                    $ERR_MSGF                      Message File
+003200050221     C                   Parm                    $ERR_LIBR                      Library
+003300050221     C                   Parm                    $ERR_MsgID                     Message Id
+003400050221     C                   Parm                    $ERR_MsgData                   Message Data
+003500050221     C                   Parm                    $ERR_MKEY                      Message Key
+003600050221     C                   Parm                    $ERR_SORC                      Send or Clear
+003700050221
+003800050221    C                   EndSr                                                  

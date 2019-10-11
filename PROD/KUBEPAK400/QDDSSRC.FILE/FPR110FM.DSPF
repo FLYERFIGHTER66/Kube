@@ -1,0 +1,323 @@
+     A*%%TS  SD  20160727  105548  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R FPR11001S                 SFL
+     A*%%TS  SD  20160727  105548  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            IN41           1A  H
+     A            IN42           1A  H
+     A            IN43           1A  H
+     A            IN51           1A  H
+     A            IN52           1A  H
+     A            IN53           1A  H
+     A            IN54           1A  H
+     A            FPITEM        12A  H
+     A            FPSIZE         3A  H
+     A            FPPPD#    R        O  7  2REFFLD(FFINPPDTAG/FPPPD# *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPDATE    R        O  7 14REFFLD(FFINPPDTAG/FPDATE *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      DATFMT(*USA)
+     A  42                                  DSPATR(ND)
+     A            FPPLTG    R        O  7 26REFFLD(FFINPPDTAG/FPPLTG *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPCUST    R        O  7 30REFFLD(FFINPPDTAG/FPCUST *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            ITEMSIZE      16A  O  7 46
+     A  41                                  DSPATR(HI)
+     A            FPFINTAG# R        O  7 77REFFLD(FFINPPDTAG/FPFINTAG# *LIBL/F-
+     A                                      FINPPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPQTYPROJ R        O  7 94REFFLD(FFINPPDTAG/FPQTYPROJ *LIBL/F-
+     A                                      FINPPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(2)
+     A  51                                  DSPATR(RI)
+     A            FPQTYACTL R        O  7101REFFLD(FFINPPDTAG/FPQTYACTL *LIBL/F-
+     A                                      FINPPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(2)
+     A  52                                  DSPATR(RI)
+     A            FPWEEK    R        O  8  2REFFLD(FFINPPDTAG/FPWEEK *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      DATFMT(*USA)
+     A  41                                  DSPATR(HI)
+     A            FPSHIP    R        O  8 14REFFLD(FFINPPDTAG/FPSHIP *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      DATFMT(*USA)
+     A  41                                  DSPATR(HI)
+     A  43                                  DSPATR(ND)
+     A            FPCABB    R        O  8 30REFFLD(FFINPPDTAG/FPCABB *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A            FPDESC    R        O  8 46REFFLD(FFINPPDTAG/FPDESC *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A            SELPOST        1A  B  7127
+     A  41                                  DSPATR(HI)
+     A                                      SFLCSRPRG
+     A            FPPD#CNTD R        O  7108REFFLD(FFINPPDTAG/FPQTYCNTD *LIBL/F-
+     A                                      FINPPDTAG)
+     A                                      EDTCDE(2)
+     A  54                                  DSPATR(RI)
+     A  41                                  DSPATR(HI)
+     A            QTYFOUND  R        B  7115REFFLD(FFINPPDTAG/FPQTYACTL *LIBL/F-
+     A                                      FINPPDTAG)
+     A                                      SFLCSRPRG
+     A                                      EDTCDE(2)
+     A  41                                  COLOR(WHT)
+     A N41                                  COLOR(GRN)
+     A  53                                  DSPATR(RI)
+     A            INVPROJ   R        O  7 87REFFLD(FFINPPDTAG/FPQTYPROJ *LIBL/F-
+     A                                      FINPPDTAG)
+     A                                      EDTCDE(2)
+     A                                      COLOR(BLU)
+     A          R FPR11001                  SFLCTL(FPR11001S)
+     A*%%TS  SD  20160707  154142  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(0800)
+     A                                      SFLPAG(0009)
+     A                                      TEXT('WORK WITH UPLOADS')
+     A                                      CF03(03)
+     A                                      CF04(04)
+     A                                      CF05(05)
+     A                                      CF07(07)
+     A                                      CF08(08)
+     A                                      CF09(09)
+     A                                      CF22(22 'RIGHT MOUSE CLICK')
+     A                                      CF10(10 'Change Sort')
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A N80 26                               SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLFOLD(CF11)
+     A                                      MOUBTN(*URP *URR CF22)
+     A            SFLPOSTO1      4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLCSRRRN      5S 0H
+     A            CSRFLD        10A  H
+     A            CSRRCD        10A  H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A            RECORDS        4Y 0O  1 94COLOR(PNK)
+     A                                      EDTCDE(4)
+     A                                  1 99'Batches'
+     A                                      COLOR(PNK)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  5  2' Tag #  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                  6  2' Week Date'
+     A                                      DSPATR(RI)
+     A                                  6 14' Ship Date'
+     A                                      DSPATR(RI)
+     A                                  5 30' Cust#'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                  6 30'Cust. Abbrev.  '
+     A                                      DSPATR(RI)
+     A                                  5 46'Item/Size       '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                  6 46'Description                   '
+     A                                      DSPATR(RI)
+     A                                  5 25'Pltg'
+     A                                      DSPATR(RI)
+     A                                  1 50'   Work with Scanned Inventory   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  5 14'Plant Date'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                  6 96'Schd'
+     A                                      DSPATR(RI)
+     A                                  5103'Prod'
+     A                                      DSPATR(RI)
+     A                                  6110'Find'
+     A                                      DSPATR(RI)
+     A                                  3 88'                                  '
+     A                                      DSPATR(UL)
+     A                                  5 77'Finished'
+     A                                      DSPATR(RI)
+     A                                  3  2'Week:'
+     A                                      COLOR(YLW)
+     A            SELFPWEEK R        B  4  2REFFLD(FFINPPDTAG/FPWEEK *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(YLW)
+     A                                      DATFMT(*USA)
+     A                                      DSPATR(PC)
+     A            SELFPDATE R        B  4 14REFFLD(FFINPPDTAG/FPDATE *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(YLW)
+     A                                      DATFMT(*USA)
+     A                                  3 14'Planted:'
+     A                                      COLOR(YLW)
+     A                                  6125'POST'
+     A                                      DSPATR(RI)
+     A                                  6117'Find'
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  4 87'|'
+     A                                  4 89'        Q U A N T I T Y         '
+     A                                      DSPATR(UL)
+     A                                  4122'|'
+     A                                  6 77'   Tag  '
+     A                                      DSPATR(RI)
+     A                                  1 17'Sorting by:'
+     A                                      COLOR(PNK)
+     A            SORTBY         8A  O  1 29COLOR(PNK)
+     A            SELCSTM        1A  B  3 38COLOR(YLW)
+     A                                  3 30'Custom:'
+     A                                      COLOR(YLW)
+     A                                  3 40'(Y,N,B)'
+     A                                      COLOR(BLU)
+     A                                  4 30'Customer:'
+     A                                      COLOR(YLW)
+     A            SELCUST        6Y 0B  4 40COLOR(YLW)
+     A                                      EDTCDE(4)
+     A                                  4 48'Item:'
+     A                                      COLOR(YLW)
+     A            SELITEM        5A  B  4 54COLOR(YLW)
+     A                                  4 61'Size:'
+     A                                      COLOR(YLW)
+     A            SELSIZE        3A  B  4 67COLOR(YLW)
+     A                                  3124'Y=Post  '
+     A                                  4124'F=Final '
+     A                                  5124'D=Delete'
+     A                                  5 87'|'
+     A                                  5122'|'
+     A                                  6 87'|'
+     A                                  6122'|'
+     A                                  5 96'Prod'
+     A                                      DSPATR(RI)
+     A                                  6103'Scan'
+     A                                      DSPATR(RI)
+     A                                  5110'PPD#'
+     A                                      DSPATR(RI)
+     A            WEEK_MINUS     1A  O  3  8COLOR(PNK)
+     A                                      DFTVAL('-')
+     A            PLNT_MINUS     1A  O  3 23COLOR(PNK)
+     A                                      DFTVAL('-')
+     A            WEEK_PLUS      1A  O  3 10COLOR(PNK)
+     A                                      DFTVAL('+')
+     A            PLNT_PLUS      1A  O  3 25COLOR(PNK)
+     A                                      DFTVAL('+')
+     A                                  5 89'Proj'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  6 89'(IC)'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  2 48'* Use Right Button for Mouse Funct-
+     A                                      ions'
+     A                                      COLOR(PNK)
+     A          R FPR11001F
+     A*%%TS  SD  20160323  125652  BILLB       REL-V7R1M0  5770-WDS
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                       FPR11001 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 14'Enter=Process'
+     A                                      COLOR(BLU)
+     A                                 26111'F10=Change Sort'
+     A                                      COLOR(BLU)
+     A                                 26 32'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 47'F7=Select All'
+     A                                      COLOR(BLU)
+     A                                 26 65'F8=De-Select All'
+     A                                      COLOR(BLU)
+     A                                 26 86'F9=Reverse Selection'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages Control')
+     A                                      OVERLAY
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

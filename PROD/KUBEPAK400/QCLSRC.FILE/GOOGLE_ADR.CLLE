@@ -1,0 +1,17 @@
+             PGM        PARM(&CUSTADR)
+
+             DCL        VAR(&CUSTADR) TYPE(*CHAR) LEN(180)
+             DCL        VAR(&PCCMD) TYPE(*CHAR) LEN(256) +
+                          VALUE('EXPLORER.EXE +
+                          "http://maps.google.com/maps/place/')
+
+             IF         COND(&CUSTADR *EQ ' ') THEN(GOTO CMDLBL(SKIP))
+             CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *TCAT &CUSTADR)
+ SKIP:       CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *TCAT '"')
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             STRPCCMD   PCCMD(&PCCMD) PAUSE(*NO)
+
+ EOJ:        ENDPGM

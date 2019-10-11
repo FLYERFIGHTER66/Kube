@@ -1,0 +1,176 @@
+     A* Free Form Menu: MTM040
+     A*%%TS  SD  20040319  143209  BILLB       REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+0001 A* FREE  FORM MENU
+     A          R MTM040
+     A*%%TS  SD  20040317  150319  BILLB       REL-V5R1M0  5722-WDS
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF03
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'COMMAND'
+     A* CMDPROMPT  Do not delete this DDS spec.
+     A                                019  2'Ready for option number or command-
+     A                                          '
+     A                                  2 27' Distribution Annual Close '
+     A                                      DSPATR(RI)
+     A                                  5 28'1. - Close: Billing'
+     A                                  9 28'2. - Delete Shipped Orders'
+     A                                 13 36'Selections'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                 14 30'23. - Master Menu'
+     A                                 15 30'90. - Sign Off'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  6 40'Inventory'
+     A                                  7 40'Accounts Receivable'
+     A                                  8 40'Sales Analysis'
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  2  2USER
+     A                                  1 35'MENU: MTM040'
+     A                                      COLOR(BLU)
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                 10 28'3. - Purge A/R History File'
+     A                                 11 28'4. - Auto-portion of Daily Order P-
+     A                                      ost'
+     A          R #H0101
+     A*%%TS  SD  19940217  094949  GINNY       REL-V2R2M0  5738-PW1
+     A                                      TEXT('Help for Menu Option 01')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  1 29'Help for Menu Option 01'
+     A                                      DSPATR(HI)
+     A                                  3  2'Menu Option 1.   Monthly Close of -
+     A                                      Distribution Applications'
+     A                                      DSPATR(UL)
+     A                                 13 14'b.  Optionally deletes the monthly-
+     A                                       transaction records in files:'
+     A                                 14 18'FMTRAN - Monthly A/R Transactions'
+     A                                 15 18'FMSALE - Monthly Sales Transaction-
+     A                                      s'
+     A                                 16 18'FMTAXF - Monthly Sales Taxes'
+     A                                 17 18'FTINVT - Monthly Inventory Transac-
+     A                                      tions'
+     A                                 18 18'FMINVB - Monthly Inventory Lot Bal-
+     A                                      ances'
+     A                                 19 14'c.  Updates the Month To Date fiel-
+     A                                      ds in FMINVT - Item Master.'
+     A                                 20 14'd.  Optionally saves all of your d-
+     A                                      ata files.'
+     A                                 12 14'a.  Transfers all unposted transac-
+     A                                      tions to General Ledger'
+     A                                  5  2'This MUST be run at the end of eac-
+     A                                      h accounting period after all trans-
+     A                                      actions '
+     A                                  6  2'for the month have been entered an-
+     A                                      d all month end reports and functio-
+     A                                      ns have    been run.               -
+     A                                                '
+     A                                  9  2'DO NOT start processing transactio-
+     A                                      ns for the next period until the Mo-
+     A                                      nthly      Closing has been complet-
+     A                                      ed.'
+     A                                 12  2'Functions:'
+     A          R #H0202
+     A*%%TS  SD  19950409  205244  GINNY       REL-V2R2M0  5738-PW1
+     A                                      TEXT('Help for Menu Option 02')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  1 29'Help for Menu Option 02'
+     A                                      DSPATR(HI)
+     A                                  4  3'Menu Option 2. - Removed Shipped O-
+     A                                      rders'
+     A                                      DSPATR(UL)
+     A                                  7 10'All the transactions in the Order -
+     A                                      Header file (FHORDR) and the'
+     A                                  8 10'Order Detail file (FIORDR) that ha-
+     A                                      ve been shipped complete,   '
+     A                                  9 10'deleted or cancelled will be purge-
+     A                                      d from the files.           '
+     A                                 12 16'NO OTHER USERS MAY BE USING DISTRI-
+     A                                      BUTION FUNCTIONS'
+     A                                      DSPATR(RI)
+     A                                 14 28'WHILE THIS IS RUNNING !!!'
+     A                                      DSPATR(RI)
+     A          R #H0303
+     A*%%TS  SD  20000208  073338  TGMS        REL-V4R4M0  5769-PW1
+     A                                      TEXT('Help for Menu Option 03')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  3  3' Menu Option 3. - Purge A/R Histor-
+     A                                      y File                             -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  5  3' Over time, your A/R History file -
+     A                                      can get very large and the older da-
+     A                                      ta may  '
+     A                                      DSPATR(HI)
+     A                                  6  3' no longer be useful.   This progr-
+     A                                      am will delete ALL history records -
+     A                                      with an '
+     A                                      DSPATR(HI)
+     A                                  7  3' invoice or credit memo date equal-
+     A                                       or lower than the date entered her-
+     A                                      e.      '
+     A                                      DSPATR(HI)
+     A                                  8  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  3' You can also select to delete ALL-
+     A                                       history records for just a specifi-
+     A                                      c       '
+     A                                      DSPATR(HI)
+     A                                 10  3' customer.  This is necessary if y-
+     A                                      ou want to delete a customer record-
+     A                                       from   '
+     A                                      DSPATR(HI)
+     A                                 11  3' the customer master file and ther-
+     A                                      e are history records for that cust-
+     A                                      omer.   '
+     A                                      DSPATR(HI)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3' You can choose to print a report -
+     A                                      showing all the transactions that h-
+     A                                      ave     '
+     A                                      DSPATR(HI)
+     A                                 14  3' been deleted.                    -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

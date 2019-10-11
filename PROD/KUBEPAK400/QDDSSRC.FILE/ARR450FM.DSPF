@@ -1,0 +1,225 @@
+     A*%%TS  SD  19990410  115222  EFD         REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990410  115222  EFD         REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 30' A/R Collection Notes '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 20'A/R Customer Number:'
+     A            VACUST         6Y 0B  5 45EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.   Press Reset')
+     A  12                                  ERRMSG('*** Enter Either Customer o-
+     A                                      r Alpha.   Press Reset')
+     A                                  6 20'Alpha Search'
+     A            VALPHA        15A  B  6 45DSPATR(CS)
+     A                                  7 20'Telephone # Search'
+     A            VATELE        10A  B  7 45DSPATR(CS)
+     A            CMNAME        30A  O  8 45
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'            Enter to Process      -
+     A                                            F3/F7=End of Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19990222  064730  EFD         REL-V3R1M0  5763-PW1
+     A            TRDATE         6Y 0O 10  2DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            FUDATE         6Y 0O 10 69DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            COMM          55A  O 10 12DSPATR(HI)
+     A            CODE           1   O 10 79DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19990410  115222  EFD         REL-V3R1M0  5763-PW1
+     A  *DS3                                SFLSIZ(0100)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0001)
+     A  *DS4                                SFLPAG(0001)
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF09
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            PROGID        10A  O  1  2
+     A                                  1 15' Roll   F6=Restart   F3/F7=End of -
+     A                                      Job   F9=A/R Inquiry '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  3'AR Cust:'
+     A            VACUST         6Y 0O  3 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            ANAME         30   O  3 19DSPATR(HI)
+     A                                  3 51'Phone #:'
+     A            CMPHON        10Y 0O  3 61EDTWRD('   -   -    ')
+     A                                      DSPATR(HI)
+     A                                  4  3'Contact:'
+     A            CMCNAM        30A  O  4 12DSPATR(HI)
+     A                                  6  2'Date      Notes                   -
+     A                                                                      Fol-
+     A                                      low Up Cd'
+     A                                  9  2'Ent Date  Notes                   -
+     A                                                                      Fol-
+     A                                      low Up Cd'
+     A                                      DSPATR(UL)
+     A            VDATE          6Y 0B  7  2EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A            VCOMM         55A  B  7 12DSPATR(CS)
+     A            FLD003         6Y 0B  7 69EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A            FLD004         1A  B  7 79
+     A          R SCRNC
+     A*%%TS  SD  19961228  142559  EFD         REL-V3R1M0  5763-PW1
+     A                                      CF08
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF04
+     A                                      CF07
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  3'ARR225C'
+     A                                  1 30' A/R History Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  2'Customer:'
+     A            VACUST         6Y 0O  3 12EDTCDE(Z)
+     A            CMNAME        30A  O  3 41DSPATR(HI)
+     A                                  4  2' No Summary Data For This Customer-
+     A                                       '
+     A  10                                  DSPATR(RI)
+     A N10                                  DSPATR(ND)
+     A            CSZ           31A  O  4 41DSPATR(HI)
+     A                                  5  2'First Sale........'
+     A            HSDTFS         6Y 0O  5 25DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  5 41'Contact:'
+     A            CMCNAM        30A  O  5 51DSPATR(HI)
+     A                                  6  2'Last Sale.........'
+     A            HSDTLS         6Y 0O  6 25DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  6 41'Phone:'
+     A            CMPHON        10Y 0O  6 51DSPATR(HI)
+     A                                      EDTWRD('   -   -    ')
+     A                                  6 64'Fax:'
+     A            HSFAX         10Y 0O  6 69DSPATR(HI)
+     A                                      EDTWRD('   -   -    ')
+     A                                  7  2'  Amount..........'
+     A            HSAMLS        11Y 2O  7 21EDTCDE(M)
+     A                                      DSPATR(HI)
+     A                                  7 41'Terms:'
+     A            TCDESC        30A  O  7 51DSPATR(HI)
+     A                                  8  2'Last Payment......'
+     A            HSDTLP         6Y 0O  8 25DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  8 41'Comments:'
+     A            HSCOM1        30A  O  8 51DSPATR(HI)
+     A                                  9  2'  Amount..........'
+     A            HSAMLP        11Y 2O  9 21EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            HSCOM2        30A  O  9 51DSPATR(HI)
+     A                                 10  2'Highest Bal.......'
+     A            HSHARB        11Y 2O 10 21EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            HSCOM3        30A  O 10 51DSPATR(HI)
+     A                                 11  2'  Date............'
+     A            HSDTAR         6Y 0O 11 25DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                 12  2'Avg Days to Pay...'
+     A            HSAVDY         5Y 0O 12 28DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 12 41'Source of Customer...'
+     A            HSSRCE         2A  O 12 72DSPATR(HI)
+     A                                 13  2'Avg Order Value...'
+     A            HSAVOR         9Y 2O 13 23EDTCDE(M)
+     A                                      DSPATR(HI)
+     A                                 13 41'SIC Number...........'
+     A            HSSIC#         8A  O 13 66DSPATR(HI)
+     A                                 14  2'Avail Credit......'
+     A            SVAVL$        11Y 2O 14 21EDTCDE(M)
+     A                                      DSPATR(HI)
+     A                                 14 41'D & B Rating.........'
+     A            HSBDRT         5A  O 14 69DSPATR(HI)
+     A                                 15  2'Value Open Ords...'
+     A            CMVOPO         9Y 2O 15 23EDTCDE(M)
+     A                                      DSPATR(HI)
+     A                                 15 41'Business Size........'
+     A            VBUSSZ         8Y 0O 15 64DSPATR(HI)
+     A                                      EDTCDE(2)
+     A                                 16 41'Number of Employees..'
+     A            HS#EMP         5Y 0O 16 69DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 17  2'Invoices YTD.........'
+     A            HS#INV         5Y 0O 17 28DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 17 41'Last Financial.......'
+     A            HSFNDT         6Y 0O 17 66DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                 18  2'Orders YTD...........'
+     A            HS#ORD         5Y 0O 18 28DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 18 41'Audited(Y/N).........'
+     A            HSAUDT         1A  O 18 73DSPATR(HI)
+     A                                 19  2'Credit Memos YTD.....'
+     A            HS#CRM         5Y 0O 19 28DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 19 41'Bank Number..........'
+     A            HSBANK        10Y 0O 19 64DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 20  2'Times Delinquent ....'
+     A            FLD019         5Y 0O 20 28DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 20 41'Credit Card..........'
+     A            HSCRCD         4A  O 20 64DSPATR(HI)
+     A            HSCRDT         4Y 0O 20 69DSPATR(HI)
+     A                                      EDTWRD('  / 0')
+     A            HSCRC#        16Y 0O 21 64DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       F4=New Inquiry       F3/F7=-
+     A                                       End of Job                        -
+     A                                               '
+     A                                      DSPATR(UL)

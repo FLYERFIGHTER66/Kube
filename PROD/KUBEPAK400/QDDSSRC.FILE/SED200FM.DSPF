@@ -1,0 +1,67 @@
+     A*%%TS  SD  19970918  150815  EFD         REL-V3R6M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19970918  150815  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF01
+     A                                  1  2'SED200A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 28' Seed Inventory Receipts '
+     A                                      DSPATR(RI)
+     A                                  6  3'Item Number?'
+     A            ITEM          12A  B  6 16
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.       Press RESET')
+     A            IMDES1        30A  O  6 30
+     A  10                                  DSPATR(ND)
+     A                                  9  3'Vendor Number:'
+     A            VEND           6S 0B  9 20
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Vendor Entered.-
+     A                                                  Press RESET')
+     A            VMNAME        30A  O  9 29
+     A  20                                  DSPATR(ND)
+     A                                 13 56'Germ Percent:'
+     A            GRMPCT         5Y 2B 13 70EDTWRD('   .  ')
+     A                                      DSPATR(CS)
+     A                                 13  3'Vendor Lot #:'
+     A            VLOT#         15A  B 13 17
+     A                                 11  3'Quantity Received:'
+     A            QTYREC         9Y 0B 11 22
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(K)
+     A  30                                  ERRMSG('*** Quantity Can NOT Be Zer-
+     A                                      o.          Press RESET')
+     A                                 13 35'Test Date:'
+     A            TSTDAT         6Y 0B 13 46
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Invalid Test Date Enter-
+     A                                      ed.         Press RESET')
+     A                                      EDTCDE(Y)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter To Process     F1=Vendor Sea-
+     A                                      rch       F6=Restart        F3/F7=E-
+     A                                      nd of Job'
+     A                                 17 15' Verify Data if OK Press ENTER, el-
+     A                                      se make Changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)

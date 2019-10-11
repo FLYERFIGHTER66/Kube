@@ -1,0 +1,198 @@
+     A*%%TS  SD  20190314  132519  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R PUR57001                  SFL
+     A*%%TS  SD  20190314  132519  BILLB       REL-V7R2M0  5770-WDS
+     A                                      TEXT('Alpha Search Subfile')
+     A  28                                  SFLNXTCHG
+     A            CMCUST         6S 0H
+     A            SEL01          1A  B  6  2SFLCSRPRG
+     A                                      COLOR(YLW)
+     A            THTRK#         4A  O  6  5
+     A  51                                  COLOR(BLU)
+     A            THDRIV         6A  O  6 42
+     A  51                                  COLOR(BLU)
+     A            THSTOP         8A  O  6 49
+     A  51                                  COLOR(BLU)
+     A            COMPLETE       3Y 0O  6 59DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A  51                                  COLOR(BLU)
+     A                                  6 63'of'
+     A  51                                  COLOR(BLU)
+     A            TOTLINES       3Y 0O  6 66EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A  51                                  COLOR(BLU)
+     A            LEFT2CONF      3Y 0O  6 71EDTCDE(Z)
+     A N51                                  DSPATR(RI)
+     A  51                                  COLOR(BLU)
+     A N51                                  COLOR(YLW)
+     A            DIRECTIONS     3Y 0O  6 76EDTCDE(Z)
+     A  51                                  COLOR(BLU)
+     A N52                                  COLOR(RED)
+     A            SVDESC        30A  O  6 11
+     A          R PUR57001C                 SFLCTL(PUR57001)
+     A*%%TS  SD  20190314  131522  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(0018)
+     A                                      SFLPAG(0015)
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF08(08 'Previous Date')
+     A                                      CF09(09 'Next Date')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2'PUR57001'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  3  2'S'
+     A                                      DSPATR(HI)
+     A                                  4  2'E'
+     A                                      DSPATR(HI)
+     A                                  5  2'L'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5  5'S-VIA'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 42'Driver'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 49'1st Stop'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  2 31'Ship Date:'
+     A                                      COLOR(PNK)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            SDATE          6Y 0B  2 43EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                      CHECK(ER)
+     A                                  3  6'1'
+     A                                      DSPATR(HI)
+     A                                  3  8'=View OTHER'
+     A                                      COLOR(BLU)
+     A                                  5 59'Confd Lines'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 21'   Review OTHER Confirmation Progr-
+     A                                      ess   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  5 71'Left'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 76'Dir'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 11'Ship Via Description          '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A          R PUR57001F
+     A*%%TS  SD  20090211  090612  BILLB       REL-V5R3M0  5722-WDS
+     A                                      OVERLAY
+     A                                 23 21'F3'
+     A                                      DSPATR(HI)
+     A                                 23 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 66'F9'
+     A                                      DSPATR(HI)
+     A                                 23 69'=Next Day'
+     A                                      COLOR(BLU)
+     A                                 23 50'F8'
+     A                                      DSPATR(HI)
+     A                                 23 53'=Prev Day'
+     A                                      COLOR(BLU)
+     A                                 23 33'F5'
+     A                                      DSPATR(HI)
+     A                                 23 36'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23  3'ENTER'
+     A                                      DSPATR(HI)
+     A                                 23  9'=Process'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040406  091800  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

@@ -1,0 +1,34 @@
+     A*     ITEM MASTER FILE VENDOR FACTOR TABLE
+     A*     FILE NAME - FMINVTECKE
+     A*
+     A*     Narrative:  This file was created because some vendors (Ecke)
+     A*                 send more cutting then requested because they are
+     A*                 double stuck.  An error in our order quantity occurs
+     A*                 because we canculate the "Actual" number of cuttings
+     A*                 needed.  Some vendors (Ecke) then double that number
+     A*                 yet again because they know that the item is typically
+     A*                 double stuck.  This table will identify the vendor,
+     A*                 item number and the factor used by the vendor when
+     A*                 filling orders.
+     A*                    i.e. if ecke (just as an example) always sends
+     A*                    200 cuttings of nemesia when we order 100, this
+     A*                    table would be set up as follows:
+     A*
+     A*                  Vendor     Item      Factor
+     A*                    23       1531        2
+     A*
+     A*                 Finding this record during the ordering process will
+     A*                 cause the ordered quantity to be divided by the factor
+     A*                 prior to order placement.  i.e.: 200 will become 100
+     A*
+     A                                      UNIQUE
+     A          R RMINVTDESC                TEXT('ITEM MASTER VENDOR FACT')
+     A            IFVEND         6S 0       TEXT('Vendor Number')
+     A                                      COLHDG('Vendor' 'Number')
+     A            IFITEM        12A         TEXT('ITEM #')
+     A                                      COLHDG('Item' 'Number')
+     A            IFACTOR        3S 0       TEXT('Order Factor')
+     A                                      COLHDG('Order' 'Factor')
+      *
+     A          K IFVEND
+     A          K IFITEM

@@ -1,0 +1,137 @@
+      *****************************************************************
+      **                                                             **
+      **  FILE:       DG0115P                                        **
+      **  FUNCTION:   PRINT DRY GOODS RETURN ORDERS                  **
+      **  CREATED BY: R. PIASECKI 4/21/2000                          **
+      **                                                             **
+      **                                                             **
+      **                                                             **
+      **                                                             **
+      *****************************************************************
+                                            REF(*LIBL/KPREF  KPREFR)
+     A          R HEADER
+      *
+     A                                      SKIPB(002)
+     A                                    30'********************'
+     A                                    70
+     A                                      'Page:'
+     A                                    76
+     A                                      PAGNBR
+     A                                      EDTCDE(Z)
+     A                                      SPACEA(001)
+      *
+     A                                    30'*** RETURN ORDER ***'
+     A                                      SPACEA(001)
+     A  23                                30'***    REPRINT   ***'
+     A                                      SPACEA(001)
+      *
+     A                                    30'********************'
+     A                                      SPACEA(002)
+      *
+     A                                    45'SHIP TO:'
+     A                                    54'VENDOR:'
+     A            PRVNDR         6S 0O    62EDTCDE(4)
+     A                                      SPACEA(001)
+      *
+     A            PRCNAM        30A  O     5
+     A            PRJNAM        30A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD1        30A  O     5
+     A            PRJAD1        35A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD2        30A  O     5
+     A            PRJAD2        35A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD3        30A  O     5
+     A            PRJAD3        35A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD4        30A  O     5
+     A                                      SPACEA(002)
+      *
+     A                                    51'DATE'
+     A                                      UNDERLINE
+     A                                    70'NUMBER'
+     A                                      UNDERLINE
+     A                                      SPACEA(001)
+      *
+     A
+     A            PRDATE         6S 0O    49EDTCDE(Y)
+     A            PRPOYR         2S 0O    69
+     A                                    71'-'
+     A            PRDGPO         6S 0O    72
+     A                                      SPACEA(002)
+      *
+     A            PREXT1        30A  O    30
+     A                                      SPACEA(001)
+      *
+     A            PREXT2        30A  O    30
+     A                                      SPACEA(001)
+      *
+     A            PREXT3        30A  O    30
+     A                                      SPACEA(002)
+      *
+     A                                     5'RETURN FROM:'
+     A                                      UNDERLINE
+     A            PRWNAM        30A  O    18
+     A                                      SPACEA(001)
+      *
+     A            PRWAD1        35A  O    18
+     A                                      SPACEA(001)
+      *
+     A            PRWAD2        35A  O    18
+     A                                      SPACEA(001)
+      *
+     A            PRWAD3        35A  O    18
+     A                                      SPACEA(001)
+     A            PRWAD4        35A  O    18
+     A                                      SPACEA(002)
+      *
+     A                                     3'DATE OF RETURN:'
+     A            PRDUDT         6S 0O    19EDTCDE(Y)
+     A                                      SPACEA(001)
+      *
+     A                                     1'                                  '
+     A                                      UNDERLINE
+     A                                    35'                                  '
+     A                                      UNDERLINE
+     A                                    69'              '
+     A                                      UNDERLINE
+     A                                      SPACEA(001)
+      *
+     A                                     1'ITEM # SIZE QUANTITY  DESCRIPTION'
+     A                                      UNDERLINE
+     A                                    34'                                C'
+     A                                      UNDERLINE
+     A                                    67'OST     TOTAL '
+     A                                      UNDERLINE
+     A                                      SPACEA(001)
+      *
+      *****************************************************************
+      *
+     A          R DETAIL
+      *
+     A            PRITEM         6A  O     1
+     A            PRSIZE         3A        8
+     A            PRQTYO         9S 0O    13EDTCDE(4)
+     A            PRDESC        30A  O    23
+     A N31        PROPRC        11S 5O    58EDTCDE(4)
+     A N31        PRLTTL         9S 2O    71EDTCDE(4)
+     A                                      SPACEA(001)
+      *
+      *****************************************************************
+      *
+     A          R TOTAL
+      *
+     A                                    69'            '
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A                                       SPACEA(001)
+     A                                    45'EXPECTED CREDIT AMOUNT'
+     A                                      HIGHLIGHT
+     A            PRPTTL         9S 2O    69EDTCDE(1)
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE

@@ -1,0 +1,754 @@
+     A*%%TS  SD  19990621  164058  APGL        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990621  161226  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(03 002 05 046)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A            PROGID        10A  O  1  2
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 27' Distribution Control File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Action Codes Are -
+     A                                      A, C or D.  Press Reset')
+     A                                  5 30'Company Number:'
+     A            VCO            2A  B  5 48
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Company Is Not On File.-
+     A                                                  Press Reset')
+     A  22                                  ERRMSG('*** Company Is Already On F-
+     A                                      ile.        Press Reset')
+     A  21                                  ERRMSG('*** Enter A Company Number -
+     A                                      Between 00 - 99.   Press Reset')
+     A  24                                  ERRMSG('*** Company Has Not Been De-
+     A                                      fined.    Press Reset')
+     A                                  7  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  8  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                  9  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                 Enter to Process -
+     A                                                F3/F7=End of Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990621  081920  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                  9  3' Distribution Control File        -
+     A                                                                    Overv-
+     A                                      iew    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 11  3' This control file defines specifi-
+     A                                      c information about how your compan-
+     A                                      ies do '
+     A                                      DSPATR(HI)
+     A                                 12  3' business in distribution.     The-
+     A                                       system supports up to 99 companies-
+     A                                      .      '
+     A                                      DSPATR(HI)
+     A                                 13  3' If you are running more than 1 co-
+     A                                      mpany. you must define a control re-
+     A                                      cord   '
+     A                                      DSPATR(HI)
+     A                                 14  3' for each company.                -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 16  3' The company number must be betwee-
+     A                                      n 01-99.  We recommend you number y-
+     A                                      our    '
+     A                                      DSPATR(HI)
+     A                                 17  3' companies consecutively, with com-
+     A                                      pany 01 being the company with the -
+     A                                      most   '
+     A                                      DSPATR(HI)
+     A                                 18  3' activity.                        -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' In addition to companies 01 - 99,-
+     A                                       you are REQUIRED to enter a compan-
+     A                                      y 00.  '
+     A                                      DSPATR(HI)
+     A                                 21  3' This MUST be the first company yo-
+     A                                      u enter.  Company 00 defines global-
+     A                                       data  '
+     A                                      DSPATR(HI)
+     A                                 22  3' used by all companies in the dist-
+     A                                      ribution system.                   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SCRNB
+     A*%%TS  SD  19990621  164058  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HNAME)
+     A  *DS3                                HLPARA(04 021 04 050)
+     A  *DS4                                HLPARA(04 021 04 050)
+     A          H                           HLPRCD(HMSG)
+     A  *DS3                                HLPARA(06 014 07 079)
+     A  *DS4                                HLPARA(06 014 07 079)
+     A          H                           HLPRCD(HARAGE)
+     A  *DS3                                HLPARA(09 019 09 036)
+     A  *DS4                                HLPARA(09 019 09 036)
+     A          H                           HLPRCD(HAPAGE)
+     A  *DS3                                HLPARA(09 059 09 076)
+     A  *DS4                                HLPARA(09 059 09 076)
+     A          H                           HLPRCD(HLPER)
+     A  *DS3                                HLPARA(11 028 12 032)
+     A  *DS4                                HLPARA(11 028 12 032)
+     A          H                           HLPRCD(HTAX)
+     A  *DS3                                HLPARA(11 067 12 067)
+     A  *DS4                                HLPARA(11 067 12 067)
+     A          H                           HLPRCD(HOVER)
+     A  *DS3                                HLPARA(15 027 17 027)
+     A  *DS4                                HLPARA(15 027 17 027)
+     A          H                           HLPRCD(HNEXT)
+     A  *DS3                                HLPARA(15 064 19 069)
+     A  *DS4                                HLPARA(15 064 19 069)
+     A          H                           HLPRCD(HDEFDTE)
+     A  *DS3                                HLPARA(19 026 19 033)
+     A  *DS4                                HLPARA(19 026 19 033)
+     A          H                           HLPRCD(HTRUCK)
+     A  *DS3                                HLPARA(21 032 21 047)
+     A  *DS4                                HLPARA(21 032 21 047)
+     A            PROGID        10A  O  1  2
+     A                                  1 17'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 27' Distribution Control File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Company Name:'
+     A            VCO            2A  O  4 16DSPATR(HI)
+     A            RGNAME        30A  B  4 19CHECK(LC)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                  6  2'Invoice'
+     A                                  7  2'Message:'
+     A                                  7 11'1.'
+     A            MCMSG1        30A  B  7 14DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                  7 47'2.'
+     A            MCMSG2        30A  B  7 50DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                  8 11'3.'
+     A            MCMSG3        30A  B  8 14DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                  8 47'4.'
+     A            MCMSG4        30A  B  8 50DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 10  3'Tax Freight Charges:'
+     A            MCTXFR         1A  B 10 26DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 10 50'Next Available Number'
+     A                                      DSPATR(UL)
+     A                                 11  3'Tax Special Charges:'
+     A            MCTXSP         1A  B 11 26DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 11 50'Order:'
+     A            MCNORD         6Y 0B 11 65DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  50                                  ERRMSG('*** Next Order Number Is Re-
+     A                                      quired.   Press Reset')
+     A                                 12  3'Default Req Ship Date:'
+     A            MCRQDT         6Y 0B 12 26EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 12 50'Invoice:'
+     A            MCNINV         6Y 0B 12 65DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  52                                  ERRMSG('*** Next Invoice Number Is -
+     A                                      Required.  Press Reset')
+     A                                 13 50'Credit Memo:'
+     A            MCNCMN         6Y 0B 13 65DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  54                                  DSPATR(RI)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  54                                  ERRMSG('*** Next Credit Memo Number-
+     A                                       Is Required.   Press Reset')
+     A                                 14  3'Headings For Truck Schedule:'
+     A                                 14 50'P.O.:'
+     A            MCNPO#         6Y 0B 14 65DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  56                                  DSPATR(RI)
+     A  56                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  56                                  ERRMSG('*** Next Purchase Order Num-
+     A                                      ber Is Required.   Press Reset')
+     A            MCHDG1         4A  B 15  7DSPATR(CS)
+     A            MCHDG2         4A  B 15 13DSPATR(CS)
+     A            MCHDG3         4A  B 15 19DSPATR(CS)
+     A                                 17  2'             This data is automati-
+     A                                      cally updated during processing    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 18  2'Last Invoice Print:'
+     A            MCDTIP         6Y 0O 18 28EDTCDE(Y)
+     A                                 18 42'Last Monthly Close:'
+     A            MCDTMC         6Y 0O 18 68EDTCDE(Y)
+     A                                 19  2'Last Credit Memo Print:'
+     A            MCDTCP         6Y 0O 19 28EDTCDE(Y)
+     A                                 19 42'Last Annual Close:'
+     A            MCDTYC         6Y 0O 19 68EDTCDE(Y)
+     A                                 20  2'Last Daily Order Post:'
+     A            MCDDOP         6Y 0O 20 28EDTCDE(Y)
+     A                                 20 42'Last Physical Inventory:'
+     A            MCDTPI         6Y 0O 20 68EDTCDE(Y)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 16 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R HNAME
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 17  3' Company Name                     -
+     A                                                                    Requi-
+     A                                      red    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 19  3' Enter the name of this company, u-
+     A                                      p to 30 characters.                -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' This is the name that will print -
+     A                                      next to company number on all repor-
+     A                                      ts.    '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A          R HMSG
+     A*%%TS  SD  19990430  074500  GL          REL-V3R1M0  5763-PW1
+     A                                 17  3' Message Lines 1 - 4              -
+     A                                                                    Optio-
+     A                                      nal    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 19  3' Enter up to 4 lines of data.   Th-
+     A                                      ese messages will print on customer-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' them timely.                     -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 20  3' invoices.  Messages can be change-
+     A                                      d before invoices are printed to ke-
+     A                                      ep     '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                             '
+     A          R HLPER
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 13  3' Late Charge Percent and Minimum C-
+     A                                      harge                         Optio-
+     A                                      nal    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 15  2'  Do you charge customers late cha-
+     A                                      rges (finance charges) on overdue i-
+     A                                      nvoices? '
+     A                                      DSPATR(HI)
+     A                                 16  2'  If yes, enter the percent.  Do y-
+     A                                      ou charhe them a minimum late charg-
+     A                                      e?       '
+     A                                      DSPATR(HI)
+     A                                 17  2'  Enter that amount.  For example,-
+     A                                       if the calculated late charges is -
+     A                                      below    '
+     A                                      DSPATR(HI)
+     A                                 18  3' $1.00, but that is the minimum yo-
+     A                                      u charge - enter 1.00.             -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 20  3' You can code a customer if they a-
+     A                                      re to be charged late charges on ov-
+     A                                      erdue  '
+     A                                      DSPATR(HI)
+     A                                 21  3' invoices - Yes or No.            -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HTAX
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 15  3' Tax Freight or Tax Special Charge-
+     A                                      s                             Requi-
+     A                                      red    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'  If you charge customers sales ta-
+     A                                      x, should any freight or special ch-
+     A                                      arges    '
+     A                                      DSPATR(HI)
+     A                                 18  2'  also be taxed?  This varies by s-
+     A                                      tate and should be validated by eac-
+     A                                      h state  '
+     A                                      DSPATR(HI)
+     A                                 19  2'  or by your accountant.          -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 21  3' Enter either a Y or N in each fie-
+     A                                      ld. This can be overridden in order-
+     A                                       entry.'
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A          R HOVER
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 14  3' Override Automatic Order - Vouche-
+     A                                      r - P.O. Numbers             Requir-
+     A                                      ed     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 16  3' TGMS will automatically assign th-
+     A                                      e next order number, voucher number-
+     A                                       and   '
+     A                                      DSPATR(HI)
+     A                                 17  3' purchase order number.  However, -
+     A                                      you can elect to enter these number-
+     A                                      s      '
+     A                                      DSPATR(HI)
+     A                                 18  3' manually.   We recommend that TGM-
+     A                                      S assign these numbers.            -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' If you want TGMS to assign these -
+     A                                      number, enter - N                  -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' If you want to assign these numbe-
+     A                                      rs, enter - Y                      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A          R HNEXT
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 17  3' Next Available Number            -
+     A                                                                   Requir-
+     A                                      ed     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 19  3' When first entering a company, en-
+     A                                      ter the next number that should be -
+     A                                      used   '
+     A                                      DSPATR(HI)
+     A                                 20  3' for each area.   If you are conve-
+     A                                      rting data from another system, con-
+     A                                      sider  '
+     A                                      DSPATR(HI)
+     A                                 21  3' these numbers carefully.  TGMS wi-
+     A                                      ll not allow duplicate numbers.    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HDEFDTE
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 15  3' Default Requested Ship Date      -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 17  3' Used by order entry, this date wi-
+     A                                      ll default in the order as the requ-
+     A                                      ested  '
+     A                                      DSPATR(HI)
+     A                                 18  3' ship date.  Review this date ofte-
+     A                                      n to assure it is timely.          -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 20  3' If no date is entered here, you m-
+     A                                      ust enter this date during order en-
+     A                                      try.   '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 22  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HTRUCK
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 14  3' Headings for Truck Schedule      -
+     A                                                                   Option-
+     A                                      al     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 16  3' TGMS will print these headings on-
+     A                                       the report your drivers use when  -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 17  3' delivering plant material to your-
+     A                                       customers.  Since your material ch-
+     A                                      anges  '
+     A                                      DSPATR(HI)
+     A                                 18  3' seasonally, the headings may need-
+     A                                       to change also.                   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 20  3' For example, one season may need -
+     A                                      TRAY  FLAT  CART                   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' While another season may need    -
+     A                                      FLAT  CART  POT                    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SCRNC
+     A*%%TS  SD  19990621  164058  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HCNAME)
+     A  *DS3                                HLPARA(05 021 05 050)
+     A  *DS4                                HLPARA(04 021 04 050)
+     A          H                           HLPRCD(HCNEXT)
+     A  *DS3                                HLPARA(08 054 10 059)
+     A  *DS4                                HLPARA(09 024 11 045)
+     A          H                           HLPRCD(HPOPOST)
+     A  *DS3                                HLPARA(12 059 12 059)
+     A  *DS4                                HLPARA(14 045 14 045)
+     A            PROGID        10A  O  1  2
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 27' Distribution Control File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  2'Company Name:'
+     A            VCO            2A  O  5 16DSPATR(HI)
+     A            MCNAME        30A  B  5 19DSPATR(CS)
+     A                                      CHECK(LC)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Company Name Is Require-
+     A                                      d.    Press Reset')
+     A                                  8 18'Next Available Customer Number:'
+     A            MCNCUS         6Y 0B  8 56DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Next Customer Number Is-
+     A                                       Required.    Press Reset')
+     A                                 10 18'Override Auto Customer Numbering:'
+     A            MCPCOV         1A  B 10 61DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.      Press Reset')
+     A                                 12 18'Primary Company For Distribution:'
+     A            MCPRCO         2Y 0B 12 60DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Primary Company Number -
+     A                                      Is Required.   Press Reset')
+     A                                 14 18'# of Companies Run in Distribution-
+     A                                      :'
+     A            MCNMCO         2Y 0B 14 60DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** Number Of Companies Is -
+     A                                      Required.   Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R HCNAME
+     A*%%TS  SD  19970714  144832  EFD         REL-V3R1M0  5763-PW1
+     A                                 17  3' Company Name                     -
+     A                                                                    Requi-
+     A                                      red    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 19  3' Enter the name of this company, u-
+     A                                      p to 30 characters.                -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 21  3' This is the name that will print -
+     A                                      on the top line of all reports.    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HCNEXT
+     A*%%TS  SD  19990621  081920  TGMS        REL-V3R1M0  5763-PW1
+     A                                 13  3' Next Available Number / Override -
+     A                                      Automatic Numbering          Requir-
+     A                                      ed     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3' The system automatically assigns -
+     A                                      customer numbers.  This is usuall t-
+     A                                      he     '
+     A                                      DSPATR(HI)
+     A                                 16  3' most efficient method.  Anytime y-
+     A                                      ou need to enter these numbers, you-
+     A                                       can   '
+     A                                      DSPATR(HI)
+     A                                 17  3' do a lookup.  You can assign your-
+     A                                       own numbers if you choose.        -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' Enter the number for each field t-
+     A                                      hat should be the starting number w-
+     A                                      hen    '
+     A                                      DSPATR(HI)
+     A                                 20  3' the first customer is entered.   -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' Enter N to override auto numberin-
+     A                                      g if you will select your own numbe-
+     A                                      rs.    '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

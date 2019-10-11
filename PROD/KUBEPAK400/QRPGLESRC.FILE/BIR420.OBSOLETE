@@ -1,0 +1,503 @@
+000100940404      *--------------------------------------------------------------
+000200940404      *
+000300990927      *  COPYRIGHT EFD ENTERPRISES INC.     1999
+000400940404      *
+000500940404      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600940404      *       EFD ENTERPRISES INC.   .  ALL RIGHTS RESERVED.  THE
+000700940404      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800940404      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900940404      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000940404      *       BY EXPRESS WRITTEN PERMISSION OF
+001100940404      *            EFD ENTERPRISES, INC.     215-643-5352
+001200940404      *
+001300940404      *--------------------------------------------------------------
+001400990927      *PROGRAM NAME-------- BIR420
+001500990927      *SYSTEM-------------- ORDER ENTRY
+001600990927      *APPLICATION--------- ORDER ACKNOWLEDGEMENT PRINT
+001700990927      *
+001800940404      *
+001900990927      *            CHANGE--DATE-------DESCRIPTION
+002000990927      *
+002100940404      *
+002200950331     FFHORDR    UF   E           K DISK
+002300950404     FFIORDR    IF   E           K DISK
+002400941212     FFMCUST    IF   E           K DISK
+002500951219     FFMINVT    IF   E           K DISK
+002600990927     FFOECTL    IF   E           K DISK
+002700990927     FBIR420    O    F  120        PRINTER
+002800990927     F                                     FORMLEN(66)
+002900990927     F                                     FORMOFL(65)
+003000951219      *
+003100990927     D #SL             S             32    DIM(5)
+003200990927     D #SH             S             32    DIM(5)
+003300990927      *
+003400951219      *  LINE COUNTER SPECS, TO SET OVERFLOW AT LINE 65.
+003500951219      *
+003600990927      *
+003700940404     D                UDS
+003800950404      *    REPRINT Y OR N
+003900990927     D  LCO                    1      2  0
+004000990927     D  LREPRT                 3      3
+004100990927     D  LBDATE                 4      9  0
+004200990927     D  LEDATE                10     15  0
+004300990927     D  LBORD                 16     21  0
+004400990927     D  LEORD                 22     27  0
+004500990927     D  BDATE                 28     32  0
+004600990927     D  EDATE                 33     37  0
+004700990927     D  LPRTR                100    109
+004800990927     D  LFORM                110    119
+004900990927     D  LCOPY                120    121  0
+005000990927     D  LJOBQ                122    122
+005100990927     D  LHOLD                123    126
+005200990927     D  LSAVE                127    130
+005300990927     D  LCANCL               133    133
+005400990927     D  LPROG                134    141
+005500990927     D  LNAME                142    171
+005600940404      *
+005700990927      * RENAME HORDR FIELDS
+005800990927     IRHORDR
+005900990927     I              OHNAME                      #WSHP1
+006000990927     I              OHSHP2                      #WSHP2
+006100990927     I              OHSHP3                      #WSHP3
+006200990927     I              OHSHP4                      #WSHP4
+006300990927     I              OHSHCT                      #WSHCT
+006400990927     I              OHSHST                      #WSHST
+006500990927     I              OHSHZP                      #WSHZP
+006600990927     I              OHSLD1                      #WSLD1
+006700990927     I              OHSLD2                      #WSLD2
+006800990927     I              OHSLD3                      #WSLD3
+006900990927     I              OHSLD4                      #WSLD4
+007000990927     I              OHSLCT                      #WSLCT
+007100990927     I              OHSLST                      #WSLST
+007200990927     I              OHSLZP                      #WSLZP
+007300940404      *
+007400990927      * 81=REPRINT YES
+007500990927      * 82=DATE SELECTION
+007600950306      * 83=ORDER NUMBER SELECTION
+007700950306      *
+007800990927     C     LREPRT        IFEQ      'Y'
+007900990927     C                   SETON                                        81
+008000950404     C                   ENDIF
+008100950404      *
+008200990927     C     LBDATE        IFGT      0
+008300990927     C                   SETON                                        82
+008400940331     C                   ENDIF
+008500950306      *
+008600990927     C     LBORD         IFGT      0
+008700950306     C                   SETON                                        83
+008800950306     C                   ENDIF
+008900950404      *
+009000990927      * GET DISTRIBUTION CONTROL RECORD
+009100940405      *
+009200990927     C     LCO           CHAIN(N)  FOECTL                             90
+009300940130      *
+009400990927     C     LBORD         SETLL     FHORDR
+009500950405      *
+009600950405     C     NEXT          TAG
+009700950405     C                   SETOFF                                       99
+009800950404      *
+009900950404     C     NXTORD        TAG
+010000950404     C                   READ      FHORDR                                 90
+010100950404     C   90              GOTO      END
+010200950405      *
+010300990927     C     OHSTAT        IFEQ      'D'
+010400990927     C     OHCOFL        OREQ      'Y'
+010500990927     C     OHQUOT        OREQ      'Y'
+010600960522     C                   GOTO      NXTORD
+010700960522     C                   ENDIF
+010800960522      *
+010900990927     C  N81OHACK         IFEQ      'Y'
+011000950404     C                   GOTO      NXTORD
+011100950404     C                   ENDIF
+011200950404      *
+011300990927     C     OHCOMP        IFNE      LCO
+011400950405     C                   GOTO      NXTORD
+011500950405     C                   ENDIF
+011600950404      *
+011700950404      *  82 = DATE SELECTION
+011800950404      *
+011900990927     C  N82              GOTO      NODTE
+012000990927     C                   Z-ADD     OHDTRQ        ##MDY             6 0
+012100990927     C                   CALL      '@DT@A1'
+012200990927     C                   PARM                    ##MDY             6 0          DATE MDY
+012300990927     C                   PARM                    ##CYMD            7 0          DATE CYYMMDD
+012400990927     C                   PARM                    ##ERR             1            ERROR IF = Y
+012500990927     C                   CALL      '@DT@B1'
+012600990927     C                   PARM                    ##CYMD            7 0          DATE CYYMMDD
+012700990927     C                   PARM                    ##DDD             5 0          DAY OF CENT
+012800990927     C                   PARM                    ##ERR             1            ERROR IF = Y
+012900990927     C                   Z-ADD     ##DDD         RQDATE            5 0
+013000990927      *
+013100990927     C     RQDATE        IFLT      BDATE
+013200990927     C     RQDATE        ORGT      EDATE
+013300950404     C                   GOTO      NXTORD
+013400950404     C                   ENDIF
+013500950404      *
+013600990927     C     NODTE         TAG
+013700990927      *
+013800990927     C  N83              GOTO      NOORD
+013900990927     C     OHORD#        IFLT      LBORD
+014000990927     C     OHORD#        ORGT      LEORD
+014100950404     C                   GOTO      NXTORD
+014200950404     C                   ENDIF
+014300950404     C     NOORD         TAG
+014400931101      *
+014500940130     C                   SETOFF                                       222398
+014600941212     C     OHCUST        CHAIN     FMCUST                             98
+014700940130     C  N98              Z-ADD     CMPHON        PHONE            10 0
+014800940130     C   98              Z-ADD     0             PHONE
+014900941212     C     OHBLCU        CHAIN     FMCUST                             98
+015000940130     C     PHONE         IFEQ      0
+015100931029     C                   Z-ADD     CMPHON        PHONE
+015200931029     C                   END
+015300940405      *
+015400990927      * PRINT HEADER RECORD INFORMATION AND UPDATE HEADER FILE
+015500940404      *
+015600940404     C                   EXSR      CLEAR
+015700951219      *
+015800990927     C                   EXSR      #SLD
+015900990927     C                   EXSR      #SHP
+016000940404      *
+016100940404     C                   EXCEPT    HDG1                                         HEADINGS
+016200940130     C                   Z-ADD     0             LINE              2 0
+016300940130      * SETLL ON IORDR
+016400950404     C                   Z-ADD     OHORD#        OIORD#            6 0
+016500950404     C     OIORD#        SETLL     FIORDR
+016600940130     C     NXTI          TAG
+016700950404     C                   READ      FIORDR                                 98
+016800940130     C   98              GOTO      ENDI
+016900990927      *
+017000940130     C     OIORD#        IFNE      OHORD#
+017100940130     C                   GOTO      ENDI
+017200940130     C                   ENDIF
+017300990927      *
+017400960522     C     OICOFL        IFEQ      'Y'
+017500960522     C                   GOTO      ENDI
+017600960522     C                   ENDIF
+017700990927      *
+017800940404     C                   SETOFF                                       253051
+017900940404     C                   SETOFF                                       353839
+018000951219     C                   SETOFF                                       44
+018100930227     C                   SETON                                        30
+018200951219      *
+018300951219      * GET DESC FROM MINVT AND CAT
+018400951219      *
+018500951219     C     KEY18         KLIST
+018600951219     C                   KFLD                    OIITEM
+018700951219     C                   KFLD                    OISIZE
+018800951219     C                   KFLD                    OIWHSE
+018900951219     C     KEY18         CHAIN     FMINVT                             50
+019000960702     C                   EXSR      GETDES
+019100951219     C                   SETON                                        44
+019200951219      *
+019300990927      * IF THE TYPE IS FREIGHT OR SPECIAL DO NOT PRINT UNIT PRICE.
+019400951219      *
+019500990927     C     OIITYP        IFEQ      'F'
+019600990927     C     OIITYP        OREQ      'S'
+019700990927     C     OIITYP        OREQ      'C'
+019800990927     C                   SETON                                        38
+019900990927     C                   ENDIF
+020000990927      *  39 = NOT FREIGHT, COMMENT, OR SPECIAL CHARGE
+020100940405     C  N38              SETON                                        39                    PRC
+020200940404      *
+020300940331     C     LINE          COMP      35                                 50  50
+020400940331      *
+020500931012      * 10/11/93 GET CUST PART NO AND DESC IF NEEDED
+020600940405      *
+020700990927     C*          CNKEY     KLIST
+020800990927     C*                    KFLD           CMIREF
+020900990927     C*                    KFLD           OIKY
+021000990927     C*                    MOVELOIITEM    OIKY   15
+021100990927     C*                    MOVE OISIZE    OIKY
+021200990927     C*          CNKEY     CHAINFCUSTNO              77
+021300990927     C* N77      CNSTAT    COMP 'D'                      77
+021400990927     C* N77      CNCST#    IFNE *BLANKS
+021500951219      *
+021600940130      * MOORESTOWN ONLY USES 7 POS CUST PART NUMBER
+021700951219      *
+021800990927     C*                    MOVELCNCST#    W7      7
+021900990927     C*                    MOVE W7        OIITEM
+022000990927     C*                    END
+022100990927     C* N77      CNCSDS    IFNE *BLANKS
+022200990927     C*                    MOVELCNCSDS    OIDES1
+022300990927     C*                    END
+022400940204      *
+022500931101      *    REMOVE DECIMALS FROM QUANTITYS
+022600931101      *
+022700940130     C                   Z-ADD     OIQORD        SVORD             5 0
+022800940130     C                   Z-ADD     OIQINV        SVINV             5 0
+022900940130     C                   Z-ADD     OIQBOO        SVBOO             5 0
+023000940130     C                   Z-ADD     OIQSHP        SVSHP             5 0
+023100940404     C                   Z-ADD     OIUPRI        SVUPRI            9 4
+023200940130     C                   Z-ADD     OIUPRI        UPRI92            7 2
+023300940404     C                   MOVEL     OIDES1        SVDESC           30
+023400940404     C                   ADD       OIWGSH        TOTWGT           10 4          TOTAL WGT SHIP
+023500940404     C                   MOVE      OIUUOM        SVORUM            2
+023600940404     C                   MOVE      OIUUOM        SVBPUM            2
+023700931101      *
+023800990927      * ACCUMULATE ORDER TOTALS FOR EACH ACKNOWLEDGEMENT
+023900931101      *
+024000930227     C                   ADD       SVBOO         GTBOO             5 0
+024100930227     C                   ADD       SVINV         GTINV             5 0
+024200930227     C                   ADD       SVORD         GTORD             5 0
+024300940404      *
+024400940404     C   50              EXCEPT    CONT1                                        CONTINUATION
+024500940404      *
+024600940405     C   50              SETON                                        40
+024700940404     C   50              Z-ADD     0             LINE
+024800940404     C                   SETOFF                                       50
+024900940404      *
+025000940404     C   40              EXCEPT    HDG1                                         NEXT PAGE
+025100940404      *
+025200940404     C   30
+025300940404     CAN 39              EXCEPT    DETL1                                        NOT C,F,S DET.
+025400940404     C   30
+025500940404     CAN 38              EXCEPT    IDES1                                        DESC. LINE
+025600940404      *
+025700940405      * CHECK IF LAST WAS A COMMENT
+025800951219      *
+025900940405     C   30
+026000940405     CAN 39
+026100940405     CAN 37              SETOFF                                       37
+026200940405     C   30
+026300940405     CAN 38
+026400940405     CANN37              SETON                                        37
+026500940404     C                   SETOFF                                       3040
+026600940404      *
+026700951219     C  N44              ADD       1             LINE
+026800951219     C   44              ADD       2             LINE
+026900940404     C     LINE          COMP      70                                     50
+027000940404     C   50              EXCEPT    CONT1                                        CONTINUATION
+027100940404      *
+027200940404     C   50              SETON                                        40
+027300940404     C   50              Z-ADD     0             LINE
+027400940404     C                   SETOFF                                       50
+027500940331      *
+027600940331     C   40              EXCEPT    HDG1                                         NEXT PAGE
+027700940331      *
+027800940331     C                   SETOFF                                       3040
+027900940331      *
+028000940131     C                   GOTO      NXTI
+028100990927      *
+028200940130     C     ENDI          TAG
+028300990927      *
+028400940130     C                   EXCEPT    TOTL1
+028500950404     C                   MOVEL     'Y'           OHACK
+028600950404     C                   UPDATE    RHORDR
+028700990927      *
+028800990927     C     LREPRT        IFEQ      'N'
+028900990927     C     LBORD         ANDLE     0
+029000950404     C                   GOTO      NEXT
+029100950405     C                   ENDIF
+029200990927      *
+029300990927     C     LREPRT        IFEQ      'Y'
+029400990927     C     OHORD#        ANDLT     LEORD
+029500950405     C                   GOTO      NEXT
+029600950405     C                   ENDIF
+029700990927      *
+029800940130     C     END           TAG
+029900940130     C                   SETON                                        LR
+030000960702      **
+030100960702      * GET DESCRIPTION
+030200960702      **
+030300960702     C     GETDES        BEGSR
+030400960702     C                   MOVEL     *BLANKS       DESCO            60
+030500960702     C                   MOVEL     'I'           TYPE              1
+030600960702     C                   CALL      'GETDESC'
+030700960702     C                   PARM                    IMITEM
+030800960702     C                   PARM                    IMSIZE
+030900960702     C                   PARM                    IMWHSE
+031000960702     C                   PARM                    TYPE
+031100960702     C                   PARM                    DESCO
+031200960702     C                   MOVEL     DESCO         DESC             30
+031300960702     C                   ENDSR
+031400960702      *
+031500940404      **************
+031600940404      ****  CLEAR  *
+031700940404      **************
+031800940404     C     CLEAR         BEGSR
+031900940404     C                   MOVE      *BLANKS       SVORUM
+032000940404     C                   MOVE      *BLANKS       SVBPUM
+032100990927     C                   Z-ADD     0             SVBOO
+032200990927     C                   Z-ADD     0             SVINV
+032300990927     C                   Z-ADD     0             SVORD
+032400990927     C                   Z-ADD     0             SVUPRI
+032500990927     C                   Z-ADD     0             TOTWGT
+032600940404     C                   ENDSR
+032700940404      *
+032800990927      ***********
+032900990927      * #SLD    *
+033000990927      ***********
+033100990927      *
+033200990927      *  THIS SUBROUTINE REMOVES BLANK ADDRESS LINES FROM THE SOLD TO
+033300990927      *  ADDRESS.  WORK FIELDS ARE DEFINED AS:
+033400990927      *
+033500990927      *                 WORK  = CITY,STATE,ZIP(9 DIGIT)
+033600990927      *                 WORK1 = CITY, STATE
+033700990927      *                 WORK2 = ZIP CODE(XXXXX-XXXX)
+033800990927      *                 WORK3 = STANDARD ZIP CODE(XXXXX)
+033900990927      *                 WORK4 = ADDITIONAL ZIP CODE(-XXXX)
+034000990927      *
+034100990927      *  THE SUBROUTINE REQUIRES MOVING NAME AND ADDRESS INFORMATION TO
+034200990927      *  BE CONDENSED TO A DATA STRUCTURE
+034300990927      *
+034400990927     C     #SLD          BEGSR
+034500990927      *
+034600990927     C                   MOVE      *BLANKS       #SL
+034700990927     C                   Z-ADD     1             #X                1 0
+034800990927     C                   MOVEL     #WSLD1        #SL(#X)
+034900990927     C                   ADD       1             #X
+035000990927     C     #WSLD2        COMP      *BLANKS                            929291
+035100990927     C   91              GOTO      #SLD1
+035200990927     C                   MOVEL     #WSLD2        #SL(#X)
+035300990927     C                   ADD       1             #X
+035400990927     C     #SLD1         TAG
+035500990927     C     #WSLD3        COMP      *BLANKS                            929291
+035600990927     C   91              GOTO      #SLD2
+035700990927     C                   MOVEL     #WSLD3        #SL(#X)
+035800990927     C                   ADD       1             #X
+035900990927     C     #SLD2         TAG
+036000990927     C     #WSLD4        COMP      *BLANKS                            929291
+036100990927     C   91              GOTO      #SLD3
+036200990927     C                   MOVEL     #WSLD4        #SL(#X)
+036300990927     C                   ADD       1             #X
+036400990927     C     #SLD3         TAG
+036500990927     C                   MOVE      *BLANKS       WORK             32
+036600990927     C                   MOVE      *BLANKS       WORK1            21
+036700990927     C                   MOVE      *BLANKS       WORK2            10
+036800990927     C                   MOVE      *BLANKS       WORK3             5
+036900990927     C                   MOVE      *BLANKS       WORK4             5
+037000990927     C     #WSLCT        CAT       #WSLST:1      WORK1
+037100990927     C                   MOVEL     #WSLZP        WORK3
+037200990927     C                   MOVE      #WSLZP        WORK4
+037300990927     C                   MOVEL     ' '           WORK4
+037400990927     C     WORK4         COMP      '     '                                93
+037500990927     C  N93              MOVEL     '0'           WORK4
+037600990927     C  N93WORK4         COMP      '00000'                                93
+037700990927     C   93              MOVE      *BLANKS       WORK4
+037800990927     C  N93              MOVEL     '-'           WORK4
+037900990927     C                   MOVEL     WORK3         WORK2
+038000990927     C                   MOVE      WORK4         WORK2
+038100990927     C     WORK1         CAT       WORK2:1       WORK
+038200990927     C                   MOVE      WORK          #SL(#X)
+038300990927     C                   SETOFF                                       919293
+038400990927     C                   ENDSR
+038500990927      ***********
+038600990927      * #SHP    *
+038700990927      ***********
+038800990927      *
+038900990927      *  THIS SUBROUTINE REMOVES BLANK ADDRESS LINES FROM THE SHIP TO
+039000990927      *  ADDRESS.  WORK FIELDS ARE DEFINED AS:
+039100990927      *
+039200990927      *                 WORK  = CITY,STATE,ZIP(9 DIGIT)
+039300990927      *                 WORK1 = CITY, STATE
+039400990927      *                 WORK2 = ZIP CODE(XXXXX-XXXX)
+039500990927      *                 WORK3 = STANDARD ZIP CODE(XXXXX)
+039600990927      *                 WORK4 = ADDITIONAL ZIP CODE(-XXXX)
+039700990927      *
+039800990927      *  THE SUBROUTINE REQUIRES MOVING NAME AND ADDRESS INFORMATION TO
+039900990927      *  BE CONDENSED TO A DATA STRUCTURE
+040000990927      *
+040100990927     C     #SHP          BEGSR
+040200990927      *
+040300990927     C                   MOVE      *BLANKS       #SH
+040400990927     C                   Z-ADD     1             #X                1 0
+040500990927     C                   MOVEL     #WSHP1        #SH(#X)
+040600990927     C                   ADD       1             #X
+040700990927     C     #WSHP2        COMP      *BLANKS                            929291
+040800990927     C   91              GOTO      #SHP1
+040900990927     C                   MOVEL     #WSHP2        #SH(#X)
+041000990927     C                   ADD       1             #X
+041100990927     C     #SHP1         TAG
+041200990927     C     #WSHP3        COMP      *BLANKS                            929291
+041300990927     C   91              GOTO      #SHP2
+041400990927     C                   MOVEL     #WSHP3        #SH(#X)
+041500990927     C                   ADD       1             #X
+041600990927     C     #SHP2         TAG
+041700990927     C     #WSHP4        COMP      *BLANKS                            929291
+041800990927     C   91              GOTO      #SHP3
+041900990927     C                   MOVEL     #WSHP4        #SH(#X)
+042000990927     C                   ADD       1             #X
+042100990927     C     #SHP3         TAG
+042200990927     C                   MOVE      *BLANKS       WORK             32            BLANK
+042300990927     C                   MOVE      *BLANKS       WORK1            21            BLANK
+042400990927     C                   MOVE      *BLANKS       WORK2            10             "
+042500990927     C                   MOVE      *BLANKS       WORK3             5             "
+042600990927     C                   MOVE      *BLANKS       WORK4             5             "
+042700990927     C     #WSHCT        CAT       #WSHST:1      WORK1
+042800990927     C                   MOVEL     #WSHZP        WORK3
+042900990927     C                   MOVE      #WSHZP        WORK4
+043000990927     C                   MOVEL     ' '           WORK4
+043100990927     C     WORK4         COMP      '     '                                93
+043200990927     C  N93              MOVEL     '0'           WORK4
+043300990927     C  N93WORK4         COMP      '00000'                                93
+043400990927     C   93              MOVE      *BLANKS       WORK4
+043500990927     C  N93              MOVEL     '-'           WORK4
+043600990927     C                   MOVEL     WORK3         WORK2                          19002-1525
+043700990927     C                   MOVE      WORK4         WORK2
+043800990927     C     WORK1         CAT       WORK2:1       WORK
+043900990927     C                   MOVE      WORK          #SH(#X)
+044000990927     C                   SETOFF                                       919293
+044100990927     C                   ENDSR
+044200990927      *
+044300940404      *****
+044400990927     OBIR420    E            HDG1             09
+044500990927     O                       OCCOM1              65
+044600940404     O**                       WHINDTY   67
+044700940404     O**                       WHINV#Z   78
+044800990927     O          E            HDG1             10
+044900990927     O                       OCCOM2              65
+045000990927     O          E            HDG1             11
+045100990927     O                       OCCOM3              65
+045200940404     O          E            HDG1             12
+045300990927     O*?????                   OCCOM4    35
+045400940404     O                                           53 'TEL:'
+045500940404     O                       PHONE               66 '   -   -    '
+045600940404     O          E    40      HDG1             13
+045700940404     O                                           31 '* * CONTINUED FROM'
+045800940404     O                                           49 'PREVIOUS PAGE * *'
+045900940404     O          E            HDG1             14
+046000990927     O                       #SL(1)              40
+046100990927     O                       #SH(1)              83
+046200940404     O          E            HDG1             15
+046300990927     O                       #SL(2)              40
+046400990927     O                       #SH(2)              83
+046500940404     O          E            HDG1             16
+046600990927     O                       #SL(3)              40
+046700990927     O                       #SH(3)              83
+046800940404     O          E            HDG1             17
+046900990927     O                       #SL(4)              40
+047000990927     O                       #SH(4)              83
+047100940404     O          E            HDG1             18
+047200990927     O                       #SL(5)              40
+047300990927     O                       #SH(5)              83
+047400940404     O          E            HDG1             21
+047500940404     O                       OHCUST        Z      7
+047600940404     O                       OHSLM1              11
+047700940404     O                       OHPONO              27
+047800940404     O                       OHORD#        Z     34
+047900940404     O                       OHDTOR        Y     44
+048000940404     O                       OHDTRQ        Y     54
+048100940404     O                       OHSHIN              85
+048200940404     O          E            HDG1             23 25
+048300940404     O                       OHSPIN              85
+048400940404     O                       OHTERM              40
+048500940405     O          E            DETL1          1
+048600991011     O                       OIEXT$        M     86
+048700991011     O                       UPRI92        M     75
+048800991011     O                       OIUUOM              67
+048900991011     O                       DESC           B    64
+049000991011     O                       OIITEM              33
+049100940404     O                       SVBOO         4     17
+049200940404     O                       SVINV         4     11
+049300940404     O                       SVORD         4      5
+049400951219     O          E            IDES1          1
+049500940404     O                     38OIDES1              64
+049600940404     O                     38OIEXT$        M     86
+049700940404     O          E            CONT1            60
+049800940404     O                                           51 '* * CONTINUED'
+049900940404     O                                           68 'ON NEXT PAGE * *'
+050000940404     O          E            TOTL1            60
+050100951219     O                       GTBOO         4B    17
+050200951219     O                       GTINV         4B    11
+050300951219     O                       GTORD         4B     5

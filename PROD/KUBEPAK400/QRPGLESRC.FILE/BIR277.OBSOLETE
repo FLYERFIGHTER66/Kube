@@ -1,0 +1,1718 @@
+000100971111      *--------------------------------------------------------------
+000200971111      *
+000300991112      *  COPYRIGHT EFD ENTERPRISES, INC.    1999
+000400971111      *
+000500971111      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600971111      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700971111      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800971111      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900971111      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000971111      *       BY EXPRESS WRITTEN PERMISSION OF
+001100971111      *            EFD ENTERPRISES, INC.     215-643-5352
+001200971111      *
+001300971111      *--------------------------------------------------------------
+001400991220      **PROGRAM NAME-------- BIR277
+001500971111      **COMPANY------------- EFD ENTERPRISES, INC.
+001600971111      **SYSTEM-------------- TGMS
+001700971111      **PROGRAMMER---------- EFD
+001800991220      **APPLICATION--------- CREDIT MEMO ENTRY  (NO INVOICE)
+001900991112      *
+002000991112      * RESERVED IORDR SEQ #
+002100991112      * 001 - TAG ORDER NUMBER
+002200991112      * 994 - DEPOSIT/DOWN PAYMENT
+002300991112      * 995 - FREIGHT/DELIVERY CHARGE
+002400991112      * 996 - CASH AND CARRY DISCOUNT
+002500991112      * 997 - PACKING CHARGE
+002600991112      * 998 - PHYTO CHARGE.
+002700991112      * 999 - PHYTO CERTIFICATE REQUIRED.
+002800971111      *
+002900971111      *            CHANGE--DATE-------DESCRIPTION
+003000980605      *
+003100971111      *
+003200991220     FBIR277FM  CF   E             WORKSTN
+003300980129     F                                     SFILE(TAXSFL:RECNT)
+003400980130     F                                     SFILE(DLVSFL:RECND)
+003500980130     F                                     SFILE(ORDSFL:RECNO)
+003600971111     FFMUSER    IF   E           K DISK
+003700971111     FFMDEPT    IF   E           K DISK
+003800980129     FFMSLSM    IF   E           K DISK
+003900980131     FFMINVT    IF   E           K DISK
+004000980124     FFMTERM    IF   E           K DISK
+004100980129     FFMTAXF    IF   E           K DISK
+004200980124     FFMWHSE    IF   E           K DISK
+004300980124     FFMCUST    IF   E           K DISK
+004400000124      *FFMGLCH  IF  E           K        DISK
+004500991112     FFOECTL    UF   E           K DISK
+004600980106     FFCMREAS   IF   E           K DISK
+004700000118      *FFHORCWI IF  E           K        DISK
+004800990727     FFHORCR    UF A E           K DISK
+004900980129     FFIORCR    UF A E           K DISK
+005000980106      *
+005100980204      * MESSAGE ARRAY
+005200000118     D**                  MSG     1   5 30
+005300980204      * ADDRESS ARRAYS
+005400980204     D #SL             S             32    DIM(5)
+005500980106     D #SH             S             32    DIM(5)
+005600990727      * SCREEN E ARRAYS
+005700990727     D CRD             S              6  0 DIM(10)                              CREDIT #
+005800990727     D CDT             S              6  0 DIM(10)                              CREDIT DATE
+005900990727     D CAM             S             11  2 DIM(10)                              CREDIT AMT
+006000980108      *
+006100971111      ***********************
+006200971111      * PROG DATA STRUCTURE *
+006300971111      ***********************
+006400971111     D                SDS
+006500971111      ** PROGRAM NAME
+006600991112     D  PROGID                 1     10
+006700971111      ** RUN LIBRARY
+006800991112     D  RLIBR                 81     90
+006900971111      * USER I.D.
+007000991112     D  USERID               254    263
+007100971111      ** SOURCE LIBRARY
+007200991112     D  SLIBR                314    323
+007300971111      ****************
+007400971111      *   LDA        *
+007500971111      ****************
+007600971111     D                UDS
+007700971111      ** COMPANY
+007800991112     D  LCO                    1      2  0
+007900971111      ** REPRINT Y/N
+008000971111     D  LDARPT                 3      3
+008100971111      ** BEGINING CREDIT NUMBER
+008200980205     D  LBCRM                  4      9  0
+008300971111      ** ENDING CREDIT NUMBER
+008400980205     D  LECRM                 10     15  0
+008500971111      ** CREDIT MEMO DATE
+008600971111     D  LDATE                 16     21  0
+008700971111      ** CREDIT MEMO END DATE
+008800971111     D  LENDT                 22     27  0
+008900971111      ** SHIP FROM LOCATION
+009000971111     D  LSHFR                 28     30
+009100971111      ** IMMEDIATE PRINT Y/N
+009200971111     D  LIMED                 31     31
+009300971111      ** BILL TO CUSTOMER
+009400971111     D  LBLCS                 32     37  0
+009500971111      ** SHIP TO CUSTOMER
+009600971111     D  LSHCS                 38     43  0
+009700980106      ** LAST INVOICE CREDITED
+009800980205     D  LBINV                 44     49  0
+009900971111      ** PRINTER ID
+010000971111     D  LPRTR                100    109
+010100971111      ** FORMS NUMBER
+010200971111     D  LFORM                110    113
+010300971111      ** NUMBER OF COPIES
+010400971111     D  LCOPY                114    115  0
+010500971111      ** JOBQ
+010600971111     D  LJOB                 116    116
+010700971111      ** HOLD PRINT OUTPUT
+010800971111     D  LHOLD                117    120
+010900971111      ** PRINT AND SAVE OUTPUT
+011000971111     D  LSAVE                121    124
+011100971111      ** CANCEL  X=CANCEL
+011200971111     D  LCANCL               133    133
+011300980124      *
+011400980124     IRMCUST
+011500980124     I              CMNAME                      #WSLD1
+011600980124     I              CMADD2                      #WSLD2
+011700980124     I              CMADD3                      #WSLD3
+011800980124     I              CMADD4                      #WSLD4
+011900980124     I              CMCITY                      #WSLCT
+012000980124     I              CMSTST                      #WSLST
+012100980124     I              CMZIP                       #WSLZP
+012200971111      *
+012300980129     IRHORCR
+012400980108     I              OHNAME                      #WSHP1
+012500980108     I              OHSHP2                      #WSHP2
+012600980108     I              OHSHP3                      #WSHP3
+012700980108     I              OHSHP4                      #WSHP4
+012800980108     I              OHSHCT                      #WSHCT
+012900980108     I              OHSHST                      #WSHST
+013000980108     I              OHSHZP                      #WSHZP
+013100980129     IRMWHSE
+013200980129     I              WHUSER                      WUSER
+013300971111      ***********************
+013400971111      ** START HERE        **
+013500971111      ***********************
+013600971111     C     RSTART        TAG
+013700971111     C                   Z-ADD     0             VBCUST
+013800000118     C**                   Z-ADD0         VINV
+013900971111     C                   Z-ADD     0             VCRM
+014000000108     C                   Z-ADD     LCO           VCO
+014100000118     C                   SETOFF                                       7719
+014200980205     C     LBINV         IFLE      0
+014300980205     C                   Z-ADD     0             LBINV
+014400980205     C                   END
+014500980205     C     LBCRM         IFLE      0
+014600980205     C                   Z-ADD     0             LBCRM
+014700980205     C                   END
+014800971111     C                   MOVE      *BLANKS       VBALPH
+014900971111     C                   MOVE      *BLANKS       VBNAME
+015000980212     C                   MOVEA     '0'           *IN
+015100971111     C     NXTA          TAG
+015200971111     C                   WRITE     SCRNA
+015300971111     C                   READ      SCRNA                                  90
+015400990727     C   77              GOTO      RSTART
+015500971111      ** COMMAND KEYS
+015600971111     C   KF              GOTO      RSTART
+015700971111     C   KC
+015800971111     COR KG              DO
+015900971111     C                   MOVEL     'X'           LCANCL
+016000971111     C                   GOTO      END
+016100971111     C                   ENDDO
+016200980205     C                   SETOFF                                       101117
+016300971111     C                   SETOFF                                       203040
+016400980104     C                   SETOFF                                       272829
+016500980129     C                   SETOFF                                       262199
+016600980129     C                   SETOFF                                       7118
+016700980124      *** CHECK ACTION CODE
+016800971111     C     VACT          IFNE      'A'
+016900971111     C     VACT          ANDNE     'C'
+017000971111     C     VACT          ANDNE     'D'
+017100971111     C                   SETON                                        1099
+017200971111     C                   GOTO      NXTA
+017300971111     C                   END
+017400980104      ** IF ACTION CODE = A NO CREDIT MEMO NUMBER ALLOWED
+017500980104     C     VACT          IFEQ      'A'
+017600980104     C     VCRM          IFGT      0
+017700980104     C                   SETON                                        282999
+017800980104     C                   GOTO      NXTA
+017900980107     C                   END
+018000980107     C                   ELSE
+018100980104     C     VCRM          IFLE      0
+018200980104     C                   SETON                                        2899
+018300980104     C                   GOTO      NXTA
+018400980104     C                   END
+018500980107     C                   END
+018600980124      ** GET MODE
+018700980124     C     VACT          IFEQ      'A'
+018800980130     C                   MOVEL     ' ADD  '      VMODE
+018900980124     C                   END
+019000980124     C     VACT          IFEQ      'C'
+019100980124     C                   MOVEL     'CHANGE'      VMODE
+019200980124     C                   END
+019300980124     C     VACT          IFEQ      'D'
+019400980124     C                   MOVEL     'DELETE'      VMODE
+019500980124     C                   END
+019600971111      *
+019700980102      *** CHECK IF CHANGE OR DELETE
+019800980102     C     VACT          IFNE      'A'
+019900980102     C                   EXSR      GETOLD
+020000980102     C   99              GOTO      NXTA
+020100000108      ** PROTECT REASON CODE IF TAX OR DELIVERY
+020200000108     C     OHREAS        IFEQ      'DLV'
+020300000108     C     OHREAS        OREQ      'TAX'
+020400000108     C                   SETON                                        57        PROT REAS CD
+020500000108     C                   ELSE
+020600000108     C                   SETOFF                                       57
+020700000108     C                   END
+020800980102     C     VACT          IFEQ      'D'
+020900980129     C                   EXSR      DEL
+021000980102     C                   GOTO      RSTART
+021100980102     C                   END
+021200980102     C                   GOTO      NXTB
+021300980102     C                   END
+021400980102      *
+021500980102      *  BILL TO CUSTOMER ALPHA SEARCH
+021600971111      *
+021700980102     C     VBALPH        IFGT      *BLANKS
+021800971111     C                   MOVEL     VBALPH        CMLOOK           15
+021900991112     C                   CALL      'LKCUST'
+022000971111     C                   PARM                    CMLOOK
+022100971111     C                   PARM                    CMCUST            6 0
+022200971111     C                   PARM                    CMNAME           30
+022300971111     C                   MOVEL     *BLANKS       VBALPH
+022400980107     C                   MOVEL     *BLANKS       VBTELE
+022500971111     C                   Z-ADD     CMCUST        VBCUST
+022600971111     C                   MOVEL     CMNAME        VBNAME
+022700980129     C                   GOTO      NXTA
+022800971111     C                   ENDIF
+022900971111      *
+023000980102      *  SHIP TO TELEPHONE # SEARCH
+023100980102      *
+023200980102     C     VBTELE        IFGT      *BLANKS
+023300980102     C                   MOVEL     VBTELE        CMPHON           10 0
+023400991112     C                   CALL      'LKTELE'
+023500980102     C                   PARM                    CMPHON
+023600980102     C                   PARM                    CMCUST            6 0
+023700980102     C                   PARM                    CMNAME           30
+023800980102     C                   MOVEL     *BLANKS       VBTELE
+023900980107     C                   MOVEL     *BLANKS       VBALPH
+024000980102     C                   Z-ADD     CMCUST        VBCUST
+024100980102     C                   MOVEL     CMNAME        VBNAME
+024200980102     C                   GOTO      NXTA
+024300980102     C                   ENDIF
+024400980102      *
+024500980102      **** BOTH FIELDS BLANK ON OTHER THAN ADD
+024600971111      *
+024700971111     C     VBCUST        IFLE      0
+024800971111     C     VBALPH        ANDEQ     *BLANKS
+024900971111     C     VBTELE        ANDEQ     *BLANKS
+025000971112     C     VACT          ANDNE     'A'
+025100980107     C     VCRM          ANDLE     0
+025200980102     C                   SETON                                        1117
+025300971111     C                   GOTO      NXTA
+025400971111     C                   ENDIF
+025500971111      *
+025600980102      *  CHECK BILL TO CUSTOMER NUMBER
+025700971111      *
+025800971111     C     KEY6          KLIST
+025900971111     C                   KFLD                    VBCUST
+026000971111     C     KEY6          CHAIN(N)  FMCUST                             90
+026100980102     C   90              SETON                                        11
+026200971111     C  N90CMSTAT        IFEQ      'D'
+026300980102     C                   SETON                                        11
+026400980102     C                   GOTO      NXTA
+026500971111     C                   ENDIF
+026600971111     C  N90CMCTYP        IFEQ      'XX'
+026700980102     C                   SETON                                        1171
+026800971111     C                   GOTO      NXTA
+026900971111     C                   ENDIF
+027000000108     C                   EXSR      LOADB
+027100980605      ** SETUP NOT RETURN FROM NEXT SCREEN
+027200980129     C                   Z-ADD     0             PRIOR             1 0
+027300980129      *******************
+027400980129      **  SCREEN B
+027500980129      *******************
+027600980129     C     NXTB          TAG
+027700980129     C                   WRITE     SCRNB
+027800980129     C                   READ      SCRNB                                  90
+027900980129     C                   SETOFF                                       27
+028000980129     C   KFPRIOR         IFGT      0
+028100980129     C                   SETON                                        27
+028200980129     C                   GOTO      NXTB
+028300980130     C                   ELSE
+028400980130     C                   GOTO      RSTART
+028500980129     C                   END
+028600980129     C                   SETOFF                                       242526
+028700980129      ** CHECK REASON CODE
+028800980129     C                   MOVEL     OHREAS        TST1              1
+028900980129     C     TST1          IFEQ      '?'
+029000980129     C     TST1          OREQ      '/'
+029100980129     C                   MOVE      OHREAS        TST2              2
+029200980129     C                   MOVE      *BLANKS       CRREAS
+029300980129     C                   MOVEL     TST2          CRREAS
+029400991112     C                   Z-ADD     LCO           CO                2 0
+029500980129     C                   CALL      'LKREAS'
+029600991112     C                   PARM                    CO
+029700991112     C                   PARM                    CRREAS
+029800980129     C                   PARM                    CRDESC
+029900980129     C                   MOVEL     *BLANKS       OHREAS
+030000980129     C                   MOVEL     CRREAS        OHREAS
+030100980129     C                   GOTO      NXTB
+030200980129     C                   ENDIF
+030300980129     C                   SETOFF                                       2728
+030400991112     C     REAKEY        KLIST
+030500991112     C                   KFLD                    LCO
+030600991112     C                   KFLD                    OHREAS
+030700991112     C     REAKEY        CHAIN     FCMREAS                            26
+030800980129     C   26              MOVE      *BLANKS       CRDESC
+030900980131     C   26              GOTO      NXTB
+031000980129      ** CHECK CR DATE
+031100980129     C     OHDTOR        IFLE      0
+031200980129     C                   SETON                                        24
+031300980129     C                   GOTO      NXTB
+031400980129     C                   END
+031500980129     C                   Z-ADD     OHDTOR        ##MDY
+031600991112     C                   CALL      '@DT@A1'
+031700991112     C                   PARM                    ##MDY             6 0          DATE MDY
+031800991112     C                   PARM                    ##CYMD            7 0          DATE CYYMMDD
+031900991112     C                   PARM                    ##ERR             1            ERROR IF = Y
+032000991112     C     ##ERR         IFEQ      'Y'
+032100980129     C                   SETON                                        24
+032200980129     C                   GOTO      NXTB
+032300991112     C                   END
+032400991112     C                   Z-ADD     ##CYMD        OHORDY
+032500991112     C     ##CYMD        IFLT      TODAY
+032600991112     C                   SETON                                        2425
+032700991112     C                   GOTO      NXTB
+032800991112     C                   END
+032900980129      ** CHECK PRICE CODE
+033000980129     C                   SETOFF                                       30
+033100980130     C     OHPRCD        IFLT      1
+033200980129     C     OHPRCD        ORGT      5
+033300980129     C                   SETON                                        30
+033400980129     C                   GOTO      NXTB
+033500980129     C                   END
+033600980129      ** CHECK TERMS CODE
+033700980129     C                   SETOFF                                       31
+033800980130     C                   MOVEL     OHTMCD        TST1
+033900980129     C     TST1          IFEQ      '?'
+034000980129     C     TST1          OREQ      '/'
+034100980130     C                   MOVEL     OHTMCD        TCTERM
+034200980129     C                   CALL      'LKTERM'
+034300980129     C                   PARM                    TCTERM
+034400980129     C                   PARM                    TCDESC
+034500980129     C                   MOVEL     TCTERM        OHTMCD
+034600980129     C                   SETON                                        99
+034700980129     C                   GOTO      NXTB
+034800980129     C                   ENDIF
+034900980130     C     OHTMCD        CHAIN     FMTERM                             31
+035000980129     C   31              GOTO      NXTB
+035100980129      ** CHECK TAX EXEMPT
+035200980129     C                   SETOFF                                       35
+035300980129     C     OHTXST        IFNE      'N'
+035400980129     C     OHTXST        ANDNE     'Y'
+035500980129     C                   SETON                                        35
+035600980129     C                   GOTO      NXTB
+035700980129     C                   END
+035800980129      ** CHECK TAX JURIS.
+035900980129     C                   SETOFF                                       40
+036000980129     C                   MOVEL     OHTXJU        TST1
+036100980129     C     TST1          IFEQ      '?'
+036200980129     C     TST1          OREQ      '/'
+036300980129     C                   MOVE      OHTXJU        TST2
+036400980129     C                   MOVE      *BLANKS       TXTXJU
+036500980129     C                   MOVEL     TST2          TXTXJU
+036600980129     C                   CALL      'LKTAXJ'
+036700980129     C                   PARM                    TXTXJU
+036800980129     C                   PARM                    TXJUNM
+036900980129     C                   MOVEL     *BLANKS       OHTXJU
+037000980129     C                   MOVEL     TXTXJU        OHTXJU
+037100980129     C                   GOTO      NXTB
+037200980129     C                   ENDIF
+037300980129     C     OHTXJU        CHAIN     FMTAXF                             40
+037400980129     C   40              GOTO      NXTB
+037500980129      ** CHECK TAX FREIGHT
+037600980129     C                   SETOFF                                       45
+037700980129     C     OHFRTX        IFNE      'N'
+037800980129     C     OHFRTX        ANDNE     'Y'
+037900980129     C                   SETON                                        45
+038000980129     C                   GOTO      NXTB
+038100980129     C                   END
+038200980129      ** CHECK TAX SPECIAL CHARGES
+038300980129     C                   SETOFF                                       46
+038400980129     C     OHSPTX        IFNE      'N'
+038500980129     C     OHSPTX        ANDNE     'Y'
+038600980129     C                   SETON                                        46
+038700980129     C                   GOTO      NXTB
+038800980129     C                   END
+038900980129      ** CHECK AFFECT INVENTORY
+039000980129     C                   SETOFF                                       47
+039100980129     C     OHAFIV        IFNE      'N'
+039200980129     C     OHAFIV        ANDNE     'Y'
+039300980129     C                   SETON                                        47
+039400980129     C                   GOTO      NXTB
+039500980129     C                   END
+039600980129      ** CHECK AFFECT S/A
+039700980129     C                   SETOFF                                       48
+039800980130     C     OHAFSL        IFNE      'N'
+039900980130     C     OHAFSL        ANDNE     'Y'
+040000980129     C                   SETON                                        48
+040100980129     C                   GOTO      NXTB
+040200980129     C                   END
+040300980205     C                   Z-ADD     OHCRM#        LBCRM
+040400980129      ** IF HERE ALL OK WRITE HEADER
+040500980129     C     VACT          IFEQ      'A'
+040600980205     C     PRIOR         ANDLE     0
+040700980129     C                   WRITE     RHORCR
+040800980129     C                   ELSE
+040900980129     C                   UPDATE    RHORCR
+041000980129     C                   END
+041100980129      ** DECIDE WHERE TO GO
+041200980129     C     OHREAS        IFEQ      'TAX'
+041300980129     C                   EXSR      CRMTAX
+041400980129     C                   GOTO      RSTART
+041500980129     C                   END
+041600980129     C     OHREAS        IFEQ      'DLV'
+041700980129     C                   EXSR      CRMDLV
+041800980129     C                   GOTO      RSTART
+041900980129     C                   END
+042000980202     C     PRIOR         IFGT      0
+042100980202     C                   GOTO      NXTC
+042200980202     C                   END
+042300980130      *** DISPLAY CREDIT MEMO SUB FILE
+042400980202     C     RSTRTC        TAG
+042500980130     C                   EXSR      BLDSFL
+042600000124     C                   SETOFF                                       9721
+042700000118     C                   MOVE      *BLANKS       VITEM
+042800000208     C                   MOVE      *BLANKS       VSIZE
+042900000118     C                   MOVE      *BLANKS       IMITEM
+043000000208     C                   MOVE      *BLANKS       IMSIZE
+043100000118     C                   MOVE      *BLANKS       VWHSE
+043200000124     C                   Z-ADD     0             VAMT
+043300000124     C                   Z-ADD     0             VQTY
+043400000118     C                   Z-ADD     0             OQTY
+043500000118     C                   Z-ADD     0             VUPRI
+043600000118     C                   Z-ADD     0             OPRICE
+043700000124     C                   Z-ADD     0             VEXT$
+043800000124     C                   Z-ADD     0             VLINE
+043900000124     C                   MOVEL     VACT          ACTND
+044000000124     C                   MOVE      *BLANKS       VTYPE
+044100000124     C                   MOVE      *BLANKS       LDESC
+044200000118     C                   MOVEL     'N'           VOVER
+044300980130     C     NXTC          TAG
+044400980202     C                   Z-ADD     0             PRIOR
+044500000109     C                   SETOFF                                       71
+044600980130     C                   EXFMT     ORDCTL
+044700000124      ** IF NEW SELECTED OUTPUT CREDIT MEMO
+044800000124     C   KB              DO
+044900000201     C                   EXSR      GETTOT
+045000000124     C                   GOTO      RSTART
+045100000124     C                   ENDDO
+045200980202      *** DELETE CREDIT MEMO
+045300980202     C   KX              DO
+045400980202     C     NONDL         TAG
+045500980130     C                   SETON                                        98
+045600980130     C                   EXFMT     ORDCTL
+045700980130     C   KF              DO
+045800980130     C                   SETOFF                                       98
+045900980130     C                   GOTO      NXTC
+046000980130     C                   ENDDO
+046100980130     C  NKX              GOTO      NONDL
+046200980130     C                   EXSR      DELET
+046300980130     C                   GOTO      RSTART
+046400980130     C                   ENDDO
+046500980202      *** RESTART ORDSFL
+046600980202     C   KF              GOTO      RSTRTC
+046700980202      *** PREVIOUS SCREEN
+046800980202     C   KL              DO
+046900980202     C                   Z-ADD     1             PRIOR
+047000980205     C     VCRM          CHAIN     FHORCR                             27
+047100980202     C                   GOTO      NXTB
+047200980202     C                   ENDDO
+047300000109      ** NOW CHECK INPUT
+047400991220     C                   SETOFF                                       101518
+047500991220     C                   SETOFF                                       202130
+047600991220     C                   SETOFF                                       354045
+047700991220     C                   SETOFF                                       50  99
+047800991220     C     ACTND         IFNE      'A'
+047900991220     C     ACTND         ANDNE     'C'
+048000991220     C     ACTND         ANDNE     'D'
+048100991220     C                   SETON                                        10  99
+048200991220     C                   GOTO      NXTC
+048300991220     C                   END
+048400991220      ** CHECK LINE
+048500000118     C  N97ACTND         IFNE      'A'
+048600000124     C                   Z-ADD     VLINE         OISEQ#
+048700000124     C     CRKEY         CHAIN(N)  FIORCR                             15
+048800991220     C   15              DO
+048900991220     C                   SETON                                        99
+049000991220     C                   GOTO      NXTC
+049100991220     C                   ENDDO
+049200991220     C                   ELSE
+049300991220     C                   Z-ADD     0             VLINE
+049400000118     C                   Z-ADD     0             OISEQ#
+049500991220     C                   END
+049600991220      *** CHECK TYPE
+049700991220     C     ACTND         IFEQ      'A'
+049800991220     C     VTYPE         IFNE      ' '
+049900991220     C     VTYPE         ANDNE     'F'
+050000991220     C     VTYPE         ANDNE     'S'
+050100000124     C     VTYPE         ANDNE     'C'
+050200991220     C                   SETON                                        18  99
+050300991220     C                   GOTO      NXTC
+050400991220     C                   END
+050500991220     C                   ELSE
+050600000118     C                   MOVEL     OIITYP        VTYPE
+050700991220     C                   END
+050800991220      ** SETUP SCREEN INDICATORS AND REDISPLAY
+050900991220     C                   SETON                                        19
+051000991220     C     ACTND         IFNE      'A'
+051100000109     C                   MOVEL     OIITEM        VITEM
+051200000208     C                   MOVEL     OISIZE        VSIZE
+051300000118     C                   MOVEL     OIWHSE        VWHSE
+051400000124     C                   Z-SUB     OIQCRD        VQTY
+051500000118     C                   Z-ADD     OIUPRI        VUPRI
+051600000118     C                   Z-ADD     OIEXT$        VEXT$
+051700000124     C                   Z-SUB     OIEXT$        VAMT
+051800000124     C                   MOVEL     OIDES1        LDESC
+051900000124     C                   MOVEL     OIOVER        VOVER
+052000000109     C                   MOVEL     OIITYP        VTYPE
+052100000118     C                   END
+052200000109     C     OIITYP        IFEQ      ' '
+052300000109     C                   SETOFF                                       21
+052400000109     C                   ELSE
+052500000109     C                   SETON                                        21
+052600000109     C                   END
+052700980202     C   99              GOTO      NXTC
+052800000124      ** IF DELETE DO IT HERE
+052900000124     C     ACTND         IFEQ      'D'
+053000000124     C                   MOVEL     OIDES1        VDESC
+053100000124     C                   WRITE     SCRNDEL
+053200000124     C                   READ      SCRNDEL                                90
+053300000124     C   KF              GOTO      RSTRTC
+053400000124     C     CRKEY         CHAIN     FIORCR                             15
+053500000124     C  N15              DELETE    RIORCR
+053600000124     C                   GOTO      RSTRTC
+053700000124     C                   END
+053800980206      *** CALC TAX
+053900980206     C   KI              DO
+054000980208     C                   SUB       TAX$          CRMTOT
+054100000118     C*          OHDISC    DIV  100       WKDIS   54H
+054200000118     C*          DISTX     MULT WHDIS$    DTLFT   92H
+054300000118     C*                    Z-ADDTXAMT     TXBASE  92
+054400000118     C     CRMTOT        MULT(H)   .06           TAX$
+054500000118     C*          TAX$      IFGT WHTAX$
+054600000118     C*                    Z-ADDWHTAX$    TAX$
+054700000118     C*                    END
+054800980206     C                   Z-SUB     TAX$          OHTAX$
+054900980208     C                   ADD       TAX$          CRMTOT
+055000980206     C                   GOTO      NXTC
+055100980206     C                   ENDDO
+055200980202      ** IF NEW SELECTED OUTPUT CREDIT MEMO
+055300980202     C   KB              DO
+055400000201     C                   EXSR      GETTOT
+055500980202     C                   GOTO      RSTART
+055600980202     C                   ENDDO
+055700000109      ** WHAT TYPE LINE
+055800000124     C     VTYPE         IFNE      ' '
+055900000124     C                   EXSR      FRT
+056000000124     C                   GOTO      RSTRTC
+056100000124     C                   END
+056200000109     C     NXTITY        TAG
+056300000109     C                   SETON                                        71
+056400000109     C                   SETOFF                                       21
+056500000118     C   99              SETOFF                                       97
+056600000109     C                   EXFMT     ORDCTL
+056700000124     C                   SETOFF                                       101518
+056800000124     C                   SETOFF                                       202130
+056900000124     C                   SETOFF                                       354045
+057000000124     C                   SETOFF                                       50  99
+057100000109     C   KF              GOTO      RSTRTC
+057200000118     C     VITEM         IFNE      IMITEM
+057300000208     C     VSIZE         ORNE      IMSIZE
+057400000118     C                   SETOFF                                       97
+057500000118     C                   END
+057600000109      ** CHECK ITEM
+057700000109     C                   MOVEL     VITEM         TST1              1
+057800000109     C     TST1          IFEQ      '/'
+057900000109     C     TST1          OREQ      '?'
+058000000109     C                   MOVEL     *BLANKS       IMLOOK
+058100000109     C     11            SUBST     VITEM:2       IMLOOK
+058200000109     C                   CALL      'LKITEM'
+058300000109     C                   PARM                    IMLOOK
+058400000109     C                   PARM                    IMITEM
+058500000208     C                   PARM                    IMSIZE
+058600000109     C                   PARM                    IMWHSE
+058700000109     C                   PARM                    IMDES1
+058800000109     C                   PARM                    IMDES2
+058900000109     C                   PARM                    IMDES3
+059000000109     C                   PARM                    IMDES4
+059100000109     C                   PARM                    DESHFR
+059200000109     C                   MOVEL     IMITEM        VITEM
+059300000208     C                   MOVEL     IMSIZE        VSIZE
+059400000124     C                   MOVEL     IMWHSE        VWHSE
+059500000109     C                   GOTO      NXTITY
+059600000109     C                   END
+059700000109     C     IKEY          KLIST
+059800000109     C                   KFLD                    VITEM
+059900000208     C                   KFLD                    VSIZE
+060000000109     C                   KFLD                    VWHSE
+060100000124     C     IKEY          CHAIN     FMINVT                             20
+060200000124     C   20              SETON                                        99
+060300000124     C   20              GOTO      NXTITY
+060400000109      ** CHECK QTY
+060500000118     C                   SETOFF                                       30
+060600000118     C     VQTY          IFNE      OQTY
+060700000118     C                   SETOFF                                       97
+060800000118     C                   Z-ADD     VQTY          OQTY             11 1
+060900000118     C                   END
+061000000109     C     VQTY          IFLE      0
+061100000118     C                   SETON                                        3099
+061200000118     C                   GOTO      NXTITY
+061300000109     C                   END
+061400000109      ** CHECK PRICE
+061500000118     C     VOVER         IFNE      OOVER
+061600000118     C     VUPRI         ORNE      OPRICE
+061700000118     C                   SETOFF                                       97
+061800000118     C                   MOVEL     VOVER         OOVER             1
+061900000118     C                   END
+062000000118     C                   SETOFF                                       35
+062100000109     C     VOVER         IFNE      'N'
+062200000109     C     VOVER         ANDNE     'Y'
+062300000109     C     VOVER         ANDNE     '1'
+062400000109     C     VOVER         ANDNE     '2'
+062500000109     C     VOVER         ANDNE     '3'
+062600000109     C     VOVER         ANDNE     '4'
+062700000109     C     VOVER         ANDNE     '5'
+062800000118     C                   SETON                                        3599
+062900000118     C                   GOTO      NXTITY
+063000000109     C                   END
+063100000109     C     VOVER         IFNE      'Y'
+063200000109     C     VOVER         IFNE      'N'
+063300000109     C                   MOVEL     VOVER         PRICD             1
+063400000109     C                   ELSE
+063500000201     C                   MOVEL     OHPRCD        PRICD             1
+063600000109     C                   END
+063700000118     C                   END
+063800000118     C     VOVER         IFNE      'Y'
+063900000109     C                   Z-ADD     0             VDISC             4 2
+064000000109     C                   Z-ADD     0             VOLDSC            4 2
+064100000109     C                   Z-ADD     0             #OPRC             9 4
+064200000118     C                   MOVE      *BLANKS       OIFRQD            1
+064300000118     C                   Z-ADD     0             OHORD#            6 0
+064400000109     C                   CALL      '#PRICE'
+064500000109     C                   PARM                    OHBLCU
+064600000109     C                   PARM                    IMITEM
+064700000208     C                   PARM                    IMSIZE
+064800000109     C                   PARM                    IMWHSE
+064900000109     C                   PARM                    IMPUOM
+065000000109     C                   PARM                    VQTY
+065100000109     C                   PARM                    PRICD
+065200000109     C                   PARM                    #OPRC
+065300000109     C                   PARM                    VDISC
+065400000109     C                   PARM                    OICTCD
+065500000109     C                   PARM                    VOLDSC
+065600000109     C                   PARM                    OIFRQD
+065700000109     C                   PARM                    OHORD#
+065800000109     C                   PARM                    ORDD              1
+065900000118     C     #OPRC         IFLE      0
+066000000118     C                   Z-ADD     IMSEL1        #OPRC
+066100000118     C                   END
+066200000118     C                   Z-ADD     #OPRC         VUPRI
+066300000109     C                   END
+066400000126     C                   Z-ADD     VUPRI         OPRICE            9 4
+066500000131     C                   Z-ADD     VUPRI         OIUPRI
+066600000131     C                   Z-ADD     VUPRI         VUPRIC
+066700000118      ** GET EXTENSION
+066800000118     C                   Z-ADD     VQTY          QTYORD
+066900000118     C                   Z-ADD     0             VDISC
+067000000118     C                   CALL      '#EXLN'
+067100000118     C                   PARM                    QTYORD            8 1
+067200000118     C                   PARM                    VUPRIC            9 4
+067300000118     C                   PARM                    VDISC             4 2
+067400000118     C                   PARM                    #LINGR            9 2
+067500000118     C                   PARM                    #LINNT            9 2
+067600000118     C                   PARM                    #LINDS            7 2
+067700000118      *
+067800000118     C                   Z-ADD     #LINNT        VEXT$
+067900000118     C  N97              DO
+068000000118     C                   SETON                                        97
+068100000118     C                   GOTO      NXTITY
+068200000118     C                   ENDDO
+068300000118      ** ALL OK WRITE RECORD
+068400000118     C   97              EXSR      PUTREC
+068500000118     C                   GOTO      RSTRTC
+068600980202      **
+068700980202     C                   GOTO      NXTC
+068800980129      *****
+068900980129      * END
+069000980129      *****
+069100980129     C     END           TAG
+069200980129     C                   SETON                                        LR
+069300990727      ***********************
+069400990727      ** GET OLD CRM       **
+069500990727      ***********************
+069600990727     C     GETOLD        BEGSR
+069700980206     C     VCRM          CHAIN     FHORCR                             27
+069800980104     C   27              DO
+069900980104     C                   SETON                                        2899
+070000980104     C                   GOTO      ENDOLD
+070100980104     C                   ENDDO
+070200000118      ** CHECK FOR USER SHIGOFROM
+070300980124     C     DESHFR        IFGT      *BLANKS
+070400980124     C     OHSHFR        ANDNE     DESHFR
+070500980124     C                   SETON                                        262899
+070600980124     C                   GOTO      ENDOLD
+070700980124     C                   ENDIF
+070800000118     C**                   Z-ADDOHAPNO    VINV
+070900980124     C                   Z-ADD     OHCOMP        VCO
+071000991112     C     REAKEY        CHAIN     FCMREAS                            91
+071100980129     C     OHTMCD        CHAIN     FMTERM                             91
+071200980124     C     OHSHFR        CHAIN     FMWHSE                             91
+071300980124     C     OHSLM1        CHAIN     FMSLSM                             91
+071400980124     C                   MOVEL     SMNAME        SNAME1
+071500980124     C     OHSLM2        CHAIN     FMSLSM                             91
+071600980124     C                   MOVEL     SMNAME        SNAME2
+071700980124     C     OHBLCU        CHAIN     FMCUST                             91
+071800980124      * GET ADDRESS
+071900980124     C                   EXSR      #SLD
+072000980124     C                   EXSR      #SHP
+072100980129     C                   MOVEL     #WSLD1        OHSLD1
+072200980129     C                   MOVEL     #WSLD2        OHSLD2
+072300980129     C                   MOVEL     #WSLD3        OHSLD3
+072400980129     C                   MOVEL     #WSLD4        OHSLD4
+072500980129     C                   MOVEL     #WSLCT        OHSLCT
+072600980129     C                   MOVEL     #WSLST        OHSLST
+072700980129     C                   MOVEL     #WSLZP        OHSLZP
+072800980124      *
+072900980104     C     ENDOLD        TAG
+073000980104     C                   ENDSR
+073100980104      *
+073200980104      ***********************
+073300980104      ** START UP ROUTINE  **
+073400980104      ***********************
+073500980104     C     *INZSR        BEGSR
+073600971111     C                   TIME                    TIMOD             6 0
+073700971111     C                   TIME                    TMWRK            12 0
+073800971111     C                   MOVE      TMWRK         TDATE             6 0
+073900980129     C                   Z-ADD     TDATE         ##MDY
+074000991112     C                   CALL      '@DT@A1'
+074100991112     C                   PARM                    ##MDY             6 0          DATE MDY
+074200991112     C                   PARM                    ##CYMD            7 0          DATE CYYMMDD
+074300991112     C                   PARM                    ##ERR             1            ERROR IF = Y
+074400980129     C                   Z-ADD     ##CYMD        TODAY             7 0
+074500971111     C                   MOVEL     ' '           LCANCL
+074600971111     C     USERID        CHAIN     FMUSER                             90
+074700971111     C   90              MOVEL     '999'         USDEPT
+074800971111     C     USDEPT        CHAIN     FMDEPT                             90
+074900971111     C   90              MOVEL     'PRT01'       DEPINV
+075000971111     C                   MOVEL     DEPINV        LPRTR
+075100971111     C                   MOVEL     '*INV '       LFORM
+075200971111     C                   MOVEL     '*NO  '       LHOLD
+075300971111     C                   MOVEL     '*NO  '       LSAVE
+075400971111     C                   ENDSR
+075500980106      *
+075600980106      *  ***********
+075700000108      *  * LOADB   * GET INFO FROM MCUST RECORD INTO SCREEN B
+075800980106      *  ***********
+075900980124     C     LOADB         BEGSR
+076000000108     C                   Z-ADD     0             OHAPNO
+076100980129     C                   MOVE      *BLANKS       OHREAS
+076200980129     C                   MOVE      *BLANKS       CRDESC
+076300000108     C                   MOVEL     CMTMCD        OHTMCD
+076400980129     C     OHTMCD        CHAIN     FMTERM                             91
+076500000108     C                   MOVEL     DESHFR        OHSHFR
+076600980129     C     OHSHFR        CHAIN     FMWHSE                             91
+076700000108     C                   MOVEL     CMSLSM        OHSLM1
+076800980129     C     OHSLM1        CHAIN     FMSLSM                             91
+076900980129     C                   MOVEL     SMNAME        SNAME1
+077000000108     C                   MOVE      *BLANKS       OHSLM2
+077100000108     C                   MOVE      *BLANKS       SNAME2
+077200000108     C                   Z-ADD     CMBLCU        OHBLCU
+077300000108     C                   Z-ADD     CMARCU        OHARCU
+077400000108     C                   Z-ADD     CMSACU        OHSACU
+077500000108     C                   Z-ADD     CMCUST        OHCUST
+077600980129     C     OHBLCU        CHAIN     FMCUST                             91
+077700980129      * GET ADDRESS
+077800980129     C                   EXSR      #SLD
+077900980129     C                   EXSR      #SHP
+078000980129     C                   MOVEL     #WSLD1        OHSLD1
+078100980129     C                   MOVEL     #WSLD2        OHSLD2
+078200980129     C                   MOVEL     #WSLD3        OHSLD3
+078300980129     C                   MOVEL     #WSLD4        OHSLD4
+078400980129     C                   MOVEL     #WSLCT        OHSLCT
+078500980129     C                   MOVEL     #WSLST        OHSLST
+078600980129     C                   MOVEL     #WSLZP        OHSLZP
+078700980129      ** GET REST OF HEADER FIELDS
+078800991112     C                   Z-ADD     0             OCCOMP
+078900991112     C     OCCOMP        CHAIN     FOECTL                             91
+079000991112     C                   Z-ADD     OCNCMN        OHCRM#
+079100991112     C                   Z-ADD     OCNCMN        VCRM
+079200991112     C                   ADD       1             OCNCMN
+079300991112     C  N91              UPDATE    ROECTL
+079400980129     C                   MOVEL     'A'           OHSTAT
+079500980129     C                   Z-ADD     VCO           OHCOMP
+079600980129     C                   MOVE      *BLANKS       OHCOMM
+079700000108     C                   MOVE      *BLANKS       OHPOS
+079800000108     C                   MOVE      *BLANKS       OHSALE
+079900000108     C                   Z-ADD     00            OHCCDS
+080000000108     C                   MOVEL     CMLOOK        OHALPH
+080100000108     C                   MOVE      *BLANKS       OHROUT
+080200000108     C                   Z-ADD     0             OHSTOP
+080300000108     C                   MOVEL     CMTXID        OHTXID
+080400000108     C     CMTXST        IFEQ      'Y'
+080500000108     C                   MOVEL     'N'           OHSPTX
+080600000108     C                   MOVEL     'N'           OHFRTX
+080700000108     C                   ELSE
+080800000108     C                   MOVEL     'Y'           OHSPTX
+080900000108     C                   MOVEL     'Y'           OHFRTX
+081000000108     C                   END
+081100000108     C                   MOVEL     CMTXST        OHTXST
+081200000108     C                   MOVEL     CMTXJU        OHTXJU
+081300000108     C                   Z-ADD     TCTDAS        OHTDAS
+081400000108     C                   Z-ADD     CMTRDC        OHTRDC
+081500000108     C                   Z-ADD     CMPRCD        OHPRCD
+081600980130     C     OHPRCD        IFLT      1
+081700980130     C     OHPRCD        ORGT      5
+081800980130     C                   Z-ADD     1             OHPRCD
+081900980130     C                   END
+082000980129     C                   MOVEL     USERID        OHUSER
+082100980129     C                   Z-ADD     TIMOD         OHTIME
+082200980129     C                   Z-ADD     TDATE         OHDTLA
+082300980129     C                   Z-ADD     TDATE         OHTDAT
+082400000108     C                   MOVE      *BLANKS       OHAFIV
+082500980129     C                   MOVEL     'Y'           OHAFSL
+082600980129     C                   Z-ADD     0             OHTOT$
+082700980129     C                   Z-ADD     0             OHTAX$
+082800980129     C                   Z-ADD     0             OHMIS$
+082900980129     C                   Z-ADD     0             OHDIS$
+083000980129     C                   Z-ADD     0             OHMER$
+083100980129     C                   Z-ADD     0             OHFRT$
+083200000108     C                   MOVEL     CMCTYP        OHTYPE
+083300980129     C                   Z-ADD     0             OHAMT1
+083400980129     C                   Z-ADD     0             OHAMT2
+083500980129     C                   Z-ADD     0             OHAMT3
+083600000108     C                   Z-ADD     TCTDAY        OHTDAY
+083700000108     C                   Z-ADD     TCTRAT        OHTRAT
+083800000108     C                   MOVEL     TCDESC        OHTERM
+083900991113     C                   Z-ADD     TDATE         OHDTOR
+084000980129     C                   MOVEL     'CM'          OHAPSF
+084100980129     C                   ENDSR
+084200980129      *
+084300980108      *
+084400980108      *  ***********
+084500980129      *  * DEL     *
+084600980108      *  ***********
+084700980129     C     DEL           BEGSR
+084800980124     C     NXTDEL        TAG
+084900980124     C                   WRITE     SCRNBD
+085000980124     C                   READ      SCRNBD                                 90
+085100980124      ** K6 RESTART NO DELETE
+085200980130     C   KF              GOTO      ENDDE
+085300980124      ** K23 DELETE
+085400980124     C  NKX              GOTO      NXTDEL
+085500980129     C                   EXSR      DELET
+085600980130     C     ENDDE         ENDSR
+085700980129      ****************
+085800980129      * DELETE ENTIRE CREDIT MEMO
+085900980129      ***************************
+086000980129     C     DELET         BEGSR
+086100980131     C     VCRM          CHAIN     FHORCR                             50
+086200980124     C     VCRM          SETLL     FIORCR
+086300980124     C     NXTDI         TAG
+086400980124     C     VCRM          READE     FIORCR                                 90
+086500980124     C   90              GOTO      ENDDI
+086600980124     C                   DELETE    RIORCR
+086700980124     C                   GOTO      NXTDI
+086800980124     C     ENDDI         TAG
+086900980131     C  N50              DELETE    RHORCR
+087000980124     C     ENDDEL        TAG
+087100980124     C                   ENDSR
+087200980129      *
+087300980129      *  ***********
+087400980129      *  * CRMTAX  * GET TAX ONLY CREDIT
+087500980129      *  ***********
+087600980129     C     CRMTAX        BEGSR
+087700980129     C     RSTCRX        TAG
+087800980129     C                   EXSR      BLDTAX
+087900980129     C     NXTCRX        TAG
+088000980129     C                   EXFMT     TAXCTL
+088100980129     C   KF              GOTO      RSTCRX
+088200980129      *** DELETE CREDIT MEMO
+088300980129     C   KX              DO
+088400980129     C     TAXDL         TAG
+088500980129     C                   SETON                                        98
+088600980129     C                   EXFMT     TAXCTL
+088700980129     C   KF              DO
+088800980129     C                   SETOFF                                       98
+088900980129     C                   GOTO      NXTCRX
+089000980129     C                   ENDDO
+089100980129     C  NKX              GOTO      TAXDL
+089200980129     C                   EXSR      DELET
+089300980129     C                   GOTO      ENDTAX
+089400980129     C                   ENDDO
+089500980129      ** CHECK INPUT
+089600980129     C                   EXSR      CHKTAX
+089700980129     C   99              GOTO      NXTCRX
+089800980129      ** IF F2 OUTPUT CREDIT MEMO
+089900980129     C   KB              DO
+090000980129     C                   EXSR      PUTTAX
+090100980129     C                   GOTO      ENDTAX
+090200980129     C                   ENDDO
+090300980129     C                   GOTO      NXTCRX
+090400980129     C     ENDTAX        ENDSR
+090500980130      *
+090600980130      *  ***********
+090700980130      *  * BLDSFL  * BUILD SUB FILE FOR CREDIT
+090800980130      *  ***********
+090900980130     C     BLDSFL        BEGSR
+091000980130     C                   SETON                                        80
+091100980130     C                   WRITE     ORDCTL
+091200980130     C                   SETOFF                                       8098
+091300980130     C                   Z-ADD     0             RECNO             5 0
+091400000124     C                   Z-ADD     0             CRMTOT
+091500980130     C                   Z-ADD     0             LSTSEQ            3 0
+091600000118     C**                   Z-ADD0         RESTCK
+091700980206     C                   Z-ADD     0             CANDC             9 2
+091800000124     C                   Z-ADD     0             LSTSEQ            3 0
+091900000124     C                   Z-ADD     0             CACSEQ            3 0
+092000000118     C                   Z-ADD     0             LIN
+092100991220     C     VCRM          SETLL     FIORCR
+092200980130     C     NXTBLD        TAG
+092300991220     C     VCRM          READE(N)  FIORCR                                 90
+092400980130     C   90              GOTO      ENDBLD
+092500980212      ** FREIGHT TAKEN CARE OF ABOVE.
+092600000109     C*          WIITYP    IFEQ 'F'
+092700000109     C*                    GOTO NXTBLD
+092800000109     C*                    END
+092900000118     C**         OIITYP    IFEQ ' '
+093000980130     C                   ADD       1             RECNO
+093100000124     C                   Z-ADD     OISEQ#        LIN
+093200991220     C                   MOVEL     OIDES1        DESO
+093300991220     C**                   MOVELWIDES2    DESC20 20
+093400991220     C**                   MOVE DESC20    DESO
+093500991112      ** 996 IS ALWAYS C & C
+093600000118     C*          OISEQ#    IFEQ 996
+093700000118     C*                    Z-ADDOIAMT     CANDC
+093800000118     C*                    Z-ADDOISEQ#    CACSEQ
+093900000118     C*                    SETON                     58
+094000000118     C*                    END
+094100980206     C     OITM          KLIST
+094200000109     C                   KFLD                    OIITEM
+094300000208     C                   KFLD                    OISIZE
+094400000109     C                   KFLD                    OIWHSE
+094500000109     C     OIITYP        IFEQ      ' '
+094600980206     C     OITM          CHAIN     FMINVT                             92
+094700980206     C                   END
+094800000109     C     OIITYP        IFEQ      'S'
+094900980206     C                   MOVEL     OHSPTX        IMTXBL
+095000980206     C                   END
+095100000109     C     OIITYP        IFEQ      'F'
+095200980206     C                   MOVEL     OHFRTX        IMTXBL
+095300980206     C                   END
+095400980130     C     OICKEY        CHAIN(N)  FIORCR                             91
+095500980130     C   91              DO
+095600980130     C                   MOVE      *BLANKS       OIRSCD
+095700000118     C**                   MOVE *BLANKS   REASDC
+095800980130     C                   Z-ADD     0             QTYCRD
+095900980130     C                   Z-ADD     0             OIUPRI
+096000980130     C                   Z-ADD     0             EXT$
+096100980130     C                   ENDDO
+096200980130     C  N91              DO
+096300991112     C     REAKY1        KLIST
+096400991112     C                   KFLD                    LCO
+096500991112     C                   KFLD                    OIRSCD
+096600991112     C     REAKY1        CHAIN     FCMREAS                            92
+096700000118     C**                   MOVELCRDESC    REASDC
+096800980130     C                   Z-SUB     OIQCRD        QTYCRD
+096900980130     C                   Z-SUB     OIEXT$        EXT$
+097000980208     C                   ADD       EXT$          CRMTOT
+097100980130     C                   ENDDO
+097200980213     C                   MOVEL     IMLOOK        TST1              1
+097300980213      ** CHECK IF CASH AND CARRY ALLOWED
+097400981021     C     IMORDD        IFEQ      'N'
+097500981021     C                   MOVEL     'N'           ALCAC
+097600981021     C                   GOTO      SKPC
+097700981021     C                   END
+097800980213     C     SKPC          TAG
+097900000124     C                   Z-ADD     OISEQ#        LSTSEQ
+098000980130     C                   WRITE     ORDSFL
+098100980130     C                   GOTO      NXTBLD
+098200980202     C     ENDBLD        TAG
+098300980202     C                   Z-ADD     RECNO         LSTREC
+098400980624     C     RECNO         IFLE      0
+098500980624     C                   ADD       1             RECNO
+098600980624     C                   WRITE     ORDSFL
+098700980624     C                   END
+098800000118     C*                    Z-ADD999       OISEQ#
+098900000118     C*          OICKEY    CHAINFIORCR              N91
+099000000118     C* N91                Z-ADDOIEXT$    RESTCK
+099100000118     C*                    SUB  RESTCK    CRMTOT
+099200980202     C                   ENDSR
+099300980202      *
+099400980129      *
+099500980129      *  ***********
+099600980129      *  * BLDTAX  * BUILD SUB FILE
+099700980129      *  ***********
+099800980129     C     BLDTAX        BEGSR
+099900980129     C                   SETON                                        80
+100000980129     C                   WRITE     TAXCTL
+100100980129     C                   SETOFF                                       8098
+100200980129     C                   Z-ADD     0             RECNT             5 0
+100300980129     C                   Z-ADD     0             LSTSEQ            3 0
+100400980130     C                   Z-SUB     OHTAX$        TAX$
+100500980129     C     OHCRM#        SETLL     FIORCR
+100600980129     C     NXTCTX        TAG
+100700980129     C     OHCRM#        READE     FIORCR                                 90
+100800980129     C   90              GOTO      ENDCTX
+100900980129     C     OISEQ#        IFEQ      10
+101000980129     C                   GOTO      NXTCTX
+101100980129     C                   END
+101200980129     C                   ADD       1             RECNT
+101300980129     C                   WRITE     TAXSFL
+101400980129     C                   GOTO      NXTCTX
+101500980129     C     ENDCTX        TAG
+101600980129     C                   Z-ADD     OISEQ#        LSTSEQ            3 0
+101700980129     C     RECNT         ADD       20            ENDREC            5 0
+101800980129     C                   Z-ADD     0             OISEQ#
+101900980129     C                   MOVE      *BLANKS       OIDES1
+102000980129     C     NXTTXB        TAG
+102100980129     C                   ADD       1             RECNT
+102200980129     C                   WRITE     TAXSFL
+102300980129     C     RECNT         IFLE      ENDREC
+102400980129     C                   GOTO      NXTTXB
+102500980129     C                   END
+102600980129     C                   ENDSR
+102700980202      *
+102800980202      *  ***********
+102900000118      *  * PUTREC  * PUT SUB FILE FOR CREDIT
+103000980202      *  ***********
+103100000118     C     PUTREC        BEGSR
+103200980204     C     OHCRM#        CHAIN     FHORCR                             50
+103300980202     C                   Z-ADD     0             RECNO             5 0
+103400980202     C                   Z-ADD     0             MRCH$             9 2
+103500980205     C                   Z-ADD     0             OHTOT$
+103600980205     C                   Z-ADD     0             OHFRT$
+103700980205     C                   Z-ADD     0             OHMER$
+103800980205     C                   Z-ADD     0             OHDIS$
+103900980205     C                   Z-ADD     0             OHMIS$
+104000980202     C                   Z-SUB     TAX$          OHTAX$
+104100980202     C                   Z-SUB     FRT$          OHFRT$
+104200980206     C     OHTAX$        DIV(H)    .06           OHAMT1
+104300991220     C***        OHTAX$    ADD  OHFRT$    CRMTOT
+104400980205     C***                  SUB  RESTCK    CRMTOT
+104500000118     C     OISEQ#        IFLE      0
+104600000118     C                   CLEAR                   RIORCR
+104700000124     C                   ADD       10            LSTSEQ
+104800000124     C                   Z-ADD     LSTSEQ        OISEQ#
+104900000118     C                   ENDIF
+105000980202     C     CRKEY         KLIST
+105100980202     C                   KFLD                    OHCRM#
+105200000118     C                   KFLD                    OISEQ#
+105300980202     C     CRKEY         CHAIN     FIORCR                             51
+105400980202      ** CHECK QTY CREDITED
+105500980202     C   51              DO
+105600980202     C                   Z-ADD     OHCRM#        OICRM#
+105700980202     C                   Z-ADD     OHCUST        OICUST
+105800980202     C                   ENDDO
+105900980204     C                   MOVEL     'A'           OISTAT
+106000000118     C                   MOVEL     VITEM         OIITEM
+106100000208     C                   MOVEL     VSIZE         OISIZE
+106200991220     C                   MOVEL     IMDES1        OIDES1
+106300991220     C                   Z-ADD     OHCOMP        OICOMP
+106400000118     C                   MOVEL     VWHSE         OIWHSE
+106500000118     C                   MOVEL     IMPUOM        OIUUOM
+106600000118     C                   Z-ADD     VUPRI         OIUPRI
+106700000118     C                   Z-ADD     0             OIQDDC
+106800000118     C                   Z-SUB     VEXT$         OIEXT$
+106900000118     C                   Z-ADD     0             OIDISC
+107000000118     C                   MOVEL     VOVER         OIOVER
+107100991220     C                   MOVEL     OHSLM1        OISLM1
+107200000118     C*                    Z-ADDOHCOM1    OICOM1
+107300991220     C                   MOVEL     OHSLM2        OISLM2
+107400000118     C*                    Z-ADDOHCOM2    OICOM2
+107500000118     C                   MOVEL     VTYPE         OIITYP
+107600980202     C                   MOVEL     USERID        OIUSER
+107700980202     C                   Z-ADD     TDATE         OIDTLA
+107800980202     C                   Z-ADD     TIMOD         OITIME
+107900000118     C                   Z-SUB     VQTY          OIQCRD
+108000991220     C                   Z-ADD     OHTRDC        OITRDC
+108100000118     C**                   MOVELHLDREA    OIRSCD
+108200000118     C                   Z-ADD     0             OISEQP
+108300991220     C                   MOVEL     IMPUOM        OIBPUM
+108400000201     C                   MOVEL     IMTXBL        OITXCD
+108500991220     C*                    MOVELWISUOM    OISUOM
+108600991220     C*                    Z-ADDWIMUL2    OIMUL2
+108700991220     C                   MOVEL     'N'           OILOTC
+108800000118     C**                   Z-ADDGLAC      OIGLNO
+108900980202     C   51              WRITE     RIORCR
+109000980202     C  N51              UPDATE    RIORCR
+109100980204     C                   ADD       OIEXT$        CRMTOT
+109200000118     C     OIITYP        IFEQ      ' '
+109300000118     C     OIITYP        OREQ      'N'
+109400980205     C                   ADD       OIEXT$        OHMER$
+109500980205     C                   END
+109600000118     C     OIITYP        IFEQ      'S'
+109700980205     C                   ADD       OIEXT$        OHMIS$
+109800980205     C                   END
+109900000118     C     OIITYP        IFEQ      'F'
+110000980205     C                   ADD       OIEXT$        OHFRT$
+110100980205     C                   END
+110200000118     C***                  END
+110300980204     C     ENDPUT        TAG
+110400980204      ** CHECK FOR RESTOCK CHARGE
+110500000118     C*                    Z-ADD999       WISEQ#
+110600000118     C*          CRKEY     CHAINFIORCR               51
+110700000118     C*          RESTCK    IFGT 0.00
+110800000118     C*  51                DO
+110900000118     C*                    CLEARRIORCR
+111000000118     C*                    Z-ADDOHCRM#    OICRM#
+111100000118     C*                    Z-ADDWISEQ#    OISEQ#
+111200000118     C*                    Z-ADDOHCUST    OICUST
+111300000118     C*                    ENDDO
+111400000118     C*                    MOVEL'A'       OISTAT
+111500000118     C*                    MOVE *BLANKS   OIITEM
+111600000118     C*                    MOVE *BLANKS   OISIZE
+111700000118     C*                    MOVELMSG,1     OIDES1
+111800000118     C*                    MOVE *BLANKS   OIDES2
+111900000118     C*                    Z-ADDWICOMP    OICOMP
+112000000118     C*                    MOVE *BLANKS   OIWHSE
+112100000118     C*                    MOVE *BLANKS   OIBIN#
+112200000118     C*                    MOVE *BLANKS   OIUUOM
+112300000118     C*                    Z-ADD0         OIMULT
+112400000118     C*                    Z-ADD0         OIUWGT
+112500000118     C*                    Z-ADDWIUCST    OIUCST
+112600000118     C*                    Z-ADD0         OIUPRI
+112700000118     C*                    Z-ADD0         OIQDDC
+112800000118     C*                    Z-ADDRESTCK    OIEXT$
+112900000118     C*                    Z-ADD0         OIDISC
+113000000118     C*                    MOVEL' '       OIOVER
+113100000118     C*                    MOVELWISLM1    OISLM1
+113200000118     C*                    Z-ADDWICOM1    OICOM1
+113300000118     C*                    MOVELWISLM2    OISLM2
+113400000118     C*                    Z-ADDWICOM2    OICOM2
+113500000118     C*                    MOVEL'S'       OIITYP
+113600000118     C*                    MOVELUSERID    OIUSER
+113700000118     C*                    Z-ADDTDATE     OIDTLA
+113800000118     C*                    Z-ADDTIMOD     OITIME
+113900000118     C*                    Z-SUB0         OIQCRD
+114000000118     C*                    Z-ADD0         OIQINV
+114100000118     C*                    Z-ADD0         OITRDC
+114200000118     C*                    MOVE *BLANKS   OICTCD
+114300000118     C*                    MOVELHLDREA    OIRSCD
+114400000118     C*                    Z-ADD0         OISEQP
+114500000118     C*                    MOVE *BLANKS   OIBPUM
+114600000118     C*                    MOVE *BLANKS   OISUOM
+114700000118     C*                    Z-ADD0         OIMUL2
+114800000118     C*                    MOVELWILOTC    OILOTC
+114900000118     C*                    MOVELWIITAL    OIITMA
+115000000118     C*                    MOVELWIPRAL    OIPRAL
+115100000118     C*                    Z-ADDWIGLNO    OIGLNO
+115200000118     C*  51                WRITERIORCR
+115300000118     C* N51                UPDATRIORCR
+115400000118     C*                    ADD  OIEXT$    CRMTOT
+115500000118     C*                    ADD  OIEXT$    OHMIS$
+115600000118     C*                    ELSE
+115700000118     C* N51                DELETRIORCR
+115800000118     C*                    END
+115900980205     C                   Z-ADD     CRMTOT        OHTOT$
+116000980205     C                   UPDATE    RHORCR
+116100980202     C                   ENDSR
+116200980129      *
+116300000201      *
+116400000201      *  ***********
+116500000201      *  * GETTOT  * PUT SUB FILE FOR CREDIT
+116600000201      *  ***********
+116700000201     C     GETTOT        BEGSR
+116800000201     C     OHCRM#        CHAIN     FHORCR                             50
+116900000201     C                   Z-ADD     0             RECNO             5 0
+117000000201     C                   Z-ADD     0             MRCH$             9 2
+117100000201     C                   Z-ADD     0             OHTOT$
+117200000201     C                   Z-ADD     0             OHFRT$
+117300000201     C                   Z-ADD     0             OHMER$
+117400000201     C                   Z-ADD     0             OHDIS$
+117500000201     C                   Z-ADD     0             OHMIS$
+117600000201     C                   Z-ADD     0             OHTAX$
+117700000201     C                   Z-ADD     0             TAXABL
+117800000201     C     OHCRM#        SETLL     FIORCR
+117900000201     C     NXTOT         TAG
+118000000201     C     OHCRM#        READE     FIORCR                                 90
+118100000201     C   90              GOTO      ENDTOT
+118200000201     C     OIITYP        IFEQ      ' '
+118300000201     C     OIITYP        OREQ      'N'
+118400000201     C                   ADD       OIEXT$        OHMER$
+118500000201     C     OITXCD        IFEQ      'Y'
+118600000201     C                   ADD       OIEXT$        TAXABL            9 2
+118700000201     C                   END
+118800000201     C                   END
+118900000201     C     OIITYP        IFEQ      'S'
+119000000201     C                   ADD       OIEXT$        OHMIS$
+119100000201     C     OHSPTX        IFEQ      'Y'
+119200000201     C                   ADD       OIEXT$        TAXABL            9 2
+119300000201     C                   END
+119400000201     C                   END
+119500000201     C     OIITYP        IFEQ      'F'
+119600000201     C                   ADD       OIEXT$        OHFRT$
+119700000201     C     OHFRTX        IFEQ      'Y'
+119800000201     C                   ADD       OIEXT$        TAXABL            9 2
+119900000201     C                   END
+120000000201     C                   END
+120100000201     C                   GOTO      NXTOT
+120200000201     C     ENDTOT        TAG
+120300000201      ** CHECK FOR TRADE DISCOUNT
+120400000201     C     OHTRDC        IFGT      0
+120500000201     C     OHTRDC        DIV       100           TRWRK             5 4
+120600000201     C     OHMER$        MULT(H)   TRWRK         TRWRK$            9 2
+120700000201     C                   Z-SUB     TRWRK$        OHDIS$
+120800000201     C                   ELSE
+120900000201     C                   Z-ADD     0             OHDIS$
+121000000201     C                   END
+121100000201     C     OHTXST        IFNE      'Y'
+121200000201     C     TAXABL        MULT      TXPCT1        OHTAX$
+121300000201     C                   ELSE
+121400000201     C                   Z-ADD     0             OHTAX$
+121500000201     C                   END
+121600000201     C     OHMER$        ADD       OHDIS$        OHTOT$
+121700000201     C                   ADD       OHFRT$        OHTOT$
+121800000201     C                   ADD       OHMIS$        OHTOT$
+121900000201     C                   ADD       OHTAX$        OHTOT$
+122000000201     C                   UPDATE    RHORCR
+122100000201     C                   ENDSR
+122200980129      *  ***********
+122300980129      *  * CHKTAX  * CHECK INPUT FIELDS
+122400980129      *  ***********
+122500980129     C     CHKTAX        BEGSR
+122600980129     C                   SETOFF                                       9920
+122700000108     C*          TAX$      IFGT WHTAX$
+122800000108     C*                    SETON                     9920
+122900000108     C*                    END
+123000980129      ** SEE IF WE NEED MORE BLANK LINES
+123100980129     C     RECNT         CHAIN     TAXSFL                             90
+123200980129     C     OIDES1        IFGT      *BLANKS
+123300980129     C     RECNT         ADD       20            ENDREC            5 0
+123400980129     C                   Z-ADD     0             OISEQ#
+123500980129     C                   MOVE      *BLANKS       OIDES1
+123600980129     C     NXTTXC        TAG
+123700980129     C                   ADD       1             RECNT
+123800980129     C                   WRITE     TAXSFL
+123900980129     C     RECNT         IFLE      ENDREC
+124000980129     C                   GOTO      NXTTXC
+124100980129     C                   END
+124200980129     C                   END
+124300980129     C                   ENDSR
+124400980129      *
+124500980129      *  ***********
+124600980129      *  * PUTTAX  * PUT TAX CREDIT MEMO
+124700980129      *  ***********
+124800980129     C     PUTTAX        BEGSR
+124900980129     C     OHCRM#        CHAIN     FHORCR                             50
+125000980130     C                   Z-SUB     TAX$          OHTAX$
+125100980129     C     OHTAX$        DIV(H)    .06           OHAMT1
+125200980129     C                   Z-ADD     OHTAX$        OHTOT$
+125300980129     C                   Z-ADD     0             OHFRT$
+125400980129     C                   Z-ADD     0             OHMER$
+125500980129     C                   Z-ADD     0             OHDIS$
+125600980129     C                   Z-ADD     0             OHMIS$
+125700980129     C  N50              UPDATE    RHORCR
+125800980129      ** NOW GET DETAIL LINES
+125900980129      * FIRST THE TAX COMMENT
+126000980129     C     OICKEY        KLIST
+126100980129     C                   KFLD                    OHCRM#
+126200980129     C                   KFLD                    OISEQ#
+126300980129     C                   Z-ADD     10            OISEQ#
+126400980129     C     OICKEY        CHAIN     FIORCR                             51
+126500980129     C   51              DO
+126600980129     C                   CLEAR                   RIORCR
+126700980129     C                   Z-ADD     OHCRM#        OICRM#
+126800980202     C                   Z-ADD     10            OISEQ#
+126900980129     C                   MOVEL     CRDESC        OIDES1
+127000980129     C                   Z-ADD     OHCUST        OICUST
+127100980129     C                   MOVEL     OHREAS        OIRSCD
+127200980129     C                   ENDDO
+127300980202     C                   MOVEL     'C'           OIITYP
+127400980129     C                   MOVEL     USERID        OIUSER
+127500980129     C                   Z-ADD     TDATE         OIDTLA
+127600980129     C                   Z-ADD     TIMOD         OITIME
+127700000118     C**                   Z-ADDVGLAC     OIGLNO
+127800980129     C   51              WRITE     RIORCR
+127900980129     C  N51              UPDATE    RIORCR
+128000980129      ** GET ADDITIONAL COMMENTS
+128100980129     C     OISEQ#        IFLT      10
+128200980129     C                   Z-ADD     10            LSTSEQ            3 0
+128300980129     C                   END
+128400980129     C                   Z-ADD     RECNT         LSTREC            5 0
+128500980129     C                   Z-ADD     1             RECNT
+128600980129     C     NXPTX         TAG
+128700980129     C     RECNT         CHAIN     TAXSFL                             90
+128800980129     C  N90              DO
+128900980129     C                   MOVEL     OIDES1        HLDDES           30
+129000980129     C     OISEQ#        IFGT      0
+129100980129     C                   Z-ADD     OISEQ#        OISEQ             3 0
+129200980129     C                   ELSE
+129300980129     C     LSTSEQ        ADD       3             OISEQ
+129400980129     C                   ADD       3             LSTSEQ
+129500980129     C                   END
+129600980129     C     OICKEY        CHAIN     FIORCR                             51
+129700980129     C   51              DO
+129800980129     C                   CLEAR                   RIORCR
+129900980129     C                   Z-ADD     OHCRM#        OICRM#
+130000980202     C                   Z-ADD     OISEQ         OISEQ#
+130100980129     C                   Z-ADD     OHCUST        OICUST
+130200980129     C                   MOVEL     OHREAS        OIRSCD
+130300980129     C                   ENDDO
+130400980129     C     HLDDES        IFGT      *BLANKS
+130500980129     C                   MOVEL     HLDDES        OIDES1
+130600980129     C                   END
+130700980202     C                   MOVEL     'C'           OIITYP
+130800980129     C                   MOVEL     USERID        OIUSER
+130900980129     C                   Z-ADD     TDATE         OIDTLA
+131000980129     C                   Z-ADD     TIMOD         OITIME
+131100000118     C**                   Z-ADDVGLAC     OIGLNO
+131200980129     C     HLDDES        IFGT      *BLANKS
+131300980129     C   51              WRITE     RIORCR
+131400980129     C  N51              UPDATE    RIORCR
+131500980129     C                   ELSE
+131600980129     C  N51              DELETE    RIORCR
+131700980129     C                   ENDIF
+131800980129     C                   ENDDO
+131900980129     C                   ADD       1             RECNT
+132000980129     C     RECNT         IFLE      LSTREC
+132100980130     C                   GOTO      NXPTX
+132200980129     C                   END
+132300980129     C                   ENDSR
+132400980130      *
+132500980130      *  ***********
+132600980130      *  * CRMDLV  * GET FREIGHT ONLY CREDIT
+132700980130      *  ***********
+132800980130     C     CRMDLV        BEGSR
+132900980130     C     RSTDLV        TAG
+133000980130     C                   EXSR      BLDDLV
+133100980130     C     NXTDVX        TAG
+133200980130     C                   EXFMT     DLVCTL
+133300980130     C   KF              GOTO      RSTDLV
+133400980130      *** DELETE CREDIT MEMO
+133500980130     C   KX              DO
+133600980130     C     DLVDL         TAG
+133700980130     C                   SETON                                        98
+133800980130     C                   EXFMT     DLVCTL
+133900980130     C   KF              DO
+134000980130     C                   SETOFF                                       98
+134100980130     C                   GOTO      NXTDVX
+134200980130     C                   ENDDO
+134300980130     C  NKX              GOTO      DLVDL
+134400980130     C                   EXSR      DELET
+134500980130     C                   GOTO      ENDDLV
+134600980130     C                   ENDDO
+134700980130      ** CHECK INPUT
+134800980130     C                   EXSR      CHKDLV
+134900980130     C   99              GOTO      NXTDVX
+135000980130      ** IF F2 OUTPUT CREDIT MEMO
+135100980130     C   KB              DO
+135200980130     C                   EXSR      PUTDLV
+135300980130     C                   GOTO      ENDDLV
+135400980130     C                   ENDDO
+135500980130     C                   GOTO      NXTDVX
+135600980130     C     ENDDLV        ENDSR
+135700980130      *
+135800980130      *  ***********
+135900980130      *  * BLDDLV  * BUILD SUB FILE
+136000980130      *  ***********
+136100980130     C     BLDDLV        BEGSR
+136200980130     C                   SETON                                        80
+136300980130     C                   WRITE     DLVCTL
+136400980130     C                   SETOFF                                       8098
+136500980130     C                   Z-ADD     0             RECND             5 0
+136600980130     C                   Z-ADD     0             LSTSEQ            3 0
+136700000108     C*                    Z-SUBOHFRT$    FRT$
+136800000108     C*                    Z-SUBOHTAX$    TAX$
+136900980130     C     OHCRM#        SETLL     FIORCR
+137000980130     C     NXTCDX        TAG
+137100980130     C     OHCRM#        READE     FIORCR                                 90
+137200980130     C   90              GOTO      ENDCDX
+137300980130     C     OISEQ#        IFEQ      10
+137400980130     C                   GOTO      NXTCDX
+137500980130     C                   END
+137600980130     C                   ADD       1             RECND
+137700980130     C                   WRITE     DLVSFL
+137800980130     C                   GOTO      NXTCDX
+137900980130     C     ENDCDX        TAG
+138000980130     C                   Z-ADD     OISEQ#        LSTSEQ            3 0
+138100980130     C     RECND         ADD       20            ENDREC            5 0
+138200980130     C                   Z-ADD     0             OISEQ#
+138300980130     C                   MOVE      *BLANKS       OIDES1
+138400980130     C     NXTDLB        TAG
+138500980130     C                   ADD       1             RECND
+138600980130     C                   WRITE     DLVSFL
+138700980130     C     RECND         IFLE      ENDREC
+138800980130     C                   GOTO      NXTDLB
+138900980130     C                   END
+139000980130     C                   ENDSR
+139100980130      *
+139200980130      *  ***********
+139300980130      *  * CHKDLV  * CHECK INPUT FIELDS
+139400980130      *  ***********
+139500980130     C     CHKDLV        BEGSR
+139600980130     C                   SETOFF                                       9920
+139700000118     C*          FRT$      IFGT WHFRT$
+139800000118     C*                    SETON                     9920
+139900000118     C*                    END
+140000000118     C*          TAX$      IFGT WHTAX$
+140100000118     C*                    SETON                     9930
+140200000118     C*                    END
+140300980130      ** SEE IF WE NEED MORE BLANK LINES
+140400980130     C     RECND         CHAIN     DLVSFL                             90
+140500980130     C     OIDES1        IFGT      *BLANKS
+140600980130     C     RECND         ADD       20            ENDREC            5 0
+140700980130     C                   Z-ADD     0             OISEQ#
+140800980130     C                   MOVE      *BLANKS       OIDES1
+140900980130     C     NXTTDC        TAG
+141000980130     C                   ADD       1             RECND
+141100980130     C                   WRITE     DLVSFL
+141200980130     C     RECND         IFLE      ENDREC
+141300980130     C                   GOTO      NXTTDC
+141400980130     C                   END
+141500980130     C                   END
+141600980130     C                   ENDSR
+141700980130      *
+141800980130      *  ***********
+141900980130      *  * PUTDLV  * PUT TAX CREDIT MEMO
+142000980130      *  ***********
+142100980130     C     PUTDLV        BEGSR
+142200980130     C     OHCRM#        CHAIN     FHORCR                             50
+142300980130     C                   Z-SUB     FRT$          OHFRT$
+142400980130     C                   Z-SUB     TAX$          OHTAX$
+142500980130     C                   Z-ADD     OHFRT$        OHTOT$
+142600980130     C                   ADD       OHTAX$        OHTOT$
+142700980130     C                   Z-ADD     0             OHMER$
+142800980130     C                   Z-ADD     0             OHDIS$
+142900980130     C                   Z-ADD     0             OHMIS$
+143000980130     C  N50              UPDATE    RHORCR
+143100980130      ** NOW GET DETAIL LINES
+143200980130      * FIRST THE TAX COMMENT
+143300980130     C                   Z-ADD     10            OISEQ#
+143400980130     C     OICKEY        CHAIN     FIORCR                             51
+143500980130     C   51              DO
+143600980130     C                   CLEAR                   RIORCR
+143700980130     C                   Z-ADD     OHCRM#        OICRM#
+143800980202     C                   Z-ADD     10            OISEQ#
+143900980130     C                   MOVEL     CRDESC        OIDES1
+144000980130     C                   Z-ADD     OHCUST        OICUST
+144100980130     C                   MOVEL     OHREAS        OIRSCD
+144200980130     C                   ENDDO
+144300980202     C                   MOVEL     'C'           OIITYP
+144400980130     C                   MOVEL     USERID        OIUSER
+144500980130     C                   Z-ADD     TDATE         OIDTLA
+144600980130     C                   Z-ADD     TIMOD         OITIME
+144700980130     C   51              WRITE     RIORCR
+144800980130     C  N51              UPDATE    RIORCR
+144900980130      ** GET ADDITIONAL COMMENTS
+145000980130     C     OISEQ#        IFLT      10
+145100980130     C                   Z-ADD     10            LSTSEQ            3 0
+145200980130     C                   END
+145300980130     C                   Z-ADD     RECND         LSTREC            5 0
+145400980130     C                   Z-ADD     1             RECND
+145500980130     C     NXPDV         TAG
+145600000201     C     RECND         CHAIN     DLVSFL                             90
+145700980130     C  N90              DO
+145800980130     C                   MOVEL     OIDES1        HLDDES           30
+145900980130     C     OISEQ#        IFGT      0
+146000980130     C                   Z-ADD     OISEQ#        OISEQ             3 0
+146100980130     C                   ELSE
+146200980130     C     LSTSEQ        ADD       3             OISEQ
+146300980130     C                   ADD       3             LSTSEQ
+146400980130     C                   END
+146500980130     C     OICKEY        CHAIN     FIORCR                             51
+146600980130     C   51              DO
+146700980130     C                   CLEAR                   RIORCR
+146800980130     C                   Z-ADD     OHCRM#        OICRM#
+146900980202     C                   Z-ADD     OISEQ         OISEQ#
+147000980130     C                   Z-ADD     OHCUST        OICUST
+147100980130     C                   MOVEL     OHREAS        OIRSCD
+147200980130     C                   ENDDO
+147300980130     C     HLDDES        IFGT      *BLANKS
+147400980130     C                   MOVEL     HLDDES        OIDES1
+147500980130     C                   END
+147600980202     C                   MOVEL     'C'           OIITYP
+147700980130     C                   MOVEL     USERID        OIUSER
+147800980130     C                   Z-ADD     TDATE         OIDTLA
+147900980130     C                   Z-ADD     TIMOD         OITIME
+148000980130     C     HLDDES        IFGT      *BLANKS
+148100980130     C   51              WRITE     RIORCR
+148200980130     C  N51              UPDATE    RIORCR
+148300980130     C                   ELSE
+148400980130     C  N51              DELETE    RIORCR
+148500980130     C                   ENDIF
+148600980130     C                   ENDDO
+148700980130     C                   ADD       1             RECND
+148800980130     C     RECND         IFLE      LSTREC
+148900980130     C                   GOTO      NXPDV
+149000980130     C                   END
+149100980130     C                   ENDSR
+149200980107      *
+149300980107      *  ***********
+149400000124      *  * FREIGHT *
+149500980107      *  ***********
+149600000124     C     FRT           BEGSR
+149700000124     C                   SETON                                        21
+149800000124     C                   SETOFF                                       455055
+149900000124     C                   SETOFF                                       9899
+150000000124     C*          VTYPE     IFEQ 'F'
+150100000124     C*                    MOVELMSG,1     LDESC
+150200000124     C*                    ELSE
+150300000124     C**                   MOVE *BLANKS   LDESC
+150400000124     C*                    END
+150500000124     C     NXTFRT        TAG
+150600000124     C   99              SETOFF                                       97
+150700000124     C                   EXFMT     ORDCTL
+150800000124     C   KF              GOTO      ENDFRT
+150900000124     C                   SETOFF                                       455055
+151000000124     C                   SETOFF                                       99
+151100000124     C     LDESC         IFLE      *BLANKS
+151200000124     C                   SETON                                        45  99
+151300000124     C                   GOTO      NXTFRT
+151400000124     C                   END
+151500000124      ** IF NOT COMMENT NEED $ AMT
+151600000124     C     VTYPE         IFNE      'C'
+151700000124     C     VAMT          IFEQ      0.00
+151800000124     C                   SETON                                        50  99
+151900000124     C                   GOTO      NXTFRT
+152000000124     C                   END
+152100000124     C                   ELSE
+152200000124     C                   Z-ADD     0             VAMT
+152300000124     C                   END
+152400000124      ** IF NOT COMMENT USE GL#
+152500000124     C*          VTYPE     IFNE 'C'
+152600000124     C*          VGLAC     IFGT 0
+152700000124     C*          GLKEY     KLIST
+152800000124     C*                    KFLD           LCO
+152900000124     C*                    KFLD           VGLAC
+153000000124     C*          GLKEY     CHAINFMGLCH               50
+153100000124     C*  50                SETON                         99
+153200000124     C*  50                GOTO NXTFRT
+153300000124     C*                    END
+153400000124     C*                    ELSE
+153500000124     C*                    Z-ADD0         VGLAC
+153600000124     C*                    END
+153700000124     C  N97              DO
+153800000124     C                   SETON                                        97
+153900000124     C                   GOTO      NXTFRT
+154000000124     C                   ENDDO
+154100000201     C     OHCRM#        CHAIN     FHORCR                             50
+154200000124      ** WRITE THE RECORD
+154300000124     C     OISEQ#        IFLE      0
+154400000124     C                   CLEAR                   RIORCR
+154500000124     C                   ADD       10            LSTSEQ
+154600000124     C                   Z-ADD     LSTSEQ        OISEQ#
+154700000124     C                   ENDIF
+154800000124     C     CRKEY         CHAIN     FIORCR                             51
+154900000124      ** CHECK QTY CREDITED
+155000000124     C   51              DO
+155100000124     C                   Z-ADD     OHCRM#        OICRM#
+155200000124     C                   Z-ADD     OHCUST        OICUST
+155300000124     C                   ENDDO
+155400000124     C                   MOVEL     'A'           OISTAT
+155500000124     C                   MOVE      *BLANK        OIITEM
+155600000208     C                   MOVE      *BLANK        OISIZE
+155700000124     C                   MOVEL     LDESC         OIDES1
+155800000124     C                   Z-ADD     OHCOMP        OICOMP
+155900000124     C                   MOVE      *BLANKS       OIWHSE
+156000000124     C                   MOVE      *BLANKS       OIUUOM
+156100000124     C                   Z-ADD     0             OIUPRI
+156200000124     C                   Z-ADD     0             OIQDDC
+156300000124     C                   Z-SUB     VAMT          OIEXT$
+156400000124     C                   Z-ADD     0             OIDISC
+156500000124     C                   MOVEL     'N'           OIOVER
+156600000124     C                   MOVEL     OHSLM1        OISLM1
+156700000124     C*                    Z-ADDOHCOM1    OICOM1
+156800000124     C                   MOVEL     OHSLM2        OISLM2
+156900000124     C                   MOVEL     VTYPE         OIITYP
+157000000124     C                   MOVEL     USERID        OIUSER
+157100000124     C                   Z-ADD     TDATE         OIDTLA
+157200000124     C                   Z-ADD     TIMOD         OITIME
+157300000124     C                   Z-ADD     0             OIQCRD
+157400000124     C                   Z-ADD     OHTRDC        OITRDC
+157500000124     C                   Z-ADD     0             OISEQP
+157600000124     C                   MOVE      *BLANKS       OIBPUM
+157700000124     C                   MOVEL     'N'           OILOTC
+157800000124     C***                  Z-ADDVGLAC     OIGLNO
+157900000124     C   51              WRITE     RIORCR
+158000000124     C  N51              UPDATE    RIORCR
+158100000124     C     ENDFRT        TAG
+158200000201     C     OIITYP        IFEQ      'S'
+158300000201     C                   ADD       OIEXT$        OHMIS$
+158400000201     C                   END
+158500000201     C     OIITYP        IFEQ      'F'
+158600000201     C                   ADD       OIEXT$        OHFRT$
+158700000201     C                   END
+158800000124     C                   Z-ADD     0             VAMT
+158900000124     C                   MOVE      *BLANKS       LDESC
+159000000201     C                   UPDATE    RHORCR
+159100000124     C                   SETOFF                                       21
+159200000124     C                   ENDSR
+159300000124      *
+159400000124      *  ***********
+159500000124      *  * #SLD    *
+159600000124      *  ***********
+159700000124      *  THIS SUBROUTINE REMOVES BLANK ADDRESS LINES FROM THE SOLD TO
+159800980106      *  ADDRESS.  WORK FIELDS ARE DEFINED AS:
+159900980106      *
+160000980106      *                 WORK  = CITY,STATE,ZIP(9 DIGIT)
+160100980106      *                 WORK1 = CITY, STATE
+160200980106      *                 WORK2 = ZIP CODE(XXXXX-XXXX)
+160300980106      *                 WORK3 = STANDARD ZIP CODE(XXXXX)
+160400980106      *                 WORK4 = ADDITIONAL ZIP CODE(-XXXX)
+160500980106      *
+160600980106      *  THE SUBROUTINE REQUIRES MOVING NAME AND ADDRESS INFORMATION TO
+160700980106      *  BE CONDENSED TO A DATA STRUCTURE
+160800980106      *
+160900980106     C     #SLD          BEGSR
+161000980106      *
+161100980106     C                   MOVE      *BLANKS       #SL
+161200980106     C                   Z-ADD     1             #X                1 0
+161300980106     C                   MOVEL     #WSLD1        #SL(#X)
+161400980106     C                   ADD       1             #X
+161500980106     C     #WSLD2        COMP      *BLANKS                            929291
+161600980106     C   91              GOTO      #SLD1
+161700980106     C                   MOVEL     #WSLD2        #SL(#X)
+161800980106     C                   ADD       1             #X
+161900980106     C     #SLD1         TAG
+162000980106     C     #WSLD3        COMP      *BLANKS                            929291
+162100980106     C   91              GOTO      #SLD2
+162200980106     C                   MOVEL     #WSLD3        #SL(#X)
+162300980106     C                   ADD       1             #X
+162400980106     C     #SLD2         TAG
+162500980106     C     #WSLD4        COMP      *BLANKS                            929291
+162600980106     C   91              GOTO      #SLD3
+162700980106     C                   MOVEL     #WSLD4        #SL(#X)
+162800980106     C                   ADD       1             #X
+162900980106     C     #SLD3         TAG
+163000980106     C                   MOVE      *BLANKS       WORK             32
+163100980106     C                   MOVE      *BLANKS       WORK1            21
+163200980106     C                   MOVE      *BLANKS       WORK2            10
+163300980106     C                   MOVE      *BLANKS       WORK3             5
+163400980106     C                   MOVE      *BLANKS       WORK4             5
+163500980106     C     #WSLCT        CAT       #WSLST:1      WORK1
+163600980106     C                   MOVEL     #WSLZP        WORK3
+163700980106     C                   MOVE      #WSLZP        WORK4
+163800980106     C                   MOVEL     ' '           WORK4
+163900980106     C     WORK4         COMP      '     '                                93
+164000980106     C  N93              MOVEL     '0'           WORK4
+164100980106     C  N93WORK4         COMP      '00000'                                93
+164200980106     C   93              MOVE      *BLANKS       WORK4
+164300980106     C  N93              MOVEL     '-'           WORK4
+164400980106     C                   MOVEL     WORK3         WORK2
+164500980106     C                   MOVE      WORK4         WORK2
+164600980106     C     WORK1         CAT       WORK2:1       WORK
+164700980106     C                   MOVE      WORK          #SL(#X)
+164800980106     C                   SETOFF                                       919293
+164900980106     C                   MOVEL     #SL(1)        BIL1
+165000980106     C                   MOVEL     #SL(2)        BIL2
+165100980106     C                   MOVEL     #SL(3)        BIL3
+165200980106     C                   MOVEL     #SL(4)        BIL4
+165300980106     C                   MOVEL     #SL(5)        BIL5
+165400980106     C                   ENDSR
+165500980106      *  ***********
+165600980106      *  * #SHP    *
+165700980106      *  ***********
+165800980106      *
+165900980106      *  THIS SUBROUTINE REMOVES BLANK ADDRESS LINES FROM THE SHIP TO
+166000980106      *  ADDRESS.  WORK FIELDS ARE DEFINED AS:
+166100980106      *
+166200980106      *                 WORK  = CITY,STATE,ZIP(9 DIGIT)
+166300980106      *                 WORK1 = CITY, STATE
+166400980106      *                 WORK2 = ZIP CODE(XXXXX-XXXX)
+166500980106      *                 WORK3 = STANDARD ZIP CODE(XXXXX)
+166600980106      *                 WORK4 = ADDITIONAL ZIP CODE(-XXXX)
+166700980106      *
+166800980106      *  THE SUBROUTINE REQUIRES MOVING NAME AND ADDRESS INFORMATION TO
+166900980106      *  BE CONDENSED TO A DATA STRUCTURE
+167000980106      *
+167100980106     C     #SHP          BEGSR
+167200980106      *
+167300980106     C                   MOVE      *BLANKS       #SH
+167400980106     C                   Z-ADD     1             #X                1 0
+167500980106     C                   MOVEL     #WSHP1        #SH(#X)
+167600980106     C                   ADD       1             #X
+167700980106     C     #WSHP2        COMP      *BLANKS                            929291
+167800980106     C   91              GOTO      #SHP1
+167900980106     C                   MOVEL     #WSHP2        #SH(#X)
+168000980106     C                   ADD       1             #X
+168100980106     C     #SHP1         TAG
+168200980106     C     #WSHP3        COMP      *BLANKS                            929291
+168300980106     C   91              GOTO      #SHP2
+168400980106     C                   MOVEL     #WSHP3        #SH(#X)
+168500980106     C                   ADD       1             #X
+168600980106     C     #SHP2         TAG
+168700980106     C     #WSHP4        COMP      *BLANKS                            929291
+168800980106     C   91              GOTO      #SHP3
+168900980106     C                   MOVEL     #WSHP4        #SH(#X)
+169000980106     C                   ADD       1             #X
+169100980106     C     #SHP3         TAG
+169200980106     C                   MOVE      *BLANKS       WORK             32            BLANK
+169300980106     C                   MOVE      *BLANKS       WORK1            21            BLANK
+169400980106     C                   MOVE      *BLANKS       WORK2            10             "
+169500980106     C                   MOVE      *BLANKS       WORK3             5             "
+169600980106     C                   MOVE      *BLANKS       WORK4             5             "
+169700980106     C     #WSHCT        CAT       #WSHST:1      WORK1
+169800980106     C                   MOVEL     #WSHZP        WORK3
+169900980106     C                   MOVE      #WSHZP        WORK4
+170000980106     C                   MOVEL     ' '           WORK4
+170100980106     C     WORK4         COMP      '     '                                93
+170200980106     C  N93              MOVEL     '0'           WORK4
+170300980106     C  N93WORK4         COMP      '00000'                                93
+170400980106     C   93              MOVE      *BLANKS       WORK4
+170500980106     C  N93              MOVEL     '-'           WORK4
+170600980106     C                   MOVEL     WORK3         WORK2
+170700980106     C                   MOVE      WORK4         WORK2
+170800980106     C*                    MOVELWORK1     WORK
+170900980106     C*                    MOVE WORK2     WORK
+171000980106     C     WORK1         CAT       WORK2:1       WORK
+171100980106     C                   MOVE      WORK          #SH(#X)
+171200980106     C                   SETOFF                                       919293
+171300980106     C                   MOVEL     #SH(1)        SHIP1
+171400980106     C                   MOVEL     #SH(2)        SHIP2
+171500980106     C                   MOVEL     #SH(3)        SHIP3
+171600980106     C                   MOVEL     #SH(4)        SHIP4
+171700980106     C                   MOVEL     #SH(5)        SHIP5
+171800980106     C                   ENDSR

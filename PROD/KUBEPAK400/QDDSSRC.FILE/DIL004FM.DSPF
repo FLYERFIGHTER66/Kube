@@ -1,0 +1,143 @@
+     A*%%TS  SD  20000926  202529  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000926  202529  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      HELP
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(DESC)
+     A  *DS3                                HLPARA(06 043 06 052)
+     A  *DS4                                HLPARA(06 043 06 052)
+     A          H                           HLPRCD(SQFT)
+     A  *DS3                                HLPARA(08 045 08 052)
+     A  *DS4                                HLPARA(08 045 08 052)
+     A          H                           HLPRCD(PACKED)
+     A  *DS3                                HLPARA(10 047 10 052)
+     A  *DS4                                HLPARA(10 047 10 052)
+     A          H                           HLPRCD(PRODN)
+     A  *DS3                                HLPARA(12 047 12 052)
+     A  *DS4                                HLPARA(12 047 12 052)
+     A          H                           HLPRCD(SALE)
+     A  *DS3                                HLPARA(14 047 14 052)
+     A  *DS4                                HLPARA(14 047 14 052)
+     A          H                           HLPRCD(TAGS)
+     A  *DS3                                HLPARA(16 047 16 052)
+     A  *DS4                                HLPARA(16 047 16 052)
+     A          H                           HLPRCD(OVERVIEW)
+     A  *DS3                                HLPARA(04 001 04 080)
+     A  *DS4                                HLPARA(04 001 04 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      COLOR(YLW)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  99 26                               ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.       Press Reset')
+     A  99 20                               ERRMSG('*** This Record Is Not On F-
+     A                                      ile.    Press Reset')
+     A  99 27                               ERRMSG('*** This Record Is On File.-
+     A                                          Press Reset')
+     A  99 41                               ERRMSG('*** Record Is Active.    Pr-
+     A                                      ess Reset')
+     A                                  4 28'Status Code?'
+     A            VSTAT          1A  B  4 43
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40
+     AO 77                                  DSPATR(PC)
+     A  40N41                               ERRMSG('*** Cannot Delete - There I-
+     A                                      s An Item With This Size In Invento-
+     A                                      ry.   Reset')
+     A  40 41                               ERRMSG('*** Cannot Delete - Reserve-
+     A                                      d Size Code.    Press Reset')
+     A                                  6  2' A = Add     '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  6 28'Description:'
+     A N50                                  DSPATR(ND)
+     A            ASDESC        30A  B  6 43
+     A  57                                  DSPATR(RI)
+     A  50N25N77                            DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  50N25
+     AO 57                                  DSPATR(PC)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description Is Required-
+     A                                      .    Press Reset')
+     A                                  7  2' C = Change  '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  8  2' D = Delete  '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                  9  2' I = Inquire '
+     A                                      DSPATR(RI)
+     A  50N24                               DSPATR(ND)
+     A                                 20 14' Press F23 to Delete - or F6 to Re-
+     A                                      start without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process                 -
+     A                                      F6=Restart                  F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(UL)
+     A                                  1 23' A/R Status Code File Maintainence-
+     A                                       '
+     A                                      DSPATR(RI)
+     A          R DESC
+     A*%%TS  SD  20000926  200730  EFD         REL-V3R7M0  5716-PW1
+     A                                 19  3' Description                      -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' Enter up to 30 characters to desc-
+     A                                      ribe this status code.             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

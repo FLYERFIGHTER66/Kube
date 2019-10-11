@@ -1,0 +1,74 @@
+     A*%%***********************************************************************
+     A*%%TS  RD  20120807  122819  BILLB       REL-V7R1M0  5770-WDS
+     A*%%FI+10660100000000000000000000000000000000000000000000000000
+     A*%%FI       0000000000000000000000000000000000000000000000000
+     A*%%***********************************************************************
+     A          R HEADER
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A                                     1
+     A                                      'CHKCUSFZNR'
+     A                                      SKIPB(002)
+     A                                   +32
+     A                                      'Customer Freight Zone Audit'
+     A                                   +43
+     A                                      DATE
+     A                                      EDTWRD('  /  /  ')
+     A                                   113
+     A                                      TIME
+     A                                      SPACEB(001)
+     A                                   100
+     A                                      'Freight'
+     A                                      SPACEB(001)
+     A                                   113
+     A                                      'Pg.'
+     A                                    +1
+     A                                      PAGNBR
+     A                                      EDTCDE(4)
+     A                                     1
+     A                                      'Cust#  Customer Name              -
+     A                                          Address                        -
+     A                                      City              State/Zip    Code-
+     A                                        Calc''d  Miles '
+     A                                      SPACEB(001)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001        ZNR
+     A*%%CL 001
+     A*%%CL 001
+     A*%%CL 001
+     A*%%***********************************************************************
+     A          R DETAIL
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A            CMCUST    R        O     1
+     A                                      REFFLD(RMCUST/CMCUST *LIBL/FMCUST)
+     A                                      SPACEB(001)
+     A            CMNAME    R        O    +1
+     A                                      REFFLD(RMCUST/CMNAME *LIBL/FMCUST)
+     A            CMADD2    R        O    +1
+     A                                      REFFLD(RMCUST/CMADD2 *LIBL/FMCUST)
+     A            CMCITY    R        O    70
+     A                                      REFFLD(RMCUST/CMCITY *LIBL/FMCUST)
+     A            CMSTST    R        O    89
+     A                                      REFFLD(RMCUST/CMSTST *LIBL/FMCUST)
+     A            CMZIP     R        O    92
+     A                                      REFFLD(RMCUST/CMZIP *LIBL/FMCUST)
+     A            CMUPSZ    R        O    +2
+     A                                      REFFLD(RMCUST/CMUPSZ *LIBL/FMCUST)
+     A            FREIGHT_ZN     1A  O    +5
+     A            ZMMILE    R        O    +3
+     A                                      REFFLD(RMZIPS/ZMMILE *LIBL/FMZIPS)
+     A                                      EDTCDE(K)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%SN ZMMILE     99999
+     A*%%CP+999CRTPRTF
+     A*%%CP+    FILE(TESTPAK400/CUR450P)
+     A*%%CP+    DEVTYPE(*SCS)
+     A*%%CP+    PAGESIZE(*N 120)
+     A*%%CP     CPI(12)
+     A*%%***********************************************************************

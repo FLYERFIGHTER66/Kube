@@ -1,0 +1,33 @@
+     A*     ORDER TRAY FILE ERRORS
+     A*     FILE NAME - FTRORE
+     A* THIS FILE IS BUILT BY SCANNERS FOR ORDER CONFIRMATION.
+     A* AND CONTAINS ERRORS ONLY
+     A                                      FIFO
+     A          R RTRORE                    TEXT('TRAY/ERROR')
+     A            TESTAT         1A         TEXT('STATUS A/D')
+     A                                      COLHDG('Status')
+     A            TETAG#         8S 0       TEXT('TAG #')
+     A                                      COLHDG('Tag #')
+     A                                      EDTCDE(4)
+      ** ERROR CODES
+      *  NO  = Not on this order  Order # will be from scanner entry
+      *  DUP = Already on another order Order # will be 2nd order # Ent
+      *  OVR = Too many for this order Order # will be from scanner
+     A            TEERR          3A         TEXT('ERROR CODE')
+     A                                      COLHDG('Error' 'Code')
+     A            TEORD#         6S 0       TEXT('ORDER #')
+     A                                      COLHDG('Order #')
+     A                                      EDTCDE(4)
+     A            TESHDT         7P 0       TEXT('SHIP WEEK DATE CYMD')
+     A                                      COLHDG('Ship Week' 'Date CYMD')
+     A                                      EDTWRD(' -  /  /  ')
+     A            TEDTLA         6S 0       TEXT('LAST ACTIVITY DATE')
+     A                                      COLHDG('Date Last Activity')
+     A                                      EDTCDE(Y)
+     A            TETIME         6S 0       TEXT('TIME')
+     A                                      COLHDG('Time')
+     A                                      EDTWRD('  :  :  ')
+     A            TEUSER        10A         TEXT('USER')
+     A                                      COLHDG('User')
+      *
+     A          K TETAG#

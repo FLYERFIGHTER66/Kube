@@ -1,0 +1,130 @@
+     A*%%TS  SD  20030516  110841  RP          REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      REF(*LIBL/RBXREF RBXREFR)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      HELP(47 'Help Key')
+     A                                      CF01(01 'Help')
+     A                                      CF12(12 'Previous Screen')
+     A*
+     A*
+     A          R SCREEN01
+     A*%%TS  SD  20030516  110841  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A*                                     MSGID(DW0 0000 DWMSGF)
+     A                                      MSGID(KP0 0001 KPMSGF)
+     A                                  1 72TIME
+     A                                  2  3'SCREEN01'
+     A            PGTL##        40A  O  2 19DSPATR(HI)
+     A                                      MSGID(TBE 1000 KPMSGF)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8  7'Element Code '
+     A  10                                  DSPATR(RI)
+     A                                 12  7'Long Description          '
+     A  13                                  DSPATR(RI)
+     A  41        S1CD1          1A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A  42        S1CD2          2A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A  43        S1CD3          3A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A  44        S1CD4          4A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A  45        S1CD5          5A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A  46        S1CD6          6A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A  47        S1CD7          7A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A  48        S1CD8          8A  B  8 23DSPATR(HI)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A            TBSHRT    R        B 10 36REFFLD(TBMASTR/TBSHRT TGMSDATA/XATA+
+     A                                      BL)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(CS)
+     A  11                                  DSPATR(PC)
+     A            TBLONG    R        B 12 36REFFLD(TBMASTR/TBLONG TGMSDATA/XATA+
+     A                                      BL)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(CS)
+     A  13                                  DSPATR(PC)
+     A                                 10  7'Short Description         '
+     A  11                                  DSPATR(RI)
+     A                                  1  3'XATABE1S'
+     A                                 21 20'F12=Return To Previous Screen--No -
+     A                                      Update'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 14  7'Broker Customer Number'
+     A N75                                  DSPATR(ND)
+     A  76                                  DSPATR(RI)
+     A            TBBROK         6Y 0B 14 33
+     A N75                                  DSPATR(ND)
+     A N75                                  DSPATR(PR)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(4)
+     A  76                                  DSPATR(PC)
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

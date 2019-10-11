@@ -1,0 +1,149 @@
+000100000000     FFPUTORDS  IP   E           K DISK
+000200000000     FFMINVT    IF   E           K DISK
+000300100312     FQPRINT98  O    F   96        PRINTER OFLIND(*INOF)
+000400000000
+000500000000
+000600000000     D                SDS                                                       PROG DATA STRUCTURE
+000700000000     D  PROGID                 1     10                                         PROGRAM NAME
+000800000000     D  RLIBR                 81     90                                         RUN LIBRARY
+000900000000     D  USERID               254    263                                         USER I.D.
+001000000000     D  SLIBR                314    323                                         SOURCE LIBRARY
+001100000000
+001200090306     D  PDITEM2        S                   Like(PDITEM)
+001300090306     D  TotPDQORD      S                   Like(PDQORD)
+001400090306     D  TotPDQSCH      S                   Like(PDQSCH)
+001500090306     D  TotDueNow      S                   Like(PDQSCH)
+001600100312     D  TotRBOrdr      S                   Like(PDQSCH)
+001700090306     D  GrdPDQORD      S                   Like(PDQORD)
+001800090306     D  GrdPDQSCH      S                   Like(PDQSCH)
+001900090306     D  GrdDueNow      S                   Like(PDQSCH)
+002000100312     D  GrdRBOrdr      S                   Like(PDQSCH)
+002100090306     D  FIRSTDETL      S               N   Inz(*On)
+002200090306
+002300090306     D   ReptItem      S                   Like(PDITEM)
+002400090306     D   ReptSize      S                   Like(PDSIZE)
+002500090306     D   ShipDate      S                   Like(PDSHPD)
+002600110317     D   IncludeRB     S               N
+002700000000
+002800110311     C                   If        PDSHPD = ShipDate
+002900110304     C
+003000090306     C  N99              Eval      ReptItem = PDITEM
+003100090306     C  N99              Eval      ReptSize = PDSIZE
+003200090306     C  N99              SetOn                                        99
+003300090306
+003400090306     C                   If        PDITEM + PDSIZE <> ReptItem + ReptSize
+003500090306
+003600090306     C                   If        *InOF or FirstDETL
+003700090306
+003800090306     C                   EXCEPT    HEAD
+003900090306     C                   Eval      *InOF = *Off
+004000090306     C                   Eval      FirstDETL = *Off
+004100090306     C                   EndIf
+004200090306
+004300090306     C                   If        TotDueNow > *Zero
+004400090306     C                   If        %SubSt(ReptItem:12:1) = 'P'
+004500090306     C                   Eval      PDITEM2 = %SubSt(ReptItem:1:11) + ' '
+004600090306     C                   Else
+004700090306     C                   Eval      PDITEM2 = ReptItem
+004800090306     C                   EndIf
+004900090306     C     ItemSize      CHAIN     FMINVT                             91
+005000090306     C  N99              Eval      IMDES1 = 'Item Not Found'
+005100090306     C                   Except    DETL
+005200110311     C                   EndIf
+005300090306     C                   Eval      TotPDQORD = *Zero
+005400090306     C                   Eval      TotPDQSCH = *Zero
+005500090306     C                   Eval      TotDueNow = *Zero
+005600100312     C                   Eval      TotRBOrdr = *Zero
+005700090306
+005800090306     C                   Eval      ReptItem = PDITEM
+005900090306     C                   Eval      ReptSize = PDSIZE
+006000090306
+006100090306     C                   EndIf
+006200090306
+006300090306
+006400110317     C                   If            (   IncludeRB or
+006500110317     C                                 (not IncludeRB and PDLOC <> '  888888'))
+006600090306     C                   Eval      TotPDQORD = TotPDQORD + PDQORD
+006700090306     C                   Eval      TotPDQSCH = TotPDQSCH + PDQSCH
+006800090306     C                   Eval      TotDueNow = TotPDQORD - TotPDQSCH
+006900090306     C                   Eval      GrdPDQORD = GrdPDQORD + PDQORD
+007000090306     C                   Eval      GrdPDQSCH = GrdPDQSCH + PDQSCH
+007100090306     C                   Eval      GrdDueNow = GrdPDQORD - GrdPDQSCH
+007200110311     C                   EndIf
+007300100312     C                   If        PDLOC > '  999999'
+007400100312     C                   Eval      TotRBOrdr = TotRBOrdr + PDQORD - PDQSCH
+007500100312     C                   Eval      GrdRBOrdr = GrdRBOrdr + PDQORD - PDQSCH
+007600100312     C                   EndIf
+007700090306     C                   EndIf
+007800000000
+007900090306     C   LR              EXCEPT    TOTL
+008000000000      ***********************
+008100000000      ** START UP ROUTINE  **
+008200000000      ***********************
+008300000000     C     *INZSR        BEGSR
+008400110317
+008500090306     C     *Entry        PLIST
+008600090306     C     ShipDate      Parm                    PDSHPD
+008700110317     C                   Parm                    Include_RB        1
+008800110317     C                   If        Include_RB = 'Y'
+008900110317     C                   Eval      IncludeRB = *On
+009000110317     C                   Else
+009100110317     C                   Eval      IncludeRB = *Off
+009200110317     C                   EndIf
+009300110317
+009400090306     C     ItemSize      KLIST
+009500090306     C                   KFLD                    PDITEM2
+009600090306     C                   KFLD                    ReptSize
+009700000000     C                   TIME                    TIMOD             6 0
+009800000000     C                   TIME                    TMWRK            12 0
+009900000000     C                   MOVE      TMWRK         TDATE             6 0
+010000000000     C                   SETON                                        OF
+010100000000     C                   ENDSR
+010200000000      ******************
+010300000000      * OUTPUT SPECS   *
+010400000000      ******************  PRINT CONTROL NUMBER ABOVE CLIP
+010500100312     OQPRINT98  E            HEAD           1 03
+010600090306     O                                            6 'PSR200'
+010700000000     O                                           21 'Requested by:'
+010800000000     O                       USERID              32
+010900090306     O                                           52 'Master List Update'
+011000090306     O                       PAGE          Z     80
+011100090306     O                                           76 'Page:'
+011200000000     O          E            HEAD           1
+011300110304     O                                            9 'Run Date:'
+011400000000     O                       TDATE         Y     18
+011500090306     O                                           71 'Time:'
+011600090306     O                       TIMOD               80 '  :  :  '
+011700000000     O          E            HEAD           0
+011800090306     O                                           12 'Item        '
+011900090306     O                                           16 'Size'
+012000090306     O                                           28 'Description'
+012100090306     O                                           60 'Ordered'
+012200090306     O                                           70 'Scheduled'
+012300090306     O                                           80 'Due Now'
+012400100312     O                                           90 'R/B Due'
+012500000000     O          E            HEAD           1
+012600000000     O                                           20 '____________________'
+012700000000     O                                           40 '____________________'
+012800000000     O                                           60 '____________________'
+012900000000     O                                           80 '____________________'
+013000100312     O                                           90 '____________________'
+013100090306     O          EF           DETL           1
+013200090306     O                       ReptItem            12
+013300090306     O                       ReptSize            16
+013400090306     O                       IMDES1              47
+013500100312     O                       TotRBOrdr     4     90
+013600100312     O                       TotDueNow     4     80
+013700090306     O                       TotPDQSCH     4     70
+013800090306     O                       TotPDQORD     4     60
+013900000000     O          EF           TOTL           1
+014000090306     O                                           60 '========='
+014100090306     O                                           70 '========='
+014200090306     O                                           80 '========='
+014300100312     O                                           80 '========='
+014400000000     O          EF           TOTL           1
+014500100312     O                       GrdRBOrdr     4     90
+014600100312     O                       GrdDueNow     4     80
+014700100312     O                       GrdPDQSCH     4     70
+014800100312     O                       GrdPDQORD     4     60
+014900000000     O                                           50 'Total Quantity=========>'

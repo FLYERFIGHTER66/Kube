@@ -1,0 +1,10 @@
+             PGM        PARM(&MESSAGE)
+             DCL        VAR(&MESSAGE) TYPE(*CHAR) LEN(256)
+goto eoj    /* New Anti-Virus definition prohibit doing this... so do not */
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             STRPCCMD   PCCMD('mshta javascript:alert("' *TCAT +
+                          &MESSAGE *TCAT '");close();')
+
+eoj:         ENDPGM

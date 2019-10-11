@@ -1,0 +1,499 @@
+     A*%%TS  SD  20160721  154425  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R LOT02000
+     A*%%TS  SD  20100401  150142  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Quit')
+     A                                      CF04(04 'Item Search')
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 49'    Lot Fixing History - Inquiry  -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                 10 68'Item:'
+     A            SELITEM        5A  B 10 75COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 11 68'Size:'
+     A            SELSIZE        3A  B 11 75COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 12 60'Alpha Lookup:'
+     A            SELLOOK       15A  B 12 75COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 17 75'  From  '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 17 85'   To   '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 18 35'Select the Ready Date for the inqu-
+     A                                      iry:'
+     A            SCRRDYDTFM     6Y 0B 18 75TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A            SCRRDYDTTO     6Y 0B 18 85TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                 19 35'  Select the Sow Date for the inqu-
+     A                                      iry:'
+     A            SCRSOWDTFM     6Y 0B 19 75TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A            SCRSOWDTTO     6Y 0B 19 85TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                      LOT02000  '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 20'F03'
+     A                                      DSPATR(HI)
+     A                                 26 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 59'F04'
+     A                                      DSPATR(HI)
+     A N83                             26 63'=Item Search'
+     A                                      COLOR(BLU)
+     A                                 26120'F05'
+     A                                      DSPATR(HI)
+     A                                 26124'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 13 65'Series?:'
+     A            SELSERIES     10A  B 13 75COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  7 39'Use the following Selection Criter-
+     A                                      ia to limit the number'
+     A                                      COLOR(PNK)
+     A                                  8 49'of Records returned by this inquir-
+     A                                      y'
+     A                                      COLOR(PNK)
+     A            SELWORD       15A  B 14 75COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 14 61'Select Word:'
+     A                                 12 93'*'
+     A                                      COLOR(PNK)
+     A                                 22 36'* - To search for an item use the -
+     A                                      Alpha Lookup and press'
+     A                                      COLOR(PNK)
+     A                                 22 93'F04'
+     A                                      DSPATR(HI)
+     A                                 22 97'.'
+     A                                      COLOR(PNK)
+     A                                 15 46'Minimum Number of Partials:'
+     A            MINPARTS       2Y 0B 15 75EDTCDE(Z)
+     A                                      COLOR(YLW)
+     A          R LOT02001                  SFL
+     A*%%TS  SD  20160721  153847  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            IN81           1A  H
+     A            IN82           1A  H
+     A            ITEM          12A  H
+     A            ITEM5     R    5   O  7  2REFFLD(RTRAYR/TRITEM *LIBL/FTRAYR)
+     A                                      DSPATR(HI)
+     A            SIZE      R        O  7  8REFFLD(RTRAYR/TRSIZE *LIBL/FTRAYR)
+     A                                      DSPATR(HI)
+     A            DES1          30A  O  7 12
+     A  60                                  COLOR(GRN)
+     A            SOWDATE        6Y 0O  7 43EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            LASTFIXD6      6Y 0O  7 52EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            FIXED          4Y 0O  7 87EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            FIXERS         4Y 0O  7 92EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            PARTCOUNT      4Y 0O  7 97EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            PARTTRAYS      4Y 2O  7102EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            OTHERLOSS      4Y 0O  7108EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            LOSSES         4Y 0O  7113EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            GERM           4Y 1O  7119EDTCDE(4)
+     A N51                                  COLOR(GRN)
+     A  51                                  COLOR(RED)
+     A            OVERSOW        4Y 1O  7125EDTCDE(4)
+     A            RDYDATE        6Y 0O  7 61EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            QTYORDERED     4Y 0O  7 71EDTCDE(4)
+     A            QTYTOSOW       4Y 0O  7 76EDTCDE(4)
+     A            QTYSOWN        4Y 0O  7 81EDTCDE(4)
+     A            CODE          10A  O  8101
+     A            LOOK          15A  O  8 12
+     A                                  8 28'<==ALPHA LOOK'
+     A                                      COLOR(PNK)
+     A                                  8 92'Series:'
+     A                                      COLOR(PNK)
+     A            SOWTOFIX       2Y 0O  8 53DSPATR(HI)
+     A                                      EDTCDE(M)
+     A            FIXTORDY       2Y 0O  8 66DSPATR(HI)
+     A                                      EDTCDE(M)
+     A                                  8 44'Sow-Fix:'
+     A                                      COLOR(PNK)
+     A                                  8 57'Fix-Rdy:'
+     A                                      COLOR(PNK)
+     A                                  9 12'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ------------------------------------
+     A                                      --------------'
+     A          R LOT02001C                 SFLCTL(LOT02001)
+     A*%%TS  SD  20160721  153847  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0006)
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Quit')
+     A                                      CF05(05 'Refresh')
+     A                                      PAGEDOWN(40)
+     A                                      CF04(04 'Item Search')
+     A                                      CF06(06 'Restart')
+     A                                      CF10(10 'Print Report')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            STARTRRN01     4S 0H      SFLRCDNBR
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  1 88'Ready Date:'
+     A                                      DSPATR(HI)
+     A                                      COLOR(PNK)
+     A            SCRRDYDTFM     6Y 0B  1101TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  6  2'Item '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A            SELSERIES     10A  B  3101COLOR(YLW)
+     A                                  6 12'Description                   '
+     A                                      DSPATR(UL)
+     A            SELITEM        5A  B  5  2COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PC)
+     A            SELSIZE        3A  B  5  8COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SELLOOK       15A  B  5 12COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  6  8'Siz'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 28'<==ALPHA LOOK'
+     A                                      COLOR(PNK)
+     A                                  6 43'Sow Date'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 87'Scan'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 97' Partials '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6108'Dump'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6113'Lost'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 52'Fix Date'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  3 91'Series?:'
+     A                                      DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                  6119'%Germ'
+     A                                      DSPATR(UL)
+     A                                  6125'%Over'
+     A                                      DSPATR(UL)
+     A            SCRRDYDTTO     6Y 0B  1111TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 88'  Sow Date:'
+     A                                      DSPATR(HI)
+     A                                      COLOR(PNK)
+     A            SCRSOWDTFM     6Y 0B  2101TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A            SCRSOWDTTO     6Y 0B  2111TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  6 61'Rdy Date'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 92'Fixr'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 81'Sown'
+     A                                      DSPATR(UL)
+     A                                  6 71'Ordr'
+     A                                      DSPATR(UL)
+     A                                  6 76'Need'
+     A                                      DSPATR(UL)
+     A                                  1 50'   Lot Fixing History - Inquiry   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            MINGERM        4Y 1B  5119EDTWRD('   . ')
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  5104'Minimum Germ%:'
+     A                                  4 52'Item Contains:'
+     A                                      COLOR(PNK)
+     A            SELWORD       15A  B  4 67COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  5 84'Minimum Parts:'
+     A                                      COLOR(PNK)
+     A            MINPARTS       2Y 0B  5 99COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Z)
+     A          R LOT02001F
+     A*%%TS  SD  20100402  143930  BILLB       REL-V5R3M0  5722-WDS
+     A                                      OVERLAY
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                        LOT02001'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 59'F05'
+     A                                      DSPATR(HI)
+     A                                 26 63'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 20'F03'
+     A                                      DSPATR(HI)
+     A                                 26 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26117'F11'
+     A                                      DSPATR(HI)
+     A                                 26121'=More Info'
+     A                                      COLOR(BLU)
+     A                                 26 77'F06'
+     A                                      DSPATR(HI)
+     A                                 26 81'=Restart'
+     A                                      COLOR(BLU)
+     A                                 26 36'F04'
+     A                                      DSPATR(HI)
+     A                                 26 40'=Item Search'
+     A                                      COLOR(BLU)
+     A                                 26 95'F10'
+     A                                      DSPATR(HI)
+     A                                 26 99'=Print Out'
+     A                                      COLOR(BLU)
+     A          R LOT02002
+     A*%%TS  SD  20060314  131244  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Quit')
+     A                                      CF08(08 'Select All Errors')
+     A                                      CF09(09 'Clear all Errors')
+     A                                      CF10(10 'Restore Default Errors')
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  1 49'   Plug Production Master Inquiry -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                        LOT02002'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 50'F09'
+     A                                      DSPATR(HI)
+     A                                 26 54'=Clear All'
+     A                                      COLOR(BLU)
+     A                                 26 20'F03'
+     A                                      DSPATR(HI)
+     A                                 26 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 32'F08'
+     A                                      DSPATR(HI)
+     A                                 26 36'=Select All'
+     A                                      COLOR(BLU)
+     A                                  6 12'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                           '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                  7 12'Select from the list below, all er-
+     A                                      rors that you wish to create an err-
+     A                                      or condition for records on your in-
+     A                                      quiry'
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                  9 29'Quantity on Sow Job is less than O-
+     A                                      rder Quantity . . . . . . . . . . .-
+     A                                       . . . .'
+     A                                 10 29'Quantity Labelled on Sow Job great-
+     A                                      er than Quantity to Sow . . . . . .-
+     A                                       . . . .'
+     A                                 11 29'Quantity Sown on Sow Job greater t-
+     A                                      hat Quantity to Sow . . . . . . . .-
+     A                                       . . . .'
+     A                                 12 29'Quantity Sown on Sow Job greater t-
+     A                                      hat Quantity Labelled . . . . . . .-
+     A                                       . . . .'
+     A                                 13 29'Quantity Sown on Tray files greate-
+     A                                      r than Quantity Sown on Job Schedul-
+     A                                      e. . . .'
+     A                                  9  2'SOWJOBTS < ONORDERS'
+     A                                      DSPATR(ND)
+     A                                 10  2'SOWJOBLB > SOWJOBTS'
+     A                                      DSPATR(ND)
+     A                                 11  2'SOWJOBSN > SOWJOBTS'
+     A                                      DSPATR(ND)
+     A                                 12  2'SOWJOBSN > SOWJOBLB'
+     A                                      DSPATR(ND)
+     A                                 13  2'TRAYSSN+TRAYSLB > SOWJOBSN'
+     A                                      DSPATR(ND)
+     A                                 14  2'LOSSES   > SOWJOBSN       '
+     A                                      DSPATR(ND)
+     A                                 14 29'Quantity of Losses is greater than-
+     A                                       Quantity Sown on Job Schedule. . .-
+     A                                       . . . .'
+     A                                 15  2'PARTCOUNT > 1             '
+     A                                      DSPATR(ND)
+     A                                 15 29'Partial Tray Count greater than On-
+     A                                      e . . . . . . . . . . . . . . . . .-
+     A                                       . . . .'
+     A                                 16  2'AVAILABLE < 0             '
+     A                                      DSPATR(ND)
+     A                                 16 29'Quantity Available less than Zero -
+     A                                      . . . . . . . . . . . . . . . . . .-
+     A                                       . . . .'
+     A                                 26 67'F10'
+     A                                      DSPATR(HI)
+     A                                 26 71'=Restore Defaults'
+     A                                      COLOR(BLU)
+     A                                 26 91'F13'
+     A                                      DSPATR(HI)
+     A                                 26 95'=Save as the Default'
+     A                                      COLOR(BLU)
+     A            CK01           1A  B  9107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A            CK02           1A  B 10107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A            CK03           1A  B 11107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A            CK04           1A  B 12107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A            CK05           1A  B 13107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A            CK06           1A  B 14107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A            CK07           1A  B 15107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A            CK08           1A  B 16107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                 17  2'SOWJOBSN < FIXED          '
+     A                                      DSPATR(ND)
+     A                                 17 29'Quantity Sown on Sow Job is less t-
+     A                                      han Quantity Scanned for Fixing . .-
+     A                                       . . . .'
+     A            CK09           1A  B 17107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                  5 12'                                  -
+     A                                                   Error Conditions      -
+     A                                                                         -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                 18  2'PARTTRAYS >= 1            '
+     A                                      DSPATR(ND)
+     A                                 18 29'Total of Partials is greater than -
+     A                                      a whole tray. . . . . . . . . . . .-
+     A                                       . . . .'
+     A            CK10           1A  B 18107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                 19  2'O/H Doesn''t Match         '
+     A                                      DSPATR(ND)
+     A                                 19 29'Mismatch error involving the On Ha-
+     A                                      nd Quantities . . . . . . . . . . .-
+     A                                       . . . .'
+     A            CK11           1A  B 19107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                 20  2'Alloc. Doesn''t Match      '
+     A                                      DSPATR(ND)
+     A                                 20 29'Mismatch error involving the Alloc-
+     A                                      ated Quantities . . . . . . . . . .-
+     A                                       . . . .'
+     A            CK12           1A  B 20107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                 21  2'Avail. Doesn''t Match      '
+     A                                      DSPATR(ND)
+     A                                 21 29'Mismatch error involving the Avail-
+     A                                      able Quantities . . . . . . . . . .-
+     A                                       . . . .'
+     A            CK13           1A  B 21107COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                 23 38'Omit unfixed records from error se-
+     A                                      lection . . . . . . .'
+     A                                      COLOR(PNK)
+     A            OMITUNFIX      1   B 23 94COLOR(YLW)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS4                                SFLMSGRCD(27)
+     A            MSGKEY                    SFLMSGKEY
+     A            PGMQ                      SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS4                                SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

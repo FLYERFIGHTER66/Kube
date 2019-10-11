@@ -1,0 +1,67 @@
+/*********************************************************************/
+/*   PROGRAM-------- BIR235CL                                        */
+/*   DATE WRITTEN--- 07/03/96                                        */
+/*   PROGRAMMER----- EFD                                             */
+/*   DESCRIPTION---- SHIPMENT CONFIRMATION                           */
+/*   REVISIONS------                                                 */
+/*                                                                   */
+/*********************************************************************/
+             PGM
+             DCL        VAR(&PRT) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&CAN) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&IMED) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&ORD) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&ORD#) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&SEQ#) TYPE(*DEC) LEN(3 0) VALUE(0)
+
+             DCL        VAR(&DATETIME) TYPE(*CHAR) LEN(20)
+             DCL        VAR(&TOSTMF) TYPE(*CHAR) LEN(130)
+
+             CHGDTAARA  DTAARA(*LDA *ALL) VALUE(' ')
+             CHGDTAARA  DTAARA(*LDA (50 6)) VALUE('000000')
+             CHGDTAARA  DTAARA(*LDA (64 1)) VALUE('N')
+             CHGDTAARA  DTAARA(*LDA (65 1)) VALUE(' ')
+ NXT:
+             CALL       PGM(BIR235)
+             CHGDTAARA  DTAARA(*LDA (65 1)) VALUE(' ')
+             RTVDTAARA  DTAARA(*LDA (62 1)) RTNVAR(&CAN)
+             IF         COND(&CAN = 'X') THEN(GOTO CMDLBL(END))
+             IF         COND(&CAN = 'O') THEN(DO)
+                RTVDTAARA  DTAARA(*LDA (50 6)) RTNVAR(&ORD)
+                CHGVAR     VAR(&ORD#) VALUE(&ORD)
+                CALL       PGM(BIR100CLO) PARM(&ORD# &SEQ#)
+                CHGDTAARA  DTAARA(*LDA (50 6)) VALUE(&ORD)
+                CHGDTAARA  DTAARA(*LDA (65 1)) VALUE('Y')
+                GOTO       CMDLBL(NXT)
+             enddo
+
+             IF         COND(&CAN = 'I') THEN(DO)
+             RTVDTAARA  DTAARA(*LDA (31 10)) RTNVAR(&PRT)
+             RTVJOBA    DATETIME(&DATETIME)
+             CHGVAR     VAR(&TOSTMF) VALUE('/KUBE PAK/PDF/INVOICE_BATCH/INVOICES-' *TCAT +
+                          &DATETIME *TCAT '.pdf')
+             OVRPRTF    FILE(BIR330A) TOFILE(QSYSPRT) DEV(&PRT) +
+                          DEVTYPE(*AFPDS) PAGESIZE(11 8.5 *UOM) +
+                          LPI(6) CPI(12) FRONTMGN(.25 .25) +
+                          ALIGN(*NO) PAGRTT(0) FRONTOVL(INVOICE +
+                          .15) TOSTMF(&TOSTMF) WSCST(*PDF)
+             OVRDBF     FILE(FHORDWRS) TOFILE(FHORDWTMRS)
+             OVRDBF     FILE(FIORDW) TOFILE(FIORDWTM) +
+                          MBR(*FIRST)
+             CALL       PGM(BIR330)
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+             STRPCCMD   PCCMD('"//10.151.151.1' *TCAT &TOSTMF *TCAT +
+                          '"') PAUSE(*NO)
+             GOTO       CMDLBL(NXT)
+             ENDDO
+             RTVDTAARA  DTAARA(*LDA (64 1)) RTNVAR(&IMED)
+             IF         COND(&IMED = 'Y') THEN(DO)
+             RTVDTAARA  DTAARA(*LDA (50 6)) RTNVAR(&ORD)
+             RTVDTAARA  DTAARA(*LDA (31 10)) RTNVAR(&PRT)
+             CALL       PGM(BIR440)
+             CALL       PGM(BIR330CL)
+             GOTO       CMDLBL(NXT)
+             ENDDO
+   END:        CHGDTAARA  DTAARA(*LDA *ALL) VALUE(' ')
+             ENDPGM

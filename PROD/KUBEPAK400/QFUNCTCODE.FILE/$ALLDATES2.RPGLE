@@ -1,0 +1,15 @@
+     C/Copy QFunctCode,$DATE
+     C/Copy QFunctCode,$DATEMDY
+     C/Copy QFunctCode,$DATE6
+     C/Copy QFunctCode,$DATE7
+     C/Copy QFunctCode,$DATE8
+     C/Copy QFunctCode,$DAY
+     C/Copy QFunctCode,$DOTW
+     C/Copy QFunctCode,$FIRSTDAY
+     C/Copy QFunctCode,$ISDATE#
+     C/Copy QFunctCode,$ISDATE@
+     C/Copy QFunctCode,$LASTDAY
+     C/Copy QFunctCode,$MONTH
+     C/Copy QFunctCode,$MONYEAR
+     C/Copy QFunctCode,$WEEKDAY
+     C/Copy QFunctCode,$YEAR

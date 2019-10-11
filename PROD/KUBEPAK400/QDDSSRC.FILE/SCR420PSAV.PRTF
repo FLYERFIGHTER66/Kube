@@ -1,0 +1,74 @@
+      *****************************************************************
+      **                                                             **
+      **  FILE:       SCR420P                                        **
+      **  FUNCTION:   PRINT TRUCK SCHEDULE LOCATION WORK SHEET      **
+      **  CREATED BY: R. PIASECKI 2/25/2004                          **
+      **                                                             **
+      *****************************************************************
+                                            REF(*LIBL/KPREF  KPREFR)
+     A          R HEADER
+      *
+     A                                      SKIPB(002)
+     A                                     1 'SCR420P'
+     A                                     9 'Requested by:'
+     A            USERID        10A       23
+     A                                    33 'Location Worksheet for:'
+     A                                    80 'Page:'
+     A                                    86PAGNBR
+     A                                      EDTCDE(Z)
+     A                                      SPACEA(001)
+     A                                     1 'Run Date:'
+     A            TDATE          6S 0     11EDTCDE(Y)
+     A                                    27 'Item:'
+     A            ITEM           6A       33
+     A            IMSIZE         3A       40
+     A            IMDES1        30        44
+     A                                    74 'Time:'
+     A                                    80
+     A                                      TIME
+     A                                      SPACEA(002)
+     A                                     5 '--Order---'
+     A                                    34 'Ship Week:'
+     A                                    55 '--Quantity--'
+     A            CLDATE         6S 0     46EDTCDE(Y)
+     A                                      SPACEA(001)
+     A                                     2 'Req. Date'
+     A                                    12 'Lin'
+     A                                    16 'Number'
+     A                                    23 'Cust #'
+     A                                    30 'Name'
+     A                                    54 'Ordered'
+     A                                    63 'Need'
+     A                                    74 'Tk'
+     A                                    79 'Stop'
+     A                                      SPACEA(001)
+     A                                     1 '____________________'
+     A                                    21 '____________________'
+     A                                    41 '____________________'
+     A                                    61 '____________________'
+     A                                    81 '___'
+     A                                      SPACEA(001)
+     A          R DETAIL
+     A            OIDTRQ         6  0      1EDTCDE(Y)
+     A            OISEQ#         3  0     10EDTCDE(4)
+     A            OIORD#         6  0     15EDTCDE(4)
+     A            OICUST         6  0     22EDTCDE(4)
+     A            NAME          25        29
+     A            QTYORD         6  0     55EDTCDE(4)
+     A*           NEED           6  0     60EDTCDE(4)
+     A            LOCAT          8        75
+     A                                    84 '____________'
+     A                                      SPACEA(001)
+     A          R TOTAL
+     A                                    55 '======'
+     A                                    61 '======'
+     A                                      SPACEA(001)
+     A                                    26 'Total Quantity=========>'
+     A            TOTQTY         9  0     50EDTCDE(1)
+     A*                                     SPACEB(059)
+     A*                                    1 'Ready Bay_________'
+     A*                                   20 'Pick-Up___________'
+     A*                                   39 'Total_____________'
+     A*                                   58 'Master Qty________'
+     A*                                   77 'Diff.+/-__________'
+      *

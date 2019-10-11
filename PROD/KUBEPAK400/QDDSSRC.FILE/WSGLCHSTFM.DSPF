@@ -1,0 +1,193 @@
+     A*%%TS  SD  20190909  102137  BILLB       REL-V7R2M0  5770-WDS
+     A*?Program        : WSGLCHSTFM
+     A*?
+     A*?Description    : This display file for GL Cash History Summary
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 08 Aug 2019
+     A**********************************************************************
+     A*?Special Notes  : Subfile Type : Load All - Output Subfile
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**************************************************************************
+     A*?Subfile Display Part
+     A*
+     A*
+     A          R GLCHSTS01                 SFL
+     A*%%TS  SD  20190909  102137  BILLB       REL-V7R2M0  5770-WDS
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01RRN         4S 0H
+     A*
+     A            S01DATE        8A  O  5  2
+     A N27                                  COLOR(BLU)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01CASH        8Y 0O  5 11EDTCDE(K)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01AR          8Y 0O  5 23EDTCDE(K)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01AP          8Y 0O  5 35EDTCDE(K)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01CPOS        8Y 0O  5 47EDTCDE(K)
+     A N27                                  COLOR(PNK)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A*
+     A            S01LYDATE      8A  O  5 61
+     A N27                                  COLOR(BLU)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01LYCASH      8Y 0O  5 70EDTCDE(K)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01LYAR        8Y 0O  5 82EDTCDE(K)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01LYAP        8Y 0O  5 94EDTCDE(K)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01LYCPOS      8Y 0O  5106EDTCDE(K)
+     A N27                                  COLOR(PNK)
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(WHT)
+     A            S01DIFF        8Y 0O  5121EDTCDE(K)
+     A  27                                  DSPATR(RI)
+     A N27                                  COLOR(TRQ)
+     A  27                                  COLOR(WHT)
+     A                                  5 59' '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  5118' '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A**********************************************************************
+     A*?Subfile Control Part
+     A*
+     A          R GLCHSTC01                 SFLCTL(GLCHSTS01)
+     A*%%TS  SD  20190909  102137  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0020)
+     A                                      CF03(03 'Exit')
+     A                                      CF08(08 'Toggle')
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A*
+     A            S01RRN         4S 0H      SFLRCDNBR
+     A*
+     A                                  1  2'WSGLCHSTFM'
+     A                                      COLOR(BLU)
+     A                                  1 53' GL Cash Position History Summary '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A            C01HDG        11A  O  2 65COLOR(PNK)
+     A                                      DSPATR(RI)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  3 13'Position To:'
+     A                                      COLOR(BLU)
+     A            C01DATE        6Y 0B  3 26DSPATR(UL)
+     A                                      EDTWRD('  /  /  ')
+     A                                  3 37'(MM/DD/YY)  '
+     A                                  3 91'Year :'
+     A                                      COLOR(BLU)
+     A            C01YEAR        4Y 0B  3 98DSPATR(UL)
+     A*
+     A                                  4  2'  Date  '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 11'   Cash    '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 23'   A/R     '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 35'   A/P     '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 47' Cash Pos  '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 61' LY Date'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 70'  LY Cash  '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 82'  LY A/R   '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 94'  LY A/P   '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4106'LY Cash Pos'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4121'Difference '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 59' '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4118' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R GLCHSTF01
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F8'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Toggle for Reverse Order'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

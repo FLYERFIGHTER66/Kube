@@ -1,0 +1,45 @@
+             PGM
+
+             DCL        VAR(&SENDMSG) TYPE(*LGL) VALUE('1')
+             DCL        VAR(&TESTRESULT) TYPE(*LGL) VALUE('1')
+
+             CALLSUBR   SUBR(INIT)
+  /* CHECK TO SEE IF WE ARE CONNECTED  */
+ MAINLOOP:   DOWHILE    COND(1 *EQ 1)
+             CHGVAR     VAR(&TESTRESULT) VALUE('1')
+             DLYJOB     DLY(15)
+             PING       RMTSYS('8.8.8.8') MSGMODE(*QUIET *ESCAPE) +
+                          NBRPKT(2) WAITTIME(10)
+             MONMSG     MSGID(TCP3202 TCP3210) EXEC(CHGVAR +
+                          VAR(&TESTRESULT) VALUE('0'))
+             IF         COND(&TESTRESULT = '0') THEN(CALLSUBR +
+                          SUBR(LOGOUTAGE))
+             IF         COND(&TESTRESULT = '0') THEN(ITERATE +
+                          CMDLBL(MAINLOOP))
+             IF         COND(&SENDMSG *EQ '0') THEN(CHGVAR +
+                          VAR(&SENDMSG) VALUE('1'))
+             ENDDO
+                                                                         /* +
+---------------------------------------------------------------------------*/
+             SUBR       SUBR(LOGOUTAGE)
+             RUNSQL     SQL('INSERT INTO OUTAGELOG VALUES (current +
+                          timestamp)') COMMIT(*NC)
+             IF         COND(&SENDMSG) THEN(CALLSUBR SUBR(MSGSUBR))
+             ENDSUBR
+                                                                         /* +
+---------------------------------------------------------------------------*/
+             SUBR       SUBR(INIT)
+             RUNSQL     SQL('create or replace table outagelog ( +
+                          outagetime timestamp )') COMMIT(*NC)
+             ENDSUBR
+                                                                         /* +
+---------------------------------------------------------------------------*/
+             SUBR       SUBR(MSGSUBR)
+             SNDBRKMSG  MSG('The internet monitoring program +
+                          (TSTINTCNN) has detected an internet +
+                          outage.') TOMSGQ(DSP014_01 DSP014_02 +
+                          DSP014_03)
+             CHGVAR     VAR(&SENDMSG) VALUE('0')
+             ENDSUBR
+
+             ENDPGM

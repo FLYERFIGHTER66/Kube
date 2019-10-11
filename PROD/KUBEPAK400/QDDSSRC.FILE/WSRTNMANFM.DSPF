@@ -1,0 +1,311 @@
+     A*? Program        : WSRTNMANFM
+     A*?
+     A*? Description    : This Display file used for Webservices Retention
+     A*?                  Policy File Maintenance
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 22 May 2019
+     A**********************************************************************
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A*****************************************************************
+     A*? Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      INDARA
+     A*****************************************************************
+     A*? Subfile Display Part
+     A          R RTNMANS01                 SFL
+     A*
+     A  17                                  SFLNXTCHG
+     A*
+     A            S01RRN         4S 0H
+     A            S01OPT         1Y 0B  6  2
+     A  18                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A            S01DIRECT    100   O  6  4DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Control Part
+     A          R RTNMANC01                 SFLCTL(RTNMANS01)
+     A*
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0019)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'Add')
+     A*
+     A                                      OVERLAY
+     A  13                                  SFLDSP
+     A  14                                  SFLDSPCTL
+     A  15                                  SFLCLR
+     A  16                                  SFLEND(*MORE)
+     A*
+     A            C01PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 39'Webservices_Retention_Policy File -
+     A                                      Maintenance'
+     A                                      COLOR(WHT)
+     A                                  1113'RTNMANS01'
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A            C01SYS        10A  O  2  2COLOR(BLU)
+     A                                  2 44'List Of Unique Directories in File'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(RI)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Option: 2=Edit'
+     A                                      COLOR(BLU)
+     A*
+     A                                  5  2'O'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  5  4'Directory                         -
+     A                                                                         -
+     A                                                                     '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R RTNMANF01
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F5'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 25'F6'
+     A                                      COLOR(WHT)
+     A                                 26 28'=Add'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Subfile Display Part
+     A          R RTNMANS02                 SFL
+     A*
+     A  25                                  SFLNXTCHG
+     A*
+     A            S02OPT         1Y 0B  8  2
+     A  26                                  DSPATR(RI)
+     A  27                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A            S02RRN         4S 0H
+     A            H02SEQ         4S 0H
+     A            S02FILL1      30A  O  8  4
+     A            S02FILL2      30A  O  8 35
+     A            S02FILL3      30A  O  8 66
+     A            S02TYPE       30A  O  8 97
+     A            S02RETEN       4Y 0O  8128
+     A*****************************************************************
+     A*? Subfile Control Part
+     A*
+     A          R RTNMANC02                 SFLCTL(RTNMANS02)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0017)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Add')
+     A                                      CF12(12 'Cancel')
+     A*
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A*
+     A            C02PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 39'Webservices_Retention_Policy File -
+     A                                      Maintenance'
+     A                                      COLOR(WHT)
+     A                                  1113'RTNMANS02'
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A**
+     A            C02SYS        10A  O  2  2COLOR(BLU)
+     A                                  2 47'List Of Files in Directories'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(RI)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A**
+     A                                  4  2'Directory :'
+     A            C02DIRECT    115A  B  4 14COLOR(YLW)
+     A                                      DSPATR(UL)
+     A  28                                  DSPATR(RI)
+     A  28                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A*
+     A                                  6  2'Options : 2=Edit  4=Delete'
+     A                                      COLOR(BLU)
+     A*
+     A                                  6 78'Are you sure you want to delete ?'
+     A N45                                  COLOR(WHT)
+     A N45                                  DSPATR(RI)
+     A  45                                  DSPATR(ND)
+     A            C02DEL         1A  B  6113
+     A N44N45                               COLOR(YLW)
+     A N44N45                               DSPATR(UL)
+     A  44N45                               DSPATR(RI)
+     A  44N45                               DSPATR(PC)
+     A  45                                  DSPATR(ND)
+     A  45                                  DSPATR(PR)
+     A                                  6115'(Y/N)'
+     A  45                                  DSPATR(ND)
+     A*
+     A                                  7  2'O'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  7  4'File Begin With               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  7 35'File End With                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  7 66'File Contains                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  7 97'File Type                     '
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  7128'Days'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R RTNMANF02
+     A                                 26  2'F3=Exit  F6=Add  F12=Cancel'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A**
+     A                                      HELP
+     A                                      OVERLAY
+     A**
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N03                                  SFLEND
+     A**
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Record Format
+     A*
+     A          R RTNMANR01
+     A                                      CF03(03 'Exit')
+     A                                      CF04(04 'Prompt')
+     A                                      CF12(12 'Previous')
+     A*
+     A                                  1  2'RTNMANR01'
+     A                                      COLOR(BLU)
+     A            HEADING       45A  O  1 41DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  5  2'File Seq#:'
+     A            R01SEQ         4Y 0O  5 13COLOR(BLU)
+     A*
+     A                                  7  2'Directory:'
+     A            R01DIRECT    115A  B  7 13
+     A N30N40                               COLOR(YLW)
+     A N30N40                               DSPATR(UL)
+     A  30N40                               DSPATR(PC)
+     A  30N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A*
+     A                                  9  2'File Begin With:'
+     A            R01FBEG       32A  B  9 19
+     A N31N40                               COLOR(YLW)
+     A N31N40                               DSPATR(UL)
+     A  31N40                               DSPATR(PC)
+     A  31N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A*
+     A                                 11  2'File End With  :'
+     A            R01FEND       32A  B 11 19
+     A N32N40                               COLOR(YLW)
+     A N32N40                               DSPATR(UL)
+     A  32N40                               DSPATR(PC)
+     A  32N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A*
+     A                                 13  2'File Contains  :'
+     A            R01CONT       32A  B 13 19
+     A N33N40                               COLOR(YLW)
+     A N33N40                               DSPATR(UL)
+     A  33N40                               DSPATR(PC)
+     A  33N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A*
+     A                                 15  2'File Type      :'
+     A            R01TYPE       32A  B 15 19
+     A N34N40                               COLOR(YLW)
+     A N34N40                               DSPATR(UL)
+     A  34N40                               DSPATR(PC)
+     A  34N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A*
+     A                                 17  2'Rentention Days:'
+     A            R01DAYS        4S 0B 17 19
+     A N35N40                               COLOR(YLW)
+     A N35N40                               DSPATR(UL)
+     A  35N40                               DSPATR(PC)
+     A  35N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*?Record Footer
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F4'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Prompt'
+     A                                      COLOR(BLU)
+     A                                 26 24'F12'
+     A                                      COLOR(WHT)
+     A                                 26 28'=Previous'
+     A                                      COLOR(BLU)
+     A                                 26 39'Enter to Process'
+     A                                      COLOR(BLU)
+     A*?Error Message
+     A            ERRMSG        75A  O 27  2COLOR(WHT)

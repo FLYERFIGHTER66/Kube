@@ -1,0 +1,19 @@
+/*********************************************************************/
+/*   PROGRAM-------- FPR102CL                                        */
+/*   DATE WRITTEN---  2/25/16                                        */
+/*   PROGRAMMER----- WILLIAM BEHR                                    */
+/*   REVISIONS------                                                 */
+/*                                                                   */
+/*********************************************************************/
+             PGM        PARM(&SEC &BAY &NOS &EOW &PRT)
+             DCL        VAR(&SEC) TYPE(*DEC) LEN(2 0)
+             DCL        VAR(&BAY) TYPE(*DEC) LEN(2 0)
+             DCL        VAR(&NOS) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&EOW) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&PRT) TYPE(*CHAR) LEN(10)
+
+             OVRPRTF    FILE(FPR102P) DEV(&PRT)
+             CALL       PGM(FPR102) PARM(&SEC &BAY &NOS &EOW)
+
+ END:
+             ENDPGM

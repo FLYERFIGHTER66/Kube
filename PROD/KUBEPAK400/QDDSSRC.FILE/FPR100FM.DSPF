@@ -1,0 +1,1103 @@
+     A*%%TS  SD  20160630  130949  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      HELP
+     A                                      CF24
+     A          R FPR10001
+     A*%%TS  SD  20160203  093839  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Date')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A                                      PAGEUP(08 'PREVIOUS WEEK')
+     A                                      PAGEDOWN(09 'NEXT WEEK')
+     A                                      MOUBTN(*ULP *ULR CF24)
+     A                                  1  2'FPR10001'
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  4  2'Date:'
+     A                                      DSPATR(HI)
+     A            FRMDAT         6Y 0B  4  8
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A                                      CHECK(ER)
+     A            IPADDRESS     15A  O  5 30COLOR(PNK)
+     A                                 10  2'F3=Cancel Job'
+     A                                  6  3'Defaults'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  7  3'Print Tags:'
+     A                                      COLOR(BLU)
+     A                                  8  3'Print Bays:'
+     A                                      COLOR(BLU)
+     A            TAGDFT         1A  B  7 15DSPATR(CS)
+     A                                      VALUES('Y' 'N')
+     A                                      DFTVAL('Y')
+     A            BAYDFT         1A  B  8 15DSPATR(CS)
+     A                                      VALUES('Y' 'N')
+     A                                      DFTVAL('Y')
+     A                                  3  2'Plant'
+     A                                      DSPATR(HI)
+     A          R FPR10002
+     A*%%TS  SD  20160205  141524  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Range')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A                                  1  2'FPR10002'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Enter/Select Range:'
+     A                                      DSPATR(HI)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A            RANGE          1Y 0B  4  6EDTCDE(Z)
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      CHECK(ER)
+     A            SRANGE         2Y 0B  4 10PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 '1')
+     A                                      PSHBTNCHC(2 '2')
+     A                                      PSHBTNCHC(3 '3')
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A                                  7  1'or'
+     A                                  7  4'Scan Location: '
+     A                                      DSPATR(HI)
+     A            LOCCODE        7A  B  8  6COLOR(YLW)
+     A                                      CHECK(ER)
+     A                                 10  2'F2=Change Date    '
+     A                                 11  2'F3=Cancel Job'
+     A          R FPR10003
+     A*%%TS  SD  20160205  141524  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Section')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A            SSECT01        2A  P
+     A            SSECT02        2A  P
+     A            SSECT03        2A  P
+     A            SSECT04        2A  P
+     A            SSECT05        2A  P
+     A            SSECT06        2A  P
+     A            SSECT07        2A  P
+     A                                  1  2'FPR10003'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  3  2'Enter/Select Section'
+     A                                      DSPATR(HI)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0B  4  6
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A            SSECT          2Y 0B  4 12PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A  21                                  PSHBTNCHC(1 &SSECT01)
+     A  22                                  PSHBTNCHC(2 &SSECT02)
+     A  23                                  PSHBTNCHC(3 &SSECT03)
+     A  24                                  PSHBTNCHC(4 &SSECT04)
+     A  25                                  PSHBTNCHC(5 &SSECT05)
+     A  26                                  PSHBTNCHC(6 &SSECT06)
+     A  27                                  PSHBTNCHC(7 &SSECT07)
+     A                                 11  2'F2=Change Range   '
+     A                                 12  2'F3=Cancel Job'
+     A          R FPR10004
+     A*%%TS  SD  20160630  130949  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Bay')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A            SBAY01         2A  P
+     A            SBAY02         2A  P
+     A            SBAY03         2A  P
+     A            SBAY04         2A  P
+     A            SBAY05         2A  P
+     A            SBAY06         2A  P
+     A            SBAY07         2A  P
+     A            SBAY08         2A  P
+     A            SBAY09         2A  P
+     A            SBAY10         2A  P
+     A            SBAY11         2A  P
+     A            SBAY12         2A  P
+     A            SBAY13         2A  P
+     A            SBAY14         2A  P
+     A            SBAY15         2A  P
+     A            SBAY16         2A  P
+     A            SBAY17         2A  P
+     A            SBAY18         2A  P
+     A            SBAY19         2A  P
+     A            SBAY20         2A  P
+     A            SBAY21         2A  P
+     A            SBAY22         2A  P
+     A            SBAY23         2A  P
+     A            SBAY24         2A  P
+     A            SBAY25         2A  P
+     A            SBAY26         2A  P
+     A            SBAY27         2A  P
+     A            SBAY28         2A  P
+     A            SBAY29         2A  P
+     A            SBAY30         2A  P
+     A            SBAY31         2A  P
+     A            SBAY32         2A  P
+     A            SBAY33         2A  P
+     A            SBAY34         2A  P
+     A            SBAY35         2A  P
+     A            SBAY36         2A  P
+     A            SBAY37         2A  P
+     A            SBAY38         2A  P
+     A            SBAY39         2A  P
+     A            SBAY40         2A  P
+     A            SBAY41         2A  P
+     A            SBAY42         2A  P
+     A            SBAY43         2A  P
+     A            SBAY44         2A  P
+     A            SBAY45         2A  P
+     A            SBAY46         2A  P
+     A            SBAY47         2A  P
+     A            SBAY48         2A  P
+     A            SBAY49         2A  P
+     A            SBAY50         2A  P
+     A            SBAY51         2A  P
+     A            SBAY52         2A  P
+     A            SBAY53         2A  P
+     A            SBAY54         2A  P
+     A            SBAY55         2A  P
+     A            SBAY56         2A  P
+     A            SBAY57         2A  P
+     A            SBAY58         2A  P
+     A            SBAY59         2A  P
+     A            SBAY60         2A  P
+     A            SBAY61         2A  P
+     A            SBAY62         2A  P
+     A            SBAY63         2A  P
+     A            SBAY64         2A  P
+     A            SBAY65         2A  P
+     A            SBAY66         2A  P
+     A            SBAY67         2A  P
+     A            SBAY68         2A  P
+     A            SBAY69         2A  P
+     A            SBAY70         2A  P
+     A            SBAY71         2A  P
+     A            SBAY72         2A  P
+     A                                  1  2'FPR10004'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 13EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 13'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4  2'Enter/Select Bay:'
+     A                                      DSPATR(HI)
+     A            BAY            2Y 0B  4 20
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A            SBAY           2Y 0B  5  3PSHBTNFLD(*RSTCSR (*NUMCOL 4))
+     A                                      PSHBTNCHC(1 &SBAY01)
+     A                                      PSHBTNCHC(2 &SBAY02)
+     A                                      PSHBTNCHC(3 &SBAY03)
+     A                                      PSHBTNCHC(4 &SBAY04)
+     A                                      PSHBTNCHC(5 &SBAY05)
+     A                                      PSHBTNCHC(6 &SBAY06)
+     A                                      PSHBTNCHC(7 &SBAY07)
+     A                                      PSHBTNCHC(8 &SBAY08)
+     A                                      PSHBTNCHC(9 &SBAY09)
+     A                                      PSHBTNCHC(10 &SBAY10)
+     A                                      PSHBTNCHC(11 &SBAY11)
+     A                                      PSHBTNCHC(12 &SBAY12)
+     A                                      PSHBTNCHC(13 &SBAY13)
+     A                                      PSHBTNCHC(14 &SBAY14)
+     A                                      PSHBTNCHC(15 &SBAY15)
+     A                                      PSHBTNCHC(16 &SBAY16)
+     A                                      PSHBTNCHC(17 &SBAY17)
+     A                                      PSHBTNCHC(18 &SBAY18)
+     A                                      PSHBTNCHC(19 &SBAY19)
+     A                                      PSHBTNCHC(20 &SBAY20)
+     A                                      PSHBTNCHC(21 &SBAY21)
+     A                                      PSHBTNCHC(22 &SBAY22)
+     A                                      PSHBTNCHC(23 &SBAY23)
+     A                                      PSHBTNCHC(24 &SBAY24)
+     A                                      PSHBTNCHC(25 &SBAY25)
+     A                                      PSHBTNCHC(26 &SBAY26)
+     A                                      PSHBTNCHC(27 &SBAY27)
+     A                                      PSHBTNCHC(28 &SBAY28)
+     A                                      PSHBTNCHC(29 &SBAY29)
+     A                                      PSHBTNCHC(30 &SBAY30)
+     A                                      PSHBTNCHC(31 &SBAY31)
+     A                                      PSHBTNCHC(32 &SBAY32)
+     A                                      PSHBTNCHC(33 &SBAY33)
+     A                                      PSHBTNCHC(34 &SBAY34)
+     A                                      PSHBTNCHC(35 &SBAY35)
+     A                                      PSHBTNCHC(36 &SBAY36)
+     A                                      PSHBTNCHC(37 &SBAY37)
+     A                                      PSHBTNCHC(38 &SBAY38)
+     A                                      PSHBTNCHC(39 &SBAY39)
+     A                                      PSHBTNCHC(40 &SBAY40)
+     A                                      PSHBTNCHC(41 &SBAY41)
+     A                                      PSHBTNCHC(42 &SBAY42)
+     A                                      PSHBTNCHC(43 &SBAY43)
+     A                                      PSHBTNCHC(44 &SBAY44)
+     A                                      PSHBTNCHC(45 &SBAY45)
+     A                                      PSHBTNCHC(46 &SBAY46)
+     A                                      PSHBTNCHC(47 &SBAY47)
+     A                                      PSHBTNCHC(48 &SBAY48)
+     A                                      PSHBTNCHC(49 &SBAY49)
+     A                                      PSHBTNCHC(50 &SBAY50)
+     A                                      PSHBTNCHC(51 &SBAY51)
+     A                                      PSHBTNCHC(52 &SBAY52)
+     A                                      PSHBTNCHC(53 &SBAY53)
+     A                                      PSHBTNCHC(54 &SBAY54)
+     A                                      PSHBTNCHC(55 &SBAY55)
+     A                                      PSHBTNCHC(56 &SBAY56)
+     A                                      PSHBTNCHC(57 &SBAY57)
+     A                                      PSHBTNCHC(58 &SBAY58)
+     A                                      PSHBTNCHC(59 &SBAY59)
+     A                                      PSHBTNCHC(60 &SBAY60)
+     A                                      PSHBTNCHC(61 &SBAY61)
+     A                                      PSHBTNCHC(62 &SBAY62)
+     A                                      PSHBTNCHC(63 &SBAY63)
+     A                                      PSHBTNCHC(64 &SBAY64)
+     A                                      PSHBTNCHC(65 &SBAY65)
+     A                                      PSHBTNCHC(66 &SBAY66)
+     A                                      PSHBTNCHC(67 &SBAY67)
+     A                                      PSHBTNCHC(68 &SBAY68)
+     A                                      PSHBTNCHC(69 &SBAY69)
+     A                                      PSHBTNCHC(70 &SBAY70)
+     A                                      PSHBTNCHC(71 &SBAY71)
+     A                                      PSHBTNCHC(72 &SBAY72)
+     A                                  5 30'F2=Change Section '
+     A                                  6 30'F3=Cancel Job'
+     A          R FPR10005
+     A*%%TS  SD  20160205  141524  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select North or South')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A            SNOS01         2A  P
+     A            SNOS02         2A  P
+     A            SNOS03         2A  P
+     A            SNOS04         2A  P
+     A            SNOS05         2A  P
+     A            SNOS06         2A  P
+     A            SNOS07         2A  P
+     A            SNOS08         2A  P
+     A            SNOS09         2A  P
+     A            SNOS10         2A  P
+     A            SNOS11         2A  P
+     A            SNOS12         2A  P
+     A            SNOS13         2A  P
+     A            SNOS14         2A  P
+     A            SNOS15         2A  P
+     A                                  1  2'FPR10005'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 13EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 13'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  4  2'Enter/Select Side'
+     A                                      DSPATR(HI)
+     A            NOS            2A  B  5  4
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A            SNOS           2Y 0B  6  2PSHBTNFLD(*RSTCSR (*NUMCOL 3) (*GUT-
+     A                                      TER 2))
+     A  31                                  PSHBTNCHC(1 &SNOS01)
+     A  32                                  PSHBTNCHC(2 &SNOS02)
+     A  33                                  PSHBTNCHC(3 &SNOS03)
+     A  34                                  PSHBTNCHC(4 &SNOS04)
+     A  35                                  PSHBTNCHC(5 &SNOS05)
+     A  36                                  PSHBTNCHC(6 &SNOS06)
+     A  37                                  PSHBTNCHC(7 &SNOS07)
+     A  38                                  PSHBTNCHC(8 &SNOS08)
+     A  39                                  PSHBTNCHC(9 &SNOS09)
+     A  40                                  PSHBTNCHC(10 &SNOS10)
+     A  41                                  PSHBTNCHC(11 &SNOS11)
+     A  42                                  PSHBTNCHC(12 &SNOS12)
+     A  43                                  PSHBTNCHC(13 &SNOS13)
+     A  44                                  PSHBTNCHC(14 &SNOS14)
+     A  45                                  PSHBTNCHC(15 &SNOS15)
+     A                                 11  2'F2=Change Bay     '
+     A                                 12  2'F3=Cancel Job'
+     A          R FPR10006
+     A*%%TS  SD  20160205  141524  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Pole #')
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      OVERLAY
+     A                                  1  2'FPR10006'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  5  2'Pole:'
+     A                                      DSPATR(HI)
+     A            POLE           2Y 0B  5  9
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A            POLEDS         6A  O  5 13
+     A                                 12  2'F3=Cancel Job'
+     A                                  7  2'F6=New Range      '
+     A                                  8  2'F7=New Section    '
+     A                                  9  2'F8=New Bay        '
+     A                                 10  2'F9=New Side       '
+     A          R FPR10007
+     A*%%TS  SD  20160205  141524  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Tag Number')
+     A                                      CF03
+     A                                      CF02
+     A                                      CF08
+     A                                      OVERLAY
+     A                                  1  2'FPR10007'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4  2'Pole:'
+     A                                      COLOR(BLU)
+     A            POLE           2Y 0O  4  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A N10                              6  2'UPC:'
+     A                                      DSPATR(HI)
+     A  10                              6  2'PPD:'
+     A                                      DSPATR(HI)
+     A N10        UPC#          12Y 0B  6  8EDTWRD(' -     -     - ')
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A  10        PPD#           8Y 0B  6  8
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                      EDTCDE(4)
+     A                                  9  2'F2=Change Pole    '
+     A                                 10  2'F3=Cancel Job'
+     A                                  7  2'Prev:'
+     A  10        LASTTAG#       8Y 0O  7  8EDTCDE(4)
+     A                                      COLOR(BLU)
+     A N10                              8  2'F8=Use PPD Code'
+     A  10                              8  2'F8=Use UPC Code'
+     A N10        LASTUPC#      12Y 0O  7  8EDTWRD(' -     -     - ')
+     A                                      COLOR(BLU)
+     A          R FPR10008
+     A*%%TS  SD  20160603  142411  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Number of Trays or Pole-
+     A                                      s')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A                                  1  2'FPR10008'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4  2'Pole:'
+     A                                      COLOR(BLU)
+     A            POLE           2Y 0O  4  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A            DES1          30A  O  5  2DSPATR(RI)
+     A                                  8  2'Expd:'
+     A            FUQTY     R        O  8  8REFFLD(RFINLOC/FLQTY *LIBL/FFINLOC)
+     A                                      EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A            FUTOTP    R        O  8 15REFFLD(RFINLOC/FLTOTP *LIBL/FFINLOC)
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                  9  2'Actl:'
+     A                                      DSPATR(HI)
+     A            TRAYIN         5Y 0B  9  8
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A            POLEIN         4Y 2B  9 15
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 11  2'F2=Change Item    '
+     A                                 12  2'F3=Cancel Job'
+     A                                  7  9' Qty'
+     A                                      DSPATR(UL)
+     A                                  7 14'x200sq'
+     A                                      DSPATR(UL)
+     A          R FPR10009
+     A*%%TS  SD  20160203  093839  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Ending Pole')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A                                  1  2'FPR10009'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4  2'Pole:'
+     A                                      COLOR(BLU)
+     A            POLE           2Y 0O  4  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  5  2'Trays'
+     A                                      COLOR(BLU)
+     A            TRAYIN         5Y 0O  5  7EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  5 13'/'
+     A            POLEIN         4Y 2O  5 15EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            DES1          30A  O  6  2DSPATR(RI)
+     A                                  8  2'Ends at Pole:'
+     A                                      DSPATR(HI)
+     A            ENDPOLE        2Y 0B  8 19EDTCDE(4)
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                 10  2'F2=Change Quantity'
+     A                                 11  2'F3=Cancel Job'
+     A                                  5 21'x200sq'
+     A                                      COLOR(BLU)
+     A          R FPR10010
+     A*%%TS  SD  20160203  093839  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Planting')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  2'FPR10010'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4  2'Loc:'
+     A                                      COLOR(BLU)
+     A                                  4  7'Pole'
+     A                                      COLOR(PNK)
+     A            POLE           2Y 0O  4 12EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 15'-'
+     A                                      COLOR(PNK)
+     A            ENDPOLE        2Y 0O  4 17EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  5  2'Trays'
+     A                                      COLOR(BLU)
+     A            TRAYIN         5Y 0O  5  7EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            POLEIN         4Y 2O  5 15EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            DES1          30A  O  6  2DSPATR(RI)
+     A                                  8  2'Planting:'
+     A                                      DSPATR(HI)
+     A            PLTG           2Y 0B  8 13EDTCDE(4)
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                 10  2'F2=Change End Pole'
+     A                                 11  2'F3=Cancel Job'
+     A                                  5 13'/'
+     A                                  5 21'x200sq'
+     A                                      COLOR(BLU)
+     A          R FPR10011
+     A*%%TS  SD  20160203  123100  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Ship Date')
+     A                                      CF02
+     A                                      CF03
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  2'FPR10011'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4  2'Loc:'
+     A                                      COLOR(BLU)
+     A                                  4  7'Pole'
+     A                                      COLOR(PNK)
+     A            POLE           2Y 0O  4 12EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 15'-'
+     A                                      COLOR(PNK)
+     A            ENDPOLE        2Y 0O  4 17EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  5  2'Trays'
+     A                                      COLOR(BLU)
+     A            TRAYIN         5Y 0O  5  7EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            POLEIN         4Y 2O  5 15EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            DES1          30A  O  6  2DSPATR(RI)
+     A                                  7  2'Planting:'
+     A                                      COLOR(BLU)
+     A            PLTG           2Y 0O  7 13EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  8  2'Ship Date:'
+     A                                      DSPATR(HI)
+     A            SHIPDT         6Y 0B  8 13EDTCDE(Y)
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                 10  2'F2=Change Planting'
+     A                                 11  2'F3=Cancel Job'
+     A                                  5 13'/'
+     A                                  5 21'x200sq'
+     A                                      COLOR(BLU)
+     A          R FPR10012
+     A*%%TS  SD  20160203  123100  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Customer')
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  2'FPR10012'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4  2'Loc:'
+     A                                      COLOR(BLU)
+     A                                  4  7'Pole'
+     A                                      COLOR(PNK)
+     A            POLE           2Y 0O  4 12EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 15'-'
+     A                                      COLOR(PNK)
+     A            ENDPOLE        2Y 0O  4 17EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  5  2'Trays'
+     A                                      COLOR(BLU)
+     A            TRAYIN         5Y 0O  5  7EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  5 13'/'
+     A            POLEIN         4Y 2O  5 15EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  5 21'x200sq'
+     A                                      COLOR(BLU)
+     A            DES1          30A  O  6  2DSPATR(RI)
+     A                                  7  2'Plt:'
+     A                                      COLOR(BLU)
+     A            PLTG           2Y 0O  7  7EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  7 10'Sp'
+     A                                      COLOR(BLU)
+     A            SHIPDT         6Y 0O  7 13EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                 11  2'F2=Change Ship Date'
+     A                                 12  2'F3=Cancel Job'
+     A                                  9  2'Enter Cust#:'
+     A                                      DSPATR(HI)
+     A            CUST           6Y 0B  9 15EDTCDE(4)
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                 10  2'F4=Find Customer'
+     A          R FPR10013
+     A*%%TS  SD  20160205  141524  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Confirmation Screen')
+     A                                      CF02
+     A                                      CF03
+     A                                      CF09
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  4  2'Loc:'
+     A                                      COLOR(BLU)
+     A                                  4  7'Pole'
+     A                                      COLOR(PNK)
+     A            POLE           2Y 0O  4 12EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 15'-'
+     A                                      COLOR(PNK)
+     A            ENDPOLE        2Y 0O  4 17EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  5  2'Trays'
+     A                                      COLOR(BLU)
+     A            TRAYIN         5Y 0O  5  7EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  5 13'/'
+     A            POLEIN         4Y 2O  5 15EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  6 34'Item:'
+     A                                      COLOR(BLU)
+     A            ITEMSIZE      12A  O  6 40COLOR(PNK)
+     A            DES1          30A  O  6  2DSPATR(RI)
+     A                                  7  2'Plt:'
+     A                                      COLOR(BLU)
+     A            PLTG           2Y 0O  7  7EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  7 10'Sp'
+     A                                      COLOR(BLU)
+     A            SHIPDT         6Y 0O  7 13EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                 10  2'F2=Change Customer'
+     A                                 11  2'F3=Cancel Job'
+     A                                  1  2'FPR10013'
+     A                                      COLOR(BLU)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  9  2'F9=CONFIRM '
+     A                                      DSPATR(BL)
+     A                                      COLOR(RED)
+     A                                      DSPATR(RI)
+     A                                  9 14'Print:'
+     A                                      DSPATR(HI)
+     A            PRINTTAG       1A  B  9 21
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A                                  5 21'x200sq'
+     A                                      COLOR(BLU)
+     A                                  8  2'Cus'
+     A                                      COLOR(BLU)
+     A            CUSNAME       70A  O  8  6COLOR(PNK)
+     A          R FPR10014
+     A*%%TS  SD  20160203  093839  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Print Tags Screen')
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF05
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A                                      COLOR(BLU)
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A                                      COLOR(BLU)
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                  4  2'Loc:'
+     A                                      COLOR(BLU)
+     A                                  4  7'Pole'
+     A                                      COLOR(PNK)
+     A            POLE           2Y 0O  4 12EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4 15'-'
+     A                                      COLOR(PNK)
+     A            ENDPOLE        2Y 0O  4 17EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            DES1          30A  O  5  2DSPATR(RI)
+     A                                 10  2'F2=Skip Printing  '
+     A                                 11  2'F3=Cancel Job'
+     A                                  1  2'FPR10014'
+     A                                      COLOR(BLU)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6  2'  PRINT LABELS    '
+     A                                      DSPATR(RI)
+     A                                  8  2'Printer'
+     A            PRINTERTAG    10A  O  8 10COLOR(YLW)
+     A                                  9  2'F5=Change Printer '
+     A                                      COLOR(YLW)
+     A                                  7  2'F1=Print Label    '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A          R FPR10015
+     A*%%TS  SD  20160203  093839  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Print Bay Screen')
+     A                                      CF01
+     A                                      CF02
+     A                                      CF05
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            FRMDAT         6Y 0O  1 12EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  2  2'COUNTING'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 12'Sect:'
+     A            SECT           2Y 0O  2 18EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            GHNORS         1A  O  3 21COLOR(BLU)
+     A            GHEORW         1A  O  3 23COLOR(BLU)
+     A                                 10  2'F2=Skip Printing  '
+     A                                  1  2'FPR10015'
+     A                                      COLOR(BLU)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  3 30USER
+     A                                      COLOR(BLU)
+     A                                  4 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  5  2' PRINT BAY SHEETS '
+     A                                      DSPATR(RI)
+     A                                  7  2'Printer'
+     A            PRINTERBAY    10A  O  7 10COLOR(YLW)
+     A                                  8  2'F5=Change Printer'
+     A                                      COLOR(YLW)
+     A                                  6  2'F1=Print Bay Sheet'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20160126  132101  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20050221  152634  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

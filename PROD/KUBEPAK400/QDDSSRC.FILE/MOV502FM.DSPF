@@ -1,0 +1,527 @@
+     A*%%TS  SD  20190207  170004  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R MOV50201S                 SFL
+     A*%%TS  SD  20190207  170004  BILLB       REL-V7R2M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            CTSPIT8        8A  H
+     A            ITEM5          5A  O  6  2
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            SIZE           3A  O  6  8
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            JOB#           6S 0H
+     A            DESC15        15A  O  6 12
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            GH             1Y 0O  6 28EDTCDE(4)
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            SECTION        2Y 0O  6 30EDTCDE(Z)
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            BAY            2Y 0O  6 33EDTCDE(Z)
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            NORS           1A  O  6 36
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            LORR           1A  O  6 38
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            POLE           2Y 0O  6 40EDTCDE(Z)
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            TRAYS          4Y 0O  6 43EDTCDE(4)
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            POLES          4Y 2O  6 48EDTCDE(4)
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            DESTIN#        2S 0H
+     A            DESTIN         8A  B  6 54
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A  50                                  DSPATR(RI)
+     A            DESTINPCT      4Y 1B  6 63EDTWRD('   . %')
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A                                      DSPATR(PR)
+     A            ALTDEST#       2S 0H
+     A            ALTDEST        8A  B  6 70
+     A  50                                  COLOR(RED)
+     A  51                                  COLOR(PNK)
+     A  52                                  COLOR(WHT)
+     A            ALTDESTPCT     4S 1H
+     A                                  7  6'Full:'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A            IMLOOK    R        O  7 54REFFLD(RMINVT/IMLOOK *LIBL/FMINVT)
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A            IMDES1    R        O  7 12REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  7 47'Alpha:'
+     A                                      COLOR(BLU)
+     A          R MOV50201C                 SFLCTL(MOV50201S)
+     A*%%TS  SD  20120209  153817  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                SFLPAG(0007)
+     A  *DS4                                SFLPAG(0007)
+     A                                      CF01(01 'Update')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'Print')
+     A                                      CF11(11 'Assign Applicator #3')
+     A                                      CF10(10 'Swap Destination with Alte-
+     A                                      rnate Destination')
+     A                                      CF22(22 'SEL. LEFT MOUSE')
+     A                                      CF23(23 'SEL. RIGHT MOUSE')
+     A                                      CF08(08 'Copy Last Selection')
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN1)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF09)
+     A                                      SFLSIZ(&SFLRCDS1)
+     A                                      MOUBTN(*ULP *ULR CF22)
+     A                                      MOUBTN(*URP *URR CF23)
+     A            SFLPOSTO1      4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLRCDS1       5S 0P
+     A            SFLCSRRRN1     5S 0H
+     A            CSRFLD        10A  H
+     A            CSRRCD        10A  H
+     A                                  1  2'MOV50201'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  5  2'Item  |  Description      |Sec | N-
+     A                                      /S|Pole   | Poles  |        %Used  -
+     A                                      Dest.  '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  1 26'     Review Move Request     '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  4  2'     Size               '
+     A                                      COLOR(BLU)
+     A                                  4 27'G/H  Bay  L/R   '
+     A                                      COLOR(BLU)
+     A                                  4 44'Trays    '
+     A                                      COLOR(BLU)
+     A                                  4 54'Destination     Alternate '
+     A                                      COLOR(BLU)
+     A                                  3  2'  What is to be moved?  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 27'Where is it now?'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 44'How Much?'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 54' Where is it going to ? '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            MOVEDATE       6Y 0B  2 37EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  2 26'Move Date:'
+     A                                      DSPATR(HI)
+     A                                  2 46'Move#:'
+     A                                      DSPATR(HI)
+     A            MOVE#          2Y 0B  2 53EDTCDE(Z)
+     A                                      VALUES(0 1 2 3 4 5 6 7 8 9 10)
+     A                                      COLOR(PNK)
+     A          R MOV50201F
+     A*%%TS  SD  20050204  102610  BILLB       REL-V5R2M0  5722-WDS
+     A                                 22  2' Function Keys:                   -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  5'=Update'
+     A                                      COLOR(BLU)
+     A                                 24  2'F3'
+     A                                      DSPATR(HI)
+     A                                 24  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23  2'F1'
+     A                                      DSPATR(HI)
+     A                                 23 15'F5'
+     A                                      DSPATR(HI)
+     A                                 23 18'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 24 15'F10'
+     A                                      DSPATR(HI)
+     A                                 24 19'=Switch to Alternate'
+     A                                      COLOR(BLU)
+     A                                 23 62'F11'
+     A                                      DSPATR(HI)
+     A                                 23 66'=Change Printer'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O 24 71COLOR(YLW)
+     A                                 24 42'F6'
+     A                                      DSPATR(HI)
+     A                                 24 45'=Print Report'
+     A                                      COLOR(BLU)
+     A                                 23 29'F9'
+     A                                      DSPATR(HI)
+     A                                 23 32'=More Info'
+     A                                      COLOR(BLU)
+     A                                 24 62'Printer:'
+     A                                      COLOR(PNK)
+     A                                 23 60'|'
+     A                                      COLOR(BLU)
+     A                                 24 60'|'
+     A                                      COLOR(BLU)
+     A                                 23 44'F8'
+     A                                      DSPATR(HI)
+     A                                 23 47'=Copy Last'
+     A                                      COLOR(BLU)
+     A          R MOV50201N
+     A*%%TS  SD  20130128  135908  BILLB       REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A N16                             13 23'No Move Requests found at this tim-
+     A                                      e'
+     A  16                             13 23'This move is currently locked by:'
+     A  16        SLOCKEDBY     10   O 13 57
+     A          R MOV50202
+     A*%%TS  SD  20160729  161632  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                WINDOW(5 4 15 72)
+     A  *DS4                                WINDOW(5 5 15 70)
+     A                                      CF12(12 'Prior Screen')
+     A                                      CF13(13 'Update Destination')
+     A                                      MOUBTN(*ULP *ULR CF22)
+     A            DEST01         8A  P
+     A            DEST02         8A  P
+     A            DEST03         8A  P
+     A            DEST04         8A  P
+     A            DEST05         8A  P
+     A            DEST06         8A  P
+     A            DEST07         8A  P
+     A            DEST08         8A  P
+     A            DEST09         8A  P
+     A            DEST10         8A  P
+     A            DEST11         8A  P
+     A            DEST12         8A  P
+     A            DEST13         8A  P
+     A            DEST14         8A  P
+     A            DEST15         8A  P
+     A            DEST16         8A  P
+     A            DEST17         8A  P
+     A            DEST18         8A  P
+     A            DEST19         8A  P
+     A            DEST20         8A  P
+     A            DEST21         8A  P
+     A            DEST22         8A  P
+     A            DEST23         8A  P
+     A            DEST24         8A  P
+     A            DEST25         8A  P
+     A            DEST26         8A  P
+     A            DEST27         8A  P
+     A            DEST28         8A  P
+     A            DEST29         8A  P
+     A            DEST30         8A  P
+     A            DEST31         8A  P
+     A            DEST32         8A  P
+     A            DEST33         8A  P
+     A            DEST34         8A  P
+     A            DEST35         8A  P
+     A            DEST36         8A  P
+     A            DEST37         8A  P
+     A            DEST38         8A  P
+     A            DEST39         8A  P
+     A            DEST40         8A  P
+     A            DEST41         8A  P
+     A            DEST42         8A  P
+     A            DEST43         8A  P
+     A            DEST44         8A  P
+     A            DEST45         8A  P
+     A            DEST46         8A  P
+     A            DEST47         8A  P
+     A            DEST48         8A  P
+     A            DEST49         8A  P
+     A            DEST50         8A  P
+     A            DEST#          2Y 0B  4  2PSHBTNFLD(*RSTCSR (*NUMCOL 6) (*GUT-
+     A                                      TER 1))
+     A                                      PSHBTNCHC(1 &DEST01)
+     A                                      PSHBTNCHC(2 &DEST02)
+     A                                      PSHBTNCHC(3 &DEST03)
+     A                                      PSHBTNCHC(4 &DEST04)
+     A                                      PSHBTNCHC(5 &DEST05)
+     A                                      PSHBTNCHC(6 &DEST06)
+     A                                      PSHBTNCHC(7 &DEST07)
+     A                                      PSHBTNCHC(8 &DEST08)
+     A                                      PSHBTNCHC(9 &DEST09)
+     A                                      PSHBTNCHC(10 &DEST10)
+     A                                      PSHBTNCHC(11 &DEST11)
+     A                                      PSHBTNCHC(12 &DEST12)
+     A                                      PSHBTNCHC(13 &DEST13)
+     A                                      PSHBTNCHC(14 &DEST14)
+     A                                      PSHBTNCHC(15 &DEST15)
+     A                                      PSHBTNCHC(16 &DEST16)
+     A                                      PSHBTNCHC(17 &DEST17)
+     A                                      PSHBTNCHC(18 &DEST18)
+     A                                      PSHBTNCHC(19 &DEST19)
+     A                                      PSHBTNCHC(20 &DEST20)
+     A                                      PSHBTNCHC(21 &DEST21)
+     A                                      PSHBTNCHC(22 &DEST22)
+     A                                      PSHBTNCHC(23 &DEST23)
+     A                                      PSHBTNCHC(24 &DEST24)
+     A                                      PSHBTNCHC(25 &DEST25)
+     A                                      PSHBTNCHC(26 &DEST26)
+     A                                      PSHBTNCHC(27 &DEST27)
+     A                                      PSHBTNCHC(28 &DEST28)
+     A                                      PSHBTNCHC(29 &DEST29)
+     A                                      PSHBTNCHC(30 &DEST30)
+     A                                      PSHBTNCHC(31 &DEST31)
+     A                                      PSHBTNCHC(32 &DEST32)
+     A                                      PSHBTNCHC(33 &DEST33)
+     A                                      PSHBTNCHC(34 &DEST34)
+     A                                      PSHBTNCHC(35 &DEST35)
+     A                                      PSHBTNCHC(36 &DEST36)
+     A                                      PSHBTNCHC(37 &DEST37)
+     A                                      PSHBTNCHC(38 &DEST38)
+     A                                      PSHBTNCHC(39 &DEST39)
+     A                                      PSHBTNCHC(40 &DEST40)
+     A                                      PSHBTNCHC(41 &DEST41)
+     A                                      PSHBTNCHC(42 &DEST42)
+     A                                      PSHBTNCHC(43 &DEST43)
+     A                                      PSHBTNCHC(44 &DEST44)
+     A                                      PSHBTNCHC(45 &DEST45)
+     A                                      PSHBTNCHC(46 &DEST46)
+     A                                      PSHBTNCHC(47 &DEST47)
+     A                                      PSHBTNCHC(48 &DEST48)
+     A                                      PSHBTNCHC(49 &DEST49)
+     A                                      PSHBTNCHC(50 &DEST50)
+     A N49                              1 20'     Select Move Destination     '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1  1'MOV50202'
+     A                                      COLOR(BLU)
+     A N49                              2  3'Move'
+     A N49        ITEM5          5A  O  2  8
+     A N49        SIZE      R        O  2 14REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A N49        IMDES1    R        O  2 18REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A N49                              2 49'to this destination...'
+     A  49                              1 17'     Destination Update Selection -
+     A                                          '
+     A  49                                  DSPATR(RI)
+     A  49                                  DSPATR(HI)
+     A  49                              2 10'Select the Destination that you wo-
+     A                                      uld like to update'
+     A  49                                  COLOR(BLU)
+     A                                 14 42'F12'
+     A                                      DSPATR(HI)
+     A                                 14 46'=Cancel'
+     A                                      COLOR(BLU)
+     A                                 14 57'F13'
+     A                                      DSPATR(HI)
+     A  49                             14 61'=Select'
+     A  49                                  COLOR(BLU)
+     A N49                             14 61'=Update'
+     A N49                                  COLOR(BLU)
+     A            HELPME         2Y 0B  1 57PSHBTNFLD
+     A                                      PSHBTNCHC(1 'CODES HELP')
+     A          R MOV50203
+     A*%%TS  SD  20050126  161141  BILLB       REL-V5R2M0  5722-WDS
+     A                                      CHGINPDFT(LC)
+     A                                      CF12(12 'Cancel')
+     A  *DS3                                WINDOW(7 15 7 49)
+     A  *DS4                                WINDOW(7 15 7 49)
+     A                                  3  3'Destination:'
+     A            DESNAM    R        O  3 17REFFLD(RMOVDEST/DESNAM *LIBL/FMOVDE-
+     A                                      ST)
+     A                                      DSPATR(HI)
+     A            DESDSC    R        B  3 28REFFLD(RMOVDEST/DESDSC *LIBL/FMOVDE-
+     A                                      ST)
+     A                                      COLOR(YLW)
+     A            DESLOC    R        B  4 17REFFLD(RMOVDEST/DESLOC *LIBL/FMOVDE-
+     A                                      ST)
+     A                                      DSPATR(HI)
+     A                                      COLOR(YLW)
+     A                                  3 26'-'
+     A                                  4  3'G/H Location:'
+     A                                  1  6'     Change Destination Definition-
+     A                                           '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  6  3'Enter'
+     A                                      DSPATR(HI)
+     A                                  6  9'=Update'
+     A                                      COLOR(BLU)
+     A                                  6 37'F12'
+     A                                      DSPATR(HI)
+     A                                  6 41'=Cancel'
+     A                                      COLOR(BLU)
+     A          R MOV50204S                 SFL
+     A*%%TS  SD  20050207  130826  BILLB       REL-V5R2M0  5722-WDS
+     A  29                                  SFLNXTCHG
+     A            S4DESTID  R        O  5  2REFFLD(RMOVDEST/DESTID *LIBL/FMOVDE-
+     A                                      ST)
+     A            S4DESNAM  R        O  5  6REFFLD(RMOVDEST/DESNAM *LIBL/FMOVDE-
+     A                                      ST)
+     A            S4DESDSC  R        O  5 16REFFLD(RMOVDEST/DESDSC *LIBL/FMOVDE-
+     A                                      ST)
+     A            S4DESLOC  R        O  5 38REFFLD(RMOVDEST/DESLOC *LIBL/FMOVDE-
+     A                                      ST)
+     A          R MOV50204C                 SFLCTL(MOV50204S)
+     A*%%TS  SD  20050207  130826  BILLB       REL-V5R2M0  5722-WDS
+     A                                      CF22(22 'SEL. LEFT MOUSE')
+     A                                      CF23(23 'SEL. RIGHT MOUSE')
+     A                                      CF12(12 'Cancel')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN4)
+     A  25 31                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  32                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLSIZ(&SFLRCDS4)
+     A  *DS3                                SFLPAG(0010)
+     A  *DS4                                SFLPAG(0010)
+     A  *DS3                                WINDOW(4 4 17 71)
+     A  *DS4                                WINDOW(5 4 17 71)
+     A                                      MOUBTN(*ULP *ULR CF22)
+     A                                      MOUBTN(*URP *URR CF23)
+     A            SFLPOSTO4      4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLRCDS4       5S 0P
+     A            SFLCSRRRN4     5S 0H
+     A            CSRFLD        10A  H
+     A            CSRRCD        10A  H
+     A                                  1  1'MOV50204'
+     A                                      COLOR(BLU)
+     A                                  1 64DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  1USER
+     A                                      COLOR(BLU)
+     A                                  2 64TIME
+     A                                      COLOR(BLU)
+     A                                  2 20'     Destination Codes Inquiry    -
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4  1'Code Name      Description        -
+     A                                         Location                        -
+     A                                        '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A          R MOV50204F
+     A*%%TS  SD  20050207  130826  BILLB       REL-V5R2M0  5722-WDS
+     A  *DS3                                WINDOW(4 4 17 71)
+     A  *DS4                                WINDOW(5 4 17 71)
+     A                                      KEEP
+     A                                      USRRSTDSP
+     A                                 16  2'Select'
+     A                                      DSPATR(HI)
+     A                                 16  9'with Mouse'
+     A                                      COLOR(BLU)
+     A                                 16 24'Select'
+     A                                      DSPATR(HI)
+     A                                 16 60'F12'
+     A                                      DSPATR(HI)
+     A                                 16 64'=Cancel'
+     A                                      COLOR(BLU)
+     A                                 16 31'with Cursor (Enter)'
+     A                                      COLOR(BLU)
+     A          R MOV50205S                 SFL
+     A*%%TS  SD  20050209  084646  BILLB       REL-V5R2M0  5722-WDS
+     A  29                                  SFLNXTCHG
+     A            S5DESTID  R        O  7 29REFFLD(RMOVDEST/DESTID *LIBL/FMOVDE-
+     A                                      ST)
+     A            S5DESNAM  R        O  7  1REFFLD(RMOVDEST/DESNAM *LIBL/FMOVDE-
+     A                                      ST)
+     A            S5DESDSC  R        O  7 34REFFLD(RMOVDEST/DESDSC *LIBL/FMOVDE-
+     A                                      ST)
+     A            S5DFUSED  R        B  7 11REFFLD(RMOVDFT/DFUSED *LIBL/FMOVDFT)
+     A            S5DFPCTU  R        B  7 20REFFLD(RMOVDFT/DFPCTU *LIBL/FMOVDFT)
+     A                                  7 32'-'
+     A          R MOV50205C                 SFLCTL(MOV50205S)
+     A*%%TS  SD  20050209  084646  BILLB       REL-V5R2M0  5722-WDS
+     A                                      CF22(22 'SEL. LEFT MOUSE')
+     A                                      CF23(23 'SEL. RIGHT MOUSE')
+     A                                      CF12(12 'Cancel')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN5)
+     A  25 33                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  34                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLSIZ(&SFLRCDS5)
+     A  *DS3                                SFLPAG(0008)
+     A  *DS4                                SFLPAG(0010)
+     A  *DS3                                WINDOW(4 4 17 56)
+     A  *DS4                                WINDOW(5 4 17 71)
+     A                                      MOUBTN(*ULP *ULR CF22)
+     A                                      MOUBTN(*URP *URR CF23)
+     A            SFLPOSTO5      4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLRCDS5       5S 0P
+     A            SFLCSRRRN5     5S 0H
+     A            CSRFLD        10A  H
+     A            CSRRCD        10A  H
+     A                                  1  1'MOV50205'
+     A                                      COLOR(BLU)
+     A                                  1 49DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  1USER
+     A                                      COLOR(BLU)
+     A                                  2 49TIME
+     A                                      COLOR(BLU)
+     A                                  2 16'     Override Defaults     '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  6  1' Name      #Used    %Used   ID   D-
+     A                                      escription            '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A            DFITEM    R        O  4  8REFFLD(RMOVDFT/DFITEM *LIBL/FMOVDFT)
+     A                                      COLOR(PNK)
+     A            DFSIZE    R        O  4 13REFFLD(RMOVDFT/DFSIZE *LIBL/FMOVDFT)
+     A                                      COLOR(PNK)
+     A                                  4 17'-'
+     A                                      COLOR(PNK)
+     A            IMDES1        30   O  4 19COLOR(PNK)
+     A          R MOV50205F
+     A*%%TS  SD  20050207  130826  BILLB       REL-V5R2M0  5722-WDS
+     A  *DS3                                WINDOW(4 4 17 71)
+     A  *DS4                                WINDOW(5 4 17 71)
+     A                                      KEEP
+     A                                      USRRSTDSP
+     A                                 16  2'Select'
+     A                                      DSPATR(HI)
+     A                                 16  9'with Mouse'
+     A                                      COLOR(BLU)
+     A                                 16 24'Select'
+     A                                      DSPATR(HI)
+     A                                 16 60'F12'
+     A                                      DSPATR(HI)
+     A                                 16 64'=Cancel'
+     A                                      COLOR(BLU)
+     A                                 16 31'with Cursor (Enter)'
+     A                                      COLOR(BLU)

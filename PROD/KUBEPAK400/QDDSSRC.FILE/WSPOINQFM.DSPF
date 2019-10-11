@@ -1,0 +1,328 @@
+     A*?Program        : WSPOINQFM
+     A*?
+     A*?Description    : This display file is for PO Inquiry Screen
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 11 Dec 2018
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   06/20/19   S.Uthaya     Added Vendor PO Inquiry Function Key
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**********************************************************************
+     A*?Main Screen
+     A          R POINQR01
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF04(04 'VendNumInq')
+     A*
+     A                                  1  2'POINQR01'
+     A                                      COLOR(BLU)
+     A                                  1 46'  PO Inquiry Main Screen  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1120DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2120TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  6 46'Vendor Number:'
+     A            R01VEND        6Y 0B  6 62COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Z)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A            R01NAME       30A  O  6 72COLOR(BLU)
+     A*
+     A                                  7 46'Vendor PO    :'
+     A            R01PONO       10A  B  7 62COLOR(YLW)
+     A                                      DSPATR(UL)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A*
+     A                                  8 50'OR'
+     A                                      DSPATR(RI)
+     A*
+     A                                  9 46'Order Number :'
+     A            R01ORNO        6Y 0B  9 62COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Z)
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A*?Record Footer
+     A                                 26  2'F3'
+     A                                      DSPATR(HI)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F4'
+     A                                      COLOR(WHT)
+     A                                 26 15'=VendorNumber Inquiry'
+     A                                      COLOR(BLU)
+     A                                 26 38'Enter'
+     A                                      DSPATR(HI)
+     A                                 26 44'=Process'
+     A                                      COLOR(BLU)
+     A*?Error Message
+     A            ERRMSG        60A  O 27  2COLOR(WHT)
+     A**************************************************************************
+     A*?Subfile Display Part
+     A          R POINQS01                  SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01RRN         4S 0H
+     A            S01HSEQ#       6Y 0O 14  2EDTCDE(Z)
+     A N31                                  COLOR(BLU)
+     A  31                                  COLOR(RED)
+     A            S01DSEQ#       5Y 0O 14  9EDTCDE(Z)
+     A N31                                  COLOR(BLU)
+     A  31                                  COLOR(RED)
+     A            S01BRLN#      10A  O 14 16
+     A N31                                  COLOR(BLU)
+     A  31                                  COLOR(RED)
+     A            S01BRITM      20A  O 14 27
+     A N31                                  COLOR(BLU)
+     A  31                                  COLOR(RED)
+     A            S01BRDES      30A  O 14 48
+     A N31                                  COLOR(BLU)
+     A  31                                  COLOR(RED)
+     A            S01BRQTY       6Y 0O 14 79EDTCDE(Z)
+     A N31                                  COLOR(BLU)
+     A  31                                  COLOR(RED)
+     A*
+     A            S01KPORLN      3Y 0O 14 88
+     A N31                                  COLOR(GRN)
+     A  31                                  COLOR(RED)
+     A            S01KPITM       5A  O 14 93
+     A N31                                  COLOR(GRN)
+     A  31                                  COLOR(RED)
+     A            S01KPSIZ       3A  O 14100
+     A N31                                  COLOR(GRN)
+     A  31                                  COLOR(RED)
+     A            S01KPDES      20A  O 14105
+     A N31                                  COLOR(GRN)
+     A  31                                  COLOR(RED)
+     A            S01KPQTY       6Y 0O 14126EDTCDE(Z)
+     A N31                                  COLOR(GRN)
+     A  31                                  COLOR(RED)
+     A*
+     A                                 15  2'Broker Line Comment :'
+     A                                      COLOR(WHT)
+     A            S01BRKCMT     50A  O 15 24COLOR(BLU)
+     A*
+     A                                 16  2'KP Line Comment     :'
+     A                                      COLOR(WHT)
+     A            S01KPCMT      50A  O 16 24
+     A*
+     A                                 14 86' '
+     A                                      DSPATR(RI)
+     A                                 15 86' '
+     A                                      DSPATR(RI)
+     A                                 16 86' '
+     A                                      DSPATR(RI)
+     A**********************************************************************
+     A*?Subfile Control Part
+     A          R POINQC01                  SFLCTL(POINQS01)
+     A*
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0003)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF04(04 'Inquiry')
+     A                                      CF05(05 'Refresh')
+     A                                      CF09(09 'B2BInq')
+     A                                      CF12(12 'Cancel')
+     A*
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD)
+     A                                      SFLCSRRRN(&CSRRRN)
+     A                                      OVERLAY
+     A*
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A                                      SFLDROP(CF11)
+     A*
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            CSRRRN         5S 0H
+     A*
+     A                                  1  2'POINQS01'
+     A                                      COLOR(BLU)
+     A                                  1 19'Order Date :'
+     A                                      COLOR(WHT)
+     A            C01ORDT       10A  O  1 32COLOR(PNK)
+     A                                  1 53' Purchase Order Inquiry '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                      COLOR(WHT)
+     A                                  1 86'KP Header Status :'
+     A                                      COLOR(WHT)
+     A            C01HDSTS      10A  O  1105COLOR(PNK)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Vendor # :'
+     A            C01VEND        6Y 0B  4 13EDTCDE(Z)
+     A                                      COLOR(YLW)
+     A N41                                  DSPATR(RI)
+     A N41                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A            C01VNME       30A  O  4 20COLOR(BLU)
+     A                                  4 52'Vendor PO :'
+     A            C01PONO       10A  B  4 64COLOR(YLW)
+     A                                      DSPATR(UL)
+     A N42                                  DSPATR(RI)
+     A N42                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                  4 87'KP Order Number :'
+     A            C01ORNO        6Y 0B  4105COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Z)
+     A N43                                  DSPATR(RI)
+     A N43                                  DSPATR(PC)
+     A*
+     A                                  6  2'First Received Date :'
+     A                                      COLOR(WHT)
+     A            C01FDTR       19A  O  6 25
+     A                                  6 70'Latest Received Date:'
+     A                                      COLOR(WHT)
+     A            C01LDTR       19A  O  6 92
+     A*
+     A                                  7  2'Ship To Number:'
+     A                                      COLOR(WHT)
+     A            C01SHPNO      24A  O  7 18
+     A                                  7 70'Ship To Name  :'
+     A                                      COLOR(WHT)
+     A            C01SHNME      40A  O  7 86
+     A*
+     A                                  8  2'Ship To Addr1 :'
+     A                                      COLOR(WHT)
+     A            C01SHADR1     40A  O  8 18
+     A                                  8 70'Ship to Addr2 :'
+     A                                      COLOR(WHT)
+     A            C01SHADR2     40A  O  8 86
+     A*
+     A                                  9  2'Ship To City  :'
+     A                                      COLOR(WHT)
+     A            C01SHCTY      35A  O  9 18
+     A                                  9 70'Ship To State :'
+     A                                      COLOR(WHT)
+     A            C01SHST        3A  O  9 86
+     A                                  9 91'Ship To Zip :'
+     A                                      COLOR(WHT)
+     A            C01SHZP       10A  O  9105
+     A*
+     A                                 10  2'Ship To Phone :'
+     A                                      COLOR(WHT)
+     A            C01SHPH       18A  O 10 18
+     A*
+     A                                 10 70'Ship To Fax   :'
+     A                                      COLOR(WHT)
+     A            C01SHFX       31A  O 10 86
+     A*
+     A                                 11  2'Ship To Email :'
+     A                                      COLOR(WHT)
+     A            C01SHEML      50A  O 11 18
+     A*
+     A                                 13  2'HdrSeq'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13 16'Brk Line #'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13 27'Broker Item #       '
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13 48'Broker Item Description       '
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13 79'BrkQty'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13 88'Seq'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13100'Size'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13105'KP Description      '
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13126'Kp Qty'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13 93'Item '
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 13  9'DtlSeq'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R POINQF01
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F4'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Inquiry'
+     A                                      COLOR(BLU)
+     A                                 26 25'F5'
+     A                                      COLOR(WHT)
+     A                                 26 28'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 38'F9'
+     A                                      COLOR(WHT)
+     A                                 26 41'=VendorPO Inquiry'
+     A                                      COLOR(BLU)
+     A                                 26 60'F11'
+     A                                      COLOR(WHT)
+     A                                 26 64'=Fold/Drop'
+     A                                      COLOR(BLU)
+     A                                 26 76'F12'
+     A                                      COLOR(WHT)
+     A                                 26 80'=Cancel'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

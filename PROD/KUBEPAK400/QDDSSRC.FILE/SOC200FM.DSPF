@@ -1,0 +1,107 @@
+     A*%%TS  SD  20000414  173202  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V3R7M0                    910710
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000414  173202  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  B  1  2DSPATR(PR)
+     A                                  1 22' Shipped Order History Report Prom-
+     A                                      pt '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  5 14'Customer Number:'
+     A            CUST#          6Y 0B  5 31CHECK(RB)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  10                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.            Press Reset')
+     A                                  6 14'or ALPHA search:'
+     A            CALPHA        15A  B  6 31DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A            CMNAME        30A  O  6 49
+     A  98                                  DSPATR(ND)
+     A                                  8 14'Product Classes     From?'
+     A            VBPC           2A  B  8 41DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.    Press Reset')
+     A  23                                  ERRMSG('*** From P.C. Must Be Lower-
+     A                                       Than To P.C.    Press Reset')
+     A                                  8 47'To?'
+     A            VEPC           2A  B  8 52DSPATR(CS)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.      Press Reset')
+     A                                  8 58'Blank = All P.C.s'
+     A                                  9 58'For only 1 PC - just'
+     A                                 10 58'enter From PC.'
+     A                                 11 14'Beginning Date:'
+     A            VBDATE         6Y 0B 11 33DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  61                                  ERRMSG('*** Beginning & Ending Date-
+     A                                       Are Required.     Press Reset')
+     A  62                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  64                                  ERRMSG('*** Beginning Date Must Be -
+     A                                      Lower Than Ending Date.    Press Re-
+     A                                      set')
+     A                                 13 14'Ending Date:'
+     A            VEDATE         6Y 0B 13 33DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  70                                  DSPATR(RI)
+     A  70                                  DSPATR(PC)
+     A  70                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 12 46' Maximum weeks = 52 '
+     A                                 13 45'  6 weeks = one season '
+     A                                 14 47'Enter less weeks for partial'
+     A                                 16 14'Printer ID:'
+     A            VPRTR         10A  B 16 33DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Printer ID Is Required.-
+     A                                          Press Reset')
+     A                                 18 14'Company Number:'
+     A            VCO            2Y 0B 18 33DSPATR(CS)
+     A                                      CHECK(RB)
+     A  77                                  DSPATR(RI)
+     A  77                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  77                                  ERRMSG('*** Enter A Valid Company N-
+     A                                      umber.    Press Reset')
+     A            MCNAME        30A  O 20 28
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'          Enter to Process        -
+     A                                      F6=Restart          F7=Cancel Job  -
+     A                                               '
+     A                                      DSPATR(UL)

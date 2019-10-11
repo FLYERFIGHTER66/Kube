@@ -1,0 +1,26 @@
+             PGM
+             DCL        VAR(&ADDRESS) TYPE(*CHAR) LEN(10)
+             DCLF       FILE(*LIBL/USERLIST)
+
+                 /* ADDRESS YOU WANT SPECIFIED FOR ADDDIRE      */
+             CHGVAR     VAR(&ADDRESS) VALUE('YOUR_SYSTEM_NAME')
+                 /* RECREATE LIST AGAIN IF PROFILES HAVE CHANGED STATUS OR ADDED        */
+             DSPUSRPRF  USRPRF(DIR*) OUTPUT(*OUTFILE) OUTFILE(USERLIST)
+                 /* SCAN THE FILE AND MAKE SURE USERS ARE ENABLED OR NOT; IF SO ADD     */
+
+ MAIN:
+             RCVF
+                 /* THIS MEANS END OF FILE, +
+                         EXIT                                        */
+             MONMSG     MSGID(CPF0864) EXEC(GOTO CMDLBL(END))
+             IF         COND(&UPSTAT *EQ '*ENABLED') THEN(DO)
+                ADDDIRE    USRID(&UPUPRF &ADDRESS) USRD(&UPUPRF *BCAT 0017.00 'DIRECTORY') +
+                             USER(&UPUPRF) SYSNAME(*LCL)
+                    /* MONMSG FOR CPF9082 EXCEPTION, USER ALREADY +
+                             ENROLLED                 */
+                MONMSG     MSGID(CPF9082)
+             ENDDO
+             GOTO       MAIN
+ END:
+             RETURN
+             ENDPGM

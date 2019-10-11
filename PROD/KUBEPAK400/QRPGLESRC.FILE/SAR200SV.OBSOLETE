@@ -1,0 +1,464 @@
+000100951012      *--------------------------------------------------------------
+000200951012      *
+000300990403      *  COPYRIGHT EFD ENTERPRISES, INC.    1999
+000400951012      *
+000500951012      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600951012      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700951012      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800951012      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900951012      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000951012      *       BY EXPRESS WRITTEN PERMISSION OF
+001100951012      *            EFD ENTERPRISES, INC.     215-643-5352
+001200951012      *
+001300951012      *--------------------------------------------------------------
+001400990403      *PROGRAM NAME-------- SAR200
+001500990403      *SYSTEM-------------- SALES ANALYSIS
+001600990403      *APPLICATION--------- CUSTOMER INQUIRY
+001700990403      *
+001800951012      *
+001900951012      *            CHANGE--DATE-------DESCRIPTION
+002000951012      *
+002100951012      *
+002200960703     FSAR200FM  CF   E             WORKSTN
+002300951012     F                                     DEVID(WSID)
+002400960703     FFSHISTS   IF   E           K DISK
+002500960703     FFMCUST    IF   E           K DISK
+002600960703     FFMAPER    IF   E           K DISK
+002700951012      *
+002800960703      ** SHIST ARRAYS
+002900960703     D CS$             S              9  2 DIM(13)
+003000960703     D CC$             S              9  2 DIM(13)
+003100960703     D PS$             S              9  2 DIM(13)
+003200960703     D PC$             S              9  2 DIM(13)
+003300960703     D SVR             S              6  2 DIM(13)
+003400960703     D QVR             S              6  2 DIM(13)
+003500960703     D CSQ             S             11  1 DIM(13)
+003600960703     D PSQ             S             11  1 DIM(13)
+003700960703      *
+003800990614      ***********************
+003900990614      * PROG DATA STRUCTURE *
+004000990614      ***********************
+004100990614     D                SDS
+004200990614      * PROGRAM NAME
+004300990614     D  PROGID                 1     10
+004400990614      * RUN LIBRARY
+004500990614     D  RLIBR                 81     90
+004600990614      * USER I.D.
+004700990614     D  USERID               254    263
+004800990614      * SOURCE LIBRARY
+004900990614     D  SLIBR                314    323
+005000990614      *
+005100990614     D                UDS
+005200990614     D  LCO                    1      2  0
+005300960703     IRSHISTS
+005400960703     I              SHCQ01                      CSQ(1)
+005500960703     I              SHCQ02                      CSQ(2)
+005600960703     I              SHCQ03                      CSQ(3)
+005700960703     I              SHCQ04                      CSQ(4)
+005800960703     I              SHCQ05                      CSQ(5)
+005900960703     I              SHCQ06                      CSQ(6)
+006000960703     I              SHCQ07                      CSQ(7)
+006100960703     I              SHCQ08                      CSQ(8)
+006200960703     I              SHCQ09                      CSQ(9)
+006300960703     I              SHCQ10                      CSQ(10)
+006400960703     I              SHCQ11                      CSQ(11)
+006500960703     I              SHCQ12                      CSQ(12)
+006600960703     I              SHCQ13                      CSQ(13)
+006700960703      *
+006800960703     I              SHLQ01                      PSQ(1)
+006900960703     I              SHLQ02                      PSQ(2)
+007000960703     I              SHLQ03                      PSQ(3)
+007100960703     I              SHLQ04                      PSQ(4)
+007200960703     I              SHLQ05                      PSQ(5)
+007300960703     I              SHLQ06                      PSQ(6)
+007400960703     I              SHLQ07                      PSQ(7)
+007500960703     I              SHLQ08                      PSQ(8)
+007600960703     I              SHLQ09                      PSQ(9)
+007700960703     I              SHLQ10                      PSQ(10)
+007800960703     I              SHLQ11                      PSQ(11)
+007900960703     I              SHLQ12                      PSQ(12)
+008000960703     I              SHLQ13                      PSQ(13)
+008100960703      *
+008200960703     I              SHCS01                      CS$(1)
+008300960703     I              SHCS02                      CS$(2)
+008400960703     I              SHCS03                      CS$(3)
+008500960703     I              SHCS04                      CS$(4)
+008600960703     I              SHCS05                      CS$(5)
+008700960703     I              SHCS06                      CS$(6)
+008800960703     I              SHCS07                      CS$(7)
+008900960703     I              SHCS08                      CS$(8)
+009000960703     I              SHCS09                      CS$(9)
+009100960703     I              SHCS10                      CS$(10)
+009200960703     I              SHCS11                      CS$(11)
+009300960703     I              SHCS12                      CS$(12)
+009400960703     I              SHCS13                      CS$(13)
+009500960703      *
+009600960703     I              SHLS01                      PS$(1)
+009700960703     I              SHLS02                      PS$(2)
+009800960703     I              SHLS03                      PS$(3)
+009900960703     I              SHLS04                      PS$(4)
+010000960703     I              SHLS05                      PS$(5)
+010100960703     I              SHLS06                      PS$(6)
+010200960703     I              SHLS07                      PS$(7)
+010300960703     I              SHLS08                      PS$(8)
+010400960703     I              SHLS09                      PS$(9)
+010500960703     I              SHLS10                      PS$(10)
+010600960703     I              SHLS11                      PS$(11)
+010700960703     I              SHLS12                      PS$(12)
+010800960703     I              SHLS13                      PS$(13)
+010900960703      *
+011000960703     I              SHCC01                      CC$(1)
+011100960703     I              SHCC02                      CC$(2)
+011200960703     I              SHCC03                      CC$(3)
+011300960703     I              SHCC04                      CC$(4)
+011400960703     I              SHCC05                      CC$(5)
+011500960703     I              SHCC06                      CC$(6)
+011600960703     I              SHCC07                      CC$(7)
+011700960703     I              SHCC08                      CC$(8)
+011800960703     I              SHCC09                      CC$(9)
+011900960703     I              SHCC10                      CC$(10)
+012000960703     I              SHCC11                      CC$(11)
+012100960703     I              SHCC12                      CC$(12)
+012200960703     I              SHCC13                      CC$(13)
+012300960703      *
+012400960703     I              SHLC01                      PC$(1)
+012500960703     I              SHLC02                      PC$(2)
+012600960703     I              SHLC03                      PC$(3)
+012700960703     I              SHLC04                      PC$(4)
+012800960703     I              SHLC05                      PC$(5)
+012900960703     I              SHLC06                      PC$(6)
+013000960703     I              SHLC07                      PC$(7)
+013100960703     I              SHLC08                      PC$(8)
+013200960703     I              SHLC09                      PC$(9)
+013300960703     I              SHLC10                      PC$(10)
+013400960703     I              SHLC11                      PC$(11)
+013500960703     I              SHLC12                      PC$(12)
+013600960703     I              SHLC13                      PC$(13)
+013700990614      *
+013800990717     C     NXT           TAG
+013900990717     C                   Z-ADD     0             VCUST
+014000990717     C                   MOVEL     *BLANKS       CMNAME
+014100990717     C     NXTA          TAG
+014200990717     C                   Z-ADD     0             SVR
+014300990717     C                   Z-ADD     0             QVR
+014400960703     C                   WRITE     SCRNA
+014500960703     C                   SETOFF                                       101214
+014600960703     C                   SETOFF                                       209092
+014700960703     C                   SETOFF                                       30
+014800960703     C                   READ      SCRNA                                  90
+014900930307     C   KC
+015000951012     COR KG              GOTO      END
+015100951005      *
+015200990403     C     VALPHA        IFGT      *BLANKS
+015300990403     C                   MOVEL     VALPHA        CMLOOK
+015400990614     C                   CALL      'LKCUST'
+015500951012     C                   PARM                    CMLOOK
+015600951012     C                   PARM                    CMCUST
+015700951012     C                   PARM                    CMNAME
+015800990403     C                   MOVEL     *BLANKS       VALPHA
+015900960703     C                   Z-ADD     CMCUST        VCUST
+016000960703     C                   GOTO      NXTA
+016100960703     C                   ENDIF
+016200951012      *
+016300990614     C     VCUST         IFEQ      *ZEROS
+016400990614     C     VALPHA        ANDEQ     *BLANKS
+016500990614     C     VTELE         ANDGT     *BLANKS
+016600990614     C                   MOVEL     VTELE         CMPHON           10 0
+016700990614     C                   CALL      'LKTELE'
+016800990614     C                   PARM                    CMPHON
+016900990614     C                   PARM                    CMCUST            6 0
+017000990614     C                   PARM                    CMNAME           30
+017100990614     C                   MOVEL     *BLANKS       VTELE
+017200990614     C                   Z-ADD     CMCUST        VCUST
+017300990717     C                   GOTO      NXTA
+017400990614     C                   ENDIF
+017500990614      *
+017600960703     C     VCUST         CHAIN(N)  FMCUST                             90
+017700960703     C   90              SETON                                        1012
+017800960703     C   10              GOTO      NXTA
+017900960703      *
+018000990614     C     LCO           CHAIN(N)  FMAPER                             90
+018100960703     C     ACMPCN        IFEQ      'M'
+018200960703     C                   SETON                                        30
+018300960703     C                   ENDIF
+018400960703      *
+018500960703     C                   Z-ADD     VCUST         SHCUST
+018600990614     C                   Z-ADD     LCO           SHCOMP
+018700960703     C                   MOVEL     *BLANKS       SHITEM
+018800960703     C                   MOVEL     *BLANKS       SHSIZE
+018900960703     C                   MOVEL     *BLANKS       SHSLSM
+019000960703     C     KEY25         KLIST
+019100960703     C                   KFLD                    SHCUST
+019200960703     C                   KFLD                    SHITEM
+019300960703     C                   KFLD                    SHSIZE
+019400960703     C                   KFLD                    SHSLSM
+019500960703     C                   KFLD                    SHCOMP
+019600960703     C     KEY25         CHAIN     FSHISTS                            92
+019700960703     C   92              SETON                                        1214
+019800960703     C   14              GOTO      NXTA
+019900951012      *
+020000960703     C                   Z-ADD     1             X                 2 0
+020100960703     C     X             DOUEQ     13
+020200960703     C     CS$(X)        IFGT      *ZEROS
+020300960703     C     PS$(X)        ANDGT     *ZEROS
+020400960703     C     CS$(X)        SUB       PS$(X)        DIFF              9 2
+020500960703     C     DIFF          DIV       PS$(X)        PER               6 4
+020600960703     C     PER           MULT      100           SVR(X)            6 2
+020700960703     C                   ENDIF
+020800980222      *
+020900960703     C     CS$(X)        IFGT      *ZEROS
+021000960703     C     PS$(X)        ANDEQ     *ZEROS
+021100960703     C                   Z-ADD     100.00        SVR(X)
+021200960703     C                   ENDIF
+021300990629      *
+021400960703     C     CS$(X)        IFEQ      *ZEROS
+021500960703     C     PS$(X)        ANDGT     *ZEROS
+021600960703     C                   Z-SUB     100.00        SVR(X)
+021700960703     C                   ENDIF
+021800960703     C                   ADD       1             X
+021900960703     C                   ENDDO
+022000960703      *
+022100960703     C                   Z-ADD     CS$(1)        SHCS01            9 2
+022200960703     C                   Z-ADD     CS$(2)        SHCS02            9 2
+022300960703     C                   Z-ADD     CS$(3)        SHCS03            9 2
+022400960703     C                   Z-ADD     CS$(4)        SHCS04            9 2
+022500960703     C                   Z-ADD     CS$(5)        SHCS05            9 2
+022600960703     C                   Z-ADD     CS$(6)        SHCS06            9 2
+022700960703     C                   Z-ADD     CS$(7)        SHCS07            9 2
+022800960703     C                   Z-ADD     CS$(8)        SHCS08            9 2
+022900960703     C                   Z-ADD     CS$(9)        SHCS09            9 2
+023000960703     C                   Z-ADD     CS$(10)       SHCS10            9 2
+023100960703     C                   Z-ADD     CS$(11)       SHCS11            9 2
+023200960703     C                   Z-ADD     CS$(12)       SHCS12            9 2
+023300960703     C                   Z-ADD     CS$(13)       SHCS13            9 2
+023400960703      *
+023500960703     C                   Z-ADD     PS$(1)        SHLS01            9 2
+023600960703     C                   Z-ADD     PS$(2)        SHLS02            9 2
+023700960703     C                   Z-ADD     PS$(3)        SHLS03            9 2
+023800960703     C                   Z-ADD     PS$(4)        SHLS04            9 2
+023900960703     C                   Z-ADD     PS$(5)        SHLS05            9 2
+024000960703     C                   Z-ADD     PS$(6)        SHLS06            9 2
+024100960703     C                   Z-ADD     PS$(7)        SHLS07            9 2
+024200960703     C                   Z-ADD     PS$(8)        SHLS08            9 2
+024300960703     C                   Z-ADD     PS$(9)        SHLS09            9 2
+024400960703     C                   Z-ADD     PS$(10)       SHLS10            9 2
+024500960703     C                   Z-ADD     PS$(11)       SHLS11            9 2
+024600960703     C                   Z-ADD     PS$(12)       SHLS12            9 2
+024700960703     C                   Z-ADD     PS$(13)       SHLS13            9 2
+024800960703      *
+024900960704     C                   Z-ADD     1             S                 2 0
+025000960704     C     S             DOUEQ     13
+025100960706      **
+025200960706     C     SVR(S)        IFEQ      100.00
+025300960704     C     SVR(S)        OREQ      -100.00
+025400960704     C                   Z-ADD     *ZEROS        SVR(S)
+025500960704     C                   ENDIF
+025600960704     C                   ADD       1             S
+025700960704     C                   ENDDO
+025800960704      *
+025900960703     C                   Z-ADD     SVR(1)        SV01
+026000960703     C                   Z-ADD     SVR(2)        SV02
+026100960703     C                   Z-ADD     SVR(3)        SV03
+026200960703     C                   Z-ADD     SVR(4)        SV04
+026300960703     C                   Z-ADD     SVR(5)        SV05
+026400960703     C                   Z-ADD     SVR(6)        SV06
+026500960703     C                   Z-ADD     SVR(7)        SV07
+026600960703     C                   Z-ADD     SVR(8)        SV08
+026700960703     C                   Z-ADD     SVR(9)        SV09
+026800960703     C                   Z-ADD     SVR(10)       SV10
+026900960703     C                   Z-ADD     SVR(11)       SV11
+027000960703     C                   Z-ADD     SVR(12)       SV12
+027100960703     C                   Z-ADD     SVR(13)       SV13
+027200960703      *
+027300960703     C                   Z-ADD     1             Y                 2 0
+027400960703     C     Y             DOUEQ     13
+027500960703     C     CSQ(Y)        IFGT      *ZEROS
+027600960703     C     PSQ(Y)        ANDGT     *ZEROS
+027700960703     C     CSQ(Y)        SUB       PSQ(Y)        DIFQ             11 1
+027800960703     C     DIFQ          DIV       PSQ(Y)        PERQ              6 4
+027900960703     C     PERQ          MULT      100           QVR(Y)            6 2
+028000960703     C                   ENDIF
+028100990628     C     CSQ(Y)        IFGT      *ZEROS
+028200960703     C     PSQ(Y)        ANDEQ     *ZEROS
+028300960703     C                   Z-ADD     100.00        QVR(Y)
+028400960703     C                   ENDIF
+028500960703     C     CSQ(Y)        IFEQ      *ZEROS
+028600960703     C     PSQ(Y)        ANDGT     *ZEROS
+028700960703     C                   Z-SUB     100.00        QVR(Y)
+028800960703     C                   ENDIF
+028900960703     C                   ADD       1             Y
+029000960703     C                   ENDDO
+029100960703      *
+029200960703     C                   Z-ADD     CSQ(1)        SHCQ01            7 0
+029300960703     C                   Z-ADD     CSQ(2)        SHCQ02            7 0
+029400960703     C                   Z-ADD     CSQ(3)        SHCQ03            7 0
+029500960703     C                   Z-ADD     CSQ(4)        SHCQ04            7 0
+029600960703     C                   Z-ADD     CSQ(5)        SHCQ05            7 0
+029700960703     C                   Z-ADD     CSQ(6)        SHCQ06            7 0
+029800960703     C                   Z-ADD     CSQ(7)        SHCQ07            7 0
+029900960703     C                   Z-ADD     CSQ(8)        SHCQ08            7 0
+030000960703     C                   Z-ADD     CSQ(9)        SHCQ09            7 0
+030100960703     C                   Z-ADD     CSQ(10)       SHCQ10            7 0
+030200960703     C                   Z-ADD     CSQ(11)       SHCQ11            7 0
+030300960703     C                   Z-ADD     CSQ(12)       SHCQ12            7 0
+030400960703     C                   Z-ADD     CSQ(13)       SHCQ13            7 0
+030500960703      *
+030600960704     C                   Z-ADD     1             Q                 2 0
+030700960704     C     Q             DOUEQ     13
+030800960706      **
+030900960706     C     QVR(Q)        IFEQ      100.00
+031000960704     C     QVR(Q)        OREQ      -100.00
+031100960704     C                   Z-ADD     *ZEROS        QVR(Q)
+031200960704     C                   ENDIF
+031300960704     C                   ADD       1             Q
+031400960704     C                   ENDDO
+031500960704      *
+031600960703     C                   Z-ADD     PSQ(1)        SHLQ01            7 0
+031700960703     C                   Z-ADD     PSQ(2)        SHLQ02            7 0
+031800960703     C                   Z-ADD     PSQ(3)        SHLQ03            7 0
+031900960703     C                   Z-ADD     PSQ(4)        SHLQ04            7 0
+032000960703     C                   Z-ADD     PSQ(5)        SHLQ05            7 0
+032100960703     C                   Z-ADD     PSQ(6)        SHLQ06            7 0
+032200960703     C                   Z-ADD     PSQ(7)        SHLQ07            7 0
+032300960703     C                   Z-ADD     PSQ(8)        SHLQ08            7 0
+032400960703     C                   Z-ADD     PSQ(9)        SHLQ09            7 0
+032500960703     C                   Z-ADD     PSQ(10)       SHLQ10            7 0
+032600960703     C                   Z-ADD     PSQ(11)       SHLQ11            7 0
+032700960703     C                   Z-ADD     PSQ(12)       SHLQ12            7 0
+032800960703     C                   Z-ADD     PSQ(13)       SHLQ13            7 0
+032900960703      *
+033000960703     C                   Z-ADD     QVR(1)        QV01
+033100960703     C                   Z-ADD     QVR(2)        QV02
+033200960703     C                   Z-ADD     QVR(3)        QV03
+033300960703     C                   Z-ADD     QVR(4)        QV04
+033400960703     C                   Z-ADD     QVR(5)        QV05
+033500960703     C                   Z-ADD     QVR(6)        QV06
+033600960703     C                   Z-ADD     QVR(7)        QV07
+033700960703     C                   Z-ADD     QVR(8)        QV08
+033800960703     C                   Z-ADD     QVR(9)        QV09
+033900960703     C                   Z-ADD     QVR(10)       QV10
+034000960703     C                   Z-ADD     QVR(11)       QV11
+034100960703     C                   Z-ADD     QVR(12)       QV12
+034200960703     C                   Z-ADD     QVR(13)       QV13
+034300960703      *
+034400960703     C                   XFOOT     CS$           TCSLS
+034500960703     C                   XFOOT     PS$           TPSLS
+034600960703     C                   XFOOT     CSQ           TCQTY
+034700960703     C                   XFOOT     PSQ           TLQTY
+034800960703      *
+034900960703     C     TCSLS         IFGT      *ZEROS
+035000960703     C     TPSLS         ANDGT     *ZEROS
+035100960703     C     TCSLS         SUB       TPSLS         TSDF              9 2
+035200960703     C     TSDF          DIV       TPSLS         TSPR              6 4
+035300960703     C     TSPR          MULT      100           TSV               6 2
+035400960703     C                   ENDIF
+035500960703     C     TCSLS         IFGT      *ZEROS
+035600960703     C     TPSLS         ANDEQ     *ZEROS
+035700960703     C                   Z-ADD     100.00        TSV
+035800960703     C                   ENDIF
+035900960703     C     TCSLS         IFEQ      *ZEROS
+036000960703     C     TPSLS         ANDGT     *ZEROS
+036100960703     C                   Z-SUB     100.00        TSV
+036200960703     C                   ENDIF
+036300960703      *
+036400960703     C     TCQTY         IFGT      *ZEROS
+036500960703     C     TLQTY         ANDGT     *ZEROS
+036600960703     C     TCQTY         SUB       TLQTY         TQDF             11 1
+036700960704     C     TQDF          DIV       TLQTY         TQPR              6 4
+036800960703     C     TQPR          MULT      100           TQV               6 2
+036900960703     C                   ENDIF
+037000960703     C     TCQTY         IFGT      *ZEROS
+037100960703     C     TLQTY         ANDEQ     *ZEROS
+037200960703     C                   Z-ADD     100.00        TQV
+037300960703     C                   ENDIF
+037400960703     C     TCQTY         IFEQ      *ZEROS
+037500960703     C     TLQTY         ANDGT     *ZEROS
+037600960703     C                   Z-SUB     100.00        TQV
+037700960703     C                   ENDIF
+037800960703      *
+037900960703     C     NXTB          TAG
+038000960703     C                   WRITE     SCRNB
+038100960703     C                   READ      SCRNB                                  90
+038200960703     C   KC
+038300960703     COR KG              GOTO      END
+038400960703      *
+038500990628     C   KH              GOTO      NXTC
+038600990717     C                   GOTO      NXT
+038700960703      *
+038800990628     C     NXTC          TAG
+038900990628      *
+039000990628     C                   Z-ADD     CC$(1)        SHCC01            9 2
+039100990628     C                   Z-ADD     CC$(2)        SHCC02            9 2
+039200990628     C                   Z-ADD     CC$(3)        SHCC03            9 2
+039300990628     C                   Z-ADD     CC$(4)        SHCC04            9 2
+039400990628     C                   Z-ADD     CC$(5)        SHCC05            9 2
+039500990628     C                   Z-ADD     CC$(6)        SHCC06            9 2
+039600990628     C                   Z-ADD     CC$(7)        SHCC07            9 2
+039700990628     C                   Z-ADD     CC$(8)        SHCC08            9 2
+039800990628     C                   Z-ADD     CC$(9)        SHCC09            9 2
+039900990628     C                   Z-ADD     CC$(10)       SHCC10            9 2
+040000990628     C                   Z-ADD     CC$(11)       SHCC11            9 2
+040100990628     C                   Z-ADD     CC$(12)       SHCC12            9 2
+040200990628     C                   Z-ADD     CC$(13)       SHCC13            9 2
+040300990628      *
+040400990628     C                   Z-ADD     PC$(1)        SHLC01            9 2
+040500990628     C                   Z-ADD     PC$(2)        SHLC02            9 2
+040600990628     C                   Z-ADD     PC$(3)        SHLC03            9 2
+040700990628     C                   Z-ADD     PC$(4)        SHLC04            9 2
+040800990628     C                   Z-ADD     PC$(5)        SHLC05            9 2
+040900990628     C                   Z-ADD     PC$(6)        SHLC06            9 2
+041000990628     C                   Z-ADD     PC$(7)        SHLC07            9 2
+041100990628     C                   Z-ADD     PC$(8)        SHLC08            9 2
+041200990628     C                   Z-ADD     PC$(9)        SHLC09            9 2
+041300990628     C                   Z-ADD     PC$(10)       SHLC10            9 2
+041400990628     C                   Z-ADD     PC$(11)       SHLC11            9 2
+041500990628     C                   Z-ADD     PC$(12)       SHLC12            9 2
+041600990628     C                   Z-ADD     PC$(13)       SHLC13            9 2
+041700990628      *
+041800990628     C     SHCS01        SUB       SHCC01        PL01              8 2
+041900990628     C     SHCS02        SUB       SHCC02        PL02              8 2
+042000990628     C     SHCS03        SUB       SHCC03        PL03              8 2
+042100990628     C     SHCS04        SUB       SHCC04        PL04              8 2
+042200990628     C     SHCS05        SUB       SHCC05        PL05              8 2
+042300990628     C     SHCS06        SUB       SHCC06        PL06              8 2
+042400990628     C     SHCS07        SUB       SHCC07        PL07              8 2
+042500990628     C     SHCS08        SUB       SHCC08        PL08              8 2
+042600990628     C     SHCS09        SUB       SHCC09        PL09              8 2
+042700990628     C     SHCS10        SUB       SHCC10        PL10              8 2
+042800990628     C     SHCS11        SUB       SHCC11        PL11              8 2
+042900990628     C     SHCS12        SUB       SHCC12        PL12              8 2
+043000990628     C     SHCS13        SUB       SHCC13        PL13              8 2
+043100990628      *
+043200990628     C     SHLS01        SUB       SHLC01        PLL01             8 2
+043300990628     C     SHLS02        SUB       SHLC02        PLL02             8 2
+043400990628     C     SHLS03        SUB       SHLC03        PLL03             8 2
+043500990628     C     SHLS04        SUB       SHLC04        PLL04             8 2
+043600990628     C     SHLS05        SUB       SHLC05        PLL05             8 2
+043700990628     C     SHLS06        SUB       SHLC06        PLL06             8 2
+043800990628     C     SHLS07        SUB       SHLC07        PLL07             8 2
+043900990628     C     SHLS08        SUB       SHLC08        PLL08             8 2
+044000990628     C     SHLS09        SUB       SHLC09        PLL09             8 2
+044100990628     C     SHLS10        SUB       SHLC10        PLL10             8 2
+044200990628     C     SHLS11        SUB       SHLC11        PLL11             8 2
+044300990628     C     SHLS12        SUB       SHLC12        PLL12             8 2
+044400990628     C     SHLS13        SUB       SHLC13        PLL13             8 2
+044500990628      *
+044600990628     C                   XFOOT     CS$           TSLS
+044700990628     C                   XFOOT     PS$           TPYSLS
+044800990628     C                   XFOOT     CC$           TCCOS
+044900990628     C                   XFOOT     PC$           TPCOS
+045000990628      *
+045100990628     C     TCSLS         SUB       TCCOS         TPL               8 2
+045200990628     C     TPSLS         SUB       TPCOS         TPLL              8 2
+045300990628      *
+045400990628     C                   WRITE     SCRNC
+045500990628     C                   READ      SCRNC                                  90
+045600990628      *
+045700990628     C   KB              GOTO      NXTB
+045800990717     C   KF              GOTO      NXT
+045900990628     C   KC
+046000990628     COR KG              GOTO      END
+046100990717     C                   GOTO      NXT
+046200990628      *
+046300960703     C     END           TAG
+046400960703     C                   SETON                                        LR

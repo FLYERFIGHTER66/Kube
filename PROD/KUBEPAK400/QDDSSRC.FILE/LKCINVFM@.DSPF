@@ -1,0 +1,61 @@
+     A*%%TS  SD  19990828  080930  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19990828  080930  TGMS        REL-V4R2M0  5769-PW1
+     A            FLD001         1A  B  5  2
+     A            VLINE          4Y 0O  5  5DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            WHNAME        30A  O  5 33DSPATR(HI)
+     A            WHCUST         6Y 0O  5 10DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            WHINV#         6Y 0O  5 17DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            WHINDT         6Y 0O  5 24DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            WH$AMT        11Y 2O  5 64DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            WHPOS          1A  O  5 78DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19990828  074156  TGMS        REL-V4R2M0  5769-PW1
+     A  *DS3                                SFLSIZ(1000)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0019)
+     A  *DS4                                SFLPAG(0020)
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLCSRRRN(&LINE)
+     A            LINE           5S 0H
+     A                                  1  2'Select Line:'
+     A            LINE#          4Y 0B  1 15EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  90                                  DSPATR(RI)
+     A  90                                  DSPATR(PC)
+     A  90                                  ERRMSG('Invalid Line Number Entered-
+     A                                      .           Press RESET')
+     A                                  1 21'- or Position Cursor On Line and P-
+     A                                      ress Enter    F6=Restart'
+     A                                  4  4' Line Cust #  Inv #     Date Ship -
+     A                                      To Name                         Amo-
+     A                                      unt  S '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            FLD001         1A  B  4  2
+     A                                  3 78'O'
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2 78'P'
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3 10'Ship To'
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

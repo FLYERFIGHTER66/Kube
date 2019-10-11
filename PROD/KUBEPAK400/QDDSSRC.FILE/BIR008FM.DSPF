@@ -1,0 +1,598 @@
+     A*%%TS  SD  19990613  082504  APGL        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990501  091109  AP          REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(04 011 20 058)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 28' Accounting Periods File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 11
+     A N55                                  DSPATR(CS)
+     A N55                                  DSPATR(PC)
+     A  55                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  26                                  ERRMSG('*** Valid Action Codes = A -
+     A                                      C D.     Press Reset')
+     A                                  4 23'For Company Number:'
+     A            VCO            2Y 0B  4 44
+     A  10N50N51                            DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10N50N51                            DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTWRD('  ')
+     A  55                                  DSPATR(PR)
+     A  11N50N51                            ERRMSG('*** Enter A Valid Company N-
+     A                                      umber.     Press Reset')
+     A  12N50N51                            ERRMSG('*** Accounting Periods Are -
+     A                                      On File For This Company.     Press-
+     A                                       Reset')
+     A  13N50N51                            ERRMSG('*** No Accounting Periods O-
+     A                                      n File For This Company.     Press -
+     A                                      Reset')
+     A  55                                  DSPATR(HI)
+     A            VNAME         30A  O  4 48DSPATR(HI)
+     A                                  5 24'Month/Period Code:'
+     A N55                                  DSPATR(ND)
+     A            ACMPCN         1A  B  5 45
+     A  10                                  DSPATR(RI)
+     A  50N51                               DSPATR(CS)
+     A  10
+     AO 50                                  DSPATR(PC)
+     A N55                                  DSPATR(ND)
+     A  51                                  DSPATR(PR)
+     A  10                                  ERRMSG('*** Valid Entries are M = 1-
+     A                                      2 Month -or- P = 13 Period Fiscal Y-
+     A                                      ear.   Reset')
+     A  51                                  DSPATR(HI)
+     A                                  5 48'Fiscal Year Start:'
+     A N55                                  DSPATR(ND)
+     A            ACFSST         6Y 0B  5 67
+     A  11                                  DSPATR(RI)
+     A  50                                  DSPATR(CS)
+     A  11                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N55                                  DSPATR(ND)
+     A  51                                  DSPATR(PR)
+     A  12                                  ERRMSG('*** Fiscal Year Start Date -
+     A                                      Is Required.   Press Reset')
+     A  13                                  ERRMSG('*** Enter a Valid Date.    -
+     A                                        Press Reset')
+     A  51                                  DSPATR(HI)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  7  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21
+     AO 51N21                               DSPATR(ND)
+     A                                  7 33'Start Date'
+     A                                      DSPATR(UL)
+     A N51                                  DSPATR(ND)
+     A                                  7 51'End Date'
+     A                                      DSPATR(UL)
+     A N51                                  DSPATR(ND)
+     A                                  8  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22
+     AO 51N22                               DSPATR(ND)
+     A                                  8 27'1.'
+     A N51                                  DSPATR(ND)
+     A            ACST01         6Y 0B  8 34
+     A  30N61
+     AO 61N30                               DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  51N61N30
+     AO 61
+     AO 30                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  31                                  ERRMSG('*** All Starting Dates Are -
+     A                                      Required.   Press Reset')
+     A  61                                  ERRMSG('*** Date Must Be Equal to F-
+     A                                      iscal Year Start.  Press Reset')
+     A  60                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN01         6Y 0B  8 51
+     A  32
+     AO 62N32N33
+     AO 33N32N62                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  33
+     AO 62                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  62N33                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  33N62                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                  9  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23
+     AO 51N23                               DSPATR(ND)
+     A                                  9 27'2.'
+     A N51                                  DSPATR(ND)
+     A            ACST02         6Y 0B  9 34
+     A  31
+     AO 63N31N45
+     AO 45N31N63                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  45
+     AO 63                                  DSPATR(PC)
+     A  63N45                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  45N63                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN02         6Y 0B  9 51
+     A  32
+     AO 64N32N34
+     AO 34N32N64                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  34
+     AO 64                                  DSPATR(PC)
+     A  64N34                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  34N64                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 10 27'3.'
+     A N51                                  DSPATR(ND)
+     A            ACST03         6Y 0B 10 34
+     A  31
+     AO 65N31N46
+     AO 46N31N65                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  46
+     AO 65                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  65N46                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  46N65                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN03         6Y 0B 10 51
+     A  32
+     AO 66N32N35
+     AO 35N32N66                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  35
+     AO 66                                  DSPATR(PC)
+     A  66N35                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.     Press Reset')
+     A  35N66                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            MONTH         13A  B 11  6
+     A N51                                  DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                 11 20'===>'
+     A N51                                  DSPATR(ND)
+     A                                 11 27'4.'
+     A N51                                  DSPATR(ND)
+     A            ACST04         6Y 0B 11 34
+     A  31
+     AO 67N31N47
+     AO 47N31N67                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  47
+     AO 67                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  67N47                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  47N67                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN04         6Y 0B 11 51
+     A  32
+     AO 68N32N36
+     AO 36N32N68                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  36
+     AO 68                                  DSPATR(PC)
+     A  68N36                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  36N68                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 12 27'5.'
+     A N51                                  DSPATR(ND)
+     A            ACST05         6Y 0B 12 34
+     A  31
+     AO 69N31N48
+     AO 48N31N69                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  48
+     AO 69                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  69N48                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  48N69                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN05         6Y 0B 12 51
+     A  32
+     AO 70N32N37
+     AO 37N32N70                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  37
+     AO 70                                  DSPATR(PC)
+     A  70N37                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  37N70                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 13 27'6.'
+     A N51                                  DSPATR(ND)
+     A            ACST06         6Y 0B 13 34
+     A  31
+     AO 71N31N49
+     AO 49N31N71                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A  50                                  DSPATR(PR)
+     A  49
+     AO 71                                  DSPATR(PC)
+     A  71N49                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  49N71                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN06         6Y 0B 13 51
+     A  32
+     AO 72N32N38
+     AO 38N32N72                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  38
+     AO 72                                  DSPATR(PC)
+     A  72N38                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.   Press Reset')
+     A  38N72                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 14 27'7.'
+     A N51                                  DSPATR(ND)
+     A            ACST07         6Y 0B 14 34
+     A  31
+     AO 73N31N56
+     AO 56N31N73                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  56
+     AO 73                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  73N56                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  56N73                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN07         6Y 0B 14 51
+     A  32
+     AO 74N32N39
+     AO 39N32N74                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  39
+     AO 74                                  DSPATR(PC)
+     A  74N39                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  39N74                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 15 27'8.'
+     A N51                                  DSPATR(ND)
+     A            ACST08         6Y 0B 15 34
+     A  31
+     AO 75N31N57
+     AO 57N31N75                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  57
+     AO 75                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  75N57                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  57N75                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN08         6Y 0B 15 51
+     A  32
+     AO 76N32N14
+     AO 14N32N76                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  14
+     AO 76                                  DSPATR(PC)
+     A  76N14                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  14N76                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 16 27'9.'
+     A N51                                  DSPATR(ND)
+     A            ACST09         6Y 0B 16 34
+     A  31
+     AO 77N31N58
+     AO 58N31N77                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  58
+     AO 77                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  77N58                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  58N77                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN09         6Y 0B 16 51
+     A  32
+     AO 78N32N15
+     AO 15N32N78                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  15
+     AO 78                                  DSPATR(PC)
+     A  78N15                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.   Press Reset')
+     A  15N78                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 17 26'10.'
+     A N51                                  DSPATR(ND)
+     A            ACST10         6Y 0B 17 34
+     A  31
+     AO 79N31N59
+     AO 59N31N79                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A  59
+     AO 79                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  79N59                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  59N79                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN10         6Y 0B 17 51
+     A  32
+     AO 80N32N16
+     AO 16N32N80                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  16
+     AO 80                                  DSPATR(PC)
+     A  80N16                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  16N80                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 18 26'11.'
+     A N51                                  DSPATR(ND)
+     A            ACST11         6Y 0B 18 34
+     A  31
+     AO 81N31N52
+     AO 52N31N81                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  52
+     AO 81                                  DSPATR(PC)
+     A  81N52                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  52N81                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN11         6Y 0B 18 51
+     A  32
+     AO 82N32N17
+     AO 17N32N82                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  17
+     AO 82                                  DSPATR(PC)
+     A  82N17                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.   Press Reset')
+     A  17N80                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 19 26'12.'
+     A N51                                  DSPATR(ND)
+     A            ACST12         6Y 0B 19 34
+     A  31
+     AO 83N31N53
+     AO 53N31N83                            DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  53
+     AO 83                                  DSPATR(PC)
+     A  83N53                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  53N80                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN12         6Y 0B 19 51
+     A  32
+     AO 84N32N18
+     AO 18N32N84
+     AO 03                                  DSPATR(RI)
+     A  51                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A  18
+     AO 84
+     AO 03                                  DSPATR(PC)
+     A  84N18                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  18N84                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  03                                  ERRMSG('*** Warning! Ending Date Ma-
+     A                                      y Not Be Correct. Change or Press R-
+     A                                      eset To Accept')
+     A                                 20 26'13.'
+     A N51
+     AO 01 51                               DSPATR(ND)
+     A            ACST13         6Y 0B 20 34
+     A  31 02
+     AO 85 02N54
+     AO 54 02N85                            DSPATR(RI)
+     A  51 02                               DSPATR(CS)
+     A  54 02
+     AO 85 02                               DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A N51
+     AO 01 51                               DSPATR(ND)
+     A N51
+     AO 01 51                               DSPATR(PR)
+     A  85N54                               ERRMSG('*** Must Be Next Available -
+     A                                      Date After Prior Ending Date.   Pre-
+     A                                      ss Reset')
+     A  54N85                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A            ACEN13         6Y 0B 20 51
+     A  32
+     AO 89 02N19
+     AO 19 02N89
+     AO 04                                  DSPATR(RI)
+     A  51 02                               DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N51
+     AO 01 51                               DSPATR(ND)
+     A N51
+     AO 01 51                               DSPATR(PR)
+     A  19 02
+     AO 89 02
+     AO 04                                  DSPATR(PC)
+     A  89N19                               ERRMSG('*** End Must Be Higher Than-
+     A                                       Start.    Press Reset')
+     A  19N89                               ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  04                                  ERRMSG('*** Warning! Ending Date Ma-
+     A                                      y Not Be Correct.  Change or Press -
+     A                                      Reset to Accept')
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process   F6=Restart  -
+     A                                       F3/F7=End of Job   F13=Print Acct.-
+     A                                       Per List'
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A          R HELP
+     A*%%TS  SD  19990613  082504  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 14  3' Accounting Periods Overview      -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3' The dates entered in the accounti-
+     A                                      ng periods file determine to what d-
+     A                                      ate     '
+     A                                      DSPATR(HI)
+     A                                 17  3' range sales analysis and general -
+     A                                      ledger data should be posted for ea-
+     A                                      ch      '
+     A                                      DSPATR(HI)
+     A                                 18  3' company.  These periods should be-
+     A                                       based on your fiscal year and both-
+     A                                       12     '
+     A                                      DSPATR(HI)
+     A                                 19  3' month and 13 period fiscal years -
+     A                                      are supported.                     -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' If you are running more than one -
+     A                                      company, you must define the accoun-
+     A                                      ting    '
+     A                                      DSPATR(HI)
+     A                                 22  3' periods for each company, even if-
+     A                                       they are the same.                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

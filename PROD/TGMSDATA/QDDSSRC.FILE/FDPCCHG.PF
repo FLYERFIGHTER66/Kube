@@ -1,0 +1,37 @@
+     A*     DPC CUSTOMER STATUS CHANGE
+     A*     FILE NAME - FDPCCHG
+     A*
+     A                                      FIFO
+     A          R RDPCCHG                   TEXT('DPC CUST CHANGE'     )
+     A            DCCUST         6S 0       TEXT('NEW CUST#')
+     A                                      EDTCDE(4)
+     A                                      COLHDG('New Cust#')
+      ** STATUS 1=NEW  2=MORE THAN 1 MONTH ON LIST D=DROPPED
+      **        5=REACTIVATED THIS MONTH  " "=NEVER DPC
+      **        F=FORCED ON LIST           X=FORCED OUT OF LIST
+     A            DCNSTA         1A         TEXT('NEW STATUS')
+     A                                      COLHDG('New' 'Status')
+     A            DCOSTA         1A         TEXT('OLD STATUS')
+     A                                      COLHDG('Old' 'Status')
+      ** REASON CODES: AR=OVER 60 DAYS A/R
+      **               SL=SALES BELOW 10,000.00
+      **               AD=ADDED SALES OVER 12,000.00
+      **               RE=RE-ACTIVATED SALES OVER 12,000.00 A/R<60 days
+      **               MC=MANUALLY OVER-RIDDEN.
+     A            DCREAS         2A         TEXT('REASON CODE')
+     A                                      COLHDG('Reas.' 'Code')
+     A            DCDTCH         7P 0       TEXT('DATE CHANGED CYMD')
+     A                                      COLHDG('Date Changed CYMD')
+     A                                      EDTCDE(Y)
+     A            DCALPH        15A         TEXT('ALPHA SEARCH')
+     A                                      COLHDG('Alpha Search')
+     A            DC60AR         9P 2       TEXT('A/R OVER 60 DAYS')
+     A                                      COLHDG('A/R Over 60')
+     A                                      EDTCDE(J)
+     A            DCLS12         9P 2       TEXT('LAST 12 MTH SALES')
+     A                                      COLHDG('12 Mth Sales')
+     A                                      EDTCDE(J)
+     A            DCUSER        10A         TEXT('USER CHANGED')
+     A                                      COLHDG('User I.D.')
+     A          K DCCUST
+     A          K DCDTCH

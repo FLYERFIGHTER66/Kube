@@ -1,0 +1,245 @@
+     A*?Program        : DIR010FM
+     A*?
+     A*?Description    : This display file for Ship-to Directions Screen
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 16 Nov 2018
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**************************************************************************
+     A*?Subfile Display Part
+     A          R DIR010S01                 SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01RRN         4S 0H
+     A*
+     A            S01TEXT       79A  B  7  2DSPATR(PC)
+     A                                      DSPATR(UL)
+     A**********************************************************************
+     A*?Subfile Control Part
+     A          R DIR010C01                 SFLCTL(DIR010S01)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0014)
+     A*
+     A                                      CF02(02 'PrintMode')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF08(08 'Delete')
+     A                                      CF09(09 'Insert')
+     A                                      CF10(10 'Print')
+     A                                      CF11(11 'ChangePrint')
+     A*
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD -
+     A                                      &CSRPOS)
+     A                                      CSRLOC(PUTCSRLIN  PUTCSRPOS)
+     A*
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A*
+     A            SFLCSRRRN      5S 0H
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            CSRPOS         4S 0H
+     A            PUTCSRLIN      3S 0H
+     A            PUTCSRPOS      3S 0H
+     A            PUTSFLRRN      3S 0H      SFLRCDNBR
+     A*
+     A                                  1  2'DIR010S01'
+     A                                      COLOR(BLU)
+     A                                  1 26' Ship-to Directions Maintenance'
+     A                                      COLOR(WHT)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Customer :'
+     A            C01CUST        6Y 0O  4 14COLOR(PNK)
+     A            C01NAME       30A  O  4 21COLOR(BLU)
+     A*
+     A                                  4 63'Customer Seq#:'
+     A            C01SEQ#        3Y 0O  4 78COLOR(PNK)
+     A*
+     A                                  6  2'Line Directions                   -
+     A                                                                         -
+     A                                                '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A*
+     A          R DIR010F01
+     A                                      OVERLAY
+     A                                 22  3'F2'
+     A                                      COLOR(WHT)
+     A                                 22  6'=Print Mode'
+     A                                      COLOR(BLU)
+     A                                 22 19'F3'
+     A                                      COLOR(WHT)
+     A                                 22 22'=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 29'F5'
+     A                                      COLOR(WHT)
+     A                                 22 32'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 42'F8'
+     A                                      COLOR(WHT)
+     A                                 22 45'=Delete'
+     A                                      COLOR(BLU)
+     A                                 22 61'Printer:'
+     A            PRTNAME       10A  O 22 70COLOR(PNK)
+     A*
+     A                                 23  3'F9'
+     A                                      COLOR(WHT)
+     A                                 23  6'=Insert'
+     A                                      COLOR(BLU)
+     A                                 23 15'F10'
+     A                                      COLOR(WHT)
+     A                                 23 19'=Print'
+     A                                      COLOR(BLU)
+     A                                 23 27'F11'
+     A                                      COLOR(WHT)
+     A                                 23 31'=Change Printer'
+     A                                      COLOR(BLU)
+     A                                 23 48'Enter'
+     A                                      COLOR(WHT)
+     A                                 23 54'= Write/Update Directions'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A          R DIR010R01
+     A                                      WINDOW(5 10 14 65)
+     A*
+     A            PTMODE         2Y 0B  6 50PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'ALL LINES')
+     A                                      PSHBTNCHC(2 'SAVE SPACE')
+     A                                      PSHBTNCHC(3 'COMPRESSED')
+     A*
+     A                                  1  1'                                  -
+     A                                                        DIR010R01 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  2  1'                                  -
+     A                                                                  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  3  1'            Change how the Printed-
+     A                                       Report will look           '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  4  1'                                  -
+     A                                                                  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                  6  1'Leave all Blank lines ad print as -
+     A                                      it appears. .'
+     A                                  7  1'Remove Multiple Blank Lines from R-
+     A                                      eport . . . .'
+     A                                  8  1'Remove all Blank Lines from Report-
+     A                                        . . . . . .'
+     A                                 10  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 10  8'=Select Printing Mode'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(24)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)
+     A********************************************************
+     A          R ASSUME
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

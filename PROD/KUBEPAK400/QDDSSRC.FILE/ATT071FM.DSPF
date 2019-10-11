@@ -1,0 +1,211 @@
+     A*%%TS  SD  20190130  120139  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R ATT07100
+     A*%%TS  SD  20061006  100419  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Quit')
+     A                                      CF04(04 'Item Search')
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 49'    Employee Master    - Inquiry  -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                      ATT07100  '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 20'F03'
+     A                                      DSPATR(HI)
+     A                                 26 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26120'F05'
+     A                                      DSPATR(HI)
+     A                                 26124'=Refresh'
+     A                                      COLOR(BLU)
+     A                                  7 39'Use the following Selection Criter-
+     A                                      ia to limit the number'
+     A                                      COLOR(PNK)
+     A                                  8 49'of Records returned by this inquir-
+     A                                      y'
+     A                                      COLOR(PNK)
+     A            SELNAME       15A  B 15 67COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 15 51'Name Contains:'
+     A                                 13 55'Last Name:'
+     A                                 14 54'First Name:'
+     A            SELLAST       15A  B 13 67COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SELFIRST      15A  B 14 67COLOR(YLW)
+     A                                      DSPATR(UL)
+     A          R ATT07101                  SFL
+     A*%%TS  SD  20190130  120139  BILLB       REL-V7R2M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            IN81           1A  H
+     A            IN82           1A  H
+     A            ATTIME    R        H      REFFLD(RMATTEND/ATTIME *LIBL/FMATTE-
+     A                                      ND)
+     A            NAME          25A  O  7 14
+     A            OPTION         1A  B  7  2DSPATR(PC)
+     A            EMFILE    R        O  7  6REFFLD(RMEMPLOY/EMFILE *LIBL/FMEMPL-
+     A                                      OY)
+     A            EMCARD    R        O  7100REFFLD(RMEMPLOY/EMCARD *LIBL/FMEMPL-
+     A                                      OY)
+     A            EMTITL    R        O  7 41REFFLD(RMEMPLOY/EMTITL *LIBL/FMEMPL-
+     A                                      OY)
+     A            EMHIRE    R        O  7 73REFFLD(RMEMPLOY/EMHIRE *LIBL/FMEMPL-
+     A                                      OY)
+     A                                      EDTCDE(Y)
+     A            EMRHIR    R        O  7 83REFFLD(RMEMPLOY/EMRHIR *LIBL/FMEMPL-
+     A                                      OY)
+     A                                      EDTCDE(Y)
+     A            EMCLAS    R        O  7 95REFFLD(RMEMPLOY/EMCLAS *LIBL/FMEMPL-
+     A                                      OY)
+     A            LCBASE    R        O  7111REFFLD(RMEMPCLS/LCBASE *LIBL/FMEMPC-
+     A                                      LS)
+     A                                      EDTCDE(J)
+     A          R ATT07101C                 SFLCTL(ATT07101)
+     A*%%TS  SD  20190130  120139  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0015)
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Quit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF04(04 'Item Search')
+     A                                      CF06(06 'Restart')
+     A                                      CF10(10 'Change Sort')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A            STARTRRN01     4S 0H      SFLRCDNBR
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  1 50'   Employee Master    - Inquiry   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4 88'Name Contains:'
+     A                                      COLOR(PNK)
+     A                                  6 14'Name (Last, First)       '
+     A                                      DSPATR(UL)
+     A                                  2 88'First Name:'
+     A                                      COLOR(PNK)
+     A                                  3 88'Last Name:'
+     A                                      COLOR(PNK)
+     A            SELFIRST      15A  B  2103COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SELLAST       15A  B  3103COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SELNAME       15A  B  4103COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A N60                              4  2'2=Edit'
+     A                                      COLOR(BLU)
+     A                                  6  1'Opt'
+     A                                      DSPATR(UL)
+     A                                  6  6' File#'
+     A                                      DSPATR(UL)
+     A                                  6 41' Title                        '
+     A                                      DSPATR(UL)
+     A                                  6 73' Date   '
+     A                                      DSPATR(UL)
+     A                                  6 83' Date   '
+     A                                      DSPATR(UL)
+     A                                  5 74'Hire'
+     A                                  5 83'ReHire'
+     A                                  5 93'Labor'
+     A                                  6 93'Class'
+     A                                      DSPATR(UL)
+     A                                  6100'Time Card'
+     A                                      DSPATR(UL)
+     A  60                              4  2'1=Select'
+     A                                      COLOR(BLU)
+     A                                  5112'Base'
+     A                                  6111' Rate '
+     A                                      DSPATR(UL)
+     A          R ATT07101F
+     A*%%TS  SD  20160222  160142  BILLB       REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                        ATT07101'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 44'F05'
+     A                                      DSPATR(HI)
+     A                                 26 48'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 26'F03'
+     A                                      DSPATR(HI)
+     A                                 26 30'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26113'F11'
+     A                                      DSPATR(HI)
+     A                                 26117'=More Info'
+     A                                      COLOR(BLU)
+     A                                 26 65'F06'
+     A                                      DSPATR(HI)
+     A                                 26 69'=Restart'
+     A                                      COLOR(BLU)
+     A                                 26 86'F10'
+     A  30                             26 90'=Sort by Class'
+     A                                      COLOR(BLU)
+     A N30                             26 90'=Sort by Name '
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS4                                SFLMSGRCD(27)
+     A            MSGKEY                    SFLMSGKEY
+     A            PGMQ                      SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS4                                SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

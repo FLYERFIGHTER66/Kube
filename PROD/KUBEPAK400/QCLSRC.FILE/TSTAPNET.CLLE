@@ -1,0 +1,82 @@
+             PGM        PARM(&HOST)
+
+             DCL        VAR(&HOST) TYPE(*CHAR) LEN(80)
+             DCL        VAR(&STSMSG) TYPE(*CHAR) LEN(7)
+             DCL        VAR(&RESULT) TYPE(*CHAR) LEN(80)
+             DCLF       FILE(FAP_TEST)
+
+  /* TURN OFF STATUS MESSAGES SO USER DOESN'T SEE THE PING ATTEMPTS */
+             RTVJOBA    STSMSG(&STSMSG)
+             CHGJOB     STSMSG(*NONE)
+
+ READ_IP:    RCVF
+             MONMSG     MSGID(CPF0864) EXEC(GOTO CMDLBL(END_IP))
+             CHGVAR     VAR(&RESULT) VALUE('AP Network Online 100%')
+
+  /* CHECK TO SEE IF HOST IS UP OR DOWN */
+
+             IF         COND(&AP_STATUS *EQ 'A') THEN(DO)
+             PING       RMTSYS(&AP_IP00001) MSGMODE(*QUIET +
+                          *ESCAPE) NBRPKT(1) WAITTIME(9)
+             MONMSG     MSGID(TCP3202 TCP3210) EXEC(CHGVAR +
+                          VAR(&RESULT) VALUE('Inactive'))
+             IF         COND(&RESULT *EQ 'Inactive') THEN(DO)
+             CHGVAR     VAR(&RESULT) VALUE('The AP Network test +
+                          encountered an error while contacting AP:' +
+                          *CAT &AP_NAME)
+             SNDBRKMSG  MSG('A Kube-Pak Network Access Point (' *CAT +
+                          &AP_NAME *CAT ') failed to respond to a +
+                          scheduled network check. IP Address:' +
+                          *CAT &AP_IP00001 *BCAT 'Reset Location: ' +
+                          *BCAT &AP_RESET *BCAT '.') +
+                          TOMSGQ(DSP024_01 DSP024_02 DSP024_03 +
+                          DSP024_04)
+             MONMSG     MSGID(CPF2421)
+       /*    SNDDST     TYPE(*LMSG) TOINTNET(('helpdesk@kubepak.net') +      */
+       /*       NOTE: Take Bill Behr Phone number out of distribution        */
+       /*                 ('9089108581@vzwpix.com' *BCC) <- Remove this    */
+       /*                 ('webmaster@kubepak.com' *BCC) +                   */
+       /*                 ('bcc@kubepak.net' *BCC) +                         */
+       /*                 ('6092135362@txt.att.net' *BCC)) DSTD('Wireless +  */
+       /*                 Access Point Error Notification') MSG('An error +  */
+       /*                 was detected by the Kube-Pak iSeries while +       */
+       /*                 running a Wireless Access Point connectivity +     */
+       /*                 test.  Please see attached text for error +        */
+       /*                 specifics.') LONGMSG('A connectivity test failed + */
+       /*                 to contact AP:' *BCAT &AP_NAME *BCAT ' (' *CAT +   */
+       /*                 &AP_IP00001 *BCAT ') located in Section:' *BCAT +  */
+       /*                 &AP_SECTION *CAT '/' *BCAT &AP_BAY *BCAT '.  +     */
+       /*                 Reset Location: ' *BCAT &AP_RESET *BCAT '.')       */
+             SNDDST     TYPE(*LMSG) +
+                          TOINTNET(('helpdesk@kubepak.net') +
+                          ('webmaster@kubepak.com' *BCC) +
+                          ('bcc@kubepak.net' *BCC) +
+                          ('6093063234@vzwpix.com' *BCC)) +
+                          DSTD('[Ticket #1514] Wireless Access +
+                          Error') MSG('An error was detected by +
+                          Kube-Pak IBM i while running a Wireless +
+                          Access Point connectivity test.  Please +
+                          see attached text for error specifics.') +
+                          LONGMSG('A connectivity test failed to +
+                          contact AP:' *BCAT &AP_NAME *BCAT ' (' +
+                          *CAT &AP_IP00001 *BCAT ') located in +
+                          Section:' *BCAT &AP_SECTION *CAT '/' +
+                          *BCAT &AP_BAY *BCAT '.  Reset Location: ' +
+                          *BCAT &AP_RESET *BCAT '.')
+             GOTO       CMDLBL(END_IP)
+             ENDDO
+             ENDDO
+             GOTO       CMDLBL(READ_IP)
+
+
+  /* PUT STATUS MESSAGES BACK THE WAY WE FOUND THEM */
+
+ END_IP:     CHGJOB     STSMSG(&STSMSG)
+             SNDMSG     MSG('The Access Point Network was tested: ' +
+                          *CAT &RESULT) TOMSGQ(*SYSOPR)
+  /* REPORT RESULTS */
+      SNDPGMMSG MSGID(CPF9897) MSGF(QCPFMSG) +
+           MSGDTA(&RESULT) MSGTYPE(*COMP)
+      RETURN
+
+  ENDPGM

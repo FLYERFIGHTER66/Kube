@@ -1,0 +1,337 @@
+     A*%%TS  SD  20160425  122100  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19980122  103758  EFD         REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 24' Sales Analysis Customer Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 24'Customer Number:'
+     A            VCUST          6Y 0B  4 46
+     A  12                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  10                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.   Press Reset')
+     A  14                                  ERRMSG('*** No Sales History For Th-
+     A                                      is Customer.   Press Reset')
+     A                                  5 24'Alpha Search'
+     A            VALPHA        15A  B  5 46DSPATR(CS)
+     A                                  6 24'Telephone # Search'
+     A            VTELE         10A  B  6 46DSPATR(CS)
+     A            CMNAME        30A  O  7 46
+     A                                  9 24'Company Number:'
+     A            VCO            2Y 0B  9 46
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  10                                  ERRMSG('*** Enter A Valid Company N-
+     A                                      umber.   Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'               Enter to Process   -
+     A                                            F3/F7=End of Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20160425  122100  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  3'SAR200B'
+     A                                  1 24' Sales Analysis Customer Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  3USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 17'Customer:'
+     A            VCUST          6Y 0O  3 27EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  3 34DSPATR(HI)
+     A                                  4  1'         |------------ Sales ------
+     A                                      -----------|----------- Quantity ---
+     A                                      ---------|'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  6  1' Ending        Year        Year   -
+     A                                        $ Var    |    Year     Year    # -
+     A                                      Var   Var%'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A            ACEN01         6Y 0O  7  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS01         7Y 0O  7 10EDTCDE(K $)
+     A            SHLS01         7Y 0O  7 22EDTCDE(K $)
+     A            SV01           7Y 0O  7 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ01         6Y 0O  7 48EDTCDE(K)
+     A            SHLQ01         6Y 0O  7 57EDTCDE(K)
+     A            QV01           3Y 0O  7 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN02         6Y 0O  8  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS02         7Y 0O  8 10EDTCDE(K $)
+     A            SHLS02         7Y 0O  8 22EDTCDE(K $)
+     A            SV02           7Y 0O  8 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ02         6Y 0O  8 48EDTCDE(K)
+     A            SHLQ02         6Y 0O  8 57EDTCDE(K)
+     A            QV02           3Y 0O  8 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN03         6Y 0O  9  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS03         7Y 0O  9 10EDTCDE(K $)
+     A            SHLS03         7Y 0O  9 22EDTCDE(K $)
+     A            SV03           7Y 0O  9 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ03         6Y 0O  9 48EDTCDE(K)
+     A            SHLQ03         6Y 0O  9 57EDTCDE(K)
+     A            QV03           3Y 0O  9 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN04         6Y 0O 10  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS04         7Y 0O 10 10EDTCDE(K $)
+     A            SHLS04         7Y 0O 10 22EDTCDE(K $)
+     A            SV04           7Y 0O 10 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ04         6Y 0O 10 48EDTCDE(K)
+     A            SHLQ04         6Y 0O 10 57EDTCDE(K)
+     A            QV04           3Y 0O 10 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN05         6Y 0O 11  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS05         7Y 0O 11 10EDTCDE(K $)
+     A            SHLS05         7Y 0O 11 22EDTCDE(K $)
+     A            SV05           7Y 0O 11 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ05         6Y 0O 11 48EDTCDE(K)
+     A            SHLQ05         6Y 0O 11 57EDTCDE(K)
+     A            QV05           3Y 0O 11 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN06         6Y 0O 12  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS06         7Y 0O 12 10EDTCDE(K $)
+     A            SHLS06         7Y 0O 12 22EDTCDE(K $)
+     A            SV06           7Y 0O 12 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ06         6Y 0O 12 48EDTCDE(K)
+     A            SHLQ06         6Y 0O 12 57EDTCDE(K)
+     A            QV06           3Y 0O 12 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN07         6Y 0O 13  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS07         7Y 0O 13 10EDTCDE(K $)
+     A            SHLS07         7Y 0O 13 22EDTCDE(K $)
+     A            SV07           7Y 0O 13 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ07         6Y 0O 13 48EDTCDE(K)
+     A            SHLQ07         6Y 0O 13 57EDTCDE(K)
+     A            QV07           3Y 0O 13 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN08         6Y 0O 14  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS08         7Y 0O 14 10EDTCDE(K $)
+     A            SHLS08         7Y 0O 14 22EDTCDE(K $)
+     A            SV08           7Y 0O 14 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ08         6Y 0O 14 48EDTCDE(K)
+     A            SHLQ08         6Y 0O 14 57EDTCDE(K)
+     A            QV08           3Y 0O 14 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN09         6Y 0O 15  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS09         7Y 0O 15 10EDTCDE(K $)
+     A            SHLS09         7Y 0O 15 22EDTCDE(K $)
+     A            SV09           7Y 0O 15 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ09         6Y 0O 15 48EDTCDE(K)
+     A            SHLQ09         6Y 0O 15 57EDTCDE(K)
+     A            QV09           3Y 0O 15 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN10         6Y 0O 16  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS10         7Y 0O 16 10EDTCDE(K $)
+     A            SHLS10         7Y 0O 16 22EDTCDE(K $)
+     A            SV10           7Y 0O 16 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ10         6Y 0O 16 48EDTCDE(K)
+     A            SHLQ10         6Y 0O 16 57EDTCDE(K)
+     A            QV10           3Y 0O 16 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN11         6Y 0O 17  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS11         7Y 0O 17 10EDTCDE(K $)
+     A            SHLS11         7Y 0O 17 22EDTCDE(K $)
+     A            SV11           7Y 0O 17 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ11         6Y 0O 17 48EDTCDE(K)
+     A            SHLQ11         6Y 0O 17 57EDTCDE(K)
+     A            QV11           3Y 0O 17 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN12         6Y 0O 18  1EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A            SHCS12         7Y 0O 18 10EDTCDE(K $)
+     A            SHLS12         7Y 0O 18 22EDTCDE(K $)
+     A            SV12           7Y 0O 18 34EDTCDE(K $)
+     A                                      DSPATR(HI)
+     A            SHCQ12         6Y 0O 18 48EDTCDE(K)
+     A            SHLQ12         6Y 0O 18 57EDTCDE(K)
+     A            QV12           3Y 0O 18 75COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            ACEN13         6Y 0O 19  1EDTCDE(Y)
+     A  30                                  DSPATR(ND)
+     A                                      COLOR(TRQ)
+     A            SHCS13         7Y 0O 19 10EDTCDE(K $)
+     A  30                                  DSPATR(ND)
+     A            SHLS13         7Y 0O 19 22EDTCDE(K $)
+     A  30                                  DSPATR(ND)
+     A            SV13           7Y 0O 19 34EDTCDE(K $)
+     A  30                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            SHCQ13         6Y 0O 19 48EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SHLQ13         6Y 0O 19 57EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            QV13           3Y 0O 19 75
+     A  30                                  DSPATR(ND)
+     A                                      COLOR(PNK)
+     A                                      EDTWRD('   -%')
+     A            TCSLS          9Y 0O 21  8EDTCDE(K $)
+     A            TPSLS          9Y 0O 22 20EDTCDE(K $)
+     A            TCQTY          7Y 0O 21 46EDTCDE(K)
+     A            TLQTY          7Y 0O 22 55EDTCDE(K)
+     A                                  7 46'|'
+     A                                      COLOR(BLU)
+     A                                  8 46'|'
+     A                                      COLOR(BLU)
+     A                                  9 46'|'
+     A                                      COLOR(BLU)
+     A                                 10 46'|'
+     A                                      COLOR(BLU)
+     A                                 11 46'|'
+     A                                      COLOR(BLU)
+     A                                 12 46'|'
+     A                                      COLOR(BLU)
+     A                                 13 46'|'
+     A                                      COLOR(BLU)
+     A                                 14 46'|'
+     A                                      COLOR(BLU)
+     A                                 15 46'|'
+     A                                      COLOR(BLU)
+     A                                 16 46'|'
+     A                                      COLOR(BLU)
+     A                                 17 46'|'
+     A                                      COLOR(BLU)
+     A                                 18 46'|'
+     A                                      COLOR(BLU)
+     A                                 19 46'|'
+     A                                      COLOR(BLU)
+     A                                 20 11'----------'
+     A                                      DSPATR(HI)
+     A                                 21 22'----------'
+     A                                      DSPATR(HI)
+     A                                 20 48'--------'
+     A                                      DSPATR(HI)
+     A                                 21 57'--------'
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 24  3'F3'
+     A                                      DSPATR(HI)
+     A                                 24  6'=Exit'
+     A                                      COLOR(BLU)
+     A            VARQ01         6Y 0O  7 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ02         6Y 0O  8 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ03         6Y 0O  9 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ04         6Y 0O 10 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ05         6Y 0O 11 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ06         6Y 0O 12 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ07         6Y 0O 13 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ08         6Y 0O 14 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ09         6Y 0O 15 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ10         6Y 0O 16 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ11         6Y 0O 17 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ12         6Y 0O 18 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            VARQ13         6Y 0O 19 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A  30                                  DSPATR(ND)
+     A                                  5  2'Period'
+     A                                      COLOR(BLU)
+     A                                  5 16'This'
+     A                                      COLOR(BLU)
+     A                                  5 28'Last'
+     A                                      COLOR(BLU)
+     A                                  5 36'Running'
+     A                                      COLOR(BLU)
+     A                                  5 51'This'
+     A                                      COLOR(BLU)
+     A                                  5 60'Last'
+     A                                      COLOR(BLU)
+     A                                  5 46'|'
+     A                                      COLOR(BLU)
+     A                                 21  1'Total:'
+     A                                      COLOR(BLU)
+     A                                 22 13'Total:'
+     A                                      COLOR(BLU)
+     A                                 21 39'Total:'
+     A                                      COLOR(BLU)
+     A                                 22 48'Total:'
+     A                                      COLOR(BLU)
+     A                                  5 68'   Running  '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)

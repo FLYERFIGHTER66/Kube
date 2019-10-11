@@ -1,0 +1,45 @@
+     A*%%TS  SD  20000817  184612  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R ITMSFL                    SFL
+     A*%%TS  SD  20000803  170703  EFD         REL-V3R7M0  5716-PW1
+     A            FLD001         1A  B  7 14DSPATR(ND)
+     A            SECODE        10A  O  7 24
+     A            SEDESC        30A  O  7 36
+     A            LINE#          5Y 0O  7 17EDTCDE(4)
+     A          R ITMCTL                    SFLCTL(ITMSFL)
+     A*%%TS  SD  20000817  184612  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0017)
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'LKSERISFL'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 30' Series Search Screen '
+     A                                      DSPATR(RI)
+     A                                  4  2'Select Line:'
+     A            VLINE          5Y 0B  4 15DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  70                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A  70                                  ERRMSG('*** Selected Line is Not on-
+     A                                       Screen.    Press RESET')
+     A                                  3  2'Enter New Search:'
+     A            ALPHA         10A  B  3 20DSPATR(HI)
+     A            LINE           5S 0H
+     A                                  4 21'- or Position Cursor on Line and P-
+     A                                      ress Enter'
+     A                                  4 67'F6=Return'
+     A            FLD001         1A  B  5  2
+     A                                  6 17' Line  Series      Description    -
+     A                                                     '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)

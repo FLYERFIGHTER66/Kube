@@ -1,0 +1,192 @@
+     A*%%TS  SD  19990621  144532  APGL        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990607  055917  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA( 1   2 24  80)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' A/P Summary Company Balance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 28'Aging Date:'
+     A            VDATE          6Y 0B  5 45
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Y)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                 Enter to Process -
+     A                                            F3/F7=End of Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  2 32'For Company:'
+     A            LCO            2  0O  2 45DSPATR(HI)
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A          R SCRNB
+     A*%%TS  SD  19990621  144532  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' A/P Summary Company Balance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A            FLD001         1A  B  3  2DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                  4  2'Company:'
+     A            VCO            2S 0O  4 11DSPATR(HI)
+     A            RGNAME        30A  O  4 14DSPATR(HI)
+     A                                  5 58' # of'
+     A                                  6 58'Items'
+     A                                      DSPATR(UL)
+     A            TOTAL         12Y 2O  7 16EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  7 34'....'
+     A                                  7 39'Total Due'
+     A                                  7 49'........'
+     A            CNT6           5Y 0O  7 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            APPAST        12Y 2O  9 16EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  9 34'....'
+     A                                  9 39'Total Past Due'
+     A                                  9 54'...'
+     A            CNT7           5Y 0O  9 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            APCURR        12Y 2O 10 16EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                 10 34'....'
+     A                                 10 39'Due'
+     A            VDATE          6Y 0O 10 43EDTCDE(Y)
+     A                                 10 52'.....'
+     A            CNT8           5Y 0O 10 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            APFUT         12Y 2O 11 16EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                 11 34'....'
+     A                                 11 39'Total Future'
+     A                                 11 52'.....'
+     A            CNT9           5Y 0O 11 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                 13 18'   Future Aging    '
+     A                                      DSPATR(UL)
+     A                                 13 40'      Amount    '
+     A                                      DSPATR(UL)
+     A            SVASD1         6Y 0O 14 18EDTCDE(Y)
+     A                                 14 27'-'
+     A            SVASD5         6Y 0O 14 29EDTCDE(Y)
+     A            APAGE1        12Y 2O 14 40EDTCDE(J)
+     A                                      DSPATR(HI)
+     A            CNT1           5Y 0O 14 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            SVASD2         6Y 0O 15 18EDTCDE(Y)
+     A                                 15 27'-'
+     A            SVASD6         6Y 0O 15 29EDTCDE(Y)
+     A            APAGE2        12Y 2O 15 40EDTCDE(J)
+     A                                      DSPATR(HI)
+     A            CNT2           5Y 0O 15 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            SVASD3         6Y 0O 16 18EDTCDE(Y)
+     A                                 16 27'-'
+     A            SVASD7         6Y 0O 16 29EDTCDE(Y)
+     A            APAGE3        12Y 2O 16 40EDTCDE(J)
+     A                                      DSPATR(HI)
+     A            CNT3           5Y 0O 16 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            SVASD4         6Y 0O 17 18EDTCDE(Y)
+     A                                 17 27'-'
+     A            SVASD8         6Y 0O 17 29EDTCDE(Y)
+     A            APAGE4        12Y 2O 17 40EDTCDE(J)
+     A                                      DSPATR(HI)
+     A            CNT4           5Y 0O 17 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                 18 19'Due After'
+     A            SVASD9         6Y 0O 18 29EDTCDE(Y)
+     A            APAGE5        12Y 2O 18 40EDTCDE(J)
+     A                                      DSPATR(HI)
+     A            CNT5           5Y 0O 18 58EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                            F3/F7=End of Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19980122  072456  GINNY       REL-V3R1M0  5763-PW1
+     A                                 17  3' Company A/P Summary Balance Overv-
+     A                                      iew                                -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' This inquiry summarizes the total-
+     A                                       open payables for the company sele-
+     A                                      cted    '
+     A                                      DSPATR(HI)
+     A                                 20  3' and displays: total due, total pa-
+     A                                      st due and total future due.       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' Totals for each aging period are -
+     A                                      displayed.                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

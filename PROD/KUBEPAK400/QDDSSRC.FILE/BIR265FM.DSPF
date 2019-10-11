@@ -1,0 +1,214 @@
+     A*%%TS  SD  20190516  174726  BILLB       REL-V7R2M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20190516  174726  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HALL)
+     A                                      HLPARA(03 002 03 005)
+     A                                  1  2'BIR265 '
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 31' Item Order Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 23'Item/Size:'
+     A            VITEM         12A  B  4 40
+     A  14                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  14                                  DSPATR(PC)
+     A  26                                  ERRMSG('*** Enter A Valid Item/Size-
+     A                                      .      Press Reset')
+     A  80                                  ERRMSG('*** No Orders For This Item-
+     A                                      .      Press Reset')
+     A            VSIZE          3A  B  4 55DSPATR(CS)
+     A            DESC          40A  O  6 40
+     A                                  8 23'Start With'
+     A                                  9 23'Ship Date:'
+     A            VSHDAT         6Y 0B  9 40EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A                                 11 23'Include:'
+     A            VCODE          1Y 0B 11 35DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  17                                  ERRMSG('*** Valid Entries Are 1 2 3-
+     A                                       4 5 or 6.  Press Reset')
+     A                                 11 40'1 = All Orders - Shipped and Open'
+     A                                 12 40'2 = Only Open Line Items'
+     A                                 13 40'3 = Only Shipped Line Items'
+     A                                 14 40'4 = Only Standing Orders'
+     A                                 15 40'5 = Only Future Orders'
+     A                                 16 40'6 = Only Point of Sale Orders'
+     A                                 18 23'Ship From:'
+     A            VSHFR          3A  B 18 35DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .      Press Reset')
+     A                                 18 40'Leave Blank to include ALL Ship Fr-
+     A                                      oms'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process           -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4 60'Leave Blank for'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 60'all sizes.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 50'This Date Only:'
+     A            ONLY           1A  B  9 66DSPATR(CS)
+     A                                      VALUES('Y' 'N')
+     A                                      DFTVAL('N')
+     A          R HALL
+     A*%%TS  SD  19990330  203333  EFD         REL-V3R1M0  5763-PW1
+     A                                 18  3' Orders by Item Inquiry           -
+     A                                                                      Ove-
+     A                                      rview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 20  3' This inquiry will display all the-
+     A                                       orders in the order detail file fo-
+     A                                      r the   '
+     A                                      DSPATR(HI)
+     A                                 21  3' item that you select.  If the lin-
+     A                                      e item has been shipped an asterisk-
+     A                                       will   '
+     A                                      DSPATR(HI)
+     A                                 22  3' print at the end of the line.  Th-
+     A                                      e items display in order number seq-
+     A                                      uence.  '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20190508  152758  BILLB       REL-V7R2M0  5770-WDS
+     A            OISEQ#         3S 0H
+     A            OHORD#         6Y 0O  8  2EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            SVIA           1A  O  8  9DSPATR(HI)
+     A            OHDTOR         6Y 0O  8 11EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A            CUST           5Y 0O  8 20EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            NAME          30A  O  8 26DSPATR(HI)
+     A            QTY            6Y 1O  8 61EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            SHP            6Y 1O  8 69EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            AST            1A  O  8 77DSPATR(HI)
+     A            LOC            4A  O  8 79DSPATR(HI)
+     A            DTRQ           6Y 0O  8 84EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A            SHIPD          1A  O  8 93DSPATR(HI)
+     A            SIZE           3A  O  8 57DSPATR(HI)
+     A            DTCN           6Y 0O  8 95EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20190516  174726  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(0020)
+     A                                      SFLPAG(0018)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF11
+     A                                      CF09
+     A                                      CF05
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2'BIR265'
+     A                                  1 95DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2' Force Allocate = Y '
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A                                  2 95TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Orders For:'
+     A            VITEM         12A  O  3 14DSPATR(HI)
+     A            VSIZE          3A  O  3 27DSPATR(HI)
+     A            DESC          40A  O  3 31DSPATR(HI)
+     A                                  4  3'Ship From:'
+     A            VSHFR          3A  O  4 14DSPATR(HI)
+     A                                  4 19'On Hand ='
+     A            LOOH           6Y 0O  4 29EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  4 60'Available ='
+     A            LOAV           6Y 0O  4 72EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  7  3'Ord# S.V. Date       Customer     -
+     A                                                         Size     Ord    -
+     A                                      Ship | Loc    Date   *  Wanted'
+     A                                      DSPATR(UL)
+     A                                  4 38'Allocated ='
+     A            LOAL           6Y 0O  4 50EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  5 28' All Sizes '
+     A  52                                  DSPATR(RI)
+     A N52                                  DSPATR(ND)
+     A                                  5 72'Lot='
+     A                                      COLOR(BLU)
+     A                                  6 69'Custom='
+     A                                      COLOR(BLU)
+     A                                  5 77'L'
+     A                                      DSPATR(HI)
+     A                                  6 77'C'
+     A                                      DSPATR(HI)
+     A                                  6 97'Date'
+     A                                  6 84'Requested'
+     A N52                              2 57'Ready Color:'
+     A N52        RC_CODE        5A  B  2 70COLOR(YLW)
+     A                                      DSPATR(RI)
+     A N52        RC_DESC       15A  O  2 78DSPATR(HI)
+     A                                      COLOR(PNK)
+     A N53                              1 10' F3/F7=End  F6=Restart  F9=Invento-
+     A                                      ry  F11=Edit Ord  F5=View Zero Reco-
+     A                                      rds  *=Shipped '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A  53                              1 10' F3/F7=End  F6=Restart  F9=Invento-
+     A                                      ry  F11=Edit Ord  F5=Hide Zero Reco-
+     A                                      rds  *=Shipped '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            CURSORFLD      1I  B  7  1DSPATR(PC)
+     A                                  2 76'-'

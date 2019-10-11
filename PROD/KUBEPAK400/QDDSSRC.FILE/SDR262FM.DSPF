@@ -1,0 +1,212 @@
+     A*%%TS  SD  20160726  164849  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20000922  161621  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'SDR262A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Cost vs Price Inquiry Detail '
+     A                                      DSPATR(RI)
+     A            ALPHA         15A  B  7 32DSPATR(CS)
+     A                                 10 17'Size Code:'
+     A            SIZE           3A  B 10 32
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A                                 24  2'Enter to Process                 F-
+     A                                      6=Restart                   F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 17'Alpha Search:'
+     A                                  7 49'Enter as many characters as you'
+     A                                  8 49'want to compare with.'
+     A                                 10 38'Only enter size code to limit disp-
+     A                                      lay to'
+     A                                 11 38'that size code.'
+     A                                 13  4'Leave both fields blank to display-
+     A                                       All inventory items. (NOT Recommen-
+     A                                      ded)'
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20000908  155505  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                  1  2'SDR250B'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Item Price/Cost Inquiry '
+     A                                      DSPATR(RI)
+     A                                  4  1'Item:'
+     A            IMITEM        12A  O  4  8
+     A                                  4 21'Size:'
+     A            IMSIZE         3A  O  4 27
+     A            IMDES1        30A  O  4 31
+     A                                  6  1'Series:'
+     A            SECODE        10A  O  6  9
+     A            SEDESC        30A  O  6 21
+     A                                  6 52'Selected seed Form:'
+     A                                  8  1'Seed'
+     A                                  8  7'High Price:'
+     A            SEHPRC         9Y 4O  8 19EDTCDE(4)
+     A                                  8 30'Vendor:'
+     A            SEHVND         6Y 0O  8 38EDTCDE(4)
+     A            HVNAME        30A  O  8 45
+     A                                  9  7' Low Price:'
+     A            SELPRC         9Y 4O  9 19EDTCDE(4)
+     A                                  9 30'Vendor:'
+     A            SELVND         6Y 0O  9 38EDTCDE(4)
+     A            LVNAME        30A  O  9 45
+     A                                 10  2'Selected Vendor:'
+     A            SELSPR         9Y 4O 10 19EDTCDE(4)
+     A                                 10 30'Vendor:'
+     A            SEVND          6Y 0O 10 38EDTCDE(4)
+     A            SVNAME        30A  O 10 45
+     A                                 12  2'Seed Price Each'
+     A            SSPRC         10Y 6O 13  5EDTCDE(4)
+     A            SEFORM         1S 0O  6 72
+     A                                 13 27'X'
+     A            SZCELL         5Y 0O 13 20EDTCDE(4)
+     A                                 12 19'# Cells'
+     A                                 12 27'# Seeds'
+     A                                 13 17'X'
+     A            IM#SED         2S 0O 13 30
+     A                                 13 35'='
+     A                                 12 38'Seed Cost'
+     A            SEDCST         9Y 4O 13 37DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 13 49'+'
+     A                                 12 51'Fixed Cost'
+     A            FIXCST         9Y 4O 13 51DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 13 64'='
+     A                                 12 66'Total Cost'
+     A            TOTCST         9Y 4O 13 66DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 15  2'Price Code:'
+     A            IMLIST         4A  O 15 14
+     A            UPRICE         9Y 4O 15 26EDTWRD('     .    ')
+     A                                 15 37'Discount:'
+     A            TRDSC          7Y 4O 15 47EDTWRD('   .    ')
+     A            NETPRC         7Y 2O 15 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 15 19'Price:'
+     A                                 15 57'Net Price:'
+     A                                 17 57'Net Margin:'
+     A            MARGIN         7Y 2O 17 69DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A  55                                  DSPATR(BL)
+     A                                 17 36'Percent:'
+     A            MARPCT         9Y 4O 17 45DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A                                 19  2'--------------------------Enter Tr-
+     A                                      ial Code or Price-------------------
+     A                                      ---------'
+     A                                 20  2'Price Code?'
+     A                                 20 19'Price:'
+     A                                 20 37'Discount:'
+     A            NTRDSC         7Y 4O 20 47EDTWRD('   .    ')
+     A                                 20 57'Net Price:'
+     A            NNTPRC         7Y 2O 20 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 22 57'Net Margin:'
+     A            MARG           7Y 2O 22 69DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A  56                                  DSPATR(BL)
+     A                                 22 36'Percent:'
+     A            NMRPCT         9Y 4O 22 45DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A            LIST           4A  B 20 14
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid List code Enter-
+     A                                      ed.         Press RESET')
+     A            NEWPRC         9Y 4B 20 26EDTWRD('     .    ')
+     A                                      DSPATR(CS)
+     A                                 24  2'Enter to Process               F6=-
+     A                                      Restart                        F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11  2'F2=Select New Vendor'
+     A                                      DSPATR(HI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20160726  164849  BILLB       REL-V7R1M0  5770-WDS
+     A            ITEM           5A  O  6  2
+     A            IMSIZE         3A  O  6  8
+     A            DESCO         30A  O  6 12
+     A            FIXCST         9Y 4O  7 14EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            SEDCST         9Y 4O  7  1EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            TOTCST         9Y 4O  7 27EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            UPRICE         9Y 4O  7 39EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            TRDSC          8Y 4O  7 52EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            NETPRC         7Y 2O  7 64EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            MARGIN         6Y 2O  7 73EDTCDE(M)
+     A                                      DSPATR(HI)
+     A  55                                  DSPATR(BL)
+     A                                  7 12'+'
+     A                                  7 25'='
+     A                                  7 50'-'
+     A                                  7 62'='
+     A            IMLIST         4A  O  6 43DSPATR(UL)
+     A                                  6 48'Form:'
+     A  25                                  DSPATR(ND)
+     A            SEFORM         1Y 0O  6 54EDTCDE(4)
+     A  25                                  DSPATR(ND)
+     A                                  6 56'Vend:'
+     A  25                                  DSPATR(ND)
+     A            VNAME         18A  O  6 62
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20001020  180749  EFD         REL-V3R7M0  5716-PW1
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(5000)
+     A                                      SFLPAG(0009)
+     A                                  1  2'SDR262SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Cost vs. Price Inquiry Detail '
+     A                                      DSPATR(RI)
+     A                                  5  2'Seed Cost   Fixed Cost   Total Cos-
+     A                                      t  Sell Price   Trade Dis  Net pric-
+     A                                      e   Margin'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'Press Enter to Return          F6=-
+     A                                      Return                            F-
+     A                                      3/F7=End'
+     A                                      DSPATR(UL)

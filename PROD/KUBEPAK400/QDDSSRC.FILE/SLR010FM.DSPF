@@ -1,0 +1,101 @@
+     A*%%TS  SD  20011011  172644  EFD         REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20011010  190738  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF03
+     A                                      CF07
+     A                                  1  2'SLR010A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Sow Line Selection Screens '
+     A                                      DSPATR(RI)
+     A                                  2 29'For Sow Line Number:'
+     A                                      DSPATR(HI)
+     A            SOWLN#         2Y 0O  2 50DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  7  6'Enter Monday Date:'
+     A            FRMDAT         6Y 0B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                  7 36'or Year ex. 1998:'
+     A            BEGYY          4Y 0B  7 54
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  7 59'and Week Number:'
+     A            BEGWW          2Y 0B  7 76
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4 17'Today is:'
+     A            TDATE          6Y 0O  4 27EDTCDE(Y)
+     A                                  4 38'Year:'
+     A            TYEAR          4S 0O  4 44
+     A                                  4 51'Week #:'
+     A            TWEEK          2Y 0O  4 59EDTCDE(4)
+     A          R JOBSFL                    SFL
+     A*%%TS  SD  20011011  172644  EFD         REL-V5R1M0  5722-WDS
+     A            NUMB           3Y 0B  8  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            IMDES1        30   O  8 14
+     A            IM#SED         2Y 0O  8 45EDTCDE(4)
+     A            SOALTP         1   O  8 48
+     A            SOMSCX         1   O  8 50
+     A            SOTPSW         1   O  8 52
+     A            SOLOC          2   O  8 54
+     A            FLD009         6Y 0O  8 57EDTCDE(2)
+     A            FLD010         6Y 0O  8 65EDTCDE(2)
+     A            FLD011         6Y 0O  8 73EDTCDE(2)
+     A            FLD012         6Y 0O  8  6EDTCDE(2)
+     A          R JOBCTL                    SFLCTL(JOBSFL)
+     A*%%TS  SD  20011011  172644  EFD         REL-V5R1M0  5722-WDS
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0001)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'SLR010SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 30' Sow Line Selections '
+     A                                      DSPATR(RI)
+     A                                  2 29'For Sow Line Number:'
+     A                                      DSPATR(HI)
+     A            SOWLN#         2Y 0O  2 50DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  7  2'Seq Sow Qty Item                  -
+     A                                           # Seed |Mix|Loc  Orig.    Sown-
+     A                                         Added '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 45'Drum  Type  ------Quantities-------
+     A                                      -'
+     A                                      DSPATR(HI)
+     A                                  5 51'Fill'
+     A                                      DSPATR(HI)

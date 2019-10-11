@@ -1,0 +1,251 @@
+     A*? Program        : WSOREXFM03
+     A*?
+     A*? Description    : This display file has screen for PO Header
+     A*?                  Validations
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 10 Nov 2017
+     A**********************************************************************
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   10/23/18   S.Uthaya     1. Added City, State and Zip SubfilePart
+     A*                                 2. Screen Display size Changed (27*132)
+     A*****************************************************************-----
+     A*? Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      INDARA
+     A*****************************************************************
+     A*? Subfile Display Part
+     A*
+     A          R ORDEXPS03                 SFL
+     A  45                                  SFLNXTCHG
+     A            S03RRN         4S 0H
+     A            S03SEL         1Y 0B 17  3
+     A  73                                  DSPATR(RI)
+     A  73                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A  75                                  DSPATR(ND)
+     A            S03CUST        6S 0O 17  6
+     A  75                                  DSPATR(ND)
+     A            S03NAME       30A  O 17 14
+     A  75                                  DSPATR(ND)
+     A            S03ADDRESS    30A  O 17 46
+     A  75                                  DSPATR(ND)
+     A            S03CITY       18A  O 17 78
+     A  75                                  DSPATR(ND)
+     A            S03STATE       2A  O 17 99
+     A  75                                  DSPATR(ND)
+     A            S03ZIP         9A  O 17105
+     A  75                                  DSPATR(ND)
+     A*****************************************************************
+     A*? Subfile Control Part
+     A*
+     A          R ORDEXPC03                 SFLCTL(ORDEXPS03)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0008)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Create Customer')
+     A                                      CF10(10 'Process')
+     A                                      CF12(12 'Previous')
+     A*
+     A                                      OVERLAY
+     A  41                                  SFLDSP
+     A  42                                  SFLDSPCTL
+     A  43                                  SFLCLR
+     A  44                                  SFLEND(*MORE)
+     A*
+     A            C03PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 51'Order Exception Maintenance'
+     A                                      COLOR(WHT)
+     A                                  1112'ORDEXPS03'
+     A                                      COLOR(BLU)
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A            C03SYS        10A  O  2  2COLOR(BLU)
+     A                                  2 51'PO Header Field Validations'
+     A                                      COLOR(WHT)
+     A                                  2123TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Broker ID   :'
+     A            C03BRKID      20A  O  4 16COLOR(BLU)
+     A                                  4 85'Customer PO#:'
+     A            C03CUSTPO     10A  O  4 99COLOR(BLU)
+     A*
+     A                                  5  2'Header Seq# :'
+     A            C03SEQNO       9Y 0O  5 16COLOR(BLU)
+     A                                      EDTCDE(Z)
+     A                                  5 85'Order#      :'
+     A            C03ORDER       6Y 0O  5 99COLOR(BLU)
+     A                                      EDTCDE(Z)
+     A*
+     A                                  7  2'Ship To     :'
+     A            C03CUST       10A  B  7 16
+     A N61                                  COLOR(YLW)
+     A N61                                  DSPATR(UL)
+     A N61                                  DSPATR(RI)
+     A N61                                  DSPATR(PC)
+     A  61                                  COLOR(BLU)
+     A  61                                  DSPATR(PR)
+     A                                  7 85'ReqShipDate# :'
+     A            C03SHPDATE     8A  B  7100
+     A N62                                  COLOR(YLW)
+     A N62                                  DSPATR(UL)
+     A N62                                  DSPATR(RI)
+     A N62                                  DSPATR(PC)
+     A  62                                  COLOR(BLU)
+     A  62                                  DSPATR(PR)
+     A                                  7112'(MM/DD/YY)'
+     A*
+     A            C03NAME       30A  B  8  2
+     A N63                                  COLOR(YLW)
+     A N63                                  DSPATR(UL)
+     A N63                                  DSPATR(RI)
+     A N63                                  DSPATR(PC)
+     A  63                                  COLOR(BLU)
+     A  66                                  DSPATR(PR)
+     A                                  8 85'ShipVia Code :'
+     A            C03SHPCODE    30A  B  8100
+     A N64                                  COLOR(YLW)
+     A N64                                  DSPATR(UL)
+     A N64                                  DSPATR(RI)
+     A N64                                  DSPATR(PC)
+     A  64                                  COLOR(BLU)
+     A  64                                  DSPATR(PR)
+     A*
+     A            C03SVIADES    15A  O  9100
+     A*
+     A                                 11 85'Customer Pick-Up:'
+     A  72                                  DSPATR(ND)
+     A            C03CSTPICK     1A  B 11103COLOR(YLW)
+     A N65                                  DSPATR(RI)
+     A N65                                  DSPATR(UL)
+     A N65                                  DSPATR(PC)
+     A  65                                  DSPATR(PR)
+     A  72                                  DSPATR(ND)
+     A                                 11105'(Y/N)'
+     A  72                                  DSPATR(ND)
+     A*
+     A            C03ADRS1      30A  B  9  2
+     A N66                                  COLOR(YLW)
+     A N66                                  DSPATR(UL)
+     A N66                                  DSPATR(RI)
+     A N66                                  DSPATR(PC)
+     A  66                                  COLOR(BLU)
+     A  66                                  DSPATR(PR)
+     A            C03ADRS2      30A  B 10  2
+     A N66                                  COLOR(YLW)
+     A N66                                  DSPATR(UL)
+     A N66                                  DSPATR(RI)
+     A N66                                  DSPATR(PC)
+     A  66                                  COLOR(BLU)
+     A  66                                  DSPATR(PR)
+     A            C03CITY       18A  B 11  2
+     A N67                                  COLOR(YLW)
+     A N67                                  DSPATR(UL)
+     A N67                                  DSPATR(RI)
+     A N67                                  DSPATR(PC)
+     A  67                                  COLOR(BLU)
+     A  67                                  DSPATR(PR)
+     A            C03STATE       2A  B 11 22
+     A N68                                  COLOR(YLW)
+     A N68                                  DSPATR(UL)
+     A N68                                  DSPATR(RI)
+     A N68                                  DSPATR(PC)
+     A  68                                  COLOR(BLU)
+     A  68                                  DSPATR(PR)
+     A            C03ZIP         9A  B 11 26
+     A N69                                  COLOR(YLW)
+     A N69                                  DSPATR(UL)
+     A N69                                  DSPATR(RI)
+     A N69                                  DSPATR(PC)
+     A  69                                  COLOR(BLU)
+     A  69                                  DSPATR(PR)
+     A            C03PHONE      15A  B 12  2
+     A N70                                  COLOR(YLW)
+     A N70                                  DSPATR(UL)
+     A N70                                  DSPATR(RI)
+     A N70                                  DSPATR(PC)
+     A  70                                  COLOR(BLU)
+     A  70                                  DSPATR(PR)
+     A            C03FAX        15A  B 12 19
+     A N71                                  COLOR(YLW)
+     A N71                                  DSPATR(UL)
+     A N71                                  DSPATR(RI)
+     A N71                                  DSPATR(PC)
+     A  71                                  COLOR(BLU)
+     A  71                                  DSPATR(PR)
+     A*
+     A                                 14  2'Find:'
+     A  75                                  DSPATR(ND)
+     A            C03FIND       30A  B 14  8COLOR(YLW)
+     A  75                                  DSPATR(ND)
+     A                                 14 85'Customer to use:'
+     A  75                                  DSPATR(ND)
+     A            C03CSTUSE      6Y 0B 14102EDTCDE(Z)
+     A                                      COLOR(YLW)
+     A  75                                  DSPATR(ND)
+     A                                 16  2'Sel'
+     A                                      COLOR(WHT)
+     A N75                                  DSPATR(UL)
+     A  75                                  DSPATR(ND)
+     A                                 16  6'Cust# '
+     A                                      COLOR(WHT)
+     A N75                                  DSPATR(UL)
+     A  75                                  DSPATR(ND)
+     A                                 16 14'Name                          '
+     A                                      COLOR(WHT)
+     A N75                                  DSPATR(UL)
+     A  75                                  DSPATR(ND)
+     A                                 16 46'Address                       '
+     A                                      COLOR(WHT)
+     A N75                                  DSPATR(UL)
+     A  75                                  DSPATR(ND)
+     A                                 16 78'City              '
+     A                                      COLOR(WHT)
+     A N75                                  DSPATR(UL)
+     A  75                                  DSPATR(ND)
+     A                                 16 98'State'
+     A                                      COLOR(WHT)
+     A N75                                  DSPATR(UL)
+     A  75                                  DSPATR(ND)
+     A                                 16105'Zip      '
+     A                                      COLOR(WHT)
+     A N75                                  DSPATR(UL)
+     A  75                                  DSPATR(ND)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R ORDEXPF03
+     A                                 26  2'F3=Exit  F6=Create Customer'
+     A                                      COLOR(BLU)
+     A                                 26 31'F10=Update  F12=Cancel'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N03                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

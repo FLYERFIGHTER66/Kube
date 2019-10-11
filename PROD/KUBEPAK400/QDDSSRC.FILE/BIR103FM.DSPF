@@ -1,0 +1,511 @@
+     A*%%TS  SD  20190523  085645  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R BIR10301
+     A*%%TS  SD  20190523  085645  BILLB       REL-V7R2M0  5770-WDS
+     A  *DS3                                WINDOW(1 25 22 30)
+     A  *DS4                                WINDOW(5 25 16 30)
+     A                                      CF16(16 'Switch Screens')
+     A                                  1  1'Estimated Carts Usage by Order'
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  2  1'Order'
+     A                                  2  7'Number:'
+     A            ORDER#         6S 0O  2 16COLOR(YLW)
+     A                                  3  2'Shipping'
+     A                                  3 11'on:'
+     A            SHIPDATE       6Y 0O  3 16COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A                                  4  2'  Cart       '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 18' Part '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 25'Whole'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5  1'15 Shelf Carts'
+     A            CART15PART     5Y 2O  5 18EDTCDE(4)
+     A                                  6  1'14 Shelf Carts'
+     A            CART14PART     5Y 2O  6 18EDTCDE(4)
+     A                                  7  1'13 Shelf Carts'
+     A            CART13PART     5Y 2O  7 18EDTCDE(4)
+     A                                  8  1'12 Shelf Carts'
+     A            CART12PART     5Y 2O  8 18EDTCDE(4)
+     A                                  9  1'11 Shelf Carts'
+     A            CART11PART     5Y 2O  9 18EDTCDE(4)
+     A                                 10  1'10 Shelf Carts'
+     A            CART10PART     5Y 2O 10 18EDTCDE(4)
+     A                                 11  2'9 Shelf Carts'
+     A            CART09PART     5Y 2O 11 18EDTCDE(4)
+     A                                 12  2'8 Shelf Carts'
+     A            CART08PART     5Y 2O 12 18EDTCDE(4)
+     A                                 13  2'7 Shelf Carts'
+     A            CART07PART     5Y 2O 13 18EDTCDE(4)
+     A                                 14  2'6 Shelf Carts'
+     A            CART06PART     5Y 2O 14 18EDTCDE(4)
+     A                                 15  2'5 Shelf Carts'
+     A            CART05PART     5Y 2O 15 18EDTCDE(4)
+     A                                 16  2'4 Shelf Carts'
+     A            CART04PART     5Y 2O 16 18EDTCDE(4)
+     A                                 17  2'3 Shelf Carts'
+     A            CART03PART     5Y 2O 17 18EDTCDE(4)
+     A                                 18  2'2 Shelf Carts'
+     A            CART02PART     5Y 2O 18 18EDTCDE(4)
+     A                                 19  2'1 Shelf Carts'
+     A  50                             19 16'*'
+     A                                      COLOR(PNK)
+     A            CART01PART     5Y 2O 19 18DSPATR(UL)
+     A                                      EDTCDE(4)
+     A  50                             19 25'*'
+     A                                      COLOR(PNK)
+     A            CART01WHOL     3Y 0O 19 27DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                 20  4'Total Carts'
+     A                                      DSPATR(HI)
+     A            TOTALPART      6Y 2O 20 17EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            CART15NEED     3Y 0O  5 27EDTCDE(4)
+     A            CART14NEED     3Y 0O  6 27EDTCDE(4)
+     A            CART13NEED     3Y 0O  7 27EDTCDE(4)
+     A            CART12NEED     3Y 0O  8 27EDTCDE(4)
+     A            CART11NEED     3Y 0O  9 27EDTCDE(4)
+     A            CART10NEED     3Y 0O 10 27EDTCDE(4)
+     A            CART09NEED     3Y 0O 11 27EDTCDE(4)
+     A            CART08NEED     3Y 0O 12 27EDTCDE(4)
+     A            CART07NEED     3Y 0O 13 27EDTCDE(4)
+     A            CART06NEED     3Y 0O 14 27EDTCDE(4)
+     A            CART05NEED     3Y 0O 15 27EDTCDE(4)
+     A            CART04NEED     3Y 0O 16 27EDTCDE(4)
+     A            CART03NEED     3Y 0O 17 27EDTCDE(4)
+     A            CART02NEED     3Y 0O 18 27EDTCDE(4)
+     A            CART01NEED     3Y 0O 19 27DSPATR(UL)
+     A                                      EDTCDE(4)
+     A            CARTNEEDTT     4Y 0O 20 26DSPATR(HI)
+     A                                      EDTCDE(4)
+     A  50                             21  4'* Cart Size not specified'
+     A                                      COLOR(PNK)
+     A N50                             21  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A N50                             21 10'=Continue'
+     A                                      COLOR(BLU)
+     A                                 21 21'F16'
+     A                                      DSPATR(HI)
+     A                                 21 25'=more'
+     A                                      COLOR(BLU)
+     A* *DS3                                WINDOW(2 15 21 50)
+     A* *DS4                                WINDOW(5 25 16 30)
+     A          R BIR10302
+     A*%%TS  SD  20040915  155452  BILLB       REL-V5R2M0  5722-WDS
+     A                                  2  3'                     Estimated Car-
+     A                                      t Shelf Usage by Order             -
+     A                                            '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  4 17'Order'
+     A                                  4 23'Number:'
+     A            ORDER#         6S 0O  4 32COLOR(YLW)
+     A                                  5 17'Shipping on:'
+     A            SHIPDATE       6Y 0O  5 31COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A                                  7  4'  Cart       '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 20'Shelf '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 27'Shelf'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 34'Shelf '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 43'Fill'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 51'Need'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8  3'10 Shelf Cart '
+     A            SHLF0PART      5Y 2O  8 20EDTCDE(4)
+     A            SHLF0WHOLE     3Y 0O  8 29EDTCDE(Z)
+     A            SHLF0UNUSE     5Y 2O  8 34EDTCDE(4)
+     A            SHLF0FILL      5Y 2O  8 42EDTCDE(4)
+     A            SHLF0NEED      5Y 2O  8 50EDTCDE(4)
+     A                                  9  4'9 Shelf Cart '
+     A            SHLF9PART      5Y 2O  9 20EDTCDE(4)
+     A            SHLF9WHOLE     3Y 0O  9 29EDTCDE(Z)
+     A            SHLF9UNUSE     5Y 2O  9 34EDTCDE(4)
+     A            SHLF9FILL      5Y 2O  9 42EDTCDE(4)
+     A            SHLF9NEED      5Y 2O  9 50EDTCDE(4)
+     A                                 10  4'8 Shelf Cart '
+     A            SHLF8PART      5Y 2O 10 20EDTCDE(4)
+     A            SHLF8WHOLE     3Y 0O 10 29EDTCDE(Z)
+     A            SHLF8UNUSE     5Y 2O 10 34EDTCDE(4)
+     A            SHLF8FILL      5Y 2O 10 42EDTCDE(4)
+     A            SHLF8NEED      5Y 2O 10 50EDTCDE(4)
+     A                                 11  4'7 Shelf Cart '
+     A            SHLF7PART      5Y 2O 11 20EDTCDE(4)
+     A            SHLF7WHOLE     3Y 0O 11 29EDTCDE(Z)
+     A            SHLF7UNUSE     5Y 2O 11 34EDTCDE(4)
+     A            SHLF7FILL      5Y 2O 11 42EDTCDE(4)
+     A            SHLF7NEED      5Y 2O 11 50EDTCDE(4)
+     A                                 12  4'6 Shelf Cart '
+     A            SHLF6PART      5Y 2O 12 20EDTCDE(4)
+     A            SHLF6WHOLE     3Y 0O 12 29EDTCDE(Z)
+     A            SHLF6UNUSE     5Y 2O 12 34EDTCDE(4)
+     A            SHLF6FILL      5Y 2O 12 42EDTCDE(4)
+     A            SHLF6NEED      5Y 2O 12 50EDTCDE(4)
+     A                                 13  4'5 Shelf Cart '
+     A            SHLF5PART      5Y 2O 13 20EDTCDE(4)
+     A            SHLF5WHOLE     3Y 0O 13 29EDTCDE(Z)
+     A            SHLF5UNUSE     5Y 2O 13 34EDTCDE(4)
+     A            SHLF5FILL      5Y 2O 13 42EDTCDE(4)
+     A            SHLF5NEED      5Y 2O 13 50EDTCDE(4)
+     A                                 14  4'4 Shelf Cart '
+     A            SHLF4PART      5Y 2O 14 20EDTCDE(4)
+     A            SHLF4WHOLE     3Y 0O 14 29EDTCDE(Z)
+     A            SHLF4UNUSE     5Y 2O 14 34EDTCDE(4)
+     A            SHLF4FILL      5Y 2O 14 42EDTCDE(4)
+     A            SHLF4NEED      5Y 2O 14 50EDTCDE(4)
+     A                                 15  4'3 Shelf Cart '
+     A            SHLF3PART      5Y 2O 15 20EDTCDE(4)
+     A            SHLF3WHOLE     3Y 0O 15 29EDTCDE(Z)
+     A            SHLF3UNUSE     5Y 2O 15 34EDTCDE(4)
+     A            SHLF3FILL      5Y 2O 15 42EDTCDE(4)
+     A            SHLF3NEED      5Y 2O 15 50EDTCDE(4)
+     A                                 16  4'2 Shelf Cart '
+     A            SHLF2PART      5Y 2O 16 20EDTCDE(4)
+     A            SHLF2WHOLE     3Y 0O 16 29EDTCDE(Z)
+     A            SHLF2UNUSE     5Y 2O 16 34EDTCDE(4)
+     A            SHLF2FILL      5Y 2O 16 42EDTCDE(4)
+     A            SHLF2NEED      5Y 2O 16 50EDTCDE(4)
+     A                                 17  4'1 Shelf Cart '
+     A                                 17 18'*'
+     A                                      COLOR(PNK)
+     A            SHLF1PART      5Y 2O 17 20DSPATR(UL)
+     A                                      EDTCDE(4)
+     A  50                             17 27'*'
+     A                                      COLOR(PNK)
+     A            SHLF1WHOLE     3Y 0O 17 29DSPATR(UL)
+     A                                      EDTCDE(Z)
+     A            SHLF1UNUSE     5Y 2O 17 34EDTCDE(4)
+     A            SHLF1FILL      5Y 2O 17 42EDTCDE(4)
+     A            SHLF1NEED      5Y 2O 17 50EDTCDE(4)
+     A                                 18  6'Total Carts'
+     A                                      DSPATR(HI)
+     A            TOTALPART      6Y 2O 18 19EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            TOTALWHOLE     4Y 0O 18 28EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                 19 16'* Cart Size not specified'
+     A                                      COLOR(PNK)
+     A                                 20  4'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 20 12'to Continue'
+     A                                      COLOR(BLU)
+     A                                  6 20'Part'
+     A                                      DSPATR(HI)
+     A                                  6 27'Whole'
+     A                                      DSPATR(HI)
+     A                                  6 34'Unused'
+     A                                      DSPATR(HI)
+     A                                  1  3'                                  -
+     A                                                                         -
+     A                                            '
+     A                                      COLOR(PNK)
+     A                                      DSPATR(RI)
+     A                                  1 79'   '
+     A                                  3  3'                                  -
+     A                                                                         -
+     A                                            '
+     A                                      COLOR(PNK)
+     A                                      DSPATR(RI)
+     A                                  7 58'Carts'
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS3                                SFLMSGRCD(24)
+     A  *DS4                                SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS3                                SFLSIZ(0002)
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS3                                SFLPAG(0001)
+     A  *DS4                                SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '
+     A          R BIR10301TT
+     A*%%TS  SD  20050421  094915  BILLB       REL-V5R2M0  5722-WDS
+     A                                  1  2'Estimated Carts Usage by Order'
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  2  1'Order'
+     A                                  2  7'Number:'
+     A            ORDER#         6S 0O  2 16COLOR(YLW)
+     A                                  3  2'Shipping'
+     A                                  3 11'on:'
+     A            SHIPDATE       6Y 0O  3 16COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A                                  4  2'  Cart       '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 18' Part '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 25'Whole'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5  1'15 Shelf Carts'
+     A            CART15PART     5Y 2O  5 18EDTCDE(4)
+     A            CART15WHOL     3Y 0O  5 27EDTCDE(Z)
+     A                                  6  1'14 Shelf Carts'
+     A            CART14PART     5Y 2O  6 18EDTCDE(4)
+     A            CART14WHOL     3Y 0O  6 27EDTCDE(Z)
+     A                                  7  1'13 Shelf Carts'
+     A            CART13PART     5Y 2O  7 18EDTCDE(4)
+     A            CART13WHOL     3Y 0O  7 27EDTCDE(Z)
+     A                                  8  1'12 Shelf Carts'
+     A            CART12PART     5Y 2O  8 18EDTCDE(4)
+     A            CART12WHOL     3Y 0O  8 27EDTCDE(Z)
+     A                                  9  1'11 Shelf Carts'
+     A            CART11PART     5Y 2O  9 18EDTCDE(4)
+     A            CART11WHOL     3Y 0O  9 27EDTCDE(Z)
+     A                                 10  1'10 Shelf Carts'
+     A            CART10PART     5Y 2O 10 18EDTCDE(4)
+     A            CART10WHOL     3Y 0O 10 27EDTCDE(Z)
+     A                                 11  2'9 Shelf Carts'
+     A            CART09PART     5Y 2O 11 18EDTCDE(4)
+     A            CART09WHOL     3Y 0O 11 27EDTCDE(Z)
+     A                                 12  2'8 Shelf Carts'
+     A            CART08PART     5Y 2O 12 18EDTCDE(4)
+     A            CART08WHOL     3Y 0O 12 27EDTCDE(Z)
+     A                                 13  2'7 Shelf Carts'
+     A            CART07PART     5Y 2O 13 18EDTCDE(4)
+     A            CART07WHOL     3Y 0O 13 27EDTCDE(Z)
+     A                                 14  2'6 Shelf Carts'
+     A            CART06PART     5Y 2O 14 18EDTCDE(4)
+     A            CART06WHOL     3Y 0O 14 27EDTCDE(Z)
+     A                                 15  2'5 Shelf Carts'
+     A            CART05PART     5Y 2O 15 18EDTCDE(4)
+     A            CART05WHOL     3Y 0O 15 27EDTCDE(Z)
+     A                                 16  2'4 Shelf Carts'
+     A            CART04PART     5Y 2O 16 18EDTCDE(4)
+     A            CART04WHOL     3Y 0O 16 27EDTCDE(Z)
+     A                                 17  2'3 Shelf Carts'
+     A            CART03PART     5Y 2O 17 18EDTCDE(4)
+     A            CART03WHOL     3Y 0O 17 27EDTCDE(Z)
+     A                                 18  2'2 Shelf Carts'
+     A            CART02PART     5Y 2O 18 18EDTCDE(4)
+     A            CART02WHOL     3Y 0O 18 27EDTCDE(Z)
+     A                                 19  2'1 Shelf Carts'
+     A  50                             19 16'*'
+     A                                      COLOR(PNK)
+     A            CART01PART     5Y 2O 19 18DSPATR(UL)
+     A                                      EDTCDE(4)
+     A  50                             19 25'*'
+     A                                      COLOR(PNK)
+     A            CART01WHOL     3Y 0O 19 27DSPATR(UL)
+     A                                      EDTCDE(Z)
+     A                                 20  4'Total Carts'
+     A                                      DSPATR(HI)
+     A            TOTALPART      6Y 2O 20 17EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            TOTALWHOLE     4Y 0O 20 26EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A  50                             21  4'* Cart Size not specified'
+     A                                      COLOR(PNK)
+     A N50                             21  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A N50                             21 10'=Continue'
+     A                                      COLOR(BLU)
+     A            SHELF15        7Y 2O  5 33EDTCDE(4)
+     A            SHELF14        7Y 2O  6 33EDTCDE(4)
+     A            SHELF13        7Y 2O  7 33EDTCDE(4)
+     A            SHELF12        7Y 2O  8 33EDTCDE(4)
+     A            SHELF11        7Y 2O  9 33EDTCDE(4)
+     A            SHELF10        7Y 2O 10 33EDTCDE(4)
+     A            SHELF09        7Y 2O 11 33EDTCDE(4)
+     A            SHELF08        7Y 2O 12 33EDTCDE(4)
+     A            SHELF07        7Y 2O 13 33EDTCDE(4)
+     A            SHELF06        7Y 2O 14 33EDTCDE(4)
+     A            SHELF05        7Y 2O 15 33EDTCDE(4)
+     A            SHELF04        7Y 2O 16 33EDTCDE(4)
+     A            SHELF03        7Y 2O 17 33EDTCDE(4)
+     A            SHELF02        7Y 2O 18 33EDTCDE(4)
+     A            SHELF01        7Y 2O 19 33DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                  4 34'Shelves'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            TOTALSHELF     7Y 2O 20 33DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            NINES15        7Y 2O  5 43EDTCDE(4)
+     A            NINES14        7Y 2O  6 43EDTCDE(4)
+     A            NINES13        7Y 2O  7 43EDTCDE(4)
+     A            NINES12        7Y 2O  8 43EDTCDE(4)
+     A            NINES11        7Y 2O  9 43EDTCDE(4)
+     A            NINES10        7Y 2O 10 43EDTCDE(4)
+     A            NINES09        7Y 2O 11 43EDTCDE(4)
+     A            NINES08        7Y 2O 12 43EDTCDE(4)
+     A            NINES07        7Y 2O 13 43EDTCDE(4)
+     A            NINES06        7Y 2O 14 43EDTCDE(4)
+     A            NINES05        7Y 2O 15 43EDTCDE(4)
+     A            NINES04        7Y 2O 16 43EDTCDE(4)
+     A            NINES03        7Y 2O 17 43EDTCDE(4)
+     A            NINES02        7Y 2O 18 43EDTCDE(4)
+     A            NINES01        7Y 2O 19 43DSPATR(UL)
+     A                                      EDTCDE(4)
+     A            TOTALNINES     7Y 2O 20 43DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  3 45'Rule'
+     A                                      DSPATR(HI)
+     A                                  4 44'of 9''s'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  1 33'..............................'
+     A                                      COLOR(BLU)
+     A                                  2 31':'
+     A                                      COLOR(BLU)
+     A                                  2 37'       Shelves       '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  2 62':'
+     A                                      COLOR(BLU)
+     A                                  3 31':'
+     A                                      COLOR(BLU)
+     A                                  3 62':'
+     A                                      COLOR(BLU)
+     A                                  4 31':'
+     A                                      COLOR(BLU)
+     A                                  4 62':'
+     A                                      COLOR(BLU)
+     A                                  5 31':'
+     A                                      COLOR(BLU)
+     A                                  5 62':'
+     A                                      COLOR(BLU)
+     A                                  6 31':'
+     A                                      COLOR(BLU)
+     A                                  6 62':'
+     A                                      COLOR(BLU)
+     A                                  7 31':'
+     A                                      COLOR(BLU)
+     A                                  7 62':'
+     A                                      COLOR(BLU)
+     A                                  8 31':'
+     A                                      COLOR(BLU)
+     A                                  8 62':'
+     A                                      COLOR(BLU)
+     A                                  9 31':'
+     A                                      COLOR(BLU)
+     A                                  9 62':'
+     A                                      COLOR(BLU)
+     A                                 10 31':'
+     A                                      COLOR(BLU)
+     A                                 10 62':'
+     A                                      COLOR(BLU)
+     A                                 11 31':'
+     A                                      COLOR(BLU)
+     A                                 11 62':'
+     A                                      COLOR(BLU)
+     A                                 12 31':'
+     A                                      COLOR(BLU)
+     A                                 12 62':'
+     A                                      COLOR(BLU)
+     A                                 13 31':'
+     A                                      COLOR(BLU)
+     A                                 13 62':'
+     A                                      COLOR(BLU)
+     A                                 14 31':'
+     A                                      COLOR(BLU)
+     A                                 14 62':'
+     A                                      COLOR(BLU)
+     A                                 15 31':'
+     A                                      COLOR(BLU)
+     A                                 15 62':'
+     A                                      COLOR(BLU)
+     A                                 16 31':'
+     A                                      COLOR(BLU)
+     A                                 16 62':'
+     A                                      COLOR(BLU)
+     A                                 17 31':'
+     A                                      COLOR(BLU)
+     A                                 17 62':'
+     A                                      COLOR(BLU)
+     A                                 18 31':'
+     A                                      COLOR(BLU)
+     A                                 18 62':'
+     A                                      COLOR(BLU)
+     A                                 19 31':'
+     A                                      COLOR(BLU)
+     A                                 19 62':'
+     A                                      COLOR(BLU)
+     A                                 20 31':'
+     A                                      COLOR(BLU)
+     A                                 20 62':'
+     A                                      COLOR(BLU)
+     A                                 21 31':..............................:'
+     A                                      COLOR(BLU)
+     A                                  3 33'Original'
+     A                                      DSPATR(HI)
+     A            CART15NEED     3Y 0O  5 66EDTCDE(Z)
+     A            CART14NEED     3Y 0O  6 66EDTCDE(Z)
+     A            CART13NEED     3Y 0O  7 66EDTCDE(Z)
+     A            CART12NEED     3Y 0O  8 66EDTCDE(Z)
+     A            CART11NEED     3Y 0O  9 66EDTCDE(Z)
+     A            CART10NEED     3Y 0O 10 66EDTCDE(Z)
+     A            CART09NEED     3Y 0O 11 66EDTCDE(Z)
+     A            CART08NEED     3Y 0O 12 66EDTCDE(Z)
+     A            CART07NEED     3Y 0O 13 66EDTCDE(Z)
+     A            CART06NEED     3Y 0O 14 66EDTCDE(Z)
+     A            CART05NEED     3Y 0O 15 66EDTCDE(Z)
+     A            CART04NEED     3Y 0O 16 66EDTCDE(Z)
+     A            CART03NEED     3Y 0O 17 66EDTCDE(Z)
+     A            CART02NEED     3Y 0O 18 66EDTCDE(Z)
+     A            CART01NEED     3Y 0O 19 66DSPATR(UL)
+     A                                      EDTCDE(Z)
+     A            CARTNEEDTT     4Y 0O 20 65EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  4 65'Whole'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 55'Shelf'
+     A                                      DSPATR(HI)
+     A                                  4 54'Method'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A            SHELFNED15     7Y 2O  5 53EDTCDE(4)
+     A            SHELFNED14     7Y 2O  6 53EDTCDE(4)
+     A            SHELFNED13     7Y 2O  7 53EDTCDE(4)
+     A            SHELFNED12     7Y 2O  8 53EDTCDE(4)
+     A            SHELFNED11     7Y 2O  9 53EDTCDE(4)
+     A            SHELFNED10     7Y 2O 10 53EDTCDE(4)
+     A            SHELFNED09     7Y 2O 11 53EDTCDE(4)
+     A            SHELFNED08     7Y 2O 12 53EDTCDE(4)
+     A            SHELFNED07     7Y 2O 13 53EDTCDE(4)
+     A            SHELFNED06     7Y 2O 14 53EDTCDE(4)
+     A            SHELFNED05     7Y 2O 15 53EDTCDE(4)
+     A            SHELFNED04     7Y 2O 16 53EDTCDE(4)
+     A            SHELFNED03     7Y 2O 17 53EDTCDE(4)
+     A            SHELFNED02     7Y 2O 18 53EDTCDE(4)
+     A            SHELFNED01     7Y 2O 19 53DSPATR(UL)
+     A                                      EDTCDE(4)
+     A            SHELFNEDTT     7Y 2O 20 53DSPATR(HI)
+     A                                      EDTCDE(4)

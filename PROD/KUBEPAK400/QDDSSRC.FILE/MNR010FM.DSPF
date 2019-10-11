@@ -1,0 +1,615 @@
+     A*%%TS  SD  20190501  173041  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R MNR01001                  SFL
+     A*%%TS  SD  20100413  172307  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Alpha Search Subfile')
+     A  28                                  SFLNXTCHG
+     A            CMCUST         6S 0H
+     A            MNSEQ#    R        O  7 17REFFLD(RMANUAL/MNSEQ# *LIBL/FMANUAL)
+     A                                      EDTCDE(Z)
+     A            MNSEQD    R        B  7 23REFFLD(RMANUAL/MNSEQD *LIBL/FMANUAL)
+     A                                      DSPATR(PC)
+     A            RECORDS        3Y 0O  7 62EDTCDE(Z)
+     A          R MNR01001C                 SFLCTL(MNR01001)
+     A*%%TS  SD  20100412  165725  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF08(08 'Previous Date')
+     A                                      CF09(09 'Next Date')
+     A                                      CF23(23 'Delete Record')
+     A                                      CF10(10 'View Orders')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A                                      SFLSIZ(0165)
+     A                                      SFLPAG(0015)
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2'MNR01001'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  3 31'Ship Date:'
+     A                                      COLOR(PNK)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            SDATE          6Y 0B  3 43EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                      CHECK(ER)
+     A                                  1 25'   Manual Master Maintenance   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  6 17'Seq'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 23' Description                      -
+     A                                       '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 61'Count'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A          R MNR01001F
+     A*%%TS  SD  20100412  165725  BILLB       REL-V5R3M0  5722-WDS
+     A                                      OVERLAY
+     A                                 23 18'F3'
+     A                                      DSPATR(HI)
+     A                                 23 21'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 47'=+/-Day'
+     A                                      COLOR(BLU)
+     A                                 23 41'F8/F9'
+     A                                      DSPATR(HI)
+     A                                 23 28'F5'
+     A                                      DSPATR(HI)
+     A                                 23 31'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23  2'ENTER'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Process'
+     A                                      COLOR(BLU)
+     A                                 23 69'F23'
+     A                                      DSPATR(HI)
+     A                                 23 73'=Delete'
+     A                                      COLOR(BLU)
+     A                                 23 60'=Orders'
+     A                                      COLOR(BLU)
+     A                                 23 56'F10'
+     A                                      DSPATR(HI)
+     A          R MNR01002                  SFL
+     A*%%TS  SD  20160610  144458  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Alpha Search Subfile')
+     A  28                                  SFLNXTCHG
+     A            CMCUST         6S 0H
+     A            SAVMNORD#      6S 0H
+     A            MNORD#    R        B  6  3REFFLD(RMANUALD/MNORD# *LIBL/FMANUA-
+     A                                      LD)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(PC)
+     A          R MNR01002C                 SFLCTL(MNR01002)
+     A*%%TS  SD  20160610  144750  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                SFLLIN(0001)
+     A                                      SFLSIZ(0165)
+     A                                      SFLPAG(0165)
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF12(12 'Previous')
+     A                                      CF10(10 'Change Printer')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2'MNR01002'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 26'Ship Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            SDATE          6Y 0O  2 38EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 24'   Review Manual Master Orders   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  5  2'                                  -
+     A                                        Orders                           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A            MNSEQDC       35A  O  3 23DSPATR(HI)
+     A            PRINTME        2Y 0B  4  2PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>PRINT PICS')
+     A                                      PSHBTNCHC(5 '>PRINT CARTS')
+     A            VIEWME         2Y 0B  4 35PSHBTNFLD(*RSTCSR (*NUMCOL 2))
+     A                                      PSHBTNCHC(3 '>VIEW MASTER')
+     A                                      PSHBTNCHC(4 '>VIEW SUMMARY')
+     A                                  2 48'Seq:'
+     A            MNSEQ#    R        O  2 53REFFLD(RMANUAL/MNSEQ# *LIBL/FMANUAL)
+     A                                      EDTCDE(Z)
+     A                                      COLOR(PNK)
+     A            IMPORT         2Y 0B  4 70PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>IMPORT')
+     A            RELEASE        2Y 0B  2 61PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>RELEASE')
+     A          R MNR01002F
+     A*%%TS  SD  20150430  163859  BILLB       REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A                                 23 18'F3'
+     A                                      DSPATR(HI)
+     A                                 23 21'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 28'F5'
+     A                                      DSPATR(HI)
+     A                                 23 31'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23  2'ENTER'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Process'
+     A                                      COLOR(BLU)
+     A                                 23 41'F12'
+     A                                      DSPATR(HI)
+     A                                 23 45'=Previous'
+     A                                      COLOR(BLU)
+     A            PRINTER       10   O 23 70COLOR(YLW)
+     A                                 23 56'F10'
+     A                                      DSPATR(HI)
+     A                                 23 60'=Printer:'
+     A                                      COLOR(BLU)
+     A          R MNR01003                  SFL
+     A*%%TS  SD  20190422  163245  BILLB       REL-V7R2M0  5770-WDS
+     A                                      TEXT('Alpha Search Subfile')
+     A  28                                  SFLNXTCHG
+     A            CMCUST         6S 0H
+     A            SAVMNORD#      6S 0H
+     A            IMLOOK    R        H      REFFLD(RMINVT/IMLOOK *LIBL/FMINVT)
+     A            IMITEM    R        H      REFFLD(RMINVT/IMITEM *LIBL/FMINVT)
+     A            ITEM5          5A  O  6  2
+     A            IMSIZE    R        O  6  8REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A            ITEMQTY        5Y 0O  6 21EDTCDE(J)
+     A  27                                  DSPATR(HI)
+     A  27                                  DSPATR(RI)
+     A            IMDES1    R        O  6 30REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A N27                                  DSPATR(HI)
+     A  27                                  COLOR(PNK)
+     A            RC_CODE        5A  H
+     A            RC_DESC       15   H
+     A            RC_OR_LOC     15A  O  6 62
+     A  41                                  COLOR(BLU)
+     A  42                                  COLOR(GRN)
+     A  43                                  COLOR(YLW)
+     A  44                                  COLOR(PNK)
+     A  45                                  COLOR(RED)
+     A  45                                  DSPATR(RI)
+     A            LOCATION       8A  H
+     A            OLLIST    R        O  6 13REFFLD(RMORLS/OLLIST *LIBL/FMORLS)
+     A                                      COLOR(BLU)
+     A          R MNR01003C                 SFLCTL(MNR01003)
+     A*%%TS  SD  20190426  132316  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(0165)
+     A                                      SFLPAG(0015)
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF12(12 'Previous')
+     A                                      CF10(10 'Change Printer')
+     A                                      CF06(06 'Toggle Location and Ready -
+     A                                      Color')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2'MNR01003'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 26'Ship Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            SDATE          6Y 0O  2 38EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 24'   Review Manual Master Orders   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            MNSEQDC       35A  O  3 23DSPATR(HI)
+     A                                  2 48'Seq:'
+     A            MNSEQ#    R        O  2 53REFFLD(RMANUAL/MNSEQ# *LIBL/FMANUAL)
+     A                                      EDTCDE(Z)
+     A                                      COLOR(PNK)
+     A                                  5  2'Item/Size'
+     A                                      DSPATR(UL)
+     A                                  5 31'Item Description              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 23'   Qty '
+     A                                      DSPATR(UL)
+     A N62                              5 62'Location'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A            PRINTME        2Y 0B  4  3PSHBTNFLD(*RSTCSR (*NUMCOL 4))
+     A                                      PSHBTNCHC(3 '>PRINT MASTER')
+     A                                      PSHBTNCHC(4 '>PRINT SUMMARY')
+     A                                      PSHBTNCHC(5 '>PRINT CARTS')
+     A                                      PSHBTNCHC(6 '>DELETE N R')
+     A                                  5 13' List '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A N62                              3 65'=Ready Color'
+     A                                      COLOR(BLU)
+     A                                  3 62'F6'
+     A                                      DSPATR(HI)
+     A  62                              3 65'=Location'
+     A                                      COLOR(BLU)
+     A  62                              5 62'Ready Color    '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A          R MNR01003F
+     A*%%TS  SD  20150430  163859  BILLB       REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A                                 23 18'F3'
+     A                                      DSPATR(HI)
+     A                                 23 21'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 28'F5'
+     A                                      DSPATR(HI)
+     A                                 23 31'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23  2'ENTER'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Process'
+     A                                      COLOR(BLU)
+     A                                 23 41'F12'
+     A                                      DSPATR(HI)
+     A                                 23 45'=Previous'
+     A                                      COLOR(BLU)
+     A            PRINTER       10   O 23 70COLOR(YLW)
+     A                                 23 56'F10'
+     A                                      DSPATR(HI)
+     A                                 23 60'=Printer:'
+     A                                      COLOR(BLU)
+     A          R MNR01004                  SFL
+     A*%%TS  SD  20150430  162404  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Alpha Search Subfile')
+     A  28                                  SFLNXTCHG
+     A            OHORD#    R        O  6  3REFFLD(RHORDR/OHORD# *LIBL/FHORDR)
+     A                                      DSPATR(HI)
+     A  29                                  DSPATR(ND)
+     A            OHCUST    R        O  6 10REFFLD(RHORDR/OHCUST *LIBL/FHORDR)
+     A  29                                  DSPATR(ND)
+     A            OHNAME    R        O  6 17REFFLD(RHORDR/OHNAME *LIBL/FHORDR)
+     A                                      DSPATR(HI)
+     A  29                                  COLOR(PNK)
+     A            ORDQTY         5Y 0O  6 48EDTCDE(J)
+     A  29                                  DSPATR(HI)
+     A  29                                  DSPATR(RI)
+     A            TR_RTSP        9A  O  6 59COLOR(BLU)
+     A  29                                  DSPATR(ND)
+     A            TRTRK#    R        H      REFFLD(RTRSCHD/TRTRK# *LIBL/FTRSCHD)
+     A            TRSTP#    R        H      REFFLD(RTRSCHD/TRSTP# *LIBL/FTRSCHD)
+     A            OH_RTSP        6A  O  6 72
+     A  29                                  DSPATR(ND)
+     A            OHROUT    R        H      REFFLD(RHORDR/OHROUT *LIBL/FHORDR)
+     A            OHSTOP    R        H      REFFLD(RHORDR/OHSTOP *LIBL/FHORDR)
+     A          R MNR01004C                 SFLCTL(MNR01004)
+     A*%%TS  SD  20160420  155003  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(0165)
+     A                                      SFLPAG(0015)
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF12(12 'Previous')
+     A                                      CF10(10 'Change Printer')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2'MNR01004'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 26'Ship Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            SDATE          6Y 0O  2 38EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 24'   Review Manual Master Orders   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            MNSEQDC       35A  O  3 23DSPATR(HI)
+     A                                  2 48'Seq:'
+     A            MNSEQ#    R        O  2 53REFFLD(RMANUAL/MNSEQ# *LIBL/FMANUAL)
+     A                                      EDTCDE(Z)
+     A                                      COLOR(PNK)
+     A                                  5  4'Order'
+     A                                      DSPATR(UL)
+     A                                  5 11' Customer                         -
+     A                                       '
+     A                                      DSPATR(UL)
+     A                                  5 47'Quantity'
+     A                                      DSPATR(UL)
+     A                                  5 58'Truck/Stop'
+     A                                      DSPATR(UL)
+     A            PRINTME        2Y 0B  4  3PSHBTNFLD(*RSTCSR (*NUMCOL 3))
+     A                                      PSHBTNCHC(3 '>PRINT MASTER')
+     A                                      PSHBTNCHC(4 '>PRINT SUMMARY')
+     A                                      PSHBTNCHC(5 '>PRINT CARTS')
+     A                                  4 58'Truck'
+     A                                  4 64'Schd'
+     A                                  4 72'Order'
+     A                                  5 71'Rt/Stop'
+     A                                      DSPATR(UL)
+     A          R MNR01004F
+     A*%%TS  SD  20150430  163859  BILLB       REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A                                 23 18'F3'
+     A                                      DSPATR(HI)
+     A                                 23 21'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 28'F5'
+     A                                      DSPATR(HI)
+     A                                 23 31'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23  2'ENTER'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Process'
+     A                                      COLOR(BLU)
+     A                                 23 41'F12'
+     A                                      DSPATR(HI)
+     A                                 23 45'=Previous'
+     A                                      COLOR(BLU)
+     A            PRINTER       10   O 23 70COLOR(YLW)
+     A                                 23 56'F10'
+     A                                      DSPATR(HI)
+     A                                 23 60'=Printer:'
+     A                                      COLOR(BLU)
+     A          R MNR01005
+     A*%%TS  SD  20100921  164143  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF12(12 'PREV. SCRN')
+     A                                  1  2'MNR01005'
+     A                                      COLOR(BLU)
+     A                                  1 25'   Manual Master Maintenance   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 27'Import Orders from Trucking'
+     A                                      COLOR(PNK)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  3 29'from Ship Date'
+     A                                      COLOR(PNK)
+     A            SDATE          6Y 0O  3 44EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                 14 30'Specific'
+     A                                 14 39'Truck:'
+     A            TRUCK          4A  B 14 47COLOR(YLW)
+     A                                 15 40'or'
+     A                                      COLOR(PNK)
+     A            SELECTALL      2Y 0B 16 25PSHBTNFLD(*RSTCSR (*NUMCOL 2))
+     A                                      PSHBTNCHC(1 '>ALL VANS')
+     A                                      PSHBTNCHC(2 '>ALL TRAILERS')
+     A                                 22  3'ENTER'
+     A                                      DSPATR(HI)
+     A                                 22  9'=Process'
+     A                                      COLOR(BLU)
+     A                                 22 21'F3'
+     A                                      DSPATR(HI)
+     A                                 22 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12'
+     A                                      DSPATR(HI)
+     A                                 22 37'=Previous'
+     A                                      COLOR(BLU)
+     A                                 12 12'__________________________________-
+     A                                      ________________________'
+     A                                      COLOR(BLU)
+     A                                  9 15'Include Custom . . . .'
+     A                                  9 44'Y-Include Custom Only  '
+     A                                      COLOR(BLU)
+     A                                 10 44'N-Do NOT Include Custom'
+     A                                      COLOR(BLU)
+     A                                 11 44'A-Include All          '
+     A                                      COLOR(BLU)
+     A            INLCSTM        1A  B  9 39COLOR(YLW)
+     A          R MNR01006                  SFL
+     A*%%TS  SD  20190501  173041  BILLB       REL-V7R2M0  5770-WDS
+     A                                      TEXT('Alpha Search Subfile')
+     A  28                                  SFLNXTCHG
+     A            C6_OIORD#      6S 0O  6  2DSPATR(HI)
+     A            C6_OISEQ#      3S 0O  6  9DSPATR(HI)
+     A            C6_OIITEM     12A  H
+     A            C6_ITEM5       5A  O  6 15
+     A            C6_OISIZE R        O  6 21REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A            C6_QTY         7Y 0O  6 27EDTCDE(J)
+     A                                      DSPATR(HI)
+     A            C6_OIDES1 R        O  6 39REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A            DELETEITEM     1A  B  6 74COLOR(RED)
+     A          R MNR01006C                 SFLCTL(MNR01006)
+     A*%%TS  SD  20190429  100626  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(0165)
+     A                                      SFLPAG(0015)
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF12(12 'Previous')
+     A                                      CF10(10 'Change Printer')
+     A                                      CF06(06 'Toggle Location and Ready -
+     A                                      Color')
+     A                                      CF23(23 'Delete Selected')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2'MNR01006'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 26'Ship Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            SDATE          6Y 0O  2 38EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 23'   NOT READY Item Removal Process -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                      COLOR(RED)
+     A            MNSEQDC       35A  O  3 23DSPATR(HI)
+     A                                  2 48'Seq:'
+     A            MNSEQ#    R        O  2 53REFFLD(RMANUAL/MNSEQ# *LIBL/FMANUAL)
+     A                                      EDTCDE(Z)
+     A                                      COLOR(PNK)
+     A                                  5 15'Item/Size'
+     A                                      DSPATR(UL)
+     A                                  5 39'Item Description              '
+     A                                      DSPATR(UL)
+     A                                  5 29'   Qty '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5  2'Order#'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 71'Delete'
+     A                                      DSPATR(UL)
+     A                                      COLOR(RED)
+     A                                  5  9'SEQ'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  7'  Selecting ''Y'' on this screen w-
+     A                                      ill delete the item from the Order -
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      COLOR(RED)
+     A          R MNR01006F
+     A*%%TS  SD  20190425  133213  BILLB       REL-V7R2M0  5770-WDS
+     A                                      OVERLAY
+     A                                 23 18'F3'
+     A                                      DSPATR(HI)
+     A                                 23 21'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 28'F5'
+     A                                      DSPATR(HI)
+     A                                 23 31'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23  2'F23'
+     A                                      DSPATR(HI)
+     A                                 23  6'=Delete'
+     A                                      COLOR(RED)
+     A                                 23 41'F12'
+     A                                      DSPATR(HI)
+     A                                 23 45'=Previous'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O 23 70COLOR(YLW)
+     A                                 23 56'F10'
+     A                                      DSPATR(HI)
+     A                                 23 60'=Printer:'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040406  091800  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

@@ -1,0 +1,15 @@
+             PGM
+
+             DCLF       FILE(NCR7HOME)
+
+ LOOP01:     SNDRCVF    RCDFMT(NCR7RCD)
+             IF         COND(&IN03 *EQ '1') THEN(GOTO CMDLBL(EOJ))
+             IF         COND(&SIGNON = 'SCANFINNEW') THEN(CALL +
+                          PGM(NCR721))
+             IF         COND(&SIGNON = 'SCANFINPU') THEN(CALL +
+                          PGM(NCR710))
+             CHGVAR     VAR(&SIGNON) VALUE(' ')
+
+             GOTO       CMDLBL(LOOP01)
+
+ EOJ:        ENDPGM

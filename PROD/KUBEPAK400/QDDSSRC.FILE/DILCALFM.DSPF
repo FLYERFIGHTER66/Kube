@@ -1,0 +1,64 @@
+     A*%%TS  SD  19990721  144241  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19990721  144241  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DILCALA'
+     A                                  1 20' Salesperson Call Sheets Selection-
+     A                                       Screen '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A            USDEPT         3A  O  3 24DSPATR(HI)
+     A            DEDESC        30A  O  3 28DSPATR(HI)
+     A                                  5 25'Enter Week Ending date'
+     A                                  6 25'to appear on report:'
+     A            WKEND          6Y 0B  6 48
+     A  36                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Weekend Date is blank. -
+     A                                      Press RESET and enter a valid Date')
+     A                                  9 25'User I.D.:'
+     A            VUSER         10A  B  9 39
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid User I.D. Enter-
+     A                                      ed.         Press RESET')
+     A  10 11                               ERRMSG('*** User is Not in Your Dep-
+     A                                      artment.    Press RESET')
+     A                                  9 52'Leave Blank to print all'
+     A                                 10 52'users in your department.'
+     A                                 12 25'Printer I.D.:'
+     A            PRINT         10A  B 12 39
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** You Must enter a Printe-
+     A                                      r I.D.      Press RESET')
+     A                                 15 25'Number of Copies:'
+     A            COPIES         3Y 0B 15 46
+     A  35                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  35                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  35                                  ERRMSG('*** Invalid Number of Copie-
+     A                                      s.          Press RESET')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process                -
+     A                                      F6/Restart                F3/F7 End-
+     A                                       of Job  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 25'Salesperson'

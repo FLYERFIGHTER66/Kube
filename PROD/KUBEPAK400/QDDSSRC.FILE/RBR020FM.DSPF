@@ -1,0 +1,403 @@
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A*
+     A          R RBR02001
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter / Scan Cust # or enter -
+     A                                      Alpha Search')
+     A                                      CF03(03 'Exit')
+     A                                      CF07(03)
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                  1 27'RBR02001'
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 27USER
+     A                                      COLOR(BLU)
+     A                                  9  2'Enter'
+     A                                      DSPATR(HI)
+     A                                  3  2'Enter Customer Number:'
+     A                                      COLOR(PNK)
+     A            SMCUST    R     D  B  4  6REFFLD(KPREFR/CUST *LIBL/KPREF)
+     A                                      DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                      CHECK(RZ)
+     A                                      DSPATR(SP)
+     A                                      COLOR(YLW)
+     A                                  4 16'-or-'
+     A                                      COLOR(PNK)
+     A                                  5  2'Alpha Search:'
+     A                                      COLOR(PNK)
+     A            SMLOOK    R        B  6  6REFFLD(KPREFR/LOOK *LIBL/KPREF)
+     A                                      CHECK(ER)
+     A                                      COLOR(YLW)
+     A                                  9  8'=OK'
+     A                                      COLOR(BLU)
+     A                                  9 15'F3'
+     A                                      DSPATR(HI)
+     A                                  9 18'=End'
+     A                                      COLOR(BLU)
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A                                  3 27DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 36TIME
+     A                                      COLOR(BLU)
+     A          R RBR02002                  SFL
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Alpha Search Subfile')
+     A  28                                  SFLNXTCHG
+     A            CMCUST         6S 0H
+     A            CMNAME    R        O  4  2REFFLD(RMCUST/CMNAME *LIBL/FMCUST)
+     A            FLD001    R        O  4 33REFFLD(RMCUST/CMCUST *LIBL/FMCUST)
+     A            CMCITY    R        O  4 40REFFLD(RMCUST/CMCITY *LIBL/FMCUST)
+     A            CMSTST    R        O  4 59REFFLD(RMCUST/CMSTST *LIBL/FMCUST)
+     A            CMZIP     R        O  4 62REFFLD(RMCUST/CMZIP *LIBL/FMCUST)
+     A          R RBR02002C                 SFLCTL(RBR02002)
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0020)
+     A                                      TEXT('Alpha Search Subfile Control')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            SFLCSRRRN      5S 0H
+     A                                  1 28'RBR02002'
+     A                                      COLOR(BLU)
+     A                                  2 28USER
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 28DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 37TIME
+     A                                      COLOR(BLU)
+     A                                  2  3'Position Cursor then'
+     A                                      COLOR(PNK)
+     A                                  3  3'then'
+     A                                      COLOR(PNK)
+     A                                  3  8'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                  3 16'.'
+     A                                      COLOR(PNK)
+     A          R RBR02003
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Confirm Customer Information')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                  1 27'RBR02003'
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 27USER
+     A                                      COLOR(BLU)
+     A                                  3  2'Confirm Customer:     '
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            SCUSOK         2Y 0B  8 11PSHBTNFLD
+     A                                      TEXT('Is this the right Customer')
+     A  70                                  PSHBTNCHC(1 '>YES')
+     A                                      PSHBTNCHC(2 '>NO')
+     A N70                                  PSHBTNCHC(3 '>YES')
+     A            SBNAME    R        O  4  2REFFLD(KPREFR/NAME *LIBL/KPREF)
+     A            SBADD1    R        O  5  2REFFLD(KPREFR/ADD1 *LIBL/KPREF)
+     A            SBADD2    R        O  6  2REFFLD(KPREFR/ADD2 *LIBL/KPREF)
+     A            SBCITY    R        O  7  2REFFLD(KPREFR/CITY *LIBL/KPREF)
+     A            SBSTAT    R        O  7 21REFFLD(KPREFR/STAT *LIBL/KPREF)
+     A                                  9  2'ENTER'
+     A                                      DSPATR(HI)
+     A                                  9 13'F6'
+     A                                      DSPATR(HI)
+     A                                  9 16'=Restart'
+     A                                      COLOR(BLU)
+     A                                  9  8'=Go'
+     A                                      COLOR(BLU)
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  8  2'CORRECT?'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 27DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 36TIME
+     A                                      COLOR(BLU)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A          R RBR02004                  SFL
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Scan Trays Subfile')
+     A  28                                  SFLNXTCHG
+     A            SCANTAG        8Y 0B  4  2EDTCDE(Z)
+     A  27                                  CHECK(ER)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  COLOR(RED)
+     A          R RBR02004C                 SFLCTL(RBR02004)
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                SFLLIN(0008)
+     A                                      SFLSIZ(4500)
+     A                                      SFLPAG(0045)
+     A                                      TEXT('Scan Trays Subfile Control')
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A                                  1 27'RBR02004'
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2  2'Enter'
+     A                                      DSPATR(HI)
+     A                                  2  8'=Continue  '
+     A                                      COLOR(BLU)
+     A                                  3  2'F6'
+     A                                      DSPATR(HI)
+     A                                  3  5'=Restart'
+     A                                      COLOR(BLU)
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  2 27USER
+     A                                      COLOR(BLU)
+     A                                  3 27DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 36TIME
+     A                                      COLOR(BLU)
+     A          R RBR02005
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Scan more items ?')
+     A                                      CF06(06 'Restart')
+     A                                      CF02
+     A                                      OVERLAY
+     A                                  1 27'RBR02005'
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3  5'Scan more items?'
+     A                                      COLOR(PNK)
+     A            SMORES         2Y 0B  5  6PSHBTNFLD
+     A  70                                  PSHBTNCHC(1 '>YES')
+     A                                      PSHBTNCHC(2 '>NO')
+     A N70                                  PSHBTNCHC(3 '>YES')
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  9  2'Enter'
+     A                                      DSPATR(HI)
+     A                                  9  8'=OK'
+     A                                      COLOR(BLU)
+     A                                  9 13'F6'
+     A                                      DSPATR(HI)
+     A                                  9 16'=Restart'
+     A                                      COLOR(BLU)
+     A                                  2 27USER
+     A                                      COLOR(BLU)
+     A                                  3 27DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 36TIME
+     A                                      COLOR(BLU)
+     A          R RBR02006
+     A*%%TS  SD  20140128  165118  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Order Complete ?')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                  1 27'RBR02006'
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3  5'ORDER SUMMARY'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A                                  9  2'Enter'
+     A                                      DSPATR(HI)
+     A                                  9  8'=OK'
+     A                                      COLOR(BLU)
+     A                                  9 13'F6'
+     A                                      DSPATR(HI)
+     A                                  9 16'=Restart'
+     A                                      COLOR(BLU)
+     A            SCOUNT         4Y 0O  4  1EDTCDE(3)
+     A                                  4  7'Flat(s) Counted'
+     A                                  5  4'Order Complete ?'
+     A                                      COLOR(PNK)
+     A            COMPLETE       2Y 0B  6  6PSHBTNFLD
+     A  70                                  PSHBTNCHC(1 '>YES')
+     A                                      PSHBTNCHC(2 '>NO')
+     A N70                                  PSHBTNCHC(3 '>YES')
+     A                                  2 27USER
+     A                                      COLOR(BLU)
+     A                                  3 27DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 36TIME
+     A                                      COLOR(BLU)
+     A          R RBR02007
+     A*%%TS  SD  20140128  162138  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('EMPTY')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                  1 27'RBR02007'
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 27USER
+     A                                      COLOR(BLU)
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A                                  3 27DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 36TIME
+     A                                      COLOR(BLU)
+     A          R RBR02008
+     A*%%TS  SD  20140128  162138  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('EMPTY')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                  1 27'RBR02008'
+     A                                      COLOR(BLU)
+     A                                  1  2' Ready Bay Check Out '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 27USER
+     A                                      COLOR(BLU)
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A                                  3 27DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 36TIME
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(10)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040406  091800  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ(10)

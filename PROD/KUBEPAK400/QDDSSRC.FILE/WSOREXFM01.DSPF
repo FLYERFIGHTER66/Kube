@@ -1,0 +1,135 @@
+     A*? Program        : WSOREXFM01
+     A*?
+     A*? Description    : This display file has Main screen for
+     A*?                  Exception Maintenance
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 07 Nov 2017
+     A**********************************************************************
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   07/17/19   S.Uthaya     Broker Name Length changed for
+     A*                                 McHutchison
+     A**********************************************************************
+     A*? Indicator Area
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      INDARA
+     A**********************************************************************
+     A*? Subfile Display Part
+     A          R ORDEXPS01                 SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01OPT         1Y 0B  9  3
+     A  50                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A            S01RRN         4S 0H
+     A            S01BRKID      15A  O  9  7
+     A            S01CUSTPO     10A  O  9 24
+     A            S01SEQNO       9Y 0O  9 37EDTCDE(Z)
+     A            S01ORDNO       6Y 0O  9 48EDTCDE(Z)
+     A            S01SLDTO      10A  O  9 56
+     A            S01TYPE       10A  O  9 70
+     A                                 10  7'Timestamp :'
+     A                                      COLOR(WHT)
+     A            S01TIMEST     26A  O 10 19
+     A*****************************************************************
+     A*? Subfile Control Part
+     A**
+     A          R ORDEXPC01                 SFLCTL(ORDEXPS01)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0006)
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A**
+     A            C01PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 26'Order Exception Maintenance'
+     A                                      COLOR(WHT)
+     A                                  1 62'ORDEXPS01'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A**
+     A            C01SYS        10A  O  2  2COLOR(BLU)
+     A                                  2 25'Purchase Order Exception List'
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A**
+     A                                  4  2'Broker ID :'
+     A            C01BRKID      20A  B  4 14COLOR(YLW)
+     A                                      DSPATR(UL)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                  4 50'Pos To CustomerPO#:'
+     A            C01POSTO      10A  B  4 70COLOR(YLW)
+     A                                      DSPATR(UL)
+     A  53                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A**
+     A                                  6  2'Options : 2=Edit  4=Close'
+     A                                      COLOR(BLU)
+     A                                  6 29'5=View Order'
+     A                                      COLOR(BLU)
+     A                                  6 43'6=Reprocess Order'
+     A                                      COLOR(BLU)
+     A**
+     A                                  8  2'Opt'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8  7'BrokerName     '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 24'CustomerPO#'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 37'Hdr Seq #'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 48'Order#'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 56'BrokerSoldTo'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 70'Process   '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R ORDEXPF01
+     A                                 23  2'F3=Exit  F5=Refresh'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(24)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A**
+     A                                      HELP
+     A                                      OVERLAY
+     A**
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N03                                  SFLEND
+     A**
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

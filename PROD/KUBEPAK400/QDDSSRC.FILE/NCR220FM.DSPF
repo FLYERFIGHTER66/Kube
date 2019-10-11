@@ -1,0 +1,90 @@
+     A*%%TS  SD  20100514  151903  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20100514  151619  BILLB       REL-V5R3M0  5722-WDS
+     A                                  1  2'NCR220A'
+     A                                  2  2USER
+     A                                  1 31'Re-Print Cart Sheet '
+     A                                      DSPATR(RI)
+     A                                  9 27'Ship Date:'
+     A            SHPDAT         6Y 0B  9 41EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Ship Week Enter-
+     A                                      ed.    Press RESET')
+     A                                 12 27'Enter Cart #:'
+     A            CARTNO         8Y 0B 12 41
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('*** Cart sheet does not exi-
+     A                                      st.      Press RESET')
+     A                                 22 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                 10 27'Master:'
+     A            SMASTER        2Y 0B 10 41EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A          R CRTSFL                    SFL
+     A*%%TS  SD  20100514  151903  BILLB       REL-V5R3M0  5722-WDS
+     A            FLDSEL         1A  B 11 24DSPATR(CS)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            CTCNTL         6Y 0O 11 28EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A            CTDTLA         6Y 0O 11 37EDTCDE(Y)
+     A  55                                  DSPATR(ND)
+     A            CTTIME         6Y 0O 11 47EDTWRD('  :  :  ')
+     A  55                                  DSPATR(ND)
+     A                                 11 57'*** End of Data ***'
+     A  55                                  DSPATR(HI)
+     A N55                                  DSPATR(ND)
+     A          R CRTCTL                    SFLCTL(CRTSFL)
+     A*%%TS  SD  20100514  151619  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0013)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLCSRRRN(&LINE)
+     A                                  1  2'NCR220SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 30' Re-Print Cart Sheet '
+     A                                      DSPATR(RI)
+     A                                  4  3'Ship Date:'
+     A            SHPDAT         6Y 0O  4 14EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4 37'Cart Number:'
+     A            CARTNO         8Y 0O  4 50EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  6  2'Selected Cart has been used more t-
+     A                                      han one time. Place cursor on line -
+     A                                      wanted'
+     A                                  7  2'and Press ENTER. Press F6 to Resta-
+     A                                      rt(no Print). Press F3 to Cancel Jo-
+     A                                      b.'
+     A                                 10 24'   Control#    Date      Time  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 37'-----Scanned------'
+     A                                      DSPATR(HI)
+     A            LINE           5S 0H
+     A                                  4 24'Master:'
+     A            SMASTER        2S 0O  4 32DSPATR(HI)

@@ -1,0 +1,190 @@
+     A*%%TS  SD  20020207  192512  EFD         REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20020207  190624  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A                                  1  2'SOW300A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 24' Cancel/Re-activate Sow Line Jobs '
+     A                                      DSPATR(RI)
+     A            SOWDAT         6Y 0B  7 50
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTWRD('  /  /  ')
+     A  40N41                               ERRMSG('*** Invalid Date Entered.  -
+     A                                             Press RESET(Left CTRL)')
+     A  41                                  ERRMSG('*** Sow Date Must Be a Mond-
+     A                                      ay.    Press RESET(Left CTRL)')
+     A                                  9 25'or Year ex. 2001:'
+     A            YEAR           4Y 0B  9 43
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  45N46                               ERRMSG('*** Invalid Year Entered.  -
+     A                                             Press RESET(Left CTRL)')
+     A  46                                  ERRMSG('*** Invalid Year/Week Combi-
+     A                                      nation entered.      Press RESET(Ri-
+     A                                      ght CTRL)')
+     A            WEEK           2Y 0B  9 55
+     A  48                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  48                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  48N45                               ERRMSG('*** Week number must be Bet-
+     A                                      ween 1 and 53.  Press RESET (Left C-
+     A                                      TRL)')
+     A                                  7 25'Monday Date of Sow Week:'
+     A                                  9 48'Week#:'
+     A                                 23 21'Enter to Process             F3=En-
+     A                                      d Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22 21'                                  -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12 25'Job Number:'
+     A            JOB#           4Y 0B 12 37
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Job Number ente-
+     A                                      red.     Press RESET')
+     A          R SCRNB
+     A*%%TS  SD  20020207  190624  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                  1  2'SOW300B'
+     A                                  1 24' Cancel/Re-activate Sow Line Jobs '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  4  8'Job Number:'
+     A            JOB#           4Y 0B  4 20EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                  6  8'Item:'
+     A            ITEM           6A  O  6 14DSPATR(HI)
+     A                                  6 21'Size:'
+     A            IMSIZE         3A  O  6 27DSPATR(HI)
+     A            IMDES1        30A  O  6 31DSPATR(HI)
+     A                                  8  8'Sow Week Date:'
+     A            SOWDAT         6Y 0O  8 23EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  8 53'Actual Sow Date:'
+     A            ASOWD          6Y 0O  8 70EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  8 32'Year:'
+     A            SYEAR          4S 0O  8 38DSPATR(HI)
+     A                                  8 43'Week:'
+     A            SWEEK          2Y 0O  8 49EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                 12  8'Sow Line #:'
+     A            TRLIN#         1S 0O 12 20DSPATR(HI)
+     A                                 13 24'Total Sown:'
+     A            SOSOWQ         6Y 0O 13 42EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12 58'Start Tag#:'
+     A            BEGTAG         8Y 0O 12 70DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 13 58'End Tag#:'
+     A            ENDTAG         8Y 0O 13 70DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 10  8'Ready Date:'
+     A            RDYDAT         6Y 0O 10 23EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                 10 32'Year:'
+     A            RYEAR          4S 0O 10 38DSPATR(HI)
+     A                                 10 43'Week:'
+     A            RWEEK          2Y 0O 10 49EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  4 29'Status:'
+     A            SOSTAT         1A  O  4 37DSPATR(HI)
+     A                                 23 16'                                  -
+     A                                                      '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24 16'Enter to Process       F6=Restart -
+     A                                            F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            STDESC        10A  O  4 39
+     A                                 12 24'Scheduled to Sow:'
+     A            SOSOWT         6Y 0O 12 42EDTCDE(1)
+     A                                      DSPATR(HI)
+     A            LEFT           6Y 0O 14 42EDTCDE(K)
+     A                                      DSPATR(HI)
+     A                                 14 24'To Sow:'
+     A                                 17  8'Is this the correct Job?'
+     A            YORN           1A  B 17 33
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Answser muct be Y or N.-
+     A                                            Press RESET')
+     A                                 17 36'Enter Y or N.'
+     A          R BARSFL                    SFL
+     A*%%TS  SD  20020207  184504  EFD         REL-V5R1M0  5722-WDS
+     A            TRTAG#         8Y 0O  9  4EDTCDE(4)
+     A            TRSTAT         1A  B  9  2VALUES(' ' 'A' 'D')
+     A            TRREAS         3A  O  9 13
+     A            PCDESC        30A  O  9 17
+     A            TRLIN#         1Y 0O  9 48EDTCDE(4)
+     A            TRDTLA         6Y 0O  9 50EDTCDE(Y)
+     A            TRTIME         6Y 0O  9 59EDTWRD('  :  :  ')
+     A            TRUSER        10A  O  9 68
+     A          R BARCTL                    SFLCTL(BARSFL)
+     A*%%TS  SD  20020207  190624  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF01
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(3000)
+     A                                      SFLPAG(0015)
+     A                                  1  2'SOW300SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 37'Job Number:'
+     A            JOB#           4Y 0B  2 49EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                  3 13'Item:'
+     A            ITEM           6A  O  3 19DSPATR(HI)
+     A                                  3 26'Size:'
+     A            IMSIZE         3A  O  3 32DSPATR(HI)
+     A            IMDES1        30A  O  3 36DSPATR(HI)
+     A                                  2 13'Sow Week Date:'
+     A            SOWDAT         6Y 0O  2 28EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            ACTDES        30A  O  1 26DSPATR(RI)
+     A                                  8  1'Stat  Tag # Code Reason           -
+     A                                                 Line  date     Time   Us-
+     A                                      er      '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            INST1         78A  O  5  2DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            INST2         78A  O  6  2DSPATR(HI)
+     A                                      DSPATR(UL)

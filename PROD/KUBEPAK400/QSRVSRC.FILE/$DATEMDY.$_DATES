@@ -1,0 +1,45 @@
+000100040617     H/Copy QFunctDefn,@CopyRight                                               Copyright Info.
+000200000000     H DATFMT(*USA)
+000300000000     H NOMAIN
+000400000000
+000500000000      * Function Prototype(s)
+000600000000     D/Copy QFunctDefn,$dateMDY
+000700000000     D/Copy QFunctDefn,$isDate#
+000800000000
+000900000000
+001000000000     *   ..................................................................
+001100000000     *   :  $dateMDY                                             function :
+001200000000     *   :................................................................:
+001300000000
+001400000000     P $dateMDY        B                   Export
+001500000000     D $dateMDY        PI              D
+001600000000     D   Date6                        6S 0 const
+001700000000
+001800000000    *  The $dateMDY function returns a date field value for a given date passed in to this
+001900000000    *  function in an six digit numeric field in MMDDYY format.
+002000000000    *  ie. you pass 011506 and get (01/15/2006)
+002100000000
+002200000000     D  wkDate         S               D   datfmt(*USA)
+002300000000     D dftDate         S               D   datfmt(*USA) inz(D'01/01/0001')
+002400000000
+002500000000     D  DateDS         DS
+002600000000     D  DateWk                 1      8  0
+002700000000     D        CC               1      2  0
+002800000000     D        YY               3      4  0
+002900000000
+003000000000     C     Date6         Mult      10000.01      DateWk
+003100000000
+003200000000     C                   IF        YY > 70
+003300000000     C                   Z-Add     19            CC
+003400000000     C                   Else
+003500000000     C                   Z-add     20            CC
+003600000000     C                   EndIF
+003700000000
+003800000000     C                   IF        $isDate#(DateWk:'*ISO')
+003900000000     C     *ISO          Move      DateWk        wkDate
+004000000000     C                   return    wkDate
+004100000000     C                   else
+004200000000     C                   return    dftDate
+004300000000     C                   EndIF
+004400000000
+004500000000     P   $dateMDY      E

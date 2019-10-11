@@ -1,0 +1,506 @@
+     A*%%TS  SD  20181213  142727  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R NCR60001
+     A*%%TS  SD  20140513  100735  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF10(10 'Change Printer')
+     A                                      CF07(07 'Minus Day')
+     A                                      CF08(08 'Plus Day')
+     A                                      PAGEUP(07)
+     A                                      PAGEDOWN(08)
+     A                                      OVERLAY
+     A                                  1 26'NCR60001'
+     A                                      COLOR(BLU)
+     A                                  2 26USER
+     A                                      COLOR(BLU)
+     A                                  1  2' Shipping Verification '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 26DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4 26TIME
+     A                                      COLOR(BLU)
+     A            SELDATE        6Y 0B  3 13EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  4  7'Mast:'
+     A            SELMAST        2Y 0B  4 13EDTCDE(4)
+     A  26                                  DSPATR(PC)
+     A                                      COLOR(PNK)
+     A                                  3  7'Week:'
+     A            PRINTER       10A  O  8 15COLOR(YLW)
+     A                                  6  1'                        '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  8  1'F10'
+     A                                      DSPATR(HI)
+     A                                  8  5'=Printer:'
+     A                                      COLOR(BLU)
+     A                                  7  2'F3'
+     A                                      DSPATR(HI)
+     A                                  7  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                  7 12'F7/F8'
+     A                                      DSPATR(HI)
+     A                                  7 18'-/+Day'
+     A                                      COLOR(BLU)
+     A          R NCR60002
+     A*%%TS  SD  20180926  142750  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF12(12 'Previous')
+     A                                      CF10(10 'Printer')
+     A                                      CF24(24 'Clear entire order')
+     A                                      OVERLAY
+     A                                  1 26'NCR60002'
+     A                                      COLOR(BLU)
+     A                                  2 26USER
+     A                                      COLOR(BLU)
+     A                                  1  2' Shipping Verification '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 10  2'F3'
+     A                                      DSPATR(HI)
+     A                                 10  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                  3 26DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4 26TIME
+     A                                      COLOR(BLU)
+     A                                  2  3'Wt:'
+     A            SELDATE        6Y 0O  2  7EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 16'Mast:'
+     A            SELMAST        2Y 0O  2 22EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  4  3'Scan Order:'
+     A            SELORDER       6Y 0B  4 15COLOR(PNK)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(PC)
+     A                                      CHECK(ER)
+     A N44                             10 12'F12'
+     A N44                                  DSPATR(HI)
+     A N44                             10 16'=Previous'
+     A N44                                  COLOR(BLU)
+     A                                  1 57'F10'
+     A                                      DSPATR(HI)
+     A                                  1 61'=Printer:'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O  1 71COLOR(YLW)
+     A                                  9  1'F24'
+     A                                      DSPATR(HI)
+     A                                  9  5'=Clear Order'
+     A                                      COLOR(BLU)
+     A          R NCR60002CR
+     A*%%TS  SD  20181213  142727  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF24(24 'Clear Order')
+     A                                      CF12(12 'Cancel Clear')
+     A                                      WINDOW(4 2 5 20)
+     A                                  2  1'Clear Order:'
+     A                                      COLOR(RED)
+     A            CLRORD         6Y 0B  2 14CHECK(ER)
+     A                                      EDTCDE(Z)
+     A                                      COLOR(RED)
+     A                                  3  1'F24'
+     A                                      DSPATR(HI)
+     A                                  3  5'=Clear Order'
+     A                                      COLOR(BLU)
+     A                                  1  2' DELETE ALL SCANS '
+     A                                      DSPATR(RI)
+     A                                      COLOR(RED)
+     A                                  4  1'F12'
+     A                                      DSPATR(HI)
+     A                                  4  5'=Cancel Clear'
+     A                                      COLOR(BLU)
+     A          R NCR60003S                 SFL
+     A*%%TS  SD  20140513  113325  BILLB       REL-V7R1M0  5770-WDS
+     A            SFLCARTQTY     5Y 0B  8 20EDTCDE(Z)
+     A                                      COLOR(PNK)
+     A            SFLITEM5       5A  O  8 43
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A            SFLSIZE        3A  O  8 39
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A            SFLDESC       51A  O  7  2
+     A  41                                  DSPATR(RI)
+     A  41                                  COLOR(GRN)
+     A  43                                  COLOR(RED)
+     A  42                                  COLOR(YLW)
+     A  43                                  DSPATR(BL)
+     A            SFLUPC        12Y 0O  8 50EDTWRD(' -     -     - ')
+     A                                      DSPATR(UL)
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A                                  8 26'<== Cart Qty'
+     A                                      DSPATR(HI)
+     A            SFLQTYDESC    17A  O  8  2DSPATR(UL)
+     A  41                                  DSPATR(RI)
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A  43                                  DSPATR(BL)
+     A          R NCR60003                  SFLCTL(NCR60003S)
+     A*%%TS  SD  20140519  100909  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF01(01 'Process Order')
+     A                                      CF03(03 'Exit')
+     A                                      CF04(04 'Lock/Unlock Quantity')
+     A                                      CF05(05 'Missing')
+     A                                      CF06(06 'Over')
+     A                                      CF07(07 'Previous Cart')
+     A                                      CF08(08 'Next Cart')
+     A                                      CF10(10 'Change Printer')
+     A                                      CF12(12 'Cancel Order')
+     A                                      CF23(23 'Clear Cart')
+     A                                      CF02(02 'New Order')
+     A                                      CF09(09 'New Master')
+     A                                      OVERLAY
+     A N80 26                               SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0800)
+     A                                      SFLPAG(0008)
+     A                                  1 62'NCR60003'
+     A                                      COLOR(BLU)
+     A                                  2 62USER
+     A                                      COLOR(BLU)
+     A                                  1 26' Shipping Verification '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  2  2'UPC:'
+     A            UPC           12Y 0B  2  7CHECK(ER)
+     A                                      COLOR(PNK)
+     A                                      DSPATR(PC)
+     A                                      EDTWRD(' -     -     - ')
+     A                                  2 26'Dt:'
+     A            SELDATE        6Y 0O  2 30EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 39'Mast:'
+     A            SELMAST        2Y 0O  2 45EDTCDE(4)
+     A                                      COLOR(YLW)
+     A  26                                  DSPATR(PC)
+     A                                  3  2'Qty:'
+     A            QTY            2Y 0B  3  7EDTCDE(Z)
+     A  40                                  DSPATR(RI)
+     A  40                                  COLOR(GRN)
+     A N40                                  COLOR(PNK)
+     A                                  1  2'Order:'
+     A            SELORDER       6S 0O  1  9DSPATR(HI)
+     A                                  1 16'Cart:'
+     A            CART           2S 0O  1 22DSPATR(HI)
+     A                                  3 10'F4'
+     A                                      DSPATR(HI)
+     A N40                              3 13'=Lock Qty'
+     A                                      COLOR(BLU)
+     A  40                              3 13'=Unlock Qty'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O  3 69COLOR(YLW)
+     A                                  4  2'F7/F8'
+     A                                      DSPATR(HI)
+     A                                  3 55'F10'
+     A                                      DSPATR(HI)
+     A                                  3 59'=Printer:'
+     A                                      COLOR(BLU)
+     A                                  4  8'=Prev/Next Cart'
+     A                                      COLOR(BLU)
+     A                                  3 26'F1'
+     A                                      DSPATR(HI)
+     A                                  3 29'=Done'
+     A                                      COLOR(BLU)
+     A                                  4 55'F23'
+     A                                      DSPATR(HI)
+     A                                  4 59'=Clear Cart'
+     A                                      COLOR(BLU)
+     A            STATUS        45A  O  6  2COLOR(WHT)
+     A                                  3 41'F5'
+     A                                      DSPATR(HI)
+     A                                  3 44'=Missing'
+     A                                      COLOR(BLU)
+     A                                  4 41'F6'
+     A                                      DSPATR(HI)
+     A                                  4 44'=Extras'
+     A                                      COLOR(BLU)
+     A                                  4 26'F2'
+     A                                      DSPATR(HI)
+     A                                  4 29'=New Order'
+     A                                      COLOR(BLU)
+     A                                  5  5'Cart Count:'
+     A            CARTCOUNT      5  0O  5 17
+     A                                  5 41'F9'
+     A                                      DSPATR(HI)
+     A                                  5 44'=Master'
+     A                                      COLOR(BLU)
+     A                                  5 55'F24'
+     A                                      DSPATR(HI)
+     A                                  5 59'=Clear Order'
+     A                                      COLOR(BLU)
+     A                                  5 26'F3'
+     A                                      DSPATR(HI)
+     A                                  5 29'=Exit App'
+     A                                      COLOR(BLU)
+     A          R NCR60004
+     A*%%TS  SD  20140514  141215  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF01(01 'Process Work')
+     A                                      CF12(12 'Previous Screen')
+     A                                      CF24(24 'TEST TEST TEST TEST')
+     A                                      OVERLAY
+     A                                  1 26'NCR60002'
+     A                                      COLOR(BLU)
+     A                                  2 26USER
+     A                                      COLOR(BLU)
+     A                                  1  2' Shipping Verification '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 10  2'F3'
+     A                                      DSPATR(HI)
+     A                                 10  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                  3 26DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4 26TIME
+     A                                      COLOR(BLU)
+     A                                  2  1'Wt:'
+     A            SELDATE        6Y 0O  2  5EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 14'Mast:'
+     A            SELMAST        2Y 0O  2 20EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  3  1'Order:'
+     A            FLD002         6S 0O  3  8COLOR(PNK)
+     A                                  5  2'Items Ordered:'
+     A                                  6  2'Items Counted:'
+     A            ORDQTY         5S 0O  5 18COLOR(PNK)
+     A            QTYSCANNED     5S 0O  6 18COLOR(PNK)
+     A  44                              7  1'                         '
+     A                                      DSPATR(RI)
+     A  44                              8  1'     Order Verified      '
+     A                                      DSPATR(RI)
+     A  44                              9  1'             F1=Continue '
+     A                                      DSPATR(RI)
+     A N44                              7  1' Order does not balance '
+     A N44                                  COLOR(RED)
+     A N44                              8  1' Press F1 to Print Out  '
+     A N44                                  COLOR(RED)
+     A N44                              9  1' or F12 to review work. '
+     A N44                                  COLOR(RED)
+     A          R NCR60005S                 SFL
+     A*%%TS  SD  20140513  113325  BILLB       REL-V7R1M0  5770-WDS
+     A            SFLITEM5       5A  O  8 43
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A            SFLSIZE        3A  O  8 39
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A            SFLDESC       51A  O  7  2COLOR(GRN)
+     A                                      DSPATR(RI)
+     A            SFLSHORTBY    35A  O  8  2COLOR(GRN)
+     A          R NCR60005                  SFLCTL(NCR60005S)
+     A*%%TS  SD  20140513  114539  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF10(10 'Change Printer')
+     A                                      CF06(06 'Extras')
+     A                                      CF01(01 'Return to Order')
+     A                                      CF04(04 'Fix Shorts Cart 99')
+     A                                      OVERLAY
+     A N80 26                               SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0800)
+     A                                      SFLPAG(0008)
+     A                                  1 52'NCR60005'
+     A                                      COLOR(BLU)
+     A                                  1 61USER
+     A                                      COLOR(BLU)
+     A                                  1 26' Shipping Verification '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  2 26'Dt:'
+     A            SELDATE        6Y 0O  2 30EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 39'Mast:'
+     A            SELMAST        2Y 0O  2 45EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  1  2'Order:'
+     A            SELORDER       6S 0O  1  9DSPATR(HI)
+     A            PRINTER       10A  O  3 71COLOR(YLW)
+     A                                  3 57'F10'
+     A                                      DSPATR(HI)
+     A                                  3 61'=Printer:'
+     A                                      COLOR(BLU)
+     A                                  4  2'F1'
+     A                                      DSPATR(HI)
+     A                                  4  5'=Done'
+     A                                      COLOR(BLU)
+     A            STATUS        45A  O  5  2COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  3  2'     Missing Items     '
+     A                                      DSPATR(RI)
+     A                                  4 11'F6'
+     A                                      DSPATR(HI)
+     A                                  4 14'=Extra'
+     A                                      COLOR(BLU)
+     A                                  4 21'F4'
+     A                                      DSPATR(HI)
+     A                                  4 24'=Fix'
+     A                                      COLOR(BLU)
+     A          R NCR60006S                 SFL
+     A*%%TS  SD  20140519  100909  BILLB       REL-V7R1M0  5770-WDS
+     A            SFLITEM5       5A  O  8 43
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A            SFLITEM       12   H
+     A            SFLSIZE        3A  O  8 39
+     A  41                                  COLOR(GRN)
+     A  42                                  COLOR(YLW)
+     A  43                                  COLOR(RED)
+     A            SFLDESC       51A  O  7  2COLOR(GRN)
+     A                                      DSPATR(RI)
+     A            SFLOVERBY     35A  O  8  2COLOR(GRN)
+     A            SFLOVER        5  0O  7 60
+     A                                  7 54'Over:'
+     A          R NCR60006                  SFLCTL(NCR60006S)
+     A*%%TS  SD  20140519  100909  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF10(10 'Change Printer')
+     A                                      CF01(01 'CONTINUE Order')
+     A                                      CF05(05 'Missing')
+     A                                      CF18(18 'Removed Extras')
+     A                                      OVERLAY
+     A N80 26                               SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0800)
+     A                                      SFLPAG(0008)
+     A                                  1 52'NCR60006'
+     A                                      COLOR(BLU)
+     A                                  1 61USER
+     A                                      COLOR(BLU)
+     A                                  1 26' Shipping Verification '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  2 26'Dt:'
+     A            SELDATE        6Y 0O  2 30EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 39'Mast:'
+     A            SELMAST        2Y 0O  2 45EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  1  2'Order:'
+     A            SELORDER       6S 0O  1  9DSPATR(HI)
+     A            PRINTER       10A  O  3 71COLOR(YLW)
+     A                                  3 57'F10'
+     A                                      DSPATR(HI)
+     A                                  3 61'=Printer:'
+     A                                      COLOR(BLU)
+     A                                  4  2'F1'
+     A                                      DSPATR(HI)
+     A                                  4  5'=Done'
+     A                                      COLOR(BLU)
+     A            STATUS        45A  O  5  2COLOR(WHT)
+     A                                  3  2'      Extra Items      '
+     A                                      DSPATR(RI)
+     A                                  4 11'F5'
+     A                                      DSPATR(HI)
+     A                                  4 14'=Missing'
+     A                                      COLOR(BLU)
+     A                                  4 26'F18'
+     A                                      DSPATR(HI)
+     A                                  4 30'=Extras Removed to Extra Cart'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages Control')
+     A                                      OVERLAY
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

@@ -1,0 +1,135 @@
+     A*%%TS  SD  19990503  134209  JEFF        REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A          R SCRNA
+     A*%%TS  SD  19981222  173734  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC010A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 21' Maintain Dillon Premier Customer -
+     A                                      List '
+     A                                      DSPATR(RI)
+     A                                  6 16'Customer Number:'
+     A            VCUST          6Y 0B  6 33
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Customer Number-
+     A                                       Entered.   Press RESET')
+     A                                  7 16'or Alpha Search:'
+     A            VALPHA        15A  B  7 33DSPATR(CS)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process             F6=Re-
+     A                                      start                          F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  19990503  134209  JEFF        REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC010B'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 21' Maintain Dillon Premier Customer -
+     A                                      List '
+     A                                      DSPATR(RI)
+     A            VCUST          6Y 0B  3 23EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 24  2'Enter to Process             F6=Re-
+     A                                      start(NO UPDATE)               F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 13'Customer:'
+     A            CMNAME        30A  O  3 30
+     A                                 16 14'January:'
+     A                                 17 14'February:'
+     A                                 18 14'March:'
+     A                                 19 14'April:'
+     A                                 20 14'May:'
+     A                                 21 14'June:'
+     A                                 16 45'July:'
+     A                                 17 45'August:'
+     A                                 18 45'September:'
+     A                                 19 45'October:'
+     A                                 20 45'November:'
+     A                                 21 45'December:'
+     A                                  5  1'Status:'
+     A            DPSTAT         1A  B  5  9
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Status Entered.-
+     A                                                  Press RESET')
+     A                                  5 13'NOTE: Status 1=New  2=On list for -
+     A                                      more than 1 month 5=Reactivated'
+     A  10                                  DSPATR(RI)
+     A                                  6 11'F=Force on List   X=Force off of L-
+     A                                      ist  D=Dropped  Blank=Never on List'
+     A  10                                  DSPATR(RI)
+     A                                  8  1'==================================-
+     A                                      ===================================-
+     A                                      ==========='
+     A                                      DSPATR(HI)
+     A                                  9 42'Points Earned Plan to Date:'
+     A            DPPTTD         7Y 0B  9 70EDTCDE(1)
+     A                                      DSPATR(PR)
+     A            DPPTRD         7Y 0B 10 70DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(PR)
+     A                                 10 47'Redeemed Plan to Date:'
+     A                                 11 59'Available:'
+     A            POIAVL         7Y 0B 11 70EDTCDE(1)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(PR)
+     A                                  9  2'Sales Prior 12 Months:'
+     A            P12MSL        11Y 2B  9 25EDTCDE(J)
+     A                                      DSPATR(PR)
+     A                                 10  3'Sales Last 12 Months:'
+     A            L12MSL        11Y 2B 10 25EDTCDE(J)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 11  3'Increase/Decrease(-):'
+     A            NETSL         11Y 2B 11 25EDTCDE(J)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(PR)
+     A                                 15 14'-------------Current Year Points E-
+     A                                      arned-------------'
+     A            DPPTJA         7Y 0O 16 25EDTCDE(1)
+     A            DPPTFB         7Y 0O 17 25EDTCDE(1)
+     A            DPPTMR         7Y 0O 18 25EDTCDE(1)
+     A            DPPTAP         7Y 0O 19 25EDTCDE(1)
+     A            DPPTMA         7Y 0O 20 25EDTCDE(1)
+     A            DPPTJN         7Y 0O 21 25EDTCDE(1)
+     A            DPPTJL         7Y 0O 16 57EDTCDE(1)
+     A            DPPTAG         7Y 0O 17 57EDTCDE(1)
+     A            DPPTSP         7Y 0O 18 57EDTCDE(1)
+     A            DPPTOC         7Y 0O 19 57EDTCDE(1)
+     A            DPPTNV         7Y 0O 20 57EDTCDE(1)
+     A            DPPTDC         7Y 0O 21 57EDTCDE(1)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 13  8'Added:'
+     A            DATADD         8Y 0O 13 15EDTWRD('  /  /    ')
+     A                                 13 26'Dropped:'
+     A            DATDRP         8Y 0O 13 35EDTWRD('  /  /    ')
+     A                                 13 46'Re-Activated:'
+     A            DATREA         8Y 0O 13 60EDTWRD('  /  /    ')
+     A                                 13  3'Date'
+     A                                 22 29'Total Year to Date Points:'
+     A            YTDPOI         7Y 0O 22 57EDTCDE(1)

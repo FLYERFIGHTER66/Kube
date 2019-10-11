@@ -1,0 +1,233 @@
+     A*%%TS  SD  20010719  172325  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R MANSFL                    SFL
+     A*%%TS  SD  20010621  140035  EFD         REL-V3R7M0  5716-PW1
+     A            SELECT         1A  B 10  2
+     A  20N55                               DSPATR(RI)
+     A N55                                  DSPATR(CS)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            INMAN#         7Y 0O 10  4EDTCDE(4)
+     A            BEGDAT         6Y 0O 10 29EDTWRD('  /  /  ')
+     A            ENDDAT         6Y 0O 10 38EDTWRD('  /  /  ')
+     A            INV$           8Y 2O 10 12EDTCDE(K)
+     A            TOTITM         4Y 0O 10 24EDTCDE(4)
+     A            ACKDAT         6Y 0O 10 57EDTWRD('  /  /  ')
+     A            INNAME        15A  O 10 66
+     A            MANDAT         6Y 0O 10 47EDTWRD('  /  /  ')
+     A            INCUST         6S 0H
+     A          R MANCTL                    SFLCTL(MANSFL)
+     A*%%TS  SD  20010626  124302  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0250)
+     A                                      SFLPAG(0014)
+     A                                      CF02
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  21                                  SFLMSG('*** Invalid Option entered,-
+     A                                       Must be 1,2, or 3.      Press RESE-
+     A                                      T')
+     A                                  1  2'MAR020SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Invoice Manifest Look-up '
+     A                                      DSPATR(RI)
+     A                                  6  2'1=Enter Acknowledgement'
+     A                                  7  2'2=Display Invoices/Credits'
+     A                                  8  2'3=Reprint manifest'
+     A                                  9  2'| Man.#      Total $  #Items  From-
+     A                                           To    Created   Acknowledged  -
+     A                                      By       '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  1'Options'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 31'--------------Dates---------------'
+     A                                      DSPATR(HI)
+     A                                  3 14'Customer Number:'
+     A            CUSTNO         6Y 0B  3 31
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10N11                               ERRMSG('*** Invalid Customer Number-
+     A                                        Entered. Press RESET')
+     A  11                                  ERRMSG('*** Selected Customer is NO-
+     A                                      T a broker. Press RESET')
+     A            CMNAME        30A  O  3 38
+     A  10                                  DSPATR(ND)
+     A                                  6 39'  F2=Display all Open   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 39'F6=Restart F3/F7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 14'or Alpha Search:'
+     A            ALPHA         15A  B  4 31
+     A          R SCRNACK
+     A*%%TS  SD  20010614  180615  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'MAR020ACK'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 21' Enter/Update Manifest Acknowledge-
+     A                                      ments '
+     A                                      DSPATR(RI)
+     A                                  4  1'Customer:'
+     A            CUSTNO         6Y 0O  4 11EDTCDE(4)
+     A            CMNAME        30   O  4 18
+     A                                  7  1'Manifest:'
+     A            INMAN$         8  0O  7 12
+     A                                  7 22'Total Dollars:'
+     A            ININV$         9Y 2O  7 37EDTCDE(J)
+     A                                  7 51'From:'
+     A            BEGDAT         6Y 0O  7 57EDTCDE(Y)
+     A                                  7 66'To:'
+     A            ENDDAT         6Y 0O  7 70EDTCDE(Y)
+     A                                 11  6'Date Acknowledged:'
+     A            ACKDAT         6Y 0B 11 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10                                  ERRMSG('*** Invalid Date entered.  -
+     A                                              Press RESET')
+     A                                 11 35'Acknowledged by:'
+     A            INNAME        15   B 11 52
+     A                                 24 20'Enter to process                F6-
+     A                                      =Restart'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 20'                                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 17 10' Verify data if OK, press ENTER to-
+     A                                       update. Else make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R INVSFL                    SFL
+     A*%%TS  SD  20010719  172325  EFD         REL-V3R7M0  5716-PW1
+     A            IDINVD         6Y 0O  9 11EDTWRD('  /  /  ')
+     A            INV$           8Y 2O  9 30EDTCDE(K)
+     A            INCUST         6S 0H
+     A            IDINV#         6Y 0O  9 20EDTCDE(4)
+     A            IDSUFF         2A  O  9 27
+     A            SHNAME        30A  O  9 42
+     A            FLD003         1A  B  9  9
+     A            TYPE           4A  H
+     A          R INVCTL                    SFLCTL(INVSFL)
+     A*%%TS  SD  20010719  171508  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF11
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0250)
+     A                                      SFLPAG(0015)
+     A  21                                  SFLMSG('*** Invalid Option entered,-
+     A                                       Must be 1,2, or 3.      Press RESE-
+     A                                      T')
+     A                                  1  2'MAR020INV'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Invoice Manifest Look-up '
+     A                                      DSPATR(RI)
+     A                                  3  2'Customer Number:'
+     A            INCUST         6Y 0B  3 19EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A            CMNAME        30A  O  3 26
+     A  10                                  DSPATR(ND)
+     A                                  5  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Manifest Number:'
+     A            IDMAN#         7Y 0B  4 19EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                  4 27'Dated:'
+     A            MANDAT         6Y 0O  4 34DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  8 11'  Date  Number/Suff   Amount   Shi-
+     A                                      p to                       '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 43'Acknowldeged:'
+     A            ACKDAT         6Y 0O  4 57DSPATR(HI)
+     A                                      EDTWRD('  /  /  ')
+     A            INNAME        15A  O  4 66
+     A                                  6  3'Position Cursor on line and Press -
+     A                                      F11 to View.      F6=Return  F3/F7=-
+     A                                      End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            LINE           5S 0H
+     A          R OPNSFL                    SFL
+     A*%%TS  SD  20010621  153651  EFD         REL-V3R7M0  5716-PW1
+     A            INCUST         6S 0H
+     A            SELECT         1A  B 10  2
+     A  20N55                               DSPATR(RI)
+     A N55                                  DSPATR(CS)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            INMAN#         7Y 0O 10  4EDTCDE(4)
+     A            INV$           8  2O 10 12EDTCDE(K)
+     A            TOTITM         4Y 0O 10 24EDTCDE(4)
+     A            MANDAT         6Y 0O 10 29EDTWRD('  /  /  ')
+     A            CMNAME        30A  O 10 38
+     A            CMPHON        10Y 0B 10 69EDTWRD('   -   -    ')
+     A  55                                  DSPATR(ND)
+     A          R OPNCTL                    SFLCTL(OPNSFL)
+     A*%%TS  SD  20010621  150039  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0250)
+     A                                      SFLPAG(0014)
+     A  21                                  SFLMSG('*** Invalid Option entered,-
+     A                                       Must be 1,2, or 3.      Press RESE-
+     A                                      T')
+     A                                  1  2'MAR020SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Invoice Manifest Look-up '
+     A                                      DSPATR(RI)
+     A                                  5  2'1=Enter Acknowledgement'
+     A                                  6  2'2=Display Invoices/Credits'
+     A                                  7  2'3=Reprint manifest'
+     A                                  9  2'| Man.#     Total $  #Items  Date -
+     A                                        Customer                         -
+     A                                      Phone    '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Options'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 39'                        '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 39'F6=Restart F3/F7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 28'All Open Invoice Manifests'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8  2'|'
+     A                                      DSPATR(HI)

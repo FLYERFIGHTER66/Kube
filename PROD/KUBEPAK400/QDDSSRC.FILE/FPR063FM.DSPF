@@ -1,0 +1,201 @@
+     A*%%TS  SD  20160413  111454  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R FPR06301S                 SFL
+     A*%%TS  SD  20160307  142616  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            IN41           1A  H
+     A            FPPPD#    R        O  7  2REFFLD(FFINPPDTAG/FPPPD# *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPBAT#    R        O  7 11REFFLD(FFINPPDTAG/FPBAT# *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPWEEK    R        O  7 18REFFLD(FFINPPDTAG/FPWEEK *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      DATFMT(*ISO)
+     A  41                                  DSPATR(HI)
+     A            FPSHIP    R        O  7 29REFFLD(FFINPPDTAG/FPSHIP *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      DATFMT(*ISO)
+     A  41                                  DSPATR(HI)
+     A            FPPLTG    R        O  7 43REFFLD(FFINPPDTAG/FPPLTG *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPCUST    R        O  7 49REFFLD(FFINPPDTAG/FPCUST *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPCABB    R        O  7 56REFFLD(FFINPPDTAG/FPCABB *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A            FPQTYPROJ R        O  7 89REFFLD(FFINPPDTAG/FPQTYPROJ *LIBL/F-
+     A                                      FINPPDTAG)
+     A  41                                  DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            FPDESC    R        O  7 95REFFLD(FFINPPDTAG/FPDESC *LIBL/FFIN-
+     A                                      PPDTAG)
+     A  41                                  DSPATR(HI)
+     A            ITEMSIZE      16A  O  7 72
+     A  41                                  DSPATR(HI)
+     A          R FPR06301                  SFLCTL(FPR06301S)
+     A*%%TS  SD  20160413  111454  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('WORK WITH UPLOADS')
+     A                                      CF03(03)
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'Reprint Tag')
+     A                                      CF10(10 'Change Tag')
+     A                                      CF11(11 'Change Printer')
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A N80 26                               SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0800)
+     A                                      SFLPAG(0015)
+     A                                      MOUBTN(*ULP *ULR CF22)
+     A                                      MOUBTN(*URP *URR CF23)
+     A            SFLPOSTO1      4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLCSRRRN      5S 0H
+     A            CSRFLD        10A  H
+     A            CSRRCD        10A  H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A            RECORDS        4Y 0O  1 94COLOR(PNK)
+     A                                      EDTCDE(4)
+     A                                  1 99'Labels '
+     A                                      COLOR(PNK)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  6  2' Tag #  '
+     A                                      DSPATR(RI)
+     A                                  6 11'Batch#'
+     A                                      DSPATR(RI)
+     A                                  6 18' Week Date'
+     A                                      DSPATR(RI)
+     A                                  6 29' Ship Date'
+     A                                      DSPATR(RI)
+     A                                  6 49' Cust#'
+     A                                      DSPATR(RI)
+     A                                  6 56'Cust. Abbrev.  '
+     A                                      DSPATR(RI)
+     A                                  6 72'Item/Size       '
+     A                                      DSPATR(RI)
+     A                                  6 89' Qty '
+     A                                      DSPATR(RI)
+     A                                  6 95'Description                   '
+     A                                      DSPATR(RI)
+     A                                  6 40'Planting'
+     A                                      DSPATR(RI)
+     A                                  1 50'   Display Upload Batch Details   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4  4'Batch:'
+     A                                      COLOR(YLW)
+     A            SELBATCH       6Y 0B  4 12EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(PC)
+     A          R FPR06301F
+     A*%%TS  SD  20160413  111454  BILLB       REL-V7R1M0  5770-WDS
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                       FPR06301 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 13'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23 46'F10=Change Tag'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O 23121COLOR(YLW)
+     A                                 23101'F11=Change Printer:'
+     A                                      COLOR(BLU)
+     A                                 23 99'|'
+     A                                      COLOR(BLU)
+     A                                 23 27'F6=Re-Print Tag'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages Control')
+     A                                      OVERLAY
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

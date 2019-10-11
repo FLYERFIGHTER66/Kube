@@ -1,0 +1,75 @@
+     A*%%TS  SD  19980902  100650  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19980902  100650  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'STC400A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 24' Standing Order Edit List Prompt '
+     A                                      DSPATR(RI)
+     A                                  4 18'Department:'
+     A            LOCAT          3A  O  4 30
+     A            DEDESC        30A  O  4 34
+     A                                  8  3'The following Selections are used -
+     A                                      to limit the edit list. To get all -
+     A                                      standing'
+     A                                  9  3'orders for your department leave t-
+     A                                      hem blank.'
+     A                                 12 18'Suspended orders:'
+     A            LSELEC         1A  B 12 36
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Suspended Order-
+     A                                       Response. Must be S,O, or Blank.  -
+     A                                       Press RESET')
+     A                                 12 39'S=Suspended Only O=Open Only Blank-
+     A                                      =All'
+     A                                 14 18'Responsible user I.D.?'
+     A            LUSER         10A  B 14 41
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20N21                               ERRMSG('*** Invalid User I D Enterr-
+     A                                      ed.         Press RESET')
+     A  20 21                               ERRMSG('*** User is not from this d-
+     A                                      epartment.  Press RESET')
+     A                                 17 18'Begining Date:'
+     A            LBEGDT         6Y 0B 17 33EDTWRD('  /  /  ')
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A                                 18 18'Ending Date:'
+     A            LENDDT         6Y 0B 18 33EDTWRD('  /  /  ')
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A  40N41                               ERRMSG('*** Invalid Ending date ent-
+     A                                      ered.       Press RESET')
+     A  40 41                               ERRMSG('*** Ending date must be equ-
+     A                                      al to or greater than begining date-
+     A                                      .  Press RESET')
+     A                                 16  3'Show all orders that expire betwee-
+     A                                      n the following Dates,'
+     A          R SCRNE
+     A*%%TS  SD  19980805  151601  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'STC400E'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 24' Standing Order Edit List Prompt '
+     A                                      DSPATR(RI)
+     A                                  8  8' User has no Department Ship From.-
+     A                                       You cannot run this edit list. '
+     A                                      DSPATR(RI)
+     A                                 11 26' Press ENTER to end program. '
+     A                                      DSPATR(RI)

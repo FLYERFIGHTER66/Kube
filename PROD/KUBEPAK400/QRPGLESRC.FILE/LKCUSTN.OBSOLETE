@@ -1,0 +1,343 @@
+000100131018      *--------------------------------------------------------------
+000101131018      *
+000102131018      *  COPYRIGHT EFD ENTERPRISES, INC.    1999
+000103131018      *
+000104131018      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000105131018      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000106131018      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000107131018      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000108131018      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+000109131018      *       BY EXPRESS WRITTEN PERMISSION OF
+000110131018      *            EFD ENTERPRISES, INC.     215-643-5352
+000111131018      *
+000112131018      *--------------------------------------------------------------
+000113131018      *PROGRAM NAME-------- LKCUST
+000114131018      *SYSTEM-------------- MASTER FILES
+000115131018      *DESCRIPTION--------- CUSTOMER LOOKUP
+000116131018      *
+000117131018      *
+000118131018      *            CHANGE--DATE-------DESCRIPTION
+000119131018      *  8/13/99 EFD ADD ADDRESS LINE 2 TO SCREEN
+000120131018      *
+000121131018      *
+000122131018     FFMCUSTAL  IF   E           K DISK
+000123131018     FLKCUSTFM  CF   E             WORKSTN
+000124131018     F                                     SFILE(RECSFL:RECNO)
+000125131018      *
+000127131018     D CustomerDS      DS
+000128131018     D  CMCUST
+000129131018     D  CMNAME
+000130131018     D  CMADD2
+000131131018     D  CMCITY
+000133131018     D  CMSTST
+000134131018     D  CMBABB
+000135131018      * ALPHA ARRAY
+000136131018     D ALP             S              1    DIM(15)                              ALPHA SEARCH
+000137131018      *
+000138131018      ****************************************************************
+000139131018      *
+000140131018     C     *ENTRY        PLIST
+000141131018     C                   PARM                    CMLOOK           15
+000142131018     C                   PARM                    CMCUST            6 0
+000143131018     C                   PARM                    CMNAME           30
+000144131018     C                   MOVE      CMLOOK        HLDLOK           15
+000145131018     C                   MOVE      CMLOOK        VLOOK            15
+000146131018     C                   MOVE      *BLANKS       OLDSRC           15
+000147131018     C                   MOVE      *ZEROS        *IN
+000148131018      *  CHECK FOR FINAL END PROGRAM
+000149131018     C     CMLOOK        IFGE      '99999999'
+000150131018     C                   GOTO      ENDLR
+000151131018     C                   END
+000152131018      *
+000153131018     C     RSTRT         TAG
+000154131018     C                   EXSR      GETALL
+000155131018     C                   EXSR      BLDSFL
+000156131018     C     NXTFMT        TAG
+000157131018     C                   Z-ADD     0             LINE
+000158131018     C                   EXFMT     RECCTL
+000159131018     C   KF              DO
+000160131018     C                   MOVEL     *BLANKS       CMBABB
+000161131018     C                   MOVEL     *BLANKS       SHIP
+000162131018     C                   MOVE      *BLANKS       CMNAME
+000163131018     C                   MOVE      *BLANKS       CMCITY
+000164131018     C                   MOVE      *BLANKS       CMSTST
+000165131018     C                   Z-ADD     0             CMCUST
+000166131018     C                   GOTO      END
+000167131018     C                   ENDDO
+000168131018      * SEE IF ON A SUBFILE LINE
+000169131018     C     LINE          IFGT      0
+000170131018     C     LINE          ANDLE     LSTREC
+000171131018     C     LINE          CHAIN     RECSFL                             90
+000172131018     C   90              GOTO      NXTFMT
+000173131018     C                   MOVE      *BLANKS       CMNAME
+000174131018     C                   MOVEL     NM1           CMNAME
+000175131018     C                   GOTO      END
+000176131018     C                   END
+000177131018     C     LINE#         IFGT      LSTREC
+000178131018     C                   SETON                                        90
+000179131018     C                   GOTO      NXTFMT
+000180131018     C                   END
+000181131018     C     VLOOK         IFNE      OLDSRC
+000182131018     C                   MOVEL     VLOOK         OLDSRC
+000183131018     C                   GOTO      RSTRT
+000184131018     C                   END
+000185131018     C     LINE#         IFEQ      0
+000186131018     C                   GOTO      NXTFMT
+000187131018     C                   END
+000188131018      *
+000189131018      * GET THE SELECTED CUSTOMER
+000190131018      *
+000191131018     C                   Z-ADD     LINE#         RECNO
+000192131018     C     RECNO         CHAIN     RECSFL                             90
+000193131018     C   90              GOTO      NXTFMT
+000194131018     C                   MOVE      *BLANKS       CMNAME
+000195131018     C                   MOVEL     NM1           CMNAME
+000196131018     C     END           TAG
+000197131018     C                   MOVE      *ZEROS        *IN
+000198131018     C                   RETURN
+000199131018     C     ENDLR         TAG
+000200131018     C                   SETON                                        LR
+000201131018      ***************
+000202131018      * BUILD SFILE *
+000203131018      ***************
+000204131018     C     BLDSFL        BEGSR
+000205131018     C                   Z-ADD     0             LINE
+000206131018     C                   Z-ADD     0             LINE#
+000207131018     C                   Z-ADD     0             VLINE
+000208131018     C     NEWSRC        TAG
+000209131018     C                   ExSr      GetData
+000210131018     C*    VLOOK         SETLL     FMCUSTAL
+000211131018     C                   MOVE      '1'           *IN80
+000212131018     C                   WRITE     RECCTL
+000213131018     C                   MOVE      '0'           *IN80
+000214131018     C                   Z-ADD     0             RECNO             5 0
+000215131018     C                   MOVE      VLOOK         OLDSRC
+000216131018     C     NXTX          TAG
+000217131018     C                   SETOFF                                       50
+000218131018     C                   ExSr      ReadData
+000219131018     C*                  READ      FMCUSTAL                               50
+000220131018     C                   If        EndOfFile
+000221131018     C                   Goto      DSPL
+000222131018     C                   ENDIF
+000223131018     C*  50              GOTO      DSPL
+000224131018     C     CMSTAT        IFEQ      'D'
+000225131018     C                   GOTO      NXTX
+000226131018     C                   ENDIF
+000312131018     C     ALOK          TAG
+000321131018      *
+000324131018     C     CMBLCU        IFNE      CMCUST
+000325131018     C                   MOVEL     'Y'           SHIP
+000326131018     C                   ELSE
+000327131018     C                   MOVEL     *BLANKS       SHIP
+000328131018     C                   ENDIF
+000329131018      * MOVE INTO SHORTER FIELDS
+000330131018     C                   MOVEL     CMNAME        NM1
+000331131018     C                   MOVEL     CMADD2        AD2
+000332131018     C                   MOVEL     CMCITY        CT1
+000333131018     C                   ADD       1             RECNO
+000334131018     C                   ADD       1             VLINE
+000335131018     C                   WRITE     RECSFL
+000336131018     C                   GOTO      NXTX
+000337131018      *
+000338131018     C     DSPL          TAG
+000339131018     C                   Z-ADD     RECNO         LSTREC            5 0
+000340131018     C                   ADD       2             RECNO
+000341131018     C                   Z-ADD     0             VLINE
+000342131018     C                   MOVEL     *BLANKS       NM1
+000343131018     C                   MOVEL     '* End of'    ENDFLD           16
+000344131018     C                   MOVE      ' Data * '    ENDFLD
+000345131018     C                   MOVEL     ENDFLD        NM1
+000346131018     C                   Z-ADD     0             CMCUST
+000347131018     C                   MOVEL     *BLANKS       CMBABB
+000348131018     C                   MOVEL     *BLANKS       SHIP
+000349131018     C                   MOVEL     *BLANKS       CT1
+000350131018     C                   MOVEL     *BLANKS       AD2
+000351131018     C                   MOVEL     *BLANKS       CMSTST
+000352131018     C                   WRITE     RECSFL
+000353131018     C                   ENDSR
+000354131018      *  ...........................................................
+000355131018      *  :      GetData - Get selected A/R Open information        :
+000356131018      *  :.........................................................:
+000357131018
+000358131018     C     GetData       BegSr
+000359131018
+000361131018    c/exec sql
+000362131018    c+
+000363131018    c+  DECLARE   C1 cursor for
+000364131018    c+
+000365131018    c+  SELECT      TRTAG#
+000366131018    c+  FROM        FTRAY
+000367131018    c+  WHERE       TRSCYM = :SowDate7
+000368131018    c+    and       TRSTAT = 'A'
+000369131018    c+    and       TRCNTD <> 'Y'
+000370131018    c+  ORDER BY    TRTAG#
+000371131018    c+
+000372131018    c+  For Read only
+000373131018    c+
+000374131018    c/end-exec
+000375131018
+000376131018     *  Open the SQL recordset for Screen 01
+000377131018    c/exec sql
+000378131018    c+                  Open      C1
+000379131018    c/end-exec
+000406131018
+000407131018     C                   EndSr
+000408131018
+000409131018      *  ...........................................................
+000410131018      *  :      CloseDate - Close the Data Set                     :
+000411131018      *  :.........................................................:
+000412131018
+000413131018     C     CloseData     BegSr
+000414131018
+000415131018     C                   If        Screen = 1
+000416131018     *  Close the SQL recordset for Screen 01
+000417131018    c/exec sql
+000418131018    c+ Close C1
+000419131018    c/end-exec
+000420131018
+000421131018     C                   Else
+000422131018     *  Close the SQL recordset for Screen 02
+000423131018    c/exec sql
+000424131018    c+ Close C2
+000425131018    c/end-exec
+000426131018     C                   EndIf
+000427131018
+000428131018     C                   EndSr
+000429131018
+000430131018      *  ...........................................................
+000431131018      *  :      ReadData - Read Data                               :
+000432131018      *  :.........................................................:
+000433131018
+000434131018     C     ReadData      BegSr
+000435131018
+000436131018     C                   If        Screen = 1
+000437131018     *  Read Sow Schedule Records for Selected Week
+000438131018    c/exec sql
+000439131018    c+ Fetch C1 into :Tray_to_Post
+000440131018    c/end-exec
+000441131018     C                   Else
+000442131018     *  Read Sow Schedule Records for Selected Week and Item
+000443131018    c/exec sql
+000444131018    c+ Fetch C2 into :Tray_to_Post
+000445131018    c/end-exec
+000446131018     C                   EndIf
+000447131018
+000448131018     C                   If        SQLSTT = '02000'                             Read until EOF
+000449131018     C                   Eval      EndOfFile = *On
+000450131018     C                   Eval      *InLr = *On
+000451131018     C                   Else
+000452131018     C                   Eval      EndOfFile = *Off
+000453131018     C                   Eval      TraysAdded = TraysAdded + 1
+000454131018     C                   EndIf
+000455131018
+000456131018     C                   EndSr
+000457131018
+000458131018      *
+000459131018      *********************
+000460131018      * GET ALPHA LENGTH
+000461131018      *********************
+000462131018      ** GET ALPHA SEARCH COMPARE CHAR
+000463131018     C     GETALL        BEGSR
+000464131018     C                   MOVE      *BLANKS       ALC15
+000465131018     C                   MOVE      *BLANKS       ALC14
+000466131018     C                   MOVE      *BLANKS       ALC13
+000467131018     C                   MOVE      *BLANKS       ALC12
+000468131018     C                   MOVE      *BLANKS       ALC11
+000469131018     C                   MOVE      *BLANKS       ALC10
+000470131018     C                   MOVE      *BLANKS       ALC9
+000471131018     C                   MOVE      *BLANKS       ALC8
+000472131018     C                   MOVE      *BLANKS       ALC7
+000473131018     C                   MOVE      *BLANKS       ALC6
+000474131018     C                   MOVE      *BLANKS       ALC5
+000475131018     C                   MOVE      *BLANKS       ALC4
+000476131018     C                   MOVE      *BLANKS       ALC3
+000477131018     C                   MOVE      *BLANKS       ALC2
+000478131018     C                   MOVE      *BLANKS       ALC1
+000479131018     C                   SETOFF                                       010203
+000480131018     C                   SETOFF                                       040506
+000481131018     C                   SETOFF                                       070809
+000482131018     C                   SETOFF                                       101213
+000483131018     C                   SETOFF                                       141516
+000484131018     C     VLOOK         IFGT      *BLANKS
+000485131018     C                   MOVEA     VLOOK         ALP
+000486131018     C     ALP(15)       IFGT      *BLANKS
+000487131018     C                   MOVEL     VLOOK         ALC15            15
+000488131018     C                   SETON                                        15
+000489131018     C                   GOTO      ENDALP
+000490131018     C                   END
+000491131018     C     ALP(14)       IFGT      *BLANKS
+000492131018     C                   MOVEL     VLOOK         ALC14            14
+000493131018     C                   SETON                                        14
+000494131018     C                   GOTO      ENDALP
+000495131018     C                   END
+000496131018     C     ALP(13)       IFGT      *BLANKS
+000497131018     C                   MOVEL     VLOOK         ALC13            13
+000498131018     C                   SETON                                        13
+000499131018     C                   GOTO      ENDALP
+000500131018     C                   END
+000501131018     C     ALP(12)       IFGT      *BLANKS
+000502131018     C                   MOVEL     VLOOK         ALC12            12
+000503131018     C                   SETON                                        12
+000504131018     C                   GOTO      ENDALP
+000505131018     C                   END
+000506131018     C     ALP(11)       IFGT      *BLANKS
+000507131018     C                   MOVEL     VLOOK         ALC11            11
+000508131018     C                   SETON                                        11
+000509131018     C                   GOTO      ENDALP
+000510131018     C                   END
+000511131018     C     ALP(10)       IFGT      *BLANKS
+000512131018     C                   MOVEL     VLOOK         ALC10            10
+000513131018     C                   SETON                                        10
+000514131018     C                   GOTO      ENDALP
+000515131018     C                   END
+000516131018     C     ALP(9)        IFGT      *BLANKS
+000517131018     C                   MOVEL     VLOOK         ALC9              9
+000518131018     C                   SETON                                        09
+000519131018     C                   GOTO      ENDALP
+000520131018     C                   END
+000521131018     C     ALP(8)        IFGT      *BLANKS
+000522131018     C                   MOVEL     VLOOK         ALC8              8
+000523131018     C                   SETON                                        08
+000524131018     C                   GOTO      ENDALP
+000525131018     C                   END
+000526131018     C     ALP(7)        IFGT      *BLANKS
+000527131018     C                   MOVEL     VLOOK         ALC7              7
+000528131018     C                   SETON                                        07
+000529131018     C                   GOTO      ENDALP
+000530131018     C                   END
+000531131018     C     ALP(6)        IFGT      *BLANKS
+000532131018     C                   MOVEL     VLOOK         ALC6              6
+000533131018     C                   SETON                                        06
+000534131018     C                   GOTO      ENDALP
+000535131018     C                   END
+000536131018     C     ALP(5)        IFGT      *BLANKS
+000537131018     C                   MOVEL     VLOOK         ALC5              5
+000538131018     C                   SETON                                        05
+000539131018     C                   GOTO      ENDALP
+000540131018     C                   END
+000541131018     C     ALP(4)        IFGT      *BLANKS
+000542131018     C                   MOVEL     VLOOK         ALC4              4
+000543131018     C                   SETON                                        04
+000544131018     C                   GOTO      ENDALP
+000545131018     C                   END
+000546131018     C     ALP(3)        IFGT      *BLANKS
+000547131018     C                   MOVEL     VLOOK         ALC3              3
+000548131018     C                   SETON                                        03
+000549131018     C                   GOTO      ENDALP
+000550131018     C                   END
+000551131018     C     ALP(2)        IFGT      *BLANKS
+000552131018     C                   MOVEL     VLOOK         ALC2              2
+000553131018     C                   SETON                                        02
+000554131018     C                   GOTO      ENDALP
+000555131018     C                   END
+000556131018     C     ALP(1)        IFGT      *BLANKS
+000557131018     C                   MOVEL     VLOOK         ALC1              1
+000558131018     C                   SETON                                        01
+000559131018     C                   GOTO      ENDALP
+000560131018     C                   END
+000561131018      ** IF ALPHA BLANK SETON 16
+000562131018     C                   ELSE
+000563131018     C                   SETON                                        16
+000564131018     C     ENDALP        TAG
+000565131018     C                   END
+000566131018     C                   ENDSR

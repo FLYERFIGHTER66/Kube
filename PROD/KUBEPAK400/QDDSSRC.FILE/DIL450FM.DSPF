@@ -1,0 +1,320 @@
+     A*%%TS  SD  20010628  100304  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRENA
+     A*%%TS  SD  20010605  195625  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DIL450A'
+     A                                  2  2USER
+     A                                  1 23' Customer Sales/Open Order Inquiry-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 18'Department:'
+     A            DEDEPT         3   O  2 30
+     A            DEDESC        30   O  2 35
+     A                                  3 18'User:'
+     A            USERID        10   O  3 24
+     A            USNAME        30   O  3 35
+     A                                  9 18'Enter Begining Date:'
+     A            BEGDAT         6Y 0B  9 39
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Begining Date E-
+     A                                      ntered.     Press RESET')
+     A  10 11                               ERRMSG('*** Begining Date must be l-
+     A                                      ess than or equal to Ending Date.  -
+     A                                      Press RESET')
+     A                                 11 18'Enter Ending Date:'
+     A            ENDDAT         6Y 0B 11 39
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  20                                  ERRMSG('*** Invalid Ending Date Ent-
+     A                                      ered.     Press RESET')
+     A                                 24  2'    Enter to Process             F-
+     A                                      6=Restart                   F3/F7=E-
+     A                                      nd Job   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCREN
+     A*%%TS  SD  20010605  195625  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DIL450A'
+     A                                  2  2USER
+     A                                  1 23' Customer Sales/Open Order Inquiry-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 18'Department:'
+     A            DEDEPT         3   O  2 30
+     A            DEDESC        30   O  2 35
+     A                                  3 18'User:'
+     A            USERID        10   O  3 24
+     A            USNAME        30   O  3 35
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  20010619  142822  EFD         REL-V3R7M0  5716-PW1
+     A            OOCUST         6Y 0O  9  9EDTCDE(4)
+     A            NAME          26A  O  9 16
+     A            CITY          15A  O  9 43
+     A            REQDAT         6Y 0O  9 59EDTWRD('  /  /  ')
+     A            OOEXT$         9Y 2O  9 68EDTCDE(K)
+     A            OOORD#         6Y 0O  9  2EDTCDE(4)
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  20010628  100304  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF04
+     A  75                                  CF01
+     A  76                                  CF11
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0015)
+     A                                  1  2'DIL450ORD'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 31' Open Order Inquiry '
+     A                                      DSPATR(RI)
+     A                                  8  2'Order#   Customer                 -
+     A                                             City           Req. Date    -
+     A                                      Order $  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 41'Total Open Order Dollars:'
+     A            TOTOPN         9Y 2O  6 68DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(J)
+     A            TNAME         30A  O  2 38
+     A                                  3 21'Date From:'
+     A            BEGDAT         6Y 0O  3 32EDTCDE(Y)
+     A                                  3 41'TO:'
+     A            ENDDAT         6Y 0O  3 45EDTCDE(Y)
+     A                                  5  2'F2=Change Dates'
+     A                                      DSPATR(HI)
+     A                                  6  2'F4=Display Sales'
+     A                                      DSPATR(HI)
+     A                                  4  2'F1=Show Department Orders'
+     A  75                                  DSPATR(HI)
+     A N75                                  DSPATR(ND)
+     A            TITLE         11A  O  2 26
+     A                                  4 28'F11=Change Department'
+     A  76                                  DSPATR(HI)
+     A N76                                  DSPATR(ND)
+     A          R SLSSFL                    SFL
+     A*%%TS  SD  20010606  160648  EFD         REL-V3R7M0  5716-PW1
+     A            CMCUST         6Y 0O  8  2EDTCDE(4)
+     A            NAME          26A  O  8  9
+     A            CITY          15A  O  8 36
+     A            CURORD         9Y 2O  9 68EDTCDE(K)
+     A            CMPHON        10Y 0O  8 53EDTWRD('   -   -    ')
+     A            CURSLS         9Y 2O 10 68EDTCDE(K)
+     A                                      DSPATR(UL)
+     A            TOTAL          9Y 2O 11 68EDTCDE(K)
+     A                                 10  3'YTD'
+     A            CYTD           9Y 2O 10  7EDTCDE(K)
+     A            PYTD           9Y 2O 10 21EDTCDE(K)
+     A            YTDV$          9Y 2O 10 35EDTCDE(K)
+     A                                  9  7'Current Year    Prior year    Vari-
+     A                                      ance $    Pct.'
+     A                                      DSPATR(UL)
+     A            YTDVP          5Y 2O 10 49EDTCDE(K)
+     A                                 11  3'MTD'
+     A            CMTD           9Y 2O 11  7EDTCDE(K)
+     A            PMTD           9Y 2O 11 21EDTCDE(K)
+     A            MTDV$          9Y 2O 11 35EDTCDE(K)
+     A            MTDVP          5Y 2O 11 49EDTCDE(K)
+     A                                 10 61'Sales:'
+     A                                 11 61'Total:'
+     A                                  9 59'Opn Ord:'
+     A                                 12  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A          R SLSCTL                    SFLCTL(SLSSFL)
+     A*%%TS  SD  20010628  100304  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF04
+     A  75                                  CF01
+     A  76                                  CF11
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0003)
+     A                                  1  2'DIL450SLS'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 21' Sales/Open Orders by Account Mana-
+     A                                      ger '
+     A                                      DSPATR(RI)
+     A                                  7  2'Customer                          -
+     A                                      City               Phone #      Dat-
+     A                                      e Range $'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 41'Total Open Order Dollars:'
+     A            TOTOPN         9Y 2O  4 68DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                  2 21'User:'
+     A            USNAME        30A  O  2 27
+     A                                  3 21'Date From:'
+     A            BEGDAT         6Y 0O  3 32EDTCDE(Y)
+     A                                  3 41'To:'
+     A            ENDDAT         6Y 0O  3 45EDTCDE(Y)
+     A                                  4  2'F2=Change Dates'
+     A                                      DSPATR(HI)
+     A                                  5 43'Total Invoiced Dollars:'
+     A            TOTINV         9Y 2O  5 68DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(J)
+     A                                  3 68'Date Range $'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            TOTCUR         9Y 2O  6 68DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                  6 60'Total:'
+     A                                  6  2'NOTE: Month to Date is the month i-
+     A                                      n the To Date.'
+     A                                  5  2'F4=Show Open Orders'
+     A                                      DSPATR(HI)
+     A                                  5 22'F11=Change Depart.'
+     A  76                                  DSPATR(HI)
+     A N76                                  DSPATR(ND)
+     A                                  4 22'F1=Show Department'
+     A  75                                  DSPATR(HI)
+     A N75                                  DSPATR(ND)
+     A          R SLDSFL                    SFL
+     A*%%TS  SD  20010619  184719  EFD         REL-V3R7M0  5716-PW1
+     A            USNAME        30A  O 10 16
+     A            CURORD         9Y 2O 11 68EDTCDE(K)
+     A            CURSLS         9Y 2O 12 68EDTCDE(K)
+     A                                      DSPATR(UL)
+     A            TOTAL          9Y 2O 13 68EDTCDE(K)
+     A                                 12  3'YTD'
+     A            CYTD           9Y 2O 12  7EDTCDE(K)
+     A            PYTD           9Y 2O 12 21EDTCDE(K)
+     A            YTDV$          9Y 2O 12 35EDTCDE(K)
+     A                                 11  7'Current Year    Prior year    Vari-
+     A                                      ance $    Pct.'
+     A                                      DSPATR(UL)
+     A            YTDVP          5Y 2O 12 49EDTCDE(K)
+     A                                 13  3'MTD'
+     A            CMTD           9Y 2O 13  7EDTCDE(K)
+     A            PMTD           9Y 2O 13 21EDTCDE(K)
+     A            MTDV$          9Y 2O 13 35EDTCDE(K)
+     A            MTDVP          5Y 2O 13 49EDTCDE(K)
+     A                                 12 61'Sales:'
+     A                                 13 61'Total:'
+     A                                 11 59'Opn Ord:'
+     A                                 14  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A            PICK           1A  B 10  2
+     A            USUSER        10A  O 10  5
+     A          R SLDCTL                    SFLCTL(SLDSFL)
+     A*%%TS  SD  20010628  100304  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF04
+     A  75                                  CF01
+     A  76                                  CF11
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0003)
+     A                                  1  2'DIL450SLD'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 24' Sales/Open Orders by Department '
+     A                                      DSPATR(RI)
+     A                                  9  2'|  User I.D.                      -
+     A                                                                      Dat-
+     A                                      e Range $'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 41'Total Open Order Dollars:'
+     A            TOTOPN         9Y 2O  4 68DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            DEDESC        30A  O  2 27
+     A                                  3 21'Date From:'
+     A            BEGDAT         6Y 0O  3 32EDTCDE(Y)
+     A                                  3 41'To:'
+     A            ENDDAT         6Y 0O  3 45EDTCDE(Y)
+     A                                  4  2'F2=Change Dates'
+     A                                      DSPATR(HI)
+     A                                  5 43'Total Invoiced Dollars:'
+     A            TOTINV         9Y 2O  5 68DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(J)
+     A                                  3 68'Date Range $'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            TOTCUR         9Y 2O  6 68DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                  6 60'Total:'
+     A                                  6  2'NOTE: Month to Date is the month i-
+     A                                      n the To Date.'
+     A                                  5  2'F4=Show Open Orders'
+     A                                      DSPATR(HI)
+     A                                  5 22'F11=Change Depart.'
+     A  76                                  DSPATR(HI)
+     A N76                                  DSPATR(ND)
+     A                                  2 15'Department:'
+     A                                  8  2'X=Display Detail'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 22'F1=Show Department'
+     A  75                                  DSPATR(HI)
+     A N75                                  DSPATR(ND)
+     A          R SCREND
+     A*%%TS  SD  20010628  100304  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DIL450D'
+     A                                  2  2USER
+     A                                  1 23' Customer Sales/Open Order Inquiry-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 18'Department:'
+     A            DEDEPT         3A  O  2 30
+     A            DEDESC        30A  O  2 35
+     A                                  3 18'User:'
+     A            USERID        10A  O  3 24
+     A            USNAME        30A  O  3 35
+     A                                  9 20'Branch?'
+     A            NDEP           3   B  9 30
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  ERRMSG('*** Invalid Branch Entered.-
+     A                                              Press RESET')
+     A                                  9 37'Enter branch you want to view.'
+     A                                      DSPATR(UL)
+     A                                 24 18'Enter to process                F3-
+     A                                      /F7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 18'                                  -
+     A                                                 '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)

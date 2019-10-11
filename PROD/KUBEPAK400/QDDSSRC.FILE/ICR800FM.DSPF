@@ -1,0 +1,231 @@
+     A*%%TS  SD  20160923  103749  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRENA
+     A*%%TS  SD  20010524  131838  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'ICR800A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Inventory Transaction Inquiry '
+     A                                      DSPATR(RI)
+     A                                  6 16'Item Number?'
+     A            ITEM          12   B  6 29
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid Item Number/Siz-
+     A                                      e entered.  Press RESET')
+     A  10 11                               ERRMSG('*** This Item is a lot cont-
+     A                                      rol item, you cannot review here.  -
+     A                                       Press RESET')
+     A                                  6 43'Size:'
+     A            SIZE           3   B  6 49DSPATR(CS)
+     A                                 11 15'Start with Date:'
+     A                                 13 15'Ending Thru Date:'
+     A            BEGDAT         6Y 0B 11 33EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid start date ente-
+     A                                      red.        Press RESET')
+     A            ENDDAT         6Y 0B 13 33EDTCDE(Y)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30N31                               ERRMSG('*** Invalid End date entere-
+     A                                      d.       Press RESET')
+     A                                  9 10'To view all available transactions-
+     A                                       leave the following blank.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24 14'Enter to process                  -
+     A                                             F3/F7=End job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 14'                                  -
+     A                                                          '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 43'Leave Blank to start at earliest d-
+     A                                      ate.'
+     A                                 13 43'Leave Blank to end at latest date.'
+     A          R SCRENB
+     A*%%TS  SD  20160923  103749  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF06
+     A                                  1  2'ICR800B'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 25' Inventory Transaction Inquiry '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            ITEM          12A  B  3  8DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                  3 21'Size:'
+     A            SIZE           3A  B  3 27DSPATR(HI)
+     A                                      DSPATR(PR)
+     A            BEGDAT         6Y 0B  5  8EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A            ENDDAT         6Y 0B  5 23EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                 24 14'Enter to process      F6=Restart  -
+     A                                             F3/F7=End job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 14'                                  -
+     A                                                          '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'Item:'
+     A            IMDES1        30A  O  3 31COLOR(PNK)
+     A                                  5  2'From:'
+     A                                  5 17'Thru:'
+     A                                  6  4'All Transactions Selected'
+     A  51                                  DSPATR(HI)
+     A N51                                  DSPATR(ND)
+     A  05                                  DSPATR(UL)
+     A                                 14 19'Adjustments:'
+     A            TOTADJ         9Y 1B 14 43EDTCDE(J)
+     A                                      DSPATR(PR)
+     A                                 16 19'Issues:'
+     A            TOTISS         9Y 1B 16 43EDTCDE(J)
+     A                                      DSPATR(PR)
+     A            TOTREC         9Y 1B 10 43EDTCDE(J)
+     A                                      DSPATR(PR)
+     A                                 10 19'Receipts:'
+     A                                 12 19'Transfers:'
+     A            TOTTRN         9Y 1B 12 43EDTCDE(J)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 18 19'Total All Transactions:'
+     A            TOTAL          9Y 1B 18 43EDTCDE(J)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 20 19'Show detail for:'
+     A            ACT            1A  B 20 43
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  10                                  ERRMSG('*** Invaild show detail for-
+     A                                      , entered.  Press RESET')
+     A                                 20 64'A=Adjustments'
+     A                                 21 64'I=Issues'
+     A                                 21 48'R=Receipts'
+     A                                 19 64'T=Transfers'
+     A            IMQTOH    R        O  4 55REFFLD(IMQTOH *LIBL/FMINVT)
+     A                                      EDTCDE(J)
+     A                                      COLOR(PNK)
+     A                                 19 48'C=Combined'
+     A                                  8 19'Projections:'
+     A            TOTPRJ         9Y 1B  8 43EDTCDE(J)
+     A                                      DSPATR(PR)
+     A                                 20 48'P=Projections'
+     A                                  8 15'(P)'
+     A                                      DSPATR(HI)
+     A                                 10 15'(R)'
+     A                                      DSPATR(HI)
+     A                                 12 15'(T)'
+     A                                      DSPATR(HI)
+     A                                 14 15'(A)'
+     A                                      DSPATR(HI)
+     A                                 16 15'(I)'
+     A                                      DSPATR(HI)
+     A                                  4 72'On Hand'
+     A                                  5 72'Allocated'
+     A                                  6 72'Available'
+     A            IMQTAL    R        O  5 55REFFLD(IMQTAL *LIBL/FMINVT)
+     A                                      EDTCDE(J)
+     A                                      COLOR(PNK)
+     A            IMQTAV    R        O  6 55REFFLD(IMQTAV *LIBL/FMINVT)
+     A                                      EDTCDE(J)
+     A                                      COLOR(PNK)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20010530  153539  EFD         REL-V3R7M0  5716-PW1
+     A            ITTDAT         6Y 0O  9 49EDTWRD('  /  /  ')
+     A            ITDESC        30A  O  9  7
+     A            ITTQTY        11Y 1O  9 58EDTCDE(J)
+     A  78                                  DSPATR(ND)
+     A            ITUSER        10A  O  9 38
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20010530  153539  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0016)
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'ICR800SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Inventory Transaction Inquiry '
+     A                                      DSPATR(RI)
+     A            TDESC         13A  O  2 34DSPATR(RI)
+     A                                  4  2'Item:'
+     A            ITEM          12A  O  4  8
+     A                                  4 21'Size:'
+     A            SIZE           3A  O  4 27
+     A            IMDES1        30A  O  4 31
+     A                                  8  7'Description                    Use-
+     A                                      r I.D.    Date         Quantity  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 51'Total:'
+     A            TYPTOT        11Y 1O  7 58EDTCDE(J)
+     A                                  6 10'Enter to return to previous screen-
+     A                                      .  F6=Restart  F3/F7=End Job'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A          R DETSFL                    SFL
+     A*%%TS  SD  20081003  162944  BILLB       REL-V5R3M0  5722-WDS
+     A            ITTDAT         6Y 0O  9 44EDTWRD('  /  /  ')
+     A            ITDESC        30A  O  9  2
+     A            ITTQTY        11Y 1O  9 62EDTCDE(J)
+     A  78                                  DSPATR(ND)
+     A            ITUSER        10A  O  9 33
+     A            TYPE           8A  O  9 53
+     A          R DETCTL                    SFLCTL(DETSFL)
+     A*%%TS  SD  20010530  153539  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0016)
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'ICR800DET'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Inventory Transaction Inquiry '
+     A                                      DSPATR(RI)
+     A            TDESC         13A  O  2 34DSPATR(RI)
+     A                                  4  2'Item:'
+     A            ITEM          12A  O  4  8
+     A                                  4 21'Size:'
+     A            SIZE           3A  O  4 27
+     A            IMDES1        30A  O  4 31
+     A                                  8  2'Description                    Use-
+     A                                      r I.D.    Date   Type            Qu-
+     A                                      antity '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 51'Total:'
+     A            TYPTOT        11Y 1O  7 58EDTCDE(J)
+     A                                  6 10'Enter to return to previous screen-
+     A                                      .  F6=Restart  F3/F7=End Job'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)

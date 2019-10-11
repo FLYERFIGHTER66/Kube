@@ -1,0 +1,21 @@
+             PGM        PARM(&SUBJECT &SNDNAM &SNDEML &RCVNAM +
+                          &RCVEML &LINK)
+
+             DCL        VAR(&SUBJECT  ) TYPE(*CHAR) LEN(80)
+             DCL        VAR(&SNDNAM   ) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&SNDEML   ) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&RCVNAM   ) TYPE(*CHAR) LEN(48)
+             DCL        VAR(&RCVEML   ) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&LINK     ) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&HTML) TYPE(*CHAR) LEN(80) VALUE('/Kube +
+                          Pak/Production Applications/iSeries +
+                          Email/Balance.html')
+
+             DLYJOB     DLY(2)
+
+             EMLHTML2   SUBJECT(&SUBJECT) FROMNAME(&SNDNAM) +
+                          FROMADDR(&SNDEML) TO(&RCVEML/&RCVNAM/*TO +
+                          BCC@KUBEPAK.NET/'Kube-Pak BCC'/*BCC) +
+                          HTML(&HTML) STMF(&LINK)
+
+             ENDPGM

@@ -1,0 +1,109 @@
+     A*%%TS  SD  20080116  134754  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20080116  134754  BILLB       REL-V5R3M0  5722-WDS
+     A                                  1  2'SOW550A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Correct Missed Bar Code Labels '
+     A                                      DSPATR(RI)
+     A                                  6 25'Sow Line Number:'
+     A            LINE#          1Y 0B  6 42
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Line number ent-
+     A                                      ered. Must be 1,2 or 3.    Press RE-
+     A                                      SET')
+     A            TIMECARD       8Y 0B  8 42DSPATR(CS)
+     A                                      CHECK(ME)
+     A                                      CHECK(ER)
+     A                                      EDTCDE(4)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** You must enter a valid -
+     A                                      Sower Timecard.            Press RE-
+     A                                      SET')
+     A                                 24  2'Enter to Process               F6=-
+     A                                      Restart                        F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 14' There are no missed bar codes for-
+     A                                       selected sow line. '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                 15 14' Or press F6 to enter another line-
+     A                                       number. '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                 13 14' Press F3 to end the job. '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  8  2'Enter Time Card number to credit s-
+     A                                      ower:'
+     A          R BADSFL                    SFL
+     A*%%TS  SD  20080115  143043  BILLB       REL-V5R3M0  5722-WDS
+     A            BTTAG#         8Y 0O 10  8EDTCDE(4)
+     A            ITEM           5A  O 10 17
+     A            BTSIZE         3A  O 10 23
+     A            IMDES1        30A  O 10 27
+     A            SOWDAT         6Y 0O 10 58EDTWRD('  /  /  ')
+     A            BTJOB#         4Y 0O 10 67EDTCDE(2)
+     A            ACTION         1A  B 10  4DSPATR(CS)
+     A                                      VALUES(' ' 'C' 'R' 'D')
+     A          R BADCTL                    SFLCTL(BADSFL)
+     A*%%TS  SD  20080115  143043  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(5000)
+     A                                      SFLPAG(0014)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'SOW540SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 29' Missed Bar Code Input '
+     A                                      DSPATR(RI)
+     A                                  2 35'Sow Line:'
+     A            LINE#          1S 0O  2 45
+     A                                  9  2'Act.  Tag #    Item Size Descripti-
+     A                                      on                   Sow Date  Job -
+     A                                      #'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 29'Tag #:'
+     A            TAG#           8Y 0B  5 36DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Not an Error Bar Code f-
+     A                                      or this line.   Press RESET')
+     A                                  4  2'F6=Restart'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7  2'Act. R=Reprint Label'
+     A                                      DSPATR(HI)
+     A                                  8  7'D=Delete'
+     A                                      DSPATR(HI)
+     A                                  8  4'|'
+     A                                      DSPATR(HI)
+     A                                  6  7'C=Confirm Sown'
+     A                                      DSPATR(HI)

@@ -1,0 +1,18 @@
+             PGM      &QSH_PATH
+             DCL        VAR(&QSH_CMD) TYPE(*CHAR) LEN(256) +
+                          VALUE('/QOpenSys/bin/sftp -b')
+             DCL        VAR(&QSH_PATH) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&QSH_DEST) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&MSGID) TYPE(*CHAR) LEN(7)
+             DCL        VAR(&MSGDTA) TYPE(*CHAR) LEN(4)
+
+             RTVDTAARA  DTAARA(SFTP0002 *ALL) RTNVAR(&QSH_DEST)
+
+/* QSH CMD('/QOpenSys/bin/sftp -b/Command_File_Path_name serverUserID@server')*/
+
+             CHGVAR     VAR(&QSH_CMD) VALUE(&QSH_CMD *BCAT &QSH_PATH +
+                          *BCAT &QSH_DEST)
+             QSH        CMD(&QSH_CMD)
+             RCVMSG MSGTYPE(*COMP) RMV(*NO) MSGDTA(&MSGDTA) MSGID(&MSGID)
+
+             ENDPGM

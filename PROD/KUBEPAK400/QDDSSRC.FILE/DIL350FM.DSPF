@@ -1,0 +1,109 @@
+     A*%%TS  SD  19980605  155716  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19980605  155716  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 33' Inventory List '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 27'For Alpha Search:'
+     A            VALPHA        15A  B  4 48DSPATR(CS)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A  22                                  ERRMSG('*** Gross Profit Not Allowe-
+     A                                      d For UNITS or BOTH.   Press Reset')
+     A                                  6 14'and/or'
+     A                                  6 27'Product Class 1?'
+     A            VPC1           2A  B  6 48DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.    Press Reset')
+     A                                  8 14'and/or'
+     A                                  8 27'Product Class 3?'
+     A            VPC3           2A  B  8 48DSPATR(CS)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.    Press Reset')
+     A                                 10 14'and/or'
+     A                                 10 27'Grower Number:'
+     A            VLIST          4A  B 10 48DSPATR(CS)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A  22                                  ERRMSG('*** Gross Profit Not Allowe-
+     A                                      d For UNITS or BOTH.   Press Reset')
+     A                                 12 27'Ship From?'
+     A            VSHFR          3A  B 12 48DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .        Press Reset')
+     A                                 15 26'Forms Number:'
+     A            VFORM          4A  B 15 49DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 16 26'Number of Copies:'
+     A            VCOPY          2Y 0B 16 51
+     A  51                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  51                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 17 26'Printer ID:'
+     A            VPRTR         10A  B 17 43DSPATR(CS)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A  52                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 18 26'Print Status:'
+     A            VOUT           1Y 0B 18 52
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 18 57'1 = Print'
+     A                                 19 57'2 = Print/Save'
+     A                                 20 57'3 = Hold'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                     Enter to Proc-
+     A                                      ess     F7=Cancel Job              -
+     A                                               '
+     A                                      DSPATR(UL)

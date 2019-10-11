@@ -1,0 +1,36 @@
+             PGM        PARM(&TOWN &STATE)
+             DCL        VAR(&TOWN) TYPE(*CHAR) LEN(18)
+             DCL        VAR(&STATE) TYPE(*CHAR) LEN(2)
+             DCL        VAR(&PCCMD) TYPE(*CHAR) LEN(150) +
+                          VALUE('EXPLORE.EXE +
+                          "http://zip4.usps.com/zip4/citytown.jsp') /*  +
+                          This URL is obsolete   */
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             STRPCCMD   PCCMD('del c:\Temp\kp_excel.bat')
+
+             STRPCCMD   PCCMD('cmd /c echo set first= "C:\Program Files +
+                          (x86)\Microsoft Office root\Office16\EXCEL.EXE"  +
+                          >c:\Temp\kp_url.bat')
+
+             STRPCCMD   PCCMD('cmd /c echo set +
+                          last=resultof=%22%73%74%72%70%63%63%6d%64%22%20 +
+                          >> c:\Temp\kp_url.bat')
+             STRPCCMD   PCCMD('cmd /c echo "C:\Program Files\Mozilla +
+                          Firefox\firefox.exe" %first%%last% >> +
+                          c:\Temp\kp_url.bat')
+
+        /*   STRPCCMD   PCCMD('start c:\Temp\kp_url.bat')   */
+
+
+             CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *tcat '?state=' *tcat +
+                          &STATE)
+             CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *tcat '&city=' *tcat +
+                          &TOWN)
+             CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *tcat '"')
+
+             STRPCCMD   PCCMD(&PCCMD) PAUSE(*NO)
+
+             ENDPGM

@@ -1,0 +1,58 @@
+     A*%%TS  SD  19971217  180546  EFD         REL-V3R1M0  5763-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF06
+     A          R INVSFL                    SFL
+     A*%%TS  SD  19971217  180546  EFD         REL-V3R1M0  5763-PW1
+     A            WIDTLA         6Y 0O  9  4EDTWRD('  /  /  ')
+     A            WIDTRQ         6Y 0O  9 27EDTWRD('  /  /  ')
+     A            QTYORD         6Y 0O  9 36EDTCDE(2)
+     A            QTYSHP         6Y 0O  9 44EDTCDE(2)
+     A            QTYCRD         6Y 0O  9 52EDTCDE(2)
+     A            SELECT         1A  B  9  2DSPATR(HI)
+     A                                      DSPATR(CS)
+     A            WIUPRI         9Y 4O  9 60EDTCDE(2)
+     A            AMOUNT         7Y 2O  9 72EDTCDE(2)
+     A            WIINV#         6Y 0O  9 13EDTCDE(4)
+     A            WIORD#         6Y 0O  9 20EDTCDE(4)
+     A          R INVCTL                    SFLCTL(INVSFL)
+     A*%%TS  SD  19971217  141010  EFD         REL-V3R1M0  5763-PW1
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0015)
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'LKITIVSFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Customer/Item Invoice Look-up '
+     A                                      DSPATR(RI)
+     A                                  8  2'X Inv Date Inv. # Ord. # Req Date -
+     A                                        Order    Ship  Credit  Unit Price-
+     A                                       Tot.Amt. '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 13'Customer:'
+     A            CMCUST         6S 0O  2 23
+     A                                  7 36'-------Quantity--------'
+     A            CMNAME        30A  O  2 30
+     A                                  3  2'Item:'
+     A            IMITEM        12A  O  3  8
+     A                                  3 21'Size:'
+     A            IMSIZE         3A  O  3 27
+     A            DESC          50A  O  3 31
+     A                                  4  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Roll Keys    Move Cursor to line W-
+     A                                      anted Press enter to select        -
+     A                                      F6-Cancel'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            LINE           5S 0H

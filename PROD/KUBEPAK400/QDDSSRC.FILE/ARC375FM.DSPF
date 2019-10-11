@@ -1,0 +1,200 @@
+     A*%%TS  SD  19991128  115347  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19991128  115347  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A                                  1  2'ARC375'
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 28' A/R Credit Check Report '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 20'Ship Date Range:'
+     A            LBDATE         6Y 0B  4 44EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Starting Date Must Be L-
+     A                                      ower Than Ending Date.    Press Res-
+     A                                      et')
+     A  12                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                          Press Reset')
+     A                                  4 54'-'
+     A            LEDATE         6Y 0B  4 57EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A                                  6 20'Customer # Range:'
+     A            LBCUST         6Y 0B  6 44EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  20                                  ERRMSG('*** From Customer # Must Be-
+     A                                       Equal Or Less Than To #.   Press R-
+     A                                      eset')
+     A                                  6 52'-'
+     A            LECUST         6Y 0B  6 55EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      DSPATR(CS)
+     A                                  8 20'Terms Code Range?'
+     A            LBTERM         2A  B  8 44DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Terms Cod-
+     A                                      e - Less Than To Code.    Press Res-
+     A                                      et')
+     A                                  8 48'-'
+     A            LETERM         2A  B  8 51DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter A Valid Terms Cod-
+     A                                      e.     Press Reset')
+     A                                 10 20'Customer Type Range:'
+     A            LBTYPE         2A  B 10 44DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** From Type Must Be Less -
+     A                                      Than To.   Press Reset')
+     A                                 10 48'-'
+     A            LETYPE         2A  B 10 51DSPATR(CS)
+     A                                 12 20'Include:'
+     A            LINCL          1A  B 12 44DSPATR(CS)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A                                      COLOR(TRQ)
+     A  45                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.       Press Reset')
+     A                                 12 49'Only Customers Over Credit Limit'
+     A                                 14 25'Printer ID:'
+     A            LPRTR         10A  B 14 44DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 15 25'Forms Number:'
+     A            LFORM         10A  B 15 44DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 16 25'Number of Copies:'
+     A            LCOPY          2Y 0B 16 52
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 17 25'Run From JobQ:'
+     A            LJOBQ          1A  B 17 53DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 18 25'Print Status:'
+     A            VOUT           1Y 0B 18 53
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 18 57'1 = Print'
+     A                                 19 57'2 = Print/Save'
+     A                                 20 57'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                   Enter to Proces-
+     A                                      s        F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990605  091007  APGL        REL-V3R1M0  5763-PW1
+     A                                 13  2' Credit Check Report              -
+     A                                                                     Over-
+     A                                      view     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  2' This report prints a list by sale-
+     A                                      sperson and bill to customer showin-
+     A                                      g the    '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'                                  -
+     A                                             last payment, account balanc-
+     A                                      e        '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2' orders scheduled to ship during t-
+     A                                      he selected dates.                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' The information on the report inc-
+     A                                      ludes: order number, ship via metho-
+     A                                      d,       '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                             customer credit limit, date -
+     A                                      of       '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                             and customer telephone numbe-
+     A                                      r.       '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                             terms code, amount of order,-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)

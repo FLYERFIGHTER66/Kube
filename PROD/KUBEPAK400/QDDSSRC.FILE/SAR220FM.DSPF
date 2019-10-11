@@ -1,0 +1,202 @@
+     A*%%TS  SD  19990731  074627  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990614  114201  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'SAR220 '
+     A                                  1 23' Sales Analysis Salesperson Inquir-
+     A                                      y '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Salesperson Code?'
+     A            VSLSM          2A  B  5 45DSPATR(CS)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Salespers-
+     A                                      on.    Press Reset')
+     A  14                                  ERRMSG('*** No Sales History For Th-
+     A                                      is Salesperson.    Press Reset')
+     A            SMNAME        30A  O  5 49
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'            Enter to Process      -
+     A                                             F3/F7=End of Job            -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  2 33'For Company:'
+     A            LCO            2  0O  2 46DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  19990731  074627  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF06
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  3'SAR220B'
+     A                                  1 23' Sales Analysis Salesperson Inquir-
+     A                                      y '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  3USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 15'Salesperson:'
+     A            VSLSM          2A  O  3 28DSPATR(HI)
+     A            SMNAME        30A  O  3 31DSPATR(HI)
+     A                                  5  1' Period   ------------  Sales  ----
+     A                                      ----------   ---------- Quantity ---
+     A                                      ---------'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  6  2'Ending     This Year     Last Year-
+     A                                          % Var   This Year   Last Year  -
+     A                                         % Var'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A            ACEN01         6Y 0O  7  1EDTCDE(Y)
+     A            SHCS01         9Y 2O  7 10EDTCDE(K)
+     A            SHLS01         9Y 2O  7 24EDTCDE(K)
+     A            SV01           6Y 2O  7 38EDTCDE(M)
+     A            SHCQ01         7Y 0O  7 48EDTCDE(K)
+     A            SHLQ01         7Y 0O  7 60EDTCDE(K)
+     A            QV01           6Y 2O  7 72EDTCDE(M)
+     A            ACEN02         6Y 0O  8  1EDTCDE(Y)
+     A            SHCS02         9Y 2O  8 10EDTCDE(K)
+     A            SHLS02         9Y 2O  8 24EDTCDE(K)
+     A            SV02           6Y 2O  8 38EDTCDE(M)
+     A            SHCQ02         7Y 0O  8 48EDTCDE(K)
+     A            SHLQ02         7Y 0O  8 60EDTCDE(K)
+     A            QV02           6Y 2O  8 72EDTCDE(M)
+     A            ACEN03         6Y 0O  9  1EDTCDE(Y)
+     A            SHCS03         9Y 2O  9 10EDTCDE(K)
+     A            SHLS03         9Y 2O  9 24EDTCDE(K)
+     A            SV03           6Y 2O  9 38EDTCDE(M)
+     A            SHCQ03         7Y 0O  9 48EDTCDE(K)
+     A            SHLQ03         7Y 0O  9 60EDTCDE(K)
+     A            QV03           6Y 2O  9 72EDTCDE(M)
+     A            ACEN04         6Y 0O 10  1EDTCDE(Y)
+     A            SHCS04         9Y 2O 10 10EDTCDE(K)
+     A            SHLS04         9Y 2O 10 24EDTCDE(K)
+     A            SV04           6Y 2O 10 38EDTCDE(M)
+     A            SHCQ04         7Y 0O 10 48EDTCDE(K)
+     A            SHLQ04         7Y 0O 10 60EDTCDE(K)
+     A            QV04           6Y 2O 10 72EDTCDE(M)
+     A            ACEN05         6Y 0O 11  1EDTCDE(Y)
+     A            SHCS05         9Y 2O 11 10EDTCDE(K)
+     A            SHLS05         9Y 2O 11 24EDTCDE(K)
+     A            SV05           6Y 2O 11 38EDTCDE(M)
+     A            SHCQ05         7Y 0O 11 48EDTCDE(K)
+     A            SHLQ05         7Y 0O 11 60EDTCDE(K)
+     A            QV05           6Y 2O 11 72EDTCDE(M)
+     A            ACEN06         6Y 0O 12  1EDTCDE(Y)
+     A            SHCS06         9Y 2O 12 10EDTCDE(K)
+     A            SHLS06         9Y 2O 12 24EDTCDE(K)
+     A            SV06           6Y 2O 12 38EDTCDE(M)
+     A            SHCQ06         7Y 0O 12 48EDTCDE(K)
+     A            SHLQ06         7Y 0O 12 60EDTCDE(K)
+     A            QV06           6Y 2O 12 72EDTCDE(M)
+     A            ACEN07         6Y 0O 13  1EDTCDE(Y)
+     A            SHCS07         9Y 2O 13 10EDTCDE(K)
+     A            SHLS07         9Y 2O 13 24EDTCDE(K)
+     A            SV07           6Y 2O 13 38EDTCDE(M)
+     A            SHCQ07         7Y 0O 13 48EDTCDE(K)
+     A            SHLQ07         7Y 0O 13 60EDTCDE(K)
+     A            QV07           6Y 2O 13 72EDTCDE(M)
+     A            ACEN08         6Y 0O 14  1EDTCDE(Y)
+     A            SHCS08         9Y 2O 14 10EDTCDE(K)
+     A            SHLS08         9Y 2O 14 24EDTCDE(K)
+     A            SV08           6Y 2O 14 38EDTCDE(M)
+     A            SHCQ08         7Y 0O 14 48EDTCDE(K)
+     A            SHLQ08         7Y 0O 14 60EDTCDE(K)
+     A            QV08           6Y 2O 14 72EDTCDE(M)
+     A            ACEN09         6Y 0O 15  1EDTCDE(Y)
+     A            SHCS09         9Y 2O 15 10EDTCDE(K)
+     A            SHLS09         9Y 2O 15 24EDTCDE(K)
+     A            SV09           6Y 2O 15 38EDTCDE(M)
+     A            SHCQ09         7Y 0O 15 48EDTCDE(K)
+     A            SHLQ09         7Y 0O 15 60EDTCDE(K)
+     A            QV09           6Y 2O 15 72EDTCDE(M)
+     A            ACEN10         6Y 0O 16  1EDTCDE(Y)
+     A            SHCS10         9Y 2O 16 10EDTCDE(K)
+     A            SHLS10         9Y 2O 16 24EDTCDE(K)
+     A            SV10           6Y 2O 16 38EDTCDE(M)
+     A            SHCQ10         7Y 0O 16 48EDTCDE(K)
+     A            SHLQ10         7Y 0O 16 60EDTCDE(K)
+     A            QV10           6Y 2O 16 72EDTCDE(M)
+     A            ACEN11         6Y 0O 17  1EDTCDE(Y)
+     A            SHCS11         9Y 2O 17 10EDTCDE(K)
+     A            SHLS11         9Y 2O 17 24EDTCDE(K)
+     A            SV11           6Y 2O 17 38EDTCDE(M)
+     A            SHCQ11         7Y 0O 17 48EDTCDE(K)
+     A            SHLQ11         7Y 0O 17 60EDTCDE(K)
+     A            QV11           6Y 2O 17 72EDTCDE(M)
+     A            ACEN12         6Y 0O 18  1EDTCDE(Y)
+     A            SHCS12         9Y 2O 18 10EDTCDE(K)
+     A            SHLS12         9Y 2O 18 24EDTCDE(K)
+     A            SV12           6Y 2O 18 38EDTCDE(M)
+     A            SHCQ12         7Y 0O 18 48EDTCDE(K)
+     A            SHLQ12         7Y 0O 18 60EDTCDE(K)
+     A            QV12           6Y 2O 18 72EDTCDE(M)
+     A            ACEN13         6Y 0O 19  1EDTCDE(Y)
+     A  30                                  DSPATR(ND)
+     A            SHCS13         9Y 2O 19 10EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SHLS13         9Y 2O 19 24EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SV13           6Y 2O 19 38EDTCDE(M)
+     A  30                                  DSPATR(ND)
+     A            SHCQ13         7Y 0O 19 48EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SHLQ13         7Y 0O 19 60EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            QV13           6Y 2O 19 72EDTCDE(M)
+     A  30                                  DSPATR(ND)
+     A                                 20  8'  ------------  ------------      -
+     A                                            ---------   ---------        -
+     A                                         '
+     A            TCSLS         10Y 2O 21  9EDTCDE(K)
+     A            TPSLS         10Y 2O 22 23EDTCDE(K)
+     A            TSV            6Y 2O 21 38EDTCDE(M)
+     A            TCQTY          8Y 0O 22 47EDTCDE(K)
+     A            TLQTY          8Y 0O 21 59EDTCDE(K)
+     A            TQV            6Y 2O 22 72EDTCDE(M)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  2'                 F6=Next Inquiry  -
+     A                                                F3/F7=End of Job         -
+     A                                               '
+     A                                      DSPATR(UL)

@@ -1,0 +1,48 @@
+             PGM        PARM(&ORDER@ &LPLUG &LINK)
+
+             DCL        VAR(&ORDER@) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&SHPDAT@) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&SHPDAT@6) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&LINK) TYPE(*CHAR) LEN(90)
+             DCL        VAR(&PATH) TYPE(*CHAR) LEN(90) VALUE('/kube +
+                          pak/PDF/ACKNOWLEDGEMENTS/ACK_')
+             DCL        VAR(&TIMESTAMP) TYPE(*CHAR) LEN(20)
+             DCL        VAR(&LPLUG) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&ORDER) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&SHPDAT) TYPE(*DEC) LEN(6 0)
+
+             CHGVAR     VAR(&ORDER) VALUE(&ORDER@)
+             CALL       PGM(#ORDSHPDAT) PARM(&ORDER &SHPDAT)
+             CHGVAR     VAR(&SHPDAT@6) VALUE(&SHPDAT)
+             CHGVAR     VAR(&SHPDAT@) VALUE('20' *TCAT %SST(&SHPDAT@6 +
+                          5 2) *TCAT '-' *TCAT %SST(&SHPDAT@6 1 2) +
+                          *TCAT '-' *TCAT %SST(&SHPDAT@6 3 2))
+
+             RTVSYSVAL  SYSVAL(QDATETIME) RTNVAR(&TIMESTAMP)
+             CHGVAR     VAR(&LINK) VALUE(&PATH *TCAT 'ShipDt-' *TCAT +
+                          &SHPDAT@ *TCAT '_Ord_' *TCAT &ORDER@ +
+                          *TCAT '_(' *TCAT &TIMESTAMP *TCAT ').pdf')
+
+             CHGDTAARA  DTAARA(*LDA (1 37)) +
+                          VALUE('01N000000000000############0000000000')
+             CHGDTAARA  DTAARA(*LDA (16 6)) VALUE(&ORDER@)
+             CHGDTAARA  DTAARA(*LDA (22 6)) VALUE(&ORDER@)
+             CHGDTAARA  DTAARA(*LDA (180 18)) VALUE('000000000000000000')
+
+             IF         COND(&LPLUG *EQ 'P') THEN(QSYS/OVRPRTF +
+                          FILE(BIR421) TOFILE(*LIBL/QSYSPRT) +
+                          DEVTYPE(*AFPDS) PAGESIZE(66 80) LPI(6) +
+                          CPI(10) ALIGN(*NO) PAGRTT(0) +
+                          FRONTOVL(ACK_PLUG .12 .1) TOSTMF(&LINK) +
+                          WSCST(*PDF))
+
+             IF         COND(&LPLUG *EQ 'F') THEN(QSYS/OVRPRTF +
+                          FILE(BIR421) TOFILE(*LIBL/QSYSPRT) +
+                          DEVTYPE(*AFPDS) PAGESIZE(66 80) LPI(6) +
+                          CPI(10) ALIGN(*NO) PAGRTT(0) +
+                          FRONTOVL(ACK_FIN .12 .1) TOSTMF(&LINK) WSCST(*PDF))
+
+/*           CALL       PGM(BIR421)                         */
+             CALL       PGM(BIR421O) PARM(&LPLUG)
+
+ END:        ENDPGM

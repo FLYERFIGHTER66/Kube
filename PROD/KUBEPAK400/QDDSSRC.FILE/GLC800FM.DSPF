@@ -1,0 +1,185 @@
+     A*%%TS  SD  19990526  080511  APGL        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990526  080511  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A                                  1  2'GLC800 '
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 29' Print Budget Worksheet '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 12'Include ==>'
+     A                                  4 29'Only Accounts With'
+     A            LBUDG          1X  B  4 52DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                  5 29'Budget Amounts:'
+     A                                  7 29'All G/L Accounts:'
+     A            LALL           1X  B  7 52DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A  22                                  ERRMSG('*** Both Print Only Budgets-
+     A                                       And Print All Can Not Be Y.   Pres-
+     A                                      s Reset')
+     A  23                                  ERRMSG('*** Both Print Only Budgets-
+     A                                       and Print All Can Not Be N.   Pres-
+     A                                      s Reset')
+     A                                  9 29'Revenue Accounts:'
+     A            LREV           1X  B  9 52DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 11 29'Expense Accounts:'
+     A            LEXP           1X  B 11 52DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 14 29'Printer ID:'
+     A            LPRTR         10A  B 14 48CHECK(FE)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 15 29'Forms Number:'
+     A            LFORM         10A  B 15 48CHECK(FE)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                 16 29'Number of Copies:'
+     A            LCOPY          2Y 0B 16 56
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 17 29'JOBQ (Y/N):'
+     A            LJOBQ          1X  B 17 57CHECK(FE)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 18 29'Print Status:'
+     A            VOUT           1Y 0B 18 57
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 18 61'1 = Print'
+     A                                 19 61'2 = Print/Save'
+     A                                 20 61'3 = Hold'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                    Enter to Proce-
+     A                                      ss       F7=Cancel Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990526  070517  APGL        REL-V3R1M0  5763-PW1
+     A                                 10  2' Print Budget Worksheet           -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2' The Budget Worksheet prints a rep-
+     A                                      ort that allows you to review the c-
+     A                                      urrent   '
+     A                                      DSPATR(HI)
+     A                                 13  2' data in revenue and/or expense ac-
+     A                                      counts.  Data includes the account -
+     A                                      number,  '
+     A                                      DSPATR(HI)
+     A                                 14  2' the account description, the curr-
+     A                                      ent year actual balance and current-
+     A                                       year    '
+     A                                      DSPATR(HI)
+     A                                 15  2' budget amounts by fiscal period. -
+     A                                       Space is available for you to writ-
+     A                                      e in     '
+     A                                      DSPATR(HI)
+     A                                 16  2' next years budget figures.       -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' You can select to print:  1. Only-
+     A                                       accounts that have a current year -
+     A                                      budget.  '
+     A                                      DSPATR(HI)
+     A                                 19  2'                  - or -   2. All -
+     A                                      accounts.                          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' accounts or both.                -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' You can also select to include on-
+     A                                      ly revenue accounts or only expense-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)

@@ -1,0 +1,22 @@
+             PGM        PARM(&FROMFILE &STREAMFILE)
+             DCL        VAR(&FROMFILE) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&STREAMFILE) TYPE(*CHAR) LEN(12)
+             DCL        VAR(&FULLPATH) TYPE(*CHAR) LEN(40)
+             DCL        VAR(&FOLDER) TYPE(*CHAR) LEN(40)
+
+/*? SEND .CSV FILE ?*/
+
+             RTVDTAARA  DTAARA(WEB_QDLS (01 40)) RTNVAR(&FULLPATH)
+             RTVDTAARA  DTAARA(WEB_QDLS (41 40)) RTNVAR(&FOLDER)
+
+             DLTDLO     DLO(&STREAMFILE) FLR(&FOLDER)
+             MONMSG     MSGID(CPF8A16 CPA0701)
+
+             DLYJOB     DLY(5)
+             CPYTOIMPF  FROMFILE(*LIBL/&FROMFILE) TOSTMF(&FULLPATH +
+                          *TCAT &STREAMFILE) MBROPT(*ADD) +
+                          STMFCODPAG(*STDASCII) RCDDLM(*CRLF) +
+                          DTAFMT(*DLM) STRDLM('"') FLDDLM(',')
+
+
+ EOJ:        ENDPGM

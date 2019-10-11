@@ -1,0 +1,19 @@
+             PGM        PARM(&ROUTE)
+             /*  Pass route in as zips followed by '/'  (eg.  08724/07095/12345/)  */
+
+             DCL        VAR(&ROUTE) TYPE(*CHAR) LEN(180)
+             DCL        VAR(&PCCMD) TYPE(*CHAR) LEN(256) +
+                          VALUE('EXPLORER.EXE +
+                          "https://www.google.com/maps/dir/40.171,-74.539/')
+
+        /*   CHGVAR     VAR(&ROUTE) VALUE(&ROUTE *TCAT '40.171,-74.539"')  */
+             CHGVAR     VAR(&ROUTE) VALUE(&ROUTE *TCAT '"')
+             CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *TCAT &ROUTE)
+
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             STRPCCMD   PCCMD(&PCCMD) PAUSE(*NO)
+
+ EOJ:        ENDPGM

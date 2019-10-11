@@ -1,0 +1,135 @@
+     A*%%TS  SD  20050715  110927  BILLB       REL-V5R2M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20050706  155640  BILLB       REL-V5R2M0  5722-WDS
+     A                                  1  2'SDR030A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 32' Fixed Cost Entry '
+     A                                      DSPATR(RI)
+     A                                  9 32'Size Code?'
+     A            SIZE           3A  B  9 45
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.     Press RESET')
+     A                                  6 21'Enter The Size Code you Want to Up-
+     A                                      date.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process                  -
+     A                                                                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 32'Sow Type?'
+     A            TSOW           1A  B 11 45DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  DSPATR(RI)
+     A  20                                  ERRMSG('*** Invalid Sow Type Entere-
+     A                                      d.         Press RESET')
+     A                                 11 50'NOTE: Sow Type Is optional.'
+     A                                      DSPATR(UL)
+     A          R CSTSFL                    SFL
+     A*%%TS  SD  20050706  130805  BILLB       REL-V5R2M0  5722-WDS
+     A            DESC          30A  B 11 12CHECK(LC)
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A            UCST           9Y 4B 11 50DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  41                                  DSPATR(RI)
+     A  41                                  DSPATR(PC)
+     A            QTY            6Y 0B 11 43DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A            EXTCST         9Y 4O 11 62EDTCDE(4)
+     A            STAT           1A  B 11  8
+     A  11                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  11                                  DSPATR(PC)
+     A            TCSEQ#         3S 0H
+     A          R CSTCTL                    SFLCTL(CSTSFL)
+     A*%%TS  SD  20050715  110927  BILLB       REL-V5R2M0  5722-WDS
+     A                                      SFLSIZ(0050)
+     A                                      SFLPAG(0013)
+     A  98                                  CF04
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  10                                  SFLMSG('*** Delete Code Must be D o-
+     A                                      r Blank.    Press RESET')
+     A  20                                  SFLMSG('*** Description Cannot be B-
+     A                                      lank.       Press RESET')
+     A  30                                  SFLMSG('*** Quantity Must be at lea-
+     A                                      st 1.       Press RESET')
+     A  40                                  SFLMSG('*** Cost Cannot be Zero.   -
+     A                                                  Press RESET')
+     A                                  1  2'SDR030SFL'
+     A                                  1 31' Fixed Cost Update '
+     A                                      DSPATR(RI)
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3 22'Size:'
+     A                                      DSPATR(HI)
+     A            SIZE           3A  O  3 28DSPATR(HI)
+     A            SZDESC        10A  O  3 32DSPATR(HI)
+     A                                  9  7'Del  Description                  -
+     A                                      Quantity   Cost/Ea   Ext. Cost '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9  4'D='
+     A                                      DSPATR(HI)
+     A                                  6  2'F6=Restart (NO UPDATE)'
+     A                                  7 49'Total Cost:'
+     A                                      DSPATR(HI)
+     A            TOTCST         8Y 2O  7 61DSPATR(HI)
+     A                                      EDTCDE(2)
+     A                                  5  2'F4=Update Data'
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  6 33' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A  99                                  DSPATR(BL)
+     A N99                                  DSPATR(ND)
+     A                                  3 44'Sow Type:'
+     A                                      DSPATR(HI)
+     A            TSOW           1A  O  3 54DSPATR(HI)
+     A                                 10  8' '
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(UL)
+     A                                 10 12'Overhead (Cost/sqft X 1.6)    '
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(UL)
+     A                                 10 43' Weeks'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A            OVRHD          9Y 4B 10 50DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            OVRHDX         9Y 4O 10 62EDTCDE(4)
+     A                                  5 47'Percent Germ:'
+     A                                      DSPATR(HI)
+     A            GERMPCT   R        B  5 61REFFLD(ROCOST/TOGERM *LIBL/FOCOST)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  6 54'Weeks:'
+     A                                      DSPATR(HI)
+     A            WEEKS          4Y 2B  6 61COLOR(YLW)
+     A                                      EDTCDE(4)

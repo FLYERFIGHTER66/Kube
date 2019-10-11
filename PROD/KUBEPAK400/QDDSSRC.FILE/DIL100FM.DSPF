@@ -1,0 +1,114 @@
+     A*%%TS  SD  19990113  213052  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF06
+     A          R SCRNA
+     A*%%TS  SD  19990113  182437  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                  1  2'DIL100A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 25' Inventory Future Availability '
+     A                                      DSPATR(RI)
+     A            USDEPT         3   O  4 25
+     A            DEDESC        30   O  4 29
+     A                                  8 14'Item Number?'
+     A            VITEM         12   B  8 27
+     A                                 10 14'Size Code?'
+     A            VSIZE          3   B 10 27
+     A                                 23  2'Enter to Process              F6=R-
+     A                                      estart                         F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R ITMSFL                    SFL
+     A*%%TS  SD  19990113  213052  EFD         REL-V3R7M0  5716-PW1
+     A            FADTRV         7Y 0H
+     A            AVLDAT         6Y 0B  9  2
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A            VEND           6Y 0B  9 18
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            PONO           6Y 0B  9 11DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            VMNAME        30A  O  9 25
+     A            FANAL          7Y 0O  9 56EDTCDE(2)
+     A            QTYORD         7Y 0B  9 66DSPATR(CS)
+     A                                      EDTCDE(2)
+     A            DAYUSE         3Y 0B  9 77DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  30                                  DSPATR(RI)
+     A          R ITMCTL                    SFLCTL(ITMSFL)
+     A*%%TS  SD  19990113  182437  EFD         REL-V3R7M0  5716-PW1
+     A  98                                  CF04
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0015)
+     A  11                                  SFLMSG('*** Invalid Date Entered.  -
+     A                                              Press RESET')
+     A  12                                  SFLMSG('*** Duplicate Date for this-
+     A                                       item.      Press RESET')
+     A  13                                  SFLMSG('*** Date Entered is Prior t-
+     A                                      o or equal to today.   Press RESET')
+     A  21                                  SFLMSG('*** Invalid Vendor Number E-
+     A                                      ntered.     Press RESET')
+     A  31                                  SFLMSG('*** Useable Days Must be 1 -
+     A                                      or Greater. Press RESET')
+     A                                  1  2'DIL100SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Inventory Future Availability '
+     A                                      DSPATR(RI)
+     A                                  8  2' Avail.   P.O.# Vendor Name       -
+     A                                                          Allocated  Expe-
+     A                                      cted  Use'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7  3'Date'
+     A                                      DSPATR(HI)
+     A                                  7 56'------Quantity-----'
+     A                                      DSPATR(HI)
+     A                                  7 76'Days'
+     A                                      DSPATR(HI)
+     A                                  3 57'NOTE: Days use equals'
+     A                                  4 57'the number of days this'
+     A                                      DSPATR(UL)
+     A                                  5 57'Item is good after Rec.'
+     A                                      DSPATR(UL)
+     A                                  6 57'Enter 999 for no expire'
+     A                                      DSPATR(UL)
+     A            IMITEM        12   O  2 14
+     A            IMSIZE         3   O  2 27
+     A            IMDES1        30   O  2 31
+     A                                  4  2'Enter to Verify      F6=Restart(NO-
+     A                                       UPDATE)'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'                                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2' Press F4 to Update '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  5 24' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)

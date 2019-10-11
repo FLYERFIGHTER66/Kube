@@ -1,0 +1,69 @@
+     A*%%TS  SD  20040219  114037  RP          REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A                                      CF12(12 'Exit')
+     A*
+     A*
+     A          R SCREEN01
+     A*%%TS  SD  20040219  114037  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1  3'APH002'
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                  1 72TIME
+     A                                  2  3'SCREEN01'
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            S1SBDT         6Y 0B 12 41DSPATR(CS)
+     A                                      DSPATR(UL)
+     A  33                                  DSPATR(PC)
+     A                                      EDTWRD('  /  / 0')
+     A            S1DS02        30A  O 12 50
+     A                                 23  5'Press ENTER to Continue With PURGE'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 23 46'F12 to Cancel PURGE'
+     A                                      COLOR(BLU)
+     A                                 12 11'Select Date (MMDDYY) Format:'
+     A  33                                  DSPATR(RI)
+     A                                  2 20'Accounts Payable History File Purg-
+     A                                      e Prompt'
+     A                                      DSPATR(HI)
+     A                                  8 11'This program will purge the Accoun-
+     A                                      ts Payable History older'
+     A                                  9 11'than'
+     A                                  9 16'the'
+     A                                  9 20'date'
+     A                                  9 25'keyed'
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

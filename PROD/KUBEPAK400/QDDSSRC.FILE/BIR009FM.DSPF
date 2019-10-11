@@ -1,0 +1,575 @@
+     A*%%TS  SD  20000629  113137  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000428  062522  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HALL)
+     A  *DS3                                HLPARA( 1   2 24  80)
+     A  *DS4                                HLPARA(16 039 18 067)
+     A          H                           HLPRCD(HPRINT)
+     A  *DS3                                HLPARA(06 040 09 049)
+     A  *DS4                                HLPARA(06 040 09 049)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(06 041 06 071)
+     A  *DS4                                HLPARA(06 041 06 071)
+     A          H                           HLPRCD(HAVAIL)
+     A  *DS3                                HLPARA(08 054 08 070)
+     A  *DS4                                HLPARA(08 054 08 070)
+     A          H                           HLPRCD(HSUMM)
+     A  *DS3                                HLPARA(10 060 10 060)
+     A  *DS4                                HLPARA(10 060 10 060)
+     A          H                           HLPRCD(HVOL)
+     A  *DS3                                HLPARA(12 060 12 060)
+     A  *DS4                                HLPARA(12 060 12 060)
+     A                                  1  2'BIR009'
+     A                                  1 14'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 26' Department File Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Action Codes = A -
+     A                                      C D.     Press Reset')
+     A                                  5 32'Deparment?'
+     A            VDEPT          3A  B  5 47
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Department Is Required.-
+     A                                            Press Reset')
+     A  22                                  ERRMSG('*** This Department Is On F-
+     A                                      ile.     Press Reset')
+     A  23                                  ERRMSG('*** This Department Is Not -
+     A                                      On File. Press Reset')
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process       F3/F7=E-
+     A                                      nd of Job      F13=Print Department-
+     A                                       List    '
+     A                                      DSPATR(UL)
+     A          R HALL
+     A*%%TS  SD  20000428  062522  TGMS        REL-V4R4M0  5769-PW1
+     A                                 15  3' Department File Overview         -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3' You then define the parameters fo-
+     A                                      r each department in this file, for-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' example, when a user assigned to -
+     A                                      this department requests a report t-
+     A                                      o be   '
+     A                                      DSPATR(HI)
+     A                                 21  3' printed, what is the usual (defau-
+     A                                      lt) printer where this report shoul-
+     A                                      d      '
+     A                                      DSPATR(HI)
+     A                                 22  3' print.                           -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 17  3' The department file allows you to-
+     A                                       assign users to workgroups (depart-
+     A                                      ments).'
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20000629  113137  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(04 040 04 069)
+     A  *DS4                                HLPARA(04 040 04 069)
+     A          H                           HLPRCD(HPRINT)
+     A  *DS3                                HLPARA(06 040 09 078)
+     A  *DS4                                HLPARA(06 040 09 078)
+     A          H                           HLPRCD(HGL)
+     A  *DS3                                HLPARA(11 028 11 031)
+     A  *DS4                                HLPARA(11 028 11 031)
+     A          H                           HLPRCD(HSHIP)
+     A  *DS3                                HLPARA(12 029 12 031)
+     A  *DS4                                HLPARA(12 029 12 031)
+     A          H                           HLPRCD(HCAC)
+     A  *DS3                                HLPARA(11 069 11 069)
+     A  *DS4                                HLPARA(11 069 11 069)
+     A          H                           HLPRCD(HPRICE)
+     A  *DS3                                HLPARA(14 029 16 038)
+     A  *DS4                                HLPARA(14 029 16 038)
+     A          H                           HLPRCD(HPICK)
+     A  *DS3                                HLPARA(18 031 18 031)
+     A  *DS4                                HLPARA(18 031 18 031)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 26' Department File Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 37' Delete '
+     A  88                                  DSPATR(RI)
+     A N88                                  DSPATR(ND)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart Without Delete '
+     A  88                                  DSPATR(RI)
+     A N88                                  DSPATR(ND)
+     A            DEWSID        10A  B  3 71DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                  4  3'Deparment:'
+     A            VDEPT          3A  O  4 14DSPATR(HI)
+     A                                  4 25'Description:'
+     A            DEDESC        30A  B  4 40
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  10                                  ERRMSG('*** Description Is Required-
+     A                                      .     Press Reset')
+     A                                  6  3'Default Printers:'
+     A                                  6 25'Invoices'
+     A            DEPINV        10A  B  6 42DSPATR(CS)
+     A                                  7 25'Pick Slips'
+     A                                  7 39'1.'
+     A            DEPPCK        10A  B  7 42DSPATR(CS)
+     A                                  7 55'2.'
+     A            DEPPC2        10A  B  7 58DSPATR(CS)
+     A                                  8  2'WSID For PC Transfer:'
+     A                                      DSPATR(ND)
+     A                                  8 25'Reports'
+     A            DEPREP        10A  B  8 42DSPATR(CS)
+     A                                  9 25'Purchase Orders'
+     A            DEPPO         10A  B  9 42DSPATR(CS)
+     A                                 11  3'G/L Department Number:'
+     A            DEGLNO         4Y 0B 11 28DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                 11 40'Do You Do Cash/Carry:'
+     A            DECCAL         1A  B 11 69DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 12  3'Ship From?'
+     A            DESHFR         3A  B 12 29
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                       Location.  Press Reset')
+     A                                 12 40'Cash/Carry Discount:'
+     A            DECANC         7Y 4B 12 62DSPATR(CS)
+     A                                      EDTCDE(3)
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  36                                  ERRMSG('*** Discount Not Allowed If-
+     A                                       Cash/Carry = N.   Press Reset')
+     A                                 13 40'Cash/Description:'
+     A                                 14  3'Minimum Price Code:'
+     A            DEMINP         1Y 0B 14 31DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Valid Price Codes Are 0-
+     A                                       to 5.    Press Reset')
+     A  42                                  ERRMSG('*** Min And Max Price Codes-
+     A                                       Can Not Be The Same.   Press Reset-
+     A                                      ')
+     A            DECCDE        30A  B 14 40DSPATR(CS)
+     A  37                                  DSPATR(RI)
+     A  37                                  DSPATR(PC)
+     A  37                                  ERRMSG('*** Description Not Allowed-
+     A                                       If Cash/Carry = N.    Press Reset')
+     A                                      CHECK(LC)
+     A                                 15  3'Maximum Price Code:'
+     A            DEMAXP         1Y 0B 15 31DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Valid Price Codes Are 0-
+     A                                       to 5.    Press Reset')
+     A                                 16  3'User IDs to Override:'
+     A                                 16 25'1.'
+     A            DEOVR1        10A  B 16 29DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Enter A Valid User ID. -
+     A                                          Press Reset')
+     A  52                                  ERRMSG('*** At Least One User ID Is-
+     A                                       Required When A Min/Max Price Used-
+     A                                      .  Press Reset')
+     A                                 16 42'2.'
+     A            DEOVR2        10A  B 16 46DSPATR(CS)
+     A  55                                  DSPATR(RI)
+     A  55                                  DSPATR(PC)
+     A  55                                  ERRMSG('*** Enter A Valid User ID. -
+     A                                          Press Reset')
+     A                                 18  3'Auto Print/Pick Slips:'
+     A            DEAPCK         1A  B 18 31DSPATR(CS)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 18 40'Access To All Departments:'
+     A            DEALL          1A  B 18 68DSPATR(CS)
+     A  62                                  DSPATR(RI)
+     A  62                                  DSPATR(PC)
+     A  62                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 20  3'Company Number:'
+     A            DECONO         2Y 0B 20 30DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  63                                  DSPATR(RI)
+     A  63                                  DSPATR(PC)
+     A  63                                  ERRMSG('*** Enter A Valid Company. -
+     A                                          Press Reset')
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'             Enter to Process    F-
+     A                                      6=Restart      F3/F7=End of Job    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HDESC
+     A*%%TS  SD  19990613  090721  APGL        REL-V3R1M0  5763-PW1
+     A                                 20  3' Department Description           -
+     A                                                                     Requ-
+     A                                      ired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' Enter up to 30 characters to desc-
+     A                                      ribe this department.              -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HPRINT
+     A*%%TS  SD  19990613  090721  APGL        REL-V3R1M0  5763-PW1
+     A                                 14  3' Default Printers                 -
+     A                                                                      Opt-
+     A                                      ional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3' Enter the Printer ID for any or a-
+     A                                      ll of the forms shown here.   This -
+     A                                      is     '
+     A                                      DSPATR(HI)
+     A                                 17  3' the printer to which these forms -
+     A                                      will default for users from this   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' printer.                         -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3' department.                      -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' In pickslip print, you have the o-
+     A                                      ption to direct pickslips to two pr-
+     A                                      inters.'
+     A                                      DSPATR(HI)
+     A                                 21  3' For example, print a copy to the -
+     A                                      office printer and one to the shipp-
+     A                                      ing    '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HGL
+     A*%%TS  SD  19990613  090721  APGL        REL-V3R1M0  5763-PW1
+     A                                 18  3' G/L Department Number            -
+     A                                                                      Opt-
+     A                                      ional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  1'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                 20  3' Enter the 4 digit department numb-
+     A                                      er that will be used in the general-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' ledger account number for entries-
+     A                                       that are transferred to G/L for   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3' transactions entered through this-
+     A                                       department.                       -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HSHIP
+     A*%%TS  SD  19990613  090721  APGL        REL-V3R1M0  5763-PW1
+     A                                 19  3' Ship From                        -
+     A                                                                      Opt-
+     A                                      ional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' Enter the default Ship From locat-
+     A                                      ion that is used by this department-
+     A                                      .      '
+     A                                      DSPATR(HI)
+     A                                 22  3' This must be a valid Ship From as-
+     A                                       defined in the location master fil-
+     A                                      e.     '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HCAC
+     A*%%TS  SD  19990613  090721  APGL        REL-V3R1M0  5763-PW1
+     A                                 14  3' Cash and Carry Discount          -
+     A                                                                      Opt-
+     A                                      ional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 16  3' Does this department offer a cash-
+     A                                       and carry discount to walk in cust-
+     A                                      omers. '
+     A                                      DSPATR(HI)
+     A                                 17  3' Enter a Y for Yes or an N for No.-
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3' If Yes, enter the discount percen-
+     A                                      t.  Enter 5% as 5.00.              -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' If Yes, enter the description tha-
+     A                                      t should print on the invoice descr-
+     A                                      ibing  '
+     A                                      DSPATR(HI)
+     A                                 22  3' this discount - for example - 5% -
+     A                                      Cash and Carry Discount.           -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HPRICE
+     A*%%TS  SD  19990613  090721  APGL        REL-V3R1M0  5763-PW1
+     A                                 11  3' Min/Max Price Codes              -
+     A                                                                      Opt-
+     A                                      ional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 13  3' Every inventory item can have up -
+     A                                      to five prices.  If your company ha-
+     A                                      s      '
+     A                                      DSPATR(HI)
+     A                                 14  3' established minimum and/or maximu-
+     A                                      m prices that can be charged for an-
+     A                                       item, '
+     A                                      DSPATR(HI)
+     A                                 15  3' you can have a line item flagged -
+     A                                      that is being sold for under the   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3' minimum or over the maximum price-
+     A                                      .  If this department has min/max c-
+     A                                      ontrols'
+     A                                      DSPATR(HI)
+     A                                 17  3' on pricing, enter the price code -
+     A                                      - 1 through 5, for either the minim-
+     A                                      um,    '
+     A                                      DSPATR(HI)
+     A                                 18  1'   maximum or both.  If you do not-
+     A                                       use min/max - enter a zero.       -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                 22  3' ID must have been defined in the -
+     A                                      User ID file.                      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' If you enter min/max price codes -
+     A                                      you must enter up to 2 User ID to i-
+     A                                      dentify'
+     A                                      DSPATR(HI)
+     A                                 21  3' the users that have the authority-
+     A                                       to override the min/max price.  Th-
+     A                                      is user'
+     A                                      DSPATR(HI)
+     A          R HPICK
+     A*%%TS  SD  19990613  090721  APGL        REL-V3R1M0  5763-PW1
+     A                                 19  3' Automatically Print Pick Slips   -
+     A                                                                      Opt-
+     A                                      ional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' Do you want pick slips to print a-
+     A                                      utomatically every time an order is-
+     A                                       added '
+     A                                      DSPATR(HI)
+     A                                 22  3' or changed for this department.  -
+     A                                       Enter Y or N.                     -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

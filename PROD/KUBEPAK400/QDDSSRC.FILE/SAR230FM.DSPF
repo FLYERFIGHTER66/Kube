@@ -1,0 +1,113 @@
+     A*%%TS  SD  19990712  112239  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19990712  112239  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF02
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 44' Sales Analysis Inquiry - Detail B-
+     A                                      y Customer '
+     A                                      DSPATR(RI)
+     A                                  1116'Date:'
+     A                                  1122DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 59'For Company:'
+     A            LCO            2S 0O  2 72DSPATR(HI)
+     A                                  2116'Time:'
+     A                                  2122TIME
+     A                                  5 48'Customer Number:'
+     A            VCUST          6Y 0B  5 72EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  11                                  ERRMSG('*** Either Customer Or Alph-
+     A                                      a Search.      Press Reset')
+     A  13 99                               ERRMSG('*** This Customer Number is-
+     A                                       not on file.    Press Reset')
+     A  81 99                               ERRMSG('*** No Orders on File for t-
+     A                                      his Customer Number.      Press Res-
+     A                                      et')
+     A                                  6 48'Alpha Search'
+     A            VALPHA        15A  B  6 72DSPATR(CS)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A            CMNAME        30A  O  7 72
+     A                                  9 48'For Accounting Period:'
+     A            VACTP          2Y 0B  9 72EDTCDE(Z)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  30                                  ERRMSG('*** Enter A Valid Acounting-
+     A                                       Period.   Press Reset')
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                                '
+     A                                      DSPATR(UL)
+     A                                 26  2'                              Ente-
+     A                                      r to Process       F2=Display Acctg-
+     A                                       Period       F3/F7=End of Job     -
+     A                                                                '
+     A                                      DSPATR(UL)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19990701  061949  TGMS        REL-V3R1M0  5763-PW1
+     A            SIITEM        12A  O  7  2
+     A            SISIZE         3A  O  7 15
+     A            DESC          29A  O  7 20
+     A            CSMTD          9Y 2O  7 50EDTCDE(K)
+     A            CSYTD          9Y 2O  7 65EDTCDE(K)
+     A            LSYTD          9Y 2O  7 80EDTCDE(K)
+     A            CQMTD          8Y 0O  7 95EDTCDE(K)
+     A            CQYTD          8Y 0O  7108EDTCDE(K)
+     A            LQYTD          8Y 0O  7121EDTCDE(K)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19990701  061949  TGMS        REL-V3R1M0  5763-PW1
+     A                                      SFLSIZ(0500)
+     A                                      SFLPAG(0020)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  3'SAR230'
+     A                                  1 39' Roll Forward/Backward   F6=Restar-
+     A                                      t   F3/F7=End of Job '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                  2124TIME
+     A                                  3  2'Customer:'
+     A            VCUST          6Y 0O  3 12EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  3 19DSPATR(HI)
+     A                                  3 55'Current Period:'
+     A            BEGDAT         6Y 0O  3 72EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  3 82'-'
+     A            ENDDAT         6Y 0O  3 85EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  5 51'- - - - - - -  S A L E S  - - - - -
+     A                                      - - -'
+     A                                  5 96'- - - -  Q U A N T I T Y   - - - -'
+     A                                  6  2'Item        Size      Description -
+     A                                                           MTD           -
+     A                                       YTD      Prior YTD          MTD   -
+     A                                             YTD     Prior YTD '
+     A                                      DSPATR(UL)

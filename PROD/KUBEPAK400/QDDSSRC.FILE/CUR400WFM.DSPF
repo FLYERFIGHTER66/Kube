@@ -1,0 +1,117 @@
+     A*%%TS  SD  20181123  014427  VIMALA      REL-V7R2M0  5770-WDS
+     A*?Program        : CURWDWFM
+     A*?
+     A*?Description    : This display file for used for Cuttings
+     A*?                 Requirements (Vendor and Quantity for Item & Date)
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 21 Nov 2018
+     A**********************************************************************
+     A*?Special Notes  : Subfile Type -  Window Subfile
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS3)
+     A                                      PRINT
+     A                                      INDARA
+     A**********************************************************************
+     A*?Subfile Display Part
+     A          R CURWDWS01                 SFL
+     A*%%TS  SD  20181123  014427  VIMALA      REL-V7R2M0  5770-WDS
+     A  25                                  SFLNXTCHG
+     A            S01RRN         4S 0H
+     A            S01VEND       15A  O  7  2
+     A            S01QTY         8Y 0O  7 20EDTCDE(M)
+     A**********************************************************************
+     A*?Subfile Control Part
+     A*
+     A          R CURWDWC01                 SFLCTL(CURWDWS01)
+     A*%%TS  SD  20181123  014232  VIMALA      REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0006)
+     A                                      WINDOW(CURWDWW01)
+     A                                      CF03(03 'Exit')
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A*
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 13' Supplier Quantity by Vendor '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 44DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 44TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Item:'
+     A                                      COLOR(GRN)
+     A            C01ITEM       12A  O  4  8COLOR(YLW)
+     A                                  4 25'Supplier Date:'
+     A                                      COLOR(GRN)
+     A            C01SUPDTE      8A  O  4 40COLOR(YLW)
+     A*
+     A                                  6  2'Vendor         '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  6 20'Quantity'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  2 25' View '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R CURWDWW01
+     A                                      KEEP
+     A                                      WINDOW(3 63 15 55 *NOMSGLIN)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R CURWDWF01
+     A                                      WINDOW(CURWDWW01)
+     A                                      OVERLAY
+     A                                 14  2'F3'
+     A                                      DSPATR(HI)
+     A                                 14  5'=Exit'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(15)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A                                      WINDOW(CURWDWW01)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A          R ASSUME
+     A                                      ASSUME
+     A                                  1  3' '

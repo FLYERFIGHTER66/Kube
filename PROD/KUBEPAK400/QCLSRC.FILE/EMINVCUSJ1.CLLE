@@ -1,0 +1,43 @@
+             PGM        PARM(&PDATE &PCUST)
+
+             DCL        VAR(&PDATE) TYPE(*DEC)
+             DCL        VAR(&PCUST) TYPE(*DEC)
+
+             DCL        VAR(&SELDATE) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&SELCUST) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&SELZERO) TYPE(*DEC) LEN(6 0) VALUE(0)
+             DCL        VAR(&JOBNAME) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&JOBUSER) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&JOBNUMB) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&EMLNAME) TYPE(*CHAR) LEN(30)
+             DCL        VAR(&EML1) TYPE(*CHAR) LEN(32)
+             DCL        VAR(&EML2) TYPE(*CHAR) LEN(32)
+             DCL        VAR(&EML3) TYPE(*CHAR) LEN(32)
+
+             CHGVAR     VAR(&SELDATE) VALUE(&PDATE)
+             CHGVAR     VAR(&SELCUST) VALUE(&PCUST)
+
+             OVRPRTF    FILE(BIR330A) TOFILE(*LIBL/QSYSPRT) DEV(P6) +
+                          DEVTYPE(*AFPDS) PAGESIZE(11 8.5 *UOM) LPI(6) +
+                          CPI(12) ALIGN(*NO) PAGRTT(0) FRONTOVL(INVOICE +
+                          .15) OUTQ(DONTPRINT) OVRSCOPE(*JOB)
+
+             OVRPRTF    FILE(EMINVCUSP)  DEV(P6) DEVTYPE(*AFPDS) +
+                          PAGESIZE(11 8.5 *UOM) LPI(6) CPI(10) ALIGN(*NO) +
+                          PAGRTT(0) FRONTOVL(MANIFEST 0) OUTQ(DONTPRINT) +
+                          OVRSCOPE(*JOB)
+
+             CHGJOB     SWS(10XXXXXX)
+             CALL       PGM(EMINVCUS) PARM(&SELDATE &SELCUST &EMLNAME +
+                          &EML1 &EML2 &EML3)
+             CHGJOB     SWS(01XXXXXX)
+             CALL       PGM(PRTINV) PARM(&SELZERO)
+             CHGJOB     SWS(00XXXXXX)
+
+             RTVJOBA    JOB(&JOBNAME) USER(&JOBUSER) NBR(&JOBNUMB)
+
+             SBMJOB     CMD(CALL PGM(EMINVCUSJ2) PARM(&PDATE &PCUST +
+                          &JOBNAME &JOBUSER &JOBNUMB &EMLNAME &EML1 &EML2 +
+                          &EML3)) JOB(&JOBNAME)
+
+ EOJ:        ENDPGM

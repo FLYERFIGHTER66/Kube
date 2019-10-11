@@ -1,0 +1,41 @@
+/*********************************************************************/
+/*   PROGRAM-------- SCR230CLP                                       */
+/*   DATE WRITTEN---  5/12/2016                                      */
+/*   PROGRAMMER----- B. BEHR                                         */
+/*   DESCRIPTION---- PRINT PUT DOWN LIST FROM GREENHOUSE             */
+/*   REVISIONS------   this version passes the printer               */
+/*                                                                   */
+/*********************************************************************/
+             PGM        PARM(&CART &SHPD &MSTR &CNTL &PRT)
+             DCL        VAR(&CART) TYPE(*DEC) LEN(8 0)
+             DCL        VAR(&SHPD) TYPE(*DEC) LEN(7 0)
+             DCL        VAR(&MSTR) TYPE(*DEC) LEN(2 0)
+             DCL        VAR(&CNTL) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&PRT) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&FORM) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&COPY) TYPE(*CHAR) LEN(2)
+             DCL        VAR(&HOLD) TYPE(*CHAR) LEN(4)
+             DCL        VAR(&SAVE) TYPE(*CHAR) LEN(4)
+             DCL        VAR(&JOBQ) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&USER) TYPE(*CHAR) LEN(10)
+
+      /*     RTVDTAARA  DTAARA(*LDA (100 10)) RTNVAR(&PRT)     */
+             RTVDTAARA  DTAARA(*LDA (110 10)) RTNVAR(&FORM)
+             RTVDTAARA  DTAARA(*LDA (120 2)) RTNVAR(&COPY)
+             RTVDTAARA  DTAARA(*LDA (122 1)) RTNVAR(&JOBQ)
+             RTVDTAARA  DTAARA(*LDA (123 4)) RTNVAR(&HOLD)
+             RTVDTAARA  DTAARA(*LDA (127 4)) RTNVAR(&SAVE)
+
+             OVRPRTF    FILE(NCR230E) TOFILE(*LIBL/QSYSPRT) +
+                          DEV(&PRT) PAGESIZE(66 80) LPI(6) CPI(10) +
+                          ALIGN(*NO) FORMTYPE(*NAR)
+
+             OVRPRTF    FILE(NCR230) TOFILE(*LIBL/QSYSPRT) DEV(&PRT) +
+                          PAGESIZE(66 80) LPI(6) CPI(10) ALIGN(*NO) +
+                          FORMTYPE(*NAR)
+
+             OVRPRTF    FILE(NCR230P) DEV(R9) ALIGN(*NO) FORMTYPE(*NAR)
+
+             CALL       PGM(NCR230) PARM(&CART &SHPD &MSTR &CNTL)
+
+ END:        ENDPGM

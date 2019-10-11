@@ -1,0 +1,185 @@
+     A*%%TS  SD  20000105  072357  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000105  072357  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(OHELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 30'   A/P Voucher Post    '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Post Only Vouchers'
+     A                                  6 25'Entered by User:'
+     A            LUSER         10A  B  6 46DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** This User Is Not Define-
+     A                                      d To The System.    Press Reset')
+     A                                  6 58'*'
+     A                                  8 25'Print Post Report:'
+     A            LRPT           1A  B  8 55DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 11 25'Printer ID:'
+     A            LPRTR         10A  B 11 46DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 12 25'Forms Number:'
+     A            LFORM         10A  B 12 46DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 13 25'Number of Copies:'
+     A            LCOPY          2Y 0B 13 54
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 14 25'Print Status:'
+     A            VOUT           1Y 0B 14 55
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 14 60'1 = Print'
+     A                                 15 60'2 = Print/Save'
+     A                                 16 60'3 = Hold'
+     A                                 20  8'* Leave User Field Blank to Post V-
+     A                                      ouchers Entered By All User IDs'
+     A                                      DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                 Enter to Process -
+     A                                             F3/F7=Cancel Job            -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 18 19' You Cannot Post. Edit Register Ha-
+     A                                      s Errors '
+     A  77                                  DSPATR(RI)
+     A N77                                  DSPATR(ND)
+     A  77                                  COLOR(RED)
+     A          R OHELP
+     A*%%TS  SD  19990412  061121  EFD         REL-V3R1M0  5763-PW1
+     A                                  5  2' Voucher Post                     -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2' dollar amount added to the open p-
+     A                                      ayable file.  The total of all manu-
+     A                                      al checks'
+     A                                      DSPATR(HI)
+     A                                 10  2' is also printed.                 -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2' You can select to post only those-
+     A                                       vouchers that were entered by a pa-
+     A                                      rticular '
+     A                                      DSPATR(HI)
+     A                                  7  2' The post program updates all of t-
+     A                                      he appropriate a/p files with the d-
+     A                                      ata that '
+     A                                      DSPATR(HI)
+     A                                  8  2' was entered through voucher entry-
+     A                                       and prints a report showing the to-
+     A                                      tal      '
+     A                                      DSPATR(HI)
+     A                                 16  2' Printing the post report is optio-
+     A                                      nal, but it is recommended.        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2' master file.                     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2' user by entering that user id.  T-
+     A                                      his user id must be defined in the -
+     A                                      user     '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' YOU CANNOT CHANGE OR DELETE A VOU-
+     A                                      CHER THROUGH VOUCHER ENTRY AFTER TH-
+     A                                      E POST   '
+     A                                      DSPATR(HI)
+     A                                 19  2' HAS BEEN RUN.  YOU CAN DELETE A V-
+     A                                      OUCHER AFTER THE POST USING THE DEL-
+     A                                      ETE AN   '
+     A                                      DSPATR(HI)
+     A                                 20  2' OPEN PAYABLE MENU OPTION.  THE ON-
+     A                                      LY DATA YOU CAN CHANGE ON A VOUCHER-
+     A                                       AFTER   '
+     A                                      DSPATR(HI)
+     A                                 21  2' THE POST ARE THE DUE DATE AND THE-
+     A                                       DISCOUNT DUE DATE.                -
+     A                                               '
+     A                                      DSPATR(HI)

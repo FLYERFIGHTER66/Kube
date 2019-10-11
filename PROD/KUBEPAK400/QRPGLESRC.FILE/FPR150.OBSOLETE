@@ -1,0 +1,80 @@
+000100160122     H/COPY QFunctDefn,@CopyRight                                               Copyright Info.
+000200160122     H DftActGrp(*No)
+000300160122     H BndDir('*LIBL/KPFUNCTION')                                               Use KP Functions
+000400160122     H DatFmt(*Usa)
+000500160122      // :````````````````````````````````````````````````````````````:
+000600160122      // :   Title:  Upload Finished Production Schedule Info         :
+000700160122      // :............................................................:
+000800160122      // :````````````````````````````````````````````````````````````:
+000900160122      // : Created:  January 2016          Kube-Pak Corporation     :
+001000160122      // :      by:  William J. Behr                                  :
+001100160122      // :............................................................:
+001200160122      // :````````````````````````````````````````````````````````````:
+001300160122      // :   Program Description                                     :
+001400160122      // : ```````````````````````                                   :
+001500160122      // :                                                           :
+001600160122      // :............................................................:
+001700160122      // :````````````````````````````````````````````````````````````:
+001800160122      // :  Edit Log                                                :
+001900160122      // :                                                           :
+002000160122      // :  WJB    - 1/22/16 - Initial Programming                  :
+002100160122      // :         -  /  /   - _____________________________________:
+002200160122      // :............................................................:
+002300160122
+002400160122      // Main procedure prototype & interface
+002500160205     D FPR066          PR                  ExtPgm('FPR066')
+002600160205     D  #Batch                        6P 0 const
+002700160205     D  #Printer                     10A   const
+002800160205     D FPR066          PI
+002900160205     D  #Batch                        6P 0 const
+003000160205     D  #Printer                     10A   const
+003100160122
+003200160122      * Function Prototypes
+003300160122    D/COPY QFunctDefn,QCMDEXC
+003400160202    D/COPY QFunctDefn,$DftPrt
+003500160202    D/COPY QFunctDefn,$ChgPrt
+003600160202    D/COPY QFunctDefn,$User
+003700160122
+003800160122      * Fields
+003900160202     D  Command        S            256A   inz(*Blanks)
+004000160129     D  Batch#         S              6S 0 inz(2)
+004100160202     D  Printer        S             10A   inz(*Blanks)
+004200160122
+004300160122      /Free
+004400160205         Batch#  = #Batch  ;
+004500160205         Printer = #Printer;
+004600160202         Command = 'CRTDUPOBJ OBJ(FFINPPDPRT) '+
+004700160202                   'FROMLIB(*LIBL) '+
+004800160202                   'OBJTYPE(*FILE) '+
+004900160202                   'TOLIB(QTEMP) '+
+005000160202                   'NEWOBJ(FFINPPDPRT) '+
+005100160202                   'DATA(*NO) '+
+005200160202                   'CST(*NO) '+
+005300160202                   'TRG(*NO) '+
+005400160202                   'FILEID(*YES)';
+005500160202         QCmdExc(Command:%Len(%Trim(Command)));
+005600160129         Exec SQL
+005700160129           DELETE FROM QTEMP/FFINPPDPRT;
+005800160129         Exec SQL
+005900160129           Insert into FFINPPDPRT
+006000160129             ( Select * from FFINPPDTAG Where FPBAT# = :Batch# );
+006100160202
+006200160129         Command = 'RUNQRY QRYFILE((QTEMP/FFINPPDPRT)) ' +
+006300160129                   'OUTTYPE(*DISPLAY) ' +
+006400160129                   'RCDSLT(*NO)' ;
+006500160129         QCmdExc(Command:%Len(%Trim(Command)));
+006600160129
+006700160205         If Printer =  *Blanks;
+006800160205           Printer = $DftPrt($User():'FPR066':'*PGM');
+006900160205           Printer = $ChgPrt($User():'FPR066':Printer);
+007000160205         EndIf;
+007100160202
+007200160202         Command =
+007300160202           'LBLBATCH LBLNAM(''PPD_PRT'') QTYOVR(0002) ' +
+007400160202           'OUTQ(''' + %Trim(Printer) + ''') FORM(''PLTLBL2x4'') ' +
+007500160202           'MRGFILE(''FFINPPDPRT'') MRGLIB(''QTEMP'')';
+007600160202         QCmdExc(Command:%Len(Command));
+007700160202
+007800160122         *InLR = *On;
+007900160122
+008000160122       /End-Free

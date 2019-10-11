@@ -1,0 +1,227 @@
+     A* Free Form Menu: APM070
+     A*%%TS  SD  20091216  102913  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+0001 A* FREE  FORM MENU
+     A          R APM070
+     A*%%TS  SD  19990421  170259  AP          REL-V3R1M0  5763-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF03
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'COMMAND'
+     A* CMDPROMPT  Do not delete this DDS spec.
+     A                                019  2'Ready for option number or command-
+     A                                          '
+     A                                  2 25' EFD A/P Reports and Inquiries '
+     A                                      DSPATR(RI)
+     A                                  5  7'Reports'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  5 52'Inquiries'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  6  2'1. - Vendor Aging'
+     A                                  6 46'12. - Payables By Vendor'
+     A                                  7 46'13. - Cash Requirements/Due Date'
+     A                                  8  2'3. - Cash Requirements by Due Date'
+     A                                  8 46'14. - Company A/P Summary Balance'
+     A                                 10  2'5. - Vendor Master Listing'
+     A                                 14 36'Selections'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                 15 30'20. - A/P Menu'
+     A                                 16 30'23. - Master Menu'
+     A                                  7  2'2. - Open Payables By Vendor      '
+     A                                 11  2'6. - Vendor Labels'
+     A                                  9 46'15. - Vendor Payment History'
+     A                                  9  2'4. - Vendor Payment History'
+     A                                  2  2USER
+     A                                  1 35'MENU: APM070'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                 12  2'7. - Vendor Name/Address Directory'
+     A                                 17 30'90. - Sign Off'
+     A          R #H0107
+     A*%%TS  SD  19990420  080327  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Options 01 - 07-
+     A                                      ')
+     A                                      CLRL(*ALL)
+     A                                  1  2' Accounts Payable Reports         -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'1. Vendor Aging:  lists the open v-
+     A                                      endor invoices showing the amounts -
+     A                                      due in   '
+     A                                      DSPATR(HI)
+     A                                  4  2'                  each of the next-
+     A                                       four aging periods as defined in t-
+     A                                      he       '
+     A                                      DSPATR(HI)
+     A                                  5  2'                  control file, an-
+     A                                      d totals for each vendor.          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6  2'2. Open Payables: lists the open v-
+     A                                      endor invoices showing invoice amou-
+     A                                      nt,      '
+     A                                      DSPATR(HI)
+     A                                  7  2'                  available discou-
+     A                                      nt, partial payments and net due.  -
+     A                                      Totals   '
+     A                                      DSPATR(HI)
+     A                                  8  2'                  are given for ea-
+     A                                      ch vendor.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2'3. Cash Require-  lists the open v-
+     A                                      endor invoices in due date sequence-
+     A                                       starting'
+     A                                      DSPATR(HI)
+     A                                 10  2'   ments by Date: with the oldest -
+     A                                      invoice.  Report shows balance due,-
+     A                                       discount'
+     A                                      DSPATR(HI)
+     A                                 11  2'                  are given for ea-
+     A                                      ch vendor.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'4. Vendor Pay-    lists the paid v-
+     A                                      endor invoices showing invoice numb-
+     A                                      er,      '
+     A                                      DSPATR(HI)
+     A                                 13  2'   ment History:  amount paid, dis-
+     A                                      count taken, check number and check-
+     A                                       date.   '
+     A                                      DSPATR(HI)
+     A                                 14  2'                  Totals are given-
+     A                                       for each vendor.                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'5. Vendor List:   a master list of-
+     A                                       all the data in each vendors recor-
+     A                                      d.       '
+     A                                      DSPATR(HI)
+     A                                 16  2'6. Vendor Labels: prints vendor ma-
+     A                                      iling labels.                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'7. Vendor Name/   lists the vendor-
+     A                                       master file in alphabetic sequence-
+     A                                       showing '
+     A                                      DSPATR(HI)
+     A                                 18  2'   Address Dir:   vendor name, add-
+     A                                      ress, phone and fax numbers.       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  2  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                     Roll - or - P-
+     A                                      ress Enter to Return               -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R #H1215
+     A*%%TS  SD  19990420  080327  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Options 12 - 15-
+     A                                      ')
+     A                                      CLRL(*ALL)
+     A                                  4  3'12. Payables By   displays all the-
+     A                                       vendor invoices, the totals for ea-
+     A                                      ch      '
+     A                                      DSPATR(HI)
+     A                                  5  3'    Vendor:       aging period, to-
+     A                                      tal due, amount past due, and curre-
+     A                                      nt      '
+     A                                      DSPATR(HI)
+     A                                  6  3'                  amount due.  Tot-
+     A                                      al YTD purchases and payments are s-
+     A                                      hown.   '
+     A                                      DSPATR(HI)
+     A                                  8  3'13. Cash Require- displays all the-
+     A                                       vendor invoices due by a user ente-
+     A                                      red     '
+     A                                      DSPATR(HI)
+     A                                  9  3'    ments:        date in ascendin-
+     A                                      g date sequence.  Totals for each d-
+     A                                      ate     '
+     A                                      DSPATR(HI)
+     A                                 10  3'                  can be shown.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3'14. Company Summ- displays a summa-
+     A                                      ry screen with total due, total pas-
+     A                                      t due,  '
+     A                                      DSPATR(HI)
+     A                                 13  3'    ary Balance:  current due and -
+     A                                      future due for a specific company. -
+     A                                       Totals '
+     A                                      DSPATR(HI)
+     A                                 14  3'                  for each aging p-
+     A                                      eriod are also displayed.          -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'15. Vendor Pay-   displays the pai-
+     A                                      d vendor invoices, including invoic-
+     A                                      e       '
+     A                                      DSPATR(HI)
+     A                                 17  3'    ment History: number, amount p-
+     A                                      aid, check number and check date.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  3  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  2  3' Accounts Payable Inquiries       -
+     A                                                                     Over-
+     A                                      view    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

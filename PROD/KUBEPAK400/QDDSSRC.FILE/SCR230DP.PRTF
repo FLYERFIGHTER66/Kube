@@ -1,0 +1,102 @@
+     A*%%***********************************************************************
+     A*%%TS  RD  20140107  144939  BILLB       REL-V7R1M0  5770-WDS
+     A*%%FI+10660100000000000000000000000000000000000000000000000000
+     A*%%FI       0000000000000000000000000000000000000000000000000
+     A*%%***********************************************************************
+     A                                      REF(*LIBL/KPREF  KPREFR)
+     A          R DPHEAD
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 006
+     A*%%***********************************************************************
+      *
+     A                                      SKIPB(007)
+     A                                      SPACEA(001)
+     A                                     1
+     A                                      'SCR230DP'
+     A                                    27
+     A                                      'Kube-Pak Shipping Reporting'
+     A                                      UNDERLINE
+     A                                      HIGHLIGHT
+     A                                    66
+     A                                      'Page:'
+     A                                    76
+     A                                      PAGNBR
+     A                                      EDTCDE(Z)
+     A                                     1
+     A                                      'Run Date:'
+     A                                      SPACEB(001)
+     A                                    11
+     A                                      DATE
+     A                                      EDTCDE(Y)
+     A                                    +9
+     A                                      'Duplicate Tray Tag Report'
+     A                                    66
+     A                                      'Time:'
+     A                                    72
+     A                                      TIME
+     A                                    19
+     A                                      'Cart #:'
+     A                                      SPACEB(002)
+     A            CTCART    R        O    +3
+     A                                      REFFLD(RCART/CTCART *LIBL/FCART)
+     A                                    +9
+     A                                      'Control #:'
+     A            CTCNTL    R        O    +3
+     A                                      REFFLD(RCART/CTCNTL *LIBL/FCART)
+     A                                     2
+     A                                      'The Following Tray Tags were scann-
+     A                                      ed into plug shipping more than onc-
+     A                                      e.'
+     A                                      SPACEB(002)
+     A                                     1
+     A                                      'ST REAS CT'
+     A                                      SPACEB(002)
+     A                                    +2
+     A                                      'Tag#'
+     A                                    22
+     A                                      'Item'
+     A                                      UNDERLINE
+     A                                    +7
+     A                                      'Size'
+     A                                    +2
+     A                                      'Ready Dt.'
+     A                                    +3
+     A                                      'Alpha'
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001                                                    es
+     A*%%CL 002
+     A*%%CL 002
+     A*%%CL 002
+     A*%%CL 001
+     A*%%***********************************************************************
+     A          R DPDETL
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A                                      SPACEB(001)
+     A            TRSTAT    R        O     1
+     A                                      REFFLD(RTRAY/TRSTAT *LIBL/FTRAY)
+     A            TRREAS    R        O    +2
+     A                                      REFFLD(RTRAY/TRREAS *LIBL/FTRAY)
+     A            TRCNTD    R        O    +2
+     A                                      REFFLD(RTRAY/TRCNTD *LIBL/FTRAY)
+     A            TRTAG#    R        O    +2
+     A                                      REFFLD(RTRAY/TRTAG# *LIBL/FTRAY)
+     A            TRITEM    R        O    +2
+     A                                      REFFLD(RTRAY/TRITEM *LIBL/FTRAY)
+     A            TRSIZE    R        O    +0
+     A                                      REFFLD(RTRAY/TRSIZE *LIBL/FTRAY)
+     A            TRCRDT    R        O    +2
+     A                                      REFFLD(RTRAY/TRCRDT *LIBL/FTRAY)
+     A            TRALPH    R        O    +2
+     A                                      REFFLD(RTRAY/TRALPH *LIBL/FTRAY)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CP+999CRTPRTF
+     A*%%CP+    FILE(KUBEPAK400/SCR230P)
+     A*%%CP+    DEVTYPE(*SCS)
+     A*%%CP+    PAGESIZE(60 080)
+     A*%%CP     FORMTYPE(*NAR)
+     A*%%***********************************************************************

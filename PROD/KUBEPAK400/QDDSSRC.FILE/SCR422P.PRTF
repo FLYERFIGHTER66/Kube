@@ -1,0 +1,61 @@
+      *****************************************************************
+      **                                                             **
+      **  FILE:       SCR121P                                        **
+      **  FUNCTION:   PRINT ALL UNPRINTED LOCATIONS BY ITEM          **
+      **  CREATED BY: R. PIASECKI 3/22/2004                          **
+      **                                                             **
+      *****************************************************************
+                                            REF(*LIBL/KPREF  KPREFR)
+     A          R HEADER
+      *
+     A                                      SKIPB(002)
+     A                                     1 'SCR122P'
+     A                                     9 'Requested by:'
+     A            USERID        10A       23
+     A                                    33 '      Unlisted Items      '
+     A                                    80 'Page:'
+     A                                    86PAGNBR
+     A                                      EDTCDE(Z)
+     A                                      SPACEA(001)
+     A                                     1 'Run Date:'
+     A            TDATE          6S 0     11EDTCDE(Y)
+     A                                    34 'Ship Date:'
+     A            PLDATE         6S 0     46EDTCDE(Y)
+     A                                    74 'Time:'
+     A                                    80
+     A                                      TIME
+     A                                      SPACEA(001)
+     A                                    27 'Item:'
+     A            ITEM           6A       33
+     A            IMSIZE         3A       40
+     A            IMDES1        30        44
+     A                                      SPACEA(002)
+     A                                     1 'Req. Date'
+     A                                    11 'Lin'
+     A                                    15 'Number'
+     A                                    22 'Cust # Name'
+     A                                    57 'Ordered'
+     A                                    71 'Need'
+     A                                      SPACEA(001)
+     A                                     1 '____________________'
+     A                                    21 '____________________'
+     A                                    41 '____________________'
+     A                                    61 '____________________'
+     A                                    81 '___'
+     A                                      SPACEA(001)
+     A          R DETAIL
+     A            RQDATE         6  0      2EDTCDE(Y)
+     A            OISEQ#         3  0     11
+     A            OIORD#         6  0     15
+     A            OICUST         6  0     22EDTCDE(Z)
+     A            CUSNAM        25        29
+     A            QTYORD         9  0     56EDTCDE(4)
+     A            QTYNED         9  0     66EDTCDE(4)
+     A                                      SPACEA(001)
+     A          R TOTAL
+     A                                    59 '======'
+     A                                      SPACEA(001)
+     A                                    25 'Total Quantity=========>'
+     A            TOTORD         9  0     54EDTCDE(4)
+     A            TOTNED         9  0     66EDTCDE(4)
+      *

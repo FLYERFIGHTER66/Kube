@@ -1,0 +1,628 @@
+0000 A*0IGC 0DS4  V3R7M0                    910710
+0000 A                                      DSPSIZ(*DS3 *DS4)
+0000 A                                      USRDSPMGT CHGINPDFT INDARA
+0001 A          R PRV030A
+0001 A                                      DSPMOD(*DS3)
+0001 A                                      PRINT(*PGM)
+0001 A                                      INVITE
+0001 A                                      SLNO(01)
+0001 A                                      CLRL(*ALL)
+0001 A                                      ALWROL
+0001 A                                      CF07
+0001 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0001 A                                      HELP
+0002 A                                 01004'PRV030A'
+0003 A            FL0073         1   I 01013DFT('A')
+0003 A                                      DSPATR(PR ND MDT)
+0005 A                                 01028' EMPLOYEE MASTER MAINTENANCE '
+0005 A                                      DSPATR(RI)
+0006 A                                 01067'Date:'
+0007 A            UDATE       0008   O 01073
+0008 A                                 02067'Time:'
+0009 A            TIMDAY      0008   O 02073
+0010 A                                 04004'ACTION (A,C,D,R,I)'
+0011 A            ACTION      0001X  B 04024DSPATR(CS MDT)
+0011 A  20                                  DSPATR(RI PC)
+0012 A                                 04032'Enter Employee Number:'
+0013 A            EMP#        0006M  B 04056CHECK(RZ)
+0013 A                                      DSPATR(CS MDT)
+0013 A  21                                  DSPATR(RI PC)
+0014 A                                 05029'or'
+0015 A                                 05032'Alpha'
+0015 A                                      DSPATR(RI)
+0016 A                                 05038'Search Name:'
+0017 A            VSEARCH       15   B 05056DSPATR(CS MDT)
+0017 A  95                                  DSPATR(RI PC)
+0019 A            NAME          30   O 06045
+0019 A N17                                  DFTVAL('                           -
+0019 A                                         ')
+0019 A                                      DSPATR(HI)
+0020 A                                 07032'Enter Company Number:'
+0021 A            COMP           2M  B 07056CHECK(RZ)
+0021 A                                      DSPATR(CS MDT)
+0021 A  36                                  DSPATR(RI PC)
+0022 A                                 08004' A = ADD        '
+0022 A                                      DSPATR(RI)
+0023 A                                 09004' C = CHANGE     '
+0023 A                                      DSPATR(RI)
+0024 A                                 10004' D = DELETE     '
+0024 A                                      DSPATR(RI)
+0025 A                                 11004' R = REACTIVATE '
+0025 A                                      DSPATR(RI)
+0026 A                                 12004' I = INQUIRY    '
+0026 A                                      DSPATR(RI)
+0028 A            ERR         0050   O 22014
+0028 A N99                                  DFTVAL('                           -
+0028 A                                                             ')
+0028 A  99                                  DSPATR(RI)
+0030 A                                 23001'                                  -
+0030 A                                                                         -
+0030 A                                                '
+0030 A                                      DSPATR(UL)
+0032 A                                 24002'Enter to Process        F7=End of -
+0032 A                                      Job                       '
+0033 A          R PRV030B
+0033 A                                      DSPMOD(*DS3)
+0033 A                                      PRINT(*PGM)
+0033 A                                      INVITE
+0033 A                                      SLNO(01)
+0033 A                                      CLRL(*ALL)
+0033 A                                      ALWROL
+0033 A                                      CF06 CF07
+0033 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0033 A                                      HELP
+0034 A                                 01004'PRV030B'
+0035 A            FL0073         1   I 01013DFT('B')
+0035 A                                      DSPATR(PR ND MDT)
+0037 A                                 01024' EMPLOYEE MASTER MAINTENANCE '
+0037 A                                      DSPATR(RI)
+0038 A                                 01067'Date:'
+0039 A            UDATE       0008   O 01073
+0040 A            MODE          12   O 02034DSPATR(RI)
+0041 A                                 02067'Time:'
+0042 A            TIMDAY      0008   O 02073
+0043 A                                 04002'Employee:'
+0044 A            EMP#        0006   O 04013
+0045 A                                 04022'Company'
+0046 A            COMP        0002   O 04030
+0047 A                                 04034'Department'
+0048 A            DPT#           4M  B 04045CHECK(RZ)
+0048 A                                      DSPATR(CS MDT)
+0048 A  42                                  DSPATR(RI PC)
+0049 A                                 04051'Job Class'
+0050 A            JCLS        0002M  B 04061CHECK(RZ)
+0050 A                                      DSPATR(CS MDT)
+0050 A  43                                  DSPATR(RI PC)
+0051 A                                 04065'Salesperson'
+0052 A            SLM1        0002M  B 04077CHECK(RZ)
+0052 A                                      DSPATR(CS MDT)
+0052 A  44                                  DSPATR(RI PC)
+0053 A                                 06004'Name:'
+0054 A            NAME        0030   B 06014DSPATR(CS MDT)
+0054 A  45                                  DSPATR(RI PC)
+0055 A                                 06047'Alpha Search:'
+0056 A            LOOK        0015   B 06061DSPATR(CS MDT)
+0056 A  40                                  DSPATR(RI PC)
+0057 A                                 07004'Address:'
+0058 A            ADD2        0030   B 07014DSPATR(CS MDT)
+0059 A                                 07047'Salutation:'
+0060 A            SALU           8   B 07061DSPATR(CS MDT)
+0061 A                                 08004'Address:'
+0062 A            ADD3        0030   B 08014DSPATR(CS MDT)
+0063 A                                 08047'First Name:'
+0064 A            FNAM          12   B 08061DSPATR(CS MDT)
+0065 A                                 09004'Address:'
+0066 A            ADD4        0030   B 09014DSPATR(CS MDT)
+0067 A                                 09047'Last Name:'
+0068 A            LNAM          20   B 09061DSPATR(CS MDT)
+0069 A                                 10004'City:'
+0070 A            CITY        0018   B 10014DSPATR(CS MDT)
+0070 A  46                                  DSPATR(RI PC)
+0071 A                                 10034'St'
+0072 A            STATE          2X  B 10037DSPATR(CS MDT)
+0072 A  47                                  DSPATR(RI PC)
+0073 A                                 10041'Zip'
+0074 A            ZIPD1       0005   B 10045DSPATR(CS MDT)
+0074 A  48                                  DSPATR(RI PC)
+0075 A                                 10051'-'
+0076 A            ZIPD2       0004   B 10053DSPATR(CS MDT)
+0077 A                                 11004'Telephone:'
+0078 A            PHONE          1M  B 11016DSPATR(CS MDT)
+0079 A                                 11018'-'
+0080 A            PHON2          3M  B 11020DSPATR(CS MDT)
+0081 A                                 11024'-'
+0082 A            PHON3          3M  B 11026DSPATR(CS MDT)
+0083 A                                 11030'-'
+0084 A            PHON4         04M  B 11032DSPATR(CS MDT)
+0086 A                                 12003'Social Security     Birth         -
+0086 A                                       Date                Marital     Et-
+0086 A                                      hnic'
+0088 A                                 13003'    Number           Date         -
+0088 A                                      Hired       Sex       Status      C-
+0088 A                                      ode '
+0088 A                                      DSPATR(UL)
+0089 A            SS1         0003M  B 14004CHECK(RZ)
+0089 A                                      DSPATR(CS MDT)
+0089 A  79                                  DSPATR(RI PC)
+0090 A                                 14008'-'
+0091 A            SS2         0002M  B 14010CHECK(RZ)
+0091 A                                      DSPATR(CS MDT)
+0091 A  79                                  DSPATR(RI)
+0092 A                                 14013'-'
+0093 A            SS3         0004M  B 14015CHECK(RZ)
+0093 A                                      DSPATR(CS MDT)
+0093 A  79                                  DSPATR(RI)
+0094 A            DTBD        0008   B 14021DSPATR(CS MDT)
+0094 A  49                                  DSPATR(RI PC)
+0095 A            DTDH        0008   B 14035DSPATR(CS MDT)
+0095 A  54                                  DSPATR(RI PC)
+0096 A            SEX         0001X  B 14050DSPATR(CS MDT)
+0096 A  51                                  DSPATR(RI PC)
+0097 A            MRCD        0001X  B 14061DSPATR(CS MDT)
+0097 A  52                                  DSPATR(RI PC)
+0098 A            ETHC        0001X  B 14073DSPATR(CS MDT)
+0098 A  53                                  DSPATR(RI PC)
+0100 A                                 16003'State Codes for: Unemployment Comp-
+0100 A                                      ensation'
+0101 A            STUC        0002X  B 16046DSPATR(CS MDT)
+0101 A  56                                  DSPATR(RI PC)
+0102 A                                 17020'STATE INCOME TAX'
+0103 A            STWH        0002X  B 17046DSPATR(CS MDT)
+0103 A  57                                  DSPATR(RI PC)
+0104 A                                 18003'Local Codes:  State'
+0105 A            COS1           2X  B 18023DSPATR(CS MDT)
+0105 A  58                                  DSPATR(RI)
+0106 A                                 18027'County Code'
+0107 A            COW1        0004   B 18039DSPATR(CS MDT)
+0107 A  58                                  DSPATR(RI PC)
+0108 A                                 19017'State'
+0109 A            COS2           2X  B 19023DSPATR(CS MDT)
+0109 A  50                                  DSPATR(RI)
+0110 A                                 19027'Local Code'
+0111 A            COW2        0004   B 19039DSPATR(CS MDT)
+0111 A  50                                  DSPATR(RI PC)
+0112 A                                 21003'Date Terminated'
+0113 A            DTDT        0008   B 21019DSPATR(CS MDT)
+0113 A  59                                  DSPATR(RI PC)
+0115 A            ERR         0050   O 22015
+0115 A N99                                  DFTVAL('                           -
+0115 A                                                             ')
+0115 A  99                                  DSPATR(RI)
+0116 A                                 11048'Control Number'
+0117 A            CTRLNO        10   B 11063CHECK(RB)
+0117 A                                      DSPATR(CS MDT)
+0119 A                                 24002'Enter to Process        F6=Restart-
+0119 A                                              F7=End of Job'
+0121 A                                 23001'                                  -
+0121 A                                                                         -
+0121 A                                                '
+0121 A                                      DSPATR(UL)
+0122 A          R PRV030C
+0122 A                                      DSPMOD(*DS3)
+0122 A                                      PRINT(*PGM)
+0122 A                                      INVITE
+0122 A                                      SLNO(01)
+0122 A                                      CLRL(*ALL)
+0122 A                                      ALWROL
+0122 A                                      CF02 CF06 CF07
+0122 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0122 A                                      HELP
+0123 A                                 01004'PRV030C'
+0124 A            FL0073         1   I 01013DFT('C')
+0124 A                                      DSPATR(PR ND MDT)
+0126 A                                 01025' EMPLOYEE MASTER MAINTENANCE '
+0126 A                                      DSPATR(RI)
+0127 A                                 01066'Date:'
+0128 A            UDATE       0008   O 01072
+0129 A            MODE        0012   O 02034DSPATR(RI)
+0130 A                                 02066'Time:'
+0131 A            TIMDAY      0008   O 02072
+0132 A                                 03004'Employee'
+0133 A            EMP#        0006   O 04005
+0134 A            NAME        0030   O 04013
+0135 A                                 05060'Tax'
+0137 A                                 06002'Pay Type   Hourly   O.T.      Annu-
+0137 A                                      al   Date Last    Marital Status   -
+0137 A                                      --Shift---'
+0139 A                                 07002'(S or H)   Rate   Multiplier  Sala-
+0139 A                                      ry    Increase      (S,M,J,H)      -
+0139 A                                      Diff   #  '
+0139 A                                      DSPATR(UL)
+0140 A            PTYP        0002   B 08005DSPATR(CS MDT)
+0140 A  60                                  DSPATR(RI PC)
+0141 A            HRAT        0006M  B 08013CHECK(RB)
+0141 A                                      DSPATR(CS MDT)
+0141 A  61                                  DSPATR(RI PC)
+0142 A            MOT         0004M  B 08022CHECK(RB)
+0142 A                                      DSPATR(CS MDT)
+0142 A  62                                  DSPATR(RI PC)
+0143 A            ASAL        0010M  B 08029CHECK(RB)
+0143 A                                      DSPATR(CS MDT)
+0143 A  63                                  DSPATR(RI PC)
+0144 A            DTLI        0008   B 08042DSPATR(CS MDT)
+0144 A  64                                  DSPATR(RI PC)
+0145 A            MTXS           1X  B 08060DSPATR(CS MDT)
+0145 A  94                                  DSPATR(RI PC)
+0146 A            DIFF        0001X  B 08073DSPATR(CS MDT)
+0146 A  66                                  DSPATR(RI PC)
+0147 A            SFT#        0001M  B 08078DSPATR(CS MDT)
+0147 A  67                                  DSPATR(RI PC)
+0149 A                                 10040'  Additional Withholding   '
+0149 A                                      DSPATR(UL)
+0150 A                                 12009'Number of Dependents'
+0150 A                                      DSPATR(UL)
+0152 A                                 11040'      Dollars   or  Percent'
+0153 A                                 13011'FEDERAL:'
+0154 A            FDDP        0002M  B 13023CHECK(RZ)
+0154 A                                      DSPATR(CS MDT)
+0154 A  68                                  DSPATR(RI PC)
+0155 A                                 12040'F.I.T.'
+0156 A            ADFT        0008M  B 12050CHECK(RB)
+0156 A                                      DSPATR(CS MDT)
+0156 A  85                                  DSPATR(RI PC)
+0157 A            FITP           5M  B 12062CHECK(RB)
+0157 A                                      DSPATR(CS MDT)
+0157 A  95                                  DSPATR(RI PC)
+0158 A                                 14011'STATE:'
+0159 A            STDP        0002M  B 14023CHECK(RZ)
+0159 A                                      DSPATR(CS MDT)
+0159 A  69                                  DSPATR(RI PC)
+0160 A                                 13040'State'
+0161 A            ADST        0006M  B 13052CHECK(RB)
+0161 A                                      DSPATR(CS MDT)
+0161 A  86                                  DSPATR(RI PC)
+0162 A            STAP           5M  B 13062CHECK(RB)
+0162 A                                      DSPATR(CS MDT)
+0162 A  96                                  DSPATR(RI PC)
+0163 A                                 15011'COUNTY:'
+0164 A            CODP        0002M  B 15023CHECK(RZ)
+0164 A                                      DSPATR(CS MDT)
+0164 A  70                                  DSPATR(RI PC)
+0165 A                                 14040'County'
+0166 A            ADCO        0006M  B 14052CHECK(RB)
+0166 A                                      DSPATR(CS MDT)
+0166 A  87                                  DSPATR(RI PC)
+0167 A            LOCP           5M  B 14062CHECK(RB)
+0167 A                                      DSPATR(CS MDT)
+0167 A  97                                  DSPATR(RI PC)
+0168 A                                 16042'   G/L Distribution  '
+0168 A                                      DSPATR(UL)
+0169 A                                 17011'Tax Exempt'
+0169 A                                      DSPATR(UL)
+0170 A                                 17042'Account'
+0171 A                                 17056'Percent'
+0172 A                                 18011'F.I.T'
+0173 A            EXFT           1X  B 18021DSPATR(CS MDT)
+0173 A  65                                  DSPATR(RI PC)
+0174 A            GLD1A       0004M  B 18040CHECK(RZ)
+0174 A                                      DSPATR(CS MDT)
+0174 A  88                                  DSPATR(RI PC)
+0175 A                                 18045'-'
+0176 A            GLA1B       0004M  B 18047CHECK(RZ)
+0176 A                                      DSPATR(CS MDT)
+0176 A  88                                  DSPATR(RI)
+0177 A            GLP1        0006M  B 18057CHECK(RB)
+0177 A                                      DSPATR(CS MDT)
+0177 A  77                                  DSPATR(RI PC)
+0178 A                                 19011'F.I.C.A'
+0179 A            EXFC           1X  B 19021DSPATR(CS MDT)
+0179 A  29                                  DSPATR(RI PC)
+0180 A            GLA2A       0004M  B 19040CHECK(RZ)
+0180 A                                      DSPATR(CS MDT)
+0180 A  23                                  DSPATR(RI PC)
+0181 A                                 19045'-'
+0182 A            GLA2B       0004M  B 19047CHECK(RZ)
+0182 A                                      DSPATR(CS MDT)
+0182 A  23                                  DSPATR(RI)
+0183 A            GLP2        0006M  B 19057CHECK(RB)
+0183 A                                      DSPATR(CS MDT)
+0183 A  39                                  DSPATR(RI PC)
+0184 A                                 20011'State'
+0185 A            EXST           1X  B 20021DSPATR(CS MDT)
+0185 A  10                                  DSPATR(RI PC)
+0186 A            GLA3A       0004M  B 20040CHECK(RZ)
+0186 A                                      DSPATR(CS MDT)
+0186 A  76                                  DSPATR(RI PC)
+0187 A                                 20045'-'
+0188 A            GLA3B       0004M  B 20047CHECK(RZ)
+0188 A                                      DSPATR(CS MDT)
+0188 A  76                                  DSPATR(RI)
+0189 A            GLP3        0006M  B 20057CHECK(RB)
+0189 A                                      DSPATR(CS MDT)
+0189 A  38                                  DSPATR(RI PC)
+0191 A            ERR         0050   O 22014
+0191 A N99                                  DFTVAL('                           -
+0191 A                                                             ')
+0191 A  99                                  DSPATR(RI)
+0192 A                                 10002'C.O.L.A.'
+0192 A                                      DSPATR(UL)
+0193 A            COLA        0007M  B 10012CHECK(RB)
+0193 A                                      DSPATR(CS MDT)
+0193 A  40                                  DSPATR(RI PC)
+0194 A                                 10022'of %'
+0194 A                                      DSPATR(UL)
+0195 A            COLP        0005M  B 10029CHECK(RB)
+0195 A                                      DSPATR(CS MDT)
+0195 A  41                                  DSPATR(RI PC)
+0197 A                                 24002'Enter to Process       F2=Previous-
+0197 A                                       Screen       F6=REstart       F7=E-
+0197 A                                      nd of Job'
+0199 A                                 23001'                                  -
+0199 A                                                                         -
+0199 A                                                '
+0199 A                                      DSPATR(UL)
+0200 A          R PRV030D
+0200 A                                      DSPMOD(*DS3)
+0200 A                                      PRINT(*PGM)
+0200 A                                      INVITE
+0200 A                                      SLNO(01)
+0200 A                                      CLRL(*ALL)
+0200 A                                      ALWROL
+0200 A                                      CF06 CF07
+0200 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0200 A                                      HELP
+0201 A                                 01004'PRV030D'
+0202 A            FL0073         1   I 01013DFT('D')
+0202 A                                      DSPATR(PR ND MDT)
+0204 A                                 01026' EMPLOYEE MASTER MAINTENANCE '
+0204 A                                      DSPATR(RI)
+0205 A                                 01065'Date:'
+0206 A            UDATE       0008   O 01071
+0207 A            MODE        0012   O 02034DSPATR(RI)
+0208 A                                 02065'Time:'
+0209 A            TIMDAY      0008   O 02071
+0210 A                                 04004'Employee'
+0211 A            EMP#        0006   O 04013
+0212 A                                 04022'Company'
+0213 A            COMP        0002   O 04030
+0214 A                                 04034'Department'
+0215 A            DPT#           4   O 04045
+0216 A                                 04051'Job Class'
+0217 A            JCLS        0002   O 04061
+0218 A                                 04065'Salesperson'
+0219 A            SLM1        0002   O 04077
+0220 A                                 06004'Name:'
+0221 A            NAME        0030   O 06014
+0222 A                                 06047'Alpha Search:'
+0223 A            LOOK        0015   O 06061
+0224 A                                 07004'Address:'
+0225 A            ADD2        0030   O 07014
+0226 A                                 07047'Saluation:'
+0227 A            SALU           8   O 07061
+0228 A                                 08004'Address:'
+0229 A            ADD3        0030   O 08014
+0230 A                                 08047'First Name:'
+0231 A            FNAM          12   O 08061
+0232 A                                 09004'Address:'
+0233 A            ADD4        0030   O 09014
+0234 A                                 09047'Last Name:'
+0235 A            LNAM          20   O 09061
+0236 A                                 10004'City:'
+0237 A            CITY        0018   O 10014
+0238 A                                 10034'St'
+0239 A            STATE          2   O 10037
+0240 A                                 10041'Zip'
+0241 A            ZIPD1       0005   O 10045
+0242 A                                 10051'-'
+0243 A            ZIPD2       0004   O 10053
+0244 A                                 11004'Telephone:'
+0245 A            PHONE          1   O 11016
+0246 A                                 11018'-'
+0247 A            PHON2          3   O 11020
+0248 A                                 11024'-'
+0249 A            PHON3          3   O 11026
+0250 A                                 11030'-'
+0251 A            PHON4         04   O 11032
+0253 A                                 12003'Social Security     Birth         -
+0253 A                                       Date                Marital     Et-
+0253 A                                      hnic'
+0255 A                                 13003'    Number           Date         -
+0255 A                                      Hired       Sex       Status      C-
+0255 A                                      ode '
+0255 A                                      DSPATR(UL)
+0256 A            SS1         0003   O 14004
+0257 A                                 14008'-'
+0258 A            SS2         0002   O 14010
+0259 A                                 14013'-'
+0260 A            SS3         0004   O 14015
+0261 A            DTBD        0008   O 14021
+0262 A            DTDH        0008   O 14035
+0263 A            SEX         0001   O 14050
+0264 A            MRCD        0001   O 14061
+0265 A            ETHC        0001   O 14073
+0267 A                                 16003'State Codes for: Unemployment Comp-
+0267 A                                      ensation'
+0268 A            STUC        0002   O 16046
+0269 A                                 17020'STATE INCOME TAX'
+0270 A            STWH        0002   O 17046
+0271 A                                 18003'Local Codes:  State'
+0272 A            COS1           2   O 18023
+0273 A                                 18027'County Code'
+0274 A            COW1        0004   O 18039
+0275 A                                 19017'State'
+0276 A            COS2           2   O 19023
+0277 A                                 19027'Local Code'
+0278 A            COW2        0004   O 19039
+0279 A                                 21003'Date Terminated'
+0280 A            DTDT        0008   O 21019
+0282 A            ERR         0050   O 22015
+0282 A N99                                  DFTVAL('                           -
+0282 A                                                             ')
+0282 A  99                                  DSPATR(RI)
+0283 A                                 11048'Control Number'
+0284 A            CTRLNO        10   O 11063
+0286 A                                 24002'Enter to Process        F6=Restart-
+0286 A                                              F7=End of Job'
+0288 A                                 23001'                                  -
+0288 A                                                                         -
+0288 A                                                '
+0288 A                                      DSPATR(UL)
+0289 A          R PRV030E
+0289 A                                      DSPMOD(*DS3)
+0289 A                                      PRINT(*PGM)
+0289 A                                      INVITE
+0289 A                                      SLNO(01)
+0289 A                                      CLRL(*ALL)
+0289 A                                      ALWROL
+0289 A                                      CF02 CF06 CF07
+0289 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0289 A                                      HELP
+0290 A                                 01004'PRV030E'
+0291 A            FL0073         1   I 01013DFT('E')
+0291 A                                      DSPATR(PR ND MDT)
+0293 A                                 01025' EMPLOYEE MASTER MAINTENANCE '
+0293 A                                      DSPATR(RI)
+0294 A                                 01066'Date:'
+0295 A            UDATE       0008   O 01072
+0296 A            MODE        0012   O 02034DSPATR(RI)
+0297 A                                 02066'Time:'
+0298 A            TIMDAY      0008   O 02072
+0299 A                                 03004'Employee'
+0300 A            EMP#        0006   O 04005
+0301 A            NAME        0030   O 04013
+0302 A                                 05060'Tax'
+0304 A                                 06002'Pay Type   Hourly   O.T.      Annu-
+0304 A                                      al   Date Last    Marital Status   -
+0304 A                                      --Shift---'
+0306 A                                 07002'(S or H)   Rate   Multiplier  Sala-
+0306 A                                      ry    Increase      (S,M,J,H)      -
+0306 A                                      Diff   #  '
+0306 A                                      DSPATR(UL)
+0307 A            PTYP        0002   O 08005
+0308 A            HRAT        0006   O 08013
+0309 A            MOT         0004   O 08022
+0310 A            ASAL        0010   O 08029
+0311 A            DTLI        0008   O 08042
+0312 A            MTXS           1   O 08063
+0313 A            DIFF        0001   O 08073
+0314 A            SFT#        0001   O 08078
+0316 A                                 10040'  Additional Withholding   '
+0316 A                                      DSPATR(UL)
+0317 A                                 12009'Number of Dependents'
+0317 A                                      DSPATR(UL)
+0319 A                                 11040'     Dollars   or   Percent'
+0320 A                                 13011'Federal:'
+0321 A            FDDP        0002   O 13023
+0322 A                                 12040'F.I.T.'
+0323 A            ADFT        0008   O 12050
+0324 A            FITP           5   O 12062
+0325 A                                 14011'State:'
+0326 A            STDP        0002   O 14023
+0327 A                                 13040'State'
+0328 A            ADST        0006   O 13052
+0329 A            STAP           5   O 13062
+0330 A                                 15011'County:'
+0331 A            CODP        0002   O 15023
+0332 A                                 14040'County'
+0333 A            ADCO        0006   O 14052
+0334 A            LOCP           5   O 14062
+0335 A                                 16042'   G/L Distribution  '
+0335 A                                      DSPATR(UL)
+0336 A                                 17011'Tax Exempt'
+0336 A                                      DSPATR(UL)
+0337 A                                 17042'Account'
+0338 A                                 17056'Percent'
+0339 A                                 18011'F.I.T'
+0340 A            EXFT           1   O 18021
+0341 A            GLD1A       0004   O 18040
+0342 A                                 18045'-'
+0343 A            GLA1B       0004   O 18047
+0344 A            GLP1        0006   O 18057
+0345 A                                 19011'F.I.C.A'
+0346 A            EXFC           1   O 19021
+0347 A            GLA2A       0004   O 19040
+0348 A                                 19045'-'
+0349 A            GLA2B       0004   O 19047
+0350 A            GLP2        0006   O 19057
+0351 A                                 20011'State'
+0352 A            EXST           1   O 20021
+0353 A            GLA3A       0004   O 20040
+0354 A                                 20045'-'
+0355 A            GLA3B       0004   O 20047
+0356 A            GLP3        0006   O 20057
+0358 A            ERR         0050   O 22014
+0358 A N99                                  DFTVAL('                           -
+0358 A                                                             ')
+0358 A  99                                  DSPATR(RI)
+0359 A                                 10002'C.O.L.A.'
+0359 A                                      DSPATR(UL)
+0360 A            COLA        0007   O 10012
+0361 A                                 10022'or %'
+0361 A                                      DSPATR(UL)
+0362 A            COLP        0005   O 10029
+0364 A                                 24002'Enter to Process       F2=Previous-
+0364 A                                       Screen       F6=Restart       F7=E-
+0364 A                                      nd of Job'
+0366 A                                 23001'                                  -
+0366 A                                                                         -
+0366 A                                                '
+0366 A                                      DSPATR(UL)
+0367 A          R PRV030G1
+0367 A                                      DSPMOD(*DS3)
+0367 A                                      PRINT(*PGM)
+0367 A                                      INVITE
+0367 A                                      SLNO(01)
+0367 A                                      CLRL(*ALL)
+0367 A                                      ALWROL
+0367 A                                      CF01 CF02 CF03 CF04 CF05 CF06 CF07
+0367 A                                      CF08 CF09 CF10 CF11 CF12 CF13 CF14
+0367 A                                      CF15 CF16 CF17 CF18 CF19 CF20 CF21
+0367 A                                      CF22 CF23 CF24
+0367 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0367 A                                      HELP
+0368 A                                 01002'PRV030G'
+0370 A                                 01025' EMPLOYEE MASTER MAINTENANCE '
+0370 A                                      DSPATR(RI)
+0371 A                                 01067'Date:'
+0372 A            VDATE       0008   O 01073
+0374 A                                 02028'  EMPLOYEE ALPHA SEARCH '
+0374 A                                      DSPATR(RI)
+0375 A                                 02067'Time:'
+0376 A            VTIME       0008   O 02073
+0377 A                                 05002'SEARCH FIELD: '
+0378 A            VSEARC      0015   O 05017DSPATR(RI)
+0380 A                                 07002'Ln  Number        Name            -
+0380 A                                        Address                  City    -
+0380 A                                        Company'
+0380 A                                      DSPATR(UL)
+0382 A                                 24002'Enter to Process       F1=Search  -
+0382 A                                           F6=Restart        F7=End of Jo-
+0382 A                                      b'
+0383 A          R PRV030G2
+0383 A                                      DSPMOD(*DS3)
+0383 A                                      PRINT(*PGM)
+0383 A                                      INVITE
+0383 A                                      SLNO(*VAR)
+0383 A                                      CLRL(01)
+0383 A                                      ALWROL
+0383 A                                      CF01 CF02 CF03 CF04 CF05 CF06 CF07
+0383 A                                      CF08 CF09 CF10 CF11 CF12 CF13 CF14
+0383 A                                      CF15 CF16 CF17 CF18 CF19 CF20 CF21
+0383 A                                      CF22 CF23 CF24
+0383 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0383 A                                      HELP
+0384 A            VLIN        0002   O 01002DSPATR(HI)
+0385 A            VCUS#       0006   O 01006DSPATR(HI)
+0386 A            VCUSNM      0020   O 01014DSPATR(HI)
+0387 A            VCUSAD      0020   O 01036DSPATR(HI)
+0388 A            VCITY       0018   O 01058DSPATR(HI)
+0389 A            VSTAT       0002   O 01078DSPATR(HI)
+0390 A          R PRV030G3
+0390 A                                      DSPMOD(*DS3)
+0390 A                                      PRINT(*PGM)
+0390 A                                      INVITE
+0390 A                                      SLNO(22)
+0390 A                                      CLRL(02)
+0390 A                                      OVERLAY
+0390 A                                      ALWROL
+0390 A                                      CF01 CF06 CF07
+0390 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0390 A                                      HELP
+0391 A            SCRTYP      0001   I 01002DFT('G')
+0391 A                                      DSPATR(PR ND MDT)
+0392 A                                 01005'ENTER LINE NUMBER'
+0393 A            VLIN#       0002M  I 01026DFT('01')
+0393 A                                      CHECK(RZ)
+0393 A                                      DSPATR(CS RI MDT)
+0394 A            ALBEG         23   B 01030DSPATR(PR ND MDT)
+0395 A            ALEND         23   B 01055DSPATR(PR ND MDT)

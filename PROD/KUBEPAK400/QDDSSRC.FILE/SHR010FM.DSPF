@@ -1,0 +1,352 @@
+     A*?Program        : SHR010FM
+     A*?
+     A*?Description    : This display file for Ship-to Master Inquiry Screen
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 13 Nov 2018
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**************************************************************************
+     A*?Subfile Display Part
+     A          R SHR010S01                 SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01RRN         4S 0H
+     A            H01CITY       18A  H
+     A            H01STAT        2A  H
+     A            H01ZIP         9A  H
+     A*
+     A            S01OPT         1Y 0B  9  2EDTCDE(Z)
+     A  50                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            S01SEQ#        3Y 0O  9  4EDTCDE(Z)
+     A            S01NAME       30A  O  9  8COLOR(BLU)
+     A            S01ADR1       30A  O  9 39COLOR(BLU)
+     A            S01ADR2       30A  O  9 70COLOR(BLU)
+     A            S01CTSTZIP    31A  O  9101COLOR(BLU)
+     A*
+     A                                 10  4'Contact Name:'
+     A                                      COLOR(WHT)
+     A            S01CNAM       30A  O 10 18
+     A                                 10 52'Phone    :'
+     A                                      COLOR(WHT)
+     A            S01PHON       10Y 0O 10 63EDTCDE(Z)
+     A                                 10 77'Tax Exempt :'
+     A                                      COLOR(WHT)
+     A            S01TAXE        1A  O 10 90
+     A                                 10 97'Tax Juris :'
+     A                                      COLOR(WHT)
+     A            S01TAXJ        3A  O 10109
+     A*
+     A                                 11  4'Address 3   :'
+     A                                      COLOR(WHT)
+     A            S01ADR3       30A  O 11 18
+     A                                 11 52'Address 4:'
+     A                                      COLOR(WHT)
+     A            S01ADR4       30A  O 11 63
+     A**********************************************************************
+     A*?Subfile Control Part
+     A*
+     A          R SHR010C01                 SFLCTL(SHR010S01)
+     A*
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Add ShipTo')
+     A                                      CF09(09 'Directions')
+     A                                      SFLDROP(CF11)
+     A*
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&H01CSRRRN)
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A*
+     A            S01RRN         4S 0H      SFLRCDNBR(CURSOR)
+     A            H01CSRRRN      5S 0H
+     A*
+     A                                  1  2'SHR010S01'
+     A                                      COLOR(BLU)
+     A                                  1 53' Ship-to Master Inquiry'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                      COLOR(WHT)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Customer :'
+     A            C01CUST        6Y 0B  4 14EDTCDE(Z)
+     A N41                                  COLOR(YLW)
+     A N41                                  DSPATR(RI)
+     A N41                                  DSPATR(PC)
+     A  41                                  COLOR(BLU)
+     A  41                                  DSPATR(PR)
+     A            C01NAME       30A  O  4 21COLOR(BLU)
+     A                                  4 78'Are you sure you want to delete ?'
+     A N45                                  COLOR(WHT)
+     A N45                                  DSPATR(RI)
+     A  45                                  DSPATR(ND)
+     A            C01DEL         1A  B  4113
+     A N44N45                               COLOR(YLW)
+     A N44N45                               DSPATR(UL)
+     A  44N45                               DSPATR(RI)
+     A  44N45                               DSPATR(PC)
+     A  45                                  DSPATR(ND)
+     A  45                                  DSPATR(PR)
+     A                                  4115'(Y/N)'
+     A  45                                  DSPATR(ND)
+     A*
+     A                                  6  2'Options  :'
+     A                                  6 14'1=Select  2=Change  4=Delete  5=In-
+     A                                      quiry'
+     A                                      COLOR(BLU)
+     A                                  6 66'Filter By :'
+     A            C01FILTER     20A  B  6 79COLOR(YLW)
+     A                                      DSPATR(UL)
+     A*
+     A                                  8  2'O'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8  4'Seq'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8  8'Name                          '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 39'Address 1                     '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 70'Address 2                     '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8101'City , State and Zip           '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R SHR010F01
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F6'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Add Shipto'
+     A                                      COLOR(BLU)
+     A                                 26 28'F9'
+     A                                      COLOR(WHT)
+     A                                 26 31'=Directions Maintenance'
+     A                                      COLOR(BLU)
+     A                                 26 56'F11'
+     A                                      COLOR(WHT)
+     A                                 26 60'=Fold/Drop'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Record Format
+     A*
+     A          R SHR010R01
+     A                                      CF03(03 'Exit')
+     A                                      CF08(08 'Directions')
+     A                                      CF12(12 'Previous')
+     A*
+     A                                  1  2'SHR010R01'
+     A                                      COLOR(BLU)
+     A            HEADING       45A  O  1 41DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  2 41'Customer :'
+     A            R01CUST        6S 0O  2 53COLOR(BLU)
+     A            R01CUSNAM     30A  O  2 61COLOR(BLU)
+     A            R01SEQ#        3S 0O  3 56COLOR(BLU)
+     A*
+     A                                  7 41'Ship to Name       :'
+     A            R01NAME       30A  B  7 63
+     A N28N40                               COLOR(YLW)
+     A N28N40                               DSPATR(UL)
+     A  28N40                               DSPATR(PC)
+     A  28N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                 18 41'Ship to ContactName:'
+     A            R01CNAM       30A  B 18 63
+     A N29N40                               COLOR(YLW)
+     A N29N40                               DSPATR(UL)
+     A  29N40                               DSPATR(PC)
+     A  29N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                  8 41'        Address 1  :'
+     A            R01ADR1       30A  B  8 63
+     A N30N40                               COLOR(YLW)
+     A N30N40                               DSPATR(UL)
+     A  30N40                               DSPATR(PC)
+     A  30N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                  9 41'        Address 2  :'
+     A            R01ADR2       30A  B  9 63
+     A N31N40                               COLOR(YLW)
+     A N31N40                               DSPATR(UL)
+     A  31N40                               DSPATR(PC)
+     A  31N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                 10 41'        Address 3  :'
+     A            R01ADR3       30A  B 10 63
+     A N32N40                               COLOR(YLW)
+     A N32N40                               DSPATR(UL)
+     A  32N40                               DSPATR(PC)
+     A  32N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+SUD05A*                                11 41'        Address 4  :'
+  |  A*           R01ADR4       30A  B 11 63
+  |  A*N33N40                               COLOR(YLW)
+  |  A*N33N40                               DSPATR(UL)
+  |  A* 33N40                               DSPATR(PC)
+  |  A* 33N40                               DSPATR(RI)
+  |  A* 40                                  COLOR(BLU)
+  |  A* 40                                  DSPATR(PR)
+SUD05A*
+     A                                 12 41'        City       :'
+     A            R01CITY       18A  B 12 63
+     A N34N40                               COLOR(YLW)
+     A N34N40                               DSPATR(UL)
+     A  34N40                               DSPATR(PC)
+     A  34N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                 13 41'        State      :'
+     A            R01STST        2A  B 13 63
+     A N35N40                               COLOR(YLW)
+     A N35N40                               DSPATR(UL)
+     A  35N40                               DSPATR(PC)
+     A  35N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                 14 41'        Zip        :'
+     A            R01ZIP         9A  B 14 63
+     A N36N40                               COLOR(YLW)
+     A N36N40                               DSPATR(UL)
+     A  36N40                               DSPATR(PC)
+     A  36N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                 19 41'Ship to Phone      :'
+     A            R01PHON       10Y 0B 19 63EDTCDE(Z)
+     A N37N40                               COLOR(YLW)
+     A N37N40                               DSPATR(UL)
+     A  37N40                               DSPATR(PC)
+     A  37N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*
+     A                                 23 41'        Tax Exempt :'
+     A            R01TAXE        1A  B 23 63
+     A N38N40                               COLOR(YLW)
+     A N38N40                               DSPATR(UL)
+     A  38N40                               DSPATR(PC)
+     A  38N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A                                 23 70'(Y)/(N)'
+     A                                      COLOR(BLU)
+     A*
+     A                                 24 41'        Tax Juris. :'
+     A            R01TAXJ        3A  B 24 63
+     A N39N40                               COLOR(YLW)
+     A N39N40                               DSPATR(UL)
+     A  39N40                               DSPATR(PC)
+     A  39N40                               DSPATR(RI)
+     A  40                                  COLOR(BLU)
+     A  40                                  DSPATR(PR)
+     A*?Record Footer
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F8'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Directions'
+     A                                      COLOR(BLU)
+     A                                 26 28'F12'
+     A                                      COLOR(WHT)
+     A                                 26 32'=Previous'
+     A                                      COLOR(BLU)
+     A                                 26 43'Enter to Process'
+     A                                      COLOR(BLU)
+     A  40                                  DSPATR(ND)
+     A*?Error Message
+     A            ERRMSG        75A  O 27  2COLOR(WHT)
+     A                                  3 41'Sequence # :'
+     A                                  5 41'     S h i p   t o   A D D R E S S-
+     A                                         i n f o        '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16 41'      S h i p   t o   C O N T A C -
+     A                                      T   i n f o       '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21 41'         S h i p   t o   T A X   i-
+     A                                       n f o            '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

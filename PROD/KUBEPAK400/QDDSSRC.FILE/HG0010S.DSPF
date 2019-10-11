@@ -1,0 +1,265 @@
+     A*%%TS  SD  20040423  073412  RP          REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      REF(*LIBL/HGPOHD)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      HELP(47 'Help Key')
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A                                      CF01(01 'Help')
+     A                                      CF12(12 'Previous Screen')
+     A*
+     A          R S1DATA                    SFL
+     A*%%TS  SD  20010104  135048  RP          REL-V4R4M0  5769-PW1
+     A                                      KEEP
+     A  39                                  SFLNXTCHG
+     A            ##RRN#        15S 0H
+     A            S1SEL          1A  B 10  3
+     A  31                                  DSPATR(PC)
+     A  31                                  DSPATR(RI)
+     A  96                                  DSPATR(ND)
+     A N96                                  DSPATR(UL)
+     A  96                                  DSPATR(PR)
+     A            S1YR#          2S 0O 10  6
+     A            S1PO#          6S 0O 10  9
+     A            S1VNDR         6S 0O 10 16
+     A            S1NAME        30A  O 10 23
+     A            S1DATE         6Y 0O 10 55EDTCDE(Y)
+     A            S1STAT         1A  O 10 64
+     A            S1ENT         10A  O 10 66
+     A            S1PRTF         1A  O 10 77
+     A          R S1CNTL                    SFLCTL(S1DATA)
+     A*%%TS  SD  20040423  073412  RP          REL-V5R1M0  5722-WDS
+     A                                      SFLSIZ(0014)
+     A                                      SFLPAG(0012)
+     A                                      CF03(03 'Exit')
+     A                                      CF04(04 'Prompt')
+     A  61                                  CF06(06 'Add')
+     A  62                                  CF08(08 'Print')
+     A                                      CF11(11 'Toggle status')
+     A                                      ROLLUP(26)
+     A                                      ROLLDOWN(27)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&##CRRN)
+     A                                      SFLMODE(&##SFLM)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A N81                                  SFLEND
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A            ##CRRN         5S 0H
+     A            ##SFLM         1A  H      TEXT('Fold/Trunc. Status')
+     A            ##RRNO         4S 0H      SFLRCDNBR(CURSOR)
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                      MSGID(KP0 0001 KPMSGF)
+     A                                  1 72TIME
+     A                                  2  3'S1CNTL'
+     A            PGTL##        40A  O  2 16DSPATR(HI)
+     A                                      MSGID(HGP 1000 KPMSGF)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9  2'Opt'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  8'Search for PO Number:'
+     A                                      DSPATR(HI)
+     A                                      COLOR(WHT)
+     A                                  9  6'PO Number'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 23'    N a m e                   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            M1VNDR         6Y 0B  7 31CHECK(RZ)
+     A                                      CHANGE(28)
+     A                                      EDTCDE(4)
+     A                                  9 55'Due Date'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Options:'
+     A                                      COLOR(BLU)
+     A                                  8 11'-or-  By Due Date:'
+     A                                      DSPATR(HI)
+     A            M1DUDT         6Y 0B  8 31CHECK(RZ)
+     A                                      CHANGE(28)
+     A                                      EDTCDE(4)
+     A                                  9 64't'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  9 66'Entered by'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            M1POYR         2Y 0B  6 31CHECK(RZ)
+     A                                      CHANGE(28)
+     A                                      EDTCDE(4)
+     A  30                                  DSPATR(PC)
+     A            M1DGPO         6Y 0B  6 34CHECK(RZ)
+     A                                      CHANGE(28)
+     A                                      EDTCDE(4)
+     A                                  8 64'S'
+     A                                      DSPATR(HI)
+     A                                  9 77'r'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A            C1OPTN        70A  O  5 11COLOR(BLU)
+     A                                  8 77'P'
+     A                                      DSPATR(HI)
+     A                                  7 11'-or-  * By Vendor:'
+     A                                      DSPATR(HI)
+     A                                  1  3'HG0010'
+     A                                  9 16'Vendor'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R CFKY01
+     A*%%TS  SD  19990304  161219  STEVE       REL-V4R2M0  5769-PW1
+     A                                      TEXT('Valid Cmd Keys Display')
+     A                                      OVERLAY
+     A                                 23 12'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A  61                             23 23'F6=Add'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A            C1F11         16A  O 23 60COLOR(BLU)
+     A  62                             23 33'F8=Print Selected Orders'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 22 33' '
+     A          R S2DATA                    SFL
+     A*%%TS  SD  20000328  101452  RP          REL-V4R2M0  5769-PW1
+     A                                      TEXT('Subfile For Mfg. Equipment Fi-
+     A                                      le Query Display')
+     A                                      KEEP
+     A            ##RRN#        15S 0H
+     A            S1YR#          2S 0O  9  6
+     A            S1PO#          6S 0O  9  9
+     A            S1VNDR         6S 0O  9 16
+     A            S1NAME        30A  O  9 23
+     A            S1DATE         6Y 0O  9 55EDTCDE(Y)
+     A            S1ENT         10A  O  9 66
+     A            S1STAT         1A  O  9 64
+     A            S1PRTF         1A  O  9 77
+     A          R S2CNTL                    SFLCTL(S2DATA)
+     A*%%TS  SD  20040423  073412  RP          REL-V5R1M0  5722-WDS
+     A                                      SFLSIZ(0014)
+     A                                      SFLPAG(0013)
+     A                                      TEXT('Subfile Control for Mfg. Equi-
+     A                                      pment Display')
+     A                                      KEEP
+     A                                      BLINK
+     A                                      OVERLAY
+     A N82                                  SFLDSP
+     A N82                                  SFLDSPCTL
+     A  82                                  SFLCLR
+     A N81                                  SFLEND
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A            ##SLFM         1A  H      TEXT('Fold/Trunc. Status')
+     A            #2RRNO         4S 0H      SFLRCDNBR(CURSOR)
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                      MSGID(KP0 0001 KPMSGF)
+     A                                  1 72TIME
+     A                                  2  3'S2CNTL'
+     A            PGTL##        40A  O  2 16DSPATR(HI)
+     A                                      MSGID(HGP 1000 KPMSGF)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Press Enter to confirm your choice-
+     A                                      s for Delete.'
+     A                                      COLOR(BLU)
+     A                                  6  2'Press F12=Cancel to return to chan-
+     A                                      ge your choices.'
+     A                                      COLOR(BLU)
+     A                                  1  3'HG0010'
+     A                                  8  6'PO Number'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 23'    N a m e                   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 55'Due Date'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 66'Entered By'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 64't'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 64'S'
+     A                                      DSPATR(HI)
+     A                                  8 77'r'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 77'P'
+     A                                      DSPATR(HI)
+     A                                  8 16'Vendor'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R CFKY02
+     A*%%TS  SD  19980716  115619  REP         REL-V4R2M0  5769-PW1
+     A                                      TEXT('Valid Cmd Keys Display')
+     A                                      OVERLAY
+     A                                 23 51'F12=Cancel'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ
+     A          R PRTOUTQ
+     A*%%TS  SD  20040114  092335  RP          REL-V5R1M0  5722-WDS
+     A                                      WINDOW(12 10 8 60)
+     A                                      WDWBORDER((*COLOR YLW) (*DSPATR RI))
+     A            S1OUTQ        10A  B  4 30COLOR(YLW)
+     A  74                                  DSPATR(PC)
+     A                                  4 18'Printer ID:'
+     A                                      DSPATR(HI)
+     A  74                                  DSPATR(RI)
+     A                                  7  4'Invalid Printer ID, Key a  ?  to s-
+     A                                      ee valid Printers'
+     A                                      DSPATR(HI)
+     A N74                                  DSPATR(ND)
+     A                                  5  3'Key date order was received and th-
+     A                                      e printer to receive'
+     A                                  6  7'output and press ENTER to continue-
+     A                                      .'
+     A                                  6  3'the'
+     A                                  2 15'Date Received:'
+     A  70                                  DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            S1RDTE         6Y 0B  2 30COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A  70                                  DSPATR(PC)
+     A  70                              3 10'******* invalid -- Check and Rekey'
+     A N70                                  DSPATR(ND)

@@ -1,0 +1,92 @@
+/*********************************************************************/
+/*   PROGRAM-------- CUR100CL                                        */
+/*   DATE WRITTEN--- 10/23/01                                        */
+/*   PROGRAMMER----- E. DE COURSEY                                   */
+/*   DESCRIPTION---- CALCULATE CUTTING NEEDS FOR 84 PRODUVCTION      */
+/*   REVISIONS------                                                 */
+/*                                                                   */
+/*********************************************************************/
+             PGM
+             DCLF       FILE(FCUTVEND) OPNID(VEND)
+             DCLF       FILE(CUR100FM)
+/*           QSYS/DCL   VAR(&EOJ) TYPE(*CHAR) LEN(1)                */
+             DCL        VAR(&VENDOR) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&VENDOR@) TYPE(*Char) LEN(6)
+             DCL        VAR(&SWS) TYPE(*CHAR) LEN(8)
+             DCL        VAR(&SWS1) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&BATCH) TYPE(*LGL)
+
+             STRPCO
+             MONMSG     MSGID(CPF0000)
+                                                                             /*+
+   ?If Job Switch 1 is *on then find Vendor in *LDA from 1 for 6              */
+             RTVJOBA    SWS(&SWS)
+             CHGVAR     VAR(&SWS1) VALUE(%SST(&SWS 1 1))
+             IF         COND(&SWS1='1') THEN(DO)
+             CHGJOB     SWS(0XXXXXXX)
+             RTVDTAARA  DTAARA(*LDA (1 6)) RTNVAR(&VENDOR@)
+             CHGVAR     VAR(&VENDOR) VALUE(&VENDOR@)
+             ENDDO
+
+             CHGDTAARA  DTAARA(*LDA (*ALL)) VALUE(' ')
+
+                                                                             /*+
+   ?If this program is called in batch mode, process all vendors              */
+             CALL       PGM(#ISBATCH) PARM(&BATCH)
+                                                                             /*+
+   ?IF NO VENDOR IS SELECTED IN INTERACTIVE MODE, RUN LIKE BATCH MODE         */
+ BATCHMODE:
+             IF         COND(&BATCH) THEN(DO)
+ LOOP01:     RCVF       OPNID(VEND)
+             MONMSG     MSGID(CPF0864) EXEC(GOTO CMDLBL(ENDLOOP01))
+             CALL       PGM(CUR100) PARM(&VEND_CVVEND)
+             CALL       PGM(CUR110) PARM(&VEND_CVVEND)
+/*           CALL       PGM(CUR750) PARM(&CVVEND)                            */
+             CHGVAR     VAR(&VENDOR@) VALUE(&VEND_CVVEND)
+             SNDPGMMSG  MSGID(CUT0003) MSGF(KPMSGF) MSGDTA(&VENDOR@)
+             GOTO       CMDLBL(LOOP01)
+ ENDLOOP01:
+             ENDDO
+             ELSE  DO
+                                                                             /*+
+   ?Otherwiswe, prompt for a specific vendor if not in *LDA                   */
+
+             IF         COND(&VENDOR = 0) THEN(DO)
+             CALL       PGM(CUR999) PARM(&VENDOR)
+             ENDDO
+             IF         COND(&VENDOR = 0) THEN(DO)
+             SNDRCVF    RCDFMT(PROMPT01)
+             IF         COND(&IN12 *NE '1') THEN(DO)
+    /*       SNDPGMMSG  MSGID(CUT0002) MSGF(KPMSGF) MSGDTA(*NONE) +
+                          TOPGMQ(*EXT)         */
+             CHGVAR     VAR(&BATCH) VALUE('1')
+             GOTO       CMDLBL(BATCHMODE)
+             ENDDO
+             GOTO       CMDLBL(END)
+             ENDDO
+
+             CALL       PGM(CUR100) PARM(&VENDOR)
+             CALL       PGM(CUR110) PARM(&VENDOR)
+/*           CALL       PGM(CUR750) PARM(&VENDOR)                             */
+
+             CHGVAR     VAR(&VENDOR@) VALUE(&VENDOR)
+             SNDPGMMSG  MSGID(CUT0003) MSGF(KPMSGF) MSGDTA(&VENDOR@)
+
+             ENDDO
+ STATUS:
+/* LOAD THE LOCAL DATA AREA  FOR STATUS UPDATE */
+             CHGDTAARA  DTAARA(*LDA (201 44)) VALUE(' ')
+/* PROGRAM NAME  */
+             CHGDTAARA  DTAARA(*LDA (201 10)) VALUE('CUR100CL  ')
+/* COMPANY NUMBER */
+             CHGDTAARA  DTAARA(*LDA (211 2)) VALUE('00')
+/* ACCOUNTING PERIOD */
+             CHGDTAARA  DTAARA(*LDA (213 2)) VALUE('00')
+/* DESCRIPTION */
+             CHGDTAARA  DTAARA(*LDA (215 30)) VALUE('Cut +
+                          Requirements Rebuild')
+             CALL       PGM(STSUPD)
+
+ END:        CHGDTAARA  DTAARA(*LDA (*ALL)) VALUE(' ')
+             CALL       PGM(CUR150)
+             ENDPGM

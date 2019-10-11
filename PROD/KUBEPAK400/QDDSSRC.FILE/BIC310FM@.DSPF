@@ -1,0 +1,184 @@
+     A*%%TS  SD  19970817  093436  EFD         REL-V3R6M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19970817  093436  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A                                  1  2'BIC310 '
+     A                                  1 30' PICK SLIP SELECTIONS '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 14'     Pick Slips      '
+     A                                      DSPATR(RI)
+     A                                  3 42' Summary Pick Slips '
+     A                                      DSPATR(RI)
+     A                                  4 14'1. = By Order Number'
+     A                                  4 42'5. = By Item'
+     A                                  5 14'2. = By Ship Via       '
+     A                                  5 42'6. = By Ship Via'
+     A                                  6 14'3. = By Location/Area'
+     A                                  6 42'7. = By Location'
+     A                                  7 14'4. = Route'
+     A                                  7 42'8. = Route'
+     A                                  7 60'Selection ===>'
+     A            VPICK          1Y 0B  7 76
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  10                                  ERRMSG('*** Enter a Selection Betwe-
+     A                                      en 1 - 8.   Press Reset')
+     A                                  9  6'Include:'
+     A                                      DSPATR(UL)
+     A                                  9 17'Req Ship Dates:'
+     A                                  9 38'From =>'
+     A            VBDATE         6Y 0B  9 46DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A  12                                  ERRMSG('*** Enter A Valid Date Equa-
+     A                                      l or Lower Than TO Date.    Press R-
+     A                                      eset')
+     A                                  9 57'To =>'
+     A            VEDATE         6Y 0B  9 63DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** This Is Not A Valid Dat-
+     A                                      e.       Press Reset')
+     A                                 10 17'Order Numbers:'
+     A                                 10 38'From =>'
+     A            VBORD          6Y 0B 10 48EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  20                                  ERRMSG('*** This Is Not An Open Ord-
+     A                                      er Number.      Press Reset')
+     A  22                                  ERRMSG('*** TO Order Must Be Higher-
+     A                                       Than FROM.     Press Reset')
+     A                                 10 57'To =>'
+     A            VEORD          6Y 0B 10 65EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  20                                  ERRMSG('*** This Is Not An Open Ord-
+     A                                      er Number.      Press Reset')
+     A  22                                  ERRMSG('*** Enter Either An Order N-
+     A                                      umber or ALL.   Press Reset')
+     A                                      CHECK(RB)
+     A                                 11 17'Product Classes:'
+     A                                 11 38'From =>'
+     A            VBPC           2A  B 11 52DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** To Product Class Must B-
+     A                                      e Higher Than From Product Class.  -
+     A                                      Press Reset')
+     A                                 11 57'To =>'
+     A            VEPC           2A  B 11 69DSPATR(CS)
+     A                                 12 17'Ship Via Codes:'
+     A                                 12 38'From =>'
+     A            VBSHPV         2A  B 12 52DSPATR(CS)
+     A  62                                  DSPATR(RI)
+     A  62                                  DSPATR(PC)
+     A  62                                  ERRMSG('*** To Ship Via Must Be Hig-
+     A                                      her Than From Ship Via.    Press Re-
+     A                                      set')
+     A                                 12 57'To =>'
+     A            VESHPV         2A  B 12 69DSPATR(CS)
+     A                                 13 17'Locations:'
+     A                                 13 38'From =>'
+     A            VBLOC          3A  B 13 51DSPATR(CS)
+     A  64                                  DSPATR(RI)
+     A  64                                  DSPATR(PC)
+     A  64                                  ERRMSG('*** To Location Must Be Hig-
+     A                                      her Than From Location.    Press Re-
+     A                                      set')
+     A                                 13 57'To =>'
+     A            VELOC          3A  B 13 68DSPATR(CS)
+     A                                 14 17'Routes:'
+     A                                 14 38'From =>'
+     A            VBRTE          2A  B 14 52DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** To Route Must Be Higher-
+     A                                       Than From Route.    Press Reset')
+     A                                 14 57'To =>'
+     A            VERTE          2A  B 14 69DSPATR(CS)
+     A                                 15 17'Phyto Codes:'
+     A            VBPHY          1A  B 15 53DSPATR(CS)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** To Phyto Must Be Higher-
+     A                                       Than From Phyto.    Press Reset')
+     A                                 15 57'To =>'
+     A            VEPHY          1A  B 15 70DSPATR(CS)
+     A                                 16 17'Order Type:'
+     A            VTAG           1Y 0B 16 53DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  66                                  DSPATR(RI)
+     A  66                                  DSPATR(PC)
+     A  66                                  ERRMSG('*** Valid Entries Are 1 2 o-
+     A                                      r 3.   Press Reset')
+     A                                 16 57'1=Plants 2=Tags 3=Both'
+     A                                 17 17'Company Number:'
+     A            VCO            2Y 0B 17 52
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  30                                  ERRMSG('*** Enter A Valid Company N-
+     A                                      umber.    Press Reset')
+     A                                 18 17'Alpha Search:'
+     A            VBALPH        15A  B 18 39
+     A  34                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Alpha Selection Only Va-
+     A                                      lid For Summary Pick Slips.    Pres-
+     A                                      s Reset')
+     A                                 19 17'Orders Previously Printed:'
+     A            VPREV          1A  B 19 53DSPATR(CS)
+     A  70                                  DSPATR(RI)
+     A  70                                  DSPATR(PC)
+     A  70                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.       Press Reset')
+     A  71                                  ERRMSG('*** Previously Printed Pick-
+     A                                       Slips Must Be Included For This Se-
+     A                                      lection. Reset')
+     A                                 21 21'Select Printers:'
+     A            DEV1           8A  B 21 39DSPATR(CS)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A  65                                  ERRMSG('*** At Least 1 Printer Must-
+     A                                       Be Defined.    Press Reset')
+     A                                 21 48'-'
+     A            DEV2           8A  B 21 50DSPATR(CS)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                               F7=Cancel Job             -
+     A                                               '
+     A                                      DSPATR(UL)

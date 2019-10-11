@@ -1,0 +1,35 @@
+     A*     WEEKLY ORDER STATUS FILE
+     A*     FILE NAME - FWKORD
+     A* THIS FILE IS BUILT WHEN SCANNERS START WITH AN ORDER AND
+     A* CONTAINS STATUS OF ORDERS.
+     A*
+      * Modified by William Behr for Project PS2013.
+     A                                      UNIQUE
+     A          R RWKORD                    TEXT('ORDER STATUS')
+      ** STATUS EQUAL
+      *  A=OK TO PROCESS
+      *  P=PARTIALLY SCANNED
+      *  E=ERRORS IN ORDER
+      *  S=SHIPPED/BILLED
+     A            OWSTAT         1A         TEXT('STATUS A/D')
+     A                                      COLHDG('Status')
+     A            OWORD#         6S 0       TEXT('ORDER #')
+     A                                      COLHDG('Order #')
+     A                                      EDTCDE(4)
+     A            OWSHDT         7P 0       TEXT('SHIP WEEK DATE CYMD')
+     A                                      COLHDG('Ship Week' 'Date CYMD')
+     A                                      EDTWRD(' -  /  /  ')
+     A            OWMAST         2S 0       TEXT('PS MASTER NUMBER')
+     A                                      COLHDG('Plug Ship' 'Master #')
+     A            OWDTLA         6S 0       TEXT('LAST ACTIVITY DATE')
+     A                                      COLHDG('Date Last Activity')
+     A                                      EDTCDE(Y)
+     A            OWTIME         6S 0       TEXT('TIME')
+     A                                      COLHDG('Time')
+     A                                      EDTWRD('  :  :  ')
+     A            OWUSER        10A         TEXT('USER')
+     A                                      COLHDG('User')
+      *
+     A          K OWORD#
+     A          K OWSHDT
+     A          K OWMAST

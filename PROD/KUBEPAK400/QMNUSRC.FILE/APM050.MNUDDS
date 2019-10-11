@@ -1,0 +1,477 @@
+     A* Free Form Menu: APM050
+     A*%%TS  SD  20091216  102909  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+0001 A* FREE  FORM MENU
+     A          R APM050
+     A*%%TS  SD  20040324  140626  BILLB       REL-V5R1M0  5722-WDS
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF03
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'COMMAND'
+     A* CMDPROMPT  Do not delete this DDS spec.
+     A                                019  2'Ready for option number or command-
+     A                                          '
+     A                                  6  2'1. - Vendor Analysis Report'
+     A                                  7  2'2. - Fiscal Closing Routine'
+     A                                  8 48'14. - Maintain 1099 Data      '
+     A                                  8  1'*3. - Update A/P Distribution Date-
+     A                                      s'
+     A                                 14 36'Selections'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                 15 30'20. - A/P Menu'
+     A                                 16 30'23. - Master Menu'
+     A                                  2 27' EFD A/P Annual Processing '
+     A                                      DSPATR(RI)
+     A                                  5  7'Fiscal Year Close'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  7 48'13. - Print 1099 Edit List'
+     A                                  9 48'15. - Print 1099''s'
+     A                                  9  5'*'
+     A                                      COLOR(WHT)
+     A                                  2  2USER
+     A                                  9  7'Run after G/L Year End'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  5 54'Calendar Year Close'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  6 48'12. - Create 1099 Data'
+     A                                  1 34'MENU: APM050'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 14'Help'
+     A                                      DSPATR(HI)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                 17 30'90. - Sign Off'
+     A                                 10  2'4. - Purge Closed Open Payables Fi-
+     A                                      le By Date          '
+     A                                 11  2'5. - Purge Vendor Payment History -
+     A                                      File By Date        '
+     A                                 12  2'6. - Remove Vendors Marked for Del-
+     A                                      etion in Master File'
+     A          R #H0000
+     A*%%TS  SD  19990414  080301  EFD         REL-V3R1M0  5763-PW1
+     A                                      TEXT('General Help for Menu APM050')
+     A                                      CLRL(*ALL)
+     A                                  4  2'The Accounts Payable Annual proces-
+     A                                      sing is divided into two separate s-
+     A                                      ections: '
+     A                                      DSPATR(HI)
+     A                                  6  2'                          Fiscal Y-
+     A                                      ear End Processing                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2'                         Calendar -
+     A                                      Year End Processing                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2'Fiscal year end functions should b-
+     A                                      e run at the end of your accounting-
+     A                                       year as '
+     A                                      DSPATR(HI)
+     A                                 10  2'defined in your Accounting Period -
+     A                                      master file.                       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'Calendar year end functions should-
+     A                                       be run after all December processi-
+     A                                      ng has   '
+     A                                      DSPATR(HI)
+     A                                 13  2'been done.                        -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'If your fiscal year end is the sam-
+     A                                      e as the calendar year end, you can-
+     A                                       run both'
+     A                                      DSPATR(HI)
+     A                                 18  2'sections at the same time.        -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'Monthly reports and A/P month end -
+     A                                      MUST be run before running year end-
+     A                                      .        '
+     A                                      DSPATR(HI)
+     A                                  5  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                     Roll - or - P-
+     A                                      ress Enter to Return               -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2' Annual Processing                -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0101
+     A*%%TS  SD  19990414  080301  EFD         REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 01')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  5  2'The Vendor Analysis Report prints -
+     A                                      a report showing the vendor number,-
+     A                                       vendor'
+     A                                      DSPATR(HI)
+     A                                  6  2'name the total purchases, discount-
+     A                                      s taken and discounts lost for both-
+     A                                       this  '
+     A                                      DSPATR(HI)
+     A                                  7  2'year and last year.               -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                  9  2'You are prompted for:  The date to-
+     A                                       print on the report               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  2'                       If the repo-
+     A                                      rt should be printed by vendor numb-
+     A                                      er or   '
+     A                                      DSPATR(HI)
+     A                                 11  2'                            vendor-
+     A                                       alpha sequence                    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  2'                       If only a c-
+     A                                      ertain vendor type should be includ-
+     A                                      ed      '
+     A                                      DSPATR(HI)
+     A                                 13  2'                       Include all-
+     A                                       vendors or only vendors with purch-
+     A                                      ases    '
+     A                                      DSPATR(HI)
+     A                                 14  2'                            either-
+     A                                       this year or last year or only ven-
+     A                                      dors    '
+     A                                      DSPATR(HI)
+     A                                 15  2'                            with n-
+     A                                      o purchases either this year or las-
+     A                                      t year  '
+     A                                      DSPATR(HI)
+     A                                 17  2'While this report appears on the A-
+     A                                      nnual Processing Menu, it can be ru-
+     A                                      n at any'
+     A                                      DSPATR(HI)
+     A                                 18  2'time.  The data will be current as-
+     A                                       of the last voucher and/or check p-
+     A                                      ost.    '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  4  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2'                   Roll - or - Pre-
+     A                                      ss Enter to Return                 -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2' Vendor Analysis Report           -
+     A                                                                      Ove-
+     A                                      rview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0202
+     A*%%TS  SD  19990414  080301  EFD         REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 02')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  1 19' Help for Menu Option 02 -  Fiscal-
+     A                                       Year End '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7  2'The Accounts Payable Fiscal Year E-
+     A                                      nd procedure adjusts the year to da-
+     A                                      te data'
+     A                                      DSPATR(HI)
+     A                                  8  2'in the vendor master file for the -
+     A                                      new year.  The current year totals -
+     A                                      are    '
+     A                                      DSPATR(HI)
+     A                                  9  2'moved into the prior year totals a-
+     A                                      nd the current year totals are zero-
+     A                                      ed so  '
+     A                                      DSPATR(HI)
+     A                                 10  2'that the new year data can start t-
+     A                                      o accumulate.                      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 12  2'This should be run after you have -
+     A                                      entered and posted ALL of your vouc-
+     A                                      hers and'
+     A                                      DSPATR(HI)
+     A                                 13  2'printed and posted all of your che-
+     A                                      cks for the current fiscal year.   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  4  9' THIS SHOULD BE RUN BEFORE ENTERIN-
+     A                                      G ANY VOUCHERS OR PRINTING  '
+     A                                      DSPATR(RI)
+     A                                 15  2'You will be prompted to enter the -
+     A                                      number of the company whose fiscal -
+     A                                      year end'
+     A                                      DSPATR(HI)
+     A                                 16  2'you are closing.  If you run more -
+     A                                      than one company, each company must-
+     A                                       be run '
+     A                                      DSPATR(HI)
+     A                                 17  2'separately at the end of their res-
+     A                                      pective fiscal year.               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  2'You can optionally choose to backu-
+     A                                      p your accounts payable files as pa-
+     A                                      rt of '
+     A                                      DSPATR(HI)
+     A                                 20  2'this procedure.'
+     A                                      DSPATR(HI)
+     A                                  5  9' CHECKS DATED AFTER THE LAST DATE -
+     A                                      OF YOUR CURRENT FISCAL YEAR '
+     A                                      DSPATR(RI)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R #H0303
+     A*%%TS  SD  19970217  054321  GINNY       REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 03')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  1 12' Help for Menu Option 03 -  Update-
+     A                                       A/P Distribution Dates '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4  2'EFD Accounts Payable allows you to-
+     A                                       enter accounts payable vouchers an-
+     A                                      d print'
+     A                                  5  2'in the vendor master file for the -
+     A                                      new year.  The current year totals -
+     A                                      are    '
+     A                                  6  2'moved into the prior year totals a-
+     A                                      nd the current year totals are zero-
+     A                                      ed so  '
+     A                                  7  2'that the new year data can start t-
+     A                                      o accumulate.                      -
+     A                                             '
+     A                                  9  2'This should be run after you have -
+     A                                      entered and posted ALL of your vouc-
+     A                                      hers and'
+     A                                 10  2'printed and posted all of your che-
+     A                                      cks for the current fiscal year.   -
+     A                                              '
+     A                                 12  4'YOU MUST RUN THIS BEFORE YOU ENTER-
+     A                                       ANY VOUCHERS OR PRINT ANY CHECKS D-
+     A                                      ATED '
+     A                                      DSPATR(RI)
+     A                                 13 17'AFTER THE LAST DATE OF YOUR CURREN-
+     A                                      T FISCAL YEAR.'
+     A                                      DSPATR(RI)
+     A                                 15  2'You will be prompted to enter the -
+     A                                      number of the company whose fiscal -
+     A                                      year end'
+     A                                 16  2'you are closing.  If you run more -
+     A                                      than one company, each company must-
+     A                                       be run '
+     A                                 17  2'separately at the end of their res-
+     A                                      pective fiscal year.               -
+     A                                              '
+     A                                 19  2'You can optionally choose to backu-
+     A                                      p your accounts payable files as pa-
+     A                                      rt of '
+     A                                 20  2'this procedure.'
+     A          R #H1313
+     A*%%TS  SD  19990414  080301  EFD         REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 13')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  1 17' Help for Menu Option 13 -  Mainta-
+     A                                      in 1099 Data '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4  2'This program allows you to add or -
+     A                                      change data in the V1099 file.  Thi-
+     A                                      s is the '
+     A                                      DSPATR(HI)
+     A                                  5  2'file that is used to print the ven-
+     A                                      dor 1099s.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2'The first screen prompts you for t-
+     A                                      he vendor number and company number-
+     A                                       whose   '
+     A                                      DSPATR(HI)
+     A                                  8  2'data you want to update.  If there-
+     A                                       is no 1099 record for this vendor,-
+     A                                       you     '
+     A                                      DSPATR(HI)
+     A                                  9  2'can choose to add a new record.   -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2'On the second screen you can add o-
+     A                                      r change:                          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'The amount paid to this vendor in -
+     A                                      this calendar year subject to 1099 -
+     A                                      reporting'
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'The tax id # and type, either fede-
+     A                                      ral # or social security #         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'The type of payment being reported-
+     A                                      , i.e. non-employee, interest, etc.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'Additions or changes to tax id #, -
+     A                                      type and/or type of payment will al-
+     A                                      so update'
+     A                                      DSPATR(HI)
+     A                                 20  2'this data in the vendor master fil-
+     A                                      e.                                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R #H1414
+     A*%%TS  SD  19970217  054321  GINNY       REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 14')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  1 16' Help for Menu Option 14 -  Print -
+     A                                      1099 Edit List '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4  2' This program prints a list in ven-
+     A                                      dor and company number sequence for-
+     A                                       all   '
+     A                                  5  2' vendors in the V1099 file.       -
+     A                                                                         -
+     A                                             '
+     A                                  7  3'The report prints all the data in -
+     A                                      the file and indicates if this vend-
+     A                                      or   '
+     A                                  8  3'is scheduled to receive a 1099.  V-
+     A                                      endors will get a 1099 if their 109-
+     A                                      9    '
+     A                                  9  3'box number has any code other than-
+     A                                       0, and for all codes except 9 - in-
+     A                                      terest'
+     A                                 10  3'payments exceed $600.00.  For code-
+     A                                       9, a 1099 will be printed for paym-
+     A                                      ents '
+     A                                 16  3'You are prompted for the forms num-
+     A                                      ber and the printer to which this r-
+     A                                      eport'
+     A                                 17  3'should print.                     -
+     A                                                                         -
+     A                                           '
+     A                                 13  3'Error messages will print if the v-
+     A                                      endor is not a valid vendor number,-
+     A                                       or '
+     A                                 14  3'if any of the codes are incorrect.-
+     A                                                                         -
+     A                                          '
+     A                                 19  3'After printing this report, you ca-
+     A                                      n go back and add or change any of -
+     A                                      this '
+     A                                 20  3'data, using Option 13. - Maintain -
+     A                                      1099 Data.                         -
+     A                                           '
+     A                                 11  3'in excess of $10.00.              -
+     A                                                                         -
+     A                                            '

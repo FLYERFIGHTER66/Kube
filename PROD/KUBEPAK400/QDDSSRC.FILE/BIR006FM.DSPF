@@ -1,0 +1,230 @@
+     A*%%TS  SD  19970807  161627  EFD         REL-V3R6M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19970727  151316  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HPRINT)
+     A  *DS3                                HLPARA(16 039 18 067)
+     A  *DS4                                HLPARA(16 039 18 067)
+     A          H                           HLPRCD(HELPO)
+     A  *DS3                                HLPARA(04 012 04 044)
+     A  *DS4                                HLPARA(04 012 04 044)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(06 041 06 071)
+     A  *DS4                                HLPARA(06 041 06 071)
+     A          H                           HLPRCD(HAVAIL)
+     A  *DS3                                HLPARA(08 054 08 070)
+     A  *DS4                                HLPARA(08 054 08 070)
+     A          H                           HLPRCD(HSUMM)
+     A  *DS3                                HLPARA(10 060 10 060)
+     A  *DS4                                HLPARA(10 054 10 054)
+     A          H                           HLPRCD(HVOL)
+     A  *DS3                                HLPARA(12 060 12 060)
+     A  *DS4                                HLPARA(12 060 12 060)
+     A            PROGID        10A  O  1  2
+     A                                  1 33' Sale Type File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12
+     A N50                                  DSPATR(CS)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Action Codes = A -
+     A                                      C D.     Press Reset')
+     A                                  4 25'Sale Type?'
+     A            VTYPE          3A  B  4 42
+     A  24                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  24                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Sale Type Is Required. -
+     A                                           Press Reset')
+     A  26                                  ERRMSG('*** This Sale Is Already On-
+     A                                       File.     Press Reset')
+     A  27                                  ERRMSG('*** This Sale Not On File. -
+     A                                          Press Reset')
+     A                                  6  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  6 25'Deparment?'
+     A            VDEPT          3A  B  6 42
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Enter A Valid Departmen-
+     A                                      t.    Press Reset')
+     A                                  7  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  8  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                  8 25'Sale Dates'
+     A                                  8 39'Start:'
+     A            VBDATE         6Y 0B  8 47
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Date - No-
+     A                                      t Higher Than To Date.   Press Rese-
+     A                                      t')
+     A                                  8 57'End:'
+     A            VEDATE         6Y 0B  8 63
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process  F6=Restart   F3-
+     A                                      /F7=End of Job   F13=Print Sale Typ-
+     A                                      e List   '
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  19970807  161627  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HPRINT)
+     A  *DS3                                HLPARA(16 039 18 067)
+     A  *DS4                                HLPARA(16 039 18 067)
+     A          H                           HLPRCD(HELPO)
+     A  *DS3                                HLPARA(04 012 04 044)
+     A  *DS4                                HLPARA(04 012 04 044)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(06 041 06 071)
+     A  *DS4                                HLPARA(06 041 06 071)
+     A          H                           HLPRCD(HAVAIL)
+     A  *DS3                                HLPARA(08 054 08 070)
+     A  *DS4                                HLPARA(08 054 08 070)
+     A          H                           HLPRCD(HSUMM)
+     A  *DS3                                HLPARA(10 060 10 060)
+     A  *DS4                                HLPARA(10 054 10 054)
+     A          H                           HLPRCD(HVOL)
+     A  *DS3                                HLPARA(12 060 12 060)
+     A  *DS4                                HLPARA(12 060 12 060)
+     A            PROGID        10A  O  1  2
+     A                                  1 33' Sale Type File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  6'Sale Type:'
+     A            VTYPE          3A  O  4 17DSPATR(HI)
+     A                                  4 23'Deparment:'
+     A            VDEPT          3A  O  4 34DSPATR(HI)
+     A                                  4 40'Sale Dates:'
+     A            VBDATE         6Y 0O  4 53DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  4 63'-'
+     A                                      DSPATR(HI)
+     A            VEDATE         6Y 0O  4 66DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  7  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 10 20'Description:'
+     A            TYDESC        30A  B 10 36
+     A  57                                  DSPATR(RI)
+     A N88                                  DSPATR(CS)
+     A  57                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A  88                                  DSPATR(PR)
+     A                                 12 20'Discount to Apply:'
+     A            TYDISC         4Y 2B 12 40
+     A N88                                  DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                      CHECK(RB)
+     A  88                                  DSPATR(PR)
+     A                                 14 20'Sale Comments:'
+     A            TYCOM1        30A  B 14 36
+     A N88                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A  88                                  DSPATR(PR)
+     A            TYCOM2        30A  B 15 36
+     A N88                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A  88                                  DSPATR(PR)
+     A            TYCOM3        30A  B 16 36
+     A N88                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A  88                                  DSPATR(PR)
+     A                                 18 20'# of Attendees:'
+     A            TYATTD         4Y 0B 18 40
+     A N88                                  DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  88                                  DSPATR(PR)
+     A                                 20 14' Press Enter to Delete or F6 to Re-
+     A                                      start without Delete '
+     A  87                                  DSPATR(RI)
+     A N87                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'               Enter to Process  F-
+     A                                      6=Restart   F3/F7=End of Job       -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  6  6'Sales To Date:'
+     A            TYSLS$        11Y 2O  6 22DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                 12 48'Admission Charge:'
+     A            TYADCG         5  2B 12 67EDTWRD('   .  ')
+     A N88                                  DSPATR(CS)
+     A  88                                  DSPATR(PR)

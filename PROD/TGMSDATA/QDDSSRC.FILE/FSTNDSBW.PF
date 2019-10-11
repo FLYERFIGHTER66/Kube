@@ -1,0 +1,40 @@
+     A*     STANDING ORDER DETAIL FILE
+     A*     FILE NAME - FSTNDSBW
+     A*
+     A*
+     A
+     A          R RSTNDSBW                  TEXT('ORDER SUB.')
+     A            WKPSEQ         3S 0       TEXT('PRIORITY')
+     A                                      COLHDG('Item' 'Prior.')
+     A                                      EDTCDE(4)
+     A            WKITEM        12A         TEXT('ITEM NUMBER')
+     A                                      COLHDG('Item #')
+     A            WKSIZE         3A         TEXT('SIZE')
+     A                                      COLHDG('Size')
+     A            WKCOMP         2S 0       TEXT('COMPANY #')
+     A                                      COLHDG('Company #')
+     A                                      EDTCDE(4)
+     A            WKWHSE         3A         TEXT('LOCATION')
+     A                                      COLHDG('Location')
+     A            WKUPRI         9P 4       TEXT('UNIT PRICE')
+     A                                      COLHDG('Unit Price')
+     A                                      EDTCDE(3)
+      *** THE FOLLOWING IS BASE PRICE CODE
+      *** M=MARKET  S=STANDING ORDER PRICE O=PRICE IN STANDI RECORD
+      *** " "(BLANK)=PRICE IN THIS RECORD
+     A            WKPRCD         1A         TEXT('BASE PRICE CODE')
+     A                                      COLHDG('Base' 'Price' 'Code')
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF %=110.00 then price will be marked up 10%
+      ** IF %= 90.00 then price will be discounted 10%
+     A            WKDISP         5S 2       TEXT('Mark-up/Disc. %')
+     A                                      COLHDG('Mark-up' 'Disc. %')
+     A                                      EDTCDE(3)
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF $=  .50 then .50 will be added to base price.
+      ** IF $=  .50- Then .50 will be subtracted form base price.
+     A            WKDIS$         5S 2       TEXT('Mark-up/Disc. $')
+     A                                      COLHDG('Mark-up' 'Disc. $')
+     A                                      EDTCDE(M)
+     A*
+     A          K WKPSEQ

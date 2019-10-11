@@ -1,0 +1,84 @@
+     A*%%TS  SD  20090228  104041  BILLB       REL-V5R3M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R PUR55001
+     A*%%TS  SD  20050328  114622  BILLB       REL-V5R2M0  5722-WDS
+     A                                      CF07(03 'Exit')
+     A                                      HOME
+     A                                      CF03(03)
+     A                                      PAGEUP(19 'Prev Week')
+     A                                      PAGEDOWN(20 'Next Week')
+     A                                      CF08(19)
+     A                                      CF09(20)
+     A                                      KEEP
+     A                                      DSPMOD(*DS3)
+     A                                      OVERLAY
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 29' OTHER Schedule Inquiry '
+     A                                      DSPATR(RI)
+     A                                  6 31'Ship Week:'
+     A                                  9 19'Customer Alpha Search:'
+     A            SMLOOK    R        B  9 43REFFLD(RMCUST/CMLOOK *LIBL/FMCUST)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(UL)
+     A            SDATE          6Y 0B  6 43EDTWRD('  /  /  ')
+     A                                      DSPATR(CS)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                 23  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 23 20'F3'
+     A                                      DSPATR(HI)
+     A                                 23 23'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 49'F8'
+     A                                      DSPATR(HI)
+     A                                 23 52'=Prev Week'
+     A                                      COLOR(BLU)
+     A                                 23 65'F9'
+     A                                      DSPATR(HI)
+     A                                 23 68'= Next Week'
+     A                                      COLOR(BLU)
+     A                                 22  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                  6 54'(Enter Monday Date or Roll)'
+     A                                      DSPATR(HI)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS3                                SFLMSGRCD(24)
+     A  *DS4                                SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS3                                SFLSIZ(0002)
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS3                                SFLPAG(0001)
+     A  *DS4                                SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

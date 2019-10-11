@@ -1,0 +1,57 @@
+000100131002      //  :''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+000200131002      //  :      $ClrError - Clear Error Message Subfile            :
+000300131002      //  :.........................................................:
+000400131003    P $clrError       B
+000500131003     D $clrError       PI
+000600131002      /Free
+000700131002         $ERR_SorC = 'C';
+000800131003         $msgfSP($ERR_MsgID:$ERR_MsgData);
+000900131002         *In50 = *Off;
+001000131002      /End-Free
+001100131003    P $clrError       E
+001200131002
+001300131002
+001400131002
+001500131002      //  :''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+001600131002      //  :      $SndError - Send an Error Message to the PGMMSGQ   :
+001700131002      //  :.........................................................:
+001800131003    P $sndError       B
+001900131003     D $sndError       PI
+002000131008     D $ERR_MsgID                     7A   Const
+002100131008     D $ERR_MsgData                 100A   Const
+002200131002      /Free
+002300131002         $ERR_SorC = 'S';
+002400131003         $MsgfSP($ERR_MsgID:$ERR_MsgData);
+002500131002         *In50 = *On;
+002600131002      /End-Free
+002700131003    P $sndError       E
+002800050221
+002900131002
+003000131002
+003100131002      //  :''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+003200131002      //  :      SRMSGF - Clear or send messages to Pgm msg queue   :
+003300131002      //  :.........................................................:
+003400131003    P $msgfSP         B
+003500131003     D $msgfSP         PI
+003600131008     D $ERR_MsgID                     7A   Const
+003700131008     D $ERR_MsgData                  80A   Const
+003800131008
+003801131008      *  $XAMSFC     EXTPROC Call the Subfile Error Messaging Program
+003802131008      * prototype for Error Message Program
+003803131008     D XAMSFC          PR                  ExtPgm('XAMSFC')
+003804131008     D #ERR_PROG                     10A
+003805131008     D #ERR_MSGF                     10A
+003806131008     D #ERR_LIBR                     10A
+003807131008     D #ERR_MsgID                     7A   Const
+003808131008     D #ERR_MsgData                  80A   Const
+003809131008     D #ERR_MKEY                      4A
+003810131008     D #ERR_SORC                      1A
+003811131008
+004700131003      /Free
+004800131008         $ERR_MSGF = 'KPMSGF';
+004900131004         $ERR_LIBR = '*LIBL';
+005000131003
+005100131003         XAMSFC($ERR_PROG:$ERR_MSGF:$ERR_LIBR:
+005200131003         $ERR_MsgID:$ERR_MsgData:$ERR_MKEY:$ERR_SORC);
+005300131002      /End-Free
+005400131007    P $msgfSP         E

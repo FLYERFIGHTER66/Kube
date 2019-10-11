@@ -1,0 +1,265 @@
+     A*?Program        : TRR554FM
+     A*?
+     A*?Description    : This display file for New Truck Schedule History Screen
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 12 Oct 2018
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**********************************************************************
+     A*?Main Screen
+     A          R MAIN
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF08(08 'PrevDte')
+     A                                      CF09(09 'NextDte')
+     A                                      CF11(11 'NextTruck')
+     A                                      PAGEUP(06 'Pageup')
+     A                                      PAGEDOWN(07 'Pagedown')
+     A*
+     A                                  1  2'TRR554'
+     A                                      COLOR(BLU)
+     A                                  1 46' Truck Schedule Maintainence Main -
+     A                                      Screen'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1120DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2120TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  6 46'Ship Date:'
+     A            SHPDAT         6Y 0B  6 57DSPATR(UL)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A            DOTW           9A  O  6 67COLOR(PNK)
+     A                                  6 79'Roll'
+     A                                      DSPATR(HI)
+     A                                  6 84'=-/+ day'
+     A                                      COLOR(BLU)
+     A*
+     A                                  9 55'Truck Number?'
+     A            TRUCK          4A  B  9 70DSPATR(UL)
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A*?Record Footer
+     A                                 26  2'F3'
+     A                                      DSPATR(HI)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F5'
+     A                                      DSPATR(HI)
+     A                                 26 15'=Restart'
+     A                                      COLOR(BLU)
+     A                                 26 25'F8/F9'
+     A                                      DSPATR(HI)
+     A                                 26 31'=-/+ Week'
+     A                                      COLOR(BLU)
+     A                                 26 42'F11'
+     A                                      DSPATR(HI)
+     A                                 26 46'=Next Truck'
+     A                                      COLOR(BLU)
+     A                                 26 59'Enter'
+     A                                      DSPATR(HI)
+     A                                 26 65'=Process'
+     A                                      COLOR(BLU)
+     A*?Error Message
+     A            ERRMSG        60A  O 27  2COLOR(WHT)
+     A**************************************************************************
+     A*?Subfile Display Part
+     A*
+     A          R TRKSFL                    SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01TRSEQ#      6Y 0O  6  2DSPATR(UL)
+     A                                      EDTCDE(4)
+     A            S01TRSTOP      3Y 0O  6 11DSPATR(HI)
+     A            S01TRORD#      6Y 0O  6 16DSPATR(UL)
+     A                                      EDTCDE(4)
+     A            S01TRCUST      6Y 0O  6 23DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CMFILL         2A  O  6 30
+     A            CODES          3A  O  6 34COLOR(PNK)
+     A            CMNAME        30A  O  6 39COLOR(BLU)
+     A            S01ADDR       27A  O  6 70DSPATR(HI)
+     A            S01QTY1        4Y 1O  6 98DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                      COLOR(BLU)
+     A            S01QTY2        4Y 1O  6104DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                      COLOR(BLU)
+     A            S01QTY3        4Y 1O  6110DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                      COLOR(BLU)
+     A            S01QTY4        4Y 1O  6116DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                      COLOR(BLU)
+     A            S01QTY5        4Y 1O  6122DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                      COLOR(BLU)
+     A            S01QTY6        4Y 1O  6128DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                      COLOR(BLU)
+     A*
+     A                                  7  2'Phone:'
+     A                                      DSPATR(HI)
+     A            CMPHON        10Y 0O  7  9EDTWRD('   -   -    ')
+     A                                      COLOR(PNK)
+     A            CMPHO2    R        O  7 22REFFLD(RMCUST/CMPHO2 *LIBL/FMCUST)
+     A                                      COLOR(PNK)
+     A                                  7 35'Address:'
+     A                                      COLOR(WHT)
+     A            OHSHP2    R        O  7 44REFFLD(RHORDR/OHSHP2 *LIBL/FHORDR)
+     A            OHSHP3    R        O  7 75REFFLD(RHORDR/OHSHP3 *LIBL/FHORDR)
+     A*
+     A                                  8  2'Action:'
+     A                                      COLOR(WHT)
+     A            S01TRACTN     10A  O  8 10
+     A                                  8 21'User:'
+     A                                      COLOR(WHT)
+     A            S01TRUSER     10A  O  8 27
+     A                                  8 38'Pgm:'
+     A                                      COLOR(WHT)
+     A            S01TRPROG     10A  O  8 43
+     A                                  8 54'WrkStn:'
+     A                                      COLOR(WHT)
+     A            S01TRWKST     10A  O  8 62
+     A                                  8 73'TimeStamp:'
+     A                                      COLOR(WHT)
+     A            S01TRTMST       Z  O  8 84
+     A                                  9  2' '
+     A**********************************************************************
+     A*?Subfile Control Part
+     A*
+     A          R TRKCTL                    SFLCTL(TRKSFL)
+     A                                      SFLSIZ(0300)
+     A                                      SFLPAG(0004)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF12(12 'Cancel')
+     A*
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A*
+     A            S02RRN         4S 0H
+     A*
+     A                                  1  2'TRR554'
+     A                                      COLOR(BLU)
+     A                                  1 46' Truck Schedule Detail Entry Histo-
+     A                                      ry'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1125DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2125TIME
+     A                                      COLOR(BLU)
+     A                                  2 20'Truck #:'
+     A            C01TRK         4A  B  2 29COLOR(YLW)
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A                                  2 89'Ship Date:'
+     A            C01SHPDT       7Y 0B  2100EDTCDE(Y)
+     A  43                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A            DAYNM          9A  O  2111COLOR(PNK)
+     A                                      DSPATR(RI)
+     A                                  4  2'Seq # '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 10'Stop'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 16'Order#'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 23'Cust #'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 30'NT'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 33'Codes'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 39'Name                          '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 70'City,State and Zip*        '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 98'QTY1'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  4104'QTY2'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  4110'QTY3'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  4116'QTY4'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  4122'QTY5'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                  4128'QTY6'
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R TRKFTR
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 11'F12'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Cancel'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

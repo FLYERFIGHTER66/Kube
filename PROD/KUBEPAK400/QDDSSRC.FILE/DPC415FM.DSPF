@@ -1,0 +1,259 @@
+     A*%%TS  SD  19990721  133008  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990721  121154  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 12'Customer Number:'
+     A            VCUST          6Y 0B  5 32EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10N11N12                            ERRMSG('*** Enter Either a Customer-
+     A                                       Number or a Search Argument.   Pre-
+     A                                      ss Reset')
+     A  10 11                               ERRMSG('*** This Is Not a Valid Cus-
+     A                                      tomer Number.   Press Reset')
+     A  10N11 12                            ERRMSG('*** Customer is NOT a DPC C-
+     A                                      ustomer.    Press RESET')
+     A                                  7 12'Alpha Search:'
+     A            VALPHA        15A  B  7 32DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  9 12'Telephone # Search:'
+     A            VTELE         10A  B  9 32
+     A  16                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(CS)
+     A            CMNAME        30A  O  5 39DSPATR(HI)
+     A                                  1  2'DPC415A'
+     A                                  6 16'or'
+     A                                  8 16'or'
+     A                                 23  2'Enter to Process                F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 19' Re-Calculate Points for Selected -
+     A                                      Customer '
+     A                                      DSPATR(RI)
+     A          R SCRNB
+     A*%%TS  SD  19990720  172526  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6Y 0B  4 12EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  1  2'DPC415B'
+     A                                 23  2'Enter to Process                F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 26' Re-Calculate Customer Points '
+     A                                      DSPATR(RI)
+     A                                  7 32'March/April:'
+     A                                  8 32'May:'
+     A                                  9 32'June:'
+     A                                 10 32'July:'
+     A                                 11 32'August:'
+     A                                 12 32'September:'
+     A                                 13 32'October:'
+     A                                 14 32'November:'
+     A                                 15 32'December:'
+     A                                 16 32'January:'
+     A                                 17 32'February:'
+     A            CUR1           7Y 0O  7 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD002         7Y 0O  8 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD003         7Y 0O  9 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD004         7Y 0O 10 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD005         7Y 0O 11 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD006         7Y 0O 12 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD007         7Y 0O 13 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD008         7Y 0O 14 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD009         7Y 0O 15 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD010         7Y 0O 16 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD011         7Y 0O 17 18DSPATR(HI)
+     A                                      EDTCDE(2)
+     A                                 18 18'---------'
+     A                                 19 32'Total:'
+     A            FLD012         9Y 0O 19 16DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD013         7Y 0O  7 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD014         7Y 0O  8 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD015         7Y 0O  9 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD016         7Y 0O 10 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD017         7Y 0O 11 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD018         7Y 0O 12 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD019         7Y 0O 13 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD020         7Y 0O 14 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD021         7Y 0O 15 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD022         7Y 0O 16 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A            FLD023         7Y 0O 17 49DSPATR(HI)
+     A                                      EDTCDE(2)
+     A                                 18 49'---------'
+     A            FLD024         9Y 0O 19 47DSPATR(HI)
+     A                                      EDTCDE(2)
+     A                                  6 20'Current'
+     A                                  6 46'Re-Calculated'
+     A                                      DSPATR(UL)
+     A          R SCRNE
+     A*%%TS  SD  19990429  205940  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 12'Customer Number:'
+     A            VCUST          6Y 0B  5 32EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A            CMNAME        30A  O  5 39DSPATR(HI)
+     A                                  1  2'DPC420E'
+     A                                  1 28' D.P.C. Certificate Entry '
+     A                                      DSPATR(RI)
+     A                                  7 25' This is NOT a D.P.C. Customer. '
+     A  10                                  DSPATR(RI)
+     A N10                                  DSPATR(ND)
+     A                                 13 14' Customer has NOT reached the 20,0-
+     A                                      00 point threshold. '
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A                                 21 29' Press Enter to Return. '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  9 14'Total Points Earned:'
+     A  10                                  DSPATR(ND)
+     A                                 10 14'Points Redeemed:'
+     A  10                                  DSPATR(ND)
+     A            TOTPTS         7Y 0B  9 35
+     A  10                                  DSPATR(ND)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(PR)
+     A            DPPTRD         7Y 0B 10 35
+     A  10                                  DSPATR(ND)
+     A                                      EDTCDE(1)
+     A N10                                  DSPATR(UL)
+     A                                      DSPATR(PR)
+     A            NETPTS         7Y 0B 11 35
+     A  10                                  DSPATR(ND)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(PR)
+     A                                 14 10' Customer does NOT have enough poi-
+     A                                      nts to earn a certificate. '
+     A  21                                  DSPATR(RI)
+     A N21                                  DSPATR(ND)
+     A                                 15 19' Customer has an A/R Balance over -
+     A                                      30 Days. '
+     A  22                                  DSPATR(RI)
+     A N22                                  DSPATR(ND)
+     A          R PTSSFL                    SFL
+     A*%%TS  SD  19990721  133008  EFD         REL-V3R7M0  5716-PW1
+     A            CUR            9Y 0O  8 16EDTCDE(2)
+     A  50                                  DSPATR(HI)
+     A  51                                  DSPATR(UL)
+     A            MONTNM        11A  O  8 30
+     A            RECALC         9Y 0O  8 44EDTCDE(2)
+     A  50                                  DSPATR(HI)
+     A  51                                  DSPATR(UL)
+     A          R PTSCTL                    SFLCTL(PTSSFL)
+     A*%%TS  SD  19990721  133008  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF04
+     A                                      CF23
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0020)
+     A                                      SFLPAG(0014)
+     A                                  1  2'DPC415SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Re-Calculate Customer Points '
+     A                                      DSPATR(RI)
+     A                                  3 19'Customer:'
+     A            CMCUST         6Y 0O  3 29EDTCDE(4)
+     A            CMNAME        30A  O  3 36
+     A                                  7 16'  Current     Month       Re-Calcu-
+     A                                      lated'
+     A                                      DSPATR(UL)
+     A                                  5  2'Enter to Return(No Update)  F4-Upd-
+     A                                      ate To New Points  F23-Zero All Poi-
+     A                                      nts'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)

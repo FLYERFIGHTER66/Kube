@@ -1,0 +1,21 @@
+             PGM        PARM(&P &B &C)
+
+             DCL        VAR(&P) TYPE(*CHAR) LEN(10)    /* Printer            */
+             DCL        VAR(&B) TYPE(*DEC)  LEN(3 0)   /* Batches            */
+             DCL        VAR(&C) TYPE(*DEC)  LEN(3 0)   /* Copies per Batch   */
+
+             DCL        VAR(&BATCH) TYPE(*DEC)  LEN(3 0) VALUE(1)
+
+ LOOP:       DOWHILE    COND(&BATCH *LE &B)
+
+             RUNQRY     QRY(PLUG050C)  OUTTYPE(*PRINTER) PRTDEV(&P) COPIES(&C)
+             RUNQRY     QRY(PLUG072C)  OUTTYPE(*PRINTER) PRTDEV(&P) COPIES(&C)
+             RUNQRY     QRY(PLUG162C)  OUTTYPE(*PRINTER) PRTDEV(&P) COPIES(&C)
+             RUNQRY     QRY(PLUG288C)  OUTTYPE(*PRINTER) PRTDEV(&P) COPIES(&C)
+             RUNQRY     QRY(PLUG512C)  OUTTYPE(*PRINTER) PRTDEV(&P) COPIES(&C)
+
+             CHGVAR     VAR(&BATCH) VALUE(&BATCH + 1)
+
+             ENDDO
+
+             ENDPGM

@@ -1,0 +1,321 @@
+     A*%%TS  SD  20141007  161241  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20110413  145203  BILLB       REL-V5R4M0  5722-WDS
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A                                      CF02
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR237A'
+     A                                  1 30' Future Order Release '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 27'Order Number:'
+     A            VORDER         6Y 0B  5 49
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  10N11N13                            ERRMSG('*** This Is Not A Valid Ord-
+     A                                      er Number.    Press Reset')
+     A  10 13                               ERRMSG('*** Order is Closed/Deleted-
+     A                                      .           Press RESET')
+     A                                  7 27'Ship Date:'
+     A            VDATE          6Y 0B  7 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A                                 10 27'Print Summary Pick Slip:'
+     A            VPICK          1A  B 10 54
+     A  25                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Pick Slip Print must be-
+     A                                      t Y or N.   Press RESET')
+     A                                 10 56'(Y/N)'
+     A                                 12 27'Print New Set Down Sheet:'
+     A            VSETDN         1A  B 12 54
+     A  22                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  22                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Set Down Print must be -
+     A                                      Y or N.   Press RESET')
+     A                                 12 56'(Y/N)'
+     A                                 14 27'Print Change Notice:'
+     A            VCHGNOT        1A  B 14 54
+     A  26                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  26                                  DSPATR(PC)
+     A  26                                  ERRMSG('*** Change Note Print must -
+     A                                      be Y or N.   Press RESET')
+     A                                 14 56'(Y/N)'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process                  -
+     A                                       F6=Restart                 F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  19980403  090632  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR237B'
+     A                                  1 30' Future Order Release '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 27'Order Number:'
+     A            VORDER         6Y 0B  5 49CHECK(RB)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(PR)
+     A                                  7 27'Ship Date:'
+     A            VDATE          6Y 0B  7 47EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                 14 19'Ship Via?'
+     A            OHSHPC         2A  B 14 30DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Ship Via -
+     A                                      Code.    Press Reset')
+     A            SVDESC        30A  B 14 34
+     A  20                                  DSPATR(ND)
+     A                                 16 19'Frt Type?'
+     A            OHPPCD         1A  B 16 31DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Ship Via -
+     A                                      Code.    Press Reset')
+     A            FRDESC        12A  B 16 34
+     A  20                                  DSPATR(ND)
+     A                                 18 19'Route:'
+     A            OHROUT         2A  B 18 30DSPATR(CS)
+     A  40                                  ERRMSG('*** Enter A Valid Ship Via -
+     A                                      Code.    Press Reset')
+     A                                 18 37'Stop:'
+     A            OHSTOP         3Y 0B 18 44EDTCDE(Z)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process               F6=-
+     A                                      Restart                     F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(UL)
+     A                                 12 19'Qty Discount Based on:'
+     A            DISTYP         1A  B 12 42
+     A  17                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  17                                  DSPATR(PC)
+     A  17                                  ERRMSG('*** Qty. Discount Based on:-
+     A                                       Must be O or T. Press RESET')
+     A                                 12 45'O = Entire Order. T = This Shipmen-
+     A                                      t'
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  20120509  171736  BILLB       REL-V7R1M0  5770-WDS
+     A            IN01           1   H
+     A            OISEQ#         3S 0H
+     A            ORGQTY         7S 0H
+     A            OIITYP         1A  H
+     A            ITEM           5A  O 11 33
+     A            OISIZE         3A  O 11 39
+     A            DESC          26A  O 11 43
+     A  33                                  DSPATR(UL)
+     A  33                                  DSPATR(HI)
+     A            QTYORD         6Y 1O 11 25EDTCDE(4)
+     A                                      DSPATR(UL)
+     A  12                                  DSPATR(ND)
+     A            QTYOPN         6Y 1O 11  9EDTCDE(4)
+     A                                      DSPATR(UL)
+     A  12                                  DSPATR(ND)
+     A            QTYSHP         5Y 1B 11  2EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  10
+     AON12                                  DSPATR(PC)
+     A  10                                  DSPATR(RI)
+     A  12                                  DSPATR(ND)
+     A  12                                  DSPATR(PR)
+     A            SIPRBO         1A  B 11 79
+     A N12                                  DSPATR(PR)
+     A  12                                  DSPATR(UL)
+     A                                      VALUES('*' 'M' 'C' 'B' ' ')
+     A            OIDTRQ         6Y 0O 11 70EDTWRD('  /  /  ')
+     A            QTYPRV         6Y 1O 11 17EDTCDE(4)
+     A                                      DSPATR(UL)
+     A  12                                  DSPATR(ND)
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  20141007  161241  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF01
+     A                                      CF04
+     A                                      CF06
+     A                                      CF10
+     A                                      CF16(16)
+     A                                      CF08(08)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0014)
+     A  11                                  SFLMSG('You Can NOT Ship A Quantity-
+     A                                       Greater Than The Quantity Open.')
+     A  66                                  SFLMSG('*** There are no lines rele-
+     A                                      ased to shipping.  Press RESET')
+     A                                  1  2'BIR237SFL'
+     A                                      COLOR(BLU)
+     A                                  1 14'Future Order Release for Order #:'
+     A            VORDER         6Y 0O  1 49EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 14'Ship To Customer:'
+     A            OHCUST         6Y 0O  2 32EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            OHNAME        30A  O  2 39DSPATR(HI)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  9 33' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                      DSPATR(BL)
+     A                                      COLOR(RED)
+     A                                  9 50'Roll for more lines'
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A                                  4  2'Functions'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5  2'F1'
+     A  66                                  DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  6  2'F4'
+     A                                      DSPATR(HI)
+     A                                  7  2'F6'
+     A                                      DSPATR(HI)
+     A                                  5 29'F10'
+     A                                      DSPATR(HI)
+     A                                  9  2' --------Quantity---------'
+     A                                 10  2' Ship  Open  Shipped Order     Ite-
+     A                                      m Size Description                 -
+     A                                       Date'
+     A                                      DSPATR(UL)
+     A                                  3 30'Release Date:'
+     A                                      COLOR(PNK)
+     A            VDATE          6Y 0O  3 44DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A            TOTSHP         6Y 1O  7 72DSPATR(HI)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(RI)
+     A                                  4 63'Ordered:'
+     A                                  5 59'Prev. Ship.:'
+     A                                  6 61'Available:'
+     A                                  7 58'This Release:'
+     A            TOTOPN         6Y 1O  6 72EDTCDE(1)
+     A            TOTPRV         6Y 1O  5 72EDTCDE(1)
+     A            TOTORD         6Y 1O  4 72EDTCDE(1)
+     A                                  3 72'Quantity'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 26' F10 to Confirm Zero Ship Qty. '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                  6 29'F16'
+     A                                      DSPATR(HI)
+     A                                  6 33'=Create New Order'
+     A                                      COLOR(BLU)
+     A                                  5 33'=Zero All To Ship Qty.'
+     A                                      COLOR(BLU)
+     A                                  5  5'=Release All Lines'
+     A                                      COLOR(BLU)
+     A                                  6  5'=Post Order to Picking'
+     A                                      COLOR(BLU)
+     A                                  7  5'=Restart - No Update'
+     A                                      COLOR(BLU)
+     A                                  7 33'Inc'
+     A                                      COLOR(BLU)
+     A                                  9 70'Request'
+     A                                  9 78'BO'
+     A                                      DSPATR(HI)
+     A                                 10 77'Inc'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  7 37'(C)'
+     A                                      DSPATR(HI)
+     A                                  7 41'=Copy Comment'
+     A                                      COLOR(BLU)
+     A                                  8 37'(M)'
+     A                                      DSPATR(HI)
+     A                                  8 41'=Move Comment'
+     A                                      COLOR(BLU)
+     A                                  7 31'>'
+     A                                      DSPATR(HI)
+     A                                  8 31'>'
+     A                                      DSPATR(HI)
+     A                                  8  2'F8'
+     A                                      DSPATR(HI)
+     A                                  8  5'=Calculate Carts    '
+     A                                      COLOR(BLU)
+     A                                  8 58'       Carts:'
+     A            CARTCOUNT      5Y 2O  8 74DSPATR(HI)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(RI)
+     A          R SCRNC
+     A*%%TS  SD  19980403  121432  EFD         REL-V3R6M0  5716-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR237C'
+     A                                  1 30' Future Order Release '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 11 27'Order Number:'
+     A            NEWORD         6Y 0B 11 49DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(PR)
+     A                                 15 27'Ship Date:'
+     A            VDATE          6Y 0B 15 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                               Ent-
+     A                                      er to Continue                     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  7 27'Future Order Number:'
+     A            VORDER         6Y 0B  7 49DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(PR)
+     A                                  9 27'Has been released to the following-
+     A                                       order number'
+     A                                 13 27'For Requested Date'

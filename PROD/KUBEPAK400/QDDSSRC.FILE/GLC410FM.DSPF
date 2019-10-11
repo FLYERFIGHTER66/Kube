@@ -1,0 +1,231 @@
+     A*%%TS  SD  19990607  082125  APGL        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990607  082125  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF04
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(OHELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 29' Daily General Journal '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 27'Transaction Date:'
+     A            LDATE          6Y 0B  5 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A                                  7 27'Include Only Records'
+     A            LSRCE          3A  B  7 52CHECK(FE)
+     A                                      DSPATR(CS)
+     A                                  8 27'From This Source:'
+     A                                 11 27'Printer ID:'
+     A            LPRTR         10A  B 11 47CHECK(FE)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 12 27'Forms Number:'
+     A            LFORM         10A  B 12 47CHECK(FE)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                 13 27'Number of Copies:'
+     A            LCOPY          2Y 0B 13 55
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 14 27'JOBQ (Y/N):'
+     A            LJOBQ          1X  B 14 56CHECK(FE)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 15 27'Print Status:'
+     A            VOUT           1Y 0B 15 56
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 15 58'1 = Print'
+     A                                 16 58'2 = Print/Save'
+     A                                 17 58'3 = Hold'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process    F4=Loo-
+     A                                      kup Valid Sources     F7=Cancel Job-
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  2 33'For Company:'
+     A            LCO            2  0O  2 46DSPATR(HI)
+     A          R OHELP
+     A*%%TS  SD  19990310  075902  EFD         REL-V3R1M0  5763-PW1
+     A                                 13  2' Daily General Journal            -
+     A                                                                       Ov-
+     A                                      erview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2' The Daily General Journal Reports-
+     A                                       lists all of the entries in the g/-
+     A                                      l detail '
+     A                                      DSPATR(HI)
+     A                                 16  2' file for the date specified.     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' The entries are sorted and totale-
+     A                                      d by journal entry number.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2' You can select to print only the -
+     A                                      transactions from a specific source-
+     A                                      .        '
+     A                                      DSPATR(HI)
+     A                                 21  2' For example: enter A/P to get onl-
+     A                                      y accounts payable transactions,   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'              enter SLS to get onl-
+     A                                      y invoice transactions.            -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SCRNB
+     A*%%TS  SD  19990524  055503  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF02
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 29' Daily General Journal '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'             Enter to Process     -
+     A                                       F6=Restart      F7=Cancel Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  3 25' Line   Source                  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4 25'                                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7 25'  03    A/P  Accounts Payable     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8 25'  04    CAS  Cash Receipts        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18 26'Enter Line Number:'
+     A            VLINE          2Y 0B 18 47
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  10                                  ERRMSG('*** Enter A Valid Line Numb-
+     A                                      er - or - F6 To Return.    Press Re-
+     A                                      set')
+     A                                 11 25'  07    J/E  Journal Entries      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13 25'  09    NAR  Non-A/R Cash         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  5 25'  01    ADJ  A/R Adjustments      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14 25'  10    P/R  Payroll              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12 25'  08    L/C  Late Charges         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9 25'  05    DIS  Cash Discounts       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10 25'  06    INV  Inventory Transaction-
+     A                                      s        '
+     A                                      DSPATR(HI)
+     A                                 15 25'  11    SLS  Sales                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6 25'  02    A/L  Allocated Journal Ent-
+     A                                      ries     '
+     A                                      DSPATR(HI)

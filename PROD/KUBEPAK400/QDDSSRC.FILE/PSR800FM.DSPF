@@ -1,0 +1,274 @@
+     A*%%TS  SD  20190910  150700  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R PSR80001
+     A*%%TS  SD  20190321  123905  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF07(07 'Minus Week')
+     A                                      CF08(08 'Plus Week')
+     A                                      CF10(10 'Change Printer')
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  1 50'   Manage FedEx Shipping Orders   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                 11 42'Enter the Order Number or Customer-
+     A                                       Number:'
+     A            SCANCUSORD     6Y 0B 11 86EDTCDE(Z)
+     A                                      COLOR(TRQ)
+     A                                      CHECK(ME)
+     A                                      CHECK(ER)
+     A                                  9 39'                                  -
+     A                                                            '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 39' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 94' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11 39' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11 94' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12 39' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12 94' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13 39'                                  -
+     A                                                            '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1 94'Ship Week:'
+     A            SHIPWEEK       6Y 0O  1105COLOR(PNK)
+     A                                      EDTCDE(Y)
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                      PSR80001  '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'F3'
+     A                                      DSPATR(HI)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 17'F5'
+     A                                      DSPATR(HI)
+     A                                 26 20'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 35'F7 / F8'
+     A                                      DSPATR(HI)
+     A                                 26 43'=-/+ week'
+     A                                      COLOR(BLU)
+     A                                 26101'F10'
+     A                                      DSPATR(HI)
+     A                                 26105'=Change Printer:'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O 26122DSPATR(RI)
+     A                                      COLOR(YLW)
+     A          R PSR80002                  SFL
+     A*%%TS  SD  20190910  150700  BILLB       REL-V7R2M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            OIRVDT         7S 0H
+     A            OPTION02       1A  B  7  2
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A            OHORD#    R        O  7  5REFFLD(RHORDR/OHORD# *LIBL/FHORDR)
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A            OHPONO    R        O  8 82REFFLD(RHORDR/OHPONO *LIBL/FHORDR)
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A                                  8 31'Terms:'
+     A                                      COLOR(PNK)
+     A  60                                  DSPATR(ND)
+     A            OHTERM25  R   25   O  8 38REFFLD(RHORDR/OHTERM *LIBL/FHORDR)
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A            ADDRESS       62A  O  7 68
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A                                  8 64'Purchase Order#:'
+     A                                      COLOR(PNK)
+     A  60                                  DSPATR(ND)
+     A            OIRVDT6        6Y 0O  7 12EDTCDE(Y)
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A            SHIPVIA25     25A  O  7 38
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A            OHLOC     R        O  7 21REFFLD(RHORDR/OHLOC *LIBL/FHORDR)
+     A  29                                  DSPATR(HI)
+     A  60                                  DSPATR(ND)
+     A            PIECES         7Y 0O  7 30
+     A  29                                  DSPATR(HI)
+     A                                      EDTCDE(3)
+     A  60                                  DSPATR(ND)
+     A            COD            1A  O  7 65DSPATR(HI)
+     A          R PSR80002C                 SFLCTL(PSR80002)
+     A*%%TS  SD  20190910  145538  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0009)
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Restart')
+     A                                      CF05(05 'Refresh')
+     A                                      CF07(07 'Minus Week')
+     A                                      CF08(08 'Plus Week')
+     A                                      CF10(10 'Change Printer')
+     A                                      KEEP
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            STARTRRN02     4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1125DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2125TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  1 50'   Manage FedEx Shipping Orders   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  2 53'Scanned:'
+     A  31N30                           2 62'Customer    '
+     A                                      COLOR(BLU)
+     A  30N31                           2 62'Order Number'
+     A                                      COLOR(BLU)
+     A            SCANCUSORD     6S 0O  2 75COLOR(PNK)
+     A                                  6  1'OPT'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6  5'Order '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 68'Address                           -
+     A                                                                     '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 12'Req.Date'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 38'Ship Via                 '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 43'Customer:'
+     A            CMNAME    R        O  4 60REFFLD(RMCUST/CMNAME *LIBL/FMCUST)
+     A                                      DSPATR(HI)
+     A                                  4 40' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4 92' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5 40'                                  -
+     A                                                         '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3 40'                                  -
+     A                                                         '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            CMCUST    R        O  4 53REFFLD(RMCUST/CMCUST *LIBL/FMCUST)
+     A                                      COLOR(PNK)
+     A                                  1 94'Ship Week:'
+     A            SHIPWEEK       6Y 0O  1105EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  6 21'Location'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 30' Pieces'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  3'6=Print(Pick) 5=Display'
+     A                                      COLOR(BLU)
+     A                                  6 64'COD'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R PSR80002F
+     A*%%TS  SD  20190321  134120  BILLB       REL-V7R2M0  5770-WDS
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                     PSR80002   '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26 15'F5'
+     A                                      DSPATR(HI)
+     A                                 26 18'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 31'F06'
+     A                                      DSPATR(HI)
+     A                                 26 35'=Restart'
+     A                                      COLOR(BLU)
+     A                                 26101'F10'
+     A                                      DSPATR(HI)
+     A                                 26105'=Change Printer:'
+     A                                      COLOR(BLU)
+     A                                 26  2'F3'
+     A                                      DSPATR(HI)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O 26122DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                 26 47'F7'
+     A                                      DSPATR(HI)
+     A                                 26 50'/'
+     A                                      COLOR(BLU)
+     A                                 26 52'F8'
+     A                                      DSPATR(HI)
+     A                                 26 55'=-/+ week'
+     A                                      COLOR(BLU)
+     A                                 26 69'F11'
+     A                                      DSPATR(HI)
+     A                                 26 73'=More Info'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS4                                SFLMSGRCD(27)
+     A            MSGKEY                    SFLMSGKEY
+     A            PGMQ                      SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS4                                SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

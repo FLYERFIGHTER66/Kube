@@ -1,0 +1,30 @@
+000100011130/*********************************************************************/
+000200011203/*   PROGRAM-------- SOW010BCL                                       */
+000300011203/*   DATE WRITTEN--- 12/03/01                                        */
+000400011130/*   PROGRAMMER----- E. DE COURSEY                                   */
+000500011203/*   DESCRIPTION---- SOW LINE OPERATIONS PRINT BLANK LABELS          */
+000600011130/*   REVISIONS------                                                 */
+000700011130/*                                                                   */
+000800011130/*********************************************************************/
+000900011203             PGM
+001000011130             DCL        VAR(&PRT) TYPE(*CHAR) LEN(10)
+001100011130             DCL        VAR(&FILE) TYPE(*CHAR) LEN(10)
+001200011130             QSYS/DCL   VAR(&EOJ) TYPE(*CHAR) LEN(1)
+001300011130             QSYS/DCL   VAR(&FORM) TYPE(*CHAR) LEN(10)
+001400011130             QSYS/DCL   VAR(&COPY) TYPE(*CHAR) LEN(2)
+001500011130             QSYS/DCL   VAR(&HOLD) TYPE(*CHAR) LEN(4)
+001600011130             QSYS/DCL   VAR(&SAVE) TYPE(*CHAR) LEN(4)
+001700011130             QSYS/DCL   VAR(&JOBQ) TYPE(*CHAR) LEN(1)
+001800011130
+001900011130             QSYS/RTVDTAARA DTAARA(*LDA (11 10)) RTNVAR(&FILE)
+002000011130             QSYS/RTVDTAARA DTAARA(*LDA (100 10)) RTNVAR(&PRT)
+002100011130             QSYS/RTVDTAARA DTAARA(*LDA (110 10)) RTNVAR(&FORM)
+002200011130             QSYS/RTVDTAARA DTAARA(*LDA (120 2)) RTNVAR(&COPY)
+002300011130             QSYS/RTVDTAARA DTAARA(*LDA (122 1)) RTNVAR(&JOBQ)
+002400011130             QSYS/RTVDTAARA DTAARA(*LDA (123 4)) RTNVAR(&HOLD)
+002500011130             QSYS/RTVDTAARA DTAARA(*LDA (127 4)) RTNVAR(&SAVE)
+002600011130
+002700011205             LBLBATCH   LBLNAM(NEWSOWBL) QTYFLD('000010') +
+002800011203                          QTYOVR('    ') OUTQ(&PRT) FORM(SOWLABEL)
+002900011130
+003000011130 END:        ENDPGM

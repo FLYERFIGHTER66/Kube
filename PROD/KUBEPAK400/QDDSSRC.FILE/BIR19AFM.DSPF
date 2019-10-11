@@ -1,0 +1,170 @@
+     A*%%TS  SD  20010822  112339  EFD         REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990906  051155  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A            PROGID        10A  O  1  2
+     A                                  1 15'Help'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  1 32' User Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.      Press Reset')
+     A                                  5 30'User ID?'
+     A            VUSER         10A  B  5 41
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** User ID Is Required.   -
+     A                                         Press Reset')
+     A  22                                  ERRMSG('*** This User Is On File.  -
+     A                                           Press Reset')
+     A  23                                  ERRMSG('*** User Not On File.      -
+     A                                        Press Reset')
+     A                                  7  2' A = Add '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  8  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  9  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process   F6=Restart   F3-
+     A                                      /F7=End of Job   F13=Print User Mas-
+     A                                      ter List '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990421  122236  AP          REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 16  3' User ID                          -
+     A                                                                     Over-
+     A                                      view    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' The User ID File identifies in wh-
+     A                                      ich department a user works.       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' When a user signs on, their user -
+     A                                      department is validated and the def-
+     A                                      aults   '
+     A                                      DSPATR(HI)
+     A                                 22  3' master file for more information.-
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' assigned to that department will -
+     A                                      be used.   Refer to the department -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20010822  112339  EFD         REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 32' User Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE          9A  O  2 36
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  2'User ID:'
+     A            VUSER         10A  B  5 11DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  7 28'Name:'
+     A            USNAME        30A  B  7 41CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(UL)
+     A                                  9 28'Department?'
+     A            VDEPT          3A  B  9 41
+     A N16                                  DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Departmen-
+     A                                      t.      Press Reset')
+     A  16                                  DSPATR(PR)
+     A                                 20 13' Press F23 to Delete -or- F6 to Re-
+     A                                      start without Delete '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'         Enter to Process         -
+     A                                      F6=Restart          F3/F7=End of Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)

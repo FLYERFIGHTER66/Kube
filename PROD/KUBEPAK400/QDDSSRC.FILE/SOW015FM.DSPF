@@ -1,0 +1,860 @@
+     A*%%TS  SD  20091211  164244  BILLB       REL-V5R3M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03
+     A                                      CF06
+     A N77                                  CF07
+     A                                      SLNO(01)
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 67'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1  2'SOW015A'
+     A                                      COLOR(BLU)
+     A            SHOALL         1A  B 16 43
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Show all Must be Y or N-
+     A                                      .    Press RESET(Left CTRL)')
+     A            SOWDAT         6Y 0B  7 50
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTWRD('  /  /  ')
+     A  40N41                               ERRMSG('*** Invalid Date Entered.  -
+     A                                             Press RESET(Left CTRL)')
+     A  41                                  ERRMSG('*** Sow Date Must Be a Mond-
+     A                                      ay.    Press RESET(Left CTRL)')
+     A                                  9 25'or Year ex. 2001:'
+     A            YEAR           4Y 0B  9 43
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  45N46                               ERRMSG('*** Invalid Year Entered.  -
+     A                                             Press RESET(Left CTRL)')
+     A  46                                  ERRMSG('*** Invalid Year/Week Combi-
+     A                                      nation entered.      Press RESET(Ri-
+     A                                      ght CTRL)')
+     A            WEEK           2Y 0B  9 55
+     A  48                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  48                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  48N45                               ERRMSG('*** Week number must be Bet-
+     A                                      ween 1 and 53.  Press RESET (Left C-
+     A                                      TRL)')
+     A                                  7 25'Monday Date of Sow Week:'
+     A                                  9 48'Week#:'
+     A                                 11 25'Start with Size?'
+     A            SIZE           3A  B 11 43
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20N22                               ERRMSG('*** Invalid Size entered.  -
+     A                                      Press RESET(Left CTRL)')
+     A  20 22                               ERRMSG('*** Size Must be entered if-
+     A                                       item number is entered.  Press RES-
+     A                                      ET(Left CTRL)')
+     A                                 15 25'Show All or only'
+     A                                 16 25'Open jobs. A/O :'
+     A                                 16 46'O=Only Open Jobs'
+     A                                 17 46'A=All jobs Open and Closed'
+     A                                  3 32'Sow Line Number:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SOWLIN         1S 0O  3 49DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 47'NOTE: Size is required if Item'
+     A                                 12 53'Number entered.'
+     A                                 13 25'Start with Item#?'
+     A            SITEM         12A  B 13 43DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 20 13' You cannot end. There are schedul-
+     A                                      ed jobs that are open '
+     A  77 78                               DSPATR(RI)
+     A N77
+     AON78                                  DSPATR(ND)
+     A                                  5 25'Being sown by:'
+     A            NAME          25A  O  5 40COLOR(PNK)
+     A                                 23 20'Enter'
+     A                                      DSPATR(HI)
+     A                                 23 26'= Process'
+     A                                      COLOR(BLU)
+     A                                 23 44'F3/F7'
+     A                                      DSPATR(HI)
+     A                                 23 50'=Cancel Job'
+     A                                      COLOR(BLU)
+     A          R SCRNE
+     A*%%TS  SD  20011226  150938  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      SLNO(01)
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  1  2'SOW015E'
+     A                                  7  8' You are signed on with the wrong -
+     A                                      User I.D. to run the sow line. '
+     A                                      DSPATR(RI)
+     A                                 10 25' Press Enter to return to menu. '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(BL)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20091211  164244  BILLB       REL-V5R3M0  5722-WDS
+     A            SOSOWD         7S 0H
+     A            SOJOB#         4S 0H
+     A            JOB#           4Y 0O 10  2EDTCDE(4)
+     A            ITEM           5A  O 10  7
+     A            IMSIZE         3A  O 10 13
+     A            DESC          26A  O 10 17
+     A            SO#SED         2Y 0O 10 44EDTCDE(4)
+     A            SOTRYC         1A  O 10 47
+     A            IMALTP         1A  O 10 49
+     A            READYD         6Y 0O 10 51EDTWRD('  /  /  ')
+     A            SOLD           5Y 0O 10 60EDTCDE(4)
+     A            QSOWN          5Y 0O 10 66EDTCDE(4)
+     A            TOSOW          5Y 0O 10 72EDTCDE(2)
+     A            SEQ            2Y 0B 10 79DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            SPACER         1A  O 11  3DSPATR(ND)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(2000)
+     A                                      SFLPAG(0007)
+     A                                      CF03
+     A                                      CF06
+     A N77                                  CF07
+     A                                      CF02
+     A                                      CF09
+     A                                      CF05
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            LINE           5S 0H
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A                                  1  2'SOW015SFL'
+     A                                      COLOR(BLU)
+     A                                  1 22' Sow line Operations Selection Scr-
+     A                                      een '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 13'Sow Line Number:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SOWLIN         1S 0O  2 30DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  2 33'Sow Date:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SOWDAT         6Y 0O  2 43DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A                                  2 52'Year:'
+     A                                      DSPATR(HI)
+     A            YEAR           4S 0O  2 58DSPATR(HI)
+     A                                      COLOR(TRQ)
+     A                                  2 63'Week:'
+     A                                      DSPATR(HI)
+     A            CLWEEK         2Y 0O  2 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'F2'
+     A                                      DSPATR(HI)
+     A                                  4  2'F5'
+     A                                      DSPATR(HI)
+     A                                  7  2'Display-'
+     A            SHODES        18A  O  7 11COLOR(BLU)
+     A                                  8 39'  Seeds       Ready   ----Quantity-
+     A                                      -----'
+     A                                      DSPATR(HI)
+     A                                  9  2' Job Item  Size Description       -
+     A                                            Cell Drm   Date    Ord. Sown -
+     A                                       To Sow Sq'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  2'F3'
+     A N77                                  DSPATR(HI)
+     A  77                                  DSPATR(ND)
+     A                                  6 14' You Cannot end. There are selecte-
+     A                                      d jobs open. '
+     A  77 78                               DSPATR(RI)
+     A N77
+     AON78                                  DSPATR(ND)
+     A                                  5  2'F9'
+     A                                      DSPATR(HI)
+     A                                  8  2'Sown By:'
+     A            NAME          25   O  8 11COLOR(PNK)
+     A                                  6  5'=End Job'
+     A  77                                  DSPATR(ND)
+     A N77                                  COLOR(BLU)
+     A                                  3  5'=Show Detail  '
+     A                                      COLOR(BLU)
+     A                                  4  5'=Restart List '
+     A                                      COLOR(BLU)
+     A                                  5  5'=Reprint Label'
+     A                                      COLOR(BLU)
+     A          R SCRND
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      SLNO(01)
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  1  2'SOW010D'
+     A                                  3 28'Detail Sowing Instructions'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Item:'
+     A            IMITEM        12A  O  5  8COLOR(TRQ)
+     A                                  5 21'Size:'
+     A            IMSIZE         3A  O  5 27COLOR(TRQ)
+     A            IMDES1        30A  O  5 31COLOR(TRQ)
+     A            SOORDQ         6Y 0O 10 11EDTCDE(1)
+     A                                 11  2'Fixers:'
+     A                                 10  2'Ordered:'
+     A            FIXERS         6Y 0O 11 11EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                 12  2'To Sow:'
+     A            SOSOWT         6Y 0O 12 11EDTCDE(1)
+     A                                  9  2'Tray Quantities '
+     A                                      DSPATR(UL)
+     A                                  9 52'Seeds per Cell:'
+     A            IM#SED         2Y 0O  9 69EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  7 47'Total # Seeds needed:'
+     A            SEDTOT         7Y 0O  7 69EDTCDE(1)
+     A                                      COLOR(TRQ)
+     A                                 14  2'Sown:'
+     A            SOSOWQ         6Y 0O 14 11EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                 15  2'Left:'
+     A            LEFT           6Y 0O 15 11EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                 17  2'Sow Line:'
+     A            SOLINE         2Y 0O 17 12EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                 18  2'Actual Sow Date:'
+     A            ACTDAT         6Y 0O 18 19EDTWRD('  /  /  ')
+     A                                      COLOR(TRQ)
+     A                                 11 52'Seeder:'
+     A            SEDER          4A  O 11 69COLOR(PNK)
+     A                                 13 52'Drum:'
+     A            IMALTP         1A  O 13 69COLOR(PNK)
+     A                                 17 52'Fill Type:'
+     A            SOTPSW         1A  O 17 69COLOR(PNK)
+     A                                 15 52'Mix:'
+     A            SOMSCX         1A  O 15 69COLOR(PNK)
+     A                                 19 52'Location:'
+     A            SOLOC          2A  O 19 69COLOR(PNK)
+     A                                  7  2'Ready Date:'
+     A            READYD         6Y 0O  7 14EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A                                 24 30'Press Enter to return'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 30'                     '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 20  2'Begining Tag#:'
+     A            FSTTAG         8Y 0O 20 19EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                 21  2'Ending Tag #:'
+     A            LSTTAG         8Y 0O 21 19EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  6  2'Job Status:'
+     A            SOSTAT         1A  O  6 14COLOR(TRQ)
+     A            STATDS        10A  O  6 16COLOR(TRQ)
+     A          R JOBSFL                    SFL
+     A*%%TS  SD  20020111  154836  EFD         REL-V5R1M0  5722-WDS
+     A            J              4S 0H
+     A            SOSOWD         7S 0H
+     A            SOJOB#         4Y 0O 12  3EDTCDE(4)
+     A  01                                  DSPATR(ND)
+     A            ITEM           5A  O 12  8
+     A  01                                  DSPATR(ND)
+     A            IMSIZE         3A  O 12 14
+     A  01                                  DSPATR(ND)
+     A            IMDES1        30A  O 12 18
+     A  01                                  DSPATR(ND)
+     A            READYD         6Y 0O 12 49EDTCDE(Y)
+     A  01                                  DSPATR(ND)
+     A            TOSOW          5Y 0O 12 59EDTCDE(1)
+     A  01                                  DSPATR(ND)
+     A            JB#SPC         3  0H      TEXT('This Job number of Seeds per -
+     A                                      Cell')
+     A            JB#CPT         3  0H      TEXT('This Job number of Cells per -
+     A                                      Tray')
+     A          R JOBCTL                    SFLCTL(JOBSFL)
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0012)
+     A                                      CF02
+     A                                      CF04
+     A  55                                  CF08
+     A                                      CF09
+     A                                      CF10
+     A  75                                  CF05
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  79                                  SFLMSG('*** You cannot complete job-
+     A                                      s out of sequence.      Press RESET-
+     A                                      (LEFT Ctrl)')
+     A            LINE           5S 0H
+     A                                  1  2'SOW015JOB'
+     A                                      COLOR(BLU)
+     A                                  1 25' Sow Line Operations Job Screen '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 13'Sow Line Number:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SOWLIN         1S 0O  2 30DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 33'Sow Date:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SOWDAT         6Y 0O  2 43DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                  2 52'Year:'
+     A                                      DSPATR(HI)
+     A            YEAR           4S 0O  2 58DSPATR(HI)
+     A                                  2 63'Week:'
+     A                                      DSPATR(HI)
+     A            CLWEEK         2Y 0O  2 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'F2'
+     A                                      DSPATR(HI)
+     A                                  4  2'F4'
+     A                                      DSPATR(HI)
+     A                                  5  2'F9'
+     A                                      DSPATR(HI)
+     A                                  9  2' There are Not enough jobs selecte-
+     A                                      d to print labels. '
+     A  55                                  DSPATR(RI)
+     A N55                                  DSPATR(ND)
+     A                                 10  2' Press F4 to select more jobs or F-
+     A                                      8 to print blank labels. '
+     A  55                                  DSPATR(RI)
+     A N55                                  DSPATR(ND)
+     A            TOTQTY         7Y 0O 11 72EDTCDE(1)
+     A                                 11  3'Job# Item Size Description        -
+     A                                                  Ready Dt  Quant.Total:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 66'F10'
+     A                                      DSPATR(HI)
+     A                                  7  2'Current Job:'
+     A            CJOB#          4S 0O  7 15DSPATR(HI)
+     A            CITEM          5A  O  7 20DSPATR(HI)
+     A            CSIZE          3A  O  7 26DSPATR(HI)
+     A            CDESC         30A  O  7 30DSPATR(HI)
+     A            CTSOW          5Y 0O  7 61EDTCDE(2)
+     A                                      DSPATR(HI)
+     A            CSOWN          5Y 0O  7 68EDTCDE(2)
+     A                                      DSPATR(HI)
+     A            CLEFT          5Y 0O  7 75EDTCDE(2)
+     A                                      DSPATR(HI)
+     A                                  6 61'To Sow  Sown   Left '
+     A                                      DSPATR(UL)
+     A                                  5 61'-----Plug Trays-----'
+     A                                  5 26'Last Label read:'
+     A                                  4 26'Current Label:'
+     A            LLABEL         8Y 0O  5 43EDTCDE(4)
+     A            CLABEL         8Y 0B  4 43DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A                                  3 21' Missed Label Press F5 to Display -
+     A                                      Error '
+     A  75                                  DSPATR(RI)
+     A  75                                  DSPATR(BL)
+     A N75                                  DSPATR(ND)
+     A                                  6 26'Next Label:'
+     A            NEWTAG         8Y 0O  6 43EDTCDE(4)
+     A                                  4 54' Label out of Sequence '
+     A  76                                  DSPATR(RI)
+     A  76                                  DSPATR(BL)
+     A N76                                  DSPATR(ND)
+     A                                  8  2'Sown By:'
+     A            NAME          25   O  8 12COLOR(PNK)
+     A                                  3  5'=Show Detail  '
+     A                                      COLOR(BLU)
+     A                                  4  5'=Select Jobs  '
+     A                                      COLOR(BLU)
+     A                                  5  5'=Reprint Label'
+     A                                      COLOR(BLU)
+     A                                  3 70'=Cancel Job'
+     A                                      COLOR(BLU)
+     A          R SCRNL
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF05
+     A                                      SLNO(01)
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 67'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1  2'SOW015L'
+     A                                      COLOR(BLU)
+     A                                  7 15' You have already sent Blank label-
+     A                                      s to the printer. '
+     A                                      DSPATR(RI)
+     A                                 10 15'If you want to select more jobs.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 18'1. Remember to get rid of the Blan-
+     A                                      k Labels'
+     A                                      DSPATR(HI)
+     A                                 12 18'2. Press F5 to continue Selection'
+     A                                      DSPATR(HI)
+     A                                 15 15'If you do not want to select more -
+     A                                      jobs press enter.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNCN
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 67'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1  2'SOW015CN'
+     A                                      COLOR(BLU)
+     A                                  3  2'                           Cancel -
+     A                                      a scheduled job                    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Item:'
+     A            IMITEM        12A  O  5  8COLOR(TRQ)
+     A                                  5 21'Size:'
+     A            IMSIZE         3A  O  5 27COLOR(TRQ)
+     A            IMDES1        30A  O  5 31COLOR(TRQ)
+     A            SOORDQ         6Y 0O  5 73EDTCDE(1)
+     A                                  6 64'Fixers:'
+     A                                  5 64'Ordered:'
+     A            FIXERS         6Y 0O  6 73EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                  7 64'To Sow:'
+     A            SOSOWT         6Y 0O  7 73EDTCDE(1)
+     A                                  4 64'Tray Quantities '
+     A                                      DSPATR(UL)
+     A                                  8 64'Sown:'
+     A            SOSOWQ         6Y 0O  8 73EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                  9 64'Left:'
+     A            LEFT           6Y 0O  9 73EDTCDE(1)
+     A                                  7  2'Ready Date:'
+     A            READYD         6Y 0O  7 14EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A                                  9  2'First Tag #:'
+     A            BEGTAG         8S 0O  9 15DSPATR(HI)
+     A                                  9 25'Last Tag #:'
+     A            ENDTAG         8S 0O  9 37DSPATR(HI)
+     A                                 11  2'     If the above is not the job y-
+     A                                      ou wish to cancel, Press F6 to retu-
+     A                                      rn.      '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 13'1. - Cancel this job and continue -
+     A                                      with the next scheduled job(s).'
+     A                                 17 13'2. - Cancel this job and all the n-
+     A                                      ext scheduled jobs.'
+     A                                 13  9'There are two options available:'
+     A                                 19  3'Option:'
+     A            OPTION         1Y 0B 19 13
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Option, Must be-
+     A                                       1 or 2.    Press RESET(LEFT CTRL)')
+     A          R SCRNCN1
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF06
+     A                                      CF10
+     A                                      SLNO(01)
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 67'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1  2'SOW015CN1'
+     A                                      COLOR(BLU)
+     A                                  3  2'                           Cancel -
+     A                                      a scheduled job                    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Item:'
+     A            IMITEM        12A  O  5  8COLOR(TRQ)
+     A                                  5 21'Size:'
+     A            IMSIZE         3A  O  5 27COLOR(TRQ)
+     A            IMDES1        30A  O  5 31COLOR(TRQ)
+     A            SOORDQ         6Y 0O  5 73EDTCDE(1)
+     A                                  6 64'Fixers:'
+     A                                  5 64'Ordered:'
+     A            FIXERS         6Y 0O  6 73EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                  7 64'To Sow:'
+     A            SOSOWT         6Y 0O  7 73EDTCDE(1)
+     A                                  4 64'Tray Quantities '
+     A                                      DSPATR(UL)
+     A                                  8 64'Sown:'
+     A            SOSOWQ         6Y 0O  8 73EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                  9 64'Left:'
+     A            LEFT           6Y 0O  9 73EDTCDE(1)
+     A                                  7  2'Ready Date:'
+     A            READYD         6Y 0O  7 14EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A                                  9  2'First Tag #:'
+     A            BEGTAG         8S 0O  9 15DSPATR(HI)
+     A                                  9 25'Last Tag #:'
+     A            ENDTAG         8S 0O  9 37DSPATR(HI)
+     A                                 11  2'     If the above is not the job y-
+     A                                      ou wish to cancel, Press F6 to retu-
+     A                                      rn.      '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 13  2'You have chosen to Cancel this job-
+     A                                       and continue with the next schedul-
+     A                                      ed job(s).'
+     A                                      DSPATR(RI)
+     A                                 16  6'Enter Last Good tag number used:'
+     A            TAG#           8Y 0B 16 39
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  10N11                               ERRMSG('*** Tag number is not part -
+     A                                      of this job.    Press RESET(Left Ct-
+     A                                      rl)')
+     A  10 11                               ERRMSG('*** Tag number is the last -
+     A                                      of this job.    Press RESET(Left Ct-
+     A                                      rl)')
+     A                                 18  6'or Press'
+     A                                 20 16' Review data if OK press F10.  Els-
+     A                                      e make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 18 15'F10'
+     A                                      DSPATR(HI)
+     A                                 18 19'to cancel all of this job.'
+     A          R SCRNCN2
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF06
+     A                                      CF10
+     A                                      SLNO(01)
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 67'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1  2'SOW015CN2'
+     A                                      COLOR(BLU)
+     A                                  3  2'                           Cancel -
+     A                                      a scheduled job                    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Item:'
+     A            IMITEM        12A  O  5  8COLOR(TRQ)
+     A                                  5 21'Size:'
+     A            IMSIZE         3A  O  5 27COLOR(TRQ)
+     A            IMDES1        30A  O  5 31COLOR(TRQ)
+     A            SOORDQ         6Y 0O  5 73EDTCDE(1)
+     A                                  6 64'Fixers:'
+     A                                  5 64'Ordered:'
+     A            FIXERS         6Y 0O  6 73EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                  7 64'To Sow:'
+     A            SOSOWT         6Y 0O  7 73EDTCDE(1)
+     A                                  4 64'Tray Quantities '
+     A                                      DSPATR(UL)
+     A                                  8 64'Sown:'
+     A            SOSOWQ         6Y 0O  8 73EDTCDE(1)
+     A                                      DSPATR(UL)
+     A                                  9 64'Left:'
+     A            LEFT           6Y 0O  9 73EDTCDE(1)
+     A                                  7  2'Ready Date:'
+     A            READYD         6Y 0O  7 14EDTCDE(Y)
+     A                                      COLOR(TRQ)
+     A                                  9  2'First Tag #:'
+     A            BEGTAG         8S 0O  9 15DSPATR(HI)
+     A                                  9 25'Last Tag #:'
+     A            ENDTAG         8S 0O  9 37DSPATR(HI)
+     A                                 11  2'     If the above is not the job y-
+     A                                      ou wish to cancel, Press F6 to retu-
+     A                                      rn.      '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 13  5'You have chosen to Cancel this job-
+     A                                       and all the following selected job-
+     A                                      s.'
+     A                                      DSPATR(RI)
+     A                                 16  6'Enter Last Good tag number used:'
+     A            TAG#           8Y 0B 16 39
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  10N11                               ERRMSG('*** Tag number is not part -
+     A                                      of this job.    Press RESET(Left Ct-
+     A                                      rl)')
+     A  10 11                               ERRMSG('*** Tag number is the last -
+     A                                      of this job.    Press RESET(Left Ct-
+     A                                      rl)')
+     A                                 18  6'or Press'
+     A                                 20 16' Review data if OK press F10.  Els-
+     A                                      e make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 18 15'F10'
+     A                                      DSPATR(HI)
+     A                                 18 19'to cancel all of this job.'
+     A          R SCRNCLR
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF05
+     A                                      SLNO(01)
+     A                                  1 30' Sow Line Operations '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 67'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1  2'SOW015CLR'
+     A                                      COLOR(BLU)
+     A                                  9  6'Please turn the printer off and wa-
+     A                                      it until the lights on the front'
+     A                                 10  6'of the printer go out.'
+     A                                 12  6'Then turn the printer on and wait -
+     A                                      until the lights come back on.'
+     A                                 15  6'Press'
+     A                                 15 12'Enter'
+     A                                      DSPATR(HI)
+     A                                 15 18'when the above steps are'
+     A                                 15 43'complete.'
+     A                                      DSPATR(UL)
+     A          R SCRNCLR1
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF05
+     A                                      SLNO(01)
+     A                                  1 30' Sow Line Operations '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 67'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1  2'SOW015CLR1'
+     A                                      COLOR(BLU)
+     A                                 12 19'Press'
+     A                                  9  4'You will have to manually remove:'
+     A            NUMDEL         6Y 0O  9 38EDTCDE(2)
+     A                                      DSPATR(HI)
+     A                                  9 46'labels from the label applicator.'
+     A                                 12 25'Enter'
+     A                                      DSPATR(HI)
+     A                                 12 31'when the above step is'
+     A                                 12 54'complete.'
+     A                                      DSPATR(UL)
+     A          R SCRNAR
+     A*%%TS  SD  20071219  131654  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                  1  2'SOW015AR'
+     A                                  1 25' Sow Line Operations Selections '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 32'Sow Line Number:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            SOWLIN         1S 0O  3 49DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 25'Monday Date of Sow Week:'
+     A            SOWDAT         6Y 0B  7 50DSPATR(CS)
+     A                                      EDTWRD('  /  /  ')
+     A                                      DSPATR(PR)
+     A                                  9 25'or Year ex. 2001:'
+     A            YEAR           4Y 0B  9 43DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  9 48'Week#:'
+     A            WEEK           2Y 0B  9 55DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 11 25'Show All or only'
+     A                                 12 25'Open jobs. A/O :'
+     A            SHOALL         1A  B 12 43DSPATR(PR)
+     A                                      DSPATR(CS)
+     A                                 12 46'O=Only Open Jobs'
+     A                                 13 46'A=All jobs Open and Closed'
+     A                                 15 25'Start with Size?'
+     A            SIZE           3A  B 15 43
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20N22                               ERRMSG('*** Invalid Size entered.  -
+     A                                      Press RESET(Left CTRL)')
+     A  20 22                               ERRMSG('*** Size Must be entered if-
+     A                                       item number is entered.  Press RES-
+     A                                      ET(Left CTRL)')
+     A                                 15 47'NOTE: Size is required if Item'
+     A                                 16 53'Number entered.'
+     A                                 17 25'Start with Item#?'
+     A            SITEM         12A  B 17 43DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 20 13' You cannot end. There are schedul-
+     A                                      ed jobs that are open '
+     A  77 78                               DSPATR(RI)
+     A N77
+     AON78                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                                  F6=Return to Previous  -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  5 25'Being sown by:'
+     A            FLD001        25   O  5 40COLOR(PNK)
+     A          R CLOCKIN
+     A*%%TS  SD  20071219  103007  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A  57                                  CF01(01 'Clock In')
+     A                                      WINDOW(5 27 9 25)
+     A                                  1  1'    Enter Time Card #    '
+     A                                      DSPATR(RI)
+     A            TIMECARD       8Y 0B  3 10DSPATR(CS)
+     A                                      CHECK(ME)
+     A                                      CHECK(ER)
+     A                                      EDTCDE(4)
+     A  57                              5  4'You must be clocked'
+     A                                      COLOR(BLU)
+     A  57                              6  4'in as'
+     A                                      COLOR(BLU)
+     A  57                              6 10'(S)ow - Drum'
+     A                                      COLOR(PNK)
+     A  57                              7  1'     to run sowing.      '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  8  1'F3'
+     A                                      DSPATR(HI)
+     A                                  8  4'=Exit'
+     A                                      COLOR(BLU)
+     A  57                              8 12'F1'
+     A                                      DSPATR(HI)
+     A  57                              8 15'=Clock In'
+     A                                      COLOR(BLU)
+     A N57                              7  1'                         '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A N57                              5  5'Enter or scan your'
+     A N57                              6  3'Timecard Number above'

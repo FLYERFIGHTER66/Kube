@@ -1,0 +1,27 @@
+             PGM        PARM(&CUST#)
+             DCL        VAR(&CUST#) TYPE(*DEC)  LEN(6 0)
+             DCL        VAR(&CUST@) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&PCCMD) TYPE(*CHAR) LEN(150) +
+                          VALUE('ST3\000000.TIF"')
+             DCL        VAR(&PCCMD2) TYPE(*CHAR) LEN(150) +
+                          VALUE('ST3\ST3.MDB"')
+             DCL        VAR(&PRDAPPDIR) TYPE(*CHAR) LEN(150)
+
+             CHGVAR     VAR(&CUST@) VALUE(&CUST#)
+             CHGVAR     VAR(%SST(&PCCMD 005 6)) VALUE(&CUST@)
+
+             RTVDTAARA  DTAARA(PRDAPPDIR *ALL) RTNVAR(&PRDAPPDIR)
+             CHGVAR     VAR(&PCCMD) VALUE('"' *TCAT &PRDAPPDIR *TCAT &PCCMD)
+             CHGVAR     VAR(&PCCMD2) VALUE('"' *TCAT &PRDAPPDIR *TCAT &PCCMD2)
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             IF         COND(&CUST# = 0) THEN(DO)
+             STRPCCMD   PCCMD(&PCCMD2) PAUSE(*NO)
+             GOTO       CMDLBL(EOJ)
+             ENDDO
+
+             STRPCCMD   PCCMD(&PCCMD) PAUSE(*NO)
+
+ EOJ:        ENDPGM

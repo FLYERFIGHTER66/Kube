@@ -1,0 +1,1152 @@
+000100140319     H/COPY QFunctDefn,@CopyRight                                               Copyright Info.
+000200140319     H DftActGrp(*No)                                                           Default Activation
+000300140319     H BndDir('*LIBL/KPFUNCTION')                                               Use KP Functions
+000400140319     H DatFmt(*Usa)                                                             Date Format
+000500000000      *:````````````````````````````````````````````````````````````:
+000600140512      *:                                                            :
+000700000000      *:............................................................:
+000800000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+000900140319      * : Created:  2014                  Kube-Pak Corporation     :
+001000000000      * :      by:  William J. Behr                                  :
+001100000000      * :............................................................:
+001200000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+001300000000      * :   Program Description                                     :
+001400000000      * : ```````````````````````                                   :
+001500140512      * :                                                           :
+001600140512      * :                                                           :
+001700140512      * :                                                           :
+001800000000      * :............................................................:
+001900000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+002000000000      * :  Function Usage                                          :
+002100000000      * :                                                           :
+002200000000      * :  FUNCT  -FUNCT DESRIPTION HERE                           :
+002300000000      * :............................................................:
+002400000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+002500000000      * :  Indicator Usage                                         :
+002600000000      * :                                                           :
+002700140319      * :  26      Sets Position to Indicator                      :
+002800000000      * :  03      Exit                                            :
+002900000000      * :  LR      Does this really need a description ?           :
+003000000000      * :............................................................:
+003100000000
+003200140421     FNCR600FM  CF   E             WORKSTN
+003300140505     F                                     SFILE(NCR60003S:RRN03)
+003400140508     F                                     SFILE(NCR60005S:RRN05)
+003500140513     F                                     SFILE(NCR60006S:RRN06)
+003600140319
+003700140513     FNCR600P   O    E             PRINTER USROPN OFLIND(*In27)
+003800140514     FNCR600PQA O    E             PRINTER USROPN OFLIND(*In28)
+003900140515
+004000140515     FFHORDR    IF   E           K DISK                                         Order Header
+004100140515     FFMUPCUPC  IF   E           K DISK                                         UPC Master
+004200140515     FFMINVT    IF   E           K DISK                                         Item Master
+004300140512
+004400140515     FNPUTORDO  IF   E           K DISK                                         Fin Orders
+004500140515     FNPUTORDO@ IF   E           K DISK    Rename(RPUTORD:RPUTORDO@)            Fin Orders
+004600140515
+004700140507     FNPUTSCN   IF   E           K DISK                                         Fin Scan
+004800140507     FNPUTSCNUPCUF A E           K DISK    Rename(RPUTSCN:RPUTSCNUPC)           Fin Scan
+004900140515     FNPUTSCNITMIF   E           K DISK    Rename(RPUTSCN:RPUTSCNITM)           Fin Scan
+005000140515
+005100140515     FNPUTERR   O    E           K DISK                                         Fin Errors
+005200000000
+005300140319      //  Main procedure prototype & interface
+005400140421     D NCR600          PR                  ExtPgm('NCR600')
+005500140508     D  #CATEGORY                     4A   CONST
+005600140421     D NCR600          PI
+005700140508     D  #CATEGORY                     4A   CONST
+005800140319
+005900000000      * Function Prototypes
+006000140319    D/COPY QFunctDefn,$_Dates
+006100140319    D/COPY QFunctDefn,$ErrMsg
+006200140505    D/COPY QFunctDefn,$DftPrt
+006300140505     D/COPY QFunctDefn,$ChgPrt
+006400140505     D/COPY QFunctDefn,$isPrinter
+006500140505     D/COPY QFunctDefn,$User
+006600140505     D/COPY QFunctDefn,$TimeStamp
+006700140505     D/COPY QFunctDefn,$RtvMsgD
+006800140505     D/COPY QFunctDefn,$isOrder
+006900140513    D/COPY QFunctDefn,QCMDEXC
+007000000000
+007100000000      * Data Structures
+007200000000     D                SDS
+007300140319     D  $PGM             *PROC
+007400000000
+007500140513     D Addresses       DS
+007600140513     D  ADR1
+007700140513     D  ADR2
+007800140513     D  ADR3
+007900140513     D  ADR4
+008000140513     D   ADR                         35A   Dim(0004) OverLay(Addresses)         Address
+008100140513
+008200000000      * Field Definitions
+008300140319     D   Screen        S              3S 0 Inz(0)                               Screen Number
+008400140505     D   RRN03         S              4S 0 Inz(*Zero)                           RRN SFL Scrn 03
+008500140508     D   RRN05         S              4S 0 Inz(*Zero)                           RRN SFL Scrn 05
+008600140513     D   RRN06         S              4S 0 Inz(*Zero)                           RRN SFL Scrn 06
+008700140513     D   Scrn04Over    S              4S 0 Inz(*Zero)                           Errors Scrn 04
+008800140513     D   Scrn04Short   S              4S 0 Inz(*Zero)                           Errors Scrn 04
+008900140505     D   SelDate7      S              7S 0 Inz(0)                               Ship Date YMD7
+009000140508     D   Pink          S              1A   Inz('')                             Color Code -PINK
+009100140319     D   White         S              1A   Inz('')                              Color Code - White
+009200140513     D   ADRX          S              1S 0 Inz(0)                               Address Index
+009300140513     D   OVRPRTF       S            256A   Inz(' ')                             Override PRTF
+009400000000
+009500140319      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+009600140319      // : Main Logic                                                       :
+009700140319      // :..................................................................:
+009800140319      /Free
+009900140319
+010000140319         DoW *InLR <> *On;
+010100140319           Select;
+010200140319             When Screen = 01;
+010300140319               Edit01();
+010400140505             When Screen = 02;
+010500140505               Edit02();
+010600140505             When Screen = 03;
+010700140505               Edit03();
+010800140505             When Screen = 04;
+010900140505               Edit04();
+011000140508             When Screen = 05;
+011100140508               Edit05();
+011200140513             When Screen = 06;
+011300140513               Edit06();
+011400140319             Other;
+011500140319               *In26 = *On;
+011600140319               $ERR_PROG = $PGM;
+011700140512               User = $User();
+011800140505               Exec SQL  SELECT max(PDSHPD) into :SELDATE7 FROM NPUTORD ;
+011900140505               Exec SQL  SELECT max(PDMSTR) into :SELMAST FROM NPUTORD
+012000140505                           Where PDSHPD = :SELDATE7;
+012100140319               SELDATE = $MDYDate($Date(SELDATE7));
+012200140505               Load01();
+012300140505               Scrn01();
+012400140319               *In26 = *Off;
+012500140319           ENDSL;
+012600140319         ENDDO;
+012700140319
+012800140319         *InLR = *On;
+012900140319
+013000140319      /End-Free
+013100140319
+013200140319
+013300140319      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+013400140319      // : Screen 1 SubProcedures                                           :
+013500140319      // :..................................................................:
+013600140319     P Load01          B
+013700140319     D Load01          PI
+013800140319      /Free
+013900140505
+014000140505         If PRINTER = ' ';
+014100140505           Printer = $DftPrt('*NONE':'NCR600':'*PGM');
+014200140505         EndIf;
+014300140319
+014400140319      /End-Free
+014500140319     P Load01          E
+014600140319      //_____________________________________________________________________
+014700140319      //
+014800140319     P Scrn01          B
+014900140319     D Scrn01          PI
+015000140319      /Free
+015100140319         Screen = 01;
+015200140319         write ASSUME;
+015300140319         If *In50;
+015400140319           write msgctl;
+015500140319         ENDIF;
+015600140421         exfmt NCR60001;
+015700140319         $ClrError();
+015800140319      /End-Free
+015900140319     P Scrn01          E
+016000140319      //_____________________________________________________________________
+016100140319      //
+016200140319     P Edit01          B
+016300140319     D Edit01          PI
+016400140319      /Free
+016500140319
+016600140319         Select;
+016700140505
+016800140319           When *In03;
+016900140319             *InLR = *On;
+017000140505           When *In10;
+017100140505             PRINTER = $ChgPrt($User():'NCR600':PRINTER);
+017200140505             Scrn01();
+017300140506           When *In07 and $isDate#(SELDATE:'*MDY');
+017400140506             SELDATE = $MDYDate($addDate($DateMDY(SELDATE):-1));
+017500140506             Scrn01();
+017600140506           When *In08 and $isDate#(SELDATE:'*MDY');
+017700140506             SELDATE = $MDYDate($addDate($DateMDY(SELDATE):+1));
+017800140506             Scrn01();
+017900140505
+018000140319           When not $isDate#(SELDATE:'*MDY');
+018100140319             $SndError('DATE901':%EditC(SELDATE:'4'));
+018200140319             Scrn01();
+018300140319           When SELMAST > MaxMast(SELDATE);
+018400140505             $SndError('MST0001':%Char(SELMAST));
+018500140319             Scrn01();
+018600140505           When not $isPrinter(PRINTER);
+018700140505             $SndError('PRT0102':PRINTER);
+018800140505             Scrn01();
+018900140505           When PRINTER = *Blanks;
+019000140505             $SndError('PRT0003':' ');
+019100140505             Scrn01();
+019200140319           Other;
+019300140319             SELDATE7 = $Date7($DateMDY(SELDATE));
+019400140505             Load02();
+019500140505             Scrn02();
+019600140319         EndSl;
+019700140319      /End-Free
+019800140319     P Edit01          E
+019900140505
+020000140505      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+020100140505      // : Screen 2 SubProcedures                                           :
+020200140505      // :..................................................................:
+020300140505
+020400140505     P Load02          B
+020500140505     D Load02          PI
+020600140505      /Free
+020700140505         SelOrder = 0;
+020800140509         Cart = 1;
+020900140505      /End-Free
+021000140505     P Load02          E
+021100140505
+021200140505      //_____________________________________________________________________
+021300140505      //
+021400140505
+021500140505     P Scrn02          B
+021600140505     D Scrn02          PI
+021700140505      /Free
+021800140505         Screen = 02;
+021900140505         write ASSUME;
+022000140505         If *In50;
+022100140505           write msgctl;
+022200140505         ENDIF;
+022300140505         exfmt NCR60002;
+022400140505         $ClrError();
+022500140505      /End-Free
+022600140505     P Scrn02          E
+022700140505
+022800140505      //_____________________________________________________________________
+022900140505      //
+023000140505
+023100140505     P Edit02          B
+023200140505     D Edit02          PI
+023300140505      /Free
+023400140505         Select;
+023500140505           When *In03;
+023600140505             *InLR = *On;
+023700140506           When *In12;
+023800140506             Scrn01();
+023900140505           When SelOrder = 0;
+024000140505             $SndError('ORD0001':' ');
+024100140505             Scrn02();
+024200140505           When not $isOrder(SelOrder);
+024300140505             $SndError('ORD0002':%char(SelOrder));
+024400140505             Scrn02();
+024500140505           Other;
+024600140505             Load03();
+024700140505             Scrn03();
+024800140505         EndSl;
+024900140505      /End-Free
+025000140505     P Edit02          E
+025100140505
+025200140505      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+025300140505      // : Screen 3 SubProcedures                                           :
+025400140505      // :..................................................................:
+025500140505
+025600140505     P Load03          B
+025700140505     D Load03          PI
+025800140505      /Free
+025900140507
+026000140507         If Cart = 0;
+026100140507           Cart = 1;
+026200140507         EndIf;
+026300140507
+026400140507         If not *In40;   // Lock Quantity
+026500140507           QTY = 1;
+026600140507         EndIf;
+026700140507
+026800140513         OrdQty = *Zero;
+026900140505         Exec SQL  SELECT  sum(PDQORD)
+027000140505                   INTO    :OrdQty
+027100140508                   FROM    NPUTORD, FMSIZC
+027200140508                   WHERE   PDSIZE=SCSIZE
+027300140508                     and   SCCATG=:#Category
+027400140508                     and   PDORD#=:SelOrder
+027500140505                     and   PDSHPD=:SelDate7
+027600140505                     and   PDMSTR=:SelMast;
+027700140513         QTYSCANNED = *Zero;
+027800140508         Exec SQL  SELECT  sum(PSCSCN)
+027900140508                   INTO    :QTYSCANNED
+028000140508                   FROM    NPUTSCN, FMSIZC
+028100140508                   WHERE   PSSIZE=SCSIZE
+028200140509                     and   SCCATG=:#Category
+028300140508                     and   PSORD#=:SelOrder
+028400140508                     and   PSSHPD=:SelDate7
+028500140509                     and   PSMSTR=:SelMast;
+028600140508
+028700140505         If OrdQty = 0;
+028800140505           PCTDONE = 100;
+028900140505          Else;
+029000140505           PCTDONE = ( QtyScanned / OrdQty ) * 100;
+029100140505         EndIf;
+029200140508
+029300140509         Status = White + %Trim(%Char(QtyScanned)) + Pink + 'of' +
+029400140508                  White + %Trim(%Char(OrdQty))     + Pink + '(' +
+029500140508                  %Trim(%EditW(PctDone:'   %')) + ') ' +
+029600140508                  #Category + ' Order Verified!';
+029700140505
+029800140505         RRN03 = 0;
+029900140505         *In80 = *On;   // Clear Subfile
+030000140505         Write NCR60003;
+030100140505         *In26 = *Off;  // Empty Subfile
+030200140505         *In80 = *Off;
+030300140507         RRN03 = 0;
+030400140506
+030500140507         SetLL (SELDATE7:SELMAST:SELORDER:CART) NPUTSCN;
+030600140507         ReadE (SELDATE7:SELMAST:SELORDER:CART) NPUTSCN;
+030700140507         DoW not %EOF(NPUTSCN);
+030800140509           If SCategory(PSSIZE) = #Category;
+030900140509             Exec SQL  SELECT  sum(PSCSCN)
+031000140509                       INTO    :PDQSCN
+031100140509                       FROM    NPUTSCN
+031200140509                       WHERE   PSORD#=:SelOrder
+031300140509                         and   PSSHPD=:SelDate7
+031400140509                         and   PSMSTR=:SelMast
+031500140509                         and   PSITEM=:PSITEM
+031600140509                         and   PSSIZE=:PSSIZE;
+031700140512             SFLITEM5 = %Subst(PSITEM:1:5);
+031800140509             SFLSIZE  = PSSIZE;
+031900140509             SFLUPC   = PSUPC ;
+032000140509             SFLDESC  = PSDESC;
+032100140509             SFLQTYDESC = %Trim(%Char(PDQSCN)) + ' of ' + %Trim(%Char(PSQORD));
+032200140509             SFLCARTQTY = PSCSCN;
+032300140509             Select;
+032400140509               When PDQSCN = PSQORD;
+032500140509                 *In41 = *On ;
+032600140509                 *In42 = *Off;
+032700140509                 *In43 = *Off;
+032800140509               When PDQSCN < PSQORD;
+032900140509                 *In41 = *Off;
+033000140509                 *In42 = *On ;
+033100140509                 *In43 = *Off;
+033200140509               When PDQSCN > PSQORD;
+033300140509                 *In41 = *Off;
+033400140509                 *In42 = *Off;
+033500140509                 *In43 = *On ;
+033600140509             EndSl;
+033700140509             If PSUPC <> 0 and PSCSCN <> 0;
+033800140509               RRN03 += 1;
+033900140509               Write NCR60003S;
+034000140509               *In26 = *On;  //Non-Empty Subfile
+034100140509             EndIf;
+034200140509           EndIf;
+034300140507           ReadE (SELDATE7:SELMAST:SELORDER:CART) NPUTSCN;
+034400140506         EndDo;
+034500140507
+034600140506
+034700140505      /End-Free
+034800140505     P Load03          E
+034900140505
+035000140505      //_____________________________________________________________________
+035100140505      //
+035200140505
+035300140505     P Scrn03          B
+035400140505     D Scrn03          PI
+035500140505      /Free
+035600140505         Screen = 03;
+035700140505         write ASSUME;
+035800140505         If *In50;
+035900140505           write msgctl;
+036000140505         ENDIF;
+036100140505         exfmt NCR60003;
+036200140505         $ClrError();
+036300140505      /End-Free
+036400140505     P Scrn03          E
+036500140505
+036600140505      //_____________________________________________________________________
+036700140505      //
+036800140505
+036900140505     P Edit03          B
+037000140505     D Edit03          PI
+037100140505      /Free
+037200140505         Select;
+037300140506           When *In01;  //Complete Order
+037400140506             Load04();
+037500140506             Scrn04();
+037600140506           When *In03;
+037700140506             *InLR = *On;
+037800140508           When *In05;
+037900140508             Load05();
+038000140508             Scrn05();
+038100140513           When *In06;
+038200140513             Load06();
+038300140513             Scrn06();
+038400140506           When *In10;
+038500140506             PRINTER = $ChgPrt($User():'NCR600':PRINTER);
+038600140506             Scrn03();
+038700140506           When *In04;
+038800140506             If *In40;
+038900140506               *In40 = *Off;
+039000140506               Qty = 1;
+039100140506              Else;
+039200140506               *In40 = *On;
+039300140506             EndIf;
+039400140506             Scrn03();
+039500140507           When *In07;
+039600140506             If Cart > 1;
+039700140506               Cart -= 1;
+039800140513              Else;
+039900140513               Cart  = 99;
+040000140513             EndIf;
+040100140507             Load03();
+040200140507             Scrn03();
+040300140507           When *In08;
+040400140507             If Cart < 99;
+040500140507               Cart += 1;
+040600140513              Else;
+040700140513               Cart  = 1;
+040800140513             EndIf;
+040900140507             Load03();
+041000140507             Scrn03();
+041100140508           When *In23;
+041200140508             Exec SQL DELETE
+041300140508                      FROM  NPUTSCN
+041400140508                      WHERE PSSHPD=:SELDATE7
+041500140508                        and PSMSTR=:SELMAST
+041600140508                        and PSORD#=:SELORDER
+041700140508                        and PSCART=:CART;
+041800140508             Load03();
+041900140508             Scrn03();
+042000140507           When UPC <> 0 and not ValidUPC(UPC);
+042100140507             $SndError('UPC0001':%EditW(UPC:' -     -     - '));
+042200140507             Load03();
+042300140507             Scrn03();
+042400140508           When UPC = 0;  // Only Process Subfile
+042500140508             SflS03();
+042600140508             Load03();
+042700140508             Scrn03();
+042800140508           Other;         // Process Scan and Subfile
+042900140507             UpdS03();
+043000140507             SflS03();
+043100140507             Load03();
+043200140507             Scrn03();
+043300140505         EndSl;
+043400140505      /End-Free
+043500140505     P Edit03          E
+043600140505
+043700140507      //_____________________________________________________________________
+043800140507      //
+043900140507
+044000140507     P UpdS03          B
+044100140507     D UpdS03          PI
+044200140507      /Free
+044300140506        // Write the Scanned info to the file here...
+044400140513         PDQORD = 0;
+044500140507         Chain (UPC) FMUPCUPC;
+044600140507         Chain (SELDATE7:SELMAST:SELORDER:CART:UPC) NPUTSCNUPC;
+044700140507         Chain (SELDATE7:SELMAST:SELORDER:UPCITEM:UPCSIZE) NPUTORDO;
+044800140507         If %Found(NPUTSCNUPC);
+044900140507           PSCSCN += QTY;
+045000140507           PSTIME  = $TimeStamp();
+045100140507           Update RPUTSCNUPC;
+045200140507          Else;
+045300140507           PSSHPD  =  SELDATE7;
+045400140507           PSMSTR  =  SELMAST;
+045500140507           PSORD#  =  SELORDER;
+045600140507           PSCART  =  CART;
+045700140507           PSITEM  =  UPCITEM;
+045800140507           PSSIZE  =  UPCSIZE;
+045900140507           PSUPC   =  UPCCODE;
+046000140507           PSDESC  =  %Trim(%Trim(UPCDES1) + ' ' + %Trim(UPCDES2));
+046100140507           PSQORD  =  PDQORD;
+046200140507           PSCSCN  =  QTY;
+046300140507           PSTIME  = $TimeStamp();
+046400140507           PSUSER  = $USER()  ;
+046500140507           Write  RPUTSCNUPC;
+046600140507         EndIf;
+046700140506
+046800140505      /End-Free
+046900140506     P UpdS03          E
+047000140505
+047100140507      //_____________________________________________________________________
+047200140507      //
+047300140507
+047400140507     P SflS03          B
+047500140507     D SflS03          PI
+047600140507      /Free
+047700140509         If RRN03 > 0;
+047800140509           ReadC NCR60003S;
+047900140509           Dow not %EOF(NCR600FM);
+048000140509             // Edit Subfile Changes
+048100140509             Chain (SELDATE7:SELMAST:SELORDER:CART:SFLUPC) NPUTSCNUPC;
+048200140509             If SFLCARTQTY <> PSCSCN;
+048300140509               PSCSCN = SFLCARTQTY;
+048400140509               Update RPUTSCNUPC;
+048500140509             EndIf;
+048600140509             ReadC NCR60003S;
+048700140509           EndDo;
+048800140509         EndIf;
+048900140507      /End-Free
+049000140507     P SflS03          E
+049100140507
+049200140505
+049300140505      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+049400140505      // : Screen 4 SubProcedures                                           :
+049500140505      // :..................................................................:
+049600140505
+049700140505     P Load04          B
+049800140505     D Load04          PI
+049900140505      /Free
+050000140513
+050100140513         Scrn04Short  = 0;
+050200140513         Scrn04Over   = 0;
+050300140513
+050400140513         SetLL (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+050500140513         ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+050600140513         DoW not %EOF(NPUTORDO@);
+050700140513           Exec SQL  SELECT  sum(PSCSCN)   //Get Scans from all Carts
+050800140513                     INTO    :PDQSCN
+050900140513                     FROM    NPUTSCN
+051000140513                     WHERE   PSORD#=:SelOrder
+051100140513                       and   PSSHPD=:SelDate7
+051200140513                       and   PSMSTR=:SelMast
+051300140513                       and   PSITEM=:PDITEM
+051400140513                       and   PSSIZE=:PDSIZE;
+051500140513           Exec SQL  SELECT  sum(PDQORD)   // Get Item Total from all lines on Order
+051600140513                     INTO    :PDQORD
+051700140513                     FROM    NPUTORD
+051800140513                     WHERE   PDORD#=:SelOrder
+051900140513                       and   PDSHPD=:SelDate7
+052000140513                       and   PDMSTR=:SelMast
+052100140513                       and   PDITEM=:PDITEM
+052200140513                       and   PDSIZE=:PDSIZE;
+052300140513           If SCategory(PDSIZE) = #Category;
+052400140513             If PDQSCN < PDQORD;
+052500140513               Scrn04Short += 1;
+052600140513             EndIf;
+052700140513             If PDQSCN > PDQORD;
+052800140513               Scrn04Over  += 1;
+052900140513             EndIf;
+053000140513           EndIf;
+053100140513           SetGT (SELDATE7:SELMAST:SELORDER:PDLOOK:PDITEM:PDSIZE) NPUTORDO@;
+053200140513           ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+053300140513         EndDo;
+053400140515         SetLL (SELDATE7:SELMAST:SELORDER) NPUTSCN;
+053500140515         ReadE (SELDATE7:SELMAST:SELORDER) NPUTSCN;
+053600140515         DoW not %EOF(NPUTSCN);
+053700140515           If SCategory(PSSIZE) = #Category;
+053800140515             Chain (SELDATE7:SELMAST:SELORDER:PSITEM:PSSIZE) NPUTORDO;
+053900140515             If PSCSCN>0 and not %Found(NPUTORDO);
+054000140515               Scrn04Over  += 1;
+054100140515             EndIf;
+054200140515           EndIf;
+054300140515           ReadE (SELDATE7:SELMAST:SELORDER) NPUTSCN;
+054400140515         EndDo;
+054500140513
+054600140513        If Scrn04Short = 0 and Scrn04Over = 0;
+054700140513          *In44 = *On;
+054800140513         Else;
+054900140513          *In44 = *Off;
+055000140513        Endif;
+055100140513
+055200140505      /End-Free
+055300140505     P Load04          E
+055400140505
+055500140505      //_____________________________________________________________________
+055600140505      //
+055700140505
+055800140505     P Scrn04          B
+055900140505     D Scrn04          PI
+056000140505      /Free
+056100140505         Screen = 04;
+056200140505         write ASSUME;
+056300140505         If *In50;
+056400140505           write msgctl;
+056500140505         ENDIF;
+056600140505         exfmt NCR60004;
+056700140505         $ClrError();
+056800140505      /End-Free
+056900140505     P Scrn04          E
+057000140505
+057100140505      //_____________________________________________________________________
+057200140505      //
+057300140505
+057400140505     P Edit04          B
+057500140505     D Edit04          PI
+057600140505      /Free
+057700140505         Select;
+057800140505           When *In03;
+057900140505             *InLR = *On;
+058000140515           When *In10;
+058100140515             PRINTER = $ChgPrt($User():'NCR600':PRINTER);
+058200140515             Scrn04();
+058300140506           When *In12 and not *In44;
+058400140506             Scrn03();
+058500140514           When *In24;       // TEST TEST TEST
+058600140514             *In24 = *Off;   // TEST TEST TEST
+058700140514             QACS04();       // TEST TEST TEST
+058800140514             Scrn04();       // TEST TEST TEST
+058900140506           When *In01 and not *In44;  // Order Error
+059000140512             ErrS04(); // Print Error Report
+059100140512             Load02();
+059200140509             Scrn02();
+059300140506           When *In01 and *In44;  // Order Verified
+059400140506             // Update FTRSCHD
+059500140514             QACS04(); // Print QA Report
+059600140506             Load02();
+059700140506             Scrn02();
+059800140505           Other;
+059900140505             Load01();
+060000140505             Scrn01();
+060100140505         EndSl;
+060200140505      /End-Free
+060300140505     P Edit04          E
+060400140512
+060500140512      //_____________________________________________________________________
+060600140512      //
+060700140512
+060800140512     P ErrS04          B
+060900140512     D ErrS04          PI
+061000140508      /Free
+061100140516         // Open Printer File
+061200140512         If not %Open(NCR600P);
+061300140513           If PRINTER <> *Blanks;
+061400140513             OVRPRTF = 'OVRPRTF FILE(NCR600P)' +
+061500140513                              ' FORMTYPE(*NAR)' +
+061600140513                              ' OUTQ(' + %Trim(Printer) + ') ' +
+061700140513                              ' OPNSCOPE(*JOB)';
+061800140513             QCmdExc(OVRPRTF : %len(%trim(OVRPRTF)));
+061900140513           EndIf;
+062000140512           Open NCR600P;
+062100140516           *In27 = *Off; // Overflow
+062200140512         EndIf;
+062300140516
+062400140516         //  Get Order Header Information
+062500140512         ORDER = %Char(SELORDER);
+062600140512         Chain (SELORDER) FHORDR;
+062700140516         PESHPD = SELDATE7;
+062800140516         PEMSTR = SELMAST;
+062900140516         PEORD# = SELORDER;
+063000140516         PETIME = $TimeStamp();
+063100140516         PEUSER = $User();
+063200140512         ADRX = 0;
+063300140512         If OHSHP2 <> *Blanks;
+063400140512           ADRX += 1;
+063500140512           ADR(ADRX) = OHSHP2;
+063600140512         EndIf;
+063700140512         If OHSHP3 <> *Blanks;
+063800140512           ADRX += 1;
+063900140512           ADR(ADRX) = OHSHP3;
+064000140512         EndIf;
+064100140512         If OHSHP4 <> *Blanks;
+064200140512           ADRX += 1;
+064300140512           ADR(ADRX) = OHSHP4;
+064400140512         EndIf;
+064500140512         ADRX += 1;
+064600140512         ADR(ADRX) = %Trim(OHSHCT) + ', ' + OHSHST + ' ' + OHSHZP;
+064700140516         Write HEADER;
+064800140516         FORMDESC =     'KUBES- BEDDING PLANTS';
+064900140516
+065000140516         //  Clear Previous Errors for this Order
+065100140515         EXEC SQL  DELETE
+065200140515                   FROM  NPUTERR
+065300140515                   WHERE PESHPD = :SELDATE7
+065400140515                     and PEMSTR = :SELMAST
+065500140515                     and PEORD# = :SELORDER;
+065600140516
+065700140516         //  Process Item Details
+065800140512         SetLL (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+065900140512         ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+066000140512         DoW not %EOF(NPUTORDO@);
+066100140512           Exec SQL  SELECT  sum(PSCSCN)   //Get Scans from all Carts
+066200140512                     INTO    :PDQSCN
+066300140512                     FROM    NPUTSCN
+066400140512                     WHERE   PSORD#=:SelOrder
+066500140512                       and   PSSHPD=:SelDate7
+066600140512                       and   PSMSTR=:SelMast
+066700140512                       and   PSITEM=:PDITEM
+066800140512                       and   PSSIZE=:PDSIZE;
+066900140512           Exec SQL  SELECT  sum(PDQORD)   // Get Item Total from all lines on Order
+067000140512                     INTO    :PDQORD
+067100140512                     FROM    NPUTORD
+067200140512                     WHERE   PDORD#=:SelOrder
+067300140512                       and   PDSHPD=:SelDate7
+067400140512                       and   PDMSTR=:SelMast
+067500140512                       and   PDITEM=:PDITEM
+067600140512                       and   PDSIZE=:PDSIZE;
+067700140512           If PDQSCN <> PDQORD and SCategory(PDSIZE)=#Category;
+067800140512             RPTITEM5 = %Subst(PDITEM:1:5);
+067900140512             RPTSIZE  = PDSIZE;
+068000140512             RPTQTYDESC = %Trim(%Char(%Int(PDQSCN))) + '/' +
+068100140512                          %Trim(%Char(%Int(PDQORD)));
+068200140512             If PDQSCN > PDQORD;
+068300140512               OVERSHORT  = 'Over  ' + %Trim(%EditC(%Int(PDQSCN-PDQORD):'4'));
+068400140515               PEOVER     = PDQSCN-PDQORD;
+068500140515               PESHRT     = 0;
+068600140512              Else;
+068700140512               OVERSHORT  = 'Short ' + %Trim(%EditC(%Int(PDQSCN-PDQORD):'4'));
+068800140515               PEOVER     = 0;
+068900140515               PESHRT     = PDQORD-PDQSCN;
+069000140512             EndIf;
+069100140512             RPTDESC  = UPCDesc(ItemUPC(PDITEM:PDSIZE));
+069200140515             If *In27; // OVERFLOW
+069300140513               Write HEADER;
+069400140513               *In27 = *Off;
+069500140513             EndIf;
+069600140516         Write NEWFORM;   // TEMP TEST TEST TEST
+069700140512             Write DETAIL;
+069800140515             PEITEM = PDITEM;
+069900140515             PESIZE = PDSIZE;
+070000140515             PEUPC  = ItemUPC(PDITEM:PDSIZE);
+070100140515             PELOOK = PDLOOK;
+070200140515             PEDESC = RPTDESC;
+070300140515             PELOC  = PDLOC ;
+070400140516             //Write RPUTERR;
+070500140512           EndIf;
+070600140512           SetGT (SELDATE7:SELMAST:SELORDER:PDLOOK:PDITEM:PDSIZE) NPUTORDO@;
+070700140512           ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+070800140512         EndDo;
+070900140515         CheckUnSch(); // Check for Unscheduled Items
+071000140516         Write BOXES;
+071100140516         //Write FOOTER;
+071200140512         If %Open(NCR600P);
+071300140512           Close NCR600P;
+071400140512         EndIf;
+071500140512      /End-Free
+071600140512     P ErrS04          E
+071700140514
+071800140514      //_____________________________________________________________________
+071900140514      //
+072000140514
+072100140515     P CheckUnSch      B
+072200140515     D CheckUnSch      PI
+072300140514      /Free
+072400140515         SetLL (SELDATE7:SELMAST:SELORDER) NPUTSCNITM;
+072500140515         ReadE (SELDATE7:SELMAST:SELORDER) NPUTSCNITM;
+072600140515         DoW not %EOF(NPUTSCNITM);
+072700140515           If SCategory(PSSIZE) = #Category;
+072800140515             Chain (SELDATE7:SELMAST:SELORDER:PSITEM:PSSIZE) NPUTORDO;
+072900140515             If PSCSCN>0 and not %Found(NPUTORDO);
+073000140515               Exec SQL  Select sum(PSCSCN)
+073100140515                         Into   :PSCSCN
+073200140515                         From   NPUTSCN
+073300140515                         Where  PSSHPD = :PSSHPD
+073400140515                           and  PSMSTR = :PSMSTR
+073500140515                           and  PSORD# = :PSORD#
+073600140515                           and  PSITEM = :PSITEM
+073700140515                           and  PSSIZE = :PSSIZE;
+073800140516               RPTITEM5 = %Subst(PSITEM:1:5);
+073900140516               RPTSIZE  = PSSIZE;
+074000140515               OVERSHORT  = 'Over  ' + %Trim(%EditC(%Int(PSCSCN):'4'));
+074100140515               RPTQTYDESC = %Trim(%EditC(%Int(PSCSCN):'4')) + '/0';
+074200140515               PEOVER     = PSCSCN;
+074300140515               PESHRT     = 0;
+074400140516               RPTDESC  = %Trim(UPCDesc(ItemUPC(PSITEM:PSSIZE))+'+++');
+074500140515               If *In27; // OVERFLOW
+074600140515                 Write HEADER;
+074700140515                 *In27 = *Off;
+074800140515               EndIf;
+074900140515               Write DETAIL;
+075000140515               PEITEM = PSITEM;
+075100140515               PESIZE = PSSIZE;
+075200140515               PEUPC  = ItemUPC(PSITEM:PSSIZE);
+075300140515               Chain (PSITEM:PSSIZE) FMINVT;
+075400140515               PELOOK = IMLOOK;
+075500140515               PEDESC = RPTDESC;
+075600140515               PELOC  = PDLOC ;
+075700140516               //Write RPUTERR;
+075800140515             EndIf;
+075900140515           EndIf;
+076000140516           SetGT (PSSHPD:PSMSTR:PSORD#:PSSIZE:PSITEM) NPUTSCNITM;
+076100140515           ReadE (SELDATE7:SELMAST:SELORDER) NPUTSCNITM;
+076200140515         EndDo;
+076300140515      /End-Free
+076400140515     P CheckUnSch      E
+076500140515
+076600140515      //_____________________________________________________________________
+076700140515      //
+076800140515
+076900140515     P QACS04          B
+077000140515     D QACS04          PI
+077100140515     D Lines           S              2S 0                                      Constant Avail Lines
+077200140515     D Season          S              2S 0                                      Spring = 1
+077300140515     D NbrForms        S              3S 0                                      # Forms in Season
+077400140515     D LinesPerForm    S              2S 0                                      Each form gets lines
+077500140515     D SQLState        S              5A                                        SQL State Code
+077600140515     D LastHLDESC      S             30A                                        Last HLDESC
+077700140515      /Free
+077800140515         EXEC SQL  DELETE
+077900140515                   FROM  NPUTERR
+078000140515                   WHERE PESHPD = :SELDATE7
+078100140515                     and PEMSTR = :SELMAST
+078200140515                     and PEORD# = :SELORDER;
+078300140514         If not %Open(NCR600PQA);
+078400140514           If PRINTER <> *Blanks;
+078500140514             OVRPRTF = 'OVRPRTF FILE(NCR600PQA)' +
+078600140514                              ' FORMTYPE(*NAR)' +
+078700140514                              ' OUTQ(' + %Trim(Printer) + ') ' +
+078800140514                              ' OPNSCOPE(*JOB)';
+078900140514             QCmdExc(OVRPRTF : %len(%trim(OVRPRTF)));
+079000140514           EndIf;
+079100140514           Open NCR600PQA;
+079200140516           *In28 = *Off; // Overflow
+079300140514         EndIf;
+079400140514         ORDER = %Char(SELORDER);
+079500140514         Chain (SELORDER) FHORDR;
+079600140514         PDLOC = %TRIM(PDLOC);
+079700140514         ADRX = 0;
+079800140514         If OHSHP2 <> *Blanks;
+079900140514           ADRX += 1;
+080000140514           ADR(ADRX) = OHSHP2;
+080100140514         EndIf;
+080200140514         If OHSHP3 <> *Blanks;
+080300140514           ADRX += 1;
+080400140514           ADR(ADRX) = OHSHP3;
+080500140514         EndIf;
+080600140514         If OHSHP4 <> *Blanks;
+080700140514           ADRX += 1;
+080800140514           ADR(ADRX) = OHSHP4;
+080900140514         EndIf;
+081000140514         ADRX += 1;
+081100140514         ADR(ADRX) = %Trim(OHSHCT) + ', ' + OHSHST + ' ' + OHSHZP;
+081200140514         Write QAHEADER;
+081300140514         Lines = 45;
+081400140514         Season = 1;
+081500140514         Exec SQL  SELECT count(*)
+081600140514                   Into   :NbrForms
+081700140514                   FROM   FMORLSEASL, FMORLH
+081800140514                   WHERE  HSSNCD = 1
+081900140514                     and  HSLIST=HLLIST;
+082000140514         LinesPerForm = %Int( Lines / NbrForms );
+082100140514         Select;
+082200140514           When LinesPerForm < 2;
+082300140514            //Set Some Indicator
+082400140514         EndSl;
+082500140514
+082600140514         If *In28;
+082700140514           Write HEADER;
+082800140514           *In28 = *Off;
+082900140514         EndIf;
+083000140514         LastHLDESC = *Blanks;
+083100140514         SQLState   = '00000';
+083200140514         HLDESC     = 'First';
+083300140514         DoW SQLState = '00000' and HLDESC <> *Blanks;
+083400140514           HLDESC = *Blanks;
+083500140514           Exec SQL  SELECT   distinct FMORLH.HLDESC
+083600140514                     Into     :HLDESC
+083700140514                     FROM     FMORLH, FMORLS, FIORDR, FMSIZC
+083800140514                     WHERE    FMORLH.HLLIST = FMORLS.OLLIST
+083900140514                       and    FMORLS.OLITEM = FIORDR.OIITEM
+084000140514                       and    FMORLS.OLSIZE = FIORDR.OISIZE
+084100140514                       and    FMORLS.OLSIZE = FMSIZC.SCSIZE
+084200140514                       and    FMSIZC.SCCATG = :#Category
+084300140514                       and    FIORDR.OIORD# = :SelOrder
+084400140514                       and    FMORLH.HLDESC > :LastHLDESC
+084500140514                     ORDER BY FMORLH.HLDESC
+084600140514                     Fetch First Row Only ;
+084700140514           If SQLState = '00000' and HLDESC <> *Blanks;
+084800140514             Write QADETAIL  ;
+084900140514           EndIf;
+085000140514           LastHLDESC = HLDESC;
+085100140514         EndDo;
+085200140514         Write QALINE;
+085300140514         If %Open(NCR600PQA);
+085400140514           Close NCR600PQA;
+085500140514         EndIf;
+085600140514      /End-Free
+085700140514     P QACS04          E
+085800140512
+085900140512
+086000140512      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+086100140512      // : Screen 5 SubProcedures                                           :
+086200140512      // :..................................................................:
+086300140512
+086400140512     P Load05          B
+086500140512     D Load05          PI
+086600140512      /Free
+086700140512
+086800140508         RRN05 = 0;
+086900140508         *In80 = *On;   // Clear Subfile
+087000140508         Write NCR60005;
+087100140508         *In26 = *Off;  // Empty Subfile
+087200140508         *In80 = *Off;
+087300140508         RRN05 = 0;
+087400140508
+087500140508         SetLL (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+087600140508         ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+087700140509         DoW not %EOF(NPUTORDO@);
+087800140509           Exec SQL  SELECT  sum(PSCSCN)   //Get Scans from all Carts
+087900140509                     INTO    :PDQSCN
+088000140508                     FROM    NPUTSCN
+088100140508                     WHERE   PSORD#=:SelOrder
+088200140508                       and   PSSHPD=:SelDate7
+088300140508                       and   PSMSTR=:SelMast
+088400140508                       and   PSITEM=:PDITEM
+088500140508                       and   PSSIZE=:PDSIZE;
+088600140509           Exec SQL  SELECT  sum(PDQORD)   // Get Item Total from all lines on Order
+088700140508                     INTO    :PDQORD
+088800140508                     FROM    NPUTORD
+088900140509                     WHERE   PDORD#=:SelOrder
+089000140509                       and   PDSHPD=:SelDate7
+089100140509                       and   PDMSTR=:SelMast
+089200140509                       and   PDITEM=:PDITEM
+089300140509                       and   PDSIZE=:PDSIZE;
+089400140509           If PDQSCN < PDQORD and SCategory(PDSIZE)=#Category;
+089500140509             SFLITEM5 = %Subst(PDITEM:1:5);
+089600140509             SFLSIZE  = PDSIZE;
+089700140509             SFLDESC  = UPCDesc(ItemUPC(PDITEM:PDSIZE));
+089800140509             SFLSHORTBY = 'Scan: ' + %Trim(%Char(%Int(PDQSCN))) + ' of ' +
+089900140509                                        %Trim(%Char(%Int(PDQORD))) + White +
+090000140509                          '=> ' + %Trim(%Char(%Int(PDQORD-PDQSCN))) +' Short.';
+090100140509             RRN05 += 1;
+090200140508             Write NCR60005S;
+090300140508             *In26 = *On;  //Non-Empty Subfile
+090400140508           EndIf;
+090500140508           SetGT (SELDATE7:SELMAST:SELORDER:PDLOOK:PDITEM:PDSIZE) NPUTORDO@;
+090600140508           ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+090700140508         EndDo;
+090800140508
+090900140508
+091000140508      /End-Free
+091100140508     P Load05          E
+091200140508
+091300140508      //_____________________________________________________________________
+091400140508      //
+091500140508
+091600140508     P Scrn05          B
+091700140508     D Scrn05          PI
+091800140508      /Free
+091900140508         Screen = 05;
+092000140508         write ASSUME;
+092100140508         If *In50;
+092200140508           write msgctl;
+092300140508         ENDIF;
+092400140508         exfmt NCR60005;
+092500140508         $ClrError();
+092600140508      /End-Free
+092700140508     P Scrn05          E
+092800140508
+092900140508      //_____________________________________________________________________
+093000140508      //
+093100140508
+093200140508     P Edit05          B
+093300140508     D Edit05          PI
+093400140508      /Free
+093500140508         Select;
+093600140513           When *In01;  //Return to Order
+093700140508             Load03();
+093800140508             Scrn03();
+093900140513           When *In04;  //Fix Shorts (Cart 99)
+094000140513             Cart = 99;
+094100140513             Load03();
+094200140513             Scrn03();
+094300140513           When *In06;  //View Extras
+094400140513             Load06();
+094500140513             Scrn06();
+094600140508           When *In03;
+094700140508             *InLR = *On;
+094800140508           When *In10;
+094900140508             PRINTER = $ChgPrt($User():'NCR600':PRINTER);
+095000140508             Scrn03();
+095100140508           Other;         // Process Scan and Subfile
+095200140508             Load05();
+095300140508             Scrn05();
+095400140508         EndSl;
+095500140508      /End-Free
+095600140508     P Edit05          E
+095700140508
+095800140513
+095900140513      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+096000140513      // : Screen 6 SubProcedures                                           :
+096100140513      // :..................................................................:
+096200140513
+096300140513     P Load06          B
+096400140513     D Load06          PI
+096500140513      /Free
+096600140513
+096700140513         RRN06 = 0;
+096800140513         *In80 = *On;   // Clear Subfile
+096900140513         Write NCR60006;
+097000140513         *In26 = *Off;  // Empty Subfile
+097100140513         *In80 = *Off;
+097200140513         RRN06 = 0;
+097300140513
+097400140513         SetLL (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+097500140513         ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+097600140513         DoW not %EOF(NPUTORDO@);
+097700140513           Exec SQL  SELECT  sum(PSCSCN)   //Get Scans from all Carts
+097800140513                     INTO    :PDQSCN
+097900140513                     FROM    NPUTSCN
+098000140513                     WHERE   PSORD#=:SelOrder
+098100140513                       and   PSSHPD=:SelDate7
+098200140513                       and   PSMSTR=:SelMast
+098300140513                       and   PSITEM=:PDITEM
+098400140513                       and   PSSIZE=:PDSIZE;
+098500140513           Exec SQL  SELECT  sum(PDQORD)   // Get Item Total from all lines on Order
+098600140513                     INTO    :PDQORD
+098700140513                     FROM    NPUTORD
+098800140513                     WHERE   PDORD#=:SelOrder
+098900140513                       and   PDSHPD=:SelDate7
+099000140513                       and   PDMSTR=:SelMast
+099100140513                       and   PDITEM=:PDITEM
+099200140513                       and   PDSIZE=:PDSIZE;
+099300140513           If PDQSCN > PDQORD and SCategory(PDSIZE)=#Category;
+099400140513             SFLITEM5 = %Subst(PDITEM:1:5);
+099500140513             SFLSIZE  = PDSIZE;
+099600140513             SFLDESC  = UPCDesc(ItemUPC(PDITEM:PDSIZE));
+099700140513             SFLOVERBY = 'Scan: ' + %Trim(%Char(%Int(PDQSCN))) + ' of ' +
+099800140513                                        %Trim(%Char(%Int(PDQORD))) + White +
+099900140513                          '=> ' + %Trim(%Char(%Int(PDQORD-PDQSCN))) +' Over.';
+100000140513             RRN06 += 1;
+100100140513             Write NCR60006S;
+100200140513             *In26 = *On;  //Non-Empty Subfile
+100300140513           EndIf;
+100400140513           SetGT (SELDATE7:SELMAST:SELORDER:PDLOOK:PDITEM:PDSIZE) NPUTORDO@;
+100500140513           ReadE (SELDATE7:SELMAST:SELORDER) NPUTORDO@;
+100600140513         EndDo;
+100700140513
+100800140513
+100900140513      /End-Free
+101000140513     P Load06          E
+101100140513
+101200140513      //_____________________________________________________________________
+101300140513      //
+101400140513
+101500140513     P Scrn06          B
+101600140513     D Scrn06          PI
+101700140513      /Free
+101800140513         Screen = 06;
+101900140513         write ASSUME;
+102000140513         If *In50;
+102100140513           write msgctl;
+102200140513         ENDIF;
+102300140513         exfmt NCR60006;
+102400140513         $ClrError();
+102500140513      /End-Free
+102600140513     P Scrn06          E
+102700140513
+102800140513      //_____________________________________________________________________
+102900140513      //
+103000140513
+103100140513     P Edit06          B
+103200140513     D Edit06          PI
+103300140513      /Free
+103400140513         Select;
+103500140513           When *In01;  //Return to Order
+103600140513             Load03();
+103700140513             Scrn03();
+103800140513           When *In05;  //View Missing
+103900140513             Load05();
+104000140513             Scrn05();
+104100140513           When *In03;
+104200140513             *InLR = *On;
+104300140513           When *In10;
+104400140513             PRINTER = $ChgPrt($User():'NCR600':PRINTER);
+104500140513             Scrn03();
+104600140513           Other;         // Process Scan and Subfile
+104700140513             Load06();
+104800140513             Scrn06();
+104900140513         EndSl;
+105000140513      /End-Free
+105100140513     P Edit06          E
+105200140513
+105300140513      //_____________________________________________________________________
+105400140513      //
+105500140505     P MaxMast         B
+105600140505     D MaxMast         PI             2S 0
+105700140505     D #SelDate                       6P 0
+105800140505     D #SelDate7       S              7S 0
+105900140505     D #MaxMast        S              2S 0
+106000140505      /Free
+106100140505         #SelDate7 = $Date7($DateMDY(#SelDate));
+106200140505         Exec SQL
+106300140505           SELECT max(PDMSTR)
+106400140505           into :#MaxMast
+106500140505           FROM nputord
+106600140505           WHERE PDSHPD = :#SELDATE7;
+106700140505         Return #MaxMast;
+106800140505      /End-Free
+106900140505     P MaxMast         E
+107000140507      //_____________________________________________________________________
+107100140507      //
+107200140507     P ValidUPC        B
+107300140507     D ValidUPC        PI              N
+107400140507     D   #UPC                        12P 0
+107500140507     D #ValidUPC       S               N
+107600140507      /Free
+107700140507
+107800140507         Exec SQL
+107900140507           SELECT '1'
+108000140507           into :#ValidUPC
+108100140507           FROM FMUPC
+108200140507           WHERE UPCCODE = :#UPC
+108300140507             and UPCSTAT = 'A'
+108400140507           Fetch First Row Only;
+108500140507
+108600140507         Return #ValidUPC;
+108700140507
+108800140507      /End-Free
+108900140507     P ValidUPC        E
+109000140508      //_____________________________________________________________________
+109100140508      //
+109200140508     P UPCDesc         B
+109300140508     D UPCDesc         PI            51A
+109400140508     D   #UPC                        12P 0 CONST
+109500140508     D #UPCDesc        S             51A
+109600140508      /Free
+109700140508
+109800140508         Exec SQL
+109900140508           SELECT Trim(Trim(UPCDES1)||' '||Trim(UPCDES2))
+110000140508           into :#UPCDesc
+110100140508           FROM FMUPC
+110200140508           WHERE UPCCODE = :#UPC
+110300140508           Fetch First Row Only;
+110400140508
+110500140508         Return #UPCDesc;
+110600140508
+110700140508      /End-Free
+110800140508     P UPCDesc         E
+110900140508      //_____________________________________________________________________
+111000140508      //
+111100140508     P ItemUPC         B
+111200140508     D ItemUPC         PI            12P 0
+111300140508     D   #Item                       12A   CONST
+111400140508     D   #Size                        3A   CONST
+111500140508     D #ItemUPC        S             12P 0
+111600140508      /Free
+111700140508
+111800140508         Exec SQL
+111900140508           SELECT UPCCODE
+112000140508           into :#ItemUPC
+112100140508           FROM FMUPC
+112200140508           WHERE UPCITEM = :#Item
+112300140508             and UPCSIZE = :#Size
+112400140508           Fetch First Row Only;
+112500140508
+112600140508         Return #ItemUPC;
+112700140508
+112800140508      /End-Free
+112900140508     P ItemUPC         E
+113000140509      //_____________________________________________________________________
+113100140509      //
+113200140509     P SCategory       B
+113300140509     D SCategory       PI             4A
+113400140509     D   #Size                        3A   CONST
+113500140509     D #SCategory      S              4A
+113600140509      /Free
+113700140509
+113800140509         Exec SQL
+113900140509           SELECT SCCATG
+114000140509           into :#SCategory
+114100140509           FROM FMSIZC
+114200140509           WHERE SCSIZE = :#Size
+114300140509           Fetch First Row Only;
+114400140509
+114500140509         Return #SCategory;
+114600140509
+114700140509      /End-Free
+114800140509     P SCategory       E
+114900140505      //_____________________________________________________________________
+115000140505      //
+115100140505
+115200140319    D/COPY QFunctDefn,$ErrMsgSP

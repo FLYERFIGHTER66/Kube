@@ -1,0 +1,94 @@
+     A*%%TS  SD  20100507  131230  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R SCREEN01
+     A*%%TS  SD  20100507  131230  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      CF03(03)
+     A                                      CF04(04)
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      KEEP
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1  2'NCRPMTS'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6 26'Desired Month'
+     A  18                                  DSPATR(RI)
+     A            FMONTH         2Y 0B  6 40DSPATR(CS)
+     A  18                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                  6 44'Day'
+     A  13                                  DSPATR(RI)
+     A            FDAY           2Y 0B  6 48DSPATR(CS)
+     A  13                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                  6 52'Year'
+     A  14                                  DSPATR(RI)
+     A            FYYYY          4Y 0B  6 57DSPATR(CS)
+     A  14                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                 10 26'Printer ID:'
+     A  54                                  DSPATR(RI)
+     A            S1OUTQ        10A  B 10 44DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                 11 26'Number of Copies:'
+     A  51                                  DSPATR(RI)
+     A            S1COPY         2Y 0B 11 52DSPATR(CS)
+     A  51                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                 12 26'Print Status:'
+     A  52                                  DSPATR(RI)
+     A            S1OUTP         1Y 0B 12 53DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                 12 57'1 = Print'
+     A                                 13 57'2 = Print/Save'
+     A                                 14 57'3 = Hold'
+     A                                 10 56'F4 to Prompt'
+     A                                 22  5'Enter to Continue'
+     A                                      COLOR(BLU)
+     A                                 22 33'F4=Prompt'
+     A                                      COLOR(BLU)
+     A                                 22 54'F3=End with no Report'
+     A                                      COLOR(BLU)
+     A                                  7 26'Item Number:'
+     A  48                                  DSPATR(RI)
+     A                                  8 26'Size Code:'
+     A  49                                  DSPATR(RI)
+     A            S1ITEM         6A  B  7 44DSPATR(CS)
+     A  48                                  DSPATR(PC)
+     A            S1SIZE         3A  B  8 44DSPATR(CS)
+     A  49                                  DSPATR(PC)
+     A                                 10 42'*'
+     A                                      DSPATR(HI)
+     A                                 22 31'*'
+     A                                      DSPATR(HI)
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

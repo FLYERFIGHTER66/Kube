@@ -1,0 +1,75 @@
+     A*%%TS  SD  20010425  130746  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20010425  130746  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DIC500A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 21' Monthly Sales Comparison Report P-
+     A                                      rompt '
+     A                                      DSPATR(RI)
+     A                                  8 16'Enter Month Ending Date:'
+     A            WEDATE         6Y 0B  8 43
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  12                                  ERRMSG('*** Month ending date must -
+     A                                      be last day of the month.      Pres-
+     A                                      s RESET')
+     A  13                                  ERRMSG('*** Week entered is greater-
+     A                                       than this week.    Press RESET')
+     A                                 12 22'Printer ID:'
+     A            LPRTR         10A  B 12 41DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 13 22'Forms Number:'
+     A            LFORM         10A  B 13 41DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 14 22'Number of Copies:'
+     A            LCOPY          2Y 0B 14 49
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 15 22'Run From JobQ:'
+     A            LJOBQ          1A  B 15 50DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 16 22'Print Status:'
+     A            VOUT           1Y 0B 16 50
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 16 53'1 = Print'
+     A                                 17 53'2 = Print/Save'
+     A                                 18 53'3 = Hold'
+     A                                 24 14'Enter to Process                  -
+     A                                          F3/F7=Cancel Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 14'                                  -
+     A                                                          '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)

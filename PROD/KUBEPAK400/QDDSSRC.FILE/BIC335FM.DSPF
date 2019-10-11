@@ -1,0 +1,247 @@
+     A*%%TS  SD  20170405  103341  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20010531  174510  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF06
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIC335A'
+     A                                  1 33' Invoice Print '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  6'Do You Want To Reprint Processed I-
+     A                                      nvoices:'
+     A            LDARPT         1A  B  4 49
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.         Press Reset')
+     A                                  7  6'Reprint Range:'
+     A  09                                  DSPATR(ND)
+     A                                  7 28'From Invoice Number:'
+     A  09                                  DSPATR(ND)
+     A            LBINV          6Y 0B  7 51
+     A  20                                  DSPATR(RI)
+     A N09                                  DSPATR(CS)
+     A  09                                  DSPATR(ND)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  20                                  ERRMSG('*** Enter A Valid Invoice N-
+     A                                      umber Equal or Lower Than To.   Pre-
+     A                                      ss Reset')
+     A                                  8 28'To Invoice Number:'
+     A  09                                  DSPATR(ND)
+     A            LEINV          6Y 0B  8 51
+     A  16                                  DSPATR(RI)
+     A N09                                  DSPATR(CS)
+     A  09                                  DSPATR(ND)
+     A  16                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  09                                  DSPATR(PR)
+     A  16                                  ERRMSG('*** To Invoice Number is Re-
+     A                                      quired.    Press Reset')
+     A                                 12 28'Printer ID:'
+     A  09                                  DSPATR(ND)
+     A            LPRTR         10A  B 12 48
+     A N09                                  DSPATR(CS)
+     A  50N09                               DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A  09                                  DSPATR(ND)
+     A                                 13 28'Forms Number:'
+     A  09                                  DSPATR(ND)
+     A            LFORM         10A  B 13 48
+     A N09                                  DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A  09                                  DSPATR(ND)
+     A                                 14 28'Number of Copies:'
+     A  09                                  DSPATR(ND)
+     A            LCOPY          2Y 0B 14 56
+     A  52                                  DSPATR(RI)
+     A N09                                  DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A  09                                  DSPATR(ND)
+     A                                 15 28'Run From JobQ:'
+     A  09                                  DSPATR(ND)
+     A            LJOBQ          1A  B 15 57
+     A N09                                  DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A  09                                  DSPATR(ND)
+     A                                 16 28'Print Status:'
+     A  09                                  DSPATR(ND)
+     A            VOUT           1Y 0B 16 57
+     A  54                                  DSPATR(RI)
+     A N09                                  DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A  09                                  DSPATR(ND)
+     A                                 16 61'1 = Print'
+     A  09                                  DSPATR(ND)
+     A                                 17 61'2 = Print/Save'
+     A  09                                  DSPATR(ND)
+     A                                 18 61'3 = Hold'
+     A  09                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'          Enter to Process        -
+     A                                      F6=Restart       F3/F7=Cancel Job  -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4 52'This only includes invoices'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 52'that have been processed.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20170405  103341  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIC335B'
+     A                                      COLOR(BLU)
+     A                                  1 33' Invoice Print '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  4  9' This procedure only prints invoic-
+     A                                      es it is NOT the Invoice Post '
+     A                                      DSPATR(RI)
+     A                                  6 16'1. Print only un-printed invoices'
+     A                                  7 16'2. Print all invoices, printed and-
+     A                                       un-printed.'
+     A                                  8 16'3. Re-print previously printed inv-
+     A                                      oices'
+     A                                 10 16'Selection wanted:'
+     A            OPTION         1Y 0B 10 45
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('*** Invalid option, Must be-
+     A                                       1,2, or 3. Press RESET')
+     A                                 12 16'Invoice Date:'
+     A            LDATE          6Y 0B 12 38DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  12                                  ERRMSG('*** Date Is Prior To Beginn-
+     A                                      ing Of Fiscal Year.    Press Reset')
+     A  13                                  ERRMSG('*** Date Is After End Of Fi-
+     A                                      scal Year, Change or Press Reset to-
+     A                                       Accept.')
+     A                                 14 16'Printer ID:'
+     A            LPRTR         10A  B 14 36DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 15 16'Forms Number:'
+     A            LFORM         10A  B 15 36DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 16 16'Number of Copies:'
+     A            LCOPY          2Y 0B 16 44
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 17 16'Run From JobQ:'
+     A            LJOBQ          1A  B 17 45DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 18 16'Print Status:'
+     A            VOUT           1Y 0B 18 45
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 18 49'1 = Print'
+     A                                 19 49'2 = Print/Save'
+     A                                 20 49'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'  Enter to Process           F6=Re-
+     A                                      start            F3/F7=Cancel Job  -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 10 49'Specify User ID:'
+     A                                 11 49'(Leave user blank for all users)'
+     A                                      COLOR(BLU)
+     A            LUSER         10   B 10 67COLOR(TRQ)

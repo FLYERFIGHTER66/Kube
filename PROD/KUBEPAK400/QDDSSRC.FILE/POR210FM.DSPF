@@ -1,0 +1,411 @@
+     A*%%TS  SD  20000829  175024  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000822  194703  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'POR210A'
+     A                                  1 28' Purchase Order Receipts '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 19'Purchase Order Number:'
+     A            VORDER         6Y 0B  5 49
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  10N11N13
+     A N14N15                               ERRMSG('*** This Is Not A Valid Ord-
+     A                                      er Number.    Press Reset')
+     A  10 11                               ERRMSG('** WARNING Pick Slip Has no-
+     A                                      t Been Printed. F11 to Continue')
+     A  10 13                               ERRMSG('*** Order is Closed/Deleted-
+     A                                      .           Press RESET')
+     A  10 14                               ERRMSG('*** This Order is from anot-
+     A                                      her Department. Press RESET')
+     A  10 15                               ERRMSG('*** This Order is from anot-
+     A                                      her Company.     Press RESET')
+     A                                  7 27'Received Date:'
+     A            VDATE          6Y 0B  7 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process             F6=Re-
+     A                                      start                       F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(UL)
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46
+     A                                  9 29'Received By:'
+     A            RCBY          10   B  9 45DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Received by can Not be -
+     A                                      Blank.      Press RESET')
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  20000822  194703  EFD         REL-V3R7M0  5716-PW1
+     A            PISEQ#         3Y 0O 11  2EDTCDE(4)
+     A  32                                  DSPATR(ND)
+     A            PIITEM        12A  O 11  6
+     A  32                                  DSPATR(ND)
+     A            PISIZE         3   O 11 19
+     A  32                                  DSPATR(ND)
+     A            SELECT         1A  B 11 79
+     A N40                                  DSPATR(CS)
+     A  40                                  DSPATR(ND)
+     A  40                                  DSPATR(PR)
+     A N40 74                               DSPATR(RI)
+     A            QTYSHP         8Y 1B 11 69EDTCDE(4)
+     A N20                                  DSPATR(CS)
+     A N20                                  DSPATR(PC)
+     A  20                                  DSPATR(PR)
+     A  20                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N20 71                               DSPATR(RI)
+     A            PIDES1        30A  O 11 27
+     A  33                                  DSPATR(UL)
+     A  33                                  DSPATR(HI)
+     A            QTYOPN         8  1O 11 58EDTWRD('       . ')
+     A  10                                  DSPATR(ND)
+     A            COMMN          1A  H
+     A            OIITYP         1A  H
+     A            SERREC         8S 1H
+     A            SERIAL         1A  H
+     A            PIWHSE         3   O 11 23
+     A  32                                  DSPATR(ND)
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  20000829  175024  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0014)
+     A                                      CF01
+     A                                      CF04
+     A                                      CF06
+     A                                      CF24
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  27N28N26                            SFLMSG('B/O Not allowed. Cancel The-
+     A                                       Unshipped Quantity.  Press RESET')
+     A  28N27N26                            SFLMSG('You Can NOT Receieve A Qty -
+     A                                      Greater Than The Qty Open unless yo-
+     A                                      u put O in CD.')
+     A  28 27N26                            SFLMSG('Customer Does NOT accept B/-
+     A                                      O. and You Tried To Ship More Than -
+     A                                      Open.')
+     A  29                                  SFLMSG('Freight/Special Charge Can -
+     A                                      NOT Be Zero.  Delete The Line.')
+     A  77                                  SFLMSG('There are no received items-
+     A                                       on this P.O. Press Reset')
+     A                                  1  2'POR210SFL'
+     A                                  1 14'Purchase Order Receipt for Order #'
+     A            VORDER         6Y 0O  1 49EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 14'Vendor:'
+     A            OHCUST         6Y 0O  2 22EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            OHNAME        30A  O  2 29DSPATR(HI)
+     A                                  2 72TIME
+     A                                  3 43' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  3 62'Roll for more lines'
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A                                  4  2'Functions'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5  2'F1=Receive All Lines'
+     A                                  4 57'* C=Cancel Balance on'
+     A                                      DSPATR(HI)
+     A                                  6  2'F4=Post Order to Inventory'
+     A                                  5 59'  Partial Receipt'
+     A                                      DSPATR(HI)
+     A                                  6 59'D=Delete Entire Line'
+     A                                      DSPATR(HI)
+     A                                  8  2'F24=Unreceive Order'
+     A                                  9  2'Enter to Display Totals           -
+     A                                                              Qty        -
+     A                                       Qty    C*'
+     A                                 10  2' Ln Item        Size Whs  Descript-
+     A                                      ion                     Open      R-
+     A                                      eceived D '
+     A                                      DSPATR(UL)
+     A                                  7  2'F6=Restart - No Update'
+     A                                  8 59'S=Review Serial #s'
+     A  89                                  DSPATR(HI)
+     A N89                                  DSPATR(ND)
+     A                                  3  2'Receipt Number:'
+     A            PORX           6Y 0O  3 18DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                  4 31'Total Qty Received'
+     A            TOTSHP        11Y 1O  5 32DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  7 59'O=Allow Over-Receipt'
+     A                                      DSPATR(HI)
+     A                                  7 30' P.O. Has Items for '
+     A  61                                  DSPATR(RI)
+     A N61                                  DSPATR(ND)
+     A                                  8 30' another Branch.    '
+     A  61                                  DSPATR(RI)
+     A N61                                  DSPATR(ND)
+     A          R DATSFL                    SFL
+     A*%%TS  SD  19960704  142135  EFD         REL-V3R1M0  5763-PW1
+     A            SELECT         1   B 10  3
+     A N10                                  DSPATR(CS)
+     A  10                                  DSPATR(ND)
+     A  10                                  DSPATR(PR)
+     A            DATER          8Y 0O 10  5
+     A  10                                  DSPATR(ND)
+     A                                      EDTWRD('    /  /  ')
+     A          R DATCTL                    SFLCTL(DATSFL)
+     A*%%TS  SD  19960706  072922  GINNY       REL-V3R1M0  5763-PW1
+     A  *DS3                                SFLLIN(0005)
+     A                                      SFLSIZ(0050)
+     A                                      SFLPAG(0050)
+     A                                      CF01
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'BIR235DAT'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 29' Shipment Confirmation '
+     A                                      DSPATR(RI)
+     A                                  3 14'There are multiple requested ship -
+     A                                      dates in this order.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  4'Press F1 to release All items for -
+     A                                      ALL dates  - or - put an (X) next t-
+     A                                      o the'
+     A                                  6  4'highest date through which items w-
+     A                                      ith dates equal to or less than wil-
+     A                                      l be'
+     A                                  9  3'X    Date      X    Date      X   -
+     A                                       Date      X    Date      X    Date-
+     A                                       '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 11' You have not selected any date. S-
+     A                                      elect a date or Press F1 '
+     A  10                                  DSPATR(RI)
+     A N10                                  DSPATR(ND)
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  7  4'be released to invoicing.'
+     A          R AORDSFL                   SFL
+     A*%%TS  SD  19980505  185517  EFD         REL-V3R1M0  5763-PW1
+     A            ASEQ#          3Y 0O 11  2EDTCDE(4)
+     A  32                                  DSPATR(ND)
+     A            AITEM         12A  O 11  6
+     A  32                                  DSPATR(ND)
+     A            ASIZE          3A  O 11 19
+     A  32                                  DSPATR(ND)
+     A            SELECA         1A  B 11 79
+     A N40                                  DSPATR(CS)
+     A  40                                  DSPATR(ND)
+     A                                      DSPATR(PR)
+     A            QTYSHA         8Y 1B 11 58EDTCDE(4)
+     A N20                                  DSPATR(CS)
+     A                                      DSPATR(PR)
+     A  20                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A            FSAMTA         8Y 2B 11 68EDTCDE(M)
+     A N30                                  DSPATR(CS)
+     A  30                                  DSPATR(ND)
+     A                                      DSPATR(PR)
+     A            ADESC         24A  O 11 23
+     A  33                                  DSPATR(UL)
+     A  33                                  DSPATR(HI)
+     A            QTYOPA         8Y 1O 11 48EDTWRD('       . ')
+     A  10                                  DSPATR(ND)
+     A          R AORDCTL                   SFLCTL(AORDSFL)
+     A*%%TS  SD  19960809  100952  EFD         REL-V3R1M0  5763-PW1
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0014)
+     A                                      CF01
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'BIR235SFL'
+     A                                  2  2USER
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2 72TIME
+     A                                  1 16'Shipment Confirmation for Order #:'
+     A            VORDER         6Y 0O  1 52EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  2 16'Ship To Customer:'
+     A            OHNAME        30A  O  2 41DSPATR(HI)
+     A            OHCUST         6Y 0O  2 34EDTCDE(Z)
+     A                                  6  4'Line:'
+     A            VLINE          3Y 0B  6 10
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  20 21                               ERRMSG('*** Enter A Valid Line Numb-
+     A                                      er.( Between 2 and 990)  Press Rese-
+     A                                      t')
+     A  20 22                               ERRMSG('*** Line Number Already Exi-
+     A                                      sts in Order. Press RESET')
+     A                                  8  4'Desc:'
+     A            LDESC         30A  B  8 10CHECK(LC)
+     A  26                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  26                                  DSPATR(PC)
+     A  26                                  ERRMSG('Description CANNOT be Blank-
+     A                                      .           Press RESET')
+     A                                  8 42'Amount:'
+     A            LNAMT          9Y 2B  8 50EDTCDE(M)
+     A N30 31                               DSPATR(RI)
+     A N30                                  DSPATR(CS)
+     A  30                                  DSPATR(ND)
+     A N30 31                               DSPATR(PC)
+     A  30                                  DSPATR(PR)
+     A                                      CHECK(RB)
+     A                                 10  2' Ln Item        Size      Descript-
+     A                                      ion            Open    To Ship    A-
+     A                                      mount   D'
+     A                                      DSPATR(UL)
+     A                                  4  4'Enter to Process    F6=Return to P-
+     A                                      revious Screen (NO ADD)'
+     A                                  6 15'Enter an Unused line number betwee-
+     A                                      n 2 and 990.'
+     A                                      DSPATR(UL)
+     A                                  8 63'G/L #:'
+     A  56                                  DSPATR(ND)
+     A            GLNO1          4Y 0B  8 70EDTCDE(4)
+     A  57N56                               DSPATR(RI)
+     A N56                                  DSPATR(CS)
+     A  56                                  DSPATR(ND)
+     A  57N56                               DSPATR(PC)
+     A  56                                  DSPATR(PR)
+     A                                      CHECK(RZ)
+     A  57N56                               ERRMSG('Invalid Genreal Ledger Numb-
+     A                                      er Entered. Press RESET')
+     A            GLNO2          4Y 0B  8 77EDTCDE(4)
+     A N56 57                               DSPATR(RI)
+     A N56                                  DSPATR(CS)
+     A  56                                  DSPATR(ND)
+     A  56                                  DSPATR(PR)
+     A                                  8 75'-'
+     A  56                                  DSPATR(ND)
+     A          R ASTSFL                    SFL
+     A*%%TS  SD  19991029  112445  TGMS        REL-V4R2M0  5769-PW1
+     A            IASEQ#         3Y 0O 11  2EDTCDE(4)
+     A            IAITEM        12A  O 11  6
+     A            IASIZE         3A  O 11 19
+     A            SELAST         1A  B 11 79
+     A N82                                  DSPATR(CS)
+     A  82                                  DSPATR(ND)
+     A  82                                  DSPATR(PR)
+     A N82 74                               DSPATR(RI)
+     A            ASTSHP         8Y 1B 11 69EDTCDE(4)
+     A N82                                  DSPATR(CS)
+     A N82                                  DSPATR(PC)
+     A  82                                  DSPATR(PR)
+     A  82                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N82 81                               DSPATR(RI)
+     A            DESC35        35A  O 11 23
+     A            ASTOPN         8Y 1O 11 59EDTWRD('       . ')
+     A  82                                  DSPATR(ND)
+     A          R ASTCTL                    SFLCTL(ASTSFL)
+     A*%%TS  SD  19991029  154751  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF06
+     A  96                                  CF02
+     A                                      CF24
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0013)
+     A  83                                  SFLMSG('Customer Does NOT Accept B/-
+     A                                      O.   Cancel The Unshipped Quantity.-
+     A                                      ')
+     A  84                                  SFLMSG('You Can NOT Ship A Quantity-
+     A                                       Greater Than The Quantity Open.')
+     A                                  1  2'BIR235AST'
+     A                                  1 14'Shipment Confirmation for Order #:'
+     A            VORDER         6Y 0O  1 49EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 14'Ship To Customer:'
+     A            OHCUST         6Y 0O  2 32EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            OHNAME        30A  O  2 39DSPATR(HI)
+     A                                  2 72TIME
+     A            BOMSG         27A  O  3 14
+     A  27                                  DSPATR(RI)
+     A  27                                  COLOR(TRQ)
+     A                                  3 43' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  3 62'Roll for more lines'
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A                                  4  2'Functions'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5  2'F2=Post Lines to Order'
+     A  96                                  DSPATR(RI)
+     A N96                                  DSPATR(ND)
+     A                                  5 30'F6=Restart - No Update'
+     A                                  6 30'Enter to Display Totals'
+     A                                  6  2'F24=Unconfirm All Lines'
+     A                                  9  2'                                  -
+     A                                                                Qty      -
+     A                                       Qty    C*'
+     A                                 10  2' Ln Item        Size      Descript-
+     A                                      ion                       Open     -
+     A                                      To Ship D'
+     A                                      DSPATR(UL)
+     A            OIITEM        12A  O  8  2
+     A            OISIZE         3A  O  8 15
+     A            OIDES1        30A  O  8 19
+     A            QTYSHP         8Y 1O  7 59EDTWRD('       . ')
+     A  51                                  DSPATR(RI)
+     A                                      DSPATR(UL)
+     A  51                                  ERRMSG('*** Released Quantity dose -
+     A                                      NOT Match Assortment Quantity.    P-
+     A                                      ress RESET')
+     A            SELSHP         8Y 1O  7 69EDTWRD('       . ')
+     A  51                                  DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                  5 60'-----Quantity-----'
+     A                                  6 60'Needed'
+     A                                  6 70'Released'
+     A                                  7  5' You Have Not released enough to c-
+     A                                      over needed. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)

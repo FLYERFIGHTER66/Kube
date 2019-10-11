@@ -1,0 +1,205 @@
+     A*%%TS  SD  20150820  110535  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20090710  125916  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF08(08 'Toggle Copy / Enter Item')
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A N40                              9 28'Item Number?'
+     A N40        ITEM          12A  B  9 41
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Item/Size enter-
+     A                                      ed.       Press RESET')
+     A N40                             11 28'Size:'
+     A N40        SIZE           3A  B 11 41DSPATR(CS)
+     A                                      CHECK(ER)
+     A N40                             22 47'=Copy UPC '
+     A                                      COLOR(BLU)
+     A  40                             12 22'UPC Code from Item to Copy:'
+     A  40        COPYUPC       12Y 0B 12 51
+     A  40                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  40                                  CHECK(ME)
+     A  40                                  CHECK(ER)
+     A                                      DSPATR(CS)
+     A  13                                  ERRMSG('*** Tray Tag not Found.    -
+     A                                             Press RESET')
+     A                                 22  4'Enter'
+     A                                      DSPATR(HI)
+     A                                 22 10'to Process'
+     A                                      COLOR(BLU)
+     A                                 22 26'F6'
+     A                                      DSPATR(HI)
+     A                                 22 29'=Restart'
+     A                                      COLOR(BLU)
+     A                                 22 65'F3/F7'
+     A                                      DSPATR(HI)
+     A                                 22 71'=End Job'
+     A                                      COLOR(BLU)
+     A                                 22 44'F8'
+     A                                      DSPATR(HI)
+     A  40                             22 47'=Enter Item'
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                       UPC010A  '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 20'   Print Non-Inventory UPC Spot La-
+     A                                      bels   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A          R SCRNB
+     A*%%TS  SD  20150820  110535  BILLB       REL-V7R1M0  5770-WDS
+     A                                  1  2'UPC010B'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            ITEM          12A  B  4 17DSPATR(PR)
+     A                                      COLOR(TRQ)
+     A                                  4 30'Size:'
+     A            SIZE           3A  B  4 36DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                 23  3'Enter to Process                 F-
+     A                                      6=Restart                     F3/F7-
+     A                                      =End Job'
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                      UPC-
+     A                                      010B    '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 11'Item:'
+     A            IMDES1        30A  O  4 41COLOR(PNK)
+     A            NUMLAB         4Y 0B  8 36
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Number of labels cannot-
+     A                                       be 0(Zero).   Press RESET')
+     A                                      FLDCSRPRG(LPRTR)
+     A                                 10 21'Printer I.D.:'
+     A            LPRTR         10A  B 10 36
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Printer Entered-
+     A                                      .      Press RESET')
+     A                                      FLDCSRPRG(ACROSS)
+     A                                 20  7' Verify data. If OK press ENTER to-
+     A                                       print labels. Else make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A            IMDES2        30A  O  5 41COLOR(PNK)
+     A                                  1 20'   Print non-Inventory UPC Spot La-
+     A                                      bels   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  8 17'Number of Labels:'
+     A            ULUPC#    R        O  8 56REFFLD(RUPCLABL/ULUPC# *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      EDTWRD(' -     -     - ')
+     A                                      DSPATR(HI)
+     A            ULDES1    R        O 13 51REFFLD(RUPCLABL/ULDES1 *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      DSPATR(HI)
+     A            ULDES2    R        O 14 51REFFLD(RUPCLABL/ULDES2 *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      DSPATR(HI)
+     A            ULSIZ1    R        O 16 56REFFLD(RUPCLABL/ULSIZ1 *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      DSPATR(HI)
+     A            ULSIZ2    R        O 17 56REFFLD(RUPCLABL/ULSIZ2 *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      DSPATR(HI)
+     A                                  6 49'       UPC Spot Label        '
+     A                                      DSPATR(RI)
+     A                                  7 49' '
+     A                                      DSPATR(RI)
+     A                                  7 77' '
+     A                                      DSPATR(RI)
+     A                                  8 49' '
+     A                                      DSPATR(RI)
+     A                                  8 77' '
+     A                                      DSPATR(RI)
+     A                                  9 49' '
+     A                                      DSPATR(RI)
+     A                                  9 77' '
+     A                                      DSPATR(RI)
+     A                                 13 49' '
+     A                                      DSPATR(RI)
+     A                                 13 77' '
+     A                                      DSPATR(RI)
+     A                                 14 49' '
+     A                                      DSPATR(RI)
+     A                                 14 77' '
+     A                                      DSPATR(RI)
+     A                                 15 49' '
+     A                                      DSPATR(RI)
+     A                                 15 77' '
+     A                                      DSPATR(RI)
+     A                                 16 49' '
+     A                                      DSPATR(RI)
+     A                                 16 77' '
+     A                                      DSPATR(RI)
+     A                                 17 49' '
+     A                                      DSPATR(RI)
+     A                                 17 77' '
+     A                                      DSPATR(RI)
+     A                                 18 49' '
+     A                                      DSPATR(RI)
+     A                                 18 77' '
+     A                                      DSPATR(RI)
+     A                                 19 49'                             '
+     A                                      DSPATR(RI)
+     A                                 12 10'Number of Labels Across:'
+     A            ACROSS         2Y 0B 12 36DSPATR(CS)
+     A                                      FLDCSRPRG(LABL)
+     A            LABL          10A  B 14 36COLOR(TRQ)
+     A                                      FLDCSRPRG(ULGBLT)
+     A                                 14 13'Form of Label to Use:'
+     A                                 10 49' '
+     A                                      DSPATR(RI)
+     A                                 10 77' '
+     A                                      DSPATR(RI)
+     A                                 11 49' '
+     A                                      DSPATR(RI)
+     A                                 11 77' '
+     A                                      DSPATR(RI)
+     A            ULGLOC    R        B 11 51REFFLD(RUPCLABL/ULGLOC *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      COLOR(TRQ)
+     A                                      FLDCSRPRG(NUMLAB)
+     A                                 12 49' '
+     A                                      DSPATR(RI)
+     A                                 12 77' '
+     A                                      DSPATR(RI)
+     A            ULGBLT    R        B 10 53REFFLD(RUPCLABL/ULGBLT *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      COLOR(TRQ)
+     A                                      FLDCSRPRG(ULGBNM)
+     A            ULGBNM    R        B 10 64REFFLD(RUPCLABL/ULGBNM *LIBL/FUPCLA-
+     A                                      BL)
+     A                                      COLOR(TRQ)
+     A                                      FLDCSRPRG(ULGLOC)

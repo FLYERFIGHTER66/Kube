@@ -1,0 +1,39 @@
+000100920923/*********************************************************************/
+000200020301/*   PROGRAM-------- ORDER2CL                                        */
+000300020301/*   DATE WRITTEN--- 03/01/02                                        */
+000400020125/*   PROGRAMMER----- E. DE COURSEY                                   */
+000500020301/*   DESCRIPTION---- SCANNER INPUT FOR ORDER VERIFICATION SCAN 2     */
+000600920923/*   REVISIONS------                                                 */
+000700020125/*                                                                   */
+000800920923/*********************************************************************/
+000900950124             PGM
+001000961203             DCL        VAR(&PRT) TYPE(*CHAR) LEN(10)
+001100940211             QSYS/DCL   VAR(&EOJ) TYPE(*CHAR) LEN(1)
+001200010814             QSYS/DCL   VAR(&DET) TYPE(*CHAR) LEN(1)
+001300990530             QSYS/DCL   VAR(&FORM) TYPE(*CHAR) LEN(10)
+001400971220             QSYS/DCL   VAR(&COPY) TYPE(*CHAR) LEN(2)
+001500971220             QSYS/DCL   VAR(&HOLD) TYPE(*CHAR) LEN(4)
+001600971220             QSYS/DCL   VAR(&SAVE) TYPE(*CHAR) LEN(4)
+001700990530             QSYS/DCL   VAR(&JOBQ) TYPE(*CHAR) LEN(1)
+001800990530
+001900010814             CHGDTAARA  DTAARA(*LDA (1 256)) VALUE(' ')
+002000020222             CHGDTAARA  DTAARA(*LDA (256 1)) VALUE('B')
+002100020301
+002200020301             CALL       PGM(KUBEPAK400/KUBEALLLBL) /* get library +
+002300020301                          list */
+002400990530
+002500020125          /* LOAD DATES INTO LDA  */
+002600020125             CALL       PGM(SCR020)
+002700020125             QSYS/RTVDTAARA DTAARA(*LDA (133 1)) RTNVAR(&EOJ)
+002800020125             IF         COND(&EOJ = 'X') THEN(GOTO CMDLBL(END))
+002900990530
+003000020222          /* SCAN ORDERS  */
+003100020314             CALL       PGM(SCR101)
+003200971220             QSYS/RTVDTAARA DTAARA(*LDA (133 1)) RTNVAR(&EOJ)
+003300961202             IF         COND(&EOJ = 'X') THEN(GOTO CMDLBL(END))
+003400010814
+003500010814 END:        CHGDTAARA  DTAARA(*LDA (1 256)) VALUE(' ')
+003600020301
+003700020301             SIGNOFF
+003800020301
+003900010814             ENDPGM

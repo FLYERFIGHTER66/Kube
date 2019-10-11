@@ -1,0 +1,311 @@
+     A*%%TS  SD  20100324  174952  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R ICR01502
+     A*%%TS  SD  20100324  174952  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Item Data 1 - Desc, Alpha, Pr-
+     A                                      ice, etc.')
+     A                                      CF06
+     A                                      CF07
+     A                                      CF09
+     A                                      CF14
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICR01501'
+     A                                      COLOR(BLU)
+     A                                  1125DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2125TIME
+     A                                      COLOR(BLU)
+     A                                  4  2'Item:'
+     A            IMITEM        12A  O  4  8DSPATR(HI)
+     A                                  4 22'Size:'
+     A            IMSIZE         3A  O  4 28DSPATR(HI)
+     A                                  5  2'Ite Description:                  -
+     A                                           '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            DES1           8A  O  6  2
+     A            IMDES1        30A  B  6 11DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A N74N75
+     AO 21                                  DSPATR(PC)
+     A            DES2           8A  O  7  2
+     A            IMDES2        30A  B  7 11DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      CHECK(LC)
+     A                                      FLDCSRPRG(IMDES3)
+     A            DES3           8A  O  8  2
+     A            IMDES3        30A  B  8 11DSPATR(CS)
+     A                                      CHECK(LC)
+     A            DES4           8A  O  9  2
+     A            IMDES4        30A  B  9 11CHECK(LC)
+     A                                      DSPATR(CS)
+     A                                 19 33'Item Pricing: '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20 39'Price'
+     A                                      DSPATR(UL)
+     A                                 21 33'1.'
+     A            IMSEL1         9Y 4B 21 37DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 22 33'2.'
+     A            IMSEL2         9Y 4B 22 37DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 23 33'3.'
+     A            IMSEL3         9Y 4B 23 37DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 24 33'4.'
+     A            IMSEL4         9Y 4B 24 37DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 25 33'5.'
+     A            IMSEL5         9Y 4B 25 37DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 19  2'Production Windows:     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12  2'UPC/SK Information                -
+     A                                           '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  2'UPC Code:'
+     A            UPCCODE   R        O 13 13REFFLD(RMUPC/UPCCODE *LIBL/FMUPC)
+     A                                      EDTWRD(' -     -     - ')
+     A                                      DSPATR(HI)
+     A                                 22  3'1.'
+     A            IMBD1          4Y 0B 22  7EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A            IMED1          4Y 0B 22 14EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  11                                  DSPATR(PC)
+     A  11                                  DSPATR(RI)
+     A            IMWG1          2Y 0B 22 22EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                      FLDCSRPRG(IMBD2)
+     A                                 14  2'Item SKU:'
+     A            UPCSKU#   R        O 14 13REFFLD(RMUPC/UPCSKU# *LIBL/FMUPC)
+     A                                      DSPATR(HI)
+     A                                 23  3'2.'
+     A            IMBD2          4Y 0B 23  7EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A            IMED2          4Y 0B 23 14EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A  21                                  DSPATR(RI)
+     A            IMWG2          2Y 0B 23 22EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A                                      FLDCSRPRG(IMBD3)
+     A                                 15  2'UPC Desc:'
+     A            UPCDES1   R        B 15 12REFFLD(RMUPC/UPCDES1 *LIBL/FMUPC)
+     A                                      COLOR(TRQ)
+     A                                      FLDCSRPRG(UPCDES2)
+     A                                 24  3'3.'
+     A            IMBD3          4Y 0B 24  7EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A            IMED3          4Y 0B 24 14EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  31                                  DSPATR(PC)
+     A  31                                  DSPATR(RI)
+     A            IMWG3          2Y 0B 24 22EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A                                      FLDCSRPRG(IMBD4)
+     A            UPCDES2   R        B 16 12REFFLD(RMUPC/UPCDES2 *LIBL/FMUPC)
+     A                                      COLOR(TRQ)
+     A                                      FLDCSRPRG(UPCKPIN)
+     A                                 25  3'4.'
+     A            IMBD4          4Y 0B 25  7EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A            IMED4          4Y 0B 25 14EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  41                                  DSPATR(PC)
+     A  41                                  DSPATR(RI)
+     A            IMWG4          2Y 0B 25 22EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A                                      FLDCSRPRG(UPCDES1)
+     A                                  6 53'Name'
+     A            IDNAME    R        B  7 52REFFLD(RMINVTDESC/IDNAME *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(TRQ)
+     A                                  8 53'Common Name'
+     A            IDCOMN    R        B  9 52REFFLD(RMINVTDESC/IDCOMN *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(TRQ)
+     A                                 10 53'Botanical Name'
+     A            IDBOTN    R        B 11 52REFFLD(RMINVTDESC/IDBOTN *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(TRQ)
+     A                                 12 53'Color Description'
+     A            IDCOLR    R        B 13 52REFFLD(RMINVTDESC/IDCOLR *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(TRQ)
+     A                                  5 52'ADDITIONAL DESCRIPTION            -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  7'Week#'
+     A                                 21 14'Week#'
+     A                                 21 21'Weeks'
+     A                                 20  8'Beg'
+     A                                 20 15'End'
+     A                                 20 21'Grow'
+     A                                 22 20'-'
+     A                                 23 20'-'
+     A                                 24 20'-'
+     A                                 25 20'-'
+     A                                      TEXT('WEB DESCRIPTIONS 2')
+     A                                 14 53'Mature Plant Height'
+     A            IDHGHT    R        B 15 52REFFLD(RMINVTDESC/IDHGHT *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(TRQ)
+     A                                 16 53'Zone & Description'
+     A                                 16 78'From:'
+     A            IDZONF    R        B 16 84REFFLD(RMINVTDESC/IDZONF *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                 16 90'To:'
+     A            IDZONT    R        B 16 94REFFLD(RMINVTDESC/IDZONT *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A            IDHARD    R        B 17 52REFFLD(RMINVTDESC/IDHARD *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(TRQ)
+     A                                 18 53'Bloom Time'
+     A            IDBLOM    R        B 19 52REFFLD(RMINVTDESC/IDBLOM *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      COLOR(TRQ)
+     A                                  1 52'   Item Information Inquiry   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                 20 33'PC'
+     A                                      DSPATR(UL)
+     A                                  5 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 25 50' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 25 29' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

@@ -1,0 +1,44 @@
+             PGM        PARM(&SUBJECT &SNDNAM &SNDEML &RCVNAM +
+                          &RCVEML &ORDER@ &SPLFILNAM &SPLFILNBR +
+                          &SPLJOBNAM &SPLJOBUSR &SPLJOBNBR)
+
+             DCL        VAR(&SUBJECT  ) TYPE(*CHAR) LEN(80)
+             DCL        VAR(&SNDNAM   ) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&SNDEML   ) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&RCVNAM   ) TYPE(*CHAR) LEN(48)
+             DCL        VAR(&RCVEML   ) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&ORDER@   ) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&SPLFILNAM) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&SPLFILNBR) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&SPLJOBNAM) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&SPLJOBUSR) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&SPLJOBNBR) TYPE(*CHAR) LEN(6)
+
+             MMAIL/SENDMIME SUBJECT(&SUBJECT) +
+             SENDER(&SNDNAM &SNDEML) +
+             RECEIVER( +
+              (*TO &RCVNAM &RCVEML)                           +
+              (*BCC 'BillB'  WEBMASTER@KUBEPAK.NET)           +
+              (*BCC 'Kube-Pak BCC' BCC@KUBEPAK.NET)           +
+                                                    )         +
+             SOURCE((*BODY QMAILSRC KUBEPAK400 ORDACK))       +
+             PDFFILE((&SPLFILNAM &SPLFILNBR                   +
+                      &SPLJOBNAM &SPLJOBUSR &SPLJOBNBR        +
+                      *N ('Ack_' *CAT &ORDER@ *TCAT '.pdf'))) +
+             IMPORTANCE(HIGH)
+
+/* old       MMAIL/SENDMIME SUBJECT(&SUBJECT) +
+             SENDER(&SNDNAM &SNDEML) +
+             RECEIVER( +
+              (*TO &RCVNAM &RCVEML)                 +
+              (*BCC 'BillB'  WEBMASTER@KUBEPAK.NET) +
+              (*BCC 'Kube-Pak BCC' BCC@KUBEPAK.NET) +
+             ) SOURCE((*BODY QMAILSRC KUBEPAK400 ORDACK)) +
+             PDFFILE((&SPLFILNAM &SPLFILNBR &SPLJOBNAM &SPLJOBUSR &SPLJOBNBR)) +
+             IMPORTANCE(HIGH)      */
+
+             DLTSPLF    FILE(&SPLFILNAM) +
+                          JOB(&SPLJOBNBR/&SPLJOBUSR/&SPLJOBNAM) +
+                          SPLNBR(*LAST)
+
+             ENDPGM

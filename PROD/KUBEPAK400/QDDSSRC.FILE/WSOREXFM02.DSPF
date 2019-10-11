@@ -1,0 +1,110 @@
+     A*? Program        : WSOREXFM02
+     A*?
+     A*? Description    : This display file has all error details for
+     A*?                  Exception Maintenance
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 10 Nov 2017
+     A**********************************************************************
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   08/09/18   S.Uthaya     Added F9 Function key to Override
+     A*                                 Item (Only for Item Master File Error)
+     A*****************************************************************-----
+     A*? Indicator Area
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      INDARA
+     A*****************************************************************
+     A*? Subfile Display Part
+     A          R ORDEXPS02                 SFL
+     A**
+     A            H02DSEQNO      6Y 0H
+     A            H02ERRID       7A  H
+     A            S02SEQNO       5Y 0O  8  2EDTCDE(Z)
+     A            S02ERROR      65A  O  8  9
+     A            S02TYPE        1A  O  8 78
+     A*****************************************************************
+     A*? Subfile Control Part
+     A          R ORDEXPC02                 SFLCTL(ORDEXPS02)
+     A**
+     A                                      CF03(03 'Exit')
+SUD01A                                      CF09(09 'Override')
+     A                                      CF12(12 'Previous')
+     A**
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&H02CSRRRN)
+     A**
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A**
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(14)
+     A**
+     A            S02RRN         4S 0H      SFLRCDNBR(CURSOR)
+     A            H02CSRRRN      5S 0H
+     A**
+     A            C02PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 27'Order Exception Maintenance'
+     A                                      COLOR(WHT)
+     A                                  1 62'ORDEXPS02'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A**
+     A            C02SYS        10A  O  2  2COLOR(BLU)
+     A                                  2 25'Purchase Order Error Detail List'
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A**
+     A                                  4  2'Broker ID    :'
+     A            C02BRKID      20A  O  4 17COLOR(BLU)
+     A                                  4 54'Customer PO # :'
+     A            C02CUSTPO     10A  O  4 70COLOR(BLU)
+     A                                  5  2'Header Seq # :'
+     A            C02HDRSEQ      9Y 0O  5 17COLOR(BLU)
+     A                                      EDTCDE(Z)
+     A                                  5 54'Order #       :'
+     A            C02ORDNO       6Y 0O  5 70COLOR(BLU)
+     A                                      EDTCDE(Z)
+     A**
+     A                                  7  2'Seq #'
+     A                                      COLOR(WHT)
+     A                                  7  9'Error Message'
+     A                                      COLOR(WHT)
+     A                                  7 77'H/D'
+     A                                      COLOR(WHT)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R ORDEXPF02
+SUD01A                                 23  2'F3=Exit  F9=Override  F12=Previous-
+SUD01A                                        Press Enter On Error To Rectify'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(24)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A**
+     A                                      HELP
+     A                                      OVERLAY
+     A**
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N03                                  SFLEND
+     A**
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

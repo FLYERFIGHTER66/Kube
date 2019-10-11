@@ -1,0 +1,146 @@
+     A*%%TS  SD  20130402  163443  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20130402  151933  BILLB       REL-V7R1M0  5770-WDS
+     A                                  1  2'SCR240A'
+     A                                  2  2USER
+     A                                  1 27' Recalculate Put Down Sheet '
+     A                                      DSPATR(RI)
+     A                                  8 27'Ship Week:'
+     A            SHPDAT         6Y 0B  8 41EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Ship Week Enter-
+     A                                      ed.    Press RESET')
+     A                                 12 27'Enter Cart #:'
+     A            CARTNO         8Y 0B 12 41
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('*** Cart sheet does not exi-
+     A                                      st.      Press RESET')
+     A                                 22 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                 10 27'Enter Master:'
+     A            SMASTER        2Y 0B 10 41EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A          R CRTSFL                    SFL
+     A*%%TS  SD  20020321  144843  EFD         REL-V5R1M0  5722-WDS
+     A            FLD001         1A  B 11 24DSPATR(CS)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            CTCNTL         6Y 0O 11 28EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A            CTDTLA         6Y 0O 11 37EDTCDE(Y)
+     A  55                                  DSPATR(ND)
+     A            CTTIME         6Y 0O 11 47EDTWRD('  :  :  ')
+     A  55                                  DSPATR(ND)
+     A                                 11 57'*** End of Data ***'
+     A  55                                  DSPATR(HI)
+     A N55                                  DSPATR(ND)
+     A          R CRTCTL                    SFLCTL(CRTSFL)
+     A*%%TS  SD  20130402  151933  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0013)
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'SCR240SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Recalculate Put Down Sheet '
+     A                                      DSPATR(RI)
+     A                                  4  3'Ship Date:'
+     A            SHPDAT         6Y 0O  4 14EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4 36'Cart Number:'
+     A            CARTNO         8Y 0O  4 49EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  6  2'Selected Cart has been used more t-
+     A                                      han one time. Place cursor on line -
+     A                                      wanted'
+     A                                  7  2'and Press ENTER. Press F6 to Resta-
+     A                                      rt(no Cancel). Press F3 to Cancel J-
+     A                                      ob.'
+     A                                 10 24'   Control#    Date      Time  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 37'-----Scanned------'
+     A                                      DSPATR(HI)
+     A            LINE           5S 0H
+     A                                  4 24'Master:'
+     A            SMASTER        2  0O  4 32DSPATR(HI)
+     A          R TRYSFL                    SFL
+     A*%%TS  SD  20020321  170601  EFD         REL-V5R1M0  5722-WDS
+     A            CODE           1A  B  8  2
+     A N55                                  DSPATR(CS)
+     A                                      VALUES(' ' 'D')
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            CTTAG#         8Y 0O  8  4EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A            CTITEM        12A  O  8 13
+     A  55                                  DSPATR(ND)
+     A            CTSIZE         3A  O  8 26
+     A  55                                  DSPATR(ND)
+     A            IMDES1        30A  O  8 30
+     A            CTORD#         6Y 0O  8 61EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A            CTLOC          8A  O  8 68
+     A  55                                  DSPATR(ND)
+     A            CTCSEQ         3  0H
+     A          R TRYCTL                    SFLCTL(TRYSFL)
+     A*%%TS  SD  20060322  083822  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0016)
+     A                                      CF10
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  25                                  SFLMSG('*** No Records were selecte-
+     A                                      d for cancel.  Press RESET')
+     A                                  1  2'SCR240TRY'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Recalculate Put Down Sheet '
+     A                                      DSPATR(RI)
+     A                                  7  2'|   Tag #  Item        Size Descri-
+     A                                      ption                   Order # Loc-
+     A                                      ation'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  2'D=Delete Line'
+     A                                      DSPATR(HI)
+     A                                  4  2'F10=Recalc Entire Cart'
+     A                                      DSPATR(HI)
+     A                                  2 23'Cart #:'
+     A            CARTNO         8Y 0O  2 31DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  2 42'Control #:'
+     A            CONTRL         6Y 0O  2 53DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  5  2'Place a R on line to recalc or Pre-
+     A                                      ss F10 to recalc entire cart.'
+     A                                  4 26'F3=End Job(NO CANCEL) F6=Restart(N-
+     A                                      O CANCEL)'
+     A                                      DSPATR(HI)

@@ -1,0 +1,51 @@
+     A*%%TS  SD  19980618  153308  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19980618  153308  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'STR100A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Release Standing Orders '
+     A                                      DSPATR(RI)
+     A                                  3 18'Department:'
+     A            DEDEPT         3A  O  3 30
+     A            DEDESC        30A  O  3 34
+     A                                  5 24'Last Release Date:'
+     A            LSTDAT         6Y 0O  5 43EDTCDE(Y)
+     A                                  9  8'Date Orders are to be released thr-
+     A                                      u:'
+     A            THRDAT         6Y 0B  9 45
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                              Press RESET')
+     A  12                                  ERRMSG('*** Date must be greater th-
+     A                                      an or equal to last date entered.  -
+     A                                      Press  RESET')
+     A  13                                  ERRMSG('*** Date cannot be more tha-
+     A                                      n 7(seven) Days greater than last d-
+     A                                      ate.Press RESET')
+     A            DAYNM          9A  O  9 55
+     A  10                                  DSPATR(ND)
+     A                                 15 16' Verify Date if OK Press ENTER els-
+     A                                      e make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process                  -
+     A                                       F6=Restart                    F3/F-
+     A                                      7=End job'
+     A                                      DSPATR(UL)
+     A            LSTDAY         9A  O  5 52

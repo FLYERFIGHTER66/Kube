@@ -1,0 +1,318 @@
+000100970922      *--------------------------------------------------------------
+000200970922      *
+000300970922      *  COPYRIGHT EFD ENTERPRISES, INC.    1997
+000400970922      *
+000500970922      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600970922      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700970922      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800970922      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900970922      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000970922      *       BY EXPRESS WRITTEN PERMISSION OF
+001100970922      *            EFD ENTERPRISES, INC.     215-643-5352
+001200970922      *
+001300970922      *--------------------------------------------------------------
+001400971104      **PROGRAM NAME-------- SED190
+001500970922      **COMPANY------------- EFD ENTERPRISES, INC.
+001600970922      **SYSTEM-------------- TGMS
+001700970922      **PROGRAMMER---------- EFD
+001800971104      **APPLICATION--------- SOW LINE REQUIREMENTS UPDATE.
+001900970922      *
+002000970922      *            CHANGE--DATE-------DESCRIPTION
+002100970922      *
+002200970922      *
+002300971104     FSED190FM  CF   E             WORKSTN
+002400971104     F                                     SFILE(SOWSFL:RECNO)
+002500970922     FFCALEN    IF   E           K DISK
+002600970922     FFCALEX    IF   E           K DISK
+002700970922     F                                     RENAME(RCALEN:ICALEN)
+002800971104     FFMINVT    IF   E           K DISK
+002900971105     FFSEDREQ   UF   E           K DISK
+003000971105     FFSEDREQW  IF   E           K DISK
+003100971105     F                                     RENAME(RSEDREQ:SEDREQ)
+003200970923      * DATE ARRAYS
+003300970923     D #DY             S              3  0 DIM(12) CTDATA PERRCD(12) ASCEND                      @DT
+003400970923      *
+003500970922      ***********************
+003600970922      * PROG DATA STRUCTURE *
+003700970922      ***********************
+003800970922     D                SDS
+003900970922      ** PROGRAM NAME
+004000970922     D  PROGID                 1     10                                         ARC380
+004100970922      ** RUN LIBRARY
+004200970922     D  RLIBR                 81     90                                         ARC380
+004300970922      * USER I.D.
+004400970922     D  USERID               254    263                                         ARC380
+004500970922      ** SOURCE LIBRARY
+004600970922     D  SLIBR                314    323                                         ARC380
+004700970922      ****************
+004800970922      *   LDA        *
+004900970922      ****************
+005000970922     D                UDS
+005100971104     I**                                      1   1 CANCEL                ARC380
+005200970922      ***********************
+005300970922      ** START OR RESTART  **
+005400970922      ***********************
+005500970922     C     RSTART        TAG
+005600971104     C                   MOVEL     'A'           SHOWAL
+005700970922     C                   Z-ADD     0             FRMDAT
+005800971104     C                   Z-ADD     0             TODAT             6 0
+005900970922     C                   Z-ADD     0             BEGYY
+006000970922     C                   Z-ADD     0             BEGWW
+006100970922     C                   SETOFF                                       102030
+006200970922     C                   SETOFF                                       405011
+006300970922     C                   SETOFF                                       9899
+006400970922      ** DISPLAY SCREEN
+006500970922     C     NXTA          TAG
+006600970922     C   99              SETOFF                                       98
+006700970922     C                   WRITE     SCRNA
+006800970922     C                   READ      SCRNA                                  90
+006900970922      ** CHK F KEYS
+007000970922     C   KF              GOTO      RSTART
+007100970922     C   KC
+007200971104     COR KG              GOTO      END
+007300970922     C                   SETOFF                                       102030
+007400970922     C                   SETOFF                                       405011
+007500970922     C                   SETOFF                                         99
+007600970922      ** CHECK INPUT
+007700970922      **
+007800970922      ** CHECK DATE
+007900970922     C     FRMDAT        IFLE      0
+008000970922     C     BEGYY         ANDLE     0
+008100970922     C     BEGWW         ANDLE     0
+008200970922     C                   SETON                                        10  99
+008300970922     C                   GOTO      NXTA
+008400970922     C                   ENDIF
+008500970922      **
+008600970922     C     FRMDAT        IFGT      0
+008700970922     C                   Z-ADD     FRMDAT        ##MDY
+008800970922     C                   EXSR      @DT@A1
+008900970922     C   90              DO
+009000970922     C                   SETON                                        1099
+009100970922     C                   GOTO      NXTA
+009200970922     C                   ENDDO
+009300970922     C     FRMDAT        CHAIN     FCALEN                             92
+009400970922     C                   MOVEL     CLCENT        BEGYY
+009500970922     C                   MOVE      CLYEAR        BEGYY
+009600970922     C                   Z-ADD     CLWEEK        BEGWW
+009700970922     C                   ELSE                                                   FRMDAT > 0
+009800970922     C                   MOVEL     BEGYY         CLCENT
+009900970922     C                   MOVE      BEGYY         CLYEAR
+010000970922     C     CALKEY        KLIST
+010100970922     C                   KFLD                    CLCENT
+010200970922     C                   KFLD                    CLYEAR
+010300970922     C                   KFLD                    BEGWW
+010400970922     C                   KFLD                    CL#Y
+010500970922     C                   Z-ADD     1             CL#Y
+010600970922     C     CALKEY        CHAIN     FCALEX                             92
+010700970922     C   92              DO
+010800970922     C                   SETON                                        2099
+010900970922     C                   GOTO      NXTA
+011000970922     C                   ENDDO
+011100970922     C                   Z-ADD     CLDATE        FRMDAT
+011200970922     C                   END                                                    FRMDAT > 0
+011300970922      ** CHECK WHAT TO SHOW
+011400970922     C     SHOWAL        IFNE      'A'
+011500971104     C     SHOWAL        ANDNE     'C'
+011600970922     C                   SETON                                        2599
+011700970922     C                   GOTO      NXTA
+011800970922     C                   END
+011900971104      ** GET DATES
+012000970924     C                   MOVEL     BEGYY         CLCENT
+012100970924     C                   MOVE      BEGYY         CLYEAR
+012200971105     C                   Z-ADD     1             CL#Y
+012300970924     C     CALKEY        CHAIN     FCALEX                             92
+012400970924     C                   Z-ADD     CLDATE        TODAT
+012500971104      *** OUTPUT SUB FILE
+012600971104     C                   EXSR      BLDSFL
+012700971104     C     NXTB          TAG
+012800971105     C                   EXFMT     SOWCTL
+012900971105     C   KF              GOTO      RSTART
+013000971105     C   KC
+013100971105     COR KG              GOTO      END
+013200971105     C                   EXSR      PUTSFL
+013300971105     C                   GOTO      RSTART
+013400970922      *** END PROGRAM
+013500970922     C     END           TAG
+013600970922     C                   SETON                                        LR
+013700971105      *
+013800971105      ***********************
+013900971105      ** BUILD SUB FILE    **
+014000971105      ***********************
+014100971105     C     BLDSFL        BEGSR
+014200971105     C                   SETON                                          80
+014300971105     C                   WRITE     SOWCTL
+014400971105     C                   SETOFF                                         80
+014500971105     C                   Z-ADD     0             RECNO             5 0
+014600971105     C                   MOVEL     BEGYY         SRSOWW
+014700971105     C                   MOVE      BEGWW         SRSOWW
+014800971105     C                   MOVE      *BLANKS       SRALPH
+014900971105     C     REQKEY        KLIST
+015000971105     C                   KFLD                    SRSOWW
+015100971105     C                   KFLD                    SRALPH
+015200971105     C     REQKEY        SETLL     FSEDREQW
+015300971105     C     NXTBLD        TAG
+015400971105     C     SRSOWW        READE     SEDREQ                                 90
+015500971105     C   90              GOTO      ENDBLD
+015600971105      ** CHECK IF CHANGED
+015700971105     C     SHOWAL        IFEQ      'C'
+015800971105     C     SRCHG1        ANDNE     'Y'
+015900971105     C     SRCHG2        ANDNE     'Y'
+016000971105     C     SRCHG3        ANDNE     'Y'
+016100971105     C     SRCHG4        ANDNE     'Y'
+016200971105     C                   GOTO      NXTBLD
+016300971105     C                   ENDIF
+016400971105      ** BUILD RECORD
+016500971105     C     ITMKEY        KLIST
+016600971105     C                   KFLD                    SRITEM
+016700971105     C                   KFLD                    SRSIZE
+016800971105     C     ITMKEY        CHAIN     FMINVT                             80
+016900971105     C     SRCHG1        COMP      'Y'                                    41
+017000971105     C     SRCHG2        COMP      'Y'                                    42
+017100971105     C     SRCHG3        COMP      'Y'                                    43
+017200971105     C     SRCHG4        COMP      'Y'                                    44
+017300971105     C                   Z-ADD     SRNFX1        NEWFX1               51
+017400971105     C                   Z-ADD     SRNFX2        NEWFX2               52
+017500971105     C                   Z-ADD     SRNFX3        NEWFX3               53
+017600971105     C                   Z-ADD     SRNFX4        NEWFX4               54
+017700971105     C                   ADD       1             RECNO
+017800971105     C                   WRITE     SOWSFL
+017900971105     C                   GOTO      NXTBLD
+018000971105     C     ENDBLD        ENDSR
+018100971105      *
+018200971105      ***********************
+018300971105      ** OUTPUT TO FILE    **
+018400971105      ***********************
+018500971105     C     PUTSFL        BEGSR
+018600971105     C                   Z-ADD     RECNO         OREC              5 0
+018700971105     C                   Z-ADD     1             RECNO
+018800971105     C     REQKY1        KLIST
+018900971105     C                   KFLD                    SRITEM
+019000971105     C                   KFLD                    SRSIZE
+019100971105     C                   KFLD                    SRSOWW
+019200971105     C     NXTPUT        TAG
+019300971105     C     RECNO         CHAIN     SOWSFL                             90
+019400971105     C   90              DO
+019500971105     C                   ADD       1             RECNO
+019600971105     C     RECNO         IFLE      OREC
+019700971105     C                   GOTO      NXTPUT
+019800971105     C                   ELSE
+019900971105     C                   GOTO      ENDPUT
+020000971105     C                   END
+020100971105     C                   ENDDO
+020200971105     C     REQKY1        CHAIN     FSEDREQ                            91
+020300971105     C  N91              DO
+020400971105     C                   MOVE      'N'           SRCHG1
+020500971105     C                   Z-ADD     NEWFX1        SRNFX1
+020600971105     C                   MOVE      'N'           SRCHG2
+020700971105     C                   Z-ADD     NEWFX2        SRNFX2
+020800971105     C                   MOVE      'N'           SRCHG3
+020900971105     C                   Z-ADD     NEWFX3        SRNFX3
+021000971105     C                   MOVE      'N'           SRCHG4
+021100971105     C                   Z-ADD     NEWFX4        SRNFX4
+021200971105     C                   UPDATE    RSEDREQ
+021300971105     C                   ENDDO
+021400971105     C                   ADD       1             RECNO
+021500971105     C     RECNO         IFLE      OREC
+021600971105     C                   GOTO      NXTPUT
+021700971105     C                   END
+021800971105     C     ENDPUT        ENDSR
+021900970922      ********************************************************************@DT@A1
+022000970922      * VALIDATE DATES. INDICATOR 90 IS ON IF ERROR. 91-92 ALWAYS SETOF.  @DT@A1
+022100970922      * YY GE 00  MM 01-12 DAY 01-28/29/30/31                             @DT@A1
+022200970922      * ##MDY INPUT DATE MMDDYY                                           @DT@A1
+022300970922      * ##CYMD OUTPUT DATE CYYMMDD IF DATE IS OK. ELSE ZERO.              @DT@A1
+022400970922      * C IDENTIFIES 20 OR 21 CENTURY. C=0 FOR YY 70-99. C=1 FOR YY 00-69.@DT@A1
+022500970922     C     @DT@A1        BEGSR                                                                 @DT@A
+022600970922     C                   MOVE      ##MDY         #03A              3 0          MYY            @DT@A
+022700970922     C                   MOVEL     0             #03A                           CYY            @DT@A
+022800970922     C                   MOVEL     ##MDY         #04               4 0          MMDD           @DT@A
+022900970922     C                   MOVEL     ##MDY         #02B              2 0          MM             @DT@A
+023000970922     C                   MOVE      #04           #02C              2 0          DD             @DT@A
+023100970922     C                   Z-ADD     ##MDY         ##MDY             6 0  90      YY IS NEGATIVE @DT@A
+023200970922     C  N90              Z-ADD     #02B          #02               2 0    90    MM LT 01 ERROR @DT@A
+023300970922     C  N90#02B          COMP      12                                 90        MM GT 12 ERROR @DT@A
+023400970922     C  N90#02C          COMP      01                                   90      DD LT 01 ERROR @DT@A
+023500970922     C  N90#02C          COMP      31                                 90  91    DD GT OR EQ 31 @DT@A
+023600970922     C     #02B          COMP      07                                 92        MM 08-12       @DT@A
+023700970922     C   921             ADD       #02B          #02                            MAKE MM ODD    @DT@A
+023800970922     C     #02           DIV       2             #02                                           @DT@A
+023900970922     C                   MVR                     #02                  92        31 DAY MONTH   @DT@A
+024000970922     C   91
+024100970922     CANN92              SETON                                        90        MM EVEN DD 31  @DT@A
+024200970922     C     #02B          COMP      02                                     91    FEB            @DT@A
+024300970922     C  N91                                                                                    @DT@A
+024400970922     COR 90              GOTO      @DT@AX                                                      @DT@A
+024500970922     C     #03A          DIV       4             #03               3 0          JUST FOR MVR   @DT@A
+024600970922     C                   MVR                     #02                      91    LEAP YEAR      @DT@A
+024700970922     C     #02C          COMP      29                                 90  92    DD GT 29 ERROR @DT@A
+024800970922     C  N91
+024900970922     CAN 92              SETON                                        90        NO LEAP DD 29  @DT@A
+025000970922     C     @DT@AX        TAG                                                    GOOD DATE      @DT@A
+025100970922     C                   MOVEL     #03A          ##CYMD            7 0          CYY----        @DT@A
+025200970922     C                   MOVE      #04           ##CYMD                         CYYMMDD        @DT@A
+025300970922     C     #03A          COMP      070                                  91                     @DT@A
+025400970922     C   91              MOVEL     1             ##CYMD                         21ST CENTURY   @DT@A
+025500970922     C   90              Z-ADD     0             ##CYMD                         ERROR          @DT@A
+025600970922     C                   SETOFF                                       9192                     @DT@A
+025700970922     C                   ENDSR                                                                 @DT@A
+0258009709230006 C********************************************************************
+0259009709230007 C* FIGURES OUT DAY OF THE WEEK THAT ENTERED DATE IS.
+0260009709230008 C* ##DDD INPUT DATE DDDDD - RESULT FROM @DT@B2
+0261009709230009 C* #Y OUTPUT INDEX REFLECTING DAY OF WEEK
+0262009709230011 C********************************************************************
+0263009709230003 CSR   @DAYWK        BEGSR
+0264009709230285 CSR   ##DDD         DIV       7.0000        #WKS             10 5
+0265009709230286 CSR                 MOVE      #WKS          ##R               5 5
+0266009709230287 CSR   ##R           MULT(H)   7             #Y                1 0
+026700970923     C*
+0268009709230288 CSR   #Y            IFGT      7
+0269009709230289 CSR   #Y            SUB       7             #Y
+027000970923     CSR                 END
+027100970923     C*
+027200970923     CSR   #Y            IFEQ      0
+027300970923     CSR                 Z-ADD     7             #Y
+027400970923     CSR                 END
+027500970923     C*
+0276009709230293 CSR                 ENDSR
+027700970923      *
+027800970922      ***********************
+027900970922      ** START UP ROUTINE  **
+028000970922      ***********************
+028100970922     C     *INZSR        BEGSR
+028200970922     C                   TIME                    TIMOD             6 0
+028300970922     C                   TIME                    TMWRK            12 0
+028400970922     C                   MOVE      TMWRK         TDATE             6 0
+028500970922     C                   ENDSR
+028600970923      ********************************************************************@DT@B1
+028700970923      * CONVERT CYYMMDD TO DAY OF CENTURY DDDDD. INDICATOR 90 MINUS DATE  @DT@B1
+028800970923      * ##CYMD INPUT DATE CYYMMDD                                         @DT@B1
+028900970923      * ##DDD OUTPUT DAY OF CENTURY DDDDD. BASE DATE IS 01/01/1900        @DT@B1
+029000970923      * INDICATORS USED 90-92.                                            @DT@B1
+029100970923      ********************************************************************@DT@B1
+029200970923     C     @DT@B1        BEGSR                                                                 @DT@B
+029300970923     C                   Z-ADD     ##CYMD        ##CYMD            7 0  90      NEG DATE       @DT@B
+029400970923      * CONVERT YEAR TO DAYS                                              @DT@B1
+029500970923     C                   MOVEL     ##CYMD        #03               3 0          YY             @DT@B
+029600970923     C     #03           MULT      365           ##DDD             5 0          FIRST LEAP     @DT@B
+029700970923     C     #03           DIV       4             #03                      93    # OF LEAPS     @DT@B
+029800970923     C                   MVR                     #02A              2 0    91    LEAP YEAR      @DT@B
+029900970923     C   91
+030000970923     CANN93#03           SUB       1             #03                                           @DT@B
+030100970923     C     #03           ADD       ##DDD         ##DDD                          DAYS FOR LEAP  @DT@B
+030200970923      * CONVERT MONTH TO DAYS                                             @DT@B1
+030300970923     C                   MOVE      ##CYMD        #04               4 0          MMDD           @DT@B
+030400970923     C                   MOVEL     #04           #02A                           MM             @DT@B
+030500970923     C     #DY(#02A)     ADD       ##DDD         ##DDD                          DAY OF YEAR    @DT@B
+030600970923     C     #02A          COMP      02                                 92        GT FEB         @DT@B
+030700970923     C   91
+030800970923     CAN 92
+030900970923     CANN931             ADD       ##DDD         ##DDD                          LP YR MM 3-12  @DT@B
+031000970923      * ADD DAY OF MONTH                                                  @DT@B1
+031100970923     C                   MOVE      ##CYMD        #02               2 0          DD             @DT@B
+031200970923     C     #02           ADD       ##DDD         ##DDD                          ADD DAYS       @DT@B
+031300970923     C   90              Z-ADD     0             ##DDD                                         @DT@B
+031400970923     C                   SETOFF                                       919293                   @DT@B
+031500970923     C                   ENDSR                                                                 @DT@B
+031600970923      ********************************************************************@DT@B1
+031700970923** FEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC DAY OF YEAR FROM START OF MONTH.
+031800970923    31059090120151181212243273304334

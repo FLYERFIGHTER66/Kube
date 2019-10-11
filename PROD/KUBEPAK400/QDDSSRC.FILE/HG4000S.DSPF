@@ -1,0 +1,331 @@
+     A*%%TS  SD  20040623  064411  RP          REL-V5R1M0  5722-WDS
+0000 A*0IGC 0DS4  V4R1M0                    910710
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R SCREEN01
+     A*%%TS  SD  20040623  064411  RP          REL-V5R1M0  5722-WDS
+     A                                      CF03(03)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1 72TIME
+     A                                  2  3'SCREEN01'
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A                                 23 17'Press Enter to continue -or-  F3-T-
+     A                                      o End'
+     A                                      COLOR(BLU)
+     A                                  4  4'O= Opening Balance'
+     A                                      DSPATR(HI)
+     A                                  6  4'I= Issues'
+     A                                      DSPATR(HI)
+     A                                  4 32'A= Adjustments'
+     A                                      DSPATR(HI)
+     A                                  6 32'T= Transfers'
+     A                                      DSPATR(HI)
+     A                                  7  1'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ----------'
+     A                                      DSPATR(HI)
+     A                                 10  4'Enter Transaction Type'
+     A  31                                  DSPATR(RI)
+     A            S1TYPE         1A  B 10 28
+     A  31                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                 12  4'Item Number ..........'
+     A  25                                  DSPATR(RI)
+     A            S1ITEM        12A  B 12 28
+     A  25
+     AO 75                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                 14  4'Warehouse ............'
+     A  70                                  DSPATR(RI)
+     A            S1WHSE         2Y 0O 14 28COLOR(YLW)
+     A                                  1  3'HG4000S'
+     A                                  2 25'Inventory Transaction Processing'
+     A                                      DSPATR(HI)
+     A            S1SIZE         3A  O 12 46COLOR(YLW)
+     A                                 12 41'Size'
+     A  26                                  DSPATR(RI)
+     A          R SCREEN02
+     A*%%TS  SD  20040623  064411  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      CF10(10)
+     A                                      CF12(12)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1 72TIME
+     A                                  2  3'SCREEN02'
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A                                  1  3'HG4000S'
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                      DSPATR(HI)
+     A            S1ITEM        12A  O  7 12COLOR(YLW)
+     A            S1IDES        30A  O  7 32COLOR(YLW)
+     A            S2DESC        20A  O  5 29DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                 11  5'From Warehouse .....'
+     A            S1WHSE         2S 0O 11 27COLOR(YLW)
+     A            WHWNAM    R        O 11 31REFFLD(WHSE/WHWNAM TGMSDATA/KPWHOUS-
+     A                                      E)
+     A                                      COLOR(YLW)
+     A                                 12 31'On Hand This Location'
+     A            S2FBAL        11Y 0O 12 15COLOR(YLW)
+     A                                      EDTWRD('  ,   ,   ,   -')
+     A                                 15  4'To Warehouse ........'
+     A  73                                  DSPATR(RI)
+     A            S2TWHS         2Y 0B 15 27EDTCDE(4)
+     A                                      COLOR(YLW)
+     A  73                                  DSPATR(PC)
+     A            S2WNAM        30A  O 15 31COLOR(YLW)
+     A                                 17  4'Transfer Date .......'
+     A  71                                  DSPATR(RI)
+     A            S2DTE4         6Y 0B 17 27
+     A  71                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A                                 19  4'Transfer Quantity ...'
+     A  78                                  DSPATR(RI)
+     A            S2TQTY        11Y 0B 19 27
+     A  78                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  ,   ,   ,   ')
+     A                                 23  3'Press ENTER to Continue'
+     A                                      COLOR(BLU)
+     A                                 23 46'F12 to Return to Previous Screen'
+     A                                      COLOR(BLU)
+     A            FLD001         3A  O  7 27COLOR(YLW)
+     A                                  7 25'-'
+     A                                      COLOR(YLW)
+     A                                  2 25'Inventory Transaction Processing'
+     A                                      DSPATR(HI)
+     A                                 19 42'*** NOTE *** Entire Quantity being'
+     A                                      DSPATR(HI)
+     A                                 20 42'transferred must be keyed.'
+     A                                      DSPATR(HI)
+     A                                 20 69'For example'
+     A                                      DSPATR(HI)
+     A                                 21 42'5 thousdand would be keyed as 5000-
+     A                                      .'
+     A                                      DSPATR(HI)
+     A          R SCREEN03
+     A*%%TS  SD  20040623  064411  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      CF12(12)
+     A                                      CF10(10)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1 72TIME
+     A                                  2  3'SCREEN03'
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A                                  1  3'HG4000S'
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                      DSPATR(HI)
+     A            S1ITEM        12A  O  7 12COLOR(YLW)
+     A            S1IDES        30A  O  7 33COLOR(YLW)
+     A            S2DESC        20A  O  5 29DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                 11  5'From Warehouse .....'
+     A            WHWNAM    R        O 11 31REFFLD(WHSE/WHWNAM TGMSDATA/KPWHOUS-
+     A                                      E)
+     A                                      COLOR(YLW)
+     A                                 12 31'On Hand This Location'
+     A            S2FBAL        11Y 0O 12 15COLOR(YLW)
+     A                                      EDTWRD('  ,   ,   ,   -')
+     A            S2DTE          6Y 0B 15 27
+     A  71                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A            S1WHSE         2S 0O 11 27COLOR(YLW)
+     A            S2TQTY        11Y 0B 17 27
+     A  78                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  ,   ,   ,   ')
+     A                                 15  4'Issue Date ..........'
+     A  71                                  DSPATR(RI)
+     A                                 17  4'Quantity Issued .....'
+     A  78                                  DSPATR(RI)
+     A                                 23 43'F12 to Return to Previous Screen'
+     A                                      COLOR(BLU)
+     A                                 23  3'Press ENTER to Continue'
+     A                                      COLOR(BLU)
+     A                                  2 25'Inventory Transaction Processing'
+     A                                      DSPATR(HI)
+     A                                  7 25'-'
+     A                                      COLOR(YLW)
+     A            S1SIZE         3A  O  7 27COLOR(YLW)
+     A                                 17 43'*** NOTE *** Entire quantity being'
+     A                                      DSPATR(HI)
+     A                                 18 43'issued must be keyed. For example'
+     A                                      DSPATR(HI)
+     A                                 19 43'5 thousand would be keyed as 5000.'
+     A                                      DSPATR(HI)
+     A          R SCREEN04
+     A*%%TS  SD  20040623  064411  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      CF12(12)
+     A                                      CF10(10)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1 72TIME
+     A                                  2  3'SCREEN04'
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A                                  1  3'HG4000S'
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                      DSPATR(HI)
+     A            S1ITEM        12A  O  7 13COLOR(YLW)
+     A            S1IDES        30A  O  7 33COLOR(YLW)
+     A            S2DESC        20A  O  5 29DSPATR(RI)
+     A                                      COLOR(YLW)
+     A            WHWNAM    R        O 11 31REFFLD(WHSE/WHWNAM TGMSDATA/KPWHOUS-
+     A                                      E)
+     A                                      COLOR(YLW)
+     A            S2DTE          6Y 0B 15 27
+     A  71                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A            S1WHSE         2S 0O 11 27COLOR(YLW)
+     A            S2TQTY        11Y 0B 17 27
+     A  78                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  ,   ,   ,   ')
+     A                                 23 43'F12 to Return to Previous Screen'
+     A                                      COLOR(BLU)
+     A                                 23  3'Press ENTER to Continue'
+     A                                      COLOR(BLU)
+     A                                 15  4'Balance Date ........'
+     A  71                                  DSPATR(RI)
+     A                                 17  4'Opening Balance .....'
+     A  78                                  DSPATR(RI)
+     A                                 11  5'To Warehouse .......'
+     A                                  2 25'Inventory Transaction Processing'
+     A                                      DSPATR(HI)
+     A                                  7 26'-'
+     A                                      COLOR(YLW)
+     A            S1SIZE         3A  O  7 28COLOR(YLW)
+     A                                 17 43'*** NOTE *** Entire quantity being'
+     A                                      DSPATR(HI)
+     A                                 18 43'entered must be keyed. For example'
+     A                                      DSPATR(HI)
+     A                                 19 43'5 thousand would be keyed as 5000.'
+     A                                      DSPATR(HI)
+     A          R SCREEN05
+     A*%%TS  SD  20040623  064411  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      CF12(12)
+     A                                      CF10(10)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1 72TIME
+     A                                  2  3'SCREEN05'
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A                                  1  3'HG4000S'
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                      DSPATR(HI)
+     A            S1ITEM        12A  O  7 13COLOR(YLW)
+     A            S1IDES        30A  O  7 33COLOR(YLW)
+     A            S2DESC        20A  O  5 29DSPATR(RI)
+     A                                      COLOR(YLW)
+     A            WHWNAM    R        O 11 31REFFLD(WHSE/WHWNAM TGMSDATA/KPWHOUS-
+     A                                      E)
+     A                                      COLOR(YLW)
+     A                                 12 31'On Hand This Location'
+     A            S2FBAL        11Y 0O 12 15COLOR(YLW)
+     A                                      EDTWRD('  ,   ,   ,   -')
+     A            S2DTE4         6Y 0B 15 27
+     A  71                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Y)
+     A            S1WHSE         2S 0O 11 27COLOR(YLW)
+     A            S2TQTY        11Y 0B 17 27
+     A  78                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  ,   ,   ,   -')
+     A                                 23  3'Press ENTER to Continue'
+     A                                      COLOR(BLU)
+     A                                 23 46'F12 to Return to Previous Screen'
+     A                                      COLOR(BLU)
+     A                                 15  4'Adjustment Date .....'
+     A  71                                  DSPATR(RI)
+     A                                 17  4'Adjustment Quantity .'
+     A  78                                  DSPATR(RI)
+     A                                 11  5'Warehouse ..........'
+     A                                  2 25'Inventory Transaction Processing'
+     A                                      DSPATR(HI)
+     A                                  7 26'-'
+     A                                      COLOR(YLW)
+     A            S1SIZE         3A  O  7 28COLOR(YLW)
+     A                                 17 44'*** NOTE *** Entire adjustment qty-
+     A                                      .'
+     A                                      DSPATR(HI)
+     A                                 18  7'must be entered. For Example 5 tho-
+     A                                      usand being added would be keyed as'
+     A                                      DSPATR(HI)
+     A                                 19  7'5000. 5 thousand being subtracted -
+     A                                      would be entered as 5000-. Use the'
+     A                                      DSPATR(HI)
+     A                                 20  7'key to the right of the 9 on the k-
+     A                                      eyboard for the - sign.'
+     A                                      DSPATR(HI)
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

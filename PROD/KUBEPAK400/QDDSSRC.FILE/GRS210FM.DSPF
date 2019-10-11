@@ -1,0 +1,211 @@
+     A*%%TS  SD  20180105  114530  BILLB       REL-V7R2M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20180105  114530  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(04 011 10 073)
+     A  *DS4                                HLPARA(04 011 10 073)
+     A                                  1  2'GRS210 '
+     A                                  1 29' Set Availability Dates '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Action:'
+     A            VACT           1X  B  4 11
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  99 26                               ERRMSG('*** Valid Action Codes = A -
+     A                                      C D R I  -  Press Reset')
+     A  99 20                               ERRMSG('*** This Record is Not on F-
+     A                                      ile  -  Press Reset')
+     A  99 27                               ERRMSG('*** This Record is on File -
+     A                                       -  Press Reset')
+     A  99 40                               ERRMSG('*** Record is Deleted  -  P-
+     A                                      ress Reset')
+     A  99 41                               ERRMSG('*** Record is Active  -  Pr-
+     A                                      ess Reset')
+     A                                  4 22'Item/Size:'
+     A            VITEM         12A  B  4 44DSPATR(CS)
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A  19                                  ERRMSG('*** Valid Item Is Required.-
+     A                                            Press Reset')
+     A            VSIZE          3A  B  4 58DSPATR(CS)
+     A                                  5 22'or Alpha Search'
+     A            VALPHA        15A  B  5 44DSPATR(CS)
+     A                                  6  1' A = Add '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A            DESP          55A  O  6 22
+     A                                  7  1' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  8  1' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                  8 22'Unavailable Until:'
+     A N50                                  DSPATR(ND)
+     A            AVDMDY         8Y 0B  8 44
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A                                      EDTWRD('  /  /    ')
+     A  50                                  DSPATR(PC)
+     A  45                                  DSPATR(RI)
+     A  46                                  ERRMSG('*** Enter a Valid Date.    -
+     A                                          Press Reset')
+     A  47                                  ERRMSG('*** Date Must Be Equal To o-
+     A                                      r Higher Than Todays Date.   Press -
+     A                                      Reset')
+     A  48                                  ERRMSG('*** Year Must Be Entered as-
+     A                                       4 Digits, e.g. 1999.     Press Res-
+     A                                      et')
+     A                                 13 22'Comments:'
+     A N50                                  DSPATR(ND)
+     A            AVCOMM        30A  B 13 44
+     A  57 50                               DSPATR(RI)
+     A  50N23N24
+     A N25                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Long Description is Req-
+     A                                      uired.     Press Reset')
+     A                                 20 13' Press Enter to Delete or F6 to Re-
+     A                                      start without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'         Enter to Process        F-
+     A                                      6=Restart        F3/F7=End of Job  -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 16  8'* Note:   Enter Unavailable Until -
+     A                                      Date as MMDDYYYY'
+     A N50                                  DSPATR(ND)
+     A                                 17 18'For Example:    Enter May 2, 1999 -
+     A                                       -  05021999'
+     A  48                                  DSPATR(RI)
+     A N50                                  DSPATR(ND)
+     A                                  2 14'Help'
+     A                                      DSPATR(UL)
+     A            AVREAS        30A  B  9 44
+     A  57 50                               DSPATR(RI)
+     A  50N23N24
+     A N25                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Long Description is Req-
+     A                                      uired.     Press Reset')
+     A            AVSUBITEM     12A  B 11 50
+     A  57 50                               DSPATR(RI)
+     A  50N23N24
+     A N25                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Long Description is Req-
+     A                                      uired.     Press Reset')
+     A            AVSUBSIZE      3A  B 11 70
+     A  57 50                               DSPATR(RI)
+     A  50N23N24
+     A N25                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Long Description is Req-
+     A                                      uired.     Press Reset')
+     A                                  9 22'Reason Unavailable:'
+     A N50                                  DSPATR(ND)
+     A                                 11 22'Substitute with:'
+     A N50                                  DSPATR(ND)
+     A                                 11 44'Item:'
+     A N50                                  DSPATR(ND)
+     A                                 11 64'Size:'
+     A N50                                  DSPATR(ND)
+     A            ENCCRTIME R        O 19 32REFFLD(RMAVDTE/ENCCRTIME *LIBL/FMAV-
+     A                                      DTE)
+     A                                      COLOR(BLU)
+     A                                 19 23'Entered:'
+     A                                      COLOR(BLU)
+     A          R HELP
+     A*%%TS  SD  19960403  153824  GINNY       REL-V3R1M0  5763-PW1
+     A                                  9  3' Set Availability Dates Overview  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 11  3' For whatever reason, a certain pl-
+     A                                      ant material that you have in inven-
+     A                                      tory    '
+     A                                 12  3' may not be available until a cert-
+     A                                      ain date.  Maybe there was a proble-
+     A                                      m with  '
+     A                                 13  3' the seed or cuttings and new seed-
+     A                                       will not be shipped for awhile.   -
+     A                                              '
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 20  3' When you enter an order for this -
+     A                                      item, if the requested ship date is-
+     A                                       prior  '
+     A                                 21  3' to this date, the system will not-
+     A                                       accept it.                        -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 15  3' In this program, you can define t-
+     A                                      his date for each particular item a-
+     A                                      ffected.'
+     A                                 16  3' You can also enter up to 30 chara-
+     A                                      cters to describe the reason.      -
+     A                                              '
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Don''t forget to consider all siz-
+     A                                      es for this item number.           -
+     A                                               '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)

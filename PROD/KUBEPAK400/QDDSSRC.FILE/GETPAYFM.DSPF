@@ -1,0 +1,132 @@
+     A*%%TS  SD  19991101  190701  TGMS        REL-V4R2M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNE
+     A*%%TS  SD  19991101  102008  TGMS        REL-V4R2M0  5769-PW1
+     A                                  1  2'GETPAYE'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  2 33' Enter Payment '
+     A                                      DSPATR(RI)
+     A                                  6  3' No Order Header was found for the-
+     A                                       requested order. Press ENTER to Re-
+     A                                      turn. '
+     A  01                                  DSPATR(RI)
+     A N01                                  DSPATR(ND)
+     A                                 10  2' Requested Order is Closed. You ma-
+     A                                      y not enter a payment. Press ENTER -
+     A                                      To Return '
+     A  03                                  DSPATR(RI)
+     A N03                                  DSPATR(ND)
+     A          R PAYSFL                    SFL
+     A*%%TS  SD  19991101  183414  TGMS        REL-V4R2M0  5769-PW1
+     A            BANK           3A  B 11  2
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A            CHECK#        10A  B 11  6DSPATR(CS)
+     A            CRCD           4A  B 11 23
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A            CRC#          16Y 0B 11 29EDTCDE(4)
+     A                                      CHECK(M10)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A            CRCE           4Y 0B 11 46
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTWRD('  /  ')
+     A            CRCA          10A  B 11 52
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A            AMOUNT        11Y 2B 11 66EDTCDE(1)
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A            BADESC        30A  O 12  2
+     A            CCDESC        30A  O 12 33
+     A            PYSEQ#         3S 0H
+     A          R PAYCTL                    SFLCTL(PAYSFL)
+     A*%%TS  SD  19991101  190701  TGMS        REL-V4R2M0  5769-PW1
+     A  98                                  CF02
+     A                                      CF05
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0025)
+     A                                      SFLPAG(0006)
+     A  11                                  SFLMSG('*** Invalid Bank I.D. Enter-
+     A                                      ed.         Press RESET')
+     A  21                                  SFLMSG('*** Invalid Credit Card Cod-
+     A                                      e Entered.  Press RESET')
+     A  31                                  SFLMSG('*** Credit Card Number Need-
+     A                                      ed.         Press RESET')
+     A  41                                  SFLMSG('*** Invalid Expire Date Ent-
+     A                                      ered.       Press RESET')
+     A  51                                  SFLMSG('*** No Amount Entered.     -
+     A                                                  Press RESET')
+     A  52                                  SFLMSG('*** You Can NOT Enter both -
+     A                                      a Bank Code and a Credit Card on th-
+     A                                      e same Line. RESET')
+     A  53                                  SFLMSG('*** You Must enter a Bank o-
+     A                                      r Credit Card Number.  Press RESET')
+     A  46                                  SFLMSG('*** Expire date is earlier -
+     A                                      than todays date.        Press RESE-
+     A                                      T')
+     A  60                                  SFLMSG('*** No Credit Card Info in -
+     A                                      Customer Record.    Press RESET')
+     A                                  1  2'GETPAYSFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 34' Get Payment '
+     A                                      DSPATR(RI)
+     A                                 10  1'Bank?  Check#         Code? Number-
+     A                                                Expire Approval          -
+     A                                        Amount  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9  2'-Cash/Check-         --------------
+     A                                      Credit Card-------------           -
+     A                                               '
+     A                                      DSPATR(HI)
+     A            INVAMT        11Y 2O  4 66EDTCDE(1)
+     A            PAYAMT        11Y 2O  5 66EDTCDE(1)
+     A                                      DSPATR(UL)
+     A            OPNAMT        11Y 2O  6 66EDTCDE(1)
+     A                                      DSPATR(RI)
+     A                                  4 50'Invoice Amount:'
+     A                                  5 50'Paid Amount:'
+     A                                  6 50'Balance:'
+     A                                  2 16'Order#:'
+     A            OHORD#         6Y 0O  2 24EDTCDE(4)
+     A                                  2 31'Ship To:'
+     A            OHNAME        30A  O  2 40
+     A                                  8 65' Correct Errors '
+     A                                      TEXT('Y')
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A  99                                  DSPATR(BL)
+     A                                  5  2'F5=Get credit card from customer f-
+     A                                      ile.'
+     A                                  6  2'F6=Cancel (NO UPDATE)'
+     A                                  8  2'Enter Either cash/check or credit -
+     A                                      card info per line.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Function Keys:'
+     A                                      DSPATR(UL)
+     A                                  4 17' F2=Update Payments '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)

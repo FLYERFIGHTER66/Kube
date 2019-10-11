@@ -1,0 +1,2376 @@
+     A*%%TS  SD  20170725  130542  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20081215  104041  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Entry Screen - A,C,D,I - Sele-
+     A                                      ct Item')
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF14
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      HLPCLR
+     A          H                           HLPRCD(HITEM)
+     A                                      HLPBDY
+     A  *DS3                                HLPARA(05 044 05 055)
+     A  *DS4                                HLPARA(05 044 05 055)
+     A          H                           HLPRCD(HSIZE)
+     A  *DS3                                HLPARA(06 044 06 046)
+     A  *DS4                                HLPARA(06 044 06 046)
+     A          H                           HLPRCD(HALPHA)
+     A  *DS3                                HLPARA(08 044 08 058)
+     A  *DS4                                HLPARA(07 044 07 058)
+     A          H                           HLPRCD(HLOC)
+     A  *DS3                                HLPARA(12 044 12 046)
+     A  *DS4                                HLPARA(10 044 10 046)
+     A                                  1  2'ICV010A'
+     A                                      COLOR(BLU)
+     A                                  1 28' Item Master Maintenance '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12DSPATR(CS)
+     A  10
+     AON02                                  DSPATR(PC)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.  Press Reset')
+     A                                  5 28'Item Number?'
+     A            VITEM         12A  B  5 44DSPATR(CS)
+     A  19                                  DSPATR(RI)
+     A  19
+     AO 02                                  DSPATR(PC)
+     A  11 19                               ERRMSG('*** Either Item Number or A-
+     A                                      lpha Search is Required.   Press Re-
+     A                                      set')
+     A  12 19                               ERRMSG('*** This Item Already on Fi-
+     A                                      le.    Press Reset')
+     A  13 19                               ERRMSG('*** This Item Is Not on Fil-
+     A                                      e.     Press Reset')
+     A  14 19                               ERRMSG('*** Item is Deleted.       -
+     A                                                          Press Reset')
+     A  15 19                               ERRMSG('*** Cannot Reactivate, Item-
+     A                                       is Not Deleted.         Press Rese-
+     A                                      t')
+     A  16 19                               ERRMSG('*** Cannot Delete, Item Has-
+     A                                       an Quantity on Hand.    Press Rese-
+     A                                      t')
+     A  17 19                               ERRMSG('*** A CUT or SED Already on-
+     A                                       File.    Press Reset')
+     A                                  6 28'Size?'
+     A            VSIZE          3A  B  6 44DSPATR(CS)
+     A  55                                  DSPATR(RI)
+     A  55                                  DSPATR(PC)
+     A  55                                  ERRMSG('*** This Is Not a Valid Siz-
+     A                                      e Code.    Press Reset')
+     A                                  7  2' A=Add        '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8  2' C=Change     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8 28'Search By'
+     A                                  9  2' D=Delete     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9 28'Product Class?'
+     A            VPC            2A  B  9 44DSPATR(CS)
+     A                                 10  2' R=Reactivate '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            PCDESC        30A  O 10 44
+     A                                 11  2' I=Inquiry    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12 28'Location?'
+     A            VWHSE          3A  B 12 44DSPATR(CS)
+     A  56                                  DSPATR(RI)
+     A  56                                  DSPATR(PC)
+     A  56                                  ERRMSG('*** This Is Not a Valid Loc-
+     A                                      ation Code.   Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process        F3/F7=E-
+     A                                      nd of Job       F13=Print Inventory-
+     A                                       List    '
+     A                                      DSPATR(UL)
+     A                                 12  2' P=Purge      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5 61'Use *NEW to find'
+     A                                      COLOR(PNK)
+     A                                  6 61'unused Item Numbers'
+     A                                      COLOR(PNK)
+     A          R SCRNB
+     A*%%TS  SD  20170725  130542  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Item Data 1 - Desc, Alpha, Pr-
+     A                                      ice, etc.')
+     A                                      CF06
+     A                                      CF07
+     A                                      CF09
+     A                                      CF14
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HBIN)
+     A  *DS3                                HLPARA(04 052 04 057)
+     A  *DS4                                HLPARA(04 052 04 057)
+     A          H                           HLPRCD(HCO)
+     A  *DS3                                HLPARA(04 071 04 072)
+     A  *DS4                                HLPARA(04 071 04 072)
+     A          H                           HLPRCD(HGENUS)
+     A  *DS3                                HLPARA(06 014 06 043)
+     A  *DS4                                HLPARA(06 014 06 043)
+     A          H                           HLPRCD(HBALPHA)
+     A  *DS3                                HLPARA(06 064 06 078)
+     A  *DS4                                HLPARA(06 064 06 078)
+     A          H                           HLPRCD(HVAR)
+     A  *DS3                                HLPARA(08 014 08 043)
+     A  *DS4                                HLPARA(07 014 07 043)
+     A          H                           HLPRCD(HSPEC)
+     A  *DS3                                HLPARA(07 014 07 043)
+     A  *DS4                                HLPARA(08 014 08 043)
+     A          H                           HLPRCD(HNAME)
+     A  *DS3                                HLPARA(09 014 09 043)
+     A  *DS4                                HLPARA(09 014 09 043)
+     A          H                           HLPRCD(HUM1)
+     A  *DS3                                HLPARA(11 015 11 016)
+     A  *DS4                                HLPARA(11 015 11 016)
+     A          H                           HLPRCD(HUM2)
+     A  *DS3                                HLPARA(11 024 11 075)
+     A  *DS4                                HLPARA(11 024 11 075)
+     A          H                           HLPRCD(HPRICE)
+     A  *DS3                                HLPARA(14 007 18 045)
+     A  *DS4                                HLPARA(14 007 18 045)
+     A          H                           HLPRCD(HQTYB)
+     A  *DS3                                HLPARA(14 058 18 077)
+     A  *DS4                                HLPARA(14 058 18 077)
+     A          H                           HLPRCD(HPUM)
+     A  *DS3                                HLPARA(20 017 20 025)
+     A  *DS4                                HLPARA(20 017 20 018)
+     A          H                           HLPRCD(HAVCST)
+     A  *DS3                                HLPARA(20 037 20 046)
+     A  *DS4                                HLPARA(20 037 20 046)
+     A          H                           HLPRCD(HLSCST)
+     A  *DS3                                HLPARA(20 063 20 072)
+     A  *DS4                                HLPARA(20 063 20 072)
+     A                                  1  2'ICV010B'
+     A                                      COLOR(BLU)
+     A                                  1 28' Item Master Maintenance '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  4  2'Item:'
+     A            IMITEM        12A  O  4  8DSPATR(HI)
+     A                                  4 22'Size:'
+     A            IMSIZE         3A  O  4 28DSPATR(HI)
+     A                                  4 34'Loc:'
+     A            IMWHSE         3A  O  4 39DSPATR(HI)
+     A                                  4 46'Area:'
+     A            IMBIN#         6A  B  4 52DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                      CHECK(RB)
+     A                                  4 61'Company:'
+     A            IMCOMP         2Y 0B  4 71EDTCDE(3)
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Company Number -
+     A                                      Entered.   Press Reset')
+     A            DES1           8A  O  6  2
+     A            IMDES1        30A  B  6 14DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A  21                                  ERRMSG('*** Genus is Required.     -
+     A                                        Press Reset')
+     A N74N75
+     AO 21                                  DSPATR(PC)
+     A                                  6 48'Alpha Search:'
+     A            IMLOOK        15A  B  6 63DSPATR(CS)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Alpha Search is Require-
+     A                                      d.     Press Reset')
+     A            DES2           8A  O  7  2
+     A            IMDES2        30A  B  7 14DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      CHECK(LC)
+     A                                      FLDCSRPRG(IMDES3)
+     A            DES3           8A  O  8  2
+     A            IMDES3        30A  B  8 14DSPATR(CS)
+     A                                      CHECK(LC)
+     A            VIEWIOP        2Y 0B 10  2PSHBTNFLD
+     A  72                                  PSHBTNCHC(1 'VIEW ITEM PIC')
+     A N72                                  PSHBTNCHC(2 '+ADD ITEM PIC')
+     A            VIEWISP        2Y 0B  3  2PSHBTNFLD
+     A  73                                  PSHBTNCHC(1 'VIEW ITEM-SIZE PIC')
+     A N73                                  PSHBTNCHC(2 '+ADD ITEM-SIZE PIC')
+     A            DES4           8A  O  9  2
+     A            IMDES4        30A  B  9 14CHECK(LC)
+     A                                      DSPATR(CS)
+     A                                      FLDCSRPRG(ISCODE)
+     A                                 10 48'U/M  1?'
+     A            IMPUOM         2A  B 10 56DSPATR(CS)
+     A  24                                  DSPATR(RI)
+     A  24                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Unit of Measure #1 is R-
+     A                                      equired.  Press Reset')
+     A  25                                  ERRMSG('*** This Is Not a Valid Uni-
+     A                                      t of Measure.    Press Reset')
+     A                                 11 53'2?'
+     A            IMSUOM         2A  B 11 56DSPATR(CS)
+     A  26                                  DSPATR(RI)
+     A  26                                  DSPATR(PC)
+     A  26                                  ERRMSG('*** This Is Not a Valid Uni-
+     A                                      t of Measure.    Press Reset')
+     A                                 12 53'3?'
+     A            IM3UOM         2A  B 12 56DSPATR(CS)
+     A  27                                  DSPATR(RI)
+     A  27                                  DSPATR(PC)
+     A  27                                  ERRMSG('*** This Is Not a Valid Uni-
+     A                                      t of Measure.    Press Reset')
+     A                                      FLDCSRPRG(IMBPUM)
+     A            IMLBS#        11Y 4B 10 66DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Multiplier 1 Is Require-
+     A                                      d If U/M 2 Is Entered.      Press R-
+     A                                      eset')
+     A            IMMUL2         7Y 4B 11 70DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A  52                                  ERRMSG('*** Multiplier 2 Is Require-
+     A                                      d If U/M 3 Is Entered.      Press R-
+     A                                      eset')
+     A                                      FLDCSRPRG(IM3UOM)
+     A                                 14  5'Price U/M 1'
+     A                                      DSPATR(UL)
+     A                                 14 19'Price U/M 2'
+     A                                      DSPATR(UL)
+     A                                 14 33'Price U/M 3'
+     A                                      DSPATR(UL)
+     A                                 14 72'Disc. %'
+     A                                      DSPATR(UL)
+     A                                 15  2'1.'
+     A            IMSEL1         9Y 4B 15  6DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IMBCS1         9Y 4B 15 20DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IM3CS1         9Y 4B 15 34DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 15 54'1.'
+     A            IMQLB1        11Y 1B 15 57DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IMDIS1         4Y 2B 15 73DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 16  2'2.'
+     A            IMSEL2         9Y 4B 16  6DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IMBCS2         9Y 4B 16 20DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IM3CS2         9Y 4B 16 34DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 16 54'2.'
+     A            IMQLB2        11Y 1B 16 57DSPATR(CS)
+     A                                      CHECK(RB)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** Quantity Must Be Ascend-
+     A                                      ing.      Press Reset')
+     A                                      EDTCDE(4)
+     A            IMDIS2         4Y 2B 16 73DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 17  2'3.'
+     A            IMSEL3         9Y 4B 17  6DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IMBCS3         9Y 4B 17 20DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IM3CS3         9Y 4B 17 34DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 17 54'3.'
+     A            IMQLB3        11Y 1B 17 57DSPATR(CS)
+     A                                      CHECK(RB)
+     A  61                                  DSPATR(RI)
+     A  61                                  DSPATR(PC)
+     A  61                                  ERRMSG('*** Quantity Must Be Ascend-
+     A                                      ing.      Press Reset')
+     A                                      EDTCDE(4)
+     A            IMDIS3         4Y 2B 17 73DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 18  2'4.'
+     A            IMSEL4         9Y 4B 18  6DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IMBCS4         9Y 4B 18 20DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IM3CS4         9Y 4B 18 34DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 18 54'4.'
+     A            IMQLB4        11Y 1B 18 57DSPATR(CS)
+     A                                      CHECK(RB)
+     A  62                                  DSPATR(RI)
+     A  62                                  DSPATR(PC)
+     A  62                                  ERRMSG('*** Quantity Must Be Ascend-
+     A                                      ing.      Press Reset')
+     A                                      EDTCDE(4)
+     A            IMDIS4         4Y 2B 18 73DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 19  2'5.'
+     A            IMSEL5         9Y 4B 19  6DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IMBCS5         9Y 4B 19 20DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A            IM3CS5         9Y 4B 19 34DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 19 54'5.'
+     A            IMQLB5        11Y 1B 19 57DSPATR(CS)
+     A                                      CHECK(RB)
+     A  63                                  DSPATR(RI)
+     A  63                                  DSPATR(PC)
+     A  63                                  ERRMSG('*** Quantity Must Be Ascend-
+     A                                      ing.      Press Reset')
+     A                                      EDTCDE(4)
+     A            IMDIS5         4Y 2B 19 73DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 12 62'Pricing U/M?'
+     A            IMBPUM         2A  B 12 76DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  28                                  DSPATR(RI)
+     A  28                                  DSPATR(PC)
+     A  28                                  ERRMSG('*** This Is Not a Valid Uni-
+     A                                      t of Measure.    Press Reset')
+     A                                      FLDCSRPRG(IMLIST)
+     A                                 21 55'Average Cost:'
+     A            IMUCST         9Y 4B 21 69DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 22 58'Last Cost:'
+     A            IMLCST         9Y 4B 22 69DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 21 27'Order List Item:'
+     A            IMORDD         1A  B 21 45
+     A  28                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  28                                  DSPATR(PC)
+     A  28                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 22 22'Standing Order Price:'
+     A            IMSOPR         9Y 4B 22 45DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                 12  5'Price List Code?'
+     A            IMLIST         4A  B 12 23DSPATR(CS)
+     A  80                                  DSPATR(RI)
+     A  80
+     AO 75                                  DSPATR(PC)
+     A  80                                  ERRMSG('*** Enter A Valid List Code-
+     A                                      .    Press Reset')
+     A                                      CHECK(RB)
+     A                                      FLDCSRPRG(IMSEL1)
+     A                                  9 48'Unit of Measure:              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14 54'Quantity Breaks'
+     A                                      DSPATR(UL)
+     A                                 10 60'Conv.'
+     A                                 11 60'Factors:'
+     A            GETPRICES      2Y 0B 12 31PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>GET PRICING')
+     A                                  7 48'Series Cross Ref?'
+     A            SEDESC        30A  O  8 48COLOR(BLU)
+     A            ISCODE        10A  B  7 68
+     A  67                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  67
+     AO 74                                  DSPATR(PC)
+     A  67                                  ERRMSG('*** Invalid Series Entered.-
+     A                                             Press RESET')
+     A                                      FLDCSRPRG(IMPUOM)
+     A                                 11  2'Item Pricing Information:         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5 48'Alpha and Series Info:        '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5  2'Item Description:                 -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13 48'Quantity Discount Info:       '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'         Miscellaneous:'
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'Enter'
+     A                                      DSPATR(HI)
+     A                                 23  9'to Process'
+     A                                      COLOR(BLU)
+     A                                 23 23'F6'
+     A                                      DSPATR(HI)
+     A                                 23 26'=Restart'
+     A                                      COLOR(BLU)
+     A                                 23 38'F14'
+     A                                      DSPATR(HI)
+     A                                 23 42'=W/H Qty. On Hand'
+     A                                      COLOR(BLU)
+     A                                 23 61'F3/F7'
+     A                                      DSPATR(HI)
+     A                                 23 67'=Exit'
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A            LCDESC    R        O 13  9REFFLD(RLISTCD/LCDESC *LIBL/FLISTCD)
+     A                                      COLOR(BLU)
+     A            S_IDDATE  R        B  2 60REFFLD(RMINVTDESC/IDDATE *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      COLOR(TRQ)
+     A                                      DATFMT(*USA)
+     A                                      TEXT('Item Creation Date')
+     A                                  2 51'Created:'
+     A            NOTES          2Y 0B  3 39PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>NOTES')
+     A          R SCRNC
+     A*%%TS  SD  20081215  101558  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Item Data 2 - Class, Vend, G/-
+     A                                      L, List, etc.')
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      CF09
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF04
+     A                                      CF05
+     A                                      CF10
+     A                                      CF11
+     A                                      CF12
+     A                                      CF14
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HTAX)
+     A  *DS3                                HLPARA(15 012 15 017)
+     A  *DS4                                HLPARA(15 012 15 017)
+     A          H                           HLPRCD(HBACK)
+     A  *DS3                                HLPARA(13 067 13 067)
+     A  *DS4                                HLPARA(13 067 13 067)
+     A          H                           HLPRCD(HVENDI)
+     A  *DS3                                HLPARA(15 051 15 080)
+     A  *DS4                                HLPARA(15 051 15 080)
+     A          H                           HLPRCD(HROYAL)
+     A  *DS3                                HLPARA(15 029 15 036)
+     A  *DS4                                HLPARA(15 029 15 036)
+     A          H                           HLPRCD(HTAX)
+     A  *DS3                                HLPARA(09 024 09 062)
+     A  *DS4                                HLPARA(09 024 09 062)
+     A          H                           HLPRCD(HSLSHIS)
+     A  *DS3                                HLPARA(12 034 12 034)
+     A  *DS4                                HLPARA(12 034 12 034)
+     A          H                           HLPRCD(HGLSLS)
+     A  *DS3                                HLPARA(17 070 17 078)
+     A  *DS4                                HLPARA(17 070 17 078)
+     A                                  1  2'ICV010C'
+     A                                      COLOR(BLU)
+     A                                  1 28' Item Master Maintenance '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  4  2'Item:'
+     A            IMITEM        12A  O  4  9DSPATR(HI)
+     A                                  4 23'Size:'
+     A            IMSIZE         3A  O  4 30DSPATR(HI)
+     A                                  4 36'Loc:'
+     A            IMWHSE         3A  O  4 42DSPATR(HI)
+     A                                  4 48'Area:'
+     A            IMBIN#         6A  O  4 54DSPATR(HI)
+     A                                  4 63'Company:'
+     A            IMCOMP         2S 0O  4 73DSPATR(HI)
+     A                                  5  2'Desc:'
+     A            DESC          60A  O  5  9DSPATR(HI)
+     A                                  8  2'Product Class?'
+     A            IMPCL1         2A  B  8 19DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter a Valid Product C-
+     A                                      lass.    Press Reset')
+     A                                      FLDCSRPRG(IMCYCD)
+     A                                 10  2'PC2 (Cust/Type)?'
+     A            IMPCL2         2A  B 10 19DSPATR(CS)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Enter a Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                      FLDCSRPRG(IMPCL3)
+     A                                 11  2'PC3 Pricing?'
+     A            IMPCL3         2A  B 11 19DSPATR(CS)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Enter a Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                      FLDCSRPRG(IMLOTC)
+     A                                  7 64'Tax Codes:      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8 64'Item Taxable:'
+     A            IMTXBL         1X  B  8 79DSPATR(CS)
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A  33                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                      FLDCSRPRG(IMTCD1)
+     A                                  9 64'   State Tax:'
+     A            IMTCD1         1X  B  9 79DSPATR(CS)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                      FLDCSRPRG(IMTCD2)
+     A                                 10 64'  County Tax:'
+     A            IMTCD2         1X  B 10 79DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                      FLDCSRPRG(IMTCD3)
+     A                                 11 64'    City Tax:'
+     A            IMTCD3         1X  B 11 79DSPATR(CS)
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                  8 29'Lot Control:'
+     A            IMLOTC         1X  B  8 51DSPATR(CS)
+     A  37                                  DSPATR(RI)
+     A  37                                  DSPATR(PC)
+     A  37                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                      FLDCSRPRG(IMDSHF)
+     A                                 10 29'Print on Price List:'
+     A            IMPRPL         1X  B 10 51DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                      FLDCSRPRG(IMBOOK)
+     A                                  9 29'Detail Sales History:'
+     A            IMDSHF         1X  B  9 51DSPATR(CS)
+     A  39                                  DSPATR(RI)
+     A  39                                  DSPATR(PC)
+     A  39                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                      FLDCSRPRG(IMPRPL)
+     A                                 11 29'Allow Backorder:'
+     A            IMBOOK         1X  B 11 51DSPATR(CS)
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A  42                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press Reset')
+     A                                      FLDCSRPRG(IMTXBL)
+     A                                 14  2'Vendor #:'
+     A            IMVEND         6Y 0B 14 12EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  43                                  DSPATR(RI)
+     A  43                                  DSPATR(PC)
+     A  43                                  ERRMSG('*** This Is Not a Valid Ven-
+     A                                      dor Number.    Press Reset')
+     A                                 14 60'Royalty:'
+     A            IMROYL         7Y 4B 14 70
+     A  65                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  65                                  DSPATR(PC)
+     A  65                                  ERRMSG('*** Royalty Amount Not Allo-
+     A                                      wed if Vendor Number is Blank.    P-
+     A                                      ress Reset')
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      FLDCSRPRG(NEEDTAGS)
+     A                                 15  9'Vend Item:'
+     A            IMVITM        30A  B 15 20DSPATR(CS)
+     A                                      FLDCSRPRG(IMROYL)
+     A                                 18  2'Reorder Point:'
+     A            IMQEOQ        11Y 1B 18 24DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      FLDCSRPRG(IMQREO)
+     A                                 18 71'G/L Accts'
+     A                                      DSPATR(UL)
+     A                                 19 45'Merchandise Sales'
+     A            IMMERC         8Y 0B 19 71EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  57                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A  57                                  DSPATR(RI)
+     A  57                                  DSPATR(PC)
+     A                                      FLDCSRPRG(IMCOGS)
+     A                                 19  2'Quantity:'
+     A            IMQREO        11Y 1B 19 24DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      FLDCSRPRG(IMLEAD)
+     A                                 20 45'Cost of Goods    '
+     A            IMCOGS         8Y 0B 20 71EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  58                                  DSPATR(RI)
+     A  58                                  DSPATR(PC)
+     A  58                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                      FLDCSRPRG(IMINVN)
+     A                                 20  2'Lead Time Days:'
+     A            IMLEAD         3Y 0B 20 33DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      FLDCSRPRG(IMCUBE)
+     A                                 21 45'Inventory        '
+     A            IMINVN         8Y 0B 21 71EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  59                                  DSPATR(RI)
+     A  59                                  DSPATR(PC)
+     A  59                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  9  2'Cycle Count:'
+     A            IMCYCD         2A  B  9 19DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      FLDCSRPRG(IMPCL2)
+     A                                 21  2'Sq Ft Per Unit of Measure:'
+     A            IMCUBE         5Y 2B 21 30DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                      FLDCSRPRG(IMMERC)
+     A                                 15 60'Need Tags:'
+     A            NEEDTAGS       1A  B 15 77DSPATR(CS)
+     A  68                                  DSPATR(RI)
+     A  68                                  ERRMSG('*** NEED TAGS must be (Y)es-
+     A                                       or (N)o.  Re-enter.              P-
+     A                                      ress Reset')
+     A            VMNAME    R        B 14 20REFFLD(RMVEND/VMNAME *LIBL/FMVEND)
+     A                                      COLOR(YLW)
+     A                                      FLDCSRPRG(IMVITM)
+     A                                 13  2'Vendor Information:               -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19 63'('
+     A                                      COLOR(BLU)
+     A                                 19 65'F10'
+     A                                      DSPATR(HI)
+     A                                 20 63'('
+     A                                      COLOR(BLU)
+     A                                 20 65'F11'
+     A                                      DSPATR(HI)
+     A                                 21 63'('
+     A                                      COLOR(BLU)
+     A                                 21 65'F12'
+     A                                      DSPATR(HI)
+     A                                 19 69')'
+     A                                      COLOR(BLU)
+     A                                 20 69')'
+     A                                      COLOR(BLU)
+     A                                 21 69')'
+     A                                      COLOR(BLU)
+     A                                 17 45'Accounting Setup:                 -
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'Warehousing Information:          '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7  2'P/C Information:   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7 29'Item Details:          '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18 63'Lookup'
+     A                                      DSPATR(UL)
+     A                                 18 45'Category'
+     A                                      DSPATR(UL)
+     A                                 24  1'Enter'
+     A                                      DSPATR(HI)
+     A                                 24  7'=Process'
+     A                                      COLOR(BLU)
+     A                                 24 16'F2'
+     A                                      DSPATR(HI)
+     A                                 24 19'=Prev Scrn'
+     A                                      COLOR(BLU)
+     A                                 24 30'F4'
+     A                                      DSPATR(HI)
+     A                                 24 33'=Vendor Inq.'
+     A                                      COLOR(BLU)
+     A                                 24 46'F6'
+     A                                      DSPATR(HI)
+     A                                 24 49'=Restart'
+     A                                      COLOR(BLU)
+     A                                 24 58'F14'
+     A                                      DSPATR(HI)
+     A                                 24 62'=Qty/Hand'
+     A                                      COLOR(BLU)
+     A                                 24 72'F3'
+     A                                      DSPATR(HI)
+     A                                 24 75'=Exit'
+     A                                      COLOR(BLU)
+     A          R SCRNCLOT
+     A*%%TS  SD  20110126  153946  BILLB       REL-V5R4M0  5722-WDS
+     A                                      WINDOW(9 35 10 30)
+     A                                  2  2'The Size Code Category is:'
+     A            SCCATG    R        O  4 13REFFLD(RMSIZC/SCCATG *LIBL/FMSIZC)
+     A                                      COLOR(PNK)
+     A                                  6  2'The Lot Control Flag Should'
+     A                                  7  2'Normally be Set To'
+     A            SHOULD         1   O  7 21COLOR(PNK)
+     A                                  9  8'Lot Control:'
+     A            IMLOTC    R        B  9 21REFFLD(RMINVT/IMLOTC *LIBL/FMINVT)
+     A                                      COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A          R SCRND
+     A*%%TS  SD  20090519  095632  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Item Data 3 - Germ, Sow, Seri-
+     A                                      es, etc.')
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      CF09
+     A                                      CF14
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF11
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HSQFT)
+     A  *DS3                                HLPARA(07 036 07 041)
+     A  *DS4                                HLPARA(07 036 07 041)
+     A          H                           HLPRCD(HWKSAV)
+     A  *DS3                                HLPARA(18 073 18 074)
+     A  *DS4                                HLPARA(18 073 18 074)
+     A          H                           HLPRCD(HFACT)
+     A  *DS3                                HLPARA(18 036 18 037)
+     A  *DS4                                HLPARA(18 036 18 037)
+     A                                  1  2'ICV010D'
+     A                                      COLOR(BLU)
+     A                                  1 14'Help'
+     A                                      COLOR(YLW)
+     A                                  1 28' Item Master Maintenance '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  4  2'Item:'
+     A            IMITEM        12A  O  4  9DSPATR(HI)
+     A                                  4 23'Size:'
+     A            IMSIZE         3A  O  4 30DSPATR(HI)
+     A                                  4 36'Loc:'
+     A            IMWHSE         3A  O  4 42DSPATR(HI)
+     A                                  4 48'Bin:'
+     A            IMBIN#         6A  O  4 54DSPATR(HI)
+     A                                  4 63'Company:'
+     A            IMCOMP         2S 0O  4 73DSPATR(HI)
+     A                                  5  2'Genus:'
+     A            IMDES1        30A  O  5  9DSPATR(HI)
+     A                                  5 42'Species:'
+     A            IMDES2        30A  O  5 51DSPATR(HI)
+     A                                  7  2'Production Windows:               -
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8  7'Beg Week#'
+     A                                      DSPATR(UL)
+     A                                  8 19'End Week#'
+     A                                      DSPATR(UL)
+     A                                  8 31'Weeks'
+     A                                      DSPATR(UL)
+     A                                  9  4'1.'
+     A            IMBD1          4Y 0B  9  9EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10 15                               ERRMSG('*** Both Dates or Week #s A-
+     A                                      re Required.     Press Reset')
+     A  10 13                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMED1          4Y 0B  9 21EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  11                                  DSPATR(PC)
+     A  11                                  DSPATR(RI)
+     A  11 14                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMWG1          2Y 0B  9 33EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A  12                                  ERRMSG('*** # Of Weeks Is Required.-
+     A                                          Press Reset')
+     A                                      FLDCSRPRG(IMBD2)
+     A                                 10  4'2.'
+     A            IMBD2          4Y 0B 10  9EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20 25                               ERRMSG('*** Both Dates or Week #s A-
+     A                                      re Required.     Press Reset')
+     A  20 23                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMED2          4Y 0B 10 21EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A  21                                  DSPATR(RI)
+     A  21 24                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMWG2          2Y 0B 10 33EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** # Of Weeks Is Required.-
+     A                                          Press Reset')
+     A                                      FLDCSRPRG(IMBD3)
+     A                                 11  4'3.'
+     A            IMBD3          4Y 0B 11  9EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30 35                               ERRMSG('*** Both Dates or Week #s A-
+     A                                      re Required.     Press Reset')
+     A  30 33                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMED3          4Y 0B 11 21EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  31                                  DSPATR(PC)
+     A  31                                  DSPATR(RI)
+     A  31 34                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMWG3          2Y 0B 11 33EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** # Of Weeks Is Required.-
+     A                                          Press Reset')
+     A                                      FLDCSRPRG(IMBD4)
+     A                                 12  4'4.'
+     A            IMBD4          4Y 0B 12  9EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40 45                               ERRMSG('*** Both Dates or Week #s A-
+     A                                      re Required.     Press Reset')
+     A  40 43                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMED4          4Y 0B 12 21EDTWRD('  /  ')
+     A                                      DSPATR(CS)
+     A  41                                  DSPATR(PC)
+     A  41                                  DSPATR(RI)
+     A  41 44                               ERRMSG('*** Invalid Date or Week #.-
+     A                                                 Press RESET')
+     A            IMWG4          2Y 0B 12 33EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A  42                                  ERRMSG('*** # Of Weeks Is Required.-
+     A                                          Press Reset')
+     A                                      FLDCSRPRG(UPCDES1)
+     A                                 14  2'Production Parameters:            -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            IMSOWC         1A  B 15 33DSPATR(CS)
+     A                                      VALUES('K' ' ')
+     A                                 17 39'Seeds/Cuts Per Cell:'
+     A            IM#SED         2Y 0B 17 68DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                 17 11'Seeder & Orifice:'
+     A            IMTRYC         1A  B 17 29DSPATR(CS)
+     A  47                                  DSPATR(RI)
+     A  47                                  DSPATR(PC)
+     A                                      VALUES('R' 'D' ' ')
+     A            IMALTP         1A  B 17 33DSPATR(CS)
+     A  47                                  DSPATR(RI)
+     A  47                                  DSPATR(PC)
+     A                                 16 11'Type of Sowing?'
+     A            IMTPSW         1A  B 16 33DSPATR(CS)
+     A  16                                  DSPATR(RI)
+     A  16                                  DSPATR(PC)
+     A  16                                  ERRMSG('*** Invalid Sowing Type Cod-
+     A                                      e Entered.  Press RESET')
+     A                                 19 11'Location Code?'
+     A            IMLOC          2A  B 19 32DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A                                 15 39'Mix Number?'
+     A            IMMSCX         2A  B 15 68DSPATR(CS)
+     A  46                                  DSPATR(RI)
+     A  46                                  DSPATR(PC)
+     A                                 22 11'Factor Table ID?'
+     A            IMFTAB         2A  B 22 28DSPATR(CS)
+     A  48                                  DSPATR(RI)
+     A  48                                  DSPATR(PC)
+     A  48                                  ERRMSG('*** This is not a Valid Tab-
+     A                                      le ID.     Press Reset')
+     A                                 19 39'Weeks Avail After Ready:'
+     A            IMWKAV         2Y 0B 19 68DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                 16 39'Transplant/Sow From Size?'
+     A            IMFRSZ         3A  B 16 67DSPATR(CS)
+     A  81                                  DSPATR(RI)
+     A  81                                  DSPATR(PC)
+     A  81                                  ERRMSG('*** Enter A Valid Size Code-
+     A                                      .     Press Reset')
+     A                                 20 11'Override Saleable Cells:'
+     A            OVSALE         5Y 0B 20 37TEXT('Override Salable Cells /Flat')
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                 20 43'( Default is'
+     A                                      COLOR(BLU)
+     A                                 20 62'/Flat )'
+     A                                      COLOR(BLU)
+     A            SZSALE         5Y 0O 20 56TEXT('Override Salable Cells /Flat')
+     A                                      EDTCDE(Z)
+     A                                      COLOR(BLU)
+     A            IMMULT         7Y 4B 22 46DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 22 34'Over SOW %:'
+     A                                 15 11'Kube Pak Only ( K )'
+     A                                 22 56'(Use 7% if unknown)'
+     A                                 24  2'F11'
+     A                                      DSPATR(HI)
+     A                                 24  6'=Website Desc.'
+     A                                      COLOR(BLU)
+     A                                 24 22'F2'
+     A                                      DSPATR(HI)
+     A                                 24 25'=Prev. Scrn'
+     A                                      COLOR(BLU)
+     A                                 24 38'F6'
+     A                                      DSPATR(HI)
+     A                                 24 41'=Restart'
+     A                                      COLOR(BLU)
+     A                                 24 51'F14'
+     A                                      DSPATR(HI)
+     A                                 24 55'=Qty. On Hand'
+     A                                      COLOR(BLU)
+     A                                 24 70'F3/F7'
+     A                                      DSPATR(HI)
+     A                                 24 76'=EOJ'
+     A                                      COLOR(BLU)
+     A                                 21  2'Anticipated Machine and Germinatio-
+     A                                      n Losses:                          -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            TBLONGSAO R        O 18 28REFFLD(TBMASTR/TBLONG *LIBL/XATABL)
+     A                                      COLOR(PNK)
+     A                                 17 31'?'
+     A                                  7 43'UPC/SKU Information               -
+     A                                         '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            UPCCODE   R        O  8 55REFFLD(RMUPC/UPCCODE *LIBL/FMUPC)
+     A                                      EDTWRD(' -     -     - ')
+     A                                      DSPATR(HI)
+     A                                  8 44'UPC Code:'
+     A                                  9 44'Item SKU:'
+     A            UPCSKU#   R        O  9 55REFFLD(RMUPC/UPCSKU# *LIBL/FMUPC)
+     A                                      DSPATR(HI)
+     A                                 10 44'UPC Desc:'
+     A            UPCDES1   R        B 10 54REFFLD(RMUPC/UPCDES1 *LIBL/FMUPC)
+     A                                      COLOR(TRQ)
+     A                                      FLDCSRPRG(UPCDES2)
+     A            UPCDES2   R        B 11 54REFFLD(RMUPC/UPCDES2 *LIBL/FMUPC)
+     A                                      COLOR(TRQ)
+     A                                      FLDCSRPRG(UPCKPIN)
+     A                                 12 44'Private UPC:'
+     A            UPCKPIN   R        B 12 57REFFLD(RMUPC/UPCKPIN *LIBL/FMUPC)
+     A                                      COLOR(TRQ)
+     A                                 12 60'(If desc fits on one'
+     A                                      COLOR(PNK)
+     A                                 13 61'line, use bottom )'
+     A                                      COLOR(PNK)
+     A          R SCRNE
+     A*%%TS  SD  20071119  123803  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('WEB DESCRIPTIONS 1')
+     A                                      CF02
+     A                                      CF06
+     A                                      CF11
+     A                                      CLEAR
+     A                                      HOME
+     A                                      ENTFLDATR((*COLOR YLW))
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICV010E'
+     A                                  1 28' Item Master Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Item:'
+     A            IMITEM        12A  O  4  9DSPATR(HI)
+     A                                  4 23'Size:'
+     A            IMSIZE         3A  O  4 30DSPATR(HI)
+     A                                  4 36'Loc:'
+     A            IMWHSE         3A  O  4 42DSPATR(HI)
+     A                                  4 48'Bin:'
+     A            IMBIN#         6A  O  4 54DSPATR(HI)
+     A                                  4 63'Company:'
+     A            IMCOMP         2S 0O  4 73DSPATR(HI)
+     A                                  5  2'Genus:'
+     A            IMDES1        30A  O  5  9DSPATR(HI)
+     A                                  5 42'Species:'
+     A            IMDES2        30A  O  5 51DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process   F2=Prev. Scrn  -
+     A                                       F6=End Web Descriptions without Sa-
+     A                                      ve       '
+     A                                      DSPATR(UL)
+     A                                  7  2'Name'
+     A            IDNAME    R        B  8  1REFFLD(RMINVTDESC/IDNAME *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                 13  2'Narrative'
+     A            IDNARA    R        B 14  1REFFLD(RMINVTDESC/IDNARA *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                  9  2'Common Name'
+     A            IDCOMN    R        B 10  1REFFLD(RMINVTDESC/IDCOMN *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                 11  2'Botanical Name'
+     A            IDBOTN    R        B 12  1REFFLD(RMINVTDESC/IDBOTN *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      COLOR(YLW)
+     A                                      CHECK(LC)
+     A                                 19  2'Color Description'
+     A            IDCOLR    R        B 20  1REFFLD(RMINVTDESC/IDCOLR *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A          R SCRNF
+     A*%%TS  SD  20071119  120806  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('WEB DESCRIPTIONS 2')
+     A                                      CF02
+     A                                      CF06
+     A                                      CF11
+     A                                      CLEAR
+     A                                      HOME
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICV010F'
+     A                                      COLOR(YLW)
+     A                                  1 28' Item Master Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Item:'
+     A            IMITEM        12A  O  4  9DSPATR(HI)
+     A                                  4 23'Size:'
+     A            IMSIZE         3A  O  4 30DSPATR(HI)
+     A                                  4 36'Loc:'
+     A            IMWHSE         3A  O  4 42DSPATR(HI)
+     A                                  4 48'Bin:'
+     A            IMBIN#         6A  O  4 54DSPATR(HI)
+     A                                  4 63'Company:'
+     A            IMCOMP         2S 0O  4 73DSPATR(HI)
+     A                                  5  2'Genus:'
+     A            IMDES1        30A  O  5  9DSPATR(HI)
+     A                                  5 42'Species:'
+     A            IMDES2        30A  O  5 51DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process   F2=Prev. Scrn  -
+     A                                       F6=End Web Descriptions without Sa-
+     A                                      ve       '
+     A                                      DSPATR(UL)
+     A                                  6  2'Mature Plant Height'
+     A            IDHGHT    R        B  7  1REFFLD(RMINVTDESC/IDHGHT *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A            IDZONF    R        B  8 33REFFLD(RMINVTDESC/IDZONF *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                  8  2'Zones & Desription'
+     A                                  8 27'From:'
+     A                                  8 39'To:'
+     A            IDZONT    R        B  8 43REFFLD(RMINVTDESC/IDZONT *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A            IDHARD    R        B  9  1REFFLD(RMINVTDESC/IDHARD *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                 10  2'Bloom Time'
+     A            IDBLOM    R        B 11  1REFFLD(RMINVTDESC/IDBLOM *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      COLOR(YLW)
+     A                                 12  2'Soil Type'
+     A            IDSOIL    R        B 13  1REFFLD(RMINVTDESC/IDSOIL *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                 14  2'Light Requirements'
+     A            IDLGHT    R        B 15  1REFFLD(RMINVTDESC/IDLGHT *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A            IDWATR    R        B 17  1REFFLD(RMINVTDESC/IDWATR *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                 16  2'Watering Requirements'
+     A                                 18  2'Planting Depth'
+     A            IDDPTH    R        B 19  1REFFLD(RMINVTDESC/IDDPTH *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A                                 20  2'Plant Spacing'
+     A            IDSPCE    R        B 21  1REFFLD(RMINVTDESC/IDSPCE *LIBL/FMIN-
+     A                                      VTDESC)
+     A                                      CHECK(LC)
+     A                                      COLOR(YLW)
+     A          R HITEM
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 11  3' Item Number                      -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  3' Enter up to 12 characters and/or -
+     A                                      numbers that will define this item.-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3' location combination.            -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 14  3' This must be a unique number for -
+     A                                      every item in your inventory,      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 17  3' locations - the item number can b-
+     A                                      e repeated for each different size/-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 16  3' If an item will be tracked by eit-
+     A                                      her multiple sizes and/or in multip-
+     A                                      le     '
+     A                                      DSPATR(HI)
+     A                                 20  3' When an existing item number is e-
+     A                                      ntered for a new size and/or locati-
+     A                                      on,    '
+     A                                      DSPATR(HI)
+     A                                 21  3' all of the data in the item numbe-
+     A                                      r file will be maintained such as  -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' description, price etc.  Any data-
+     A                                       can be changed for this particular-
+     A                                       item. '
+     A                                      DSPATR(HI)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HSIZE
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 13  3' Size                             -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3' Some of your inventory may come i-
+     A                                      n multiple sizes.  Inventory lets  -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3' you track this material by size, -
+     A                                      while maintaining the data that is -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' The size code is useful with spac-
+     A                                      e allocation, shipping etc.        -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 17  3' constant about that item.        -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' If you enter a size code, it must-
+     A                                       have been defined in the Size Code-
+     A                                       Master'
+     A                                      DSPATR(HI)
+     A                                 22  3' File  -  #2 on the Inventory Mast-
+     A                                      er Files Menu.                     -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HALPHA
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 14  3' Alpha Search                     -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 16  3' To assist you in locating an item-
+     A                                       when you do not know the item numb-
+     A                                      er,    '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 17  3' you can enter up to 15 characters-
+     A                                       to describe this item.            -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' alpha search field starting with -
+     A                                      the alpha search you enter here.   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' If you locate the item you want, -
+     A                                      just enter the line number for that-
+     A                                       item. '
+     A                                      DSPATR(HI)
+     A                                 19  3' Another screen will display listi-
+     A                                      ng your items alphabetically by the-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HLOC
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 12  3' Location                         -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 14  3' Some companies have multiple loca-
+     A                                      tions, warehouses, barns, etc.  Loc-
+     A                                      ation  '
+     A                                      DSPATR(HI)
+     A                                 19  3' is maintained for the new locatio-
+     A                                      n.  This can be changed.           -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3' code lets you track inventory by -
+     A                                      location.  The same item may be gro-
+     A                                      wn or  '
+     A                                      DSPATR(HI)
+     A                                 18  3' When a new location is entered fo-
+     A                                      r an item, the data for that item n-
+     A                                      umber  '
+     A                                      DSPATR(HI)
+     A                                 16  3' stored at multiple locations.    -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' If you enter a location code, it -
+     A                                      must have been defined in the Locat-
+     A                                      ion    '
+     A                                      DSPATR(HI)
+     A                                 22  3' Master File  -  #4 on the Invento-
+     A                                      ry Master Files Menu.              -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HBIN
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' Area                             -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' If you have defined areas of your-
+     A                                       locations, you can enter a code to-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' define that area where this item -
+     A                                      number can be found.               -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' Only one area can be entered per -
+     A                                      item/size/location combination.    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HCO
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' Company Number                   -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' Enter the company number that sel-
+     A                                      ls this item number.  This item can-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' only be sold on orders entered fo-
+     A                                      r this company.                    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' When adding a new item, this defa-
+     A                                      ults to company #01.               -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HGENUS
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 15  3' Item Description Line 1          -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 17  3' Enter up to 30 characters that de-
+     A                                      scribes the genus of this plant.   -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' appropriate description.         -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3' If Genus does not apply, i.e. thi-
+     A                                      s item is a pot, cover etc. enter t-
+     A                                      he     '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' Only upper case letters can be us-
+     A                                      ed in this description.            -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HBALPHA
+     A*%%TS  SD  19990406  064930  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 19  3' Alpha Search                     -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  3' To assist you in locating an item-
+     A                                       when you do not know the item numb-
+     A                                      er,    '
+     A                                      DSPATR(HI)
+     A                                 22  3' you can enter up to 15 characters-
+     A                                       to describe this item.            -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HVAR
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Item Description Line 2          -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' Enter a second line of descriptio-
+     A                                      n, if needed.                      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' Upper and/or lower case letters c-
+     A                                      an be used in this description.    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HSPEC
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 16  3' Common Name                      -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3' Enter up to 30 characters that de-
+     A                                      scribes the common name of this pla-
+     A                                      nt.    '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' If Common Name does not apply, en-
+     A                                      ter a fourth line of description if-
+     A                                       needed.'
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' Upper and/or lower case letters c-
+     A                                      an be used in this description.    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HNAME
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 16  3' Item Description Line 3          -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3' Enter up to 30 characters that de-
+     A                                      scribes the species of this plant. -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' If Species does not apply, enter -
+     A                                      a third line of description if need-
+     A                                      ed.    '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' Upper and/or lower case letters c-
+     A                                      an be used in this desription.     -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HUM1
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 12  3' Unit of Measure #1               -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 14  3' Enter the unit of measure that is-
+     A                                       most often used for this item, for-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' user documentation for a complete-
+     A                                       description.                      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3' example EA for each.             -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3' usually be non plant material, su-
+     A                                      ch as pots, covers etc.  refer to t-
+     A                                      he     '
+     A                                      DSPATR(HI)
+     A                                 21  3' This unit of measure must have be-
+     A                                      en defined in the Unit of Measure M-
+     A                                      aster  '
+     A                                      DSPATR(HI)
+     A                                 17  3' If you maintain your inventory in-
+     A                                       multiple units of measure, which w-
+     A                                      ould   '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' File - #6 on the Company Master F-
+     A                                      iles Menu.                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HUM2
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 14  3' Units of Measure #2 & #3 / Multip-
+     A                                      liers                          Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 16  3' Units of measure #2 and #3 allow -
+     A                                      you to track intentory items stocke-
+     A                                      d and/ '
+     A                                      DSPATR(HI)
+     A                                 20  3' The multiplier field is required -
+     A                                      if you enter data in the 2nd or 3rd-
+     A                                       unit. '
+     A                                      DSPATR(HI)
+     A                                 17  3' or sold in different units of mea-
+     A                                      sure.  For example, you may stock p-
+     A                                      ots    '
+     A                                      DSPATR(HI)
+     A                                 21  3' The multiplier defines the relati-
+     A                                      onship between units, i.e., 24 each-
+     A                                      s to   '
+     A                                      DSPATR(HI)
+     A                                 18  3' by the carton, but would sell the-
+     A                                      m by either the carton on by the ea-
+     A                                      ch.    '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3' a carton.  Refer to the user docu-
+     A                                      mentation for a complete descriptio-
+     A                                      n.     '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HPRICE
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 16  2'   Pricing                        -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'   You can enter up to 5 prices fo-
+     A                                      r each unit of measure that you hav-
+     A                                      e entered'
+     A                                      DSPATR(HI)
+     A                                 19  2'   Usually there is a reason for e-
+     A                                      ach price, i.e., price 1 may be the-
+     A                                       price   '
+     A                                      DSPATR(HI)
+     A                                 20  2'   charged to retailers, price 2 t-
+     A                                      o wholesalers, price 3 to brokers e-
+     A                                      tc.      '
+     A                                      DSPATR(HI)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'   Refer to your documentation for-
+     A                                       a complete explanation of pricing.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HQTYB
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 14  2'  Quantity Breaks                 -
+     A                                                                      Opt-
+     A                                      ional    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'  You can allow customers to recei-
+     A                                      ve a discount on their standard pri-
+     A                                      ce with  '
+     A                                      DSPATR(HI)
+     A                                 17  2'  quantity discounts.  Quantity 1.-
+     A                                       is the lowest number they must buy-
+     A                                       in      '
+     A                                      DSPATR(HI)
+     A                                 18  2'  order to get the discount.  For -
+     A                                      example: Quantities from 10 - 25 ge-
+     A                                      t a 5%   '
+     A                                      DSPATR(HI)
+     A                                 19  2'  discount and quantities above 25-
+     A                                       get a 10% discount.               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  In this example: Enter 10 in qua-
+     A                                      ntity 1 and 5.00 in discount 1.    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'                   Enter 999999999-
+     A                                      .9 in quantity 2 and 10.00 in disco-
+     A                                      unt 2.   '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HPUM
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  5' Pricing Unit Of Measure          -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  5'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  4'  This is the default unit of meas-
+     A                                      ure that is used by order entry/bil-
+     A                                      ling     '
+     A                                      DSPATR(HI)
+     A                                 21  5' when this item is ordered.  It mu-
+     A                                      st be the same as a unit of measure-
+     A                                       that  '
+     A                                      DSPATR(HI)
+     A                                 22  5' has been defined in unit of measu-
+     A                                      re 1, 2, or 3.                     -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  5'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  5'                          Press En-
+     A                                      ter to Return                      -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HAVCST
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 16  2'  Average Cost                    -
+     A                                                                      Opt-
+     A                                      ional    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'  Is usually used for items that y-
+     A                                      ou purchase for resale.   When an i-
+     A                                      tem is   '
+     A                                      DSPATR(HI)
+     A                                 19  2'  entered for the first time, you -
+     A                                      may enter an average cost.  Now, ev-
+     A                                      ery time '
+     A                                      DSPATR(HI)
+     A                                 20  2'  you enter a receipt for this ite-
+     A                                      m with a cost, this average cost fi-
+     A                                      eld will '
+     A                                      DSPATR(HI)
+     A                                 21  2'  be recalculated.  This is the co-
+     A                                      st field used in TGMS to calculate -
+     A                                      profit-  '
+     A                                      DSPATR(HI)
+     A                                 22  2'  ability in sales and inventory a-
+     A                                      nalysis reports.                   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HLSCST
+     A*%%TS  SD  19990621  061558  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  2'  Last Cost                       -
+     A                                                                      Opt-
+     A                                      ional    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'  Is usually used for items that y-
+     A                                      ou purchase for resale.   When an i-
+     A                                      tem is   '
+     A                                      DSPATR(HI)
+     A                                 20  2'  entered for the first time, you -
+     A                                      may enter a last cost.  Now, every -
+     A                                      time     '
+     A                                      DSPATR(HI)
+     A                                 21  2'  you enter a receipt for this ite-
+     A                                      m with a cost, this last cost field-
+     A                                       will    '
+     A                                      DSPATR(HI)
+     A                                 22  2'  be replaced with the cost of the-
+     A                                       last receipt.                     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R HTAX
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 16  2' Taxes                            -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  2'     If this Item is Tax Exempt - -
+     A                                      Enter Y.  If Taxable - Enter N.    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 21  2' If non-taxable - enter N in each -
+     A                                      taxing body.   Refer to help in Tax-
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  2' Jurisdiction Master File for furt-
+     A                                      her information on tax.            -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  2' If item is taxable enter Y or N f-
+     A                                      or each taxing body, state, count &-
+     A                                       city. '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Retrun                    -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HSLSHIS
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Post Detail Sales History        -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' If an Item is coded Y - sales his-
+     A                                      tory will be maintained for all sal-
+     A                                      es of  '
+     A                                      DSPATR(HI)
+     A                                 21  3' this item by all customers.  If c-
+     A                                      oded N - only sales summary totals -
+     A                                      will be'
+     A                                      DSPATR(HI)
+     A                                 22  3' maintained for this item.   Valid-
+     A                                       entries are Y or N.               -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HBACK
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Allow Backorders                 -
+     A                                                                     Requ-
+     A                                      ired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' During shipment confirmation, can-
+     A                                       you allow unshipped quantities to -
+     A                                      be     '
+     A                                      DSPATR(HI)
+     A                                 21  3' backordered.  If "N" is entered i-
+     A                                      n this field, the quantity balance -
+     A                                      on     '
+     A                                      DSPATR(HI)
+     A                                 22  3' partial shipments must be cancell-
+     A                                      ed.                                -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HVEND
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Vendor Number                    -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' The Vendor Number could be either-
+     A                                       the company from whom you purchase-
+     A                                       this  '
+     A                                      DSPATR(HI)
+     A                                 21  3' item, or the company to whom you -
+     A                                      pay royalties when you sell this it-
+     A                                      em.    '
+     A                                      DSPATR(HI)
+     A                                 22  3' This must be a valid vendor in yo-
+     A                                      ur Vendor Master File.             -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HROYAL
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Royalty Amount                   -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' If you pay a royalty when this it-
+     A                                      em is sold, enter the amount of roy-
+     A                                      alty   '
+     A                                      DSPATR(HI)
+     A                                 21  3' paid per pricing unit of measure.-
+     A                                         If a royalty amount is entered, -
+     A                                      a      '
+     A                                      DSPATR(HI)
+     A                                 22  3' valid vendor number must also be -
+     A                                      entered.                           -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HVENDI
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' Vendor Number Number             -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' If you purchase this item from a -
+     A                                      single vendor, you can enter the ve-
+     A                                      ndors  '
+     A                                      DSPATR(HI)
+     A                                 20  3' number for this item.   If you pr-
+     A                                      int purchase orders in TGMS, this i-
+     A                                      tem    '
+     A                                      DSPATR(HI)
+     A                                 21  3' number will print on the purchase-
+     A                                       order when you order this item fro-
+     A                                      m this '
+     A                                      DSPATR(HI)
+     A                                 22  3' vendor.                          -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HGLSLS
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Merchandise Sales                -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' Enter the G/L revenue account whi-
+     A                                      ch should be posted for sales of th-
+     A                                      is     '
+     A                                      DSPATR(HI)
+     A                                 21  3' item.   If the G/L account number-
+     A                                       is the same as the default account-
+     A                                       number'
+     A                                      DSPATR(HI)
+     A                                 22  3' in your G/L posting defaults for -
+     A                                      Sales - no account needs to be ente-
+     A                                      red.   '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HSQFT
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Square Feet Per Unit of Measure  -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' Defines the total square feet of -
+     A                                      this item for the primary unit of m-
+     A                                      easure.'
+     A                                      DSPATR(HI)
+     A                                 21  3' If the square footage for a flat -
+     A                                      of marigolds is 1.76, enter 1.76.  -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3' This information is used by the s-
+     A                                      pace allocation report.            -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HFACT
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Factor Table ID                  -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' Defines which factor table is ass-
+     A                                      ociated with this item for determin-
+     A                                      ing how '
+     A                                      DSPATR(HI)
+     A                                 21  3' many units need to be sown to get-
+     A                                       the desired quantity of finished p-
+     A                                      lant    '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3' material.  If plant has 100% germ-
+     A                                      ination - enter ** as the factor ta-
+     A                                      ble.    '
+     A                                      DSPATR(HI)
+     A          R HWKSAV
+     A*%%TS  SD  19990616  073127  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' Weeks Available After Ready      -
+     A                                                                     Opti-
+     A                                      onal   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' Defines the number of weeks an it-
+     A                                      em should be able to be sold after -
+     A                                      receipt'
+     A                                      DSPATR(HI)
+     A                                 20  3' into inventory.  The quantity ava-
+     A                                      ilable is affected by this field.  -
+     A                                      If 10  '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' flats of pansys are received on 1-
+     A                                      /1/YY and weeks available is 02, th-
+     A                                      en if  '
+     A                                      DSPATR(HI)
+     A                                 22  3' none are sold and it is now 1/15/-
+     A                                      YY, availability is 0.             -
+     A                                             '
+     A                                      DSPATR(HI)

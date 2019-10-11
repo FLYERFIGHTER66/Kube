@@ -1,0 +1,243 @@
+000100930414      *----------------------------------------------------------      ----
+000200930414      *
+000300960306      *  COPYRIGHT EFD ENTERPRISES INC. 1996
+000400930414      *
+000500930414      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600930414      *       EFD ENTERPRISES INC.   ALL RIGHTS RESERVED.  THE
+000700930414      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDE      RED
+000800930414      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900930414      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXC      EPT
+001000930414      *       BY EXPRESS WRITTEN PERMISSION OF
+001100930414      *       EFD ENTERPRISES INC.  215-643-5352
+001200930414      *
+001300930414      *----------------------------------------------------------      ----
+001400961003      **PROGRAM NAME-------- BIR019
+001500930414      **COMPANY------------- EFD ENTERPRISES INC.
+001600930414      **SYSTEM-------------- TGMS
+001700961003      **DESCRIPTION--------- ENTER/UPDATE USERID
+001800930208      **
+001900930208      *
+002000930208      *    DATE----INIT-------DESCRIPTION
+002100930416      *
+002200990201     FBIR021FM  CF   E             WORKSTN
+002300990201     FFBROKER   UF A E           K DISK
+002400930208      *
+002500970717      ***********************
+002600970717      * PROG DATA STRUCTURE *
+002700970717      ***********************
+002800970717     D                SDS
+002900970717      ** PROGRAM NAME
+003000970717     D  PROGID                 1     10                                         ARC380
+003100970717      ** RUN LIBRARY
+003200970717     D  RLIBR                 81     90                                         ARC380
+003300970717      * USER I.D.
+003400970717     D  USERID               254    263                                         ARC380
+003500970717      ** SOURCE LIBRARY
+003600970717     D  SLIBR                314    323                                         ARC380
+003700960306      *
+003800960306      *
+003900930208     C     RSTRT         TAG
+004000930208     C                   EXSR      CLRIT
+004100930208     C                   EXSR      CLRIND
+004200930908     C                   SETOFF                                       50
+004300930909     C                   SETON                                        98
+004400930208     C     NXTA          TAG
+004500950317     C                   WRITE     SCRNA
+004600930910     C                   SETOFF                                       192026
+004700960306     C                   SETOFF                                       2799
+004800960306     C                   SETOFF                                       32
+004900951031     C                   SETOFF                                       57
+005000930909     C                   Z-ADD     0             COUNT             2 0
+005100950317     C                   READ      SCRNA                                  90
+005200000214     C*  KM                CALL 'BIR121CL'
+005300000214     C*  KM
+005400000214     C   KC
+005500930416     COR KG              GOTO      END
+005600960306      *
+005700950322     C   KF              GOTO      RSTRT
+005800930908     C                   ADD       1             FIRST
+005900930908     C  N50              EXSR      SR100A
+006000930910     C   99              GOTO      NXTA
+006100960306      *
+006200930909     C   50FIRST         IFEQ      0
+006300930908     C                   GOTO      NXTA
+006400930908     C                   END
+006500930908     C     FIRST         IFNE      0
+006600930208     C                   EXSR      SR100B
+006700930910     C   25              GOTO      RSTRT
+006800930908     C                   END
+006900960306      *
+007000960306      * ERROR
+007100960306      *
+007200930908     C   99              GOTO      NXTA
+007300960306      *
+007400960306      * KF ON SCREEN B
+007500960306      *
+007600930909     C   87              GOTO      RSTRT
+007700960306      *
+007800960306      * REDISPLAY SCREEN ON R D I
+007900960306      *
+008000930909     C     CNTB          IFGT      1
+008100930909     C                   SETOFF                                       88
+008200930909     C                   END
+008300930909      *
+008400930909      * CHECK IF COUNT > 0 IF SO REDISPLAY ELSE UPDATE RECORDS
+008500960306      *
+008600930909     C     COUNT         IFGT      0
+008700930909     C                   GOTO      NXTA
+008800930909     C                   ELSE
+008900930909     C                   EXSR      OUTREC
+009000930909     C                   GOTO      RSTRT
+009100930909     C                   END                                                    COUNT>0
+009200930208     C     END           TAG
+009300950322     C   KC
+009400960403     COR KM
+009500950322     COR KG              SETON                                        LR
+009600930414      *
+009700930416      **************************
+009800930416      ******     SR100A - TOP OF SCREEN
+009900930416      **************************
+010000930208     C     SR100A        BEGSR
+010100930208      *
+010200960306     C                   SETOFF                                       212223
+010300960306     C     VACT          COMP      'A'                                262621     ADD CODE
+010400960306     C   26VACT          COMP      'C'                                262622     CHANGE/UPDATE
+010500960306     C   26VACT          COMP      'D'                                262623     DELETE
+010600930414      *
+010700960306     C   26              SETON                                        99
+010800960306     C   26              GOTO      ENDA
+010900930414      *
+011000961003      ****   MUST HAVE USER ID
+011100930414      *
+011200961003     C     VUSER         IFEQ      *BLANKS
+011300960306     C                   SETON                                        991910
+011400960306     C                   GOTO      ENDA
+011500930208     C                   ENDIF
+011600930414      *
+011700961003      ****   VALIDATE USER ID
+011800930414      *
+011900961003     C     VUSER         CHAIN     FMUSER                             96
+012000961003     C  N96              MOVEL     USDEPT        VDEPT
+012100930910      *
+012200960306     C     VACT          IFEQ      'A'
+012300960306     C  N96              SETON                                        992710
+012400960306     C   99              GOTO      ENDA
+012500951031     C                   ENDIF
+012600930910      *
+012700960306     C     VACT          IFNE      'A'
+012800960306     C   96              SETON                                        992010
+012900960306     C   99              GOTO      ENDA
+013000951031     C                   ENDIF
+013100930910      *
+013200961003     C   21              MOVEL     *BLANKS       USNAME
+013300930910      *
+013400930908     C  N99              SETON                                        50
+013500930208      *
+013600930908     C                   Z-ADD     0             FIRST             2 0
+013700960306     C     ENDA          TAG
+013800930208      *
+013900930208     C                   ENDSR
+014000930208      *
+014100930208      **************************
+014200930416      ******     SR100B - BOTTOM OF SCREEN
+014300930208      **************************
+014400930208      *
+014500930208     C     SR100B        BEGSR
+014600930415      *
+014700930908     C                   SETON                                        50
+014800960306     C     VACT          IFEQ      'D'
+014900930909     C                   SETON                                        3388
+015000930910     C                   ADD       1             CNTB              2 0
+015100930909     C                   GOTO      ENDB
+015200951031     C                   ENDIF
+015300930415      *
+015400930909     C   KF              SETON                                        87
+015500930909     C   KF              GOTO      ENDB
+015600930415      *
+015700930416     C   KC
+015800930416     COR KG              GOTO      END
+015900930208      *
+016000930416      ****   DESCRIPTION REQUIRED
+016100930416      *
+016200930416     C                   SETOFF                                       9957
+016300961003     C     USNAME        IFEQ      *BLANKS
+016400930416     C                   SETON                                        9957
+016500951031     C   57
+016600951031     CAN 99              GOTO      ENDB
+016700951031     C                   ENDIF
+016800960306      *
+016900961003     C     USNAME        IFNE      ODESC
+017000930909     C                   ADD       1             COUNT             2 0
+017100961003     C                   MOVEL     USNAME        ODESC            30
+017200950317     C                   ENDIF
+017300951031      *
+017400961003      ****   DEPARTMENT REQUIRED
+017500961003      *
+017600980711     C*          VDEPT     IFEQ *BLANKS
+017700980711     C*                    SETON                     9955
+017800980711     C*  55 99             GOTO ENDB
+017900980711     C*                    ENDIF
+018000961003      *
+018100961003     C     VDEPT         IFEQ      '? '
+018200961003     C                   MOVEL     VDEPT         DEDEPT            3
+018300961003     C                   CALL      'LKDEPT'
+018400961003     C                   PARM                    DEDEPT
+018500961003     C                   PARM                    DEDESC           30
+018600961003     C                   MOVEL     *BLANKS       VDEPT
+018700961003     C                   MOVEL     DEDEPT        VDEPT
+018800961003     C                   SETON                                        99
+018900961003     C                   GOTO      ENDB
+019000961003     C                   ENDIF
+019100961003      *
+019200961003     C     VDEPT         CHAIN     FMDEPT                             90
+019300961003     C   90              SETON                                        5599
+019400961003     C   55
+019500961003     CAN 99              GOTO      ENDB
+019600961003      *
+019700961003     C                   MOVEL     VDEPT         USDEPT
+019800930909      *
+019900930909     C     ENDB          TAG
+020000930416      *
+020100930909      * WHAT ACTION NEXT IF COUNT>0 SET OF 98 IF 99 SET ON 98
+020200930909     C     COUNT         IFGT      0
+020300930909     C                   SETOFF                                       98
+020400930909     C                   ELSE
+020500930909     C                   SETON                                        98
+020600950317     C                   ENDIF
+020700930909     C   99              SETON                                        98
+020800950915     C                   ENDSR
+020900930909      *
+021000930910      *  **********
+021100930910      *  * OUTREC *
+021200930910      *  **********
+021300930909     C     OUTREC        BEGSR
+021400961003     C                   MOVEL     VUSER         USUSER
+021500961003     C   21              WRITE     RMUSER
+021600961003     C   22              UPDATE    RMUSER
+021700961003     C   23              DELETE    RMUSER
+021800930909     C                   ENDSR
+021900930415      *
+022000930415      ****   CLEAR INDICATORS
+022100930415      *
+022200930208     C     CLRIND        BEGSR
+022300930910     C                   SETOFF                                       1920
+022400930910     C                   SETOFF                                       212223
+022500930910     C                   SETOFF                                       242526
+022600960306     C                   SETOFF                                       2732
+022700960306     C                   SETOFF                                       3350
+022800960306     C                   SETOFF                                       616263
+022900930910     C                   SETOFF                                       555657
+023000930910     C                   SETOFF                                       808899
+023100930208     C                   ENDSR
+023200930910      *  **********
+023300930910      *  * CLRIT  *
+023400930910      *  **********
+023500930208     C     CLRIT         BEGSR
+023600960306     C                   SETOFF                                       99
+023700960306     C                   MOVE      *BLANKS       VACT
+023800961003     C                   MOVE      *BLANKS       VUSER
+023900961003     C                   MOVE      *BLANKS       USNAME
+024000961003     C                   MOVE      *BLANKS       USDEPT
+024100930909     C                   Z-ADD     *ZEROS        CNTB
+024200930415     C                   ENDSR
+024300950317      *

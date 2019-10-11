@@ -1,0 +1,191 @@
+     A*%%TS  SD  19981030  122722  EFD         REL-V3R6M0  5716-PW1
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19981030  122722  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF04
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  1 23' Seed Requirements Report by Seaso-
+     A                                      n '
+     A                                      DSPATR(RI)
+     A            LSSEDD         6Y 0O  2 37DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                  2 47'Week:'
+     A            LSSEYY         4S 0O  2 53
+     A                                  2 58'-'
+     A            LSSEWW         2Y 0O  2 60EDTCDE(4)
+     A                                  2 19'Last Report Week:'
+     A                                  7  6'Enter Monday Date:'
+     A            FRMDAT         6Y 0B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                  7 36'or Year ex. 1998:'
+     A            BEGYY          4Y 0B  7 54
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  7 59'and Week Number:'
+     A            BEGWW          2Y 0B  7 76
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 17  6'Printer I.D.:'
+     A            PRTID         10A  B 17 20
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer I.D. Cannot be -
+     A                                      Blank.      Press RESET')
+     A                                 19 15' Verify Data if OK Press Enter, El-
+     A                                      se Make Changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  6  6'Begining Week:'
+     A                                      DSPATR(UL)
+     A                                 10  6'Ending Week:'
+     A                                      DSPATR(UL)
+     A                                 11  6'Enter Monday Date:'
+     A            TODAT          6Y 0B 11 25
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  30N31                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  30 31                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                 11 36'or Year ex. 1998:'
+     A            ENDYY          4Y 0B 11 54
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  40                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                 11 59'and Week Number:'
+     A            ENDWW          2Y 0B 11 76
+     A  41                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  41                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  41                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 14  6'Detail or Summary:'
+     A            DORS           1   B 14 25
+     A  11                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  11                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Detail or Summary Must -
+     A                                      be S or D.  Press RESET')
+     A                                 14 28'NOTE: For Detail enter D this will-
+     A                                       print weekly'
+     A                                 15 34'sub totals Else enter S forr summa-
+     A                                      ry.'
+     A          R SCRNB
+     A*%%TS  SD  19970922  130248  EFD         REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF04
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A            PROGID        10A  O  1  2
+     A                                  1 24' Seed Requirements Report by Week '
+     A                                      DSPATR(RI)
+     A            LSSEDD         6Y 0O  2 37DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                  2 47'Week:'
+     A            LSSEYY         4S 0O  2 53
+     A                                  2 58'-'
+     A            LSSEWW         2Y 0O  2 60EDTCDE(4)
+     A                                  2 19'Last Report Week:'
+     A                                  7  4'Week Being Updated:'
+     A            FRMDAT         6Y 0B  7 25EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                      DSPATR(PR)
+     A            BEGYY          4Y 0B  7 35EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                      DSPATR(PR)
+     A            BEGWW          2Y 0B  7 42EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                      DSPATR(PR)
+     A                                 10  6'Include Only Unposted:'
+     A            SHOWAL         1   B 10 29
+     A  20                                  ERRMSG('*** Show Posted/Unposted Mu-
+     A                                      st BE A or U. Press RESET')
+     A                                      DSPATR(PR)
+     A                                 14  6'Reset Posted Flag:'
+     A            RESET          1   B 14 25
+     A  40                                  ERRMSG('Reset Posted Flag Must Be Y-
+     A                                      /N.         Press RESET')
+     A                                      DSPATR(PR)
+     A                                 12  6'Set Posted Flag:'
+     A            SETFLG         1   B 12 23
+     A  30                                  ERRMSG('*** Set pPosted Flag Must B-
+     A                                      e Y/N.      Press RESET')
+     A                                      DSPATR(PR)
+     A                                 16  6'Printer I.D.:'
+     A            PRTID         10   B 16 20
+     A  50                                  ERRMSG('*** Printer I.D. Cannot be -
+     A                                      Blank.      Press RESET')
+     A                                      DSPATR(PR)
+     A                                  7 40'-'

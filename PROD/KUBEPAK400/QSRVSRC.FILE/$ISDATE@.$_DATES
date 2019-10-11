@@ -1,0 +1,70 @@
+000100040617     H/Copy QFunctDefn,@CopyRight                                               Copyright Info.
+000200000000     H DATFMT(*USA)
+000300000000     H NOMAIN
+000400000000
+000500000000      * Function Prototype(s)
+000600000000     D/Copy QFunctDefn,$isDate@
+000700000000
+000800000000
+000900000000     *   ..................................................................
+001000000000     *   :  $isDate@                                             function :
+001100000000     *   :................................................................:
+001200000000
+001300000000
+001400000000     P  $isDate@       B                        Export
+001500000000     D  $isDate@       PI              N
+001600000000     D     #isDate@                  10A        const
+001700000000     D     #format                    9A        const
+001800000000
+001900000000    *  The $isDate function checks to see if the value passed is a valid Date in format speci
+002000000000    *  Use this function when the field to be tested is an alpha field containing separators.
+002100000000    *  ie. *USA is formated ('mm/dd/yyyy')
+002200000000    *  NOTE:  for testing numeric Date fields, use $isDate#
+002300000000     D                 DS
+002400000000     D    #isDate@10           1     10
+002500000000     D    #isDate@9            1      9
+002600000000     D    #isDate@8            1      8
+002700000000     D    #isDate@6            1      6
+002800000000
+002900000000     C                   Move      #isDate@      #isDate@10
+003000000000     C                   Select
+003100000000
+003200000000     *  Julian Date Formats
+003300000000     C                   When      #format = '*LONGJUL'
+003400000000     C     *JUL          Test (ED)               #isDate@6
+003500000000     C                   When      #format = '*LONGJUL'
+003600000000     C     *LONGJUL      Test (ED)               #isDate@8
+003700000000
+003800000000     *  Two digit year date formats
+003900000000     C                   When      #format = '*YMD'
+004000000000     C     *YMD          Test (ED)               #isDate@8
+004100000000     C                   When      #format = '*MDY'
+004200000000     C     *MDY          Test (ED)               #isDate@8
+004300000000     C                   When      #format = '*DMY'
+004400000000     C     *DMY          Test (ED)               #isDate@8
+004500000000
+004600000000    *  Three digit year date formats
+004700000000     C                   When      #format = '*CYMD'
+004800000000     C     *CYMD         Test (ED)               #isDate@9
+004900000000     C                   When      #format = '*CMDY'
+005000000000     C     *CMDY         Test (ED)               #isDate@9
+005100000000     C                   When      #format = '*CMDY'
+005200000000     C     *CDMY         Test (ED)               #isDate@9
+005300000000
+005400000000    *  Four digit year date formats
+005500000000     C                   When      #format = '*USA'
+005600000000     C     *USA          Test (ED)               #isDate@10
+005700000000     C                   When      #format = '*ISO'
+005800000000     C     *ISO          Test (ED)               #isDate@10
+005900000000     C                   When      #format = '*JIS'
+006000000000     C     *JIS          Test (ED)               #isDate@10
+006100000000
+006200000000
+006300000000     C                   Other
+006400000000     C                   return    *On
+006500000000     C                   EndSL
+006600000000
+006700000000     C                   return    not %Error
+006800000000
+006900000000     P  $isDate@       E
+007000000000

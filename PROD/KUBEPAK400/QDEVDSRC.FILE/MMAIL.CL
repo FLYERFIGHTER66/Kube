@@ -1,0 +1,13 @@
+/*                                     MMAIL       4/11/19 10:27:19 */
+CRTDEVPRT DEVD(MMAIL) DEVCLS(*LAN) TYPE(*IPDS) MODEL(0) +
+         LANATTACH(*IP) AFP(*YES) PORT(1941) ONLINE(*YES) +
+         FONT(011 *NONE) FORMFEED(*AUTOCUT) SEPDRAWER(*FILE) +
+         PRTERRMSG(*INQ) MSGQ(*LIBL/QSYSOPR) ACTTMR(*NOMAX) +
+         IMGCFG(*NONE) MAXPNDRQS(6) PRTCVT(*YES) +
+         FORMDF(*LIBL/F1C10110) CHRID(*SYSVAL) +
+         RMTLOCNAME('127.0.0.1') +
+         USRDFNOBJ(MMAIL/INFOPRINT *PSFCFG) +
+         TEXT('Virtual printer for Infoprint Server') +
+         DEPLOCNAME(*NONE) +
+         PUBLISHINF(*UNKNOWN *UNKNOWN *UNKNOWN *UNKNOWN *BLANK +
+         (*UNKNOWN))

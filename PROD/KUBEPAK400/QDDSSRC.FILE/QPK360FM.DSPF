@@ -1,0 +1,104 @@
+     A*%%TS  SD  20000821  171326  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000821  171326  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 23' Sales Analysis Top Ranked Custome-
+     A                                      r '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 23'For Accounting Period:'
+     A            BEGPER         2Y 0B  5 47DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  12                                  ERRMSG('*** Enter A Valid Acctg Per-
+     A                                      iod.   Press Reset')
+     A  13                                  ERRMSG('*** From Period Must To Les-
+     A                                      s Or Equal to To Period.    Press R-
+     A                                      eset')
+     A                                  5 51'To:'
+     A            ENDPER         2Y 0B  5 55DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.   Press Reset')
+     A                                  7 23'Product Class Range?'
+     A            BEGPC          2A  B  7 47
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** From Product Class Must-
+     A                                       Be Lower Than To. Press Reset')
+     A  22                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                  7 51'To:'
+     A            ENDPC          2A  B  7 55DSPATR(CS)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                  7 60'Blank For All'
+     A                                      DSPATR(UL)
+     A                                  9 23'# of Customers to Print:'
+     A            NUMCUS         4Y 0B  9 49EDTCDE(4)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Number of Customers Is -
+     A                                      Required.    Press Reset')
+     A                                  9 60'9999 To Print All'
+     A                                      DSPATR(UL)
+     A                                 11 23'Rank By:'
+     A            RANK           1Y 0B 11 49EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Enter A Valid Rank.    -
+     A                                       Press Reset')
+     A                                 11 60'1=Dollars'
+     A                                 12 60'2=Units'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                   Enter to Proces-
+     A                                      s        F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)

@@ -1,0 +1,195 @@
+     A*%%TS  SD  20181120  042231  VIMALA      REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20181116  004744  VIMALA      REL-V7R2M0  5770-WDS
+     A                                  1  2'CUR300A'
+     A                                  2  2USER
+     A                                  1122DATE
+     A                                      EDTCDE(Y)
+     A            VMVEND         6S 0O  2 52COLOR(BLU)
+     A            VMNAME        30A  O  2 59COLOR(PNK)
+     A                                  2 44'Vendor:'
+     A                                      DSPATR(HI)
+     A                                  2122TIME
+     A                                  1 52' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                 11 35'Sow Date:'
+     A            SOWDAT         6Y 0B 11 45
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTWRD('  /  /  ')
+     A  40N41                               ERRMSG('*** Invalid Date Entered.  -
+     A                                             Press RESET')
+     A  41                                  ERRMSG('*** Sow Date Must Be a Mond-
+     A                                      ay.    Press RESET')
+     A                                 11 54'or Year ex. 2001:'
+     A            YEAR           4Y 0B 11 72
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  45N46                               ERRMSG('*** Invalid Year Entered.  -
+     A                                             Press RESET')
+     A  46                                  ERRMSG('*** Invalid Year/Week Combi-
+     A                                      nation entered.      Press RESET')
+     A                                 11 77'and Week Number:'
+     A            WEEK           2Y 0B 11 94
+     A  48                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  48                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  48N45                               ERRMSG('*** Week number must be Bet-
+     A                                      ween 1 and 53.  Press RESET')
+     A                                  9 35'Only enter the sow date to limit S-
+     A                                      creen to a selected week.'
+     A                                      DSPATR(UL)
+     A                                 15 35'Start With Alpha:'
+     A            ALPHA         15A  B 15 53DSPATR(CS)
+     A                                 24 47'Enter to Process           F3/F7=E-
+     A                                      nd Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 47'                                  -
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 69'Leave Blank to start at Begining.'
+     A                                      DSPATR(HI)
+     A                                  8  5' There is NO Open report to work w-
+     A                                      ith. Return to Menu and run Option -
+     A                                      2. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20181120  042231  VIMALA      REL-V7R2M0  5770-WDS
+     A            CNSTAT         1A  H
+     A            CNRYMD         7S 0H
+     A            CNITEM        12A  H
+     A            CNSIZE         3A  H
+     A            CNSOWD         7S 0H
+     A            CNQTSH         7S 0H
+     A            CNLOOK        15A  H
+     A            ITEM           5A  O  9  2
+     A            IMDES1_29     29A  O  9 14
+     A            SOWD           6Y 0O  9 45EDTWRD('  /  /  ')
+     A            CNQTSL    R        O  9 55REFFLD(RCUTNEED/CNQTSL *LIBL/FCUTNE-
+     A                                      ED)
+     A                                      EDTCDE(M)
+     A            CNQTND         7Y 0O  9 68EDTCDE(M)
+     A            ORDER          7Y 0B  9 90
+     A N15                                  DSPATR(CS)
+     A                                      EDTCDE(M)
+     A  15                                  DSPATR(PR)
+     A            IMSIZE    R        O  9  9REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A            SUPQTY         9Y 0O  9 78EDTCDE(M)
+     A  58                                  COLOR(RED)
+     A N58                                  COLOR(GRN)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20181120  042231  VIMALA      REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0015)
+     A                                      CF02
+     A                                      CF06
+     A                                      CF10
+     A                                      CF04
+     A                                      CF01
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A            LINE           5S 0H
+     A                                  1  2'CUR300SFL'
+     A                                      COLOR(BLU)
+     A                                  1 53' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1122DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 23'Item Vendor:'
+     A                                      DSPATR(HI)
+     A            SMVEND         6S 0O  2 36COLOR(YLW)
+     A                                  2 39'Report Dated:'
+     A                                  2 43'-'
+     A                                      COLOR(PNK)
+     A            SMNAME        30A  O  2 45COLOR(PNK)
+     A            RPTDAT         6Y 0O  2 53EDTCDE(Y)
+     A                                  2122TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'F1'
+     A                                      DSPATR(HI)
+     A                                  3  5'=Select ALL  '
+     A                                      COLOR(BLU)
+     A                                  3 50'F3'
+     A                                      DSPATR(HI)
+     A                                  3 53'=Exit (NO Update)'
+     A                                      COLOR(BLU)
+     A                                  3 93'F6'
+     A                                      DSPATR(HI)
+     A                                  3 96'=Restart(NO Update)'
+     A                                      COLOR(BLU)
+     A                                  4  2'F2'
+     A                                      DSPATR(HI)
+     A                                  4  5'=Save/Restart'
+     A                                      COLOR(BLU)
+     A                                  4 50'F4'
+     A                                      DSPATR(HI)
+     A                                  4 53'=Create Order    '
+     A                                      COLOR(BLU)
+     A                                  4 93'F10'
+     A                                      DSPATR(HI)
+     A                                  4 97'=Delete Work File'
+     A                                      COLOR(BLU)
+     A                                  5 14' You cannot create order. Untransf-
+     A                                      ered order exists. '
+     A  57                                  DSPATR(RI)
+     A  57                                  DSPATR(BL)
+     A N57                                  DSPATR(ND)
+     A                                  6 28'Supply Vendor:'
+     A            SNSVND    R        B  6 43REFFLD(RCUTNEED/CNSVND *LIBL/FCUTNE-
+     A                                      ED)
+     A                                      COLOR(TRQ)
+     A            CNSVNAM       30A  O  6 50DSPATR(HI)
+     A                                  7  2'Start With:'
+     A            ALPHA         15A  B  7 14DSPATR(CS)
+     A                                  7 59'---------Cutting Quantities--------
+     A                                      --'
+     A                                      DSPATR(HI)
+     A                                  8  2'Item / Size Description           -
+     A                                               Sow Date  Cust Ord     We -
+     A                                      Need   Supp Qty    Vend Ord'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1102'Next Ord:'
+     A            CCNXTO    R        O  1112REFFLD(RCUTCTL/CCNXTO *LIBL/FCUTCTL)
+     A                                      DSPATR(HI)
+     A          R SCRND
+     A*%%TS  SD  20181116  013129  VIMALA      REL-V7R2M0  5770-WDS
+     A                                      CF06
+     A                                      CF10
+     A                                  1  2'CUR300D'
+     A                                  2  2USER
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                  2123TIME
+     A                                  1 52' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                  8 41' You have requested that we delete-
+     A                                       this work file. '
+     A                                      DSPATR(RI)
+     A                                 10 32'There are:'
+     A            TOTREC         9Y 0O 10 43DSPATR(HI)
+     A                                      EDTCDE(1)
+     A                                 10 55'Cuttings you have received, they w-
+     A                                      ill be lost.'
+     A                                 12 34' Press F10 to confirm delete, or P-
+     A                                      ress F6 to return with no delete.'
+     A                                      DSPATR(RI)

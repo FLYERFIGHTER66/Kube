@@ -1,0 +1,176 @@
+     A*%%TS  SD  19990713  103429  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990713  103429  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF02
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 31' A/P Monthly Close '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 20'Accounting Period:'
+     A            VACTP          2Y 0B  5 53DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.  Press Reset')
+     A                                      CHECK(RB)
+     A                                  7 20'Purge Monthly Data Files:'
+     A            VPURGE         1A  B  7 54DSPATR(CS)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                  9 20'Purge Closed Payables As Of:'
+     A            VDATE          6Y 0B  9 51DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  62                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A  64                                  ERRMSG('*** Date Cannot Be Later Th-
+     A                                      an Ending Accounting Period Date.  -
+     A                                      Press Reset')
+     A                                  9 60'*'
+     A                                 11 20'Purge Paid A/P History As Of:'
+     A            VHDATE         6Y 0B 11 51DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  66                                  DSPATR(RI)
+     A  66                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  67                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A  68                                  ERRMSG('*** Date Cannot Be Later Th-
+     A                                      an Ending Accounting Period Date.  -
+     A                                      Press Reset')
+     A                                 11 60'*'
+     A                                 16 13'* If no date is entered - that fil-
+     A                                      e will not be purged.'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process    F2=Display-
+     A                                       Acctg Period       F3/F7=Cancel Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990713  103429  TGMS        REL-V4R2M0  5769-PW1
+     A                                      ALTNAME('y')
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  5  2' Accounts Payable Month End Overvi-
+     A                                      ew                                 -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2' A/P Month End is an important fun-
+     A                                      ction that organizes your accounts -
+     A                                      payable  '
+     A                                      DSPATR(HI)
+     A                                  8  2' files and creates the data needed-
+     A                                       for vendor 1099s.                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2' It is recommended that you back u-
+     A                                      p your accounts payable files as pa-
+     A                                      rt of    '
+     A                                      DSPATR(HI)
+     A                                 11  2' month end and archive this tape. -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2' The files that are used for month-
+     A                                       end reports are purged of all reco-
+     A                                      rds      '
+     A                                      DSPATR(HI)
+     A                                 14  2' dated for the accounting period a-
+     A                                      nd all prior dates.                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2' The closed records in the Open Pa-
+     A                                      yables file can be purged selective-
+     A                                      ly based '
+     A                                      DSPATR(HI)
+     A                                 17  2' on the date entered.             -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2' All payments made to each vendor -
+     A                                      during this accounting period are t-
+     A                                      otaled   '
+     A                                      DSPATR(HI)
+     A                                 20  2' and the vendor year to date payme-
+     A                                      nt record is updated for 1099s.    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2'                REMEMBER:    IT IS-
+     A                                       IMPORTANT TO RUN MONTH END.       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)

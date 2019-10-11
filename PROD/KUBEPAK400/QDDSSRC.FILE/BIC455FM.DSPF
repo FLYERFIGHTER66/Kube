@@ -1,0 +1,170 @@
+     A*%%TS  SD  20010724  152610  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19980205  153312  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF06
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIC455A'
+     A                                  1 31' Credit Memo Print '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Do you want to'
+     A            VRPRNT         1A  B  5 51
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.         Press Reset')
+     A                                  6 25'Reprint Credit Memos?'
+     A                                  8 25'Reprint Range:'
+     A  09                                  DSPATR(ND)
+     A                                  9 27'From Credit Memo #:'
+     A  09                                  DSPATR(ND)
+     A            VBCRM          6Y 0B  9 51
+     A  11                                  DSPATR(RI)
+     A N09                                  DSPATR(CS)
+     A  09                                  DSPATR(ND)
+     A N09                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  15                                  ERRMSG('*** Enter A Valid Credit Me-
+     A                                      mo #.   Press Reset')
+     A  17                                  ERRMSG('*** From Credit Memo # Is R-
+     A                                      equired.   Press Reset')
+     A  18                                  ERRMSG('*** FROM # Must Be Lower or-
+     A                                       Equal To TO #.    Press Reset')
+     A                                 10 27'To Credit Memo #:'
+     A  09                                  DSPATR(ND)
+     A            VECRM          6Y 0B 10 51
+     A  16                                  DSPATR(RI)
+     A N09                                  DSPATR(CS)
+     A  09                                  DSPATR(ND)
+     A  16                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  09                                  DSPATR(PR)
+     A  16                                  ERRMSG('*** To Credit Memo # is Req-
+     A                                      uired.    Press Reset')
+     A                                 12 25'Printer:'
+     A  09                                  DSPATR(ND)
+     A            VPRTR         10A  B 12 47
+     A N09                                  DSPATR(CS)
+     A  09                                  DSPATR(ND)
+     A  09                                  DSPATR(PR)
+     A  08                                  DSPATR(RI)
+     A  08                                  DSPATR(PC)
+     A  08                                  ERRMSG('*** Printer Is Required.   -
+     A                                          Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process        F6=Rest-
+     A                                      art       F3/F7=Cancel Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  9 59'NOTE: To reprint 1'
+     A                                 10 60'Credit Memo only '
+     A                                 11 60'enter the from #.'
+     A          R SCRNB
+     A*%%TS  SD  20010724  152610  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIC455B'
+     A                                  1 31' Credit Memo Print '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Credit Memo Date:'
+     A            VDATE          6Y 0B  5 46DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30N33N34                            ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  33                                  ERRMSG('*** Date cannot be more tha-
+     A                                      n 2 days less than today.  Press RE-
+     A                                      SET')
+     A  34                                  ERRMSG('*** Date cannot be more tha-
+     A                                      n 4 days greater than today.       -
+     A                                       Press RESET')
+     A                                  7 25'Ship From:'
+     A            VSHFR          3A  B  7 46
+     A  79                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .    Press Reset')
+     A                                      DSPATR(PR)
+     A                                  9 25'Printer:'
+     A            VPRTR         10A  B  9 46DSPATR(CS)
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A  33                                  ERRMSG('*** Printer Is Required.   -
+     A                                         Press Reset')
+     A                                 11 25'Company Number:'
+     A            VCO            2D 0B 11 46
+     A  32                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  32                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A  32                                  ERRMSG('*** Enter A Valid Company N-
+     A                                      umber.      Press Reset')
+     A                                 13 25'JOBQ (Y/N):'
+     A            VJOB           1A  B 13 46DSPATR(CS)
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 17  6' *Note:  Credit Memo Date was not -
+     A                                      found in your fiscal year calendar.-
+     A                                       '
+     A  44                                  DSPATR(RI)
+     A N44                                  DSPATR(ND)
+     A                                 19 17' Either Change Date or Press Enter-
+     A                                       to Continue '
+     A  44                                  DSPATR(RI)
+     A N44                                  DSPATR(ND)
+     A                                 21 27' Press Enter to Verify Data '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process           F6=Re-
+     A                                      start            F3/F7=Cancel Job  -
+     A                                               '
+     A                                      DSPATR(UL)

@@ -1,0 +1,348 @@
+     A*%%TS  SD  20000729  074549  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000729  074549  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      CF02
+     A                                      HELP
+     A                                      CF03
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A          H                           HLPRCD(HELPA)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A                                  1  2'GLR070A'
+     A                                  1 26' G/L Allocations Journal Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A            MCNAME        30A  O  3 26
+     A                                  6  2'Action:'
+     A            ACTION         1X  B  6 11
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSGID(EFD0001 EFDSYS/EFDMSG)
+     A                                  6 27'Prefix:'
+     A            JEPR           2A  B  6 48DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  8 27'Number:'
+     A            JENM           6Y 0B  8 48DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  20N21N22                            ERRMSG('*** Journal Entry Number Is-
+     A                                       Required.    Press Reset')
+     A  20 21N22                            ERRMSG('*** Can Not Change or Delet-
+     A                                      e  - JE Number Does Not Exist.     -
+     A                                       Press Reset')
+     A  20N21 22                            ERRMSG('*** Can Not Add - JE Number-
+     A                                       Exists.    Press Reset')
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 10 27'Suffix:'
+     A            JESF           2A  B 10 48DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 12 27'Description:'
+     A            JEDS          30A  B 12 48DSPATR(CS)
+     A                                      CHECK(LC)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Description is Required-
+     A                                      .           Press Reset')
+     A                                 14 27'From Account Number:'
+     A            FRMACT         8Y 0B 14 48EDTWRD('    -    ')
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A  40 41                               ERRMSG('*** You cannot use the Reta-
+     A                                      ined Earnings Account in this Appli-
+     A                                      cation.  RESET')
+     A  40 42                               ERRMSG('*** You cannot use this Acc-
+     A                                      ount See Above.    Press RESET')
+     A  40N41N42                            ERRMSGID(GLR0001 EFDSYS/EFDMSG)
+     A            GCDESC        30A  O 15 48
+     A                                 17  2' This Account:'
+     A  40                                  DSPATR(RI)
+     A N40                                  DSPATR(ND)
+     A            ERR1          60A  O 17 17
+     A  47                                  DSPATR(RI)
+     A N47                                  DSPATR(ND)
+     A            ERR2          70A  O 18  7
+     A  48                                  DSPATR(RI)
+     A N48                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process    F2=Lookup -
+     A                                      G/L     F6=Restart     F3/F7=End of-
+     A                                       Job     '
+     A                                      DSPATR(UL)
+     A          R HELPA
+     A*%%TS  SD  19990922  065227  TGMS        REL-V4R2M0  5769-PW1
+     A                                  2  2' G/L Allocated Journal Entries    -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  4  2' This is the program where you ent-
+     A                                      er allocated journal entries.  An a-
+     A                                      llocated '
+     A                                      DSPATR(HI)
+     A                                  5  2' entry is a group of transactions -
+     A                                      that need to be posted to general l-
+     A                                      edger    '
+     A                                      DSPATR(HI)
+     A                                  6  2' After the edit you can either add-
+     A                                      , change or delete entries or run t-
+     A                                      he post, '
+     A                                      DSPATR(HI)
+     A                                  7  2' which puts this data in your g/l -
+     A                                      files.                             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2' Prefix - is an alphanumeric field-
+     A                                       that further defines the j/e.  It -
+     A                                      is       '
+     A                                      DSPATR(HI)
+     A                                 10  2'          optional.               -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2' Number - is a 6 position numeric -
+     A                                      field that identifies this particul-
+     A                                      ar j/e.  '
+     A                                      DSPATR(HI)
+     A                                 12  2'          It is required and must -
+     A                                      be a unique number for this batch o-
+     A                                      f j/e.   '
+     A                                      DSPATR(HI)
+     A                                 14  2'          optional.  You can not u-
+     A                                      se these suffixes, they are reserve-
+     A                                      d:       '
+     A                                      DSPATR(HI)
+     A                                 23  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2' Acctg Date - enter a date that is-
+     A                                       a valid date within the accounting-
+     A                                       period  '
+     A                                      DSPATR(HI)
+     A                                 21  2'          to which you want this j-
+     A                                      /e posted.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2' Suffix - is an alphanumeric field-
+     A                                       that further defines the j/e.  It -
+     A                                      is       '
+     A                                      DSPATR(HI)
+     A                                 15  2'                     AL = Allocati-
+     A                                      on J/E                             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                     RE = Recurrin-
+     A                                      g J/E                              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                     RV = Reversin-
+     A                                      g J/E                              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' Description - enter up to 30 char-
+     A                                      acters to describe this j/e. This  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'          description will print o-
+     A                                      n various reports.                 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19990922  065227  TGMS        REL-V4R2M0  5769-PW1
+     A            ODESC         30A  H
+     A            GASEQ#         3S 0H
+     A            GLNO           8Y 0B  9 10EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A            PCT            5Y 2B  9 22EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A            DESC          30A  B  9 31CHECK(LC)
+     A                                      DSPATR(PR)
+     A            TOTYPE         9A  O  9 63
+     A  20                                  DSPATR(RI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20000729  074549  TGMS        REL-V4R4M0  5769-PW1
+     A  *DS3                                SFLSIZ(0200)
+     A  *DS4                                SFLSIZ(0200)
+     A  *DS3                                SFLPAG(0015)
+     A  *DS4                                SFLPAG(0012)
+     A  98                                  CF01
+     A                                      CF02
+     A                                      CF05
+     A                                      CF06
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  11                                  SFLMSG('*** Invalid G/L Number.    -
+     A                                          Press Reset')
+     A  32                                  SFLMSG('*** Percent must be between-
+     A                                       .01 and 99.99   Press Reset')
+     A  40                                  SFLMSG('*** G/L Distribution Does N-
+     A                                      ot Equal 100%.  Press Reset')
+     A  13                                  SFLMSG('*** You cannot Allocate to -
+     A                                      Retained Earnings Account.       Pr-
+     A                                      ess RESET')
+     A  14                                  SFLMSG('*** You cannot Allocate to -
+     A                                      an account that is allocated.     P-
+     A                                      ress RESET')
+     A  12                                  SFLMSG('*** You cannot Allocate an -
+     A                                      account to Itself.    Press RESET')
+     A  15                                  SFLMSG('*** You cannot Allocate to -
+     A                                      different Account Types.       Pres-
+     A                                      s RESET')
+     A            LINE           5S 0H
+     A                                  1  2' Enter to Verify  F2=G/L Lookup  F-
+     A                                      5=Allow More Entries  F6=Restart(No-
+     A                                       Update) '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  2  2' Allocation Entries '
+     A                                      DSPATR(RI)
+     A                                  2 27' Roll Keys to Display More '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  2 73DATE
+     A                                      EDTCDE(Y)
+     A                                  3  2'GLR070SFL'
+     A                                  3 73TIME
+     A                                  3 31'For Company:'
+     A            LCO            2S 0O  3 44DSPATR(HI)
+     A                                  6 34' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A  99                                  DSPATR(BL)
+     A N99                                  DSPATR(ND)
+     A                                  5  3'Description:'
+     A            JEDS          30A  O  5 16DSPATR(HI)
+     A                                  6 15' F1=Update Data '
+     A  98                                  DSPATR(RI)
+     A  98                                  DSPATR(BL)
+     A N98                                  DSPATR(ND)
+     A            TOTPCT         7Y 2O  7 23EDTCDE(1)
+     A                                      DSPATR(HI)
+     A            TOTBAL         7Y 2O  7 57EDTCDE(J)
+     A                                      DSPATR(RI)
+     A                                  8 10'G/L Acct.  Percent   Account Descr-
+     A                                      iption             Type     '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7  3'Total Percent Used:'
+     A                                  7 37'Total Percent Open:'
+     A                                  4  2'From Account:'
+     A            FRMACT         8Y 0O  4 16DSPATR(HI)
+     A                                      EDTWRD('    -    ')
+     A            FRMDES        30A  O  4 26DSPATR(HI)
+     A            FRTDES         9   O  4 57DSPATR(HI)
+     A          R SCRNA1
+     A*%%TS  SD  19990922  065227  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      CF02
+     A                                      HELP
+     A                                      CF03
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A          H                           HLPRCD(HELPA)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A                                  1  2'GLR070A1'
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 26' G/L Allocations Journal Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A            MCNAME        30A  O  3 26
+     A                                 17  2' This Account:'
+     A  40                                  DSPATR(RI)
+     A N40                                  DSPATR(ND)
+     A            ERR1          60A  O 17 17
+     A  47                                  DSPATR(RI)
+     A N47                                  DSPATR(ND)
+     A            ERR2          70A  O 18  7
+     A  48                                  DSPATR(RI)
+     A N48                                  DSPATR(ND)
+     A                                  6 27'Prefix:'
+     A            JEPR           2A  B  6 48DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                  8 27'Number:'
+     A            JENM           6Y 0B  8 48DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A                                 10 27'Suffix:'
+     A            JESF           2A  B 10 48DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 12 27'Description:'
+     A            JEDS          30A  B 12 48DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                 14 27'From Account Number:'
+     A            FRMACT         8Y 0B 14 48EDTWRD('    -    ')
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40 41                               ERRMSG('*** You cannot use the Reta-
+     A                                      ined Earnings Account in this Appli-
+     A                                      cation.  RESET')
+     A  40 42                               ERRMSG('*** You cannot use this Acc-
+     A                                      ount See Above.    Press RESET')
+     A  40N41N42                            ERRMSGID(GLR0001 EFDSYS/EFDMSG)
+     A                                      DSPATR(PR)
+     A            GCDESC        30A  O 15 48
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'     Enter to Process       F2=G/L-
+     A                                       Alpha Search           F3/F7=End o-
+     A                                      f Job    '
+     A                                      DSPATR(UL)

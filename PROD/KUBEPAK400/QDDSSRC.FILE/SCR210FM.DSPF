@@ -1,0 +1,83 @@
+     A*%%TS  SD  20020318  190329  EFD         REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20020318  163848  EFD         REL-V5R1M0  5722-WDS
+     A                                  1  2'SCR210A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  8 28'Enter Ship Week:'
+     A            SHPDAT         6Y 0B  8 45
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                          Press RESET')
+     A  12                                  ERRMSG('*** Date Must be a Monday D-
+     A                                      ate.    Press RESET')
+     A                                 23 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 30' Enter One Item Carts '
+     A                                      DSPATR(RI)
+     A          R SCRNA1
+     A*%%TS  SD  20020318  190329  EFD         REL-V5R1M0  5722-WDS
+     A                                  1  2'SCR210A1'
+     A                                  2  2USER
+     A                                  3 30'Ship Week:'
+     A            SHPDAT         6Y 0B  3 41EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  7 28'Enter Cart #:'
+     A            CARTNO         8Y 0B  7 44
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Cart Number Ent-
+     A                                      ered.    Press RESET')
+     A                                 24 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 30' Enter One Item Carts '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  9 28'Item Number?'
+     A                                 11 28'Size Code:'
+     A            ITEM          12A  B  9 44
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Item/Size Code -
+     A                                      Entered.    Press RESET')
+     A            SIZE           3A  B 11 44
+     A            IMDES1        30A  O 13 44
+     A                                 15 28'Quantity:'
+     A            QTY            2Y 0B 15 43
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  31                                  ERRMSG('*** Quantity can NOT be zer-
+     A                                      o.      Press reset')
+     A  32                                  ERRMSG('*** Quantity Can NOT be Gre-
+     A                                      ater than Seventy.   Press RESET')
+     A                                 18 10' Verify Data if OK, Press Enter to-
+     A                                       print. Else Make Changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)

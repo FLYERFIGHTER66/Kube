@@ -1,0 +1,28 @@
+             PGM        PARM(&CUST)
+
+             DCL        VAR(&CUST) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&LINK) TYPE(*CHAR) LEN(90) VALUE('/Kube +
+                          Pak/PDF/STATEMENTS/CUST_')
+
+             DCL        VAR(&TODAY) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&DATETIME) TYPE(*CHAR) LEN(20)
+             RTVJOBA    DATE(&TODAY) DATETIME(&DATETIME)
+             CHGVAR     VAR(&DATETIME) VALUE(%SST(&DATETIME 1 14))
+
+             CHGVAR     VAR(&LINK) VALUE(&LINK *TCAT &CUST *TCAT '_' +
+                          *TCAT &DATETIME *TCAT '.PDF')
+
+             OVRPRTF    FILE(STATEMENTP) DEVTYPE(*AFPDS) PAGESIZE(66 +
+                          96) LPI(6) CPI(12) ALIGN(*NO) PAGRTT(0) +
+                          REDUCE(*NONE) FRONTOVL(STATEMNT) +
+                          USRDTA('STATEMENT') TOSTMF(&LINK) WSCST(*PDF)
+             CALL       PGM(STATEMENTS) PARM(&TODAY &CUST &CUST 'Y' +
+                          'Y' 'N' 'PRINT')
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             STRPCCMD   PCCMD('"\\10.151.151.1' *TCAT &LINK *TCAT +
+                          '"') PAUSE(*NO)
+
+ END:        ENDPGM

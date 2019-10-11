@@ -1,0 +1,531 @@
+     A*%%TS  SD  20000701  071408  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000701  071408  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HPRINT)
+     A  *DS3                                HLPARA(16 039 18 067)
+     A  *DS4                                HLPARA(16 039 18 067)
+     A          H                           HLPRCD(HELPO)
+     A  *DS3                                HLPARA(04 012 04 048)
+     A  *DS4                                HLPARA(04 012 04 044)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(06 047 06 077)
+     A  *DS4                                HLPARA(06 041 06 071)
+     A          H                           HLPRCD(HAVAIL)
+     A  *DS3                                HLPARA(12 047 12 063)
+     A  *DS4                                HLPARA(08 054 08 070)
+     A          H                           HLPRCD(HSUMM)
+     A  *DS3                                HLPARA(08 001 08 078)
+     A  *DS4                                HLPARA(10 001 10 078)
+     A          H                           HLPRCD(HVOL)
+     A  *DS3                                HLPARA(10 001 10 078)
+     A  *DS4                                HLPARA(12 060 12 060)
+     A                                  1  2'BIR002'
+     A                                  1 14'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 25' Product Class File Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12
+     A N50                                  DSPATR(CS)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  50                                  DSPATR(HI)
+     A  99 26                               ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.        Press Reset')
+     A                                  4 30'Product Class?'
+     A            VPRCL          2A  B  4 47
+     A  10                                  DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  77                                  DSPATR(PC)
+     A  19                                  ERRMSG('*** Product Class Is Requir-
+     A                                      ed.      Press Reset')
+     A  27                                  ERRMSG('*** This Product Class Is O-
+     A                                      n File.     Press Reset')
+     A  20                                  ERRMSG('*** This Product Class Is N-
+     A                                      ot On File. Press Reset')
+     A                                  6  2' A = Add     '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  6 32'Description:'
+     A N50                                  DSPATR(ND)
+     A            VDESC         30A  B  6 47
+     A  57 50                               DSPATR(RI)
+     A  50N25N77                            DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  57
+     AO 50                                  DSPATR(PC)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A  41                                  ERRMSG('*** Cannot Delete - There A-
+     A                                      re Items With This Product Class.  -
+     A                                       Press Reset')
+     A                                  7  2' C = Change  '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  8  2' D = Delete  '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                  8 23'Summarize on Invoice:'
+     A N50                                  DSPATR(ND)
+     A            PCSUMF         1A  B  8 49
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 60                               DSPATR(RI)
+     A  60                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.      Press Reset')
+     A                                  9  2' I = Inquire '
+     A                                      DSPATR(RI)
+     A  50N24                               DSPATR(ND)
+     A                                 10 19'Eligible/Volume Discount:'
+     A N50                                  DSPATR(ND)
+     A            PCEVD          1A  B 10 49
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  61                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.       Press Reset.')
+     A  50 61                               DSPATR(PC)
+     A  50 61                               DSPATR(RI)
+     A            PCSDTF         4Y 0B 12 47EDTWRD('  /  ')
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  77                                  DSPATR(PR)
+     A  50 62                               DSPATR(RI)
+     A  50 62                               DSPATR(PC)
+     A  63                                  ERRMSG('*** Enter A Valid Month and-
+     A                                       Day.    Press Reset')
+     A  40                                  ERRMSG('*** From and To Available D-
+     A                                      ates Are Required.      Press Reset-
+     A                                      ')
+     A                                 12 54'To:'
+     A N50                                  DSPATR(ND)
+     A            PCSDTT         4Y 0B 12 59EDTWRD('  /  ')
+     A  50N77                               DSPATR(CS)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 66                               DSPATR(RI)
+     A  50 66                               DSPATR(PC)
+     A  66                                  ERRMSG('*** Enter a Valid Month and-
+     A                                       Day.    Press Reset')
+     A N50                                  DSPATR(ND)
+     A                                 14  8'Order of Description Print:'
+     A N50                                  DSPATR(ND)
+     A            IDESC         36A  O 14 37
+     A N50                                  DSPATR(ND)
+     A  50                                  DSPATR(UL)
+     A                                 16 26'Invoices:'
+     A N50                                  DSPATR(ND)
+     A            PCPRI1         1Y 0B 16 39EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 35                               DSPATR(RI)
+     A  50 35                               DSPATR(PC)
+     A  35                                  ERRMSG('*** Enter at least 1 #.  Pr-
+     A                                      ess HELP for additional data.   Pre-
+     A                                      ss Reset')
+     A            PCPRI2         1Y 0B 16 47EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A            PCPRI3         1Y 0B 16 56EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A            PCPRI4         1Y 0B 16 67EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A                                 17  8'Form Types ==>'
+     A N50                                  DSPATR(ND)
+     A                                 17 24'Pick Slips:'
+     A N50                                  DSPATR(ND)
+     A            PCPRP1         1Y 0B 17 39EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 36                               DSPATR(PC)
+     A  50 36                               DSPATR(RI)
+     A  36                                  ERRMSG('*** Enter at least 1 #. Pre-
+     A                                      ss HELP for additional data.   Pres-
+     A                                      s Reset')
+     A            PCPRP2         1Y 0B 17 47EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 36                               DSPATR(RI)
+     A            PCPRP3         1Y 0B 17 56EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 36                               DSPATR(RI)
+     A            PCPRP4         1Y 0B 17 67EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 36                               DSPATR(RI)
+     A                                 18 27'Reports:'
+     A N50                                  DSPATR(ND)
+     A            PCPRR1         1Y 0B 18 39EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 37                               DSPATR(RI)
+     A  50 37                               DSPATR(PC)
+     A  37                                  ERRMSG('*** Enter at least 1 #.  Pr-
+     A                                      ess HELP for additional date.   Pre-
+     A                                      ss Reset')
+     A            PCPRR2         1Y 0B 18 47EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 37                               DSPATR(RI)
+     A            PCPRR3         1Y 0B 18 56EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 37                               DSPATR(RI)
+     A            PCPRR4         1Y 0B 18 67EDTCDE(1)
+     A  50N77                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A  50 37                               DSPATR(RI)
+     A                                 20 14' Press F23 to Delete - or F6 to Re-
+     A                                      start without Delete '
+     A  23N41N51                            DSPATR(RI)
+     A N23
+     AO 23 41                               DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process    F6=Restart  -
+     A                                        F3/F7=End of Job   F13=Print Prod-
+     A                                       Cls List'
+     A                                      DSPATR(UL)
+     A            CAVAIL        36A  O 12  8
+     A N50                                  DSPATR(ND)
+     A          R HELPO
+     A*%%TS  SD  19990604  071359  APGL        REL-V3R1M0  5763-PW1
+     A                                 14  3' Product Class Overview           -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(ND)
+     A                                 16  3' Product classes are a way to furt-
+     A                                      her define your inventory.  Product-
+     A                                       classes'
+     A                                      DSPATR(HI)
+     A                                 17  3' are used by order entry and billi-
+     A                                      ng, inventory control and sales ana-
+     A                                      lysis.  '
+     A                                      DSPATR(HI)
+     A                                 18  3' In order entry, the product class-
+     A                                       can be used to determine the price-
+     A                                       a      '
+     A                                      DSPATR(HI)
+     A                                 19  3' customer pays for a particular gr-
+     A                                      oup of items.  In inventory and sal-
+     A                                      es      '
+     A                                      DSPATR(HI)
+     A                                 22  3' For example:  You could assign Pr-
+     A                                      oduct Class HE to all herbs.       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' analysis, the product class group-
+     A                                      s like items together for reporting-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HDESC
+     A*%%TS  SD  19990615  080414  TGMS        REL-V3R1M0  5763-PW1
+     A                                 19  3' Product Class Description        -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(ND)
+     A                                 21  3' Enter up to 30 characters to desc-
+     A                                      ibe this product class.  This descr-
+     A                                      iption  '
+     A                                      DSPATR(HI)
+     A                                 22  3' prints on reports by product clas-
+     A                                      s.                                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HAVAIL
+     A*%%TS  SD  19990615  080414  TGMS        REL-V3R1M0  5763-PW1
+     A                                 17  3' Plant Availability               -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(ND)
+     A                                 19  3' If plants within this product cla-
+     A                                      ss are only available for a certain-
+     A                                       period '
+     A                                      DSPATR(HI)
+     A                                 20  3' of the year, enter the beginning -
+     A                                      month and day and ending month and -
+     A                                      day.    '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' If plants are always available en-
+     A                                      ter From as 0101 and To as 1231.   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HSUMM
+     A*%%TS  SD  19990615  080414  TGMS        REL-V3R1M0  5763-PW1
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3' Your customers may order many lin-
+     A                                      e items of plants where the genus a-
+     A                                      nd price'
+     A                                      DSPATR(HI)
+     A                                 15  3' are the same.  While TGMS will tr-
+     A                                      eat each line item separately for i-
+     A                                      nventory'
+     A                                      DSPATR(HI)
+     A                                 16  3' and sales analysis, you can choos-
+     A                                      e to group all items within this pr-
+     A                                      oduct   '
+     A                                      DSPATR(HI)
+     A                                 17  3' class together on the customer''s-
+     A                                       invoice.                          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' Summarize on Invoice?            -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' For example, an order is for 12 d-
+     A                                      ifferent colors of impatiens: 2 sal-
+     A                                      mon,    '
+     A                                      DSPATR(HI)
+     A                                 20  3' 3 white, etc. for a total of 25 f-
+     A                                      lats.  If you say Y to summarize fo-
+     A                                      r the   '
+     A                                      DSPATR(HI)
+     A                                 21  3' impatiens product class, the invo-
+     A                                      ice would show  25 flats - impatien-
+     A                                      s, not  '
+     A                                      DSPATR(HI)
+     A                                 22  3' a line item for every color.     -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HVOL
+     A*%%TS  SD  19990615  080414  TGMS        REL-V3R1M0  5763-PW1
+     A                                 18  3' Eligible for Volume Discount     -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(ND)
+     A                                 20  3' You may give your customers a dis-
+     A                                      count for the total quantity on an -
+     A                                      order.  '
+     A                                      DSPATR(HI)
+     A                                 21  3' You may want to exclude certain p-
+     A                                      roduct classes from getting this vo-
+     A                                      lume    '
+     A                                      DSPATR(HI)
+     A                                 22  3' discount.   Enter Y to include th-
+     A                                      is product class or N to exclude.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HPRINT
+     A*%%TS  SD  19990604  071359  APGL        REL-V3R1M0  5763-PW1
+     A                                  9  3' Order of Print                   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(ND)
+     A                                 11  3' You can define how many and in wh-
+     A                                      at order each of inventory descript-
+     A                                      ions    '
+     A                                      DSPATR(HI)
+     A                                 12  3' for items in this product class w-
+     A                                      ill print on invoices, pickslips an-
+     A                                      d       '
+     A                                      DSPATR(HI)
+     A                                 13  3' reports.  For example, on invoice-
+     A                                      s you only want to print genus and -
+     A                                      species;'
+     A                                      DSPATR(HI)
+     A                                 14  3' on pickslips you want to print ge-
+     A                                      nus, then species, then variety; an-
+     A                                      d, on   '
+     A                                      DSPATR(HI)
+     A                                 17  3' You must select at least one desc-
+     A                                      ription to print for each form type-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                 18  3' If selecting more than one descri-
+     A                                      ption, enter a 1 in the 1st desc., -
+     A                                      a       '
+     A                                      DSPATR(HI)
+     A                                 19  3' 2 in the 2nd desc. etc.  Not all -
+     A                                      descriptions must be selected for a-
+     A                                      ny      '
+     A                                      DSPATR(HI)
+     A                                 20  3' given form type.   However, if se-
+     A                                      lecting less than 4, you can not sk-
+     A                                      ip      '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' and 2 in species, not 1 and 3.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3' reports you want to print genus, -
+     A                                      then variety, then species, then na-
+     A                                      me.     '
+     A                                      DSPATR(HI)
+     A                                 21  3' a number - i.e., if you only want-
+     A                                       genus and species, you enter 1 in -
+     A                                      genus   '
+     A                                      DSPATR(HI)

@@ -1,0 +1,52 @@
+     A*%%TS  SD  20090717  114339  BILLB       REL-V5R3M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20090715  114538  BILLB       REL-V5R3M0  5722-WDS
+     A            FLD001         1A  B  4  2
+     A            VLINE          4Y 0O  4  5DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            SZCODE         3A  O  4 11DSPATR(HI)
+     A            SZDESC        10A  O  4 16DSPATR(HI)
+     A            SZLONG50  R   50   O  4 28REFFLD(RMSIZD/SZLONG *LIBL/FMSIZD)
+     A            SZCTRDPT1 R   15   O  5 44REFFLD(RMSIZD/SZCTRD *LIBL/FMSIZD)
+     A                                      COLOR(BLU)
+     A            SZCTRDPT2 R   15   O  6 44REFFLD(RMSIZD/SZCTRD *LIBL/FMSIZD)
+     A                                      COLOR(BLU)
+     A                                  5 28'Container Size:'
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20090717  114339  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLSIZ(1000)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0007)
+     A  *DS4                                SFLPAG(0008)
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLDROP(CF11)
+     A            LINE           5S 0H
+     A                                  1  3'Select Line:'
+     A            LINE#          4Y 0B  1 16EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  90                                  DSPATR(RI)
+     A  90                                  DSPATR(PC)
+     A  90                                  ERRMSG('Invalid Line Number Entered-
+     A                                      .           Press RESET')
+     A                                  1 22'-or Position Cursor On Line and Pr-
+     A                                      ess Enter    F6=Restart'
+     A            FLD001         1A  B  3  2
+     A                                  2 53'F11=Show/Hide Container Size'
+     A                                  3  4' Line  Code Description  Long Desc-
+     A                                      ription                            -
+     A                                           '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

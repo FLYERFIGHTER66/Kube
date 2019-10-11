@@ -1,0 +1,119 @@
+     A*%%TS  SD  20070221  102038  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R FXG02101
+     A*%%TS  SD  20070221  095648  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Select Cart #')
+     A                                      CF03(03 'Exit')
+     A                                      CF01(01 'Create New Cart Record')
+     A                                      CF02(02 'Use Allocated Cart')
+     A                                      OVERLAY
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  9 26'Scan the Cart Number:'
+     A            SCART#         5N 0B  9 49CHECK(ER)
+     A                                 20  1'                                  -
+     A                                                                         -
+     A                                      FXG02101   '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 22 10'=Continue'
+     A                                      COLOR(BLU)
+     A                                 22 72'F3'
+     A                                      DSPATR(HI)
+     A                                 22 75'=Exit'
+     A                                      COLOR(BLU)
+     A  51                             22 30'F1'
+     A                                      DSPATR(HI)
+     A  51                             22 33'=Create Cart Record'
+     A                                      COLOR(BLU)
+     A  52                             22 30'F2'
+     A                                      DSPATR(HI)
+     A  52                             22 33'=Use Allocated Cart'
+     A                                      COLOR(BLU)
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 24'   Fixing Verification Process   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A          R FXG02102
+     A*%%TS  SD  20070221  102038  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Select Vacuumer')
+     A                                      CF06(06 'Restart')
+     A                                      CF04(04 'Vacuumer Inquiry')
+     A                                      CF03(03 'Exit')
+     A                                      CF08(08 'No Vacuuming Required (Emp-
+     A                                      loyee = 1)')
+     A                                      CF09(09 'No Vacuum Label (Employee -
+     A                                      = 5)')
+     A                                      OVERLAY
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                 21  1'                                  -
+     A                                                                         -
+     A                                      FXG02102   '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  3 35'Cart'
+     A            SCART#         5S 0O  3 41
+     A            EMPLOYEE       8Y 0B 10 55EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                      CHECK(ER)
+     A                                 22 15'F4'
+     A                                      DSPATR(HI)
+     A                                 22 18'=Lookup Vacuumer'
+     A                                      COLOR(BLU)
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 24'   Fixing Verification Process   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 10 19'Enter the Vacuumer for the Cart:'
+     A                                 22  2'F3'
+     A                                      DSPATR(HI)
+     A                                 22  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 39'F8'
+     A                                      DSPATR(HI)
+     A                                 22 42'=No Vacuuming'
+     A                                      COLOR(BLU)
+     A                                 22 60'F9'
+     A                                      DSPATR(HI)
+     A                                 22 63'=No Vacuum Label'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040406  091800  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME '

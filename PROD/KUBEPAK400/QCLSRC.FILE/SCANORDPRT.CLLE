@@ -1,0 +1,12 @@
+             PGM
+
+             DCLF       FILE(SCANORDPRT)
+
+ LOOP1:      RTVDTAARA  DTAARA(SCANORDPRT (1 10)) RTNVAR(&CURRENT)
+             SNDRCVF    RCDFMT($PRINTER)
+             IF         COND(&IN03 = '1') THEN(GOTO CMDLBL(EOJ))
+
+             CHGDTAARA  DTAARA(SCANORDPRT (1 10)) VALUE(&PRINTER)
+             GOTO       CMDLBL(LOOP1)
+
+ EOJ:        ENDPGM

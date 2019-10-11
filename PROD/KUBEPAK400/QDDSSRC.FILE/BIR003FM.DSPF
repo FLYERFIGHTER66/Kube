@@ -1,0 +1,960 @@
+     A*%%TS  SD  20150403  131910  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990612  092856  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HALL)
+     A  *DS3                                HLPARA(03 002 07 041)
+     A  *DS4                                HLPARA(01 080 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 28' Terms Codes Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  2'Action:'
+     A            VACT           1A  B  5 11DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Codes Are A, C or-
+     A                                       D.      Press Reset')
+     A                                  5 26'Terms Code?'
+     A            VTERM          2A  B  5 40DSPATR(CS)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Terms Code Is Required.-
+     A                                            Press Reset')
+     A  12                                  ERRMSG('*** This Terms Code Is Acti-
+     A                                      ve.   Press Reset')
+     A  13                                  ERRMSG('*** This Terms Code Is Not -
+     A                                      Active.   Press Reset')
+     A            VDESC         30A  O  5 44
+     A                                  7 26'Terms Type:'
+     A            TCTRTP         1Y 0B  7 41DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Enter A Valid Type - 1 -
+     A                                      2 3.     Press Reset')
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 10 26'Terms Types ==>   1 = Fixed Days'
+     A                                 11 44'2 = Multi Due Days'
+     A                                 12 44'3 = Specific Due Date'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process    F3/F7=End o-
+     A                                      f Job     F13=Print Terms Codes Lis-
+     A                                      ting     '
+     A                                      DSPATR(UL)
+     A          R HALL
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  6  3' Terms Codes Overview             -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  3' A Terms Code defines to the syste-
+     A                                      m the different terms you offer you-
+     A                                      r       '
+     A                                      DSPATR(HI)
+     A                                  9  3' customers or are offered to you b-
+     A                                      y your vendors.  You can have 3    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3' distinct types of terms:         -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' 1. Fixed - the invoice due date i-
+     A                                      s a specific number of days after t-
+     A                                      he      '
+     A                                      DSPATR(HI)
+     A                                 13  3'    invoice date and can have an o-
+     A                                      ptional discount percent and days f-
+     A                                      or      '
+     A                                      DSPATR(HI)
+     A                                 14  3'    early payment, such as 1% disc-
+     A                                      ount if paid within 10 days, net 30-
+     A                                       days.  '
+     A                                      DSPATR(HI)
+     A                                 16  3'    are one due date and invoices -
+     A                                      dated after that day are given anot-
+     A                                      her     '
+     A                                      DSPATR(HI)
+     A                                 17  3'    due date.                     -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' 3. Specific Due Date - A specific-
+     A                                       date is defined, such as 12/31/99.-
+     A                                       An     '
+     A                                      DSPATR(HI)
+     A                                 19  3'    optional discount percent and -
+     A                                      specific discount date can also be -
+     A                                      entered.'
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3' 2. Multi-Due Dates - invoices dat-
+     A                                      ed prior to a certain day of the mo-
+     A                                      nth     '
+     A                                      DSPATR(HI)
+     A                                 21  3' You code every customer and vendo-
+     A                                      r with a default terms code.  This -
+     A                                      code    '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' can be overriden when entering cu-
+     A                                      stomer orders or vendor invoices.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20150403  131910  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF23
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(06 040 06 069)
+     A  *DS4                                HLPARA(06 040 06 069)
+     A          H                           HLPRCD(HDAYS)
+     A  *DS3                                HLPARA(08 042 08 044)
+     A  *DS4                                HLPARA(08 042 08 044)
+     A          H                           HLPRCD(HDISC)
+     A  *DS3                                HLPARA(10 040 10 044)
+     A  *DS4                                HLPARA(10 040 10 044)
+     A          H                           HLPRCD(HDDAY)
+     A  *DS3                                HLPARA(12 042 12 044)
+     A  *DS4                                HLPARA(12 042 12 044)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 28' Terms Codes Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 30' Record to be deleted '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                  4  3'Terms Code:'
+     A            VTERM          2A  O  4 15DSPATR(HI)
+     A  16                                  DSPATR(PC)
+     A                                  4 20'Terms Type:'
+     A            TCTRTP         1S 0O  4 32DSPATR(HI)
+     A                                  4 35'Fixed Days'
+     A                                      DSPATR(HI)
+     A                                  6 26'Description:'
+     A            TCDESC        30A  B  6 40
+     A N16                                  DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  16                                  DSPATR(PR)
+     A  10                                  ERRMSG('*** Description Is Required-
+     A                                      .      Press Reset')
+     A  16                                  DSPATR(HI)
+     A            TCTDAS         3Y 0B  8 42
+     A N16                                  DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(PR)
+     A  20                                  ERRMSG('*** Number Of Days Is Requi-
+     A                                      red.      Press Reset')
+     A  16                                  DSPATR(HI)
+     A                                 11 16'Prompt Pay Discount %:'
+     A            TCTRAT         4Y 2B 11 40
+     A N16                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(PR)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  16                                  DSPATR(HI)
+     A  30                                  ERRMSG('*** Discount Percent Requir-
+     A                                      ed If Discount Days Entered.   Pres-
+     A                                      s Reset')
+     A                                 13  9'Days to Qualify for Discount:'
+     A            TCTDAY         3Y 0B 13 42
+     A N16                                  DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(PR)
+     A  16                                  DSPATR(HI)
+     A  41                                  ERRMSG('*** Discount Days Cannot Be-
+     A                                       Greater Than Days.    Press Reset')
+     A  42                                  ERRMSG('*** Discount Days Required -
+     A                                      If Percent Entered.   Press Reset')
+     A                                 20 13' Press F23 to Delete - or F6 to Re-
+     A                                      start without Delete '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98
+     AO 16                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  8 11'Number of days to Due Date:'
+     A                                  9 12'Days past Due for 1st L/C:'
+     A            TCTDGP         3Y 0B  9 42EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  20                                  ERRMSG('*** Number Of Days Is Requi-
+     A                                      red.      Press Reset')
+     A                                      COLOR(TRQ)
+     A                                      RANGE(0 999)
+     A                                  8 47'...determines due Date.'
+     A                                      COLOR(BLU)
+     A                                  9 47'...days past due date for 1st L/C'
+     A                                      COLOR(BLU)
+     A          R HDESC
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 15  3' Terms Code Description           -
+     A                                                                       Re-
+     A                                      quired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' Enter up to 30 characters to desc-
+     A                                      ribe this terms code.  This descrip-
+     A                                      tion    '
+     A                                      DSPATR(HI)
+     A                                 18  3' prints on your customers invoice -
+     A                                      and displays in accounts payable.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' Check your invoice form to see ho-
+     A                                      w much space has been allowed for t-
+     A                                      his     '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' description, for example if your -
+     A                                      form only has room for 12 character-
+     A                                      s,      '
+     A                                      DSPATR(HI)
+     A                                 22  3' you count enter 1% 10-Net 30, ins-
+     A                                      tead of 1% 10 Days - Net 30 Days.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HDAYS
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' Days                             -
+     A                                                                       Re-
+     A                                      quired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' This is the number of days after -
+     A                                      the invoice date which determines t-
+     A                                      he      '
+     A                                      DSPATR(HI)
+     A                                 20  3' invoice due date.                -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' For example for terms with a Net -
+     A                                      30 - enter 30                      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HDISC
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 16  3' Discount                         -
+     A                                                                       Op-
+     A                                      tional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' Enter the discount percent that m-
+     A                                      ay be taken by the customer if the -
+     A                                      invoice '
+     A                                      DSPATR(HI)
+     A                                 19  3' is paid within terms - or - the d-
+     A                                      iscount percent you can take if you-
+     A                                       pay    '
+     A                                      DSPATR(HI)
+     A                                 22  3' For example, if the discount is 1-
+     A                                      % - enter 1.00                     -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' a vendor invoice within terms.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HDDAY
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' Days to Qualify for Discount     -
+     A                                                   Required if Discount E-
+     A                                      ntered  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' This is the number of days after -
+     A                                      the invoice date during which the d-
+     A                                      iscount '
+     A                                      DSPATR(HI)
+     A                                 20  3' percent is allowed.              -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' For example for terms with a 1% 1-
+     A                                      0-Net 30 - Enter 10                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SCRNC
+     A*%%TS  SD  19990621  165655  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF23
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(CHELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 28' Terms Codes Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 30' Record to be deleted '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                  4  3'Terms Code:'
+     A            VTERM          2A  O  4 16DSPATR(HI)
+     A  16                                  DSPATR(PC)
+     A                                  4 20'Terms Type:'
+     A            TCTRTP         1S 0O  4 32DSPATR(HI)
+     A                                  6 19'Description:'
+     A            TCDESC        30A  B  6 32
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  16                                  DSPATR(HI)
+     A  10                                  ERRMSG('*** Description Is Required-
+     A                                      .     Press Reset')
+     A                                  8 12'Cut Off Day:'
+     A            TCCUTO         2Y 0B  8 26
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  20                                  ERRMSG('*** Enter Cut Off Days Betw-
+     A                                      een 01-31.  Press Reset')
+     A                                  8 42'Discount Percent:'
+     A            TCTRAT         4Y 2B  8 61
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(1)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Discount Percent Requir-
+     A                                      ed If Discount Due Date Entered.  P-
+     A                                      ress Reset')
+     A                                 10 10' Before Cut Off '
+     A                                      DSPATR(RI)
+     A                                 10 48' After Cut Off '
+     A                                      DSPATR(RI)
+     A                                 12  8'Months to Add:'
+     A            TCMBCO         2Y 0B 12 26
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  40                                  ERRMSG('*** Months Must Be Between -
+     A                                      01-12.   Press Reset')
+     A                                 12 47'Months to Add:'
+     A            TCMACO         2Y 0B 12 64
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A  41                                  DSPATR(RI)
+     A  41                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  41                                  ERRMSG('*** Months Must Be Between -
+     A                                      01-12.   Press Reset')
+     A                                 14  4'Discount Due Date:'
+     A            TCDBCO         2Y 0B 14 26
+     A N16                                  DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  51                                  ERRMSG('*** Enter Days Between 01-3-
+     A                                      1.  Press Reset')
+     A  52                                  ERRMSG('*** Discount Days Required -
+     A                                      If Discount Percent Entered.   Pres-
+     A                                      s Reset')
+     A                                 14 43'Discount Due Date:'
+     A            TCDACO         2Y 0B 14 64
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  61                                  ERRMSG('*** Enter Days Between 01-3-
+     A                                      1.      Press Reset')
+     A  62                                  ERRMSG('*** Discount Days Required -
+     A                                      If Discount Percent Entered.    Pre-
+     A                                      ss Reset')
+     A                                 16 10'Net Due Day:'
+     A            TCNBCO         2Y 0B 16 26
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A  70                                  DSPATR(RI)
+     A  70                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  70                                  ERRMSG('*** Enter Days Between 01-3-
+     A                                      1.    Press Reset')
+     A                                 16 49'Net Due Day:'
+     A            TCNACO         2Y 0B 16 64
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A  80                                  DSPATR(RI)
+     A  80                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  16                                  DSPATR(HI)
+     A  80                                  ERRMSG('*** Enter Days Between 01-3-
+     A                                      1.     Press Reset')
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98
+     AO 16                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4 35'Multi Due Dates'
+     A                                      DSPATR(HI)
+     A          R CHELP
+     A*%%TS  SD  19990612  094739  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                  3  3' Multi Due Dates                  -
+     A                                                                       Ov-
+     A                                      erview  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  3' it by the 30th of the current mon-
+     A                                      th, you can take a 1% discount.  In-
+     A                                      voices  '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7  3' the before cut off terms, or the -
+     A                                      after cut off terms.               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  6  3' month of the invoice date. The cu-
+     A                                      t off day determines which terms to-
+     A                                       use -  '
+     A                                      DSPATR(HI)
+     A                                  5  3' With multi due dates an invoice c-
+     A                                      an become due based on the day of t-
+     A                                      he      '
+     A                                      DSPATR(HI)
+     A                                  4  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' dated on or after the 15th are du-
+     A                                      e on the 10th two months hence, but-
+     A                                       if     '
+     A                                      DSPATR(HI)
+     A                                  9  3' For example:  a vendors terms are-
+     A                                       that any invoice dated before the -
+     A                                      15th of '
+     A                                      DSPATR(HI)
+     A                                 10  3' the month is due on the 25th of t-
+     A                                      he following month.  However, if yo-
+     A                                      u pay   '
+     A                                      DSPATR(HI)
+     A                                  8  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3' paid by the 15th of the following-
+     A                                       month, you can take a 1% discount.-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'       Net Due Date       25      -
+     A                                      Net Due Date          10           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'       Discount Due Date  30      -
+     A                                      Discount Due Date     15           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'       Months to Add       1      -
+     A                                      Months to Add          2           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'       Cut off day:       15      -
+     A                                      Discount Percent:   1.00           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3' This is what you would enter:    -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'       Before Cut Off             -
+     A                                      After Cut Off                      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SCRND
+     A*%%TS  SD  19990621  165655  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF23
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HDDES)
+     A  *DS3                                HLPARA(07 037 07 066)
+     A  *DS4                                HLPARA(06 037 06 066)
+     A          H                           HLPRCD(HDDIS)
+     A  *DS3                                HLPARA(09 040 09 044)
+     A  *DS4                                HLPARA(08 040 08 044)
+     A          H                           HLPRCD(HDDDAY)
+     A  *DS3                                HLPARA(11 037 11 044)
+     A  *DS4                                HLPARA(10 037 10 044)
+     A          H                           HLPRCD(HDNDAY)
+     A  *DS3                                HLPARA(13 037 13 044)
+     A  *DS4                                HLPARA(12 037 12 044)
+     A            PROGID        10A  O  1  2
+     A                                  1 17'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 25' Terms Codes Master Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 30' Record to be deleted '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                  5  2'Terms Code:'
+     A            VTERM          2A  O  5 14DSPATR(HI)
+     A  16                                  DSPATR(PC)
+     A                                  5 20'Terms Type:'
+     A            TCTRTP         1S 0O  5 32DSPATR(HI)
+     A                                  7 23'Description:'
+     A            TCDESC        30A  B  7 37
+     A N16                                  DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  10                                  ERRMSG('*** Description Is Required-
+     A                                      .     Press Reset')
+     A  16                                  DSPATR(PR)
+     A  16                                  DSPATR(HI)
+     A                                  9 24'Discount %:'
+     A            TCTRAT         4Y 2B  9 40
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(1)
+     A                                      CHECK(RB)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Percent Required If Dis-
+     A                                      count Due Date Entered.    Press Re-
+     A                                      set')
+     A  16                                  DSPATR(HI)
+     A                                 11 17'Discount Due Date:'
+     A            TCDDUE         6Y 0B 11 37
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Y)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Discount Due Date Requi-
+     A                                      red If Percent Entered.     Press R-
+     A                                      eset')
+     A  31                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Reset')
+     A  33                                  ERRMSG('*** Discount Date Must Be E-
+     A                                      qual or Lower Than Net Date.   Pres-
+     A                                      s Reset')
+     A  16                                  DSPATR(HI)
+     A                                 13 22'Net Due Date:'
+     A            TCNDUE         6Y 0B 13 37
+     A N16                                  DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      EDTCDE(Y)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  16                                  DSPATR(HI)
+     A  50                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A                                 20 14' Press F23 to Delete - or - F6 Res-
+     A                                      tart without Delete '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98
+     AO 16                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  5 34'Specific Due Date'
+     A                                      DSPATR(HI)
+     A          R HDDES
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 15  3' Terms Code Description           -
+     A                                                                       Re-
+     A                                      quired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' Enter up to 30 characters to desc-
+     A                                      ribe this terms code.  This descrip-
+     A                                      tion    '
+     A                                      DSPATR(HI)
+     A                                 18  3' prints on your customers invoice.-
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' Check your invoice form to see ho-
+     A                                      w much space has been allowed for t-
+     A                                      his     '
+     A                                      DSPATR(HI)
+     A                                 21  3' description, for example if your -
+     A                                      form only has room for 12 character-
+     A                                      s,      '
+     A                                      DSPATR(HI)
+     A                                 22  3' you count enter 1% 10-Net 30, ins-
+     A                                      tead of 1% 10 Days - Net 30 Days.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HDDIS
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' Discount Percent                 -
+     A                                                                       Op-
+     A                                      tional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' Enter the discount percent that m-
+     A                                      ay be taken by the customer if the -
+     A                                      invoice '
+     A                                      DSPATR(HI)
+     A                                 20  3' is paid within the days to qualif-
+     A                                      y for the discount.                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' For example, if the discount is 1-
+     A                                      % - enter 1.00.                    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HDDDAY
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 19  3' Discount Due Date                -
+     A                                                   Required if Discount E-
+     A                                      ntered  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' This is the EXACT date by which i-
+     A                                      nvoices with this terms code must b-
+     A                                      e paid  '
+     A                                      DSPATR(HI)
+     A                                 22  3' in order to take the discount.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HDNDAY
+     A*%%TS  SD  19990612  070039  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 18  3' Net Due Date                     -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' This is the EXACT date by which i-
+     A                                      nvoices with this terms code must b-
+     A                                      e paid. '
+     A                                      DSPATR(HI)
+     A                                 21  3' This date should be reviewed ofte-
+     A                                      n.  If not checked, an invoice coul-
+     A                                      d end   '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3' up having a due date that is prio-
+     A                                      r to the invoice date.             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)

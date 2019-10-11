@@ -1,0 +1,236 @@
+     A*%%TS  SD  19991029  191045  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A*  PROMPT SCREEN FOR PAID ITEM REMOVAL
+     A          R SCRNA
+     A*%%TS  SD  19991029  191045  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HALL)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A                                  1  2'ARC500'
+     A                                  1 13'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 29' A/R Paid Item Removal '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 27'Purge Items Dated:'
+     A            LDATE          6Y 0B  5 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  12                                  ERRMSG('*** Date Is Beyond Current -
+     A                                      Date - Change Date or Press Reset T-
+     A                                      o Accept.')
+     A                                  6 27'On or Before:'
+     A                                  8 27'Add Purged Items'
+     A            LADD           1X  B  8 49
+     A  20                                  DSPATR(PC)
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                  9 27'to A/R History:'
+     A                                 11 27'Print Report of'
+     A            LPRINT         1X  B 11 49
+     A  30                                  DSPATR(PC)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                 12 27'Purged Items:'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                               F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HALL
+     A*%%TS  SD  19990720  063620  TGMS        REL-V4R2M0  5769-PW1
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6  3' A/R Paid Item Removal            -
+     A                                                                    Overv-
+     A                                      iew     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8  3'   The Paid Item Removal will dele-
+     A                                      te ALL open Accounts Receivable rec-
+     A                                      ords    '
+     A                                      DSPATR(HI)
+     A                                  9  3'   that are reconciled.   Reconcil-
+     A                                      ed means that all transaction types-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3'   associated with an invoice numb-
+     A                                      er must equal zero when added toget-
+     A                                      her.    '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'  An audit report prints showing a-
+     A                                      ll transactions that have been dele-
+     A                                      ted.    '
+     A                                      DSPATR(HI)
+     A                                 12  3'     For example:    Invoice Amoun-
+     A                                      t  =    $100.00                    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                     Payment Amoun-
+     A                                      t  =   ($ 75.00)                   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3'                     Credit Memo  -
+     A                                         =   ($ 25.00)                   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                     Invoice Total-
+     A                                         =    $   .00                    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'                     This invoice -
+     A                                      would be deleted.                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3'   You can choose to have the reco-
+     A                                      rds that are purged from the open a-
+     A                                      /r      '
+     A                                      DSPATR(HI)
+     A                                 19  3'   file written to the a/r history-
+     A                                       file.  There is an option to inqui-
+     A                                      re      '
+     A                                      DSPATR(HI)
+     A                                 20  3'   into the a/r history file.     -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A*         R SCRNA
+     A          R SCRNB
+     A*%%TS  SD  19990913  073142  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ARC500'
+     A                                  1 13'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 29' A/R Paid Item Removal '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6 27'Printer ID:'
+     A            LPRTR         10A  B  6 46DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                  7 27'Forms Number:'
+     A            LFORM         10A  B  7 46DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                  8 27'Number of Copies:'
+     A            LCOPY          2Y 0B  8 54
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                  9 27'Run From JobQ:'
+     A            LJOBQ          1A  B  9 55DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 10 27'Print Status:'
+     A            VOUT           1Y 0B 10 55
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 10 59'1 = Print'
+     A                                 11 59'2 = Print/Save'
+     A                                 12 59'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                               F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)

@@ -1,0 +1,553 @@
+     A*%%TS  SD  19990906  062433  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990906  062433  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPO)
+     A  *DS3                                HLPARA(05 013 05 049)
+     A  *DS4                                HLPARA(05 013 05 049)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 24' General Ledger Posting Defaults '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  4'Action:'
+     A            VACT           1X  B  5 13DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.         Press Reset')
+     A                                  5 30'Company Number:'
+     A            VCO            2Y 0B  5 48
+     A  12                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  12                                  DSPATR(PC)
+     A                                      EDTCDE(3)
+     A                                      CHECK(RZ)
+     A  11                                  ERRMSG('*** Enter a Valid Company N-
+     A                                      umber.    Press Reset')
+     A  13                                  ERRMSG('*** G/L Defaults Are On Fil-
+     A                                      e For This Company.    Press Reset')
+     A  14                                  ERRMSG('*** G/L Defaults Are Not On-
+     A                                       File For This Company.    Press Re-
+     A                                      set')
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process       F3/F7=En-
+     A                                      d of Job       F13=Print Default Fi-
+     A                                      le       '
+     A                                      DSPATR(UL)
+     A          R HELPO
+     A*%%TS  SD  19990421  123828  AP          REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                  6  3' G/L Posting Defaults Overview    -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                  8  3' All appropriate data from from su-
+     A                                      b-ledger applications are automatic-
+     A                                      ally    '
+     A                                      DSPATR(HI)
+     A                                  9  3' posted to general ledger.  Someti-
+     A                                      mes you are required to enter the g-
+     A                                      /l # and'
+     A                                      DSPATR(HI)
+     A                                 10  3' sometimes the system assigns the -
+     A                                      g/l number.                        -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 12  3' Example:      You enter an adjust-
+     A                                      ment to a/r.  The system automatica-
+     A                                      lly     '
+     A                                      DSPATR(HI)
+     A                                 13  3'               makes the entry to -
+     A                                      the a/r number defined in the posti-
+     A                                      ng      '
+     A                                      DSPATR(HI)
+     A                                 14  3'               defaults and you wo-
+     A                                      uld assign the number to which this-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'               adjustment should b-
+     A                                      e posted.                          -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 17  3' The account numbers you enter her-
+     A                                      e must already exist in the general-
+     A                                       ledger '
+     A                                      DSPATR(HI)
+     A                                 18  3' chart of accounts.               -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 20  3' A number must be entered for ever-
+     A                                      y account.  If you do not think you-
+     A                                       will   '
+     A                                      DSPATR(HI)
+     A                                 21  3' be using this account - enter the-
+     A                                       dummy account number you set up.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SCRNB
+     A*%%TS  SD  19990822  071806  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPB)
+     A  *DS3                                HLPARA(09 052 14 052)
+     A  *DS4                                HLPARA(09 052 10 052)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 24' General Ledger Posting Defaults '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  5'Company Number:'
+     A            VCO            2S 0O  5 21DSPATR(HI)
+     A            MCNAME        30A  O  5 24DSPATR(HI)
+     A                                  7 27'What Modules are you Using?'
+     A                                      DSPATR(UL)
+     A                                  9 27'Distribution:'
+     A            VDIST          1X  B  9 52DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 10 29'Order Entry/Billing'
+     A                                 11 29'Inventory Control'
+     A                                 12 29'Accounts Receivable'
+     A                                 14 27'Financials:'
+     A            VFIN           1X  B 14 52DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 15 29'Accounts Payable'
+     A                                 16 29'Payroll'
+     A                                 17 29'Purchase Orders'
+     A                                 18 29'General Ledger'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'           Enter to Process      F-
+     A                                      6=Restart      F3/F7=End of Job    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELPB
+     A*%%TS  SD  19970611  080415  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                 17  3' What Modules Are You Using?      -
+     A                                                                   Requir-
+     A                                      ed      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 21  3' If you are using any of the Finan-
+     A                                      cial Applications  -  Enter Y      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3' If you are using any of the Distr-
+     A                                      ibution Applications  -  Enter Y   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R SCRNC
+     A*%%TS  SD  19990822  072601  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HSALES)
+     A  *DS3                                HLPARA(05 028 05 036)
+     A  *DS4                                HLPARA(05 028 05 036)
+     A          H                           HLPRCD(HOGS)
+     A  *DS3                                HLPARA(06 028 06 036)
+     A  *DS4                                HLPARA(06 028 06 036)
+     A            PROGID        10A  O  1  2
+     A                                  1 25' Distribution Posting Defaults '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            VCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Sales'
+     A            GDSALE         8Y 0B  5 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  5 44'Inventory'
+     A            GDINVN         8Y 0B  5 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  6  3'Cost of Goods Sold'
+     A            GDCOGS         8Y 0B  6 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  6 44'Accounts Receivable'
+     A            GDARRC         8Y 0B  6 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A  33                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  7  3'Freight'
+     A            GDFRGT         8Y 0B  7 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  7 44'Special Charge'
+     A            GDSCHG         8Y 0B  7 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  8  3'Quantity Discount'
+     A            GDVDSC         8Y 0B  8 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  8 44'Trade Discount'
+     A            GDTDSC         8Y 0B  8 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  37                                  DSPATR(RI)
+     A  37                                  DSPATR(PC)
+     A  37                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  9  3'Late Charges    '
+     A            GDLCHG         8Y 0B  9 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  38                                  DSPATR(RI)
+     A  38                                  DSPATR(PC)
+     A  38                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  9 44'Cash'
+     A            GDCASH         8Y 0B  9 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  39                                  DSPATR(RI)
+     A  39                                  DSPATR(PC)
+     A  39                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 10  3'Cash Discounts'
+     A            GDCDSC         8Y 0B 10 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 10 44'Inventory Adjustments'
+     A            GDINAJ         8Y 0B 10 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  41                                  DSPATR(RI)
+     A  41                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 12  3'State Sales Tax'
+     A            GDSTTX         8Y 0B 12 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A  42                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 12 44'County Sales Tax'
+     A            GDCOTX         8Y 0B 12 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  43                                  DSPATR(RI)
+     A  43                                  DSPATR(PC)
+     A  43                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 13  3'City Sales Tax'
+     A            GDCITX         8Y 0B 13 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  44                                  DSPATR(RI)
+     A  44                                  DSPATR(PC)
+     A  44                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 15  3'Stock Inven. Clearing'
+     A            GDAPEX         8Y 0B 15 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  46                                  DSPATR(RI)
+     A  46                                  DSPATR(PC)
+     A  46                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 15 44'Non-Stock Inventory'
+     A            GDPUNS         8Y 0B 15 68EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  47                                  DSPATR(RI)
+     A  47                                  DSPATR(PC)
+     A  47                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 17  3'Profit/Loss'
+     A            GDINC$         8Y 0B 17 28EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  48                                  DSPATR(RI)
+     A  48                                  DSPATR(PC)
+     A  48                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 19 11'* Enter  -  in a field to look up -
+     A                                      the general ledger number.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21  4'Refer to the EFFECT OF TRANSACTION-
+     A                                      S ON GENERAL LEDGER for an explanat-
+     A                                      ion '
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'           Enter to Process     F6-
+     A                                      =Restart      F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R SCRND
+     A*%%TS  SD  19990429  071634  GL          REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  1 27' Financial Posting Defaults '
+     A                                      DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  2'Payroll'
+     A            GDPAYR         8Y 0B  5 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  5 43'Total FICA Liability'
+     A            GDFICA         8Y 0B  5 69DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  6  2'Payroll Cash Account'
+     A            GDPRCS         8Y 0B  6 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  6 43'Employer FICA Expense'
+     A            GDAFIX         8Y 0B  6 69DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A  33                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  7  2'FIT'
+     A            GDFIT          8Y 0B  7 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  7 43'Cost of Living Allowance'
+     A            GDCOLA         8Y 0B  7 69DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  8  2'Other Earnings-Taxable'
+     A            GDOTAX         8Y 0B  8 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                  9  2'Other Earnings-Non-Taxable'
+     A            GDONTX         8Y 0B  9 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  37                                  DSPATR(RI)
+     A  37                                  DSPATR(PC)
+     A  37                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 12  2'Accounts Payable'
+     A            GDAPPY         8Y 0B 12 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  38                                  DSPATR(RI)
+     A  38                                  DSPATR(PC)
+     A  38                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 12 43'A/P Freight-in'
+     A            GDFRTI         8Y 0B 12 69DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  39                                  DSPATR(RI)
+     A  39                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 13  2'Stock Inventory Clearing'
+     A            GDINVN         8Y 0B 13 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 13 43'Non-Stock Inv. Clearing'
+     A            GDPUNS         8Y 0B 13 69DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  41                                  DSPATR(RI)
+     A  41                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 14  2'A/P Discount Taken'
+     A            GDAPDS         8Y 0B 14 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A  42                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 15  2'A/P Cash Account'
+     A            GDAPCH         8Y 0B 15 30DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  43                                  DSPATR(RI)
+     A  43                                  DSPATR(PC)
+     A  43                                  ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                 18  2'Profit/Loss'
+     A  24                                  DSPATR(ND)
+     A            GDINC$         8Y 0B 18 30
+     A N24                                  DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  44N24                               DSPATR(RI)
+     A  44N24                               DSPATR(PC)
+     A  44N24                               ERRMSG('*** Enter a Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A  24                                  DSPATR(ND)
+     A  24                                  DSPATR(PR)
+     A                                 19 11'* Enter  -  in a field to look up -
+     A                                      the general ledger number.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21  4'Refer to the EFFECT OF TRANSACTION-
+     A                                      S ON GENERAL LEDGER for an explanat-
+     A                                      ion '
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'     Enter to Process       F6=Res-
+     A                                      tart      F3/F7=End of Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  2 33'For Company:'
+     A            VCO            2  0O  2 46DSPATR(HI)

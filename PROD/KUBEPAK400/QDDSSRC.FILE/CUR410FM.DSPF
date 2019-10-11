@@ -1,0 +1,212 @@
+     A*%%TS  SD  20160726  161255  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20090122  132438  BILLB       REL-V5R3M0  5722-WDS
+     A                                  1  2'CUR410A'
+     A            VMVEND         6S 0O  2 25COLOR(BLU)
+     A            VMNAME        30A  O  2 33COLOR(PNK)
+     A                                  2 16'Vendor:'
+     A                                      DSPATR(HI)
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Cutting Requirements Inquiry '
+     A                                      DSPATR(RI)
+     A                                 10 12'Sow Date:'
+     A            SOWDAT         6Y 0B 10 23
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTWRD('  /  /  ')
+     A  40N41                               ERRMSG('*** Invalid Date Entered.  -
+     A                                             Press RESET')
+     A  41                                  ERRMSG('*** Sow Date Must Be a Mond-
+     A                                      ay.    Press RESET')
+     A                                 10 33'or Year ex. 2001:'
+     A            YEAR           4Y 0B 10 51
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  45N46                               ERRMSG('*** Invalid Year Entered.  -
+     A                                             Press RESET')
+     A  46                                  ERRMSG('*** Invalid Year/Week Combi-
+     A                                      nation entered.      Press RESET')
+     A                                 10 57'and Week Number:'
+     A            WEEK           2Y 0B 10 74
+     A  48                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  48                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  48N45                               ERRMSG('*** Week number must be Bet-
+     A                                      ween 1 and 53.  Press RESET')
+     A                                 24 21'Enter to Process           F3/F7=E-
+     A                                      nd Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 21'                                  -
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  6' There is NO Open report to work w-
+     A                                      ith. Return to Menu and run Option -
+     A                                      1. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  7 12'Item Number?'
+     A            ITEMI         12A  B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.      Press RESET')
+     A  11                                  ERRMSG('*** There is no information-
+     A                                       for this item number.   Press RESE-
+     A                                      T')
+     A                                 13 12'Only enter an Item number if you o-
+     A                                      nly want that item.'
+     A                                      DSPATR(HI)
+     A                                 15 12'Only enter a Sow date if you only -
+     A                                      want that sow date.'
+     A                                      DSPATR(HI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20091012  135334  BILLB       REL-V5R3M0  5722-WDS
+     A            COITEM        12A  H
+     A            COSIZE         3A  H
+     A            COSOWD         7S 0H
+     A            COSVND    R        O  7  2REFFLD(RCUTORD/COVEND *LIBL/FCUTORD)
+     A  51                                  DSPATR(HI)
+     A            COORD#    R        O  7 10REFFLD(RCUTORD/COORD# *LIBL/FCUTORD)
+     A  51                                  DSPATR(HI)
+     A            COSTAT    R        O  7 18REFFLD(RCUTORD/COSTAT *LIBL/FCUTORD)
+     A N51                                  DSPATR(UL)
+     A  51                                  DSPATR(HI)
+     A            COORDD    R        O  7 21REFFLD(RCUTORD/COORDD *LIBL/FCUTORD)
+     A  51                                  DSPATR(HI)
+     A            COVITM    R        O  7 33REFFLD(RCUTORD/COVITM *LIBL/FCUTORD)
+     A  51                                  DSPATR(HI)
+     A            COQTOO    R        O  7 50REFFLD(RCUTORD/COQTOO *LIBL/FCUTORD)
+     A                                      EDTCDE(M)
+     A  51                                  DSPATR(HI)
+     A            COQTRC    R        O  7 60REFFLD(RCUTORD/COQTRC *LIBL/FCUTORD)
+     A                                      EDTCDE(M)
+     A  51                                  DSPATR(HI)
+     A            ONORDER   R        O  7 70REFFLD(RCUTORD/COQTRC *LIBL/FCUTORD)
+     A                                      EDTCDE(M)
+     A  51                                  DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20160726  161255  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(2500)
+     A                                      SFLPAG(0015)
+     A                                      CF02
+     A                                      CF06
+     A                                      CF10
+     A                                      CF04
+     A                                      CF05
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLDROP(CF11)
+     A                                  1  2'CUR410SFL'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 26' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A            LINE           5S 0H
+     A                                  6  1' Vendor  Order# STS  Ordered      -
+     A                                      Vendor Item    Request   Confirm   -
+     A                                      On Order '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 61'F3'
+     A                                      DSPATR(HI)
+     A                                  1 64'=Exit'
+     A                                      COLOR(BLU)
+     A            CLQTTS    R        O  3 16REFFLD(RCUTLOT/CLQTTS *LIBL/FCUTLOT)
+     A                                      COLOR(PNK)
+     A                                  3 10'Sold'
+     A            CLQTTF    R        O  4 16REFFLD(RCUTLOT/CLQTTF *LIBL/FCUTLOT)
+     A                                      COLOR(PNK)
+     A                                  4  9'Fixer'
+     A            CLQTSL    R        O  5 37REFFLD(RCUTLOT/CLQTSL *LIBL/FCUTLOT)
+     A                                      COLOR(BLU)
+     A            CLQTOH    R        O  5 60REFFLD(RCUTLOT/CLQTOH *LIBL/FCUTLOT)
+     A                                      COLOR(PNK)
+     A                                      EDTCDE(M)
+     A            CLQTAV    R        O  5 49REFFLD(RCUTLOT/CLQTAV *LIBL/FCUTLOT)
+     A                                      COLOR(BLU)
+     A            CLQTOO    R        O  5 70REFFLD(RCUTLOT/CLQTOO *LIBL/FCUTLOT)
+     A                                      COLOR(PNK)
+     A                                      EDTCDE(M)
+     A            CLITEM5        5A  O  2 15COLOR(YLW)
+     A            CLSIZE    R        O  2 21REFFLD(RCUTLOT/CLSIZE *LIBL/FCUTLOT)
+     A                                      COLOR(YLW)
+     A                                  4 35'|'
+     A                                      COLOR(BLU)
+     A                                  5 35'|'
+     A                                      COLOR(BLU)
+     A            IMDES1    R        O  2 26REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      COLOR(YLW)
+     A            CLSOWD    R        O  2 57REFFLD(RCUTLOT/CLSOWD *LIBL/FCUTLOT)
+     A                                      COLOR(YLW)
+     A                                  3  2'FLATS:'
+     A                                  5  2'Supply'
+     A                                      DSPATR(HI)
+     A                                  3 35'|<----- Lot File Information Summa-
+     A                                      ry ------>|'
+     A                                      COLOR(BLU)
+     A                                  3 29'C/C'
+     A                                      DSPATR(UL)
+     A            IM#SED    R        O  4 29REFFLD(RMINVT/IM#SED *LIBL/FMINVT)
+     A                                      COLOR(PNK)
+     A            NOTES          2Y 0B  5 15PSHBTNFLD(*RSTCSR)
+     A N60                                  PSHBTNCHC(1 '>Add Notes')
+     A  60                                  PSHBTNCHC(2 '>View Notes')
+     A                                  4 40'Needed'
+     A                                      DSPATR(HI)
+     A                                  4 49'Available'
+     A                                      DSPATR(HI)
+     A                                  4 60'Confirm'
+     A                                      DSPATR(HI)
+     A                                  4 70'On Order'
+     A                                      DSPATR(HI)
+     A                                  4 79'|'
+     A                                      COLOR(BLU)
+     A                                  5 79'|'
+     A                                      COLOR(BLU)
+     A          R SCRND
+     A*%%TS  SD  20011025  180114  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF06
+     A                                      CF10
+     A                                  1  2'CUR300D'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                  8 15' You have requested that we delete-
+     A                                       this work file. '
+     A                                      DSPATR(RI)
+     A                                 10  6'There are:'
+     A            TOTREC         9Y 0O 10 17DSPATR(HI)
+     A                                      EDTCDE(1)
+     A                                 10 29'Cuttings you have received, they w-
+     A                                      ill be lost.'
+     A                                 12  7' Press F10 to confirm delete, or P-
+     A                                      ress F6 to return with no delete.'
+     A                                      DSPATR(RI)

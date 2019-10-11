@@ -1,0 +1,130 @@
+     A*%%TS  SD  20110805  100639  BILLB       REL-V5R4M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF06
+     A          R SCRNA
+     A*%%TS  SD  20000818  141711  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                  1  2'SDR020A'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  1 19' Vendor/Series Cross Reference Ent-
+     A                                      ry/Update '
+     A                                      DSPATR(RI)
+     A                                  6 19'Vendor Number:'
+     A                                  8 19'Alpha Search:'
+     A                                  7 24'-or-'
+     A            VEND           6Y 0B  6 34
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Vendor Entered.-
+     A                                                  Press RESET')
+     A            ALPHA         15A  B  8 34DSPATR(CS)
+     A                                 24  2'Enter to Process                  -
+     A                                      F6=Restart                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 19'Show ALL Species and Series:'
+     A            SHOWAL         1A  B 11 48
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Show All must be Y or N-
+     A                                      .           Press RESET')
+     A                                 11 51'Enter Y to show all Species/'
+     A                                 12 51'Series. Enter N to only Show'
+     A                                 13 51'The Species/Series we order'
+     A                                 14 51'from this vendor.'
+     A          R ITMSFL                    SFL
+     A*%%TS  SD  20110805  100639  BILLB       REL-V5R4M0  5722-WDS
+     A            SEDESC        30A  O  8  2
+     A            PK1            9Y 4B  8 35DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  01                                  DSPATR(RI)
+     A            PK2            9Y 4B  8 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  02                                  DSPATR(RI)
+     A            PK3            9Y 4B  8 71DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  03                                  DSPATR(RI)
+     A                                  9 43'Seeds/Oz.-Price/Oz.:'
+     A            PKO3           8Y 4B  9 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  DSPATR(BL)
+     A            MUL03          7Y 0B  9 64DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A  15                                  DSPATR(BL)
+     A            OPK1           9S 4H
+     A            OPK2           9S 4H
+     A            OPK3           9S 4H
+     A            SEFORM         1S 0H
+     A                                  9  5'('
+     A                                      COLOR(BLU)
+     A            SECODE    R        O  9  7REFFLD(RSERIES/SECODE *LIBL/FSERIES)
+     A                                      COLOR(BLU)
+     A                                  9 18')'
+     A                                      COLOR(BLU)
+     A          R ITMCTL                    SFLCTL(ITMSFL)
+     A*%%TS  SD  20001020  181748  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0500)
+     A                                      SFLPAG(0008)
+     A  98                                  CF04
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  11                                  SFLMSG('*** If you enter a price pe-
+     A                                      r ounce you msut enter A Multiplier-
+     A                                      . Press RESET')
+     A  12                                  SFLMSG('*** If you enter a multipli-
+     A                                      er you must enter a price per Ounce-
+     A                                      .  Press RESET')
+     A                                  1  2'SDR020SFL'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  1 19' Vendor/Series Cross Reference Ent-
+     A                                      ry/Update '
+     A                                      DSPATR(RI)
+     A                                  7  2'Species/Series                    -
+     A                                       Form 1           Form 2           -
+     A                                           Raw  '
+     A                                      DSPATR(UL)
+     A                                  2 20'Vendor:'
+     A            VMVEND         6Y 0O  2 28DSPATR(UL)
+     A                                      EDTCDE(4)
+     A            VMNAME        30A  O  2 35
+     A                                  6 37'--------Top Line is Price per 1000-
+     A                                       --------'
+     A                                  6  2'Start List With:'
+     A            STRTWH         5A  B  6 19DSPATR(CS)
+     A                                  4  2'F6=Restart(NO UPDATE)'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'                     '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  1'  4=Update Records '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  5 29' Correct ERRORS '
+     A  99                                  DSPATR(RI)
+     A  99                                  DSPATR(BL)
+     A N99                                  DSPATR(ND)
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)

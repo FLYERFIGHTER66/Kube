@@ -1,0 +1,171 @@
+     A*? Program        : WSPCI001FM
+     A*?
+     A*? Description    : This display file has PCI-Token File Maintenance
+     A*?
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 27 Jul 2018
+     A*****************************************************************-----
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   08/01/18   S.Uthaya     Added Cancel Key to Goback to the
+     A*                                 Calling Program
+     A* SUD02   12/13/18   S.Uthaya     1.Added New Window for Option = 2
+     A*                                 2. Calling API to update Expiry date
+     A*                                 for Existing Credit card
+     A*****************************************************************
+     A*? Indicator Area
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A*****************************************************************
+     A*? Subfile Display Part
+     A          R PCI004S01                 SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01OPT         1Y 0B  9  3EDTCDE(Z)
+     A  50                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A            S01RRN         4S 0H
+     A            S01TYPE        4A  O  9  9
+     A            S01CARD        4Y 0O  9 22EDTWRD('0    ')
+SUD02A            S01CMNT       50A  O  9 31
+     A*****************************************************************
+     A*? Subfile Control Part
+     A          R PCI004C01                 SFLCTL(PCI004S01)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0010)
+     A                                      CF03(03 'Exit')
+SUD01A                                      CF12(12 'Cancel')
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A**
+     A            C01PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 26'Credit Card Token File Maintenance'
+     A                                      COLOR(WHT)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A**
+     A            C01USR        10A  O  2  2COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A**
+     A                                  4  2'Customer : '
+     A            C01CUST        6Y 0B  4 14COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(UL)
+     A  52                                  DSPATR(PC)
+     A  52                                  DSPATR(RI)
+     A            C01NAME       30A  O  4 22COLOR(BLU)
+     A**
+     A                                  5 52'Confirm to Delete :'
+     A  54                                  DSPATR(ND)
+     A            DEL            1A  B  5 72COLOR(YLW)
+     A                                      DSPATR(UL)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A N53                                  DSPATR(PR)
+     A  54                                  DSPATR(ND)
+     A                                  5 75'(Y/N)'
+     A  54                                  DSPATR(ND)
+     A**
+     A                                  6  2'Options : 2=Edit  4=Delete'
+     A                                      COLOR(BLU)
+     A**
+     A                                  8  2'Opt'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8  7'Card Type'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 18'Last4Digits'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  8 31'Comments                          -
+     A                                                      '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R PCI004F01
+SUD01A                                 23  2'F3=Exit  F12=Cancel'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(24)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A**
+     A                                      HELP
+     A                                      OVERLAY
+     A**
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A**
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)
+SUD02A***************************************************************
+  |  A*? Window Screen
+  |  A          R EDTWDW
+  |  A                                      WINDOW(6 7 11 65)
+  |  A                                      CF12(12 'Cancel')
+  |  A*
+  |  A                                  1  1SYSNAME
+  |  A                                      COLOR(BLU)
+  |  A                                  1 25'  EDIT CC TOKEN  '
+  |  A                                      DSPATR(RI)
+  |  A                                      DSPATR(HI)
+  |  A                                  1 58DATE
+  |  A                                      EDTCDE(Y)
+  |  A                                      COLOR(BLU)
+  |  A*
+  |  A                                  2  1USER
+  |  A                                      COLOR(BLU)
+  |  A                                  2 58TIME
+  |  A                                      COLOR(BLU)
+  |  A*
+  |  A                                  3  1'Customer:'
+  |  A            W01CUST        6Y 0O  3 11COLOR(PNK)
+  |  A            W01NAME       30A  O  3 18COLOR(BLU)
+  |  A                                  5  1'Comment :'
+  |  A            W01CMNT       50A  B  5 11COLOR(YLW)
+  |  A                                      DSPATR(PC)
+  |  A                                      CHECK(LC)
+  |  A                                      DSPATR(UL)
+  |  A                                  6  1'Exp Date:'
+  |  A            CARDEXP        4Y 0B  6 11EDTWRD('  /  ')
+  |  A                                      COLOR(YLW)
+  |  A                                      DSPATR(UL)
+  |  A  55                                  DSPATR(PC)
+  |  A  55                                  DSPATR(RI)
+  |  A                                  6 18'(MM/YY)'
+  |  A                                  6 29'Enter Expiry Date to Update Card,'
+  |  A                                      DSPATR(RI)
+  |  A                                      COLOR(BLU)
+  |  A                                  7 40'If necessary'
+  |  A                                      DSPATR(RI)
+  |  A                                      COLOR(BLU)
+  |  A*
+  |  A                                  8  1'F12'
+  |  A                                      DSPATR(HI)
+  |  A                                  8  5'=Cancel'
+  |  A                                      COLOR(BLU)
+  |  A            ERRMSG1       50A  O  9  1COLOR(WHT)
+SUD02A            ERRMSG2       50A  O 10  1COLOR(WHT)

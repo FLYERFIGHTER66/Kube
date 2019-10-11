@@ -1,0 +1,88 @@
+     A*%%TS  SD  19990713  100929  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      CF02
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19990713  100929  TGMS        REL-V4R2M0  5769-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 25' A/P Outstanding Check Register '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 26'Print Checks Dated'
+     A                                  6 26'On Or Before:'
+     A            LDATE          6Y 0B  6 48DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                         Press Reset')
+     A                                 11 25'Printer ID:'
+     A            LPRTR         10A  B 11 47DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 12 25'Forms Number:'
+     A            LFORM         10A  B 12 47DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                 13 25'Number of Copies:'
+     A            LCOPY          2Y 0B 13 55EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  52                                  ERRMSG('*** Number Of Copies Is Req-
+     A                                      uired.   Press Reset')
+     A                                 14 25'Run From JobQ:'
+     A            LJOBQ          1X  B 14 56CHECK(FE)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 15 25'Print Status:'
+     A            VOUT           1Y 0B 15 56EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(RI)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.   Press Reset')
+     A                                 15 59'1 = Print'
+     A                                 16 59'2 = Print/Save'
+     A                                 17 59'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                     Enter to Proc-
+     A                                      ess      F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)

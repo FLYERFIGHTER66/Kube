@@ -1,0 +1,18 @@
+             PGM        PARM(&SELDATE &SELCUST)
+
+             DCL        VAR(&SELCUST) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&SELDATE) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&PCUST) TYPE(*DEC)
+             DCL        VAR(&PDATE) TYPE(*DEC)
+             DCL        VAR(&JOBNAME) TYPE(*CHAR) LEN(10)
+
+             CHGVAR     VAR(&PDATE) VALUE(&SELDATE)
+             CHGVAR     VAR(&PCUST) VALUE(&SELCUST)
+
+             CHGVAR     VAR(&JOBNAME) VALUE(&SELCUST)
+             CHGVAR     VAR(%SST(&JOBNAME 1 4)) VALUE('CUST')
+
+             SBMJOB     CMD(CALL PGM(EMINVCUSJ1) PARM(&SELDATE +
+                          &SELCUST)) JOB(&JOBNAME) JOBQ(QBATCH2)
+
+             ENDPGM

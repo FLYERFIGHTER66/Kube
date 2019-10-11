@@ -1,0 +1,232 @@
+     A*%%TS  SD  19990924  073830  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990924  073830  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF02
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 29' A/R Summary Month End '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 13  4'procedure is running.             -
+     A                                                                         -
+     A                                          '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'               Enter to Process   -
+     A                                                F3/F7=Cancel Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  6  4'This procedure allows you to selec-
+     A                                      t all of the accounts receivable mo-
+     A                                      nth end'
+     A                                      DSPATR(HI)
+     A                                  7  4'reports that you want to run from -
+     A                                      one selection screen - rather than -
+     A                                      having'
+     A                                      DSPATR(HI)
+     A                                  8  4'to take each menu option individua-
+     A                                      lly.                               -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 10  4'Indicate Y or N next to each optio-
+     A                                      n to include or exclude that report-
+     A                                      .     '
+     A                                      DSPATR(HI)
+     A                                 12  4'No other users should be running a-
+     A                                      ccounts receivable functions while -
+     A                                      this'
+     A                                      DSPATR(HI)
+     A                                 17 17' Press Enter to Continue  - or -  -
+     A                                      F7 to Cancel '
+     A  88                                  DSPATR(RI)
+     A N88                                  DSPATR(ND)
+     A          R SCRNB
+     A*%%TS  SD  19990924  073830  TGMS        REL-V4R2M0  5769-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 29' A/R Summary Month End '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2' Select Reports to Print:'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  6 24'Invoice Journal...............'
+     A            LINV           1A  B  6 55DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                  7 24'Credit Memo Journal...........'
+     A            LCM            1A  B  7 55DSPATR(CS)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.        Press Reset')
+     A                                  8 24'Cash Receipts Journal.........'
+     A            LCASH          1A  B  8 55DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                  9 24'Sales Journal.................'
+     A            LSALE          1X  B  9 55DSPATR(CS)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 10 24'Late Charge Journal...........'
+     A            LLATE          1X  B 10 55DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 11 24'Taxes By Jurisdiction.........'
+     A            LTAX           1X  B 11 55DSPATR(CS)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 12 24'Customer Detail Aging.........'
+     A            LAGE           1X  B 12 55DSPATR(CS)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 13 24'Transfer to General Ledger....'
+     A            LGL            1X  B 13 55DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter To Process  -
+     A                                              F3/F7=Cancel Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R SCRNC
+     A*%%TS  SD  19990924  073830  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF02
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A            PROGID        10A  O  1  2
+     A                                  1 29' A/R Summary Month End '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Accounting Period:'
+     A            LACTP          2Y 0B  5 54DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  41                                  DSPATR(RI)
+     A  41                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.   Press Reset')
+     A                                      CHECK(RB)
+     A                                 10 25'Printer ID:'
+     A            LPRTR         10A  B 10 46DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 11 25'Forms Number:'
+     A            LFORM         10A  B 11 46DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                 12 25'Number of Copies:'
+     A            LCOPY          2Y 0B 12 54DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A  52                                  ERRMSG('*** Number Of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 13 25'Run From JobQ:'
+     A            LJOBQ          1A  B 13 55DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 14 25'Print Status:'
+     A            VOUT           1Y 0B 14 55DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  54                                  DSPATR(RI)
+     A  54                                  DSPATR(PC)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.   Press Reset')
+     A                                 14 58'1 = Print'
+     A                                 15 58'2 = Print/Save'
+     A                                 16 58'3 = Hold'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'      Enter to Process    F2=Displ-
+     A                                      ay Acctg Period     F3/F7=Cancel Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)

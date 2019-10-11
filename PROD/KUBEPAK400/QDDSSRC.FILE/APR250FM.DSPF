@@ -1,0 +1,182 @@
+     A*%%TS  SD  19991116  070814  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19991013  170911  EFDAP       REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 30' Reconcile A/P Checks '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 28'For Bank'
+     A                                  6 28'Statement Dated:'
+     A            VDATE          6Y 0B  6 49DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                         Press Reset')
+     A                                  8 28'Display Checks'
+     A                                  9 28'Previously Marked'
+     A                                 10 28'As Reconciled:'
+     A            VRECON         1A  B 10 51DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 16 12'Note: By displayed checks previous-
+     A                                      ly marked as reconciled,'
+     A                                 17 18'you can correct checks reconciled -
+     A                                      in error by removing'
+     A                                 18 18'the reconciliation code.'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                     Enter to Proc-
+     A                                      ess       F3/F7=End of Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 13 28'Enter Check #, Amount:'
+     A            ENTCHK         1A  B 13 51
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.        Press RESET')
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19990715  062522  TGMS        REL-V4R2M0  5769-PW1
+     A            CODE           1A  B  7  4DSPATR(CS)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A            CHECK          6  0O  7  8EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VEND           6  0O  7 15EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            NAME          30   O  7 22DSPATR(HI)
+     A            CDATE          6  0O  7 53EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            CAMT          11  2O  7 62EDTCDE(1)
+     A                                      DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19991013  170911  EFDAP       REL-V3R7M0  5716-PW1
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0500)
+     A                                      SFLPAG(0017)
+     A  99                                  SFLMSG('*** Valid Code Is X.       -
+     A                                      Press Reset')
+     A                                  1  7' Roll For More Checks   F1=Accept -
+     A                                      Entries    F6=Restart(No Update) '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            PROGID        10A  O  2  2
+     A                                  2 16'Reconcile A/P Check For Statement -
+     A                                      Dated:'
+     A                                  2 73DATE
+     A                                      EDTCDE(Y)
+     A                                  3 73TIME
+     A                                  6  2' "X"  Check#     Vendor           -
+     A                                                         Date     Check A-
+     A                                      mount    '
+     A                                      DSPATR(UL)
+     A                                  4 11'Enter an - X - next to the checks -
+     A                                      that you want to reconcile'
+     A                                      DSPATR(HI)
+     A            VDATE          6Y 0O  2 57EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  19991116  070814  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF02
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 30' Reconcile A/P Checks '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 20'For Bank Statement Dated:'
+     A            VDATE          6Y 0B  3 46DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'          Enter to Process       F-
+     A                                      6=Restart      F3/F7=End of Job    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1  2'APR250B'
+     A                                 16  1'Last Check Reconciled:'
+     A            LSTCHK         6Y 0O 16 24EDTCDE(Z)
+     A            LSTNAM        30A  O 16 31
+     A            LSTAMT        11Y 2B 16 62EDTCDE(1)
+     A                                      DSPATR(PR)
+     A                                  8  5'Enter Check Number:'
+     A            CHECK#         6Y 0B  8 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  12                                  ERRMSG('*** Check Number Does NOT E-
+     A                                      xist.       Press Reset')
+     A  14                                  ERRMSG('*** Check Has Already Been -
+     A                                      Reconciled. Press Reset')
+     A                                  8 33'Amount:'
+     A            AMOUNT        11Y 2B  8 41EDTCDE(1)
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Check number and amount-
+     A                                       do NOT agree.    Press RESET')
+     A                                 10 26'Actual Amount:'
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A            AK$AMT        11Y 2O 10 41EDTCDE(1)
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A                                 14 32' Check Reconciled '
+     A  88                                  DSPATR(RI)
+     A N88                                  DSPATR(ND)
+     A                                  8 57' Amounts do Not Agree '
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A          R DUMMY
+     A*%%TS  SD  19991013  171407  EFDAP       REL-V3R7M0  5716-PW1

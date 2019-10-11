@@ -1,0 +1,149 @@
+     A*%%TS  SD  20070221  135833  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20070221  135833  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF08(08 'Toggle Copy / Enter Item')
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 28' Print additional labels '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  6'This program should only be used t-
+     A                                      o print labels for items that were'
+     A                                      DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                  5  6'sown over the quantities scheduled-
+     A                                      . To print labels for scheduled job-
+     A                                      s'
+     A                                      DSPATR(HI)
+     A                                      COLOR(PNK)
+     A                                  6  6'use the sow line menu options.'
+     A                                      DSPATR(HI)
+     A                                      COLOR(PNK)
+     A N40                             13 28'Ready Date:'
+     A N40        READYD         6Y 0B 13 41
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date entered.  -
+     A                                             Press RESET')
+     A  12                                  ERRMSG('*** Ready date must be a Mo-
+     A                                      nday date.  Press RESET')
+     A N40                              9 28'Item Number?'
+     A N40        ITEM          12A  B  9 41
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Item/Size enter-
+     A                                      ed.       Press RESET')
+     A N40                             11 28'Size:'
+     A N40        SIZE           3A  B 11 41DSPATR(CS)
+     A N40                             13 50'NOTE: This is the Ready Date'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A N40                             22 47'=Copy Tray'
+     A                                      COLOR(BLU)
+     A  40                             12 22'Bar Code from Tray to Copy:'
+     A  40        COPYTAG        8Y 0B 12 51
+     A  40                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  40                                  CHECK(ME)
+     A  40                                  CHECK(ER)
+     A                                      DSPATR(CS)
+     A  13                                  ERRMSG('*** Tray Tag not Found.    -
+     A                                             Press RESET')
+     A                                 22  4'Enter'
+     A                                      DSPATR(HI)
+     A                                 22 10'to Process'
+     A                                      COLOR(BLU)
+     A                                 22 26'F6'
+     A                                      DSPATR(HI)
+     A                                 22 29'=Restart'
+     A                                      COLOR(BLU)
+     A                                 22 65'F3/F7'
+     A                                      DSPATR(HI)
+     A                                 22 71'=End Job'
+     A                                      COLOR(BLU)
+     A                                 22 44'F8'
+     A                                      DSPATR(HI)
+     A  40                             22 47'=Enter Item'
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                       SOW500A  '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(UL)
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  2 31'Over-run Labels !!!'
+     A          R SCRNB
+     A*%%TS  SD  20020207  144418  EFD         REL-V5R1M0  5722-WDS
+     A                                  1  2'SOW500B'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Print additional labels '
+     A                                      DSPATR(RI)
+     A                                  8  3'Ready Date:'
+     A            READYD         6Y 0B  8 15EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            ITEM          12A  B  6  9DSPATR(PR)
+     A                                  6 22'Size:'
+     A            SIZE           3A  B  6 28DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                 23  3'Enter to Process                 F-
+     A                                      6=Restart                     F3/F7-
+     A                                      =End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  3'Item:'
+     A            IMDES1        30A  O  6 33
+     A                                  8 26'Sow Date:'
+     A            SOWDAT         6Y 0B  8 36EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                 12  7'Enter the number of labels to Prin-
+     A                                      t:'
+     A            NUMLAB         4Y 0B 12 44
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Number of labels cannot-
+     A                                       be 0(Zero).   Press RESET')
+     A                                 15 29'Printer I.D.:'
+     A            LPRTR         10A  B 15 44
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Printer Entered-
+     A                                      .      Press RESET')
+     A                                 18  7' Verify data. If OK press ENTER to-
+     A                                       print labels. Else make changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 10  5' You can NOT print these labels th-
+     A                                      e sow schedule has not been created-
+     A                                      . '
+     A  71                                  DSPATR(RI)
+     A N71                                  DSPATR(ND)
+     A                                 11  5' Press F6 to return to select anot-
+     A                                      her item of F3 to End the job '
+     A  71                                  DSPATR(RI)
+     A N71                                  DSPATR(ND)

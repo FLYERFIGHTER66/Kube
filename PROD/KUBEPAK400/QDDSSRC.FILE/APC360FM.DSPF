@@ -1,0 +1,220 @@
+     A*%%TS  SD  19990713  095103  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990713  095103  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HOVER)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 28'   Vendor Aging Report   '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 25'Aging Date:'
+     A            LDATE          6Y 0B  4 46
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Y)
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                             Press Reset')
+     A                                  6 25'Report Sequence:'
+     A            LSEQ           1Y 0B  6 53
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  20                                  ERRMSG('*** Valid Entries Are 1 or -
+     A                                      2.    Press Reset')
+     A                                  6 58' 1=By Alpha Search'
+     A                                  7 58' 2=By Vendor '
+     A                                  9 25'Summary or Detail:'
+     A            LTYPE          1A  B  9 53DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries Are S or -
+     A                                      D.     Press Reset')
+     A                                  9 59'S=Summary  D=Detail'
+     A                                 11 25'Vendor Number:'
+     A            LVEND          6Y 0B 11 48
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  40                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.     Press Reset')
+     A                                 12 25'Alpha Search'
+     A            LALPHA        15A  B 12 48DSPATR(CS)
+     A                                 14 25'Printer ID:'
+     A            LPRTR         10A  B 14 44DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 15 25'Forms Number:'
+     A            LFORM         10A  B 15 44DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 16 25'Number of Copies:'
+     A            LCOPY          2Y 0B 16 52
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 17 25'Run From JobQ:'
+     A            LJOBQ          1A  B 17 53DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 18 25'Print Status:'
+     A            VOUT           1Y 0B 18 53
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 18 57'1 = Print'
+     A                                 19 57'2 = Print/Save'
+     A                                 20 57'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                 Enter to Process -
+     A                                             F3/F7=Cancel Job            -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HOVER
+     A*%%TS  SD  19980110  065932  GINNY       REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  2  2' Vendor Aging Report              -
+     A                                                                      Ove-
+     A                                      rview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  4  2' This report lists all of the open-
+     A                                       vendor invoices spreading the amou-
+     A                                      nt due  '
+     A                                      DSPATR(HI)
+     A                                  5  2' over the next four aging periods.-
+     A                                        Totals are given for each vendor -
+     A                                      and     '
+     A                                      DSPATR(HI)
+     A                                  6  2' for the report.                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  2' The aging periods are defined in -
+     A                                      your accounts payable control file.-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  2' Report selections:  Sequence of r-
+     A                                      eport can be either in vendor numbe-
+     A                                      r or    '
+     A                                      DSPATR(HI)
+     A                                 11  2'                     alphabeticall-
+     A                                      y by vendor alpha search.          -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  2'                     Summary or de-
+     A                                      tail - summary prints 1 line per ve-
+     A                                      ndor    '
+     A                                      DSPATR(HI)
+     A                                 15  2'                     aging periods-
+     A                                      . The detail report prints a line f-
+     A                                      or every'
+     A                                      DSPATR(HI)
+     A                                 16  2'                     open invoice -
+     A                                      with a total line for each vendor. -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  2'                     Aging date - -
+     A                                      enter the date used as the base for-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  2'                     calculating t-
+     A                                      he aging periods.                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  2'                     You can print-
+     A                                       this report for a single vendor by-
+     A                                       entering'
+     A                                      DSPATR(HI)
+     A                                 22  2'                     that vendor n-
+     A                                      umber.                             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  2'                     with the tota-
+     A                                      l of all open invoices summarized i-
+     A                                      n the   '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

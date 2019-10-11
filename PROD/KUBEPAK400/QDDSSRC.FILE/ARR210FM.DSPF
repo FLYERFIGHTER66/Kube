@@ -1,0 +1,820 @@
+     A*%%TS  SD  20181010  103941  BILLB       REL-V7R2M0  5770-WDS
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   04/19/18   S.Uthaya     Non Display Credit card payment fields
+     A*                                 from SEL020  Screen Except Amount
+     A*                                 Instead of Added F8 Function key to Call
+     A*                                 Card Selection Screen.
+     A* SUD02   07/24/18   S.Uthaya     Manual Swiping F7 Function Key Added
+     A**************************************************************************
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNDT
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 28' A/R Cash Receipts Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                        S-
+     A                                      CRNDT    '
+     A                                      DSPATR(UL)
+     A                                 23  2'            Enter to Process      -
+     A                                            F3/F7=End of Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  4 28'Deposit Date:'
+     A            EDAT           6Y 0B  4 44EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                         Press Reset')
+     A  12                                  ERRMSG('*** Deposit Date Earlier Th-
+     A                                      an First Fiscal Year Date.    Press-
+     A                                       Reset')
+     A  13                                  ERRMSG('*** Deposit Date Is A Futur-
+     A                                      e Date, Change or Press Reset To Ac-
+     A                                      cpet.')
+     A          R SCRNA
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 28' A/R Cash Receipts Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 28'For Deposit Date:'
+     A            EDAT           6Y 0O  3 46EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  5 27'Selection:'
+     A            SELC           1A  B  5 42
+     A  13                                  DSPATR(RI)
+     A N25                                  DSPATR(CS)
+     A  13                                  DSPATR(PC)
+     A  25                                  DSPATR(PR)
+     A  13                                  ERRMSG('*** Enter A Valid Selection-
+     A                                      .    Press Reset')
+     A                                  5 46'1 = Apply Cash or Check'
+     A                                  6 46'2 = Apply Credit Card Payment'
+     A                                  7 46'3 = Adjustments'
+     A                                  8 46'4 = Spread On-Account/Credit Memos'
+     A                                  9 46'5 = A/R Inquiry'
+     A                                 10 46'6 = Remove From Statement Option'
+     A                                 13  2' Please Select '
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A                                 13 19'A/R Customer Number:'
+     A            VACUST         6Y 0B 13 42EDTCDE(Z)
+     A N40                                  DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  40                                  DSPATR(PR)
+     A  11                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.   Press Reset')
+     A  12                                  ERRMSG('*** Enter Either Customer o-
+     A                                      r Alpha.   Press Reset')
+     A            CANAME        30A  O 13 49DSPATR(HI)
+     A                                 14  2' Additional    '
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A                                 14 19'or Alpha Search '
+     A            VALPHA        15A  B 14 42
+     A N40                                  DSPATR(CS)
+     A  40                                  DSPATR(PR)
+     A                                 14 59'Last A/R Customer:'
+     A N21                                  DSPATR(ND)
+     A                                 15  2' Customer      '
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A                                 15 19'or Telephone Number '
+     A            VATELE        10A  B 15 42
+     A N40                                  DSPATR(CS)
+     A  40                                  DSPATR(PR)
+     A            VALAST         6Y 0O 15 65
+     A N21                                  DSPATR(ND)
+     A                                      EDTCDE(Z)
+     A                                 16  2' To Pay        '
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A                                 18 19'Ship To Customer:'
+     A            VSCUST         6Y 0B 18 42EDTCDE(Z)
+     A N40                                  DSPATR(CS)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A  40                                  DSPATR(PR)
+     A  16                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.    Press Reset')
+     A  17                                  ERRMSG('*** Enter Either Customer o-
+     A                                      r Alpha.   Press Reset')
+     A            CSNAME        30A  O 18 49DSPATR(HI)
+     A                                 19 19'or Alpha Search '
+     A            VSALPH        15A  B 19 42
+     A N40                                  DSPATR(CS)
+     A  40                                  DSPATR(PR)
+     A                                 19 59'Last Ship To Customer:'
+     A N22                                  DSPATR(ND)
+     A                                 20 19'or Telephone Number '
+     A            VSTELE        10A  B 20 42
+     A N40                                  DSPATR(CS)
+     A  40                                  DSPATR(PR)
+     A            VSLAST         6Y 0O 20 65
+     A N22                                  DSPATR(ND)
+     A                                      EDTCDE(Z)
+     A                                 21  2' Open Balance'
+     A                                      DSPATR(HI)
+     A N26                                  DSPATR(ND)
+     A                                      COLOR(RED)
+     A            AAMT           9Y 2O 21 17EDTCDE(L)
+     A                                      DSPATR(HI)
+     A N26                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                        S-
+     A                                      CRNA     '
+     A                                      DSPATR(UL)
+     A            CM7801        78A  O 23  2DSPATR(UL)
+     A                                 11 46'7 = Non A/R Cash Receipts'
+     A                                 16 19'or Zip Code Search'
+     A            VZIP           9A  B 16 42
+     A N40                                  DSPATR(CS)
+     A  40                                  DSPATR(PR)
+     A          R SEL010
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 28' A/R Cash Receipts Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 27'For Deposit Date:'
+     A            EDAT           6Y 0O  4 45EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  6 25' 1. Apply Cash - Check/Cash '
+     A                                      DSPATR(RI)
+     A                                  7 26'2. Apply Cash - Credit Card'
+     A                                  8 26'3. Adjustments'
+     A                                  9 26'4. Spread On-Account Cash/Credit M-
+     A                                      emos'
+     A                                 11 20'A/R Customer Number:'
+     A            VACUST         6Y 0O 11 41EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CANAME        30A  O 11 48DSPATR(HI)
+     A                                 13 20'Ship To Customer:'
+     A N10                                  DSPATR(ND)
+     A            VSCUST         6Y 0O 13 41
+     A N10                                  DSPATR(ND)
+     A  10                                  DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CSNAME        30A  O 13 48
+     A  10                                  DSPATR(HI)
+     A N10                                  DSPATR(ND)
+     A                                 15 26'Bank Code?'
+     A            BANK           3A  B 15 41
+     A  16                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  16                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Bank Code-
+     A                                      .      Press Reset')
+     A            BANKDS        30A  O 15 47
+     A                                 17 26'Check Number:'
+     A  18                                  DSPATR(RI)
+     A            CHEK      R        B 17 41REFFLD(RAROPN/ARCHEK *LIBL/FAROPN)
+     A                                      DSPATR(CS)
+     A  12                                  DSPATR(PC)
+     A  18                                  DSPATR(RI)
+     A  18                                  ERRMSG('*** - Invalid Check Number -
+     A                                      Used')
+     A                                 19 26'Check Date:'
+     A  17                                  DSPATR(ND)
+     A            CKDT           6Y 0B 19 41
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  14                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  17                                  DSPATR(ND)
+     A  17                                  DSPATR(PR)
+     A                                 18 26'Check Amount:'
+     A  15                                  DSPATR(RI)
+     A            PAID      R   -2   B 18 41REFFLD(RAROPN/ARPAID *LIBL/FAROPN)
+     A  15                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** Amount Is Required.    -
+     A                                       Press Reset')
+     A                                      EDTCDE(J)
+     A                                 23  2'                                  -
+     A                                                                        S-
+     A                                      EL010    '
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  2'                     Enter to Proc-
+     A                                      ess       F6=Restart               -
+     A                                               '
+     A                                      DSPATR(UL)
+SUD01A**************************************************************************
+     A          R SEL020
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF06
+SUD02A                                      CF07
+SUD01A                                      CF08
+     A                                      CF10
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 28' A/R Cash Receipts Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 27'For Deposit Date:'
+     A            EDAT           6Y 0O  4 45EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  6 26'1. Apply Cash - Check/Cash'
+     A                                  7 25' 2. Apply Cash - Credit Card '
+     A                                      DSPATR(RI)
+     A                                  8 26'3. Adjustments'
+     A                                  9 26'4. Spread On-Account Cash/Credit M-
+     A                                      emos'
+     A                                 11 19'A/R Customer Number:'
+     A            VACUST         6Y 0O 11 40DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CANAME        30A  O 11 47DSPATR(HI)
+     A                                 13 19'Ship To Customer:'
+     A N10                                  DSPATR(ND)
+     A            VSCUST         6Y 0O 13 40
+     A N10                                  DSPATR(ND)
+     A  10                                  DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CSNAME        30A  O 13 47
+     A  10                                  DSPATR(HI)
+     A N10                                  DSPATR(ND)
+     A                                 14 21'Bank Code?'
+     A                                      DSPATR(ND)
+     A            BANK           3A  B 14 43
+     A  16                                  ERRMSG('*** Enter A Valid Bank Code-
+     A                                      .    Press Reset')
+     A                                      DSPATR(ND)
+     A                                      DSPATR(PR)
+     A            BANKDS        30A  O 14 47DSPATR(ND)
+SUD01A**
+     A                                 15 21'Amount Charged:'
+     A            PAID           9Y 2B 15 43EDTCDE(J)
+     A  11                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  18                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Amount Charged Is Requi-
+     A                                      red.    Press Reset')
+SUD01A*
+SUD01A*                                15 21'Credit Card Type?'
+     A            CRCD      R        B 15 43REFFLD(RAROPN/ARCRCD *LIBL/FAROPN)
+     A  50                                  DSPATR(ND)
+SUD01A* 13                                  DSPATR(RI)
+  |  A*                                     DSPATR(CS)
+  |  A* 12                                  DSPATR(PC)
+  |  A* 13                                  ERRMSG('*** Enter A Valid Credit Ca-
+  |  A*                                     rd Type.    Press Reset')
+SUD01A*                                16 21'Credit Card Number:'
+     A            CRC#      R        B 16 43REFFLD(RAROPN/ARCRC# *LIBL/FAROPN)
+     A  50                                  DSPATR(ND)
+SUD01A* 14                                  DSPATR(RI)
+  |  A*                                     DSPATR(CS)
+  |  A* 14                                  DSPATR(PC)
+SUD01A*                                16 61'Expiration:'
+     A            CRCE      R        B 16 73REFFLD(RAROPN/ARCRCE *LIBL/FAROPN)
+     A  50                                  DSPATR(ND)
+SUD01A* 15                                  DSPATR(RI)
+  |  A*                                     DSPATR(CS)
+  |  A* 15                                  DSPATR(PC)
+  |  A* 15                                  ERRMSG('*** Invalid Expiration Date-
+  |  A*                                     .    Press Reset')
+  |  A*                                17 21'Amount Charged:'
+  |  A*           PAID           9Y 2B 17 43EDTCDE(J)
+  |  A* 11                                  DSPATR(RI)
+  |  A*                                     DSPATR(CS)
+  |  A* 18                                  DSPATR(PC)
+  |  A* 11                                  ERRMSG('*** Amount Charged Is Requi-
+  |  A*                                     red.    Press Reset')
+SUD01A*                                18 21'Approval Code:'
+     A            CRCA      R        B 18 43REFFLD(RAROPN/ARCRCA *LIBL/FAROPN)
+SUD01A  50                                  DSPATR(ND)
+  |  A* 17                                  DSPATR(RI)
+  |  A*                                     DSPATR(CS)
+  |  A* 17                                  DSPATR(PC)
+  |  A* 17                                  ERRMSG('*** Approval Code Is Requir-
+  |  A*                                     ed.    Press Reset')
+SUD01A*
+     A                                 22  2'                                  -
+     A                                                                        S-
+     A                                      EL020    '
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+SUD02A                                 23  2'Enter to Process'
+  |  A                                 23 20'F6'
+  |  A                                      COLOR(WHT)
+  |  A                                 23 23'=Restart'
+  |  A                                 23 33'F7'
+  |  A                                      COLOR(WHT)
+  |  A                                 23 36'=Record Manual Swipe'
+  |  A                                 23 58'F8'
+  |  A                                      COLOR(WHT)
+SUD02A                                 23 61'=Process Payment'
+SUD01A*                                23  2'                     Enter to Proc-
+  |  A*                                     ess         F6=Restart             -
+  |  A*                                              '
+  |  A*                                     DSPATR(UL)
+SUD01A**************************************************************************
+     A          R SEL030
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 28' A/R Cash Receipts Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 11 19'A/R Customer Number:'
+     A            CANAME        30A  O 11 47DSPATR(HI)
+     A                                 13 19'Ship To Customer:'
+     A            CSNAME        30A  O 13 47DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                        S-
+     A                                      EL030    '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  6 26'1. Apply Cash - Check/Cash'
+     A                                  7 26'2. Apply Cash - Credit Card'
+     A                                  8 25' 3. Adjustments '
+     A                                      DSPATR(RI)
+     A                                  9 26'4. Spread On-Account Cash/Credit M-
+     A                                      emos'
+     A                                  4 26'For Deposit Date:'
+     A            EDAT           6Y 0O  4 45EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            VACUST         6Y 0O 11 40EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VSCUST         6Y 0O 13 40EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                 16 26'Reason Code?'
+     A            REAS           3A  B 16 40
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Reason Co-
+     A                                      de.    Press Reset')
+     A                                 20 19'Affect Cash Deposit:'
+     A  13                                  DSPATR(RI)
+     A                                 20 47'(Y or N)'
+     A  13                                  DSPATR(RI)
+     A            CSAJ           1A  B 20 41
+     A  13                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  13                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** - Affect Cash Depost Y -
+     A                                      or N Required')
+     A                                 23  2'                      Enter to Pro-
+     A                                      cess        F6=Restart             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 18 26'Description:'
+     A            DESC          30A  B 18 40CHECK(LC)
+     A                                      DSPATR(CS)
+     A            CRDESC        30A  O 16 44
+     A          R S10SFL                    SFL
+     A            CODE           1A  B  8  2
+     A  11                                  DSPATR(CS)
+     A N11                                  DSPATR(PR)
+     A  99                                  DSPATR(UL)
+     A            PAY$           8Y 2B  8  5EDTCDE(M)
+     A  11                                  DSPATR(CS)
+     A N11                                  DSPATR(PR)
+     A  99                                  DSPATR(UL)
+     A  15                                  DSPATR(RI)
+     A            PDIS           7Y 2B  8 17EDTCDE(M)
+     A  11                                  DSPATR(CS)
+     A N11                                  DSPATR(PR)
+     A  99                                  DSPATR(UL)
+     A            INV#      R        O  8 27REFFLD(RAROPN/ARINV# *LIBL/FAROPN)
+     A            SUFF      R        O  8 34REFFLD(RAROPN/ARSUFF *LIBL/FAROPN)
+     A  09                                  DSPATR(RI)
+     A            TYPE           3A  O  8 37
+     A            DATE           6Y 0O  8 41EDTWRD('  /  /  ')
+     A            DAMT      R    8   O  8 50REFFLD(RAROPN/AR$AMT *LIBL/FAROPN)
+     A                                      EDTCDE(M)
+     A            DISC      R        O  8 61REFFLD(RAROPN/ARDISC *LIBL/FAROPN)
+     A            DUEX      R    8   O  8 71REFFLD(RAROPN/ARDUE$ *LIBL/FAROPN)
+     A                                      EDTCDE(M)
+     A            DUE$           8  2H
+     A            TTYP           2S 0H
+     A            SEQ#           3S 0H
+     A            DDAT           7S 0H
+     A            TAXJ           3A  H
+     A            SHFR           3A  H
+     A          R S10CTL                    SFLCTL(S10SFL)
+     A*%%TS  SD  20181010  095716  BILLB       REL-V7R2M0  5770-WDS
+     A  *DS3                                SFLSIZ(0016)
+     A  *DS4                                SFLSIZ(0016)
+     A  *DS3                                SFLPAG(0015)
+     A  *DS4                                SFLPAG(0015)
+     A                                      CF01
+     A                                      CF06
+     A                                      CF08
+     A                                      CF09
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CF10
+     A                                      CF11
+     A                                      CF12
+     A                                      CF05
+     A                                      CF04
+     A                                      CF14
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A N80                                  SFLEND(*MORE)
+     A  21                                  SFLMSG('*** Valid Pay Codes Are Y, -
+     A                                      N or H.     Press Reset')
+     A  31                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       0.     Press Reset')
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  7  2'      To Pay    To Take    #   Suf-
+     A                                             Date     Amount     Avail   -
+     A                                           Due '
+     A                                      DSPATR(UL)
+     A            CANAME        30A  O  4 20DSPATR(HI)
+     A                                  5  4'Ship To:'
+     A N10                                  DSPATR(ND)
+     A            CSNAME        30A  O  5 20
+     A N10                                  DSPATR(ND)
+     A  10                                  DSPATR(HI)
+     A            TAMT           9Y 2O  3 70EDTCDE(L)
+     A                                      DSPATR(HI)
+     A N01                                  DSPATR(ND)
+     A            AAMT           9Y 2O  4 70EDTCDE(L)
+     A N03                                  DSPATR(RI)
+     A N02                                  DSPATR(ND)
+     A            CM6901        69A  O  1  3DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            CM6902        69A  O  2  3
+     A  12                                  DSPATR(RI)
+     A N12                                  DSPATR(ND)
+     A                                      COLOR(BLU)
+     A            HD05           5A  O  6  2DSPATR(HI)
+     A                                  4  3'A/R Cust:'
+     A            VACUST         6Y 0O  4 13EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VSCUST         6Y 0O  5 13EDTCDE(Z)
+     A  10                                  DSPATR(HI)
+     A N10                                  DSPATR(ND)
+     A            ER28          28A  O  5 52
+     A  13                                  DSPATR(HI)
+     A  13                                  DSPATR(RI)
+     A N13                                  DSPATR(ND)
+     A            HEAD30        30A  O  3 20DSPATR(HI)
+     A            P17A          17A  O  3 52
+     A N01                                  DSPATR(ND)
+     A            P17B          17A  O  4 52
+     A N02                                  DSPATR(ND)
+     A            OP15          15A  O  3  3
+     A  08                                  DSPATR(HI)
+     A  08                                  DSPATR(RI)
+     A N08                                  DSPATR(ND)
+     A  08                                  COLOR(RED)
+     A                                  6  8'Amount   Discount   Inv     Type'
+     A                                  6 51'Invoice   Discount     Amount'
+     A            HD08           8A  O  6 41
+     A          R S60SFL                    SFL
+     A*%%TS  SD  20181010  103941  BILLB       REL-V7R2M0  5770-WDS
+     A            CODE           1A  B  8 13
+     A  11                                  DSPATR(CS)
+     A N11                                  DSPATR(PR)
+     A  99                                  DSPATR(UL)
+     A  14                                  DSPATR(RI)
+     A            INV#      R        O  8 16REFFLD(RAROPN/ARINV# *LIBL/FAROPN)
+     A            SUFF      R        O  8 23REFFLD(RAROPN/ARSUFF *LIBL/FAROPN)
+     A  09                                  DSPATR(RI)
+     A            TYPE           3A  O  8 27
+     A            DATE           6Y 0O  8 32EDTWRD('  /  / 0')
+     A            DAMT      R    8   O  8 41REFFLD(RAROPN/AR$AMT *LIBL/FAROPN)
+     A                                      EDTCDE(L)
+     A            DISC      R        O  8 52REFFLD(RAROPN/ARDISC *LIBL/FAROPN)
+     A            DUE$      R    8   O  8 62REFFLD(RAROPN/ARDUE$ *LIBL/FAROPN)
+     A                                      EDTCDE(M)
+     A            TTYP           2S 0H
+     A            SEQ#           3S 0H
+     A            DDAT           7S 0H
+     A            CM07           7A  O  8  3
+     A            ARPRST    R        O  8 74REFFLD(RAROPN/ARPRST *LIBL/FAROPN)
+     A          R S60CTL                    SFLCTL(S60SFL)
+     A*%%TS  SD  20181010  103941  BILLB       REL-V7R2M0  5770-WDS
+     A  *DS3                                SFLSIZ(0016)
+     A  *DS4                                SFLSIZ(0016)
+     A  *DS3                                SFLPAG(0015)
+     A  *DS4                                SFLPAG(0015)
+     A                                      CF01
+     A                                      CF02
+     A                                      CF06
+     A                                      CF08
+     A                                      CF09
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CF10
+     A                                      CF11
+     A                                      CF12
+     A                                      CF05
+     A                                      CF04
+     A                                      CF14
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A N80                                  SFLEND(*MORE)
+     A  21                                  SFLMSG('*** Valid Pay Codes Are Y, -
+     A                                      N or H.     Press Reset')
+     A  31                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       0.     Press Reset')
+     A  36                                  SFLMSG('*** Discount Cannot Be Equa-
+     A                                      l To Or Greater Than Amt To Pay.   -
+     A                                      Press Reset')
+     A  37                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       Greater Than Balance Due.      Pre-
+     A                                      ss Reset')
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  6  8' Y=Stop   Invoice  Type   Due     -
+     A                                      Invoice   Discount   Amount        -
+     A                                         '
+     A                                  7  2'       Printing   #  SF         Da-
+     A                                      te     Amount    Avail       Due   -
+     A                                       Print   '
+     A                                      DSPATR(UL)
+     A            CANAME        30A  O  4 20DSPATR(HI)
+     A                                  5  4'Ship To:'
+     A N10                                  DSPATR(ND)
+     A            CSNAME        30A  O  5 20
+     A N10                                  DSPATR(ND)
+     A  10                                  DSPATR(HI)
+     A            TAMT           9Y 2O  3 70EDTCDE(L)
+     A                                      DSPATR(HI)
+     A N01                                  DSPATR(ND)
+     A            AAMT           9Y 2O  4 70EDTCDE(L)
+     A N03                                  DSPATR(RI)
+     A N02                                  DSPATR(ND)
+     A            CM6901        69A  O  1  3DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            CM6902        69A  O  2  3
+     A  12                                  DSPATR(RI)
+     A N12                                  DSPATR(ND)
+     A                                      COLOR(BLU)
+     A                                  4  3'A/R Cust:'
+     A            VACUST         6Y 0O  4 13EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VSCUST         6Y 0O  5 13EDTCDE(Z)
+     A  10                                  DSPATR(HI)
+     A N10                                  DSPATR(ND)
+     A            ER28          28A  O  5 52
+     A  13                                  DSPATR(HI)
+     A  13                                  DSPATR(RI)
+     A N13                                  DSPATR(ND)
+     A            HEAD30        30A  O  3 20DSPATR(HI)
+     A            P17A          17A  O  3 52
+     A N01                                  DSPATR(ND)
+     A            P17B          17A  O  4 52
+     A N02                                  DSPATR(ND)
+     A            OP15          15A  O  3  3
+     A  08                                  DSPATR(HI)
+     A  08                                  DSPATR(RI)
+     A N08                                  DSPATR(ND)
+     A  08                                  COLOR(RED)
+     A          R WARN00
+     A  *DS3                                WINDOW(17 20 5 55)
+     A  *DS4                                WINDOW(18 20 4 55)
+     A                                      CLRL(*NO)
+     A                                      WDWBORDER((*DSPATR RI) (*CHAR '    -
+     A                                          '))
+     A            WN01          55A  O  1  1
+     A            WN02          55A  O  2  1
+     A            WN03          55A  O  3  1
+     A                                  4 17'Press Enter to Continue'
+     A          R WARN10
+     A                                      CF02
+     A                                      CF10
+     A                                      CLRL(*NO)
+     A  *DS3                                WINDOW(17 20 5 55)
+     A  *DS4                                WINDOW(18 20 4 55)
+     A                                      WDWBORDER((*DSPATR RI) (*CHAR '    -
+     A                                          '))
+     A            WN01          55A  O  1  1
+     A            WN02          55A  O  2  1
+     A            WN03          55A  O  3  1
+     A            WN04          55A  O  4  1
+     A          R SEL070
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CF06
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 28' A/R Cash Receipts Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 28'For Deposit Date:'
+     A            EDAT           6Y 0O  4 46EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  8 20'A/R Customer Number:'
+     A            VACUST         6Y 0O  8 41EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CANAME        30A  O  8 48DSPATR(HI)
+     A                                 10 20'Ship To Customer:'
+     A N10                                  DSPATR(ND)
+     A            VSCUST         6Y 0O 10 41
+     A N10                                  DSPATR(ND)
+     A  10                                  DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CSNAME        30A  O 10 48
+     A  10                                  DSPATR(HI)
+     A N10                                  DSPATR(ND)
+     A                                 12 26'Bank Code?'
+     A            BANK           3A  B 12 41
+     A  16                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  16                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Bank Code-
+     A                                      .      Press Reset')
+     A            BANKDS        30A  O 12 47
+     A                                 18 26'Check Number:'
+     A            CHEK      R        B 18 41REFFLD(RAROPN/ARCHEK *LIBL/FAROPN)
+     A                                      DSPATR(CS)
+     A  12                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                 20 26'Check Date:'
+     A  17                                  DSPATR(ND)
+     A            CKDT           6Y 0B 20 41
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  17                                  DSPATR(ND)
+     A  17                                  DSPATR(PR)
+     A  14                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A                                 19 26'Check Amount:'
+     A            PAID      R   -2   B 19 41REFFLD(RAROPN/ARPAID *LIBL/FAROPN)
+     A  15                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** Amount Is Required.    -
+     A                                       Press Reset')
+     A                                      EDTCDE(J)
+     A                                 23  2'                                  -
+     A                                                                        S-
+     A                                      EL070    '
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  2'                     Enter to Proc-
+     A                                      ess       F6=Restart               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 14 26'G/L Acct #:'
+     A            GLAC           8Y 0B 14 41EDTCDE(Z)
+     A  18                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  19                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Enter A Valid G/L Accou-
+     A                                      nt Number.    Press Reset')
+     A            GLDESC        30A  O 14 51
+     A                                 14 15'F2=Search'
+     A                                  6 28' 7. Non A/R Cash Receipts '
+     A                                      DSPATR(RI)
+     A                                 16 26'Description:'
+     A            DESC          30A  B 16 41DSPATR(CS)
+     A                                      CHECK(LC)
+     A  13                                  DSPATR(PC)
+     A                                 22 16' Validate Data - Change or Press E-
+     A                                      nter to Continue '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R OPT010
+     A                                      CF04
+     A                                      CF21
+     A  *DS3                                WINDOW(10 50 10 25)
+     A  *DS4                                WINDOW(10 50 10 25)
+     A                                      WDWBORDER((*DSPATR RI) (*CHAR '    -
+     A                                          '))
+     A                                  2  1'2 Display Entry Date'
+     A                                  1  1'1 Display Due Date'
+     A                                  3  3'Select Date Option'
+     A  61                                  DSPATR(RI)
+     A            SL01           1A  B  3  1DSPATR(CS)
+     A  61                                  DSPATR(RI)
+     A  61                                  DSPATR(PC)
+     A  61                                  ERRMSG('Invalid Option')
+     A          R OPT060
+     A                                      CF04
+     A                                      CF21
+     A  *DS3                                WINDOW(10 50 10 25)
+     A  *DS4                                WINDOW(10 50 10 25)
+     A                                      WDWBORDER((*DSPATR RI) (*CHAR '    -
+     A                                          '))

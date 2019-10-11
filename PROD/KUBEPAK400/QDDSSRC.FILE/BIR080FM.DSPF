@@ -1,0 +1,123 @@
+     A*%%TS  SD  20000524  075107  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000524  075107  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF13
+     A                                      HOME
+     A                                      HELP
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR080A'
+     A                                  1 24' Customer/Class/Type Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A N50
+     AO 44
+     AO 26                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  99 26                               ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.         Press Reset')
+     A  99 20                               ERRMSG('*** This Record is Not on F-
+     A                                      ile  -  Press Reset')
+     A  99 27                               ERRMSG('*** This Record is on File -
+     A                                       -  Press Reset')
+     A  99 40                               ERRMSG('*** Record is Deleted  -  P-
+     A                                      ress Reset')
+     A  99 41                               ERRMSG('*** Record is Active  -  Pr-
+     A                                      ess Reset')
+     A                                  4 25'Customer Number:'
+     A            CLCUST         6Y 0B  4 46
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  11                                  ERRMSG('*** Customer Number or Alph-
+     A                                      a Search is Required.    Press Rese-
+     A                                      t')
+     A  12                                  ERRMSG('*** Enter Either Customer N-
+     A                                      umber or Alpha Search.     Press Re-
+     A                                      set')
+     A  13                                  ERRMSG('*** Enter a Valid Customer -
+     A                                      Number.    Press Reset')
+     A                                  5 25'Alpha Search'
+     A            VALPHA        15A  B  5 46DSPATR(CS)
+     A                                  6  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  6 25'Telephone # Search'
+     A            VTELE         10A  B  6 46DSPATR(CS)
+     A                                  7  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A            CMNAME        30A  O  7 46
+     A                                  8  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                  8 25'Product Class?'
+     A            CLPC2          2A  B  8 46DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Product Class. -
+     A                                           Press Reset')
+     A            VDESC         30A  O  9 46
+     A                                 11 27'Customer Type?'
+     A N50                                  DSPATR(ND)
+     A            CLCTYP         2A  B 11 46
+     A  57 50                               DSPATR(RI)
+     A  50N23N24
+     A N25                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  50
+     AO 57
+     AO 45                                  DSPATR(PC)
+     A N50
+     AO 23
+     AO 24
+     AO 25                                  DSPATR(PR)
+     A  57                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Type.   Press Reset')
+     A            CDESC         30A  O 12 46
+     A N50                                  DSPATR(ND)
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process   F6=Restart   -
+     A                                      F3/F7=End of Job  F13=Print Cust/Cl-
+     A                                      ass List '
+     A                                      DSPATR(UL)

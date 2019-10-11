@@ -1,0 +1,12 @@
+             PGM
+
+             SBMJOB     CMD(CPYF FROMFILE(TGMSDATA/FDLOT) +
+                          TOFILE(TESTDATA/FDLOT) MBROPT(*REPLACE))
+             SBMJOB     CMD(CPYF FROMFILE(TGMSDATA/FDLOTRD) +
+                          TOFILE(TESTDATA/FDLOTRD) MBROPT(*REPLACE))
+             SBMJOB     CMD(CPYF FROMFILE(TGMSDATA/FALITEM) +
+                          TOFILE(TESTDATA/FALITEM) MBROPT(*REPLACE))
+             SBMJOB     CMD(CPYF FROMFILE(TGMSDATA/FIORDR) +
+                          TOFILE(TESTDATA/FIORDR) MBROPT(*REPLACE))
+
+             ENDPGM

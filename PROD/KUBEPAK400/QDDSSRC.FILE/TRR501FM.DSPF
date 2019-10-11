@@ -1,0 +1,174 @@
+     A*%%TS  SD  20180521  134936  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R TRR50101                  SFL
+     A*%%TS  SD  20180521  134535  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CHGINPDFT
+     A  28                                  SFLNXTCHG
+     A            THTRK#    R        O  8 32REFFLD(RTRHDRH/THTRK# *LIBL/FTRHDRH-
+     A                                      R)
+     A            THDRIV    R        B  8 38REFFLD(RTRHDRH/THDRIV *LIBL/FTRHDRH-
+     A                                      R)
+     A                                      DSPATR(UL)
+     A            THSTOP    R        B  8 46REFFLD(RTRHDRH/THSTOP *LIBL/FTRHDRH-
+     A                                      R)
+     A                                      DSPATR(UL)
+     A            THCOMM    R        B  8 56REFFLD(RTRHDRH/THCOMM *LIBL/FTRHDRH-
+     A                                      R)
+     A                                      DSPATR(UL)
+     A            SLOCKEDBY     20A  O  8  9DSPATR(BL)
+     A N16                                  DSPATR(ND)
+     A            TRRTML    R        O  8 88REFFLD(RTRRETURN/TRRTML *LIBL/FTRRE-
+     A                                      TURN)
+     A N61                                  DSPATR(ND)
+     A            TRRTNBY   R        O  8115REFFLD(RTRRETURN/TRRTNBY *LIBL/FTRR-
+     A                                      ETURN)
+     A N61                                  DSPATR(ND)
+     A            THSHDT         7S 0H
+     A            IN61           1   H
+     A          R TRR50101C                 SFLCTL(TRR50101)
+     A*%%TS  SD  20180521  134936  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Old Exit')
+     A                                      CF10(10 'EDIT TRUCK BY MOUSE')
+     A                                      CF11(11 'Toggle Truck Returned Mark-
+     A                                      er')
+     A                                      KEEP
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD -
+     A                                      &CSRPOS)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0017)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP *URR CF11)
+     A            SFLCSRRRN      5S 0H
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            CSRPOS         4S 0H
+     A            BDATE1         5A  P
+     A            BDATE2         5A  P
+     A            BDATE3         5A  P
+     A            BDATE4         5A  P
+     A            BDATE5         5A  P
+     A            BDATE6         5A  P
+     A            BDATE7         5A  P
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 51'   Truck Schedule Maintenance   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  7 32'Truck'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            WEEKMINUS      2Y 0B  2 95PSHBTNFLD
+     A                                      PSHBTNCHC(8 '<=')
+     A            SELDATE        2Y 0B  5 33PSHBTNFLD
+     A                                      PSHBTNCHC(1 &BDATE1)
+     A                                      PSHBTNCHC(2 &BDATE2)
+     A                                      PSHBTNCHC(3 &BDATE3)
+     A                                      PSHBTNCHC(4 &BDATE4)
+     A                                      PSHBTNCHC(5 &BDATE5)
+     A                                      PSHBTNCHC(6 &BDATE6)
+     A                                      PSHBTNCHC(7 &BDATE7)
+     A            WEEKPLUS       2Y 0B  2102PSHBTNFLD
+     A                                      PSHBTNCHC(9 '=>>')
+     A                                  6 12'Position to Truck:'
+     A            GOTOTHTRK#     4A  B  6 32COLOR(YLW)
+     A                                  2 55'Delivery Date:'
+     A                                      COLOR(PNK)
+     A            GOTODATE       6Y 0B  2 71EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(PC)
+     A                                  7 38'Driver'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 46'1st Stop'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 56'Comment                       '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 35'MON'
+     A                                      DSPATR(HI)
+     A                                  4 45'TUE'
+     A                                      DSPATR(HI)
+     A                                  4 55'WED'
+     A                                      DSPATR(HI)
+     A                                  4 65'THU'
+     A                                      DSPATR(HI)
+     A                                  4 75'FRI'
+     A                                      DSPATR(HI)
+     A                                  4 85'SAT'
+     A                                      COLOR(BLU)
+     A                                  4 95'SUN'
+     A                                      COLOR(BLU)
+     A  40                              3 51'Locked records exist on screen!'
+     A                                      DSPATR(BL)
+     A                                      COLOR(RED)
+     A                                  2 89'Week:'
+     A  60                              7 88'Return to KP Logged at    '
+     A  60                                  DSPATR(HI)
+     A  60                                  DSPATR(UL)
+     A  60                              7115'Logged By '
+     A  60                                  DSPATR(HI)
+     A  60                                  DSPATR(UL)
+     A  40                              7  9'Truck Locked by     '
+     A  61                                  DSPATR(HI)
+     A  61                                  DSPATR(UL)
+     A          R TRR50101F
+     A*%%TS  SD  20180521  134936  BILLB       REL-V7R2M0  5770-WDS
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                       TRR50101 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  3'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  9'=Update'
+     A                                      COLOR(BLU)
+     A                                 26 55'F03/F07'
+     A                                      DSPATR(HI)
+     A                                 26 63'=Exit w/out Update'
+     A                                      COLOR(BLU)
+     A                                 26106'F11'
+     A                                      DSPATR(HI)
+     A                                 26110'=Mark/Unmark Returned'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(27)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

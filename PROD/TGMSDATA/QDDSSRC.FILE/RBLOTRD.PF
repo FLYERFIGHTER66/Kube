@@ -1,0 +1,87 @@
+     A*     INVENTORY LOT BALANCE READY DATE FILE
+     A*     FILE NAME - FDLOTRD
+     A*
+     A* 8/07/96 EFD MAKE SOW AND READY DATES CYMD
+     A* 9/03/97 EFD ADD COMMITTED QTY.
+     A*             C=0 IF 19  C=1 IF 20
+     A                                      UNIQUE
+     A          R RDLOTRD                   TEXT('LOT READY DATE')
+     A            LRSTAT         1A         TEXT('STATUS A/D/C')
+     A                                      COLHDG('Status')
+      ** THE FOLLOWING THREE FIELDS ARE KEY TO MINVT
+     A            LRITEM        12A         TEXT('ITEM #')
+     A                                      COLHDG('Item Number')
+     A            LRSIZE         3A         TEXT('SIZE CODE')
+     A                                      COLHDG('Size Code')
+     A            LRWHSE         3A         TEXT('LOCATION')
+     A                                      COLHDG('Location')
+      ** THE FOLLOWING THREE FIELDS ARE THE ORIGINAL LOT NUMBER
+     A            LRSOWD         7S 0       TEXT('SOW DATE CYMD')
+     A                                      COLHDG('Sow Date CYMD')
+     A                                      EDTCDE(Y)
+     A            LRGLOC         3A         TEXT('GROW LOC. ORIG')
+     A                                      COLHDG('Growing''Loc.Orig')
+     A            LRPHYT         1A         TEXT('PHYTO CODE')
+     A                                      COLHDG('PHYTO''Orig')
+      ** THE FOLLOWING ARE NEW INFO
+     A            LRCRDY         7S 0       TEXT('CURR. READY DATE CYMD')
+     A                                      COLHDG('Curr Ready Date CYMD')
+     A                                      EDTCDE(Y)
+     A            LRCPHY         1A         TEXT('CURR PHYTO CODE')
+     A                                      COLHDG('PHYTO''Curr')
+     A            LRCLOC         3A         TEXT('LOC. CURR')
+     A                                      COLHDG('Loc.Curr')
+      ** CODE   A=AVAILABLE  H=HOLD T=TRANSPLANT R=RESERVED FOR CUST
+      **        S=STOCK
+     A            LRCODE         1A         TEXT('CODE A/H/R/S/T')
+     A                                      COLHDG('Code')
+      ** CUST IS 0 UNLESS LOT IS RESERVED FOR A CUSTOMER
+     A            LRCUST         6S 0       TEXT('RESERV. CUST #')
+     A                                      COLHDG('Reserved Cust #')
+     A                                      EDTCDE(4)
+     A            LRAREA         6A         TEXT('AREA')
+     A                                      COLHDG('Area')
+     A            LRCOMP         2S 0       TEXT('COMPANY NO')
+     A                                      COLHDG('Co. #')
+     A                                      EDTCDE(4)
+     A            LRQTOH        11P 1       TEXT('QTY O/H')
+     A                                      COLHDG('Qty O/H')
+     A                                      EDTCDE(4)
+     A            LRDTLA         6S 0       TEXT('LAST ACTIVITY DATE')
+     A                                      COLHDG('Date Last Activity')
+     A                                      EDTCDE(Y)
+     A            LRTIME         6S 0       TEXT('TIME')
+     A                                      COLHDG('Time')
+     A                                      EDTWRD('  :  :  ')
+     A            LRUSER        10A         TEXT('USER')
+     A                                      COLHDG('User')
+     A            LRALPH        15A         TEXT('ALPHA SEARCH')
+     A                                      COLHDG('Alpha Search')
+     A            LRPRCL         2A         TEXT('PRODUCT CLASS')
+     A                                      COLHDG('Prod' 'Cls')
+      ** THE FOLLOWING IS QTY ALLOCATED
+     A            LRQTAL        11P 1       TEXT('QTY ALOC')
+     A                                      COLHDG('Qty Aloc.')
+     A                                      EDTCDE(4)
+     A            LRDESC        30A         TEXT('DESCRIPTION')
+     A                                      COLHDG('Description')
+      ** THIS IS THE COMMITTED QTY
+     A            LRQTCM        11P 1       TEXT('QTY COMIT')
+     A                                      COLHDG('Qty Comit.')
+     A                                      EDTCDE(4)
+     A            LRQTSL        11P 1       TEXT('QTY SOLD')
+     A                                      COLHDG('Qty Sold')
+     A                                      EDTCDE(4)
+     A            LRQADJ        11P 1       TEXT('QTY ADJ')
+     A                                      COLHDG('Qty Adj.')
+     A                                      EDTCDE(4)
+     A            LRQTAV        11P 1       TEXT('QTY AVAIL')
+     A                                      COLHDG('Qty Avail.')
+     A                                      EDTCDE(4)
+     A*  ITEM SIZE SOWD CRDY GLOC CLOC CODE CUST
+     A          K LRITEM
+     A          K LRSIZE
+     A          K LRSOWD
+     A          K LRCRDY
+     A          K LRGLOC
+     A          K LRCUST

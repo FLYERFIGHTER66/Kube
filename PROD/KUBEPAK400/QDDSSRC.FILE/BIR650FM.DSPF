@@ -1,0 +1,328 @@
+     A*%%TS  SD  20090203  165308  BILLB       REL-V5R3M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20090203  165308  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF01
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2COLOR(BLU)
+     A                                  1 22' Change Requested Ship Date By Ord-
+     A                                      er '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3 27'Order Number:'
+     A            VORDER         6Y 0B  3 49DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10N11                               ERRMSG('*** Enter A Valid Order Num-
+     A                                      ber.   Press Reset')
+     A  11                                  ERRMSG('*** Selected Order is Close-
+     A                                      d.     Press RESET')
+     A                                  5 27'Current Due Date:'
+     A            CDATE          6Y 0B  5 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A                                  7 27'New Due Date:'
+     A            NDATE          6Y 0B  7 47DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  32                                  ERRMSG('*** New Date Cannot Be Prio-
+     A                                      r To Current System Date.   Press R-
+     A                                      eset')
+     A                                      EDTWRD('  /  /  ')
+     A                                  9 27'Force New Date In'
+     A            VFORCE         1A  B  9 54DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.        Press Reset')
+     A                                 10 27'Order Header:'
+     A                                 12 27'Print Audit Report:'
+     A            VAUDIT         1A  B 12 54DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.        Press Reset')
+     A                                 15 11' New Due Date Is Prior To Todays D-
+     A                                      ate - Press F1 To Accept '
+     A  77                                  DSPATR(RI)
+     A N77                                  DSPATR(ND)
+     A                                 16  2' This program will change the requ-
+     A                                      ested ship date on all of the open -
+     A                                      line    '
+     A                                 17  2' items with the current due date a-
+     A                                      s above to the new due date.  If al-
+     A                                      l open  '
+     A                                 18  2' line items are changed to new dat-
+     A                                      e, the date will also be changed in-
+     A                                       the   '
+     A                                 19  2' order header record.  You can als-
+     A                                      o force this new date in the order -
+     A                                      header. '
+     A                                 20  3'If no items are found to be change-
+     A                                      d, a message will be displayed.    -
+     A                                            '
+     A                                 21  3'Audit Report prints a before and a-
+     A                                      fter for each line changed.'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'                Enter to Process  -
+     A                                           F3/F7=End of Job              -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 14 27'Print Summary Pickslip:'
+     A            VSUMM          1A  B 14 54DSPATR(CS)
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.        Press Reset')
+     A                                  7  6'W A R N I N G'
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A                                  6  6'============='
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A                                  8  6'============='
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A                                  9  5'Do NOT use this'
+     A                                 10  5'program for Plug'
+     A                                 11  6'or R/C Orders.'
+     A                                 12  6'FINISHED ONLY'
+     A                                      DSPATR(HI)
+     A                                  5  2'                      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  6  2' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  6 23' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  7  2' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  7 23' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  8  2' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  8 23' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  9  2' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  9 23' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 10  2' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 10 23' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 11  2' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 11 23' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 12  2' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 12 23' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                 13  2'                      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A          R SCRNB
+     A*%%TS  SD  20000512  142229  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' Order Due Date Modification '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Order No:'
+     A            VORDER         6Y 0O  4 13DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  4 24'Current Due Date:'
+     A            CDATE          6Y 0O  4 42DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  5 24'New Due Date:'
+     A            NDATE          6Y 0O  5 42DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  7  4'Ship To:'
+     A                                      DSPATR(UL)
+     A            OHCUST         6Y 0O  7 14DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  7 46'Bill To:'
+     A                                      DSPATR(UL)
+     A            OHBLCU         6Y 0O  7 56DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            SHP1          32A  O  8  4DSPATR(HI)
+     A            SLD1          32A  O  8 46DSPATR(HI)
+     A            SHP2          32A  O  9  4DSPATR(HI)
+     A            SLD2          32A  O  9 46DSPATR(HI)
+     A            SHP3          32A  O 10  4DSPATR(HI)
+     A            SLD3          32A  O 10 46DSPATR(HI)
+     A            SHP4          32A  O 11  4DSPATR(HI)
+     A            SLD4          32A  O 11 46DSPATR(HI)
+     A            SHP5          32A  O 12  4DSPATR(HI)
+     A            SLD5          32A  O 12 46DSPATR(HI)
+     A                                 15 16' Press ENTER to Change Line Items -
+     A                                      to New Due Date '
+     A  60                                  DSPATR(ND)
+     A                                 18  3'No Open Line Items On This Order H-
+     A                                      ave'
+     A N60                                  DSPATR(ND)
+     A            CBDATE         6Y 0O 18 42EDTCDE(Y)
+     A N60                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                      DSPATR(RI)
+     A                                 18 52'As The Current Due Date '
+     A N60                                  DSPATR(ND)
+     A                                 20 24' Press Enter To Select New Order '
+     A N60                                  DSPATR(ND)
+     A                                      DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process        F6=-
+     A                                      Cancel Ship Date Change (No Update)-
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4 54'Quantity Open:'
+     A            TOTQTY         9Y 0O  4 69DSPATR(HI)
+     A                                      EDTCDE(1)
+     A          R SCRNC
+     A*%%TS  SD  20000428  120900  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A                                  1  2'BIR650C'
+     A                                  1 26' Order Due Date Modification '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  7 25'Printer ID:'
+     A            LPRTR         10A  B  7 46DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                  8 25'Forms Number:'
+     A            LFORM         10A  B  8 46DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                  9 25'Number of Copies:'
+     A            LCOPY          2Y 0B  9 54
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 10 25'Run From JobQ:'
+     A            LJOBQ          1A  B 10 55DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 11 25'Print Status:'
+     A            VOUT           1Y 0B 11 55
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 11 59'1 = Print'
+     A                                 12 59'2 = Print/Save'
+     A                                 13 59'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                              F3/F7=Cancel Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4 20' Printer Selection for Summary Pic-
+     A                                      kslips '
+     A                                      DSPATR(RI)

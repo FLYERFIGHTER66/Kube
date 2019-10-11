@@ -1,0 +1,434 @@
+     A*%%TS  SD  20070628  142728  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20020725  161609  EFD         REL-V5R1M0  5722-WDS
+     A                                  1  2'SDR250A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Item Price/Cost Inquiry '
+     A                                      DSPATR(RI)
+     A                                  7 19'Item Number?'
+     A            ITEM          12A  B  7 32
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.       Press RESET')
+     A                                  9 19'Size Code:'
+     A            SIZE           3A  B  9 32
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                 24  2'Enter to Process                 F-
+     A                                      6=Restart                   F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20070628  142728  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF02
+     A  61                                  CF04
+     A                                  1  2'SDR250B'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 28' Item Price/Cost Inquiry '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4  1'Item:'
+     A            IMITEM        12A  O  4  8COLOR(YLW)
+     A                                  4 21'Size:'
+     A            IMSIZE         3A  O  4 27COLOR(YLW)
+     A            IMDES1        30A  O  4 31COLOR(YLW)
+     A                                  5  1'Series:'
+     A            SECODE        10A  O  5  9COLOR(YLW)
+     A            SEDESC        30A  O  5 21COLOR(YLW)
+     A                                  5 52'Selected seed Form:'
+     A                                  7  1'Seed'
+     A                                  7  7'High Price:'
+     A            SEHPRC         9Y 4O  7 19EDTCDE(4)
+     A                                  7 30'Vendor:'
+     A            SEHVND         6Y 0O  7 38EDTCDE(4)
+     A            HVNAME        30A  O  7 45
+     A                                  8  7' Low Price:'
+     A            SELPRC         9Y 4O  8 19EDTCDE(4)
+     A                                  8 30'Vendor:'
+     A            SELVND         6Y 0O  8 38EDTCDE(4)
+     A            LVNAME        30A  O  8 45
+     A                                  9  2'Selected Vendor:'
+     A            SELSPR         9Y 4O  9 19EDTCDE(4)
+     A                                  9 30'Vendor:'
+     A            SEVND          6Y 0O  9 38EDTCDE(4)
+     A            SVNAME        30A  O  9 45
+     A                                 12  2'Seed Price/EA'
+     A                                      DSPATR(UL)
+     A            SSPRC         10Y 6O 13  4EDTCDE(4)
+     A                                      COLOR(YLW)
+     A            SEFORM         1S 0O  5 72COLOR(YLW)
+     A                                 13 25'X'
+     A                                      COLOR(PNK)
+     A            SZCELL         5Y 0O 13 18EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 12 17'# Cells'
+     A                                      DSPATR(UL)
+     A                                 12 25'# Seeds'
+     A                                      DSPATR(UL)
+     A                                 13 16'X'
+     A                                      COLOR(PNK)
+     A            IM#SED         2S 0O 13 28COLOR(YLW)
+     A                                 13 42'='
+     A                                      COLOR(PNK)
+     A                                 12 45'Seed Cost'
+     A                                      DSPATR(UL)
+     A            SEDCST         9Y 4O 13 44DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 13 55'+'
+     A                                      COLOR(PNK)
+     A                                 12 57'Fixed Cost'
+     A                                      DSPATR(UL)
+     A            FIXCST         9Y 4O 13 57DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 13 68'='
+     A                                      COLOR(PNK)
+     A                                 12 71'Tray Cost'
+     A                                      DSPATR(UL)
+     A            TOTCST         9Y 4O 14 70EDTCDE(4)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 15  2'Price Code:'
+     A            IMLIST         4A  O 15 14COLOR(YLW)
+     A            UPRICE         9Y 4O 15 26EDTWRD('     .    ')
+     A                                      COLOR(YLW)
+     A                                 15 37'Discount:'
+     A            TRDSC          7Y 4O 15 47EDTWRD('   .    ')
+     A                                      COLOR(YLW)
+     A            NETPRC         7Y 2O 15 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 15 19'Price:'
+     A                                 15 57'Net Price:'
+     A                                 17 57'Net Margin:'
+     A            MARGIN         7Y 2O 17 69DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A  55                                  DSPATR(BL)
+     A                                 17 36'Percent:'
+     A            MARPCT         9Y 4O 17 45DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A                                 19  2'--------------------------Enter Tr-
+     A                                      ial Code or Price-------------------
+     A                                      ---------'
+     A                                      DSPATR(HI)
+     A                                 20  2'Price Code?'
+     A                                 20 19'Price:'
+     A                                 20 37'Discount:'
+     A            NTRDSC         7Y 4O 20 47EDTWRD('   .    ')
+     A                                      COLOR(YLW)
+     A                                 20 57'Net Price:'
+     A            NNTPRC         7Y 2O 20 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 22 57'Net Margin:'
+     A            MARG           7Y 2O 22 69DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A  56                                  DSPATR(BL)
+     A                                 22 36'Percent:'
+     A            NMRPCT         9Y 4O 22 45DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A            LIST           4A  B 20 14
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid List code Enter-
+     A                                      ed.         Press RESET')
+     A  10 11                               ERRMSG('*** To Update Price You Mus-
+     A                                      t enter a Price code or Price.     -
+     A                                      Press RESET')
+     A            NEWPRC         9Y 4B 20 26EDTWRD('     .    ')
+     A                                      DSPATR(CS)
+     A                                 24  2'Enter to Process      F2=Select Ne-
+     A                                      w Vendor      F6=Restart       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21  2' To Update Code/Price in Item file-
+     A                                       Press F4 '
+     A  61                                  DSPATR(RI)
+     A N61                                  DSPATR(ND)
+     A            SMMULT         6Y 5O 13 34EDTCDE(1)
+     A                                      COLOR(YLW)
+     A                                 13 32'X'
+     A                                      COLOR(PNK)
+     A                                 12 34'Over Sow'
+     A                                      DSPATR(UL)
+     A            WKS2GERM       4Y 2O 11  2EDTWRD('  .  ')
+     A                                      COLOR(YLW)
+     A                                 11  8'Wks to Germ AVG'
+     A                                 11 24'X'
+     A                                      COLOR(PNK)
+     A                                 11 26'Weekly Overhead ('
+     A            TOCOST    R        O 11 44REFFLD(ROCOST/TOCOST *LIBL/FOCOST)
+     A                                      EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 11 55')'
+     A            TOTOVR    R        O 11 59REFFLD(ROCOST/TOCOST *LIBL/FOCOST)
+     A                                      EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 11 57'='
+     A                                      COLOR(PNK)
+     A                                 11 70'Overhead'
+     A                                 14 25'%GERM'
+     A            FCGERM    R        O 14 44REFFLD(ROCOST/TOGERM *LIBL/FOCOST)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('   .      %')
+     A                                 14 13'Tray Cost'
+     A                                 14 23'/'
+     A                                      COLOR(PNK)
+     A                                 14 56'= Total Cost:'
+     A            TRAYCOST       9Y 4O 13 70DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 16  2'Sow Code:'
+     A                                 17  2'Factor Table ID:'
+     A            IMFTAB    R        O 17 20REFFLD(RMINVT/IMFTAB *LIBL/FMINVT)
+     A                                      COLOR(YLW)
+     A            IMSOWC    R        O 16 13REFFLD(RMINVT/IMSOWC *LIBL/FMINVT)
+     A                                      COLOR(YLW)
+     A                                 14 31'(Sow Factor)'
+     A          R SCRNC
+     A*%%TS  SD  20070628  142728  BILLB       REL-V5R3M0  5722-WDS
+     A  61                                  CF04
+     A                                  1  2'SDR250C'
+     A                                  1 28' Item Price/Cost Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  3  2'Item:'
+     A            IMITEM        12A  O  3  9COLOR(YLW)
+     A                                  3 22'Size:'
+     A            IMSIZE         3A  O  3 28COLOR(YLW)
+     A            IMDES1        30A  O  3 32COLOR(YLW)
+     A                                  5  2'Series:'
+     A            SECODE        10A  O  5 10COLOR(YLW)
+     A            SEDESC        30A  O  5 22COLOR(YLW)
+     A                                  5 53'Selected seed Form:'
+     A            SEFORM         1S 0O  5 73COLOR(YLW)
+     A                                  6  2'  Cost of Plug Calculation ( Trans-
+     A                                      planted from'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            IMFRSZ         3A  O  6 49DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 53')                          '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A            PLGWTG         4Y 2O  7  2EDTWRD('  .  ')
+     A                                      COLOR(YLW)
+     A                                  7  8'Wks to Germ AVG'
+     A                                  7 24'X'
+     A                                      COLOR(PNK)
+     A                                  7 26'Weekly Overhead ('
+     A            PLGWKOVRHD     9Y 4O  7 44COLOR(YLW)
+     A                                      EDTCDE(4)
+     A                                  7 55')'
+     A                                  7 57'='
+     A                                      COLOR(PNK)
+     A            PLGOVRHD       9Y 4O  7 59COLOR(YLW)
+     A                                      EDTCDE(4)
+     A                                  7 70'Overhead'
+     A                                  8  2'Seed Price'
+     A                                  8 14'# Cells'
+     A                                  8 22'# Seeds'
+     A                                  8 30' OverSow'
+     A                                  8 42'Seed Cost'
+     A                                  8 54'Fixed Cost'
+     A                                  8 68'Tray Cost'
+     A            SSPRC         10Y 6O  9  2EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  9 14'X'
+     A                                      COLOR(PNK)
+     A            SEDCEL         5Y 0O  9 16EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  9 22'X'
+     A                                      COLOR(PNK)
+     A            F#SED          2S 0O  9 25COLOR(YLW)
+     A                                  9 29'X'
+     A                                      COLOR(PNK)
+     A            SMMULT         6Y 5O  9 31EDTWRD(' .     ')
+     A                                      COLOR(YLW)
+     A                                  9 39'='
+     A                                      COLOR(PNK)
+     A            SEDCST         9Y 4O  9 41EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  9 52'+'
+     A                                      COLOR(PNK)
+     A            FIXPLG         9Y 4O  9 54EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  9 65'='
+     A                                      COLOR(PNK)
+     A            TOTPLG         9Y 4O  9 67EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 10  2'Tray Cost'
+     A                                 10 12'/'
+     A                                      COLOR(PNK)
+     A                                 10 14'%GERM'
+     A            PLGGERM        9Y 6O 10 20COLOR(YLW)
+     A                                      EDTWRD('   .      %')
+     A                                 10 33'='
+     A                                      COLOR(PNK)
+     A                                 10 51'/'
+     A                                      COLOR(PNK)
+     A                                 10 53'# Cells'
+     A            PLGCEL         5Y 0O 10 61EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 10 67'='
+     A                                      COLOR(PNK)
+     A                                 10 69'Plug EA'
+     A                                 11  2'  Tray Cost Calculation           -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A            TRAWTG         4Y 2O 12  2EDTWRD('  .  ')
+     A                                      COLOR(YLW)
+     A                                 12  8'Wks to Germ AVG'
+     A                                 12 24'X'
+     A                                      COLOR(PNK)
+     A                                 12 26'Weekly Overhead ('
+     A            TRAWKOVRHD     9Y 4O 12 44COLOR(YLW)
+     A                                      EDTCDE(4)
+     A                                 12 55')'
+     A                                 12 57'='
+     A                                      COLOR(PNK)
+     A            TRAOVRHD       9Y 4O 12 59EDTWRD('     .    ')
+     A                                      COLOR(YLW)
+     A                                 12 70'Overhead'
+     A                                 13  2'Plug Price Each'
+     A                                 13 19'# Cells'
+     A                                 13 27'# Plugs'
+     A                                 13 38'Plug Cost'
+     A                                 13 51'Fixed Cost'
+     A                                 13 66'Total Cost'
+     A            PLPRC         10Y 6O 14  5EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 14 17'X'
+     A                                      COLOR(PNK)
+     A            SZCELL         5Y 0O 14 20EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 14 27'X'
+     A                                      COLOR(PNK)
+     A            IM#SED         2S 0O 14 30COLOR(YLW)
+     A                                 14 35'='
+     A                                      COLOR(PNK)
+     A            PLGCST         9Y 4O 14 37DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 14 49'+'
+     A                                      COLOR(PNK)
+     A            FIXCST         9Y 4O 14 51DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 14 64'='
+     A                                      COLOR(PNK)
+     A            TOTCST         9Y 4O 14 66DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 16  2'Price Code:'
+     A            IMLIST         4A  O 16 14COLOR(YLW)
+     A                                 16 19'Price:'
+     A            UPRICE         9Y 4O 16 26EDTWRD('     .    ')
+     A                                      COLOR(YLW)
+     A                                 16 37'Discount:'
+     A            TRDSC          7Y 4O 16 47EDTWRD('   .    ')
+     A                                      COLOR(YLW)
+     A                                 16 57'Net Price:'
+     A            NETPRC         7Y 2O 16 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 17 36'Percent:'
+     A            MARPCT         9Y 4O 17 45DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A                                 17 57'Net Margin:'
+     A            MARGIN         7Y 2O 17 69DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A  55                                  DSPATR(BL)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 19  2'                          Enter Tr-
+     A                                      ial Code or Price                  -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(RI)
+     A                                 20  2'Price Code?'
+     A            LIST           4A  B 20 14
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid List code Enter-
+     A                                      ed.         Press RESET')
+     A  10 11                               ERRMSG('*** To Update Price You Mus-
+     A                                      t enter a Price code or Price.     -
+     A                                      Press RESET')
+     A                                 20 19'Price:'
+     A            NEWPRC         9Y 4B 20 26EDTWRD('     .    ')
+     A                                      DSPATR(CS)
+     A                                 20 37'Discount:'
+     A            NTRDSC         7Y 4O 20 47EDTWRD('   .    ')
+     A                                 20 57'Net Price:'
+     A            NNTPRC         7Y 2O 20 69DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 21  2' To Update Code/Price in Item file-
+     A                                       Press F4 '
+     A  61                                  DSPATR(RI)
+     A N61                                  DSPATR(ND)
+     A                                 22 36'Percent:'
+     A            NMRPCT         9Y 4O 22 45DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A                                 22 57'Net Margin:'
+     A            MARG           7Y 2O 22 69DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(L)
+     A  56                                  DSPATR(BL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process               F6=-
+     A                                      Restart                        F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            TOTPLGCOST     9Y 4O 10 36EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 17  2'Sow Code:'
+     A                                 17 15'Factor Table ID:'
+     A            IMFTAB    R        O 17 32REFFLD(RMINVT/IMFTAB *LIBL/FMINVT)
+     A                                      COLOR(YLW)
+     A            IMTPSW    R        O 17 12REFFLD(RMINVT/IMTPSW *LIBL/FMINVT)
+     A                                      DSPATR(CS)
+     A                                      COLOR(YLW)

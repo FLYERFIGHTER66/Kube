@@ -1,0 +1,76 @@
+000100961004      *
+000200990810      *
+000300040127     FFAROPNPF  UP   E           K DISK
+000400040127     FFAROPN    IF   E           K DISK
+000500040127     F                                     RENAME(RAROPN:OPEN)
+000600040120     FFARHIST   O  A E           K DISK
+000700011018      *
+000800040120     C     ARSTAT        IFEQ      'L'
+000900040120     C     AR$AMT        ANDEQ     ARPAID
+001000040120     C     ARDUE$        ANDEQ     *ZEROS
+001100040127     C     OPKEY         CHAIN     FAROPN                             99
+001200040127     C     *IN99         IFEQ      *ON
+001300040120     C                   MOVE      'A'           AHSTAT
+001400040120     C                   Z-ADD     ARCUST        AHCUST
+001500040120     C                   Z-ADD     ARINV#        AHINV#
+001600040120     C                   MOVE      ARSUFF        AHSUFF
+001700040120     C                   Z-ADD     ARSEQ#        AHSEQ#
+001800040120     C                   MOVE      ARCTYP        AHCTYP
+001900040120     C                   MOVE      ARSLM1        AHSLM1
+002000040120     C                   Z-ADD     ARCOM1        AHCOM1
+002100040120     C                   MOVE      ARSLM2        AHSLM2
+002200040120     C                   Z-ADD     ARCOM2        AHCOM2
+002300040120     C                   MOVE      ARTERR        AHTERR
+002400040120     C                   Z-ADD     ARCOMP        AHCOMP
+002500040120     C                   Z-ADD     ARTTYP        AHTTYP
+002600040120     C                   Z-ADD     ARTDAT        AHTDAT
+002700040120     C                   Z-ADD     ARDUDT        AHDUDT
+002800040120     C                   Z-ADD     AR$AMT        AH$AMT
+002900040120     C                   Z-ADD     ARDISC        AHDISC
+003000040120     C                   Z-ADD     ARDTAK        AHDTAK
+003100040120     C                   Z-ADD     ARADJ$        AHADJ$
+003200040120     C                   Z-ADD     ARPAID        AHPAID
+003300040120     C                   Z-ADD     ARDUE$        AHDUE$
+003400040120     C                   MOVE      ARCHEK        AHCHEK
+003500040120     C                   Z-ADD     ARCKDT        AHCKDT
+003600040120     C                   Z-ADD     ARGLAC        AHGLAC
+003700040120     C                   MOVE      ARDESC        AHDESC
+003800040120     C                   Z-ADD     ARDTLA        AHDTLA
+003900040120     C                   Z-ADD     ARTIME        AHTIME
+004000040120     C                   MOVE      ARUSER        AHUSER
+004100040120     C                   Z-ADD     ARDCDT        AHDCDT
+004200040120     C                   Z-ADD     ARORD#        AHORD#
+004300040120     C                   MOVE      ARLOOK        AHLOOK
+004400040120     C                   Z-ADD     ARSHCU        AHSHCU
+004500040120     C                   Z-ADD     ARSACU        AHSACU
+004600040120     C                   Z-ADD     ARBLCU        AHBLCU
+004700040120     C                   MOVE      ARPONO        AHPONO
+004800040120     C                   MOVE      ARCRCD        AHCRCD
+004900040120     C                   Z-ADD     ARCRC#        AHCRC#
+005000040120     C                   Z-ADD     ARCRCE        AHCRCE
+005100040120     C                   MOVE      ARCRCA        AHCRCA
+005200040120     C*                    MOVE ARPRST    AHORST
+005300040120     C                   Z-ADD     ARSHP#        AHSHP#
+005400040120     C                   MOVE      ARREAS        AHREAS
+005500040120     C                   MOVE      ARTAXJ        AHTAXJ
+005600040120     C                   MOVE      ARSHFR        AHSHFR
+005700040120     C                   MOVE      ARPOS         AHPOS
+005800040120     C                   Z-ADD     ARSINV        AHSINV
+005900040120     C                   MOVE      ARSSUF        AHSSUF
+006000040120     C                   MOVE      ARBKCD        AHBKCD
+006100040120     C                   WRITE     RARHIS
+006200040120     C                   DELETE    RAROPN
+006300040120     C                   ENDIF
+006400040127     C                   ENDIF
+006500040127     CSR   *INZSR        BEGSR
+006600040127      *
+006700040127      * Define Key Lists 
+006800040127      *
+006900040127      *
+007000040127     C     OPKEY         KLIST
+007100040127     C                   KFLD                    ARCUST
+007200040127     C                   KFLD                    ARINV#
+007300040127     C                   KFLD                    ARSUFF
+007400040127     C                   KFLD                    SEQ
+007500040127     C                   Z-ADD     1             SEQ               3 0
+007600040127     C                   ENDSR

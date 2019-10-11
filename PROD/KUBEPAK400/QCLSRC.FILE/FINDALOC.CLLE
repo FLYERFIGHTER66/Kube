@@ -1,0 +1,15 @@
+             PGM        PARM(&DELAY)
+
+             DCL        VAR(&DELAY)  TYPE(*CHAR) LEN(3)
+             DCL        VAR(&DELAY#) TYPE(*DEC)  LEN(3 0)
+
+             CHGVAR     VAR(&DELAY#) VALUE(&DELAY)
+
+             RUNQRY     QRY(ALOCATED)
+             RUNQRY     QRY(ALOCATE2)
+             DLYJOB     DLY(&DELAY#)
+             SBMJOB     CMD(CALL PGM(FINDALOC) PARM(&DELAY)) +
+                          JOB(CHECKALOC) JOBD(*LIBL/KUBEPAK) +
+                          JOBQ(*LIBL/QINTER) OUTQ(P6)
+
+             ENDPGM

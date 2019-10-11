@@ -1,0 +1,290 @@
+     A*%%TS  SD  20190522  145032  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000622  154835  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                  1  2'ORDLAVA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            LISTID         6A  B  5 47
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N12N13                            ERRMSG('*** You Must Enter A List I-
+     A                                      .D.         Press RESET')
+     A  10 12N13                            ERRMSG('*** List I.D. Does NOT Exis-
+     A                                      t.          Press RESET')
+     A  10 13                               ERRMSG('*** You May NOT Enter an As-
+     A                                      sortment from here, Return to Order-
+     A                                       entry. Press RESET')
+     A                                 23  2'             Enter to Process     -
+     A                                      F6=Restart      F3/F7=End of Job   -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(UL)
+     A                                  5 26'Order List ID?'
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  1 24' Order List Available items Only '
+     A                                      DSPATR(RI)
+     A          R HLSTSFL                   SFL
+     A*%%TS  SD  20000622  143650  EFD         REL-V3R7M0  5716-PW1
+     A            OLSQ1          3S 0H
+     A            OLSQ2          3S 0H
+     A            OLSQ3          3S 0H
+     A            OLSQ4          3S 0H
+     A            OLSQ5          3S 0H
+     A            OLSQ6          3S 0H
+     A            ITEM#         12   O  6  2
+     A            DESCH         24A  O  5  2
+     A            QTYAV1         7  0O  5 27EDTCDE(M)
+     A  21                                  DSPATR(ND)
+     A            QTYAV2         7Y 0O  5 36EDTCDE(M)
+     A  22                                  DSPATR(ND)
+     A            QTYAV3         7Y 0O  5 45EDTCDE(M)
+     A  23                                  DSPATR(ND)
+     A            QTYAV4         7Y 0O  5 54EDTCDE(M)
+     A  24                                  DSPATR(ND)
+     A            QTYAV5         7Y 0O  5 63EDTCDE(M)
+     A  25                                  DSPATR(ND)
+     A            QTYAV6         7Y 0O  5 72EDTCDE(M)
+     A  26                                  DSPATR(ND)
+     A            PRIC1          7  2O  6 26
+     A  21                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC2          7Y 2O  6 35
+     A  22                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC3          7Y 2O  6 44
+     A  23                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC4          7Y 2O  6 53
+     A  24                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC5          7Y 2O  6 62
+     A  25                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC6          7Y 2O  6 71
+     A  26                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A                                  6 19'Price:'
+     A          R HLSTCTL                   SFLCTL(HLSTSFL)
+     A*%%TS  SD  20000622  154835  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF01
+     A                                      CF03
+     A                                      CF05
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(2000)
+     A                                      SFLPAG(0010)
+     A                                  1  2'ORDLAVHLST'
+     A                                  1 14USER
+     A                                  1 61DATE
+     A                                      EDTCDE(Y)
+     A                                  1 73TIME
+     A            HLDESC        30A  O  1 26DSPATR(RI)
+     A                                  4  2'Item #                 '
+     A            HDG1           7A  O  4 27
+     A            HDG2           7A  O  4 36
+     A            HDG3           7A  O  4 45
+     A            HDG4           7A  O  4 54
+     A            HDG5           7A  O  4 63
+     A            HDG6           7A  O  4 72
+     A                                  2  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'Enter to Process      F1=Additiona-
+     A                                      l Desc.     F5=New List        F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R VLSTSFL                   SFL
+     A*%%TS  SD  20190509  144438  BILLB       REL-V7R2M0  5770-WDS
+     A            QTYAV          8  0O  7 53EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            ITEM5          5A  O  7  4COLOR(BLU)
+     A            ITEM          12A  H
+     A            SIZE           3A  O  7 10COLOR(BLU)
+     A            PRICE          7Y 2O  7 44EDTWRD('    0.  ')
+     A  57                                  DSPATR(ND)
+     A            DESC          29A  O  7 14
+     A N40                                  COLOR(GRN)
+     A  40                                  COLOR(PNK)
+     A            OLDO          11S 0H
+     A            OLDSEQ         3S 0H
+     A            OLNOTE        15A  H
+     A            OLRDYC         5A  H
+     A            FLD001         1A  B  7  2DSPATR(ND)
+     A            NOTERDYC      15A  O  7 63
+     A N30                                  COLOR(PNK)
+     A  30                                  COLOR(BLU)
+     A                                  7 79'*'
+     A  31N30                               DSPATR(HI)
+     A N31
+     AO 30                                  DSPATR(ND)
+     A                                      COLOR(BLU)
+     A          R VLSTCTL                   SFLCTL(VLSTSFL)
+     A*%%TS  SD  20190522  145032  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      CF05
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      CF10
+     A                                      CF11
+     A                                      CF12
+     A                                      CF13
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD -
+     A                                      &CSRPOS)
+     A                                      CSRLOC(PUTCSRLIN  PUTCSRPOS)
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(2000)
+     A                                      SFLPAG(0018)
+     A            SFLCSRRRN      5S 0H
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            CSRPOS         4S 0H
+     A            PUTCSRLIN      3S 0H
+     A            PUTCSRPOS      3S 0H
+     A            PUTSFLRRN      3S 0H      SFLRCDNBR
+     A            CSRRRN         5S 0H
+     A                                  1  2'ORDLAVVLST'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            HLDESC        30A  O  1 21DSPATR(RI)
+     A                                      DSPATR(HI)
+     A  30                              3 23'=View Ready Color'
+     A                                      COLOR(BLU)
+     A N30                              6  2'  Item/Size  Description          -
+     A                                                Price  Available  Ready C-
+     A                                      olor   '
+     A                                      DSPATR(UL)
+     A                                  5 53'Quantity'
+     A            SELITEM        5A  B  5  4COLOR(YLW)
+     A                                      DSPATR(PC)
+     A            SELSIZE        3A  B  5 10COLOR(YLW)
+     A                                  5 14'Search For:'
+     A                                      COLOR(PNK)
+     A            SELSEARCH     15A  B  5 26COLOR(YLW)
+     A N30                              4 40'=View Notes'
+     A                                      COLOR(BLU)
+     A                                  3  2'Enter'
+     A                                      DSPATR(HI)
+     A                                  3  8'=Process'
+     A                                      COLOR(BLU)
+     A                                  4 21'F5'
+     A                                      DSPATR(HI)
+     A                                  4 24'=New List'
+     A                                      COLOR(BLU)
+     A                                  2 21'F3'
+     A                                      DSPATR(HI)
+     A                                  2 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                  4 53'F11'
+     A                                      DSPATR(HI)
+     A                                  4 37'F8'
+     A                                      DSPATR(HI)
+     A                                  4 57'=Item Orders'
+     A                                      COLOR(BLU)
+     A                                  2 37'F6'
+     A                                      DSPATR(HI)
+     A                                  2 40'=Item Master'
+     A                                      COLOR(BLU)
+     A            OFFSET         2S 0B  4 70COLOR(BLU)
+     A                                  4  2'F2'
+     A                                      DSPATR(HI)
+     A N31                              4  5'=Hide Zeros'
+     A                                      COLOR(BLU)
+     A  31                              4  5'=Show Zeros'
+     A                                      COLOR(BLU)
+     A                                  3 37'F7'
+     A                                      DSPATR(HI)
+     A                                  3 40'=Picture'
+     A                                      COLOR(BLU)
+     A                                  3 53'F10'
+     A                                      DSPATR(HI)
+     A                                  3 57'=Order List'
+     A                                      COLOR(BLU)
+     A                                  2 54'F9'
+     A                                      DSPATR(HI)
+     A                                  2 57'=Inventory'
+     A                                      COLOR(BLU)
+     A  30                              4 40'=Ready Color'
+     A                                      COLOR(PNK)
+     A  30                              6  2'  Item/Size  Description          -
+     A                                                Price  Available  Note   -
+     A                                             '
+     A                                      DSPATR(UL)
+     A                                  3 79'N'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  4 79'O'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  6 79'E'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  5 79'T'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  4 74'Days'
+     A                                      COLOR(BLU)
+     A                                  3 21'F4'
+     A                                      DSPATR(HI)
+     A                                  3 24'=Print'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O  1 62COLOR(YLW)
+     A                                      DSPATR(RI)
+     A                                  1 53'F13=Chg:'
+     A                                      COLOR(YLW)
+     A                                  5 64'F12'
+     A                                      DSPATR(HI)
+     A                                  5 68'=Find'
+     A                                      COLOR(BLU)
+     A          R SCRNNCG
+     A*%%TS  SD  19970619  092731  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                  1  2'ORDLSTNCG'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  1 31' Display Order List '
+     A                                      DSPATR(RI)
+     A                                  7  6' You Can NOT Change order lists in-
+     A                                       the middle of an assortment entry.-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                 10 28' Press Enter to continue '
+     A                                      DSPATR(RI)

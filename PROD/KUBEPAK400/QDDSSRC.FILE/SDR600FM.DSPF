@@ -1,0 +1,125 @@
+     A*%%TS  SD  20020725  142215  EFD         REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A          R SCRNA
+     A*%%TS  SD  20010703  163426  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'SDR600A'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  1 25' Vendor/Series Price Comparison '
+     A                                      DSPATR(RI)
+     A                                  6 19'Vendor Number:'
+     A                                  8 19'Alpha Search:'
+     A                                  7 24'-or-'
+     A            VEND           6Y 0B  6 34
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Vendor Entered.-
+     A                                                  Press RESET')
+     A            ALPHA         15A  B  8 34DSPATR(CS)
+     A                                 24  2'Enter to Process                  -
+     A                                      F6=Restart                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12  2' There are no history records for -
+     A                                      selected vendor. Please try another-
+     A                                       vendor. '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A          R PRCSFL                    SFL
+     A*%%TS  SD  20020725  142215  EFD         REL-V5R1M0  5722-WDS
+     A            DESC          30A  O  7  2
+     A            CURPRC         8Y 2O  8  2EDTCDE(4)
+     A            PRC1           8Y 2O  8 12EDTCDE(4)
+     A N01                                  DSPATR(ND)
+     A            PRC2           8Y 2O  8 22EDTCDE(4)
+     A N02                                  DSPATR(ND)
+     A            PRC3           8Y 2O  8 32EDTCDE(4)
+     A N03                                  DSPATR(ND)
+     A            PRC4           8Y 2O  8 42EDTCDE(4)
+     A N04                                  DSPATR(ND)
+     A            PRC5           8Y 2O  8 52EDTCDE(4)
+     A N05                                  DSPATR(ND)
+     A            PRC6           8Y 2O  8 62EDTCDE(4)
+     A N06                                  DSPATR(ND)
+     A            PRC7           8Y 2O  8 72EDTCDE(4)
+     A N07                                  DSPATR(ND)
+     A                                  7 33'Form:'
+     A            FORM           1Y 0O  7 39EDTCDE(4)
+     A            SPCODE        10A  H
+     A          R PRCCTL                    SFLCTL(PRCSFL)
+     A*%%TS  SD  20010920  155357  EFD         REL-V5R1M0  5722-WDS
+     A                                      SFLSIZ(0500)
+     A                                      SFLPAG(0008)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A                                  1  2'SDR600REC'
+     A                                  1 26' Vendor Seed Price Comparison '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  2 17'Vendor:'
+     A            VEND           6Y 0O  2 25DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            VMNAME        30A  O  2 32DSPATR(HI)
+     A                                  3 25'Prices shown are price per 1000.'
+     A                                      DSPATR(UL)
+     A            YEAR1          4  0O  6 15EDTCDE(4)
+     A  01                                  DSPATR(HI)
+     A  01                                  DSPATR(UL)
+     A N01                                  DSPATR(ND)
+     A            YEAR2          4  0O  6 25EDTCDE(4)
+     A  02                                  DSPATR(HI)
+     A  02                                  DSPATR(UL)
+     A N02                                  DSPATR(ND)
+     A            YEAR3          4  0O  6 35EDTCDE(4)
+     A  03                                  DSPATR(HI)
+     A  03                                  DSPATR(UL)
+     A N03                                  DSPATR(ND)
+     A            YEAR4          4  0O  6 45EDTCDE(4)
+     A  04                                  DSPATR(HI)
+     A  04                                  DSPATR(UL)
+     A N04                                  DSPATR(ND)
+     A            YEAR5          4  0O  6 55EDTCDE(4)
+     A  05                                  DSPATR(HI)
+     A  05                                  DSPATR(UL)
+     A N05                                  DSPATR(ND)
+     A            YEAR6          4  0O  6 65EDTCDE(4)
+     A  06                                  DSPATR(HI)
+     A  06                                  DSPATR(UL)
+     A N06                                  DSPATR(ND)
+     A            YEAR7          4  0O  6 75EDTCDE(4)
+     A  07                                  DSPATR(HI)
+     A  07                                  DSPATR(UL)
+     A N07                                  DSPATR(ND)
+     A                                  5  2'Start With:'
+     A            STRTW         10A  B  5 14DSPATR(CS)
+     A                                  3 66'F6=Restart'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 66'F3/F7=End'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 25'Enter Series or part of Series to -
+     A                                      start list.'
+     A                                  6  3'Current'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)

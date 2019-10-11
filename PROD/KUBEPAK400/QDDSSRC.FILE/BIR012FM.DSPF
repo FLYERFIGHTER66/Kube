@@ -1,0 +1,140 @@
+     A*%%TS  SD  19990614  064506  APGL        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990614  064506  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      CF23
+     A                                      ALWROL
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(04 012 08 076)
+     A  *DS4                                HLPARA(04 012 07 076)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 33' Customer Type '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12
+     A N50                                  DSPATR(CS)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  26                                  ERRMSG('*** Valid Action Codes = A -
+     A                                      C D.     Press Reset')
+     A                                  5 26'Customer Type?'
+     A            VTYPE          2A  B  5 47
+     A  10                                  DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  19                                  ERRMSG('*** Customer Type Is Requir-
+     A                                      ed.      Press Reset')
+     A  27                                  ERRMSG('*** This Type Is On File.  -
+     A                                           Press Reset')
+     A  20                                  ERRMSG('*** This Type Is Not On Fil-
+     A                                      e.   Press Reset')
+     A                                  7  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  8  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  8 26'Description:'
+     A N50                                  DSPATR(ND)
+     A            VDESC         30A  B  8 47
+     A  57 50                               DSPATR(RI)
+     A  50N23N24
+     A N25                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  50                                  DSPATR(PC)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A                                  9  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process   F6=Restart   -
+     A                                      F3/F7=End of Job   F13=Print List o-
+     A                                      f Types  '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990614  061439  APGL        REL-V3R1M0  5763-PW1
+     A                                 15  3'  Customer Type Overview          -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'  Customer types are used to defin-
+     A                                      e a customer or group of customers -
+     A                                      for     '
+     A                                      DSPATR(HI)
+     A                                 18  3'  pricing purposes.  The pricing h-
+     A                                      ierarchy includes the ability to gi-
+     A                                      ve      '
+     A                                      DSPATR(HI)
+     A                                 19  3'  special prices to select custome-
+     A                                      rs for certain items.   This pricin-
+     A                                      g       '
+     A                                      DSPATR(HI)
+     A                                 22  3'  Customer types must be defined h-
+     A                                      ere before being used in pricing.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'  hierarchy uses this customer typ-
+     A                                      e.  Refer to pricing documentation.-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)

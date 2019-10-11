@@ -1,0 +1,82 @@
+     A*%%TS  SD  20031215  074207  RP          REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A                                      CF03(03 'Exit')
+     A*
+     A*
+     A          R SCREEN01
+     A*%%TS  SD  20031215  074207  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1  3'KP4010'
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                  1 72TIME
+     A                                  2  3'SCREEN01'
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            S1USER        10A  B  7 40
+     A  31                                  DSPATR(PC)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(UL)
+     A            S1FRDT         6Y 0B  9 40DSPATR(CS)
+     A                                      DSPATR(UL)
+     A  31                                  DSPATR(PC)
+     A                                      EDTWRD('  /  / 0')
+     A            S1FRDS        30A  O  9 50
+     A                                 23 46'F3=Exit with No Report'
+     A                                      COLOR(BLU)
+     A                                  2 21'Inventory Transaction Edit Report -
+     A                                      Promts'
+     A                                      DSPATR(HI)
+     A                                  7 31'User ID:'
+     A                                  7 52'(Leave BLANK for all Users)'
+     A                                  9 18'From Date (MM/DD/YY):'
+     A  31                                  DSPATR(RI)
+     A            S1TODT         6Y 0B 11 40DSPATR(CS)
+     A                                      DSPATR(UL)
+     A  32                                  DSPATR(PC)
+     A                                      EDTWRD('  /  / 0')
+     A            S1TODS        30A  O 11 50
+     A                                 11 18'To  Date  (MM/DD/YY):'
+     A  32                                  DSPATR(RI)
+     A                                 13 28'Printer ID:'
+     A  33                                  DSPATR(RI)
+     A            S1OUTQ        10A  B 13 40DSPATR(CS)
+     A                                      DSPATR(UL)
+     A  33                                  DSPATR(PC)
+     A                                 15 27'Key a  ?  to select a valid Printe-
+     A                                      r'
+     A                                 23  8'Press ENTER to Continue'
+     A                                      COLOR(BLU)
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

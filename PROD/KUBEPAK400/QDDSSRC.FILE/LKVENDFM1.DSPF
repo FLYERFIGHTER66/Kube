@@ -1,0 +1,209 @@
+     A*%%TS  SD  20080321  143406  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R LKVEND00
+     A*%%TS  SD  20080321  090221  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Quit')
+     A                                      CF04(04 'Item Search')
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 49'           Vendor Search          -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                      LKVEND00  '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 20'F03'
+     A                                      DSPATR(HI)
+     A                                 26 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26120'F05'
+     A                                      DSPATR(HI)
+     A                                 26124'=Refresh'
+     A                                      COLOR(BLU)
+     A                                  7 37'Use the following Criteria to sear-
+     A                                      ch vendor records to find'
+     A                                      COLOR(PNK)
+     A                                  8 35'this value in the Name, Address, Z-
+     A                                      ip, Phone, Fax, or Alpha Seach'
+     A                                      COLOR(PNK)
+     A                                 13 53'Search For:'
+     A            SEARCH        15   B 13 66COLOR(YLW)
+     A          R LKVEND01                  SFL
+     A*%%TS  SD  20080321  143406  BILLB       REL-V5R3M0  5722-WDS
+     A  28                                  SFLNXTCHG
+     A            IN81           1A  H
+     A            IN82           1A  H
+     A            OPTION         1A  B  7  2
+     A  81                                  DSPATR(PC)
+     A            VMVEND    R        O  7  5REFFLD(RMVEND/VMVEND *LIBL/FMVEND)
+     A  61                                  DSPATR(HI)
+     A            VMNAME    R        O  7 13REFFLD(RMVEND/VMNAME *LIBL/FMVEND)
+     A  62                                  DSPATR(HI)
+     A            VMADD2    R        O  8 13REFFLD(RMVEND/VMADD2 *LIBL/FMVEND)
+     A  63                                  DSPATR(HI)
+     A            VMADD3    R        O  9 13REFFLD(RMVEND/VMADD3 *LIBL/FMVEND)
+     A                                      TEXT('ADDRESS LINE #2')
+     A  64                                  DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            VMCITY    R        O  7 44REFFLD(RMVEND/VMCITY *LIBL/FMVEND)
+     A  65                                  DSPATR(HI)
+     A            VMSTST    R        O  7 63REFFLD(RMVEND/VMSTST *LIBL/FMVEND)
+     A  66                                  DSPATR(HI)
+     A            VMZIPD    R        O  7 66REFFLD(RMVEND/VMZIPD *LIBL/FMVEND)
+     A  67                                  DSPATR(HI)
+     A            VMPHON    R        O  7 76REFFLD(RMVEND/VMPHON *LIBL/FMVEND)
+     A  68                                  DSPATR(HI)
+     A            VMFAX     R        O  7 89REFFLD(RMVEND/VMFAX *LIBL/FMVEND)
+     A  69                                  DSPATR(HI)
+     A            VMGLAC    R        O  8 63REFFLD(RMVEND/VMGLAC *LIBL/FMVEND)
+     A                                      EDTWRD('    -    ')
+     A  70                                  DSPATR(HI)
+     A            VMLOOK    R        O  7103REFFLD(RMVEND/VMLOOK *LIBL/FMVEND)
+     A  71                                  DSPATR(HI)
+     A                                  8 75'Contact Name:'
+     A                                      COLOR(PNK)
+     A                                  8 50'G/L Account:'
+     A                                      COLOR(PNK)
+     A            VMVCON    R        O  8 89REFFLD(RMVEND/VMVCON *LIBL/FMVEND)
+     A  72                                  DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 44'                                  -
+     A                                                                         -
+     A                                            '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 10 12' '
+     A          R LKVEND01C                 SFLCTL(LKVEND01)
+     A*%%TS  SD  20080321  121741  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0004)
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Quit')
+     A                                      CF05(05 'Refresh')
+     A                                      PAGEDOWN(40)
+     A                                      CF04(04 'Item Search')
+     A                                      CF06(06 'Restart')
+     A                                      CF08(08 'Show Week')
+     A                                      CF09(09 'Minus Week')
+     A                                      CF10(10 'Plus Week')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            STARTRRN01     4S 0H      SFLRCDNBR
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  1 50'          Vendor Search           '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  4  2'1=Select   2=Change   5=Display   -
+     A                                      6=A/P Open'
+     A                                      COLOR(BLU)
+     A                                  6  1'Opt'
+     A                                      DSPATR(UL)
+     A                                  3 51'Searching For:'
+     A                                      COLOR(PNK)
+     A            SEARCH        15A  B  3 67COLOR(YLW)
+     A                                  6  6'Vend#'
+     A                                      DSPATR(UL)
+     A                                  6 13'Vendor Name / Address         '
+     A                                      DSPATR(UL)
+     A                                  6 44'City              '
+     A                                      DSPATR(UL)
+     A                                  6 63'ST'
+     A                                      DSPATR(UL)
+     A                                  6 66' Zip     '
+     A                                      DSPATR(UL)
+     A                                  6 76'    Phone   '
+     A                                      DSPATR(UL)
+     A                                  6 89'    Fax     '
+     A                                      DSPATR(UL)
+     A                                  6103' Alpha Lookup  '
+     A                                      DSPATR(UL)
+     A          R LKVEND01F
+     A*%%TS  SD  20080321  090221  BILLB       REL-V5R3M0  5722-WDS
+     A                                      OVERLAY
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                        LKVEND01'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 56'F05'
+     A                                      DSPATR(HI)
+     A                                 26 60'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 32'F03'
+     A                                      DSPATR(HI)
+     A                                 26 36'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26110'F11'
+     A                                      DSPATR(HI)
+     A                                 26114'=More/Less'
+     A                                      COLOR(BLU)
+     A                                 26 83'F06'
+     A                                      DSPATR(HI)
+     A                                 26 87'=Restart'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS4                                SFLMSGRCD(27)
+     A            MSGKEY                    SFLMSGKEY
+     A            PGMQ                      SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS4                                SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

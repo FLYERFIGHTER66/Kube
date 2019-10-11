@@ -1,0 +1,499 @@
+000100181031      * Program        : WSGLKINV01
+000200171031      *
+000300180425      * Description    : This program to Generate Inventory XML using POST
+000400181031      *                  method for Available Quantity for Gloeckner
+000500180425      * Created By     : Vimala
+000600171031      *
+000700181031      * Date           : 31 Oct 2018
+000800171031      //--------------------------------------------------------------------
+000900180426      * Special Notes  : *Entry Parameters
+001000181109      *                  Broker Id  (6A)  - Input Parameter
+001100181221      *                  Start Week (8A)  - Input Parameter
+001200181221      *                  End Week   (8A)  - Input Parameter
+001300180425      //--------------------------------------------------------------------
+001400171031      *                :---------------:
+001500171031      *                : Modifications :
+001600171031      *                :---------------:
+001700171031      * ------  --------   ----------   ------------------------------------
+001800171031      * MOD#    MOD Date   Programmer   Description
+001900171031      * ------  --------   ----------   ------------------------------------
+002000181031      *
+002100171031      //--------------------------------------------------------------------
+002200171031      *                :----------------------:
+002300171031      *                : Header Specification :
+002400171031      *                :----------------------:
+002500171031      *
+002600180426        Ctl-Opt DftActGrp(*NO) Option(*NoDebugIO) DatFmt(*Usa)
+002700180426                Debug(*Yes) BndDir('HTTPAPI': 'QC2LE');
+002800180531      //--------------------------------------------------------------------
+002900180504      *Include Httpapi_h Source
+003000180425      /Include QRpglesrc,Httpapi_h
+003100171031      //--------------------------------------------------------------------
+003200171031      *                :--------------------:
+003300171031      *                : File Specification :
+003400171031      *                :--------------------:
+003500181221      *
+003600180502      *File: Item Cross Reference File
+003700180502      *Key : Provided Name:Provided Type:Local Key
+003800180502        Dcl-F XREFINVTL1 Disk(*Ext) Keyed Usage(*Input);
+003900180502      *
+004000180502      *File: Item Size file
+004100180502      *Key : Size Code
+004200180502        Dcl-F FMSIZE     Disk(*Ext) Keyed Usage(*Input);
+004300180502      *
+004400180425      *File: WS - Broker Default Parameter File
+004500180425      *Key : Broker Number : Broker Variable
+004600180502        Dcl-F FBROKDFTL0 Disk(*Ext) Keyed Usage(*Update:*Input);
+004700171031      //--------------------------------------------------------------------
+004800171031      *                :--------------------:
+004900171031      *                : Data Specification :
+005000171031      *                :--------------------:
+005100171031      *
+005200171031      *Procedure Interface Declaration : *Entry
+005300181031        Dcl-Pi WSGLKINV01;
+005400181109           PBrokerId    Char(6);
+005500181221           PStartDt     Char(8);
+005600181221           PEndDt       Char(8);
+005700171031        End-Pi;
+005800171108      *
+005900171031      *Procedure Prototype Declaration : AddXml Part
+006000171031        Dcl-Pr AddToXml;
+006100180531           Tagname  Char(50)   Value;
+006200180531           Tagval   Char(300)  Value;
+006300180531           Info     Char(10)   Value;
+006400171031        End-Pr;
+006500171031      *
+006600190515      *Procedure Prototype Declaration : Pgm to Call Command
+006700180426        Dcl-Pr QCMDEXC Extpgm;
+006800190207           Cmd  Char(2000)    Const Options(*Varsize);
+006900180531           Len  Packed(15:5) Const;
+007000180426        End-Pr;
+007100180531      *
+007200190515      *Procedure Prototype Declaration : Pgm to Create Directory
+007300190208        Dcl-Pr CRTDIRCL Extpgm;
+007400190208           Link  Char(256)   Const;
+007500190208        End-Pr;
+007600190208      *
+007700190515      *Program Status Data Structure   :
+007800171031        Dcl-Ds Pgmstatus PSDS;
+007900171031           Job     Char(10) Pos(244);
+008000171031           User    Char(10) Pos(254);
+008100171031           Rundate Zoned(6) Pos(276);
+008200171031           Runtime Zoned(6) Pos(282);
+008300171031           Pgm     Char(10) Pos(334);
+008400171031        End-Ds;
+008500181221      *
+008600190515      *Inventory Data Structure        :
+008700181221        Dcl-Ds WDs Qualified;
+008800181221           WDItem Char(22) Inz;
+008900181221           WDDate Char(8)  Inz;
+009000181221           WDQty  Packed(10)  Inz;
+009100181221        End-Ds;
+009200171031      *
+009300190515      *Global Variable Declaration     :
+009400190207        Dcl-S Cmd        Char(2000)    Inz;
+009500180427        Dcl-S XmlIfs     Char(300)     Inz;
+009600180425        Dcl-S Info       Char(10)      Inz;
+009700180531        Dcl-S Url        Char(400)     Inz;
+009800180531      *
+009900190515      *Work Variable Declaration       :
+010000180425        Dcl-S WkDtTm     Char(19)      Inz;
+010100180426        Dcl-S WkDateN    Int(10:0)     Inz;
+010200180426        Dcl-S WkDateC    Char(10)      Inz;
+010300180502        Dcl-S WkRefNo    Zoned(6)      Inz;
+010400180502        Dcl-S WkRefId    Char(32)      Inz;
+010500180426        Dcl-S WkBrokerId Char(10)      Inz;
+010600180530        Dcl-S WkBroker   Char(15)      Inz;
+010700180502        Dcl-S WkForItem  Char(30)      Inz;
+010800180502        Dcl-S WkAQty     Int(10:0)     Inz;
+010900181109        Dcl-S WkPath     Char(75)      Inz;
+011000181109        Dcl-S WkFile     Char(75)      Inz;
+011100190515        Dcl-S WkTempFile Char(200)     Inz;
+011200181221        Dcl-S NullInd    Int(5)        Inz(0);
+011300190515        Dcl-S NullValue  Like(NullInd) Dim(3) Inz(-1);
+011400181109      //--------------------------------------------------------------------
+011500181109      *                :------------------:
+011600171031      *                : Calculation Spec :
+011700171031      *                :------------------:
+011800171031      *
+011900171031      *Main Line :
+012000171031
+012100190515      *   // Initialise Program
+012200171031           Exsr InzPgm;
+012300190515
+012400190515      *   // End Program
+012500171031           Exsr EndPgm;
+012600171031
+012700171031      //--------------------------------------------------------------------
+012800171031      *                :-----------------------:
+012900171031      *                : Initialise Subroutine :
+013000171031      *                :-----------------------:
+013100171031      *
+013200171031        Begsr InzPgm;
+013300171108
+013400171031      *   // Get Date and Time
+013500171031           WkDtTm = %Char(%Date) + 'T' + %Char(%Time());
+013600180426
+013700181109      *   // Create IFSXML temp file in QTEMP
+013800190515           Exec SQL Create Or Replace Table Qtemp.IFSXML (IFSXML VARCHAR(300));
+013900190515           Exec SQL Delete from Qtemp.IFSXML;
+014000181109
+014100181109      *   // Insert XML Header into Flat File
+014200181109           XmlIfs = '<?xml version="1.0" encoding="utf-8" ?>';
+014300181109           Exec Sql
+014400190207           INSERT INTO IFSXML Values(Trim(:XmlIfs));
+014500181109           XmlIfs = *Blanks;
+014600181109
+014700181109      *   // Add HTTP Library to Library List
+014800181109           Cmd = 'ADDLIBLE LIB(LIBHTTP) POSITION(*Last)';
+014900181109           Exsr CallCmd;
+015000180426
+015100181109      *   // Move Entry parameter to get Broker Name
+015200181109           WkBrokerId = PBrokerId;
+015300180530           Chain ('1000' : WkBrokerId) FBrokDftL0;
+015400180530           If %Found;
+015500180530              WkBroker =  %Trim(DFVARVAL);
+015600180530           Endif;
+015700180504
+015800180426      *   // Process data and build Xml
+015900180426           Exsr Process;
+016000181109
+016100181109      *   // Store XML into IFS
+016200181109           Exsr StoreIfs;
+016300181109
+016400180531      *   // Post XML
+016500180425           Exsr PostXml;
+016600180531
+016700171031        Endsr;
+016800181109      //--------------------------------------------------------------------
+016900181109      *                :--------------------:
+017000181109      *                : CallCmd Subroutine :
+017100181109      *                :--------------------:
+017200181109      *
+017300181109        Begsr CallCmd;
+017400181109
+017500181109      *   // Call CL program to perform Command
+017600181109           Monitor;
+017700181109              QCmdExc(%Trim(Cmd): %Len(%Trim(Cmd)));
+017800181109           On-Error;
+017900181109           EndMon;
+018000181109
+018100181109        EndSr;
+018200181109      //--------------------------------------------------------------------
+018300181109      *                :---------------------:
+018400181109      *                : StoreIfs Subroutine :
+018500181109      *                :---------------------:
+018600181109      *
+018700181109        Begsr StoreIfs;
+018800181109
+018900181109      *   // Create stream file
+019000181109           Chain ('IFS' : 'IFSINVPATH' ) FBROKDFTL0;
+019100181109           If %Found;
+019200190207              WkPath = %Trim(DFVARVAL) +
+019300190515                       %Trim(%Char(%Date))+'/';
+019400190515
+019500190208      *      // Create directory if doesnt exist
+019600190208              CrtDirCL(%Trim(WkPath));
+019700181109           Endif;
+019800181109
+019900181109           WkFile = 'INV-' + %Trim(WkBroker) +  '_'
+020000181109                                 + %Char(%Timestamp()) + '.xml';
+020100190207           Cmd = 'CPYTOIMPF FROMFILE(IFSXML) STMFCODPAG(1208)'
+020200190207               + ' TOSTMF(''' + %Trim(WkPath) + %Trim(WkFile) + ''')'
+020300190207               + ' MBROPT(*REPLACE) RCDDLM(*CRLF) DTAFMT(*DLM)'
+020400190207               + ' STRDLM(*NONE) RMVBLANK(*TRAILING)';
+020500181109           Exsr CallCmd;
+020600181109
+020700181109        EndSr;
+020800181109      //--------------------------------------------------------------------
+020900181109      *                :-------------------:
+021000181109      *                : Endpgm Subroutine :
+021100181109      *                :-------------------:
+021200181109      *
+021300181109        Begsr EndPgm;
+021400181109
+021500181109      *   // Clear Flat File
+021600181109           Cmd  = 'CLRPFM FILE(QTEMP/IFSXML)';
+021700181109           Exsr CallCmd;
+021800181109
+021900181221      *   // Close Cursor
+022000181221           Exec Sql Close A1;
+022100181221
+022200181221      *   // Remove Tempfile link created by HTTP
+022300181221           Cmd = 'RMVLNK OBJLNK(''' + %Trim(WkTempFile) + ''')';
+022400181221           Exsr CallCmd;
+022500181221
+022600181109      *   // Return
+022700181109           *InLR = *On;
+022800171031           Return;
+022900171031
+023000171031        EndSr;
+023100171031      //--------------------------------------------------------------------
+023200171031      *                :--------------------:
+023300171031      *                : Process Subroutine :
+023400171031      *                :--------------------:
+023500171031      *
+023600171031        Begsr Process;
+023700180504
+023800181031      *   // Start Tag for Gloeckner
+023900181031           AddToXml('AvailabilityFeed' : *Blanks : 'Starttag');
+024000180504
+024100181031      *   // XML Body
+024200181031           Exsr IdentificationSR;
+024300181031           Exsr AvailabilityDataSR;
+024400180504
+024500181031      *   // End Tag
+024600181031           AddToXml('AvailabilityFeed' : *Blanks : 'Endtag');
+024700171031
+024800171031        EndSr;
+024900180504      //-------------------------------------------------------------------------
+025000181031      *                :-----------------------------:
+025100181031      *                : IdentificationSR Subroutine :
+025200181031      *                :-----------------------------:
+025300180502      *
+025400181031        Begsr IdentificationSR;
+025500180502
+025600180502      *   // Move values into Identification Part
+025700180502           AddToXml('Identification' : *Blanks : 'Starttag');
+025800181109           AddToXml('MessageProtocol_ID' : 'AvailabilityFeed' : 'Element');
+025900181109
+026000181109      *   // Generate Unique Reference ID
+026100181109           Chain ('1000':'Unique Reference ID') FBrokDftL0;
+026200181109           If %Found;
+026300181109              WkRefNo = %Int(DFVARVAL);
+026400181109              WkRefId = %Char(%Date) + ':' + %Char(%Time()) + ':' +
+026500180502                                             %Char((DFVARVAL));
+026600180502              If WkRefNo = 999999;
+026700180502                 WkRefNo = 000001;
+026800180502              Else;
+026900180502                 WkRefNo  += 1;
+027000180502              Endif;
+027100180531              DFVARVAL = %Editc(WkRefNo:'X');
+027200181109              Update RBROKDFT %Fields(DFVARVAL);
+027300181109           Endif;
+027400181109           AddToXml('Reference_ID' :  WkRefId  : 'Element');
+027500181109           AddToXml('DateTime' : WkDtTm : 'Element');
+027600181109
+027700181109      *   // Get values from Broker Default Parameter File
+027800180502           Chain (WkBrokerId:'FromOrgId') FBrokDftL0;
+027900181109           If %Found;
+028000181109              AddToXml('FromOrg_ID' : %Trim(DFVARVAL) : 'Element');
+028100181109           Endif;
+028200181109
+028300181109           Chain (WkBrokerId:'ToOrgId') FBrokDftL0;
+028400181109           If %Found;
+028500181109              AddToXml('ToOrg_ID' : %Trim(DFVARVAL) : 'Element');
+028600181109           Endif;
+028700181109           AddToXml('Identification' : *Blanks : 'Endtag');
+028800181109
+028900181109      *   // Generate Xml Availability Header Part
+029000181109           AddToXml('AvailabilityHeader' : *Blanks : 'Starttag');
+029100181109           Chain (WkBrokerId:'VendorNumber') FBrokDftL0;
+029200181109           If %Found;
+029300181109              AddToXml('VendorNumber' : %Trim(DFVARVAL) : 'Element');
+029400181109           Endif;
+029500181109           Chain (WkBrokerId:'VendorName') FBrokDftL0;
+029600181109           If %Found;
+029700181109              AddToXml('VendorName' : %Trim(DFVARVAL) : 'Element');
+029800181109           Endif;
+029900180504           AddToXml('AvailabilityHeader' : *Blanks : 'Endtag');
+030000180502
+030100180502        EndSr;
+030200180502      //--------------------------------------------------------------------
+030300181031      *                :-------------------------------:
+030400181031      *                : AvailabilityDataSR Subroutine :
+030500181031      *                :-------------------------------:
+030600180502      *
+030700181031        Begsr AvailabilityDataSR;
+030800180502
+030900180531      *   // Generate Xml Item for Availability Data Part for Gloeckner
+031000181031           Exsr ItemAvlQty;
+031100180502
+031200180502        EndSr;
+031300171031      //--------------------------------------------------------------------
+031400181031      *                :-----------------------:
+031500181031      *                : ItemAvlQty Subroutine :
+031600181031      *                :-----------------------:
+031700180502      *
+031800181031        Begsr ItemAvlQty;
+031900180504
+032000190515      *   // Build SQL to read data between the received Parameter dates
+032100181221           Exec Sql Declare A1 Cursor for
+032200181221              Select WAITEM,WADATE, sum(WAQTY)
+032300181221                 from WSSTDINAL0
+032400181221                 where WADATE >= :PStartDt and WADATE <= :PEndDt
+032500181221                 Group by WAITEM, WADATE
+032600181221                 Order by WAITEM, WADATE
+032700181221                 For Read Only;
+032800181221
+032900181221           Exec Sql
+033000181221           Open A1;
+033100181221           If SqlCode = -502 ;
+033200181221              Exec Sql
+033300181221              Close A1;
+033400181221              Exec Sql
+033500181221              Open A1;
+033600181221           EndIf;
+033700181221
+033800181221           Exec Sql Fetch A1 into :WDs :NullInd;
+033900181221           Dow SqlCod = 0;
+034000181221              Exsr Buildxml;
+034100181221              Exec Sql Fetch A1 into :WDs :NullInd;
+034200181221           Enddo;
+034300180622
+034400180622      *   // Write last record
+034500181031           Exsr Buildxml;
+034600180622
+034700180622        EndSr;
+034800180622      //--------------------------------------------------------------------
+034900180622      *                :----------------------:
+035000181031      *                : Buildxml Subroutine :
+035100180622      *                :----------------------:
+035200181031        Begsr Buildxml;
+035300180622
+035400180622      *   // Initialise Variables
+035500180622           WkAQty = 0;
+035600180622           WkForItem = *Blanks;
+035700180502
+035800180622      *   // Get Item from Cross Reference
+035900181221           Chain (WkBroker : 'Customer' :WDs.WDItem) XREFINVTL1;
+036000180622           If %Found Or Not %Found;                 // Changed to not use XREFINVT
+036100180622              WkForItem = XRFORKEY;
+036200181221              WkForItem = WDs.WDItem;               // Just send KP Item Number instead
+036300180504
+036400180622      *      // Check Size for the Line Item
+036500180622              Chain XRLCLSIZE FMSIZE;
+036600180622              If %Found and SZSTAT = 'A';
+036700181221                 WkAQty = WDs.WDQty * SZSALE;
+036800180622              Else;
+036900181221                 WkAQty = WDs.WDQty;
+037000180622              Endif;
+037100180622           Endif;
+037200180502
+037300180622      *   // Generate Xml Availability Data Part for Gloeckner
+037400180622      *   // Send Item Material only if Cross reference is found
+037500180622           If WkForItem <> *Blanks;
+037600180622              AddToXml('AvailabilityItem' : *Blanks : 'Starttag');
+037700180622              AddToXml('MaterialNumber' : *Blanks : 'Starttag');
+037800180622              AddToXml('Type' : 'SELLER' : 'Element');
+037900180622              AddToXml('Number' : %Trim(WkForItem) : 'Element');
+038000180622              AddToXml('MaterialNumber' : *Blanks : 'Endtag');
+038100180622
+038200190515      *      // Convert Date to ISO format
+038300181221              WkDateN = %Int(WDs.WDDate);
+038400181221              WkDateC = %Char(%Date(WkDateN : *Iso));
+038500180622              AddToXml('AvailabilityDate' : *Blanks : 'Starttag');
+038600180622              AddToXml('Date' : WkDateC : 'Element');
+038700180622              AddToXml('AvailabilityDate' : *Blanks : 'Endtag');
+038800180622
+038900180622              AddToXml('Units' : *Blanks : 'Starttag');
+039000180622              AddToXml('UnitOfMeasure' : 'EA' : 'Element');
+039100180622              AddToXml('Count' : %Char(WkAQty) : 'Element');
+039200180622              AddToXml('Units' : *Blanks : 'Endtag');
+039300180622              AddToXml('AvailabilityItem' : *Blanks : 'Endtag');
+039400180622           Endif;
+039500180502
+039600180502        EndSr;
+039700180502      //--------------------------------------------------------------------
+039800180425      *                :--------------------:
+039900180425      *                : PostXml Subroutine :
+040000180425      *                :--------------------:
+040100180425      *
+040200180425        Begsr PostXml;
+040300181109
+040400181109      *   // To get tech info about the HTTP transaction
+040500181221           Http_debug(*ON: '/tmp/httpapi_POSTBRKINV.log');
+040600181109
+040700181109      *   // Get Url from Control File
+040800181109           Chain (WkBrokerId :'URL INVENTORY POST') FBROKDFTL0;
+040900181109           If %Found;
+041000180425              Url =  %Trim(DFVARVAL);
+041100180425           Endif;
+041200180425
+041300181221      *   // HTTP creates new file to receive reply
+041400181221           WkTempfile = http_tempfile();
+041500181221
+041600181221      *   // POST Stmf to client site
+041700181221           Http_url_post_stmf(%Trim(Url) :%Trim(WkPath) + %Trim(WkFile)
+041800181221                                    :WkTempFile);
+041900181109
+042000181109        EndSr;
+042100181109      //--------------------------------------------------------------------
+042200181109      *                :--------------------:
+042300171031      *                : AddToXml Procedure :
+042400171031      *                :--------------------:
+042500171031      *
+042600171031      *Logic   : AddToXml to generate XML Acknowledgement
+042700171031      *          Field by field process
+042800171031      *Example : Starttag : <Tagname>
+042900171031      *          Opentag  : <Tagname
+043000171031      *          Closetag :  Tagname/>
+043100171031      *          Close    :  Tagname>
+043200171031      *          Endtag   : </Tagname>
+043300180504      *          Element  : <Tagname></Tagname>
+043400171031      *
+043500171031        Dcl-Proc  AddToXml;
+043600190515           Dcl-Pi AddToXml;
+043700190515              Tagname      Char(50)  Value;
+043800190515              Tagvalue     Char(300) Value;
+043900190515              Info         Char(10)  Value;
+044000190515           End-Pi;
+044100171031
+044200181109      *   // Replace Special Characters
+044300181109           If TagValue <> *Blanks;
+044400181109              TagValue = %ScanRpl('&': '&amp;': TagValue);
+044500181109              TagValue = %ScanRpl('''': '&apos;' : TagValue);
+044600181109              TagValue = %ScanRpl('"': '&quot;' : TagValue);
+044700181109           Endif;
+044800171031
+044900190515      *   // Write XML Line into IFS
+045000190515           Exsr WriteIFS;
+045100180504
+045200180427      //--------------------------------------------------------------------
+045300180427      *            :---------------------:
+045400180427      *            : WriteIFS Subroutine :
+045500180427      *            :---------------------:
+045600180427      *
+045700180427      *Logic : Write Each tag as a Record into Flat File
+045800180427      *
+045900180427        Begsr WriteIFS;
+046000180427
+046100180427      *   // Check Info to add XML tag
+046200180427           Select;
+046300180427
+046400180427              When Info = 'Starttag';
+046500180427                 XmlIfs =  '<' + %Trim(Tagname)
+046600180427                                 + %Trim(Tagvalue)  + '>';
+046700180427
+046800180427              When Info = 'Opentag';
+046900180427                 XmlIfs =  '<' + %Trim(Tagname) ;
+047000180427
+047100180427              When Info = 'Attribute';
+047200180427                 XmlIfs =  %Trim(Tagname) + '="'
+047300180427                                 + %Trim(Tagvalue) + '" ';
+047400180427
+047500180427              When Info = 'Closetag';
+047600180427                 XmlIfs =  %Trim(Tagname) + '="'
+047700180427                                   + %Trim(Tagvalue) + '"' + ' />';
+047800180427
+047900180427              When Info = 'Close';
+048000180427                 XmlIfs =  %Trim(Tagname) + '="'
+048100180427                                   + %Trim(Tagvalue) + '"' + ' >';
+048200180427
+048300180427              When Info = 'Endtag';
+048400180427                 XmlIfs = ' </' + %Trim(Tagname) + '>';
+048500180503
+048600180503              When Info = 'Element';
+048700180503                 XmlIfs = ' <' + %Trim(Tagname) + '>'
+048800180503                        + %Trim(Tagvalue) + '</' + %Trim(Tagname) + '>';
+048900180427
+049000180427           Endsl;
+049100180427
+049200180427      *   // Insert into Flat File
+049300180427           Exec Sql
+049400190207           INSERT INTO IFSXML Values(Trim(:XMLIFS));
+049500180427
+049600180427        Endsr;
+049700180427
+049800180427        End-Proc;
+049900171031      *------------- End of Program ----------------------------------

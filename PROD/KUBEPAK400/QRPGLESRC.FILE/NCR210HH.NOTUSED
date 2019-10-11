@@ -1,0 +1,238 @@
+000100070517    H/COPY QFunctDefn,@CopyRight
+000200070517    H DftActGrp(*no)
+000300070517    H DatFmt(*usa)
+000400070517    H BndDir('*LIBL/KPFUNCTION')
+000500020124      *--------------------------------------------------------------
+000600020124      *
+000700020124      *  COPYRIGHT EFD ENTERPRISES, INC.    2002
+000800020124      *
+000900020124      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+001000020124      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+001100020124      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+001200020124      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+001300020124      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001400020124      *       BY EXPRESS WRITTEN PERMISSION OF
+001500020124      *            EFD ENTERPRISES, INC.     215-643-5352
+001600020124      *
+001700020124      *--------------------------------------------------------------
+001800020318      **PROGRAM NAME-------- SCR210
+001900020124      **COMPANY------------- EFD ENTERPRISES, INC.
+002000020124      **SYSTEM-------------- TGMS
+002100020124      **PROGRAMMER---------- EFD
+002200020318      **APPLICATION--------- MANUAL INPUT FOR GREENHOUSE CART ENTRY
+002300020124      *
+002400020124      *            CHANGE--DATE-------DESCRIPTION
+002500020124      *
+002600020124      *
+002700100507     FNCR210HHFMCF   E             WORKSTN
+002800020124     FFCALEN    IF   E           K DISK
+002900020318     FFMINVT    IF   E           K DISK
+003000100507     FNCARTST   O  A E           K DISK
+003100020124      *
+003200020124      *
+003300020124      *
+003400020124      ***********************
+003500020124      * PROG DATA STRUCTURE *
+003600020124      ***********************
+003700020124     D                SDS
+003800020124      * PROGRAM NAME
+003900020124     D  PROGID                 1     10                                         ARC380
+004000020124      * RUN LIBRARY
+004100020124     D  RLIBR                 81     90                                         ARC380
+004200020124      * USER I.D.
+004300020124     D  USERID               254    263                                         ARC380
+004400020124      * SOURCE LIBRARY
+004500020124     D  SLIBR                314    323                                         ARC380
+004600020124      ****************
+004700020124      *   LDA        *
+004800020124      ****************
+004900020124     D                UDS
+005000020124     D  CRMDY                  1      6  0                                      ARC380
+005100020124     D  CRCYMD                 7     13  0                                      ARC380
+005200020124     D  CRYEAR                14     17  0                                      ARC380
+005300020124     D  CRWEEK                18     19  0                                      ARC380
+005400020124     D  NXMDY                 20     25  0                                      ARC380
+005500020124     D  NXCYMD                26     32  0                                      ARC380
+005600020124     D  NXYEAR                33     36  0                                      ARC380
+005700020124     D  NXWEEK                37     38  0                                      ARC380
+005800020124     D  LCANCL               133    133                                         ARC380
+005900020124      ***********************
+006000060310     D  ItemKey        S                   Like(ITEM)
+006100060310      ***********************
+006200080409
+006300080409     D  ITEM           S             12A
+006400080409     D  SIZE           S              3A
+006500070517
+006600070517      * Function Prototypes
+006700070517    D/COPY QFunctDefn,$Date
+006800070517    D/COPY QFunctDefn,$AddDate
+006900070517    D/COPY QFunctDefn,$MDYDate
+007000070517
+007100020124      ** START HERE        **
+007200020124      ***********************
+007300020124     C     RSTART        TAG
+007400020318      ** IF WEDNESDAY OR LATER USE NEXT WEEK ELSE USE THIS WEEK
+007500020318     C     TODAY         IFGE      3
+007600020124     C                   Z-ADD     NXMDY         SHPDAT
+007700020124     C                   ELSE
+007800020124     C                   Z-ADD     CRMDY         SHPDAT
+007900020124     C                   END
+008000070517      ** Make the Date Tommorrow unless it's currently Saturday... then make it Next Monday
+008100070517     C     TODAY         IFGE      6
+008200070517     C                   Z-ADD     NXMDY         SHPDAT
+008300070517     C                   ELSE
+008400070517     C                   Eval      SHPDAT = $MDYDate($AddDate($Date(0):1))
+008500070517     C                   END
+008600020124      ** WRITE SCRNA
+008700020124     C     NXTA          TAG
+008800020124     C                   WRITE     SCRNA
+008900020124     C                   READ      SCRNA                                  90
+009000020124      ** CHECK F KEYS
+009100020124     C   KF              GOTO      RSTART
+009200020124     C   KC
+009300020124     COR KG              DO
+009400020124     C                   MOVEL     'X'           LCANCL
+009500020124     C                   GOTO      END
+009600020124     C                   ENDDO                                                  KC/KG  DO
+009700020124      ** CHECK INPUT
+009800020124     C                   SETOFF                                       101112
+009900020124     C                   SETOFF                                       202122
+010000020125     C                   SETOFF                                       2324
+010100020124     C     SHPDAT        IFLE      0
+010200020124     C                   SETON                                        1011
+010300020124     C                   GOTO      NXTA
+010400020124     C                   END
+010500020124     C     SHPDAT        CHAIN     FCALEN                             10
+010600020124     C   10              DO
+010700020124     C                   SETON                                        11
+010800020124     C                   GOTO      NXTA
+010900020124     C                   ENDDO                                                  10  DO
+011000070514     C*    CL#Y          IFNE      1
+011100070514     C*                  SETON                                        1012
+011200070514     C*                  GOTO      NXTA
+011300070514     C*                  END
+011400020125     C                   Z-ADD     CLCYMD        SHPCYM            7 0
+011500070515     C                   SETOFF                                       555660
+011600020221      ** WRITE SCRNA1
+011700020228     C     RSTRT1        TAG
+011800020318     C                   Z-ADD     0             CARTNO
+011900020318     C                   Z-ADD     0             QTY
+012000020318     C                   MOVE      *BLANKS       IMDES1
+012100070515     C*                  MOVE      *BLANKS       ITEM
+012200070515     C*                  MOVE      *BLANKS       SIZE
+012300020318     C                   SETOFF                                       202110
+012400020318     C                   SETOFF                                       303132
+012500020318     C                   SETOFF                                         9899
+012600020221     C     NXTA1         TAG
+012700020318     C   99              SETOFF                                       98
+012800020221     C                   WRITE     SCRNA1
+012900020221     C                   READ      SCRNA1                                 90
+013000080409     C                   Eval      ITEM = %SUBST(ITEMSIZE:1:4)
+013100080409     C                   Eval      SIZE = %SUBST(ITEMSIZE:5:3)
+013200070515     C                   SETON                                          60
+013300020221      ** CHECK F KEYS
+013400020221     C   KF              GOTO      RSTART
+013500020221     C   KC
+013600020221     COR KG              DO
+013700020221     C                   MOVEL     'X'           LCANCL
+013800020221     C                   GOTO      END
+013900020221     C                   ENDDO                                                  KC/KG  DO
+014000020318     C                   SETOFF                                       202110
+014100020318     C                   SETOFF                                       303132
+014200020318     C                   SETOFF                                           99
+014300020318      * CHECK FOR SEARCH
+014400020318     C     1             SUBST     ITEM:1        VITST             1
+014500020318     C     VITST         IFEQ      '?'
+014600020318     C     VITST         OREQ      '/'
+014700020318     C                   MOVEL     *BLANKS       IMLOOK
+014800020318     C     11            SUBST     ITEM:2        IMLOOK
+014900020318     C                   MOVEL     SIZE          IMSIZE
+015000020318     C                   CALL      'LKITAL'
+015100020318     C                   PARM                    IMLOOK
+015200020318     C                   PARM                    IMITEM
+015300020318     C                   PARM                    IMSIZE
+015400020318     C                   PARM                    IMWHSE
+015500020318     C                   PARM                    IMDES1
+015600020318     C                   PARM                    IMDES2
+015700020318     C                   PARM                    IMDES3
+015800020318     C                   PARM                    IMDES4
+015900020318     C                   PARM                    SHPFR             3
+016000020318     C                   MOVEL     IMITEM        ITEM
+016100020318     C                   MOVEL     IMSIZE        SIZE
+016200020318     C                   GOTO      NXTA1
+016300020318     C                   ENDIF
+016400020318      * CHECK IF ITEM VALID
+016500060310     C                   If        %SubSt(ITEM:12:1) = 'P'
+016600060310     C                   Eval      ItemKey = %Subst(ITEM:1:11) + ' '
+016700060310     C                   Else
+016800060310     C                   Eval      ItemKey = ITEM
+016900060310     C                   EndIF
+017000020318     C     ITMKEY        KLIST
+017100060310     C                   KFLD                    ITEMKey
+017200020318     C                   KFLD                    SIZE
+017300020318     C     ITMKEY        CHAIN     FMINVT                             10
+017400020318     C   10              DO
+017500020318     C                   SETON                                        99
+017600020318     C                   GOTO      NXTA1
+017700020318     C                   ENDDO                                                  10  DO
+017800080409      ** NOW CHECK CART NUMBER
+017900080409     C     CARTNO        IFLE      0
+018000080409     C                   SETON                                        202199
+018100080409     C                   GOTO      NXTA1
+018200080409     C                   END
+018300020318      * CHECK QUANTITY
+018400020318     C     QTY           IFLE      0
+018500020318     C                   SETON                                        303199
+018600020318     C                   GOTO      NXTA1
+018700020318     C                   END
+018800020318      *
+018900070604     C     QTY           IFGT      85
+019000020318     C                   SETON                                        303299
+019100020318     C                   GOTO      NXTA1
+019200020318     C                   END
+019300020318      * SHOW VERIFY SCREEN
+019400080409     C* N98              DO
+019500020318     C                   SETON                                        98
+019600080409     C*                  GOTO      NXTA1
+019700080409     C*                  END
+019800020318      *
+019900020318      ** NOW BUILD CART RECORDS
+020000020318     C                   Z-ADD     0             OUT               2 0
+020100020304      ** IF THERE UPDATE
+020200020318     C     NXTOUT        TAG
+020300020318     C                   CLEAR                   RCARTS
+020400020304     C                   Z-ADD     CARTNO        CTCART
+020500020304     C                   MOVEL     'A'           CTSTAT
+020600020318     C                   Z-ADD     99999999      CTTAG#
+020700020318     C                   MOVEL     ITEM          CTITEM
+020800020318     C                   MOVEL     SIZE          CTSIZE
+020900020318     C                   Z-ADD     SHPCYM        CTSHDT
+021000100528     C                   Z-ADD     SMASTER       CTMSTR
+021100020318     C                   WRITE     RCARTS
+021200020318     C                   ADD       1             OUT
+021300020318     C     OUT           IFLT      QTY
+021400020318     C                   GOTO      NXTOUT
+021500020318     C                   END
+021600020318      **  PRINT
+021700020318     C                   Z-ADD     0             CONTRL            6 0
+021800100507     C                   CALL      'NCR230CL'
+021900020314     C                   PARM                    CARTNO
+022000020314     C                   PARM                    SHPCYM
+022100100528     C                   PARM                    SMASTER
+022200020318     C                   PARM                    CONTRL
+022300020314     C                   GOTO      RSTRT1
+022400020124      ** END PROGRAM
+022500020124     C     END           TAG
+022600020124     C                   SETON                                        LR
+022700020125      ***********************
+022800020125      ** START UP ROUTINE  **
+022900020125      ***********************
+023000020125     C     *INZSR        BEGSR
+023100020124     C                   TIME                    TIMOD             6 0
+023200020124     C                   TIME                    TMWRK            12 0
+023300020124     C                   MOVE      TMWRK         TDATE             6 0
+023400020124     C     TDATE         CHAIN     FCALEN                             90
+023500020124     C                   Z-ADD     CL#Y          TODAY             1 0
+023600020124     C                   MOVE      *BLANKS       LCANCL
+023700080408     C                   Eval      *In40 = *On
+023800020124     C                   ENDSR

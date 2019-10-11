@@ -1,0 +1,110 @@
+     A*%%TS  SD  19980224  060934  GINNY       REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19980224  060934  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 20' Sales Analysis By Customer/Produc-
+     A                                      t Class '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 22'Date Range:'
+     A            VSDTE          6Y 0B  5 42DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  25                                  ERRMSG('*** From Date Must Be Lower-
+     A                                       Than To Date.    Press Reset')
+     A                                  5 52'-'
+     A            VEDTE          6Y 0B  5 55DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  21                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                            Press Reset')
+     A                                  6 52'-'
+     A                                  7 22'Customer Type Range?'
+     A            VSTYPE         2A  B  7 48
+     A  65                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  65                                  DSPATR(PC)
+     A  65                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Type Lower Than To Type.    Press R-
+     A                                      eset')
+     A                                  7 52'-'
+     A            VETYPE         2A  B  7 55
+     A  66                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  66                                  DSPATR(PC)
+     A  66                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Type.     Press Reset')
+     A                                  9 22'Product Class Range?'
+     A            VSPC           2A  B  9 48
+     A  70                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  70                                  DSPATR(PC)
+     A  70                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass Lower Than The To PC.    Press-
+     A                                       Reset')
+     A                                  9 52'-'
+     A            VEPC           2A  B  9 55
+     A  72                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  72                                  DSPATR(PC)
+     A  72                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                 11 22'Customer Number:'
+     A            VCUST          6Y 0B 11 49DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  61                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Or Alpha Search.     Press Reset')
+     A  62                                  ERRMSG('*** Enter Either Customer T-
+     A                                      ype or Number - Not Both.    Press -
+     A                                      Reset')
+     A                                 12 22'Alpha Search'
+     A            VALPHA        15A  B 12 49DSPATR(CS)
+     A                                 13 22'Telephone # Search'
+     A            VTELE         10A  B 13 49DSPATR(CS)
+     A                                 19  8'*** First date must be the beginni-
+     A                                      ng date of an accounting period.'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process      F2=Displ-
+     A                                      ay Current Acctg Periods   F3/F7=En-
+     A                                      d of Job '
+     A                                      DSPATR(UL)
+     A                                 20 12'Second date must be the ending dat-
+     A                                      e of an accounting period.'
+     A                                 21 12'Dates can only span the current an-
+     A                                      d prior accounting year.'

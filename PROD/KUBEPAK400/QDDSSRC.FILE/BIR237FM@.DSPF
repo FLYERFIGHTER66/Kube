@@ -1,0 +1,206 @@
+     A*%%TS  SD  19981208  182119  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19981208  182119  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR237A'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  9 27'Order Number:'
+     A            VORDER         6Y 0B  9 47
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  20N21N22
+     A N23                                  ERRMSG('*** This Is Not A Valid Ord-
+     A                                      er Number.    Press Reset')
+     A  20 21N22
+     A N23                                  ERRMSG('*** Order is Suspended.    -
+     A                                                  Press RESET')
+     A  20N21 22
+     A N23                                  ERRMSG('*** Order/Customer Mis-Matc-
+     A                                      h.          Press RESET')
+     A  20N21N22
+     A  23                                  ERRMSG('*** Order is for another De-
+     A                                      partment.   Press RESET')
+     A                                 11 27'Ship Date:'
+     A            VDATE          6Y 0B 11 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process                F6-
+     A                                      =Restart                    F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(UL)
+     A                                  1 30' Future Order Release '
+     A                                      DSPATR(RI)
+     A                                  4 27'Customer Number:'
+     A                                  5 27'Alpha Search'
+     A                                  6 27'Telephone # Search'
+     A            TELE          10A  B  6 47
+     A            ALPHA         15A  B  5 47
+     A            VSCUST         6Y 0B  4 47
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10N71N11                            ERRMSG('**** Invalid Customer Numbe-
+     A                                      r Entered.  Press RESET')
+     A  10 71                               ERRMSG('**** Check With Office For -
+     A                                      Further Details.  Press RESET')
+     A  10 11                               ERRMSG('**** To Use the Search Prog-
+     A                                      ram You Must Enter A Customer Numbe-
+     A                                      r,  Press RESET')
+     A                                 13 27'Discount Based on:'
+     A            DISBAS         1A  B 13 47
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('Discount Base Must be  O  o-
+     A                                      r N.        Press RESET')
+     A                                 13 52'N = New Order Only'
+     A                                 14 52'O = Original Order Quantity'
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  19981202  143425  EFD         REL-V3R7M0  5716-PW1
+     A            OISEQ#         3Y 0O 11  2EDTCDE(4)
+     A N25                                  DSPATR(ND)
+     A            ASST           1A  H
+     A            IASEQ#         3Y 0H
+     A            OIITEM        12A  O 11  6
+     A  25                                  DSPATR(UL)
+     A            OISIZE         3A  O 11 19
+     A  25                                  DSPATR(UL)
+     A            QTYSHP         7Y 0B 11 73EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10                                  DSPATR(RI)
+     A  25                                  DSPATR(PR)
+     A            DESC          30A  O 11 23
+     A  25                                  DSPATR(UL)
+     A            QTYOPN         7Y 0O 11 64EDTCDE(4)
+     A            UPRICE         7Y 2O 11 55EDTCDE(4)
+     A                                 12  4' Select From The Following '
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  19981202  143425  EFD         REL-V3R7M0  5716-PW1
+     A  98                                  CF02
+     A                                      CF04
+     A                                      CF05
+     A  23                                  CF06
+     A                                      CF23
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0007)
+     A  11                                  SFLMSG('*** You Can NOT Ship A Quan-
+     A                                      tity Greater Than The Open Quantity-
+     A                                      .  Press RESET')
+     A  66                                  SFLMSG('*** There are no lines rele-
+     A                                      ased to shipping.  Press RESET')
+     A                                  1  2'BIR237ORD'
+     A            VORDER         6Y 0O  1 48EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 14'Ship To Customer:'
+     A            OHCUST         6Y 0O  2 32EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            OHNAME        30A  O  2 39DSPATR(HI)
+     A                                  2 72TIME
+     A                                  4 43' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  3 62'Roll for more lines'
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A                                 10  2'Seq Item        Size      Descript-
+     A                                      ion                  Price     Open-
+     A                                        To Ship'
+     A                                      DSPATR(UL)
+     A                                  1 14'Future Order Release for Order #:'
+     A                                  9 57'Unit'
+     A                                  9 64'----Quantity----'
+     A                                  3 43'                '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  5 43'                '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  8 18' Press F23 to Confirm Cancel. Else-
+     A                                       Press F6. '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                  6  3' F2=Release Order '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  5  3'F23=Cancel This Release.'
+     A                                      DSPATR(UL)
+     A            LINE           5S 0H
+     A                                  4  3'Function Keys:'
+     A            VDATE          6Y 0O  1 60EDTCDE(Y)
+     A                                  1 55'For:'
+     A          R SCRNC
+     A*%%TS  SD  19981208  182119  EFD         REL-V3R7M0  5716-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR237C'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 11 27'Order Number:'
+     A            NEWORD         6Y 0B 11 50DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(PR)
+     A                                 15 27'Ship Date:'
+     A            VDATE          6Y 0B 15 48DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                               Ent-
+     A                                      er to Continue                     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  7 27'Future Order Number:'
+     A            VORDER         6Y 0B  7 50DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(PR)
+     A                                  9 27'Has been released to the following-
+     A                                       order number'
+     A                                 13 27'For Requested Date'
+     A                                  1 29' Future Order Release '
+     A                                  5  5' The Following future order in now-
+     A                                       closed since it has been completed-
+     A                                      . '
+     A  70                                  DSPATR(RI)
+     A N70                                  DSPATR(ND)

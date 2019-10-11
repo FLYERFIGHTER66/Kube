@@ -1,0 +1,280 @@
+     A*%%TS  SD  20000714  112451  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000714  112451  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(OHELP)
+     A                                      HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 27' A/P Void A Processed Check '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 26'Vendor Number:'
+     A            VEND           6Y 0B  5 47DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10                                  ERRMSG('*** Enter A Valid Vendor.  -
+     A                                        Press Reset')
+     A                                  6 26'or Alpha Search'
+     A            VALPHA        15   B  6 47DSPATR(CS)
+     A                                  8 26'Check Number:'
+     A            VCHECK         6Y 0B  8 47DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  21                                  ERRMSG('*** Check Number Is Require-
+     A                                      d.    Press Reset')
+     A  22                                  ERRMSG('*** Check Number Is Not On -
+     A                                      File.    Press Reset')
+     A  23                                  ERRMSG('*** Check Can Not Be Voided-
+     A                                       - Has Been Reconciled.   Press Res-
+     A                                      et')
+     A  24                                  ERRMSG('*** This Check Has Already -
+     A                                      Been Voided.      Press Reset')
+     A                                 10 26'Accounting Period:'
+     A            VACTP          2Y 0B 10 47DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A  30                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.   Press Reset')
+     A            BDATE          6Y 0O 10 55
+     A  60                                  DSPATR(HI)
+     A N60                                  DSPATR(ND)
+     A                                      EDTCDE(Y)
+     A                                 10 64'-'
+     A  60                                  DSPATR(HI)
+     A N60                                  DSPATR(ND)
+     A            EDATE          6Y 0O 10 66
+     A  60                                  DSPATR(HI)
+     A N60                                  DSPATR(ND)
+     A                                      EDTCDE(Y)
+     A                                 13  3'WARNING!  The Date Of The Check Yo-
+     A                                      u Are Voiding Is ==>'
+     A  60                                  DSPATR(HI)
+     A N60                                  DSPATR(ND)
+     A            AKCKDT         6Y 0O 13 59
+     A N60                                  DSPATR(ND)
+     A                                      EDTCDE(Y)
+     A  60                                  DSPATR(RI)
+     A                                 15 15'You Are Voiding Check In Different-
+     A                                       Accounting Period'
+     A  60                                  DSPATR(HI)
+     A N60                                  DSPATR(ND)
+     A                                 17 15'Change Accounting Period or Press -
+     A                                      Enter To Continue'
+     A  60                                  DSPATR(HI)
+     A N60                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'      Enter to Process     F2=Disp-
+     A                                      lay Acctg Period     F3/F7=End of J-
+     A                                      ob       '
+     A                                      DSPATR(UL)
+     A          R VOIDSFL                   SFL
+     A*%%TS  SD  19970625  060622  GINNY       REL-V3R1M0  5763-PW1
+     A            GLNO           8Y 0B 12  3DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A            DEBIT         11Y 2B 12 16EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A            CREDIT        11Y 2B 12 31EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A                                      CHECK(RB)
+     A            DESC          30A  O 12 48
+     A          R VOIDCTL                   SFLCTL(VOIDSFL)
+     A*%%TS  SD  20000714  112451  TGMS        REL-V4R4M0  5769-PW1
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0012)
+     A                                      CF06
+     A                                      CF07
+     A                                      CF03
+     A                                      CF01
+     A                                      CF02
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  10                                  SFLMSG('*** Invalid G/L Number.    -
+     A                                          Press Reset')
+     A  32                                  SFLMSG('*** Only A Debit or Credit -
+     A                                      Amount.     Press Reset')
+     A  31                                  SFLMSG('*** Every G/L Number Must H-
+     A                                      ave An Amount.   Press Reset')
+     A  40                                  SFLMSG('*** G/L Distribution Does N-
+     A                                      ot Equal Check Amount.   Press Rese-
+     A                                      t')
+     A            LINE           5S 0H
+     A                                  1  3' Roll to Enter Addl Dist.  F1=Acce-
+     A                                      pt Entry   F6=Restart    F3/F7=End -
+     A                                      of Job '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A            PROGID        10A  O  2  3
+     A                                  2 29' Void A Processed Check '
+     A                                      DSPATR(UL)
+     A                                  2 73DATE
+     A                                      EDTCDE(Y)
+     A                                  3 73TIME
+     A                                  4  3'Accounting Period:'
+     A            BDATE          6Y 0O  4 22EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4 31'-'
+     A            EDATE          6Y 0O  4 33EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4 55' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A  99                                  DSPATR(BL)
+     A N99                                  DSPATR(ND)
+     A                                  5 33' Check   Distribution             -
+     A                                            Check '
+     A                                  6  2'Check# Vendor Name               D-
+     A                                      ate       Amount     Discount      -
+     A                                        Amount '
+     A                                      DSPATR(UL)
+     A            AKCHEK         6Y 0O  7  2EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            AKVEND         6Y 0O  7  9EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VNAME         16A  O  7 16DSPATR(HI)
+     A            AKCKDT         6Y 0O  7 33EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            AMT           11Y 2O  7 42EDTCDE(3)
+     A                                      DSPATR(HI)
+     A            DTAK           9Y 2O  7 56EDTCDE(3)
+     A                                      DSPATR(HI)
+     A            NET           11Y 2O  7 68EDTCDE(3)
+     A                                      DSPATR(HI)
+     A                                  8 45'Balance to Distribute:'
+     A            BAL           11Y 2O  8 68EDTCDE(3)
+     A                                      DSPATR(RI)
+     A                                  9  3'Remember: Credit Total Expense and-
+     A                                       Debit Discount to Equal Net Check -
+     A                                      Amount'
+     A  77                                  DSPATR(HI)
+     A N77                                  DSPATR(ND)
+     A  77                                  COLOR(YLW)
+     A                                 10  1'F2=Lookup G/L#'
+     A                                 10 30' Expense Distribution '
+     A                                      DSPATR(UL)
+     A                                 11  2' G/L Acct           Debit         -
+     A                                      Credit      Account Description    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R OHELP
+     A*%%TS  SD  19990607  065648  APGL        REL-V3R1M0  5763-PW1
+     A                                  5  3' Void A Processed Check           -
+     A                                                                       Ov-
+     A                                      erview  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3' If a check has been processed by -
+     A                                      accounts payable, either as a syste-
+     A                                      m       '
+     A                                      DSPATR(HI)
+     A                                  8  3' generated check or a manual check-
+     A                                      , and it is not remitted to a vendo-
+     A                                      r, you  '
+     A                                      DSPATR(HI)
+     A                                  9  3' need to void the check.  Voiding -
+     A                                      the check will reverse the payment -
+     A                                      data    '
+     A                                      DSPATR(HI)
+     A                                 10  3' from general ledger and accounts -
+     A                                      payable.                           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' In general ledger, the voided che-
+     A                                      ck will be reversed from the defaul-
+     A                                      t cash  '
+     A                                      DSPATR(HI)
+     A                                 13  3' account and the expense account(s-
+     A                                      ) entered here.  You do NOT need to-
+     A                                       enter  '
+     A                                      DSPATR(HI)
+     A                                 14  3' the cash account.                -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3' In accounts payable, the voided c-
+     A                                      heck will reduce the year to date v-
+     A                                      endor   '
+     A                                      DSPATR(HI)
+     A                                 17  3' payment and purchases data and wi-
+     A                                      ll be shown on the monthly disburse-
+     A                                      ments   '
+     A                                      DSPATR(HI)
+     A                                 18  3' report as a voided processed chec-
+     A                                      k.                                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' Voiding a check DOES NOT reenter -
+     A                                      the vendor invoice(s) paid on this -
+     A                                      check   '
+     A                                      DSPATR(HI)
+     A                                 21  3' into open accounts payable.  If y-
+     A                                      ou still owe these invoices - you m-
+     A                                      ust     '
+     A                                      DSPATR(HI)
+     A                                 22  3' enter them again through voucher -
+     A                                      entry.                             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

@@ -1,0 +1,1660 @@
+000100940930      *%*******************************************************************
+000200940930      *%                                                                 **
+000300980610      *%                                                               **
+000400980610      *%                                                               **
+000500980610      *%                                                                **
+000600940930      *%                                                                 **
+000700940930      *%  System     - AS/400                                          **
+000800030825      *%  Application-                                                 **
+000900980610      *%                                                                **
+001000980610      *%                                                                 **
+001100980610      *%                                                               **
+001200980610      *%                                                               **
+001300940930      *%                                                               **
+001400940930      *%*******************************************************************
+001500931018      *********************************************************************
+001600931018      *                                                                   *
+001700030825      * Program- KP0013                                                 *
+001800931018      *                                                                   *
+001900030825      * Purpose- Inventory P/O Receipts File Maintenance                *
+002000931018      *                                                                   *
+002100990308      *   Date  Programmer     Comment                               *
+002200030903      * 9/02/2003 R. Piasecki      Program Created                        *
+002300931018      *                                                                   *
+002400931018      *********************************************************************
+002500990304     FSECUSER   IF   E           K DISK
+002600030903     FPOCNTL    IF   E           K DISK
+002700030825     FKPVITM    UF   E           K DISK
+002800030825     FFMINVT    UF   E           K DISK
+002900030825     FKPITMWHS  UF A E           K DISK
+003000030825     FKPPOHD    UF   E           K DISK
+003100030825     FKPPODT    UF   E           K DISK
+003200030825     FKPPODTL2  IF   E           K DISK
+003300000405     F                                     RENAME(DGDTL:DTLL2)
+003400030825     FKPHIST    O  A E           K DISK
+003500030825     FKPPORC    O  A E           K DISK
+003600030825     FKPPORCL1  IF   E           K DISK
+003700000405     F                                     RENAME(DGREC:RECL1)
+003800030825     FFMVEND    IF   E           K DISK
+003900030825     FKPWHOUSE  IF   E           K DISK
+004000030825     FKP0013WK  UF A E           K DISK
+004100031120     FFMINSER   IF   E           K DISK
+004200031120     FFSERIES   IF   E           K DISK
+004300031120     FFSERPRC   IF   E           K DISK
+004400990208      *
+004500030825     FKP0013S   CF   E             WORKSTN
+004600990310     F                                     SFILE(S1DATA:S1RRN)
+004700990310     F                                     SFILE(S2DATA:S2RRN)
+004800931018     F                                     INFDS(INFDS3)
+004900030825     FKP0013P   O    E             PRINTER OFLIND(*IN88)
+005000990311      *****************************************************************
+005100990311      * Arrays & tables                                             *
+005200990311      *****************************************************************
+005300990311     D WKAD            S             35    DIM(4)
+005400990311     D CADR            S             35    DIM(4)
+005500990311     D WADR            S             35    DIM(4)
+005600990311     D JADR            S             35    DIM(4)
+005700931018      ********************************************************************
+005800931018      * File Information Data Structure                                *
+005900931018      ********************************************************************
+006000931018     D INFDS3          DS
+006100931018      *   Display File name (internal RPG name)
+006200931018     D  $3FILN           *FILE
+006300931018      *   Record format ID for last record input
+006400931018     D  $3RCDF           *RECORD
+006500931018      *   AID byte: identifies which function key was pressed:
+006600931018     D  $3AID                369    369
+006700931018      *   Current Cursor row and column (Binary)
+006800931018     D  $3CURP               370    371B 0
+006900940112      *    Low Relative Record # on SFLPAG
+007000940112     D  PAGRRN               378    379B 0
+007100940112      *    Relative Record # of Last Changed Record in SFLRCD
+007200931018     D  $3RRN#               397    400B 0
+007300931018      *
+007400931018      ********************************************************************
+007500931018      * Program Status Data Structure                                  *
+007600931018      ********************************************************************
+007700931018     D                SDS
+007800931018     D  ##PGM            *PROC
+007900931018     D  ##PARM           *PARMS
+008000931018     D  ##PERR                91    169
+008100931018     D  ##JOB                244    253
+008200931018     D  ##USER               254    263
+008300931018     D  ##JOBN               264    269
+008400931018     D  ##JBDT               276    281  0
+008500931018     D  ##JBTM               282    287  0
+008600990208      ********************************************************************
+008700990208      * Breakdown of due date                                          *
+008800990208      ********************************************************************
+008900990208     D                 DS                  INZ
+009000000405     D  DGDUDT                 1      6  0
+009100000405     D  DGPODM                 1      2  0
+009200000405     D  DGPODD                 3      4  0
+009300000405     D  DGPODY                 5      6  0
+009400990222      ********************************************************************
+009500990222      * Breakdown of P/O date                                          *
+009600990222      ********************************************************************
+009700031217     D*          IDS
+009800031217     D*                                       1   80WKDATE
+009900031217     D*                                       1   20DGPOEC
+010000031217     D*                                       3   40DGPOEY
+010100031217     D*                                       5   60DGPOEM
+010200031217     D*                                       7   80DGPOED
+010300031217      *
+010400031217     D                 DS
+010500031217     D  PRENDT                 1      6  0 INZ(0)
+010600031217     D  DGPOEM                 1      2  0
+010700031217     D  DGPOED                 3      4  0
+010800031217     D  DGPOEY                 5      6  0
+010900990413      ********************************************************************
+011000990510      * Breakdown of message data                                      *
+011100990413      ********************************************************************
+011200990413     D                 DS                  INZ
+011300990413     D  $#0122                 1     80
+011400000405     D*                                   P   1   50$#LOT#
+011500990413     D  $#POYR                 6      7P 0
+011600000405     D  $#DGPO                 8     11P 0
+011700931027      *****************************************************************
+011800931027      * Define Program Constants                                    *
+011900931027      *****************************************************************
+012000940902     D YES             C                   CONST('YES')
+012100941220     D NO              C                   CONST('NO ')
+012200990311     D @CF11A          C                   CONST('F11=Show all items ')
+012300990311     D @CF11O          C                   CONST('F11=Open items only')
+012400990311     D @CUNDA          C                   CONST('      All items')
+012500990311     D @CUNDO          C                   CONST('Open items only')
+012600000406     D @NOITM          C                   CONST('ITEM NOT ON ITEM MAS-
+012700000406     D                                     TER')
+012800990208      *
+012900931018      ********************************************************************
+013000931018      ********************************************************************
+013100931018      ******************  Program Main Line  ***************************
+013200931018      ********************************************************************
+013300931018      ********************************************************************
+013400931018      *
+013500931018      * Program Main Loop                                             
+013600931018      *
+013700940902     C     ENDPGM        DOWNE     YES
+013800931021      *
+013900931021      * Write Cmd Key, Msgsfl                            
+014000931021      *
+014100940902     C                   WRITE     CFKY01
+014200940902     C                   WRITE     MSGCTL
+014300990310     C                   EXFMT     S1CNTL
+014400940902     C                   MOVE      ##SFLM        *IN83
+014500940112      *
+014600940112      * Move 1st RRN for Current SFL Page to ##RRNO                   
+014700940112      *
+014800940112     C                   Z-ADD     PAGRRN        ##RRNO
+014900931019      *
+015000931019      * Reset Cursor Position                                         
+015100940902      *
+015200940902     C                   Z-ADD     *ZERO         ##ROW
+015300940902     C                   Z-ADD     *ZERO         ##COL
+015400931021      *
+015500940902      * Clear Error indicators and flags                       
+015600940902      *
+015700990310     C                   CLEAR                   *IN30
+015800940902     C                   MOVEA     '00000000'    *IN(31)                        CLR *IN31-38
+015900940902     C                   MOVEA     '00000000'    *IN(39)                        CLR *IN39-46
+016000940902     C                   MOVEA     '00000000'    *IN(47)                        CLR *IN47-54
+016100940902     C                   MOVE      *BLANKS       ERROR             3
+016200931021      *
+016300931021      * Clear Messages                                   
+016400940902     C                   MOVE      'C'           $#MSFN            1
+016500940902     C                   EXSR      SRMSGF
+016600940902     C                   MOVE      'S'           $#MSFN
+016700990310      *
+016800990310      * If F3 or F12 not pressed, clear warning flag   
+016900990310     C     *IN03         IFNE      *ON
+017000990310     C     *IN12         ANDNE     *ON
+017100990310     C                   CLEAR                   WKWRNG
+017200990310     C                   ENDIF
+017300940902      *
+017400940902      * SFL Input Selection                          
+017500940902      *
+017600940902     C                   SELECT
+017700931021      *
+017800940902      * F3 or F12 pressed                                
+017900990310     C     *IN03         WHENEQ    *ON
+018000990310     C     *IN12         OREQ      *ON
+018100990310      *
+018200990310      * If F3/F12 pressed from change review screen,
+018300990310      * return to entry subfile screen.                               g.
+018400990310     C     $3RCDF        IFEQ      'S2CNTL'
+018500990310     C                   EXSR      LOADSF
+018600990310     C                   CLEAR                   WKWRNG
+018700990310     C                   ELSE
+018800990310      *
+018900990310      * If warning already issued, or no entries made in subfile,
+019000990310      * exit program, else issue warning.
+019100990310     C     WKWRNG        IFEQ      'Y'
+019200990310     C     WKCHNG        OREQ      *BLANK
+019300990310     C     *IN03         IFEQ      *ON
+019400990310     C                   MOVE      'XX'          #EPOYR
+019500990310     C                   ENDIF
+019600990310     C                   MOVE      YES           ENDPGM            3
+019700990310     C                   ELSE
+019800030820     C                   MOVE      'KP00121'     $#MSID                         Message Id   
+019900990310     C                   EXSR      SRMSGF
+020000990310     C                   MOVE      'Y'           WKWRNG            1
+020100990310     C                   ENDIF
+020200990310     C                   ENDIF
+020300990210      *
+020400940902      *
+020500931021      * F1 - Cursor Help                                 
+020600940902     C     *IN01         WHENEQ    '1'
+020700940902     C                   EXSR      SRCHLP
+020800990310      *
+020900990310      * F10 - Confirm update                             
+021000990310     C     *IN10         WHENEQ    '1'
+021100990310     C                   EXSR      READSF
+021200990310     C                   CLEAR                   WKCHNG
+021300990310     C     ERROR         IFNE      YES
+021400990310     C                   EXSR      $CNFRM
+021500990310     C                   ENDIF
+021600990311      *
+021700990311      * F11 - Change views                               
+021800990311     C     *IN11         WHENEQ    '1'
+021900990511     C                   EXSR      READSF
+022000990511     C     ERROR         IFNE      YES
+022100990311     C                   EXSR      $SVENT
+022200990311      *
+022300990311     C     WKRSTS        IFEQ      'O'
+022400990311     C                   MOVE      'A'           WKRSTS
+022500990311     C                   MOVE      @CUNDA        UNDER
+022600990311     C                   MOVE      @CF11O        CKYF11
+022700990311     C                   ELSE
+022800990311     C                   MOVE      'O'           WKRSTS
+022900990311     C                   MOVE      @CUNDO        UNDER
+023000990311     C                   MOVE      @CF11A        CKYF11
+023100990311     C                   ENDIF
+023200990311      *
+023300031219     C                   MOVE      *LOVAL        DDLOOK
+023400031219     C                   MOVE      *LOVAL        DDITEM
+023500000414     C                   MOVE      '1'           *IN28
+023600990311     C                   EXSR      LOADSF
+023700990311     C                   EXSR      $DLENT
+023800990511      *
+023900990511     C                   ENDIF
+024000990310      *
+024100990310      *
+024200990310      * F13 - Open Price, Warehouse, & status for entry. 
+024300990310     C     *IN13         WHENEQ    '1'
+024400990511     C                   EXSR      READSF
+024500990511     C     ERROR         IFNE      YES
+024600000414     C     *IN84         IFEQ      '1'
+024700000414     C                   CLEAR                   *IN84
+024800000414     C                   ELSE
+024900000414     C                   MOVE      '1'           *IN84
+025000000414     C                   ENDIF
+025100990310      *
+025200990311     C                   DO        MXRRN         X
+025300990310     C     X             CHAIN     S1DATA                             68
+025400990310     C     *IN68         IFEQ      '1'
+025500990310     C                   LEAVE
+025600990310     C                   ELSE
+025700990311     C                   EXSR      $GTSTS
+025800990310     C     SVLOT#        IFNE      *ZEROS
+025900990310     C                   MOVE      '1'           *IN85
+026000990310     C                   ELSE
+026100990310     C                   CLEAR                   *IN85
+026200990310     C                   ENDIF
+026300990310     C                   UPDATE    S1DATA
+026400990310     C                   ENDIF
+026500990310     C                   ENDDO
+026600990511      *
+026700990511     C                   ENDIF
+026800931021      *
+026900980910      * Position to requested -- change in P/O
+027000940902     C     *IN28         WHENEQ    *ON
+027100940902     C                   EXSR      LOADSF
+027200940902      *
+027300940902      *    Postioned Past EOF, Load Prior Page if Not BOF
+027400940902     C     S1RRN         IFEQ      *ZEROS
+027500940902     C     $$BOF         IFNE      *ON
+027600940902     C                   EXSR      BACKSF
+027700940902     C                   ELSE
+027800940902      *    ELSE  Subfile Empty Write One Blank SFL Record (ND PR)
+027900030820     C                   MOVE      'KP00116'     $#MSID                         Message Id   
+028000940902     C                   EXSR      SRMSGF
+028100940902     C                   EXSR      BLNKSF
+028200940902     C                   ENDIF
+028300940902     C                   ENDIF
+028400940902      *
+028500940902      * RollDown                                         
+028600940902     C     *IN27         WHENEQ    *ON
+028700940902     C     $$BOF         IFEQ      *ON
+028800940902     C                   Z-ADD     1             ##RRNO
+028900941220     C                   MOVE      'SR00001'     $#MSID                         Message Id   
+029000940902     C                   EXSR      SRMSGF
+029100940902     C                   ELSE
+029200990310      *If No Errors Found in READSF Execute Roll Back
+029300990310     C                   EXSR      READSF
+029400990310     C     ERROR         IFNE      YES
+029500940902     C                   EXSR      BACKSF
+029600940902     C                   ENDIF
+029700990310     C                   ENDIF
+029800940902      *
+029900940902      * Rollup                                           
+030000940902     C     *IN26         WHENEQ    *ON
+030100941220     C     $EOF          IFEQ      *OFF
+030200941220     C                   EXSR      LOAD##
+030300941220     C                   ELSE
+030400941220     C                   MOVE      'SR00002'     $#MSID                         Message Id   
+030500941220     C                   EXSR      SRMSGF
+030600941220     C                   END
+030700931021      *
+030800990308      * Process Input               
+030900940902     C     $$LOAD        WHENEQ    '1'
+031000990310     C                   EXSR      READSF
+031100931021      *
+031200941220      * No Records Loaded to SFL
+031300941220     C                   OTHER
+031400941220     C                   Z-ADD     1             ##RRNO
+031500030820     C                   MOVE      'SF00101'     $#MSID                         Message Id   
+031600941220     C                   EXSR      SRMSGF
+031700941220      *
+031800940902     C                   ENDSL
+031900940902      *
+032000940902     C                   ENDDO
+032100931018      *
+032200931018      * End the program                                               
+032300931018      *
+032400931018     C                   MOVE      '1'           *INLR
+032500931018      *
+032600931018      ********************************************************************
+032700931018      ********************************************************************
+032800931018      ********************  End Main Line  *****************************
+032900931018      ********************************************************************
+033000931018      ********************************************************************
+033100931018      *
+033200931018      ********************************************************************
+033300990208      * LOADSF - Load the PO Master Display                            *
+033400931018      ********************************************************************
+033500931018     CSR   LOADSF        BEGSR
+033600940902      *
+033700940902      * Set Roll Forward by Load Factor set in *INZSR                  
+033800940902      *
+033900940902     C     #SFLPG        MULT      ##LOAD        ##ROLL
+034000931018      *
+034100931018      * Clear the subfile                                             
+034200931018      *
+034300940902     C                   MOVE      *ON           *IN80
+034400931018     C                   Z-ADD     *ZERO         S1RRN             5 0
+034500931018     C                   Z-ADD     *ZERO         MXRRN             5 0
+034600931018     C                   WRITE     S1CNTL
+034700940902     C                   MOVE      *OFF          *IN80
+034800940902     C                   MOVE      *OFF          *IN96
+034900940902     C                   MOVE      *OFF          $$LOAD            1
+035000940902     C                   MOVE      *OFF          $$BOF             1
+035100940902     C                   MOVE      *OFF          *IN81
+035200931018      *
+035300940902      * Save Position To Values for Roll Back Routine             
+035400940902      *
+035500940902      * Set File Position                                             
+035600990308     C     *IN28         IFEQ      *OFF
+035700031219     C                   MOVE      *LOVAL        DDLOOK
+035800031219     C                   MOVE      *LOVAL        DDITEM
+035900990308     C                   ELSE
+036000990308     C                   ENDIF
+036100931105      *
+036200940906      * Check for BOF                                                 
+036300990208     C                   EXSR      $SETLL
+036400990208     C                   EXSR      $READP
+036500940902     C     *IN66         IFEQ      *ON
+036600940902     C                   MOVE      *ON           $$BOF             1
+036700940902     C                   ENDIF
+036800940906      *
+036900940906      * Reposition after BOF Check                                    
+037000990310     C     *IN28         IFEQ      *OFF
+037100031219     C                   MOVE      *LOVAL        DDLOOK
+037200031219     C                   MOVE      *LOVAL        DDITEM
+037300990310     C                   ELSE
+037400990310     C                   ENDIF
+037500990208     C                   EXSR      $SETLL
+037600940902      *
+037700940902     C                   MOVE      *OFF          $EXLOD            1
+037800940902     C                   MOVE      *OFF          $EOF              1
+037900940112     C                   MOVE      *ON           *IN81
+038000931018      *
+038100931018      * Read Loop                                                     
+038200931018      *
+038300940902     C     $EXLOD        DOUEQ     *ON
+038400990208     C                   EXSR      $READ
+038500940902     C     *IN66         IFEQ      *ON
+038600940902     C                   MOVE      *ON           $EOF              1
+038700940902     C                   MOVE      *ON           $EXLOD            1
+038800940902     C                   MOVE      *OFF          *IN81
+038900940902     C                   ELSE
+039000940902      *
+039100940902      * Initialize SFL Record Field Values               
+039200940902     C                   EXSR      MOV@S1
+039300940902      *
+039400940902      *
+039500940902     C                   ADD       1             S1RRN
+039600990310     C                   WRITE     S1DATA
+039700990224     C****       S1RRN     IFEQ ##ROLL
+039800990224     C****                 MOVE *ON       $EXLOD
+039900990224     C****                 END
+040000931021      *
+040100940902     C                   END
+040200940902     C                   END
+040300931018      *
+040400931018      * If records loaded                                             
+040500931018      *
+040600940902     C     S1RRN         IFGT      *ZERO
+040700940902     C                   Z-ADD     1             ##RRNO
+040800940902     C                   Z-ADD     S1RRN         MXRRN
+040900990224     C                   MOVE      *ON           $$LOAD            1
+041000030820     C                   MOVE      'KP00116'     $#MSID                                       
+041100940902     C                   EXSR      SRMSGF
+041200940902     C                   ELSE
+041300931021      *
+041400931021      * If no records loaded                             
+041500931021      *
+041600940902     C                   MOVE      *OFF          $$LOAD            1
+041700940902     C                   EXSR      BLNKSF
+041800030820     C                   MOVE      'KP00117'     $#MSID                         Message Id   
+041900940902     C                   EXSR      SRMSGF
+042000940902     C                   END
+042100931018      *
+042200931018     CSR                 ENDSR
+042300931018      ********************************************************************
+042400980910      * LOAD## - Load the P/O  Master Display                          *
+042500931018      ********************************************************************
+042600940902     CSR   LOAD##        BEGSR
+042700940902      *
+042800940902      * Set Roll to SFLPAG * Roll Forward Factor                       
+042900940902      *
+043000940902     C     #SFLPG        MULT      ##FWRL        ##ROLL
+043100931018      *
+043200931018      * Read Loop                                                     
+043300931018      *
+043400940902     C                   MOVE      *OFF          $EXLOD            1
+043500940902     C                   MOVE      *OFF          $EOF
+043600940112     C                   MOVE      *ON           *IN81
+043700931018     C                   Z-ADD     *ZEROS        $COUNT            5 0
+043800931018     C                   Z-ADD     MXRRN         S1RRN
+043900940902     C     $EXLOD        DOUEQ     *ON
+044000990208     C                   EXSR      $READ
+044100940902     C     *IN66         IFEQ      *ON
+044200940902     C                   MOVE      *ON           $EOF              1
+044300940902     C                   MOVE      *ON           $EXLOD            1
+044400940902     C                   MOVE      *OFF          *IN81
+044500940902     C                   ELSE
+044600931021      *
+044700940902      * Initialize SFL Record Field Values               
+044800940902     C                   EXSR      MOV@S1
+044900940902      *
+045000940902      *
+045100940902      * Write subfile record                             
+045200940902     C                   ADD       1             S1RRN
+045300940902     C                   ADD       1             $COUNT            5 0
+045400990310     C                   WRITE     S1DATA
+045500940902     C     $COUNT        IFEQ      ##ROLL
+045600940902     C                   MOVE      *ON           $EXLOD
+045700940902     C                   END
+045800931021      *
+045900940902     C                   END
+046000940902     C                   END
+046100931018      *
+046200931018      * If records loaded                                             
+046300931018      *
+046400940902     C     $COUNT        IFGT      *ZERO
+046500940902     C                   Z-ADD     S1RRN         ##RRNO
+046600940902     C                   Z-ADD     S1RRN         MXRRN
+046700940902     C                   ELSE
+046800931021      *
+046900931021      * If no records loaded                             
+047000931021      *
+047100940902     C                   END
+047200931018      *
+047300931018     CSR                 ENDSR
+047400990208      ********************************************************************
+047500990208      * $SETLL - Sets file pointer for file currently being read       *
+047600990208      ********************************************************************
+047700990208     CSR   $SETLL        BEGSR
+047800990208      *
+047900990311     C     WKRSTS        IFEQ      'A'
+048000000405     C     DTKEY         SETLL     DGDTL
+048100990311     C                   ELSE
+048200990311     C     DTKEY         SETLL     DTLL2
+048300990311     C                   ENDIF
+048400990208      *
+048500990208     C                   ENDSR
+048600990208      ********************************************************************
+048700990208      * $READP - Performs read prior on file currently being read      *
+048800990208      ********************************************************************
+048900990208     CSR   $READP        BEGSR
+049000990208      *
+049100990208     C                   CLEAR                   *IN66
+049200990311     C     WKRSTS        IFEQ      'A'
+049300000405     C     HDKEY         READPE    DGDTL                                  66
+049400990311     C                   ELSE
+049500990311     C     HDKEY         READPE    DTLL2                                  66
+049600990311     C                   ENDIF
+049700990208      *
+049800990208     C                   ENDSR
+049900990208      ********************************************************************
+050000990208      * $READ - Performs read on file currently being read             *
+050100990208      ********************************************************************
+050200990208     CSR   $READ         BEGSR
+050300990208      *
+050400990208     C                   CLEAR                   *IN66
+050500990311     C     WKRSTS        IFEQ      'A'
+050600000405     C     HDKEY         READE     DGDTL                                  66
+050700990311     C                   ELSE
+050800990311     C     HDKEY         READE     DTLL2                                  66
+050900990311     C                   ENDIF
+051000990208      *
+051100990208     C                   ENDSR
+051200940902      *****************************************************************
+051300990304      * MOV@S1 - Move File Fields to SFL Display Output Fields      *
+051400940902      *****************************************************************
+051500940902     CSR   MOV@S1        BEGSR
+051600940902      *
+051700990310     C                   CLEAR                   S1DATA
+051800990211      *
+051900990211      * P/O Detail File Fields              
+052000990211      *
+052100031219     C                   MOVEL     DDLOOK        S1LOOK
+052200031219     C                   MOVEL     DDITEM        S1ITEM
+052300030903     C                   MOVEL     DDSIZE        S1SIZE
+052400000726     C                   CLEAR                   S1PQTY
+052500000726     C                   CLEAR                   S1RCQT
+052600000726     C                   CLEAR                   S1RCTD
+052700030903     C*          DGVNDR    IFNE 003850
+052800030903     C                   Z-ADD     DDPQTY        S1PQTY
+052900030903     C     DDPQTY        SUB       DDRCQT        S1RCQT
+053000030903     C                   Z-ADD     DDRCQT        S1RCTD
+053100030903     C*                    ENDIF
+053200000405     C*                    Z-ADDDDWTRC    S1WTTD
+053300031119     C                   Z-ADD     DDOPRC        S1PRCE
+053400000406     C                   Z-ADD     DDOPRC        S1OPRC
+053500000411     C                   MOVEL     DDWHSE        S1WHSE
+053600000405     C                   MOVE      DDRSTS        S1RSTS
+053700990208      *
+053800990211      * Get product description
+053900990208      *
+054000000405     C                   MOVEL     DDIDS1        S1PRDN
+054100000414     C                   CLEAR                   *IN39
+054200031219     C                   MOVEL     DDITEM        DDPITM
+054300030903     C                   MOVEL     DDSIZE        DDPSIZ
+054400030903     C     PRKEY         CHAIN(N)  RMINVT                             82
+054500000407     C     *IN82         IFEQ      '1'
+054600000406     C                   MOVEL     @NOITM        S1PRDN
+054700000414     C****                 MOVE YES       ERROR
+054800000414     C                   MOVE      *ON           *IN39
+054900000406     C                   ENDIF
+055000000405     C*                    ENDIF
+055100990510      *
+055200990510      * Get last price paid
+055300990510      *
+055400000406     C*                    MOVE DGVNDR    DIVNDR
+055500000406     C*                    MOVE DGRCID    DIRCID
+055600000406     C*                    MOVE S1ITEM    DIPITM
+055700000406     C*                    CLEARDIPPRC
+055800000406     C*                    CLEAR*IN99
+055900000406     C*          ITKEY     CHAINDGITEMR              99
+056000000406     C*                    Z-ADDDIPPRC    S1PRCE
+056100990311      *
+056200990311      * Check for previous entry if F11 was pressed
+056300990311      *
+056400000405     C     *IN11         IFEQ      *ON
+056500031219     C     WKKEY         CHAIN     DG0013W                            99
+056600000405     C     *IN99         IFEQ      '0'
+056700031219     C                   MOVEL     WKLOOK        S1LOOK
+056800031219     C                   MOVEL     WKITEM        S1ITEM
+056900031219     C                   MOVE      WKSIZE        S1SIZE
+057000040210     C                   Z-ADD     WKRCQT        S1RCQT
+057100000405     C*                    Z-ADDWKWTRC    S1WTRC
+057200990311     C                   Z-ADD     WKOPRC        S1OPRC
+057300990311     C                   MOVE      WKOWH         S1OWH
+057400990311     C                   MOVE      WKOSTS        S1OSTS
+057500990311     C                   ENDIF
+057600990311     C                   ENDIF
+057700990311      *
+057800990311      * Set field protect indicators
+057900990311      *
+058000990311     C                   EXSR      $GTSTS
+058100990311      *
+058200990311     CSR                 ENDSR
+058300990311      *****************************************************************
+058400990311      * $GTSTS - Sets field protect indicators based on status      *
+058500990311      *****************************************************************
+058600990311     CSR   $GTSTS        BEGSR
+058700990311      *
+058800990311      * Field protect all entry fields if Status = C
+058900000414SMA   * or if item not found
+059000000414     C                   CLEAR                   *IN82
+059100000414     C                   CLEAR                   *IN86
+059200000414     C                   CLEAR                   *IN87
+059300990311      *
+059400990311      *
+059500000414     C     S1RSTS        IFEQ      'C'
+059600990311     C                   MOVE      '1'           *IN86
+059700990311     C                   MOVE      '1'           *IN87
+059800000414     C                   ENDIF
+059900000414      *
+060000000414     C     S1PRDN        IFEQ      @NOITM
+060100000414     C                   MOVE      '1'           *IN86
+060200000414     C                   MOVE      '1'           *IN87
+060300000414     C                   MOVE      '1'           *IN82
+060400000414     C                   ENDIF
+060500990311      *
+060600940902     CSR                 ENDSR
+060700940902      *****************************************************************
+060800940902      * BACKSF - Roll Back File One Page of SFL Records             *
+060900940902      *****************************************************************
+061000940902     CSR   BACKSF        BEGSR
+061100940902      *
+061200940902      *
+061300940902     CSR                 ENDSR
+061400990310      ********************************************************************
+061500990310      * READSF - Read the subfile -- check for subfile selections and  *
+061600990310      *          check for change to sequence number                   *
+061700990310      ********************************************************************
+061800990310     CSR   READSF        BEGSR
+061900990310      *
+062000990310      * Check and process delete requests                             
+062100990310      *
+062200990310     C                   MOVE      *OFF          $$RLOD            1
+062300990310      *
+062400990310      * Set loop -- read all changed subfile records                  
+062500990310      *
+062600000410     C     *IN66         DOUEQ     *ON
+062700000410     C                   READC     S1DATA                                 66
+062800000410     C     *IN66         IFEQ      *OFF
+062900990310      *
+063000990310      * Set change flag for save warning                               
+063100990310      *
+063200990310     C                   MOVE      'Y'           WKCHNG            1
+063300990310      *
+063400990310      * Edit changed record
+063500990310      *
+063600990310     C                   EXSR      $EDTSF
+063700990318      *
+063800990318      * Reset Field Protect Indicators
+063900990318      *
+064000990318     C                   EXSR      $GTSTS
+064100990310      *
+064200990318      * Reset Next Change Indicator and Update subfile              
+064300990310      *
+064400990310     C                   SELECT
+064500990310     C     ERROR         WHENNE    YES
+064600990310     C                   MOVE      *OFF          *IN39
+064700990310     C                   UPDATE    S1DATA
+064800990310     C     ERROR         WHENEQ    YES
+064900990310     C                   MOVE      *ON           *IN39
+065000990310     C                   UPDATE    S1DATA
+065100990310     C                   LEAVE                                                   END LOOP
+065200990310     C                   ENDSL
+065300990310      *
+065400990310     C                   ENDIF
+065500990310     C                   ENDDO
+065600990310      *
+065700990310      * If no errors, issue message to press F10                       *
+065800990310      *
+065900990310     C                   SELECT
+066000990310     C     ERROR         WHENEQ    YES
+066100990310     C                   MOVE      *ON           *IN30
+066200990310     C     ERROR         WHENEQ    *BLANKS
+066300990310     C     WKCHNG        ANDEQ     *BLANK
+066400030820     C                   MOVE      'SR00012'     $#MSID
+066500990310     C                   EXSR      SRMSGF
+066600990310     C     ERROR         WHENEQ    *BLANKS
+066700990310     C     WKCHNG        ANDEQ     'Y'
+066800030820     C                   MOVE      'SR00013'     $#MSID
+066900990310     C                   EXSR      SRMSGF
+067000990310     C                   ENDSL
+067100990310      *
+067200990310     C     $$RLOD        IFEQ      *ON
+067300990310     C                   MOVE      *ON           *IN28
+067400990310     C                   EXSR      LOADSF
+067500990310     C                   ENDIF
+067600990310      *
+067700990310     CSR                 ENDSR
+067800990308      ********************************************************************
+067900990310      * $EDTSF - Edits entry from screen                               *
+068000990308      ********************************************************************
+068100990310     CSR   $EDTSF        BEGSR
+068200990308      *
+068300000407      * Verify that Item Number is still valid
+068400990308      *
+068500000410B001 C*                    CLEAR*IN82
+068600030903     C                   MOVEL     S1SIZE        DDPSIZ
+068700000419     C                   MOVEL     S1ITEM        DDITEM
+068800030903     C                   MOVEL     S1SIZE        DDSIZE
+068900030903     C     PRKEY         CHAIN     RMINVT                             82
+069000000414SMA  C***        *IN82     IFEQ '1'
+069100000414SMA  C***                  MOVE YES       ERROR
+069200000414SMA  C***                  ENDIF
+069300990311      *
+069400990310      * Verify Override Warehouse, if entered
+069500990308      *
+069600000414     C     S1OWH         IFNE      *ZERO
+069700990310     C     S1OWH         CHAIN     WHSE                               35
+069800990308     C     *IN35         IFEQ      '1'
+069900990511     C                   MOVE      YES           ERROR
+070000030820     C                   MOVE      'KP00113'     $#MSID
+070100990308     C                   EXSR      SRMSGF
+070200990308     C                   ENDIF
+070300990310     C                   ENDIF
+070400990511      *
+070500990511      * Price must be entered before line is manually closed
+070600990511      *
+070700990511     C     S1OSTS        IFNE      *BLANK
+070800990511     C     S1PRCE        ANDEQ     *ZEROS
+070900990511     C     S1OPRC        ANDEQ     *ZEROS
+071000990511     C                   MOVE      '1'           *IN36
+071100990511     C                   MOVE      YES           ERROR
+071200030820     C                   MOVE      'KP00131'     $#MSID
+071300990511     C                   EXSR      SRMSGF
+071400990511     C                   ENDIF
+071500990308      *
+071600990308     C                   ENDSR
+071700990310      ********************************************************************
+071800990310      *$CNFRM - Fill confirmation screen                               *
+071900990310      ********************************************************************
+072000990310     CSR   $CNFRM        BEGSR
+072100990310      *
+072200990310      *
+072300990310      *   Clear F10 indicator                                         
+072400990310      *
+072500990310     C                   CLEAR                   *IN10
+072600990310      *
+072700990310      *   Clear the subfile                                           
+072800990310      *
+072900990310     C                   MOVE      *ON           *IN80
+073000990310     C                   Z-ADD     *ZERO         S2RRN             5 0
+073100990310     C                   WRITE     S2CNTL
+073200990310     C                   CLEAR                   S2DATA
+073300990310     C                   MOVE      *OFF          *IN80
+073400990310      *
+073500990310      * Set loop -- read all subfile records                          
+073600990310      *
+073700990310     C                   CLEAR                   *IN68
+073800990311B001 C                   DO        MXRRN         X
+073900990310     C     X             CHAIN     S1DATA                             68
+074000990310B002 C     *IN68         IFEQ      *ON
+074100990310     C                   LEAVE
+074200990310     C                   ELSE
+074300990310      *
+074400990310      * Set Subfile Next Change                                       
+074500990310      *
+074600990310     C                   MOVE      *ON           *IN39
+074700990310      *
+074800990318      * If quantity or close flag entered                             
+074900990310      *
+075000000405B003 C     S1RCQT        IFNE      *ZEROS
+075100990318     C     S1OSTS        ORNE      *BLANK
+075200990310     C                   ADD       1             S2RRN
+075300990318      *
+075400990318      * Fill price                                                     
+075500990318      *
+075600990318     C                   SELECT
+075700000405     C     S1RCQT        WHENEQ    *ZEROS
+075800990318     C                   CLEAR                   S2PRCE
+075900990318     C     S1OPRC        WHENNE    *ZEROS
+076000990318     C                   Z-ADD     S1OPRC        S2PRCE
+076100990318     C     S1OPRC        WHENEQ    *ZEROS
+076200990318     C                   Z-ADD     S1PRCE        S2PRCE
+076300990318     C                   ENDSL
+076400990318      *
+076500990318      * Fill warehouse                                                 
+076600990318      *
+076700000411     C                   CLEAR                   S2WHSE
+076800990318     C                   SELECT
+076900000405     C     S1RCQT        WHENEQ    *ZEROS
+077000000414     C     S1OWH         WHENNE    *ZERO
+077100000411     C                   MOVEL     S1OWH         S2WHSE
+077200000414     C     S1OWH         WHENEQ    *ZERO
+077300000411     C                   MOVEL     S1WHSE        S2WHSE
+077400990318     C                   ENDSL
+077500990318      *
+077600990318      * Fill status                                                    
+077700990318      *
+077800990318     C     S1OSTS        IFNE      *BLANK
+077900990318     C                   MOVEL     S1OSTS        S2RSTS
+078000990318     C                   ELSE
+078100990318     C                   MOVEL     S1RSTS        S2RSTS
+078200990318     C                   ENDIF
+078300990318      *
+078400990310     C                   WRITE     S2DATA
+078500990310E003 C                   ENDIF
+078600990310E002 C                   ENDIF
+078700990310E001 C                   ENDDO
+078800990310      *
+078900990310      *
+079000990318      * If no entries exist, write blank subfile.                      
+079100990310      *
+079200990310B001 C     S2RRN         IFEQ      *ZEROS
+079300990310     C                   EXSR      BLNKS2
+079400990310     C                   CLEAR                   CKCNT
+079500990310     C                   ELSE
+079600990310     C                   Z-ADD     S2RRN         CKCNT
+079700990310     C                   ENDIF
+079800990310      *
+079900990310      * Display the screen until F3, F10, or F12 pressed               
+080000990310      *
+080100990310     C     *IN03         DOWEQ     '0'
+080200990310     C     *IN10         ANDEQ     '0'
+080300990310     C     *IN12         ANDEQ     '0'
+080400990310     C                   Z-ADD     1             #2RRNO
+080500990310     C                   MOVE      'C'           $#MSFN            1
+080600990310     C                   EXSR      SRMSGF
+080700990310     C                   MOVE      'S'           $#MSFN
+080800030820     C                   MOVE      'SR00014'     $#MSID                         Message Id   
+080900990310     C                   EXSR      SRMSGF
+081000990310     C                   WRITE     CFKY02
+081100990310     C                   WRITE     MSGCTL
+081200990310     C                   EXFMT     S2CNTL
+081300990310     C                   ENDDO
+081400990310      *
+081500990311      * Process changes & print receiver if F10 pressed.               
+081600990310      *
+081700990310     C     *IN10         IFEQ      *ON
+081800000419     C     *IN82         ANDEQ     *OFF
+081900990311     C                   EXSR      $UPDAT
+082000990310     C                   MOVE      YES           ENDPGM
+082100990310     C                   MOVE      'XX'          #EPOYR
+082200990310     C                   ENDIF
+082300990310      *
+082400990310     CSR                 ENDSR
+082500990211      ********************************************************************
+082600000405      * $UPDAT - Updates all neccessary files                          *
+082700990211      ********************************************************************
+082800990310     CSR   $UPDAT        BEGSR
+082900990318      *
+083000990318      * Print the receiver headings.
+083100990318      *
+083200990318     C                   EXSR      $PRHDR
+083300990310      *
+083400990310      * Read thru entire subfile.
+083500990310      *
+083600990311B001 C                   DO        MXRRN         X                 7 0
+083700990310     C                   CLEAR                   *IN68
+083800990310     C     X             CHAIN     S1DATA                             68
+083900990310B002 C     *IN68         IFEQ      *ON
+084000990310     C                   LEAVE
+084100990310     C                   ELSE
+084200990310      *
+084300990318      * Process only if any quantity received or status was entered
+084400990310      *
+084500000405B003 C     S1RCQT        IFNE      *ZEROS
+084600000405     C     S1OSTS        ORNE      *BLANK
+084700990211      *
+084800990318      * Add receipt record if quantity was entered
+084900990211      *
+085000000405B004 C     S1RCQT        IFNE      *ZEROS
+085100000405     C                   Z-ADD     DGPOYR        DRPOYR
+085200000405     C                   Z-ADD     DGDGPO        DRDGPO
+085300000405     C                   MOVEL     S1ITEM        DRITEM
+085400031219     C                   MOVEL     S1LOOK        DRLOOK
+085500030903     C                   MOVE      S1SIZE        DRSIZE
+085600000405     C                   MOVEL     'EA '         DRPUOM
+085700000405     C                   Z-ADD     DGVNDR        DRVNDR
+085800000405     C                   Z-ADD     S1RCQT        DRRCQT
+085900000405     C                   MOVE      'O'           DRRSTS
+086000000414     C     S1OWH         IFNE      *ZERO
+086100000414     C                   MOVEL     S1OWH         DGWHSE
+086200990310     C                   ELSE
+086300000414     C                   MOVEL     S1WHSE        DGWHSE
+086400990310     C                   ENDIF
+086500000405     C                   MOVEL     ##USER        DRUSER
+086600990310      *
+086700990308     C     UDATE         MULT      10000.01      WKYMD             6 0
+086800990308     C     WKYMD         IFGT      950000
+086900000405     C     WKYMD         ADD       19000000      DRRCDT
+087000990308     C                   ELSE
+087100000405     C     WKYMD         ADD       20000000      DRRCDT
+087200990308     C                   ENDIF
+087300990310      *
+087400000405     C                   WRITE     DGREC
+087500990318E004 C                   ENDIF
+087600990310      *
+087700990310      * Determine how much of receipt quantity should be backed
+087800990310      * out of quantity on order:
+087900990310      *
+088000990310     C     S1RCQT        ADD       S1RCTD        CKRCQT                         Total received
+088100990310      *
+088200990310     C                   SELECT
+088300990310     C     S1RCTD        WHENGE    S1PQTY                                       Recvd to date > orde
+088400990311     C                   CLEAR                   XXRCQT                          no effect
+088500990310     C     CKRCQT        WHENGT    S1PQTY                                       Total recvd > order
+088600990318     C     S1OSTS        ORNE      *BLANK                                       or line closed
+088700990318     C     S1PQTY        SUB       S1RCTD        XXRCQT                          balance of order
+088800990310     C                   OTHER                                                  Others
+088900990311     C                   Z-ADD     S1RCQT        XXRCQT                          Entire receipt
+089000990310     C                   ENDSL
+089100990310      *
+089200990310      * Update P/O detail record
+089300990310      *
+089400000405     C                   MOVE      DGPOYR        DDPOYR
+089500000405     C                   MOVE      DGDGPO        DDDGPO
+089600031219     C                   MOVEL     S1LOOK        DDLOOK
+089700031219     C                   MOVEL     S1ITEM        DDITEM
+089800030903     C                   MOVE      S1SIZE        DDSIZE
+089900031219     C                   MOVEL     S1ITEM        DDPITM
+090000031219     C                   MOVEL     S1ITEM        PROD
+090100030903     C                   MOVE      S1SIZE        DDPSIZ
+090200990310     C                   CLEAR                   *IN99
+090300000405     C     DTKEY         CHAIN     DGDTL                              99
+090400990310     C     *IN99         IFEQ      '0'
+090500000405     C                   ADD       S1RCQT        DDRCQT
+090600000419     C*                    MOVE S1OSTS    DDRSTS
+090700000405     C     DDRCQT        IFGE      DDPQTY
+090800990511     C     S1OPRC        ANDNE     *ZEROS
+090900000405     C     DDRCQT        ORGE      DDPQTY
+091000990511     C     S1PRCE        ANDNE     *ZEROS
+091100990310     C     S1OSTS        ORNE      *BLANK
+091200000405     C                   MOVE      'C'           DDRSTS
+091300990310     C                   ENDIF
+091400000405     C                   UPDATE    DGDTL
+091500990310     C                   ENDIF
+091600990311      *
+091700000405      * Update ITEM MASTER RECORD
+091800990311      *
+091900031219     C                   MOVEL     S1ITEM        DDPITM
+092000031219     C                   MOVEL     S1ITEM        PROD             12
+092100030903     C                   MOVE      S1SIZE        DDPSIZ
+092200990311     C                   CLEAR                   *IN99
+092300031211     C                   CLEAR                   RECQTY
+092400030903     C     PRKEY         CHAIN     RMINVT                             99
+092500990311     C     *IN99         IFEQ      '0'
+092600031211     C     S1RCQT        MULT      IMLBS#        RECQTY           11 0
+092700031211     C                   ADD       RECQTY        IMMREC
+092800031211     C                   ADD       RECQTY        IMQTOH
+092900031211     C                   SUB       RECQTY        IMQTOO
+093000030903     C     IMQTOO        IFLT      *ZERO
+093100030903     C                   CLEAR                   IMQTOO
+093200990311     C                   ENDIF
+093300000809     C     S1OSTS        IFEQ      'C'
+093400030903     C                   CLEAR                   IMQTOO
+093500000809     C                   ENDIF
+093600990511     C                   SELECT
+093700990511     C     S1OPRC        WHENNE    *ZEROS
+093800030903     C                   Z-ADD     S1OPRC        IMLCST
+093900990511     C     S1PRCE        WHENNE    *ZEROS
+094000030903     C                   Z-ADD     S1PRCE        IMLCST
+094100990511     C                   ENDSL
+094200030903     C                   UPDATE    RMINVT
+094300990311     C                   ENDIF
+094400000405      *
+094500000405      * Update Vendor Item File
+094600000405      *
+094700031219     C                   MOVEL     S1ITEM        DDPITM
+094800031219     C                   MOVEL     S1ITEM        PROD
+094900030903     C                   MOVE      S1SIZE        DDPSIZ
+095000000405     C                   CLEAR                   *IN99
+095100031118     C     ITKEY         CHAIN     DGITEMR                            99
+095200000405     C     *IN99         IFEQ      '0'
+095300000405     C                   Z-ADD     DRRCDT        DIDTLO
+095400031118     C*                    ADD  S1RCQT    IMQTOH
+095500031118     C*                    ADD  S1RCQT    IMMREC
+095600031118     C*                    SUB  S1RCQT    IMQTOO
+095700000405     C                   SELECT
+095800000405     C     S1OPRC        WHENNE    *ZEROS
+095900000405     C                   Z-ADD     S1OPRC        DIPPRC
+096000000405     C     S1PRCE        WHENNE    *ZEROS
+096100000405     C                   Z-ADD     S1PRCE        DIPPRC
+096200000405     C                   ENDSL
+096300000405     C                   UPDATE    DGITEMR
+096400000405     C                   ENDIF
+096500990311      *
+096600000405      * Add/update ITEM & ITEM/WAREHOUSE record
+096700990311      *
+096800030903B004 C*          DGRCID    IFEQ 'IM'
+096900030903     C     S1RCQT        IFNE      *ZEROS
+097000031219     C                   MOVEL     S1ITEM        IWPITM
+097100031219     C                   MOVEL     S1ITEM        PROD
+097200030903     C                   MOVE      S1SIZE        IWSIZE
+097300000414     C     S1OWH         IFNE      *ZERO
+097400000411     C                   MOVE      S1OWH         IWWHSE
+097500000405     C                   ELSE
+097600000411     C                   MOVE      S1WHSE        IWWHSE
+097700990311     C                   ENDIF
+097800000420     C     S1OPRC        IFNE      *ZERO
+097900000420     C                   MOVE      S1OPRC        DHPPRC
+098000000420     C                   ELSE
+098100000420     C                   MOVE      S1PRCE        DHPPRC
+098200000420     C                   ENDIF
+098300990311     C                   CLEAR                   *IN99
+098400000405     C     IWHKEY        CHAIN     ITMWHSR                            99
+098500990311     C     *IN99         IFEQ      '0'
+098600031211     C*                    ADD  S1RCQT    IWQTOH
+098700031211     C                   ADD       RECQTY        IWQTOH
+098800000405     C                   UPDATE    ITMWHSR
+098900000405     C                   ELSE
+099000031211     C*                    Z-ADDS1RCQT    IWQTOH
+099100031211     C                   Z-ADD     RECQTY        IWQTOH
+099200000405     C                   WRITE     ITMWHSR
+099300990311     C                   ENDIF
+099400000405      *
+099500000405      * Add ITEM HISTORY RECORD
+099600000405      *
+099700000405B004 C     S1RCQT        IFNE      *ZEROS
+099800000405     C                   MOVE      DGPOYR        DHPOYR
+099900000405     C                   MOVE      DGDGPO        DHDGPO
+100000031219     C                   MOVEL     S1ITEM        DHPITM
+100100031219     C                   MOVEL     S1ITEM        PROD
+100200030903     C                   MOVE      S1SIZE        DHPSIZ
+100300000411     C                   MOVE      IWWHSE        DHTWHS
+100400000426     C                   MOVE      'R'           DHTRAN
+100500000508     C                   MOVEL     'PO'          DHTYP            10
+100600000508     C                   MOVE      'RECEIPT'     DHTYP
+100700000508     C                   MOVE      DHTYP         DHTYPE
+100800031211     C*                    Z-ADDS1RCQT    DHTQTY
+100900031211     C                   Z-ADD     RECQTY        DHTQTY
+101000990311     C     UDATE         MULT      10000.01      WKYMD             6 0
+101100990311     C     WKYMD         IFGT      950000
+101200000405     C     WKYMD         ADD       19000000      DHCYMD
+101300990311     C                   ELSE
+101400000405     C     WKYMD         ADD       20000000      DHCYMD
+101500990311     C                   ENDIF
+101600000405     C                   WRITE     DGHISTR
+101700990311E004 C                   ENDIF
+101800990310      *
+101900990318      * Print P/O detail
+102000990318      *
+102100000405     C     S1RCQT        IFNE      *ZEROS
+102200000405     C**         S1WTRC    IFNE *ZEROS
+102300990318     C                   EXSR      $PRDTL
+102400990318     C                   ENDIF
+102500990310E003 C                   ENDIF
+102600990310      *
+102700990310E002 C                   ENDIF
+102800000405E002 C                   ENDIF
+102900000405E001 C                   ENDDO
+103000990311      **************
+103100990311      * Print P/O total
+103200990311      **************
+103300990311     C                   WRITE     TOTAL
+103400021007     C                   CLEAR                   PRPTTL
+103500031119      * 
+103600990310      *
+103700990511      * Read thru all detail records in P/O.
+103800990511      * - If status is "C" for all detail lines, & all detail lines
+103900990511      *   have prices, change header status to "H" (history).
+104000990310      *
+104100990310     C                   MOVE      'Y'           WKSTS             1
+104200990511     C                   CLEAR                   *IN69
+104300000405     C     HDKEY         SETLL     DGDTL
+104400000405     C     HDKEY         READE     DGDTL                                  69
+104500990511     C     *IN69         DOWEQ     '0'
+104600000405     C     DDRSTS        IFNE      'C'
+104700000405     C     DDOPRC        OREQ      *ZEROS
+104800990310     C                   MOVE      'N'           WKSTS
+104900990511     C                   LEAVE
+105000990310     C                   ENDIF
+105100000405     C     HDKEY         READE     DGDTL                                  69
+105200990310     C                   ENDDO
+105300990310      *
+105400990310     C     WKSTS         IFEQ      'Y'
+105500990310     C                   CLEAR                   *IN99
+105600000405     C     HDKEY         CHAIN     DGHDR                              99
+105700990310     C     *IN99         IFEQ      '0'
+105800000405     C                   MOVE      'H'           DGOST
+105900000405     C                   UPDATE    DGHDR
+106000990310     C                   ENDIF
+106100990310     C                   ENDIF
+106200990310      *
+106300040114     C                   CLEAR                   *IN99
+106400040114     C     HDKEY         CHAIN     DGHDR                              99
+106500040114     C     *IN99         IFEQ      '0'
+106600040114     C                   MOVE      RDATE         DGRDTE
+106700040114     C                   MOVEL     20            DGRDTE
+106800040114     C                   UPDATE    DGHDR
+106900040114     C                   ENDIF
+107000990211     C                   ENDSR
+107100990318      ********************************************************************
+107200990318      * $PRHDR - Prints the receiver header lines                      *
+107300990318      ********************************************************************
+107400990318     CSR   $PRHDR        BEGSR
+107500990318      **************
+107600990318      * Fill header fields
+107700990318      **************
+107800990318      * P/O year & number
+107900000405     C                   Z-ADD     DGPOYR        PRPOYR
+108000000405     C                   Z-ADD     DGDGPO        PRDGPO
+108100990318      * Company name
+108200990318     C                   MOVEL     POCONM        PRCNAM
+108300990318      * 
+108400990318      * Company address
+108500990318     C                   CLEAR                   A
+108600990318     C     POCOA1        IFNE      *BLANKS
+108700990318     C                   ADD       1             A                 1 0
+108800990318     C                   MOVEL     POCOA1        CADR(A)
+108900990318     C                   ENDIF
+109000990318     C     POCOA2        IFNE      *BLANKS
+109100990318     C                   ADD       1             A
+109200990318     C                   MOVEL     POCOA2        CADR(A)
+109300990318     C                   ENDIF
+109400990318     C     POCOCY        CAT(P)    ',':0         WKCSZ            35
+109500990318     C                   CAT       POCOST:1      WKCSZ
+109600990318     C                   CAT       POCOZP:1      WKCSZ
+109700990318     C                   ADD       1             A
+109800990318     C                   MOVEL     WKCSZ         CADR(A)
+109900990318      *
+110000990318     C                   MOVEL     CADR(1)       PRCAD1
+110100990318     C                   MOVEL     CADR(2)       PRCAD2
+110200990318     C                   MOVEL     CADR(3)       PRCAD3
+110300990318     C                   MOVEL     CADR(4)       PRCAD4
+110400990318      * 
+110500990318      * Get warehouse master record
+110600990318     C                   CLEAR                   *IN99
+110700000414     C     DGWHSE        CHAIN     WHSE                               99
+110800990318      * 
+110900990318      * Warehouse name
+111000990318     C                   MOVEL     WHWNAM        PRWNAM
+111100990318      * 
+111200990318      * Warehouse address
+111300990318     C                   CLEAR                   A
+111400990318     C     WHWAD1        IFNE      *BLANKS
+111500990318     C                   ADD       1             A
+111600990318     C                   MOVEL     WHWAD1        WADR(A)
+111700990318     C                   ENDIF
+111800990318     C     WHWAD2        IFNE      *BLANKS
+111900990318     C                   ADD       1             A
+112000990318     C                   MOVEL     WHWAD2        WADR(A)
+112100990318     C                   ENDIF
+112200990318     C     WHWAD3        IFNE      *BLANKS
+112300990318     C                   ADD       1             A
+112400990318     C                   MOVEL     WHWAD3        WADR(A)
+112500990318     C                   ENDIF
+112600990318     C     WHWCTY        CAT(P)    ',':0         WKCSZ
+112700990318     C                   CAT       WHWSTT:1      WKCSZ
+112800990318     C                   CAT       WHWZIP:1      WKCSZ
+112900990318     C                   ADD       1             A
+113000990318     C                   MOVEL     WKCSZ         WADR(A)
+113100990318      *
+113200990318     C                   MOVEL     WADR(1)       PRWAD1
+113300990318     C                   MOVEL     WADR(2)       PRWAD2
+113400990318     C                   MOVEL     WADR(3)       PRWAD3
+113500990318     C                   MOVEL     WADR(4)       PRWAD4
+113600000405      * Vendor Number
+113700000405     C                   Z-ADD     DGVNDR        PRVNDR
+113800000405      * Vendor Name
+113900030903     C                   MOVEL     VMNAME        PRJNAM
+114000990318      * 
+114100000405      * Vendor address
+114200990318     C                   CLEAR                   A
+114300030903     C     VMADD2        IFNE      *BLANKS
+114400990318     C                   ADD       1             A
+114500030903     C                   MOVEL     VMADD2        JADR(A)
+114600990318     C                   ENDIF
+114700030903     C     VMADD3        IFNE      *BLANKS
+114800990318     C                   ADD       1             A
+114900030903     C                   MOVEL     VMADD3        JADR(A)
+115000990318     C                   ENDIF
+115100030903     C     VMCITY        CAT(P)    ',':0         WKCSZ
+115200030903     C                   CAT       VMSTST:1      WKCSZ
+115300030903     C                   MOVEL     VMZIPD        WKZIP5            5
+115400030903     C                   MOVE      VMZIPD        WKZIP4            4
+115500990318     C                   CAT       WKZIP5:1      WKCSZ
+115600030903     C     WKZIP4        IFNE      *BLANKS
+115700990318     C                   CAT       '-':0         WKCSZ
+115800990318     C                   CAT       WKZIP4:0      WKCSZ
+115900990318     C                   ENDIF
+116000990318     C                   ADD       1             A
+116100990318     C                   MOVEL     WKCSZ         JADR(A)
+116200990318      *
+116300990318     C                   MOVEL     JADR(1)       PRJAD1
+116400990318     C                   MOVEL     JADR(2)       PRJAD2
+116500990318     C                   MOVEL     JADR(3)       PRJAD3
+116600990318      * Receipt date
+116700990318     C                   Z-ADD     UDATE         PRDATE
+116800990318      * Receipt number
+116900000405     C                   Z-ADD     DRREC#        PRREC#
+117000990318      **************
+117100990318      * Print headings
+117200990318      **************
+117300990318     C                   CLEAR                   *IN31
+117400990318     C                   CLEAR                   *IN32
+117500031119     C                   CLEAR                   *IN50
+117600031119     C                   CLEAR                   *IN51
+117700031119      **************
+117800031119      * Check for Comments line 2 and 3
+117900031119      **************
+118000031119     C     DGCOM2        IFNE      *BLANKS
+118100031119     C                   MOVE      *ON           *IN50
+118200031119     C                   ENDIF
+118300031119     C     DGCOM3        IFNE      *BLANKS
+118400031119     C                   MOVE      *ON           *IN51
+118500031119     C                   ENDIF
+118600031217     C                   Z-ADD     DGDUDT        PDUEDT            6 0
+118700040115     C                   MOVE      RDATE         RECDTE            6 0
+118800040115     C     RECDTE        MULT      100.0001      RECDTE
+118900031119      * 
+119000990318     C                   WRITE     HEADER
+119100990318      *
+119200990318     C                   ENDSR
+119300990318      ********************************************************************
+119400990318      * $PRDTL - Prints the receiver detail lines                      *
+119500990318      ********************************************************************
+119600990318     CSR   $PRDTL        BEGSR
+119700990318      **************
+119800990318      * Fill detail fields
+119900990318      **************
+120000990318      *
+120100990318      * Item number
+120200031219     C                   MOVEL     DDITEM        PRITEM
+120300031217     C*                    MOVE DDSIZE    PRSIZE
+120400990318      *
+120500990510      * Weight received
+120600031217     C                   Z-ADD     S1PQTY        PRQORD
+120700031217     C                   Z-ADD     S1RCQT        PRRCQT
+120800000405     C****                 Z-ADDS1WTRC    PRWTRC
+120900990318      *
+121000990318      * Item description
+121100031119     C*                    MOVELS1PRDN    PRDESC
+121200031119     C                   MOVEL     DDIDS1        PRDESC
+121300030915     C*                    MOVE IMINVN    PRGL#
+121400990318      *
+121500990318      * Override warehouse
+121600990318     C                   SELECT
+121700000414     C     S1OWH         WHENNE    *ZERO
+121800000421     C     S1OWH         ANDNE     DDWHSE
+121900010220     C                   MOVE      S1OWH         PROWH             2
+122000000414     C     S1OWH         WHENEQ    *ZERO
+122100000414     C     DDWHSE        ANDNE     DGWHSE
+122200000411     C                   MOVE      DDWHSE        PROWH
+122300990318     C                   OTHER
+122400990318     C                   CLEAR                   PROWH
+122500990318     C                   ENDSL
+122600990318      *
+122700990318      * Unit cost
+122800990318     C     S1OPRC        IFNE      *ZEROS
+122900990318     C                   Z-ADD     S1OPRC        PRRPRC
+123000990318     C                   ELSE
+123100990318     C                   Z-ADD     S1PRCE        PRRPRC
+123200990318     C                   ENDIF
+123300031222     C*                    Z-ADDDDVPRC    PRVPRC
+123400990511      *
+123500031120      * Check Price to Preferred Vendor Price
+123600031120     C                   MOVE      *OFF          *IN75
+123700031217     C*                    CLEARASTRSK
+123800031120     C     SERKEY        CHAIN     FMINSER                            99
+123900031120     C     *IN99         IFEQ      *OFF                                                        ARC38
+124000031120     C     MINKEY        CHAIN     FSERIES                            98
+124100031120     C     *IN98         IFEQ      *OFF                                                        ARC38
+124200031120     C     PRCKEY        CHAIN     FSERPRC                            97
+124300031120     C     *IN97         IFEQ      *OFF                                                        ARC38
+124400031120     C     SPPRC1        IFNE      *ZERO                                                       ARC38
+124500031120     C                   Z-ADD     SPPRC1        PRFPRC            9 4                         ARC38
+124600031120     C                   END                                                                   ARC38
+124700031120     C     SPPRC1        IFEQ      *ZERO                                                       ARC38
+124800031120     C     SPPRC2        IFNE      *ZERO                                                       ARC38
+124900031120     C                   Z-ADD     SPPRC2        PRFPRC                                        ARC38
+125000031120     C                   END                                                                   ARC38
+125100031120     C                   END                                                                   ARC38
+125200031120     C     SPPRC1        IFEQ      *ZERO                                                       ARC38
+125300031120     C     SPPRC2        IFEQ      *ZERO                                                       ARC38
+125400031120     C     SPPRC3        IFNE      *ZERO                                                       ARC38
+125500031120     C                   Z-ADD     SPPRC3        PRFPRC                                        ARC38
+125600031120     C                   END                                                                   ARC38
+125700031120     C                   END                                                                   ARC38
+125800031120     C                   END                                                                   ARC38
+125900031120     C     PRRPRC        IFNE      PRFPRC
+126000031120     C                   MOVE      *ON           *IN75
+126100031217     C*                    MOVE '**'      ASTRSK  2
+126200990511     C                   ENDIF
+126300031120     C                   ENDIF
+126400031120     C                   ENDIF
+126500031120     C                   ENDIF
+126600031120     C     *IN76         IFEQ      *OFF                                                        ARC38
+126700031120     C     *IN75         ANDEQ     *ON                                                         ARC38
+126800031120     C                   MOVE      *ON           *IN76
+126900031120     C                   ENDIF
+127000990318      *
+127100990318      * Line total
+127200010103     C     PRRPRC        MULT(H)   PRRCQT        PRLTTL
+127300990318      **************
+127400990318      * Check for overflow
+127500990318      **************
+127600990318     C     *IN88         IFEQ      *ON
+127700990318     C                   WRITE     HEADER
+127800990318     C                   CLEAR                   *IN88
+127900990318     C                   ENDIF
+128000990318      **************
+128100990318      * Accumulate order total
+128200990318      **************
+128300990318     C                   ADD       PRLTTL        PRPTTL
+128400990318      **************
+128500990318      * Print detail line
+128600990318      **************
+128700990318     C                   CLEAR                   *IN31
+128800990318     C                   WRITE     DETAIL
+128900021105     C                   CLEAR                   PRLTTL
+129000021105     C                   CLEAR                   PRRPRC
+129100031222     C                   CLEAR                   PRFPRC
+129200031222     C*                    CLEARPRVPRC
+129300021105     C                   CLEAR                   PRRCQT
+129400990318      *
+129500990318     C                   ENDSR
+129600931018      ********************************************************************
+129700931018      * BLNKSF - Clear the subfile and write one blank record          *
+129800931018      ********************************************************************
+129900931018     CSR   BLNKSF        BEGSR
+130000940902      *
+130100940902      * Clear Subfile Fields                             
+130200940902      *
+130300990310     C                   CLEAR                   S1DATA
+130400931018      *
+130500931018      * Clear the subfile                                             
+130600931018      *
+130700940902     C                   MOVE      *ON           *IN80
+130800931018     C                   Z-ADD     *ZERO         S1RRN             5 0
+130900931018     C                   Z-ADD     1             ##RRNO
+131000931018     C                   WRITE     S1CNTL
+131100931018      *
+131200931018      * Write a blank, non-display record                             
+131300931018      *
+131400940902     C                   MOVE      *ON           *IN96
+131500931018     C                   ADD       1             S1RRN
+131600990310     C                   WRITE     S1DATA
+131700940902     C                   MOVE      *OFF          *IN80
+131800940902     C                   MOVE      *OFF          *IN96
+131900931018      *
+132000931018     CSR                 ENDSR
+132100990310      ********************************************************************
+132200990310      * BLNKS2 - Clear the subfile and write one blank record          *
+132300990310      ********************************************************************
+132400990310     CSR   BLNKS2        BEGSR
+132500990310      *
+132600990310      * Clear Subfile Fields                             
+132700990310      *
+132800990310     C                   CLEAR                   S2DATA
+132900990310      *
+133000990310      * Clear the subfile                                             
+133100990310      *
+133200990310      *
+133300990310     C                   MOVE      *ON           *IN80
+133400990310     C                   Z-ADD     *ZERO         S2RRN             5 0
+133500990310     C                   Z-ADD     1             ##RRNO
+133600990310     C                   WRITE     S2CNTL
+133700990310      *
+133800990310      * Write a blank, non-display record                             
+133900990310      *
+134000990310     C                   MOVE      *ON           *IN96
+134100990310     C                   ADD       1             S2RRN
+134200990310     C                   WRITE     S2DATA
+134300990310     C                   MOVE      *OFF          *IN80
+134400990310     C                   MOVE      *OFF          *IN96
+134500990310      *
+134600990310     CSR                 ENDSR
+134700990311      ********************************************************************
+134800990311      * $SVENT - Saves entries from subfile when switching statuses    *
+134900990311      ********************************************************************
+135000990311     CSR   $SVENT        BEGSR
+135100990311      *
+135200990311      * Read thru entire subfile                                       
+135300990311      *
+135400990311B001 C                   DO        MXRRN         X
+135500990311     C     X             CHAIN     S1DATA                             68
+135600990311      *
+135700990311B002 C                   SELECT
+135800990311     C     *IN68         WHENEQ    '1'
+135900990311     C                   LEAVE
+136000990311      *
+136100000405     C     S1RCQT        WHENNE    *ZEROS
+136200990311     C     S1OPRC        ORNE      *ZEROS
+136300000414     C     S1OWH         ORNE      *ZERO
+136400990311     C     S1OSTS        ORNE      *BLANKS
+136500031219     C                   MOVEL     S1LOOK        WKLOOK
+136600031219     C                   MOVEL     S1ITEM        WKITEM
+136700030903     C                   MOVE      S1SIZE        WKSIZE
+136800990311     C                   Z-ADD     S1RCQT        WKRCQT
+136900990311     C                   Z-ADD     S1OPRC        WKOPRC
+137000990311     C                   MOVE      S1OWH         WKOWH
+137100990311     C                   MOVE      S1OSTS        WKOSTS
+137200000405     C                   WRITE     DG0013W
+137300990311E002 C                   ENDSL
+137400990311      *
+137500990311E001 C                   ENDDO
+137600990311      *
+137700990311     C                   ENDSR
+137800990311      ********************************************************************
+137900990311      * $DLENT - Deletes entries from work file                        *
+138000990311      ********************************************************************
+138100990311     CSR   $DLENT        BEGSR
+138200990311      *
+138300990311      * Read thru entire file                                          
+138400990311      *
+138500000405     C     *LOVAL        SETLL     DG0013W
+138600990311      *
+138700990311B001 C                   DO        999999
+138800000405     C                   READ      DG0013W                                69
+138900990311      *
+139000990311B002 C                   SELECT
+139100990311     C     *IN69         WHENEQ    '1'
+139200990311     C                   LEAVE
+139300990311      *
+139400990311     C                   OTHER
+139500000405     C                   DELETE    DG0013W
+139600990311E002 C                   ENDSL
+139700990311      *
+139800990311E001 C                   ENDDO
+139900990311      *
+140000990311     C                   ENDSR
+140100931018      ********************************************************************
+140200931018      * SRMSGF - Clear or send messages to Pgm msg queue               *
+140300931018      ********************************************************************
+140400931018     CSR   SRMSGF        BEGSR
+140500931018      *
+140600931018      * Define Parameter List - define variables         
+140700931018      *
+140800931018     C     PLMSGF        PLIST
+140900931018     C                   PARM                    $#PGMQ           10            Pgm Msg Queue
+141000931018     C                   PARM                    $#MSGF           10            Message File
+141100931018     C                   PARM                    $#MSGL           10            Library
+141200931018     C                   PARM                    $#MSID            7            Message Id
+141300931018     C                   PARM                    $#MSGD           80            Message Data
+141400931018     C                   PARM                    $#MSKY            4            Message Key
+141500931018     C                   PARM                    $#MSFN            1            Send or Clear
+141600931018      *
+141700931018      * Call Msg processing CL                           
+141800931018      *
+141900931018     C                   CALL      'XAMSFC'      PLMSGF
+142000931018      *
+142100931018     C                   ENDSR
+142200931018      *****************************************************************
+142300931018      * SRCHLP - Cursor Sensitive Help                              *
+142400931018      *                                                             *
+142500931018      *          This subroutine will call the program to display   *
+142600931018      *          field level help, check for returned values and    *
+142700931018      *          move the field value to the screen field.          *
+142800931018      *                                                             *
+142900931018      * This subroutine was created by the CRTSRCHLP Command        *
+143000931018      *                                                             *
+143100931018      *****************************************************************
+143200931018     CSR   SRCHLP        BEGSR
+143300931018      *
+143400931018      * Save Indicators                                  
+143500931018      *
+143600931018     C                   MOVE      *IN66         @@IN66            1
+143700931018     C                   MOVE      *IN69         @@IN69            1
+143800931018      *
+143900931018      * Retain Current Cursor Position                   
+144000931018      *
+144100931018     C     $3CURP        DIV       256           ##ROW
+144200931018     C                   MVR                     ##COL
+144300931018      *
+144400931018      * Call Cursor Help Program                         
+144500931018      *
+144600931018     C                   CALL      'XACHLPC'                            69
+144700931018     C                   PARM                    ##FLD
+144800931018     C                   PARM                    $3CURP
+144900931018     C                   PARM                    ##PGM
+145000931018     C                   PARM                    ##RCD
+145100931018      *
+145200931018      * Restore Indicators                               
+145300931018      *
+145400931018     C                   MOVE      @@IN66        *IN66
+145500931018     C                   MOVE      @@IN69        *IN69
+145600931018      *
+145700931018     CSR                 ENDSR
+145800990304      *****************************************************************
+145900990304      * $SSPGM - Handles program security checking function         *
+146000990304      *****************************************************************
+146100990304     CSR   $SSPGM        BEGSR
+146200990304      *
+146300990304      * Check for User ID in security file                             
+146400990304      *
+146500030903     C                   MOVEL     'KPWPO'       USSYS
+146600990304     C                   MOVEL     ##USER        USUSID
+146700990304     C     USKEY         CHAIN     USERR                              99
+146800990304      *
+146900990304     C                   ENDSR
+147000940902      ********************************************************************
+147100940902      *        Program Initialization and Housekeeping                 *
+147200940902      ********************************************************************
+147300940902     CSR   *INZSR        BEGSR
+147400990211      *
+147500990211      * *ENTRY parameter list
+147600990211      *
+147700990211     C     *ENTRY        PLIST
+147800990211     C                   PARM                    #EPOYR            2
+147900990211     C                   PARM                    #EJBPO            6
+148000040114     C                   PARM                    RDATE             6
+148100990211      *
+148200990211      * Move *ENTRY parms to numeric fields
+148300990211      *
+148400000405     C                   MOVE      #EPOYR        DGPOYR
+148500000405     C                   MOVE      #EJBPO        DGDGPO
+148600940902      *
+148700940902      * Define *LIKE Fields 
+148800940902      *
+148900940902     C     *LIKE         DEFINE    #SFLPG        ##ROLL
+149000940902     C     *LIKE         DEFINE    #SFLPG        ##FWRL
+149100940902     C     *LIKE         DEFINE    #SFLPG        ##LOAD
+149200000405     C     *LIKE         DEFINE    DDITEM        SVITEM
+149300000405     C     *LIKE         DEFINE    DDITEM        DDPITM
+149400030903     C     *LIKE         DEFINE    DDSIZE        DDPSIZ
+149500000405     C     *LIKE         DEFINE    DDITEM        C1ITEM
+149600030903     C     *LIKE         DEFINE    DDSIZE        C1SIZE
+149700990311     C     *LIKE         DEFINE    S1RCQT        XXRCQT
+149800990310     C     *LIKE         DEFINE    S1RCQT        CKRCQT
+149900000405     C     *LIKE         DEFINE    DDRSTS        WKRSTS
+150000940902      *
+150100940902      * Define Key Lists 
+150200990208      *
+150300000405      * KLIST for Vendor P/O Header File
+150400940902      *
+150500990211     C     HDKEY         KLIST
+150600000405     C                   KFLD                    DGPOYR
+150700000405     C                   KFLD                    DGDGPO
+150800990211      *
+150900000405      * KLIST for Vendor P/O Detail File
+151000990211      *
+151100990211     C     DTKEY         KLIST
+151200000405     C                   KFLD                    DGPOYR
+151300000405     C                   KFLD                    DGDGPO
+151400031218     C                   KFLD                    DDLOOK
+151500031218     C                   KFLD                    DDITEM
+151600030903     C                   KFLD                    DDSIZE
+151700990310      *
+151800000405      * KLIST for ITEM WAREHOUSE MASTER FILE
+151900990310      *
+152000000405     C     IWHKEY        KLIST
+152100000405     C                   KFLD                    DDPITM
+152200030903     C                   KFLD                    DDPSIZ
+152300000411     C                   KFLD                    IWWHSE
+152400990308      *
+152500990413      * KLIST for P/O Receipts File
+152600990308      *
+152700990308     C     RCKEY         KLIST
+152800000405     C                   KFLD                    DGPOYR
+152900000405     C                   KFLD                    DRDGPO
+153000031218     C                   KFLD                    DRLOOK
+153100031218     C                   KFLD                    DRITEM
+153200030903     C                   KFLD                    DRSIZE
+153300990211      *
+153400000405      * KLIST for Vendor Item Master File
+153500990211      *
+153600990211     C     ITKEY         KLIST
+153700000405     C                   KFLD                    DGVNDR
+153800031218     C                   KFLD                    DDLOOK
+153900031218     C                   KFLD                    DDPITM
+154000030903     C                   KFLD                    DDPSIZ
+154100990222      *
+154200031120      * KLIST for Product Master and FMINSER File
+154300990222      *
+154400990222     C     PRKEY         KLIST
+154500000405     C                   KFLD                    DDPITM
+154600030903     C                   KFLD                    DDPSIZ
+154700031219      * KLIST for Work File KP0013W
+154800031219      *
+154900031219     C     WKKEY         KLIST
+155000031219     C                   KFLD                    DDLOOK
+155100031219     C                   KFLD                    DDITEM
+155200990208      *
+155300030825      * KLIST for FMVEND
+155400990208      *
+155500990208     C     VMKEY         KLIST
+155600000405     C                   KFLD                    DGVNDR
+155700031120      *                                                   
+155800031120      * KLIST for file - FMINSER Library - *LIBL     
+155900031120      *
+156000031120     C     SERKEY        KLIST
+156100031120     C                   KFLD                    DDPITM
+156200031120      *                                                   
+156300031120      * KLIST for file - FSERIES Library - *LIBL     
+156400031120      *
+156500031120     C     MINKEY        KLIST
+156600031120     C                   KFLD                    ISCODE
+156700031120      *                                                   
+156800031120      * KLIST for file - FSERPRC Library - *LIBL     
+156900031120      *
+157000031120     C     PRCKEY        KLIST
+157100031120     C                   KFLD                    SEVND
+157200031120     C                   KFLD                    ISCODE
+157300990304      *
+157400990304      * KLIST for Security file by User ID
+157500990304      *
+157600990304     C     USKEY         KLIST
+157700990304     C                   KFLD                    USSYS
+157800990304     C                   KFLD                    USUSID
+157900990211      *
+158000990208      *
+158100940902      * Initialize values for message subfile                         
+158200940902      *
+158300940902     C                   MOVE      ##PGM         $#PGMQ           10            Pgm Msg Queue
+158400030819     C                   MOVEL     'KPMSGF'      $#MSGF           10            Msg File N/A 
+158500940902     C                   MOVEL     '*LIBL'       $#MSGL           10            Library  N/A 
+158600940902      *
+158700940902      * Clear Message Subfile -- set function to send                 
+158800940902      *
+158900940902     C                   MOVE      'C'           $#MSFN            1
+159000940902     C                   EXSR      SRMSGF
+159100940902     C                   MOVE      'S'           $#MSFN            1
+159200990217      *
+159300990217      * Initial message                                                
+159400990217      *
+159500030820     C                   MOVE      'SR00012'     $#MSID
+159600990217     C                   EXSR      SRMSGF
+159700990310      *
+159800990310      * Position cursor at product number input field                 
+159900990310      *
+160000990310     C                   MOVE      '1'           *IN30
+160100990311      * 
+160200990311      * Get P/O control file
+160300990311      * 
+160400010102     C     999999        CHAIN     POCNTL                             99
+160500010102     C                   MOVE      #EPOYR        DGPOYR
+160600940902      *
+160700940902      * Initial subfile load                                          
+160800940902      *
+160900940902     C                   MOVE      *OFF          $$LOAD            1
+161000940902      *
+161100940907      *Set initial subfile mode - Fold/Truncate  ECT...           *OFF/*ON
+161200940907     C                   MOVE      *ON           *IN83                          SFLMODE Fold/Trnc.
+161300940907     C                   MOVE      *IN83         ##SFLM
+161400940902      *
+161500940906      *Set  SFL PAGE Size and SFL Size
+161600940906      *#FWRL - Multiple Page Size by # of Pages to LOAD on ROLL FWD/BACK
+161700940906      *#LOAD - Multiple Page Size by # of Pages to LOAD on POSITION TO
+161800990211     C                   Z-ADD     6             #SFLPG            4 0          SFLPAG(7) Folded Siz
+161900990211     C                   Z-ADD     2             ##FWRL                         SFL Roll Forward 14
+162000990211     C                   Z-ADD     4             ##LOAD                         SFL Load 28 Records
+162100990211      *
+162200990211      * Get P/O header record                                                
+162300990211     C                   CLEAR                   *IN99
+162400000405     C     HDKEY         CHAIN(N)  DGHDR                              99
+162500000405     C                   MOVEL     DGPOYR        DGKEY#
+162600000405     C                   MOVE      DGDGPO        DGKEY#
+162700990308      *
+162800990308      * Determine receipt number for this receipt                            
+162900990308     C                   CLEAR                   *IN99
+163000990308     C     HDKEY         SETGT     RECL1
+163100990308     C     HDKEY         READPE    RECL1                                  99
+163200000405     C                   ADD       1             DRREC#
+163300990211      *
+163400990211      * Get Jobber master record                                             
+163500990211     C                   CLEAR                   *IN99
+163600030825     C     VMKEY         CHAIN     FMVEND                             99
+163700030825     C                   MOVEL     VMNAME        DGNAME
+163800990304      *
+163900990304      * Get security record                                          
+164000990304      *
+164100990304     C                   EXSR      $SSPGM
+164200990511     C     USFL07        IFEQ      'Y'
+164300990511     C                   MOVE      *ON           *IN61
+164400990511     C                   ENDIF
+164500990310      *
+164600990310      * Initialize field protect indicator for Price, Warehouse, & Sts 
+164700990310      *
+164800990310     C                   MOVE      '1'           *IN84
+164900990311      *
+165000990311      * Initialize display options                                     
+165100990311      *
+165200990311     C                   MOVE      @CUNDO        UNDER
+165300990311     C                   MOVE      @CF11A        CKYF11
+165400990311     C                   MOVE      'O'           WKRSTS
+165500940902      *
+165600940902      * Initial Sub File Load.                                               
+165700940902     C                   EXSR      LOADSF
+165800940902      *
+165900031212     C                   MOVEL     ##USER        DHUSER
+166000940902     CSR                 ENDSR

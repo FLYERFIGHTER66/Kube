@@ -1,0 +1,237 @@
+     A*?Program        : WSPLGINQFM
+     A*?
+     A*?Description    : This display file for Plug Item Inquiry
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 12 Apr 2019
+     A**********************************************************************
+     A*?Special Notes  : Subfile Type -  Expandable / Page + 1
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**************************************************************************
+     A*?Subfile Display Part
+     A          R PLGSFL                    SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01ITEM        5A  O  6  2
+     A            S01SIZE        3A  O  6  8
+     A            S01DES1       30A  O  6 12COLOR(BLU)
+     A            S01LOOK       15A  O  6 43COLOR(WHT)
+     A*
+     A                                  6 59'|'
+     A                                      COLOR(BLU)
+     A*
+     A            S1AVQTY01      4A  O  6 61DSPATR(UL)
+     A  40                                  COLOR(PNK)
+     A N40                                  COLOR(BLU)
+     A            S1AVQTY02      4A  O  6 67DSPATR(UL)
+     A  41                                  COLOR(GRN)
+     A N41                                  COLOR(BLU)
+     A            S1AVQTY03      4A  O  6 73DSPATR(UL)
+     A  42                                  COLOR(PNK)
+     A N42                                  COLOR(BLU)
+     A            S1AVQTY04      4A  O  6 79DSPATR(UL)
+     A  43                                  COLOR(GRN)
+     A N43                                  COLOR(BLU)
+     A            S1AVQTY05      4A  O  6 85DSPATR(UL)
+     A  44                                  COLOR(PNK)
+     A N44                                  COLOR(BLU)
+     A            S1AVQTY06      4A  O  6 91DSPATR(UL)
+     A  45                                  COLOR(GRN)
+     A N45                                  COLOR(BLU)
+     A            S1AVQTY07      4A  O  6 97DSPATR(UL)
+     A  46                                  COLOR(PNK)
+     A N46                                  COLOR(BLU)
+     A            S1AVQTY08      4A  O  6103DSPATR(UL)
+     A  47                                  COLOR(GRN)
+     A N47                                  COLOR(BLU)
+     A            S1AVQTY09      4A  O  6109DSPATR(UL)
+     A  48                                  COLOR(PNK)
+     A N48                                  COLOR(BLU)
+     A            S1AVQTY10      4A  O  6115DSPATR(UL)
+     A  49                                  COLOR(GRN)
+     A N49                                  COLOR(BLU)
+     A            S1AVQTY11      4A  O  6127DSPATR(UL)
+     A  50                                  COLOR(PNK)
+     A N50                                  COLOR(BLU)
+     A            S1AVQTY12      4A  O  6121DSPATR(UL)
+     A  51                                  COLOR(GRN)
+     A N51                                  COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Control Part
+     A          R PLGCTL                    SFLCTL(PLGSFL)
+     A*
+     A                                      SFLSIZ(0019)
+     A                                      SFLPAG(0018)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Backward')
+     A                                      CF08(08 'Forward')
+     A                                      PAGEDOWN(13 'PageDown')
+     A*
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A            S01RRN         4S 0H      SFLRCDNBR
+     A            H01FRRN        5S 0H      SFLSCROLL
+     A*
+     A                                  1  2'WSPLGINQFM'
+     A                                      COLOR(BLU)
+     A                                  1 53'  Plug Order Inquiry Screen  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 85'Reverse Image Indicates ReadyBay W-
+     A                                      eek'
+     A                                      COLOR(BLU)
+     A N72                                  DSPATR(ND)
+     A  72                                  DSPATR(RI)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  4  2'Item Size Description             -
+     A                                             Alpha          '
+     A                                      COLOR(WHT)
+     A                                  4 59'|'
+     A                                      COLOR(BLU)
+     A*
+     A            C01WK01        4A  O  4 61COLOR(BLU)
+     A  60                                  DSPATR(RI)
+     A            C01WK02        4A  O  4 67COLOR(BLU)
+     A  61                                  DSPATR(RI)
+     A            C01WK03        4A  O  4 73COLOR(BLU)
+     A  62                                  DSPATR(RI)
+     A            C01WK04        4A  O  4 79COLOR(BLU)
+     A  63                                  DSPATR(RI)
+     A            C01WK05        4A  O  4 85COLOR(BLU)
+     A  64                                  DSPATR(RI)
+     A            C01WK06        4A  O  4 91COLOR(BLU)
+     A  65                                  DSPATR(RI)
+     A            C01WK07        4A  O  4 97COLOR(BLU)
+     A  66                                  DSPATR(RI)
+     A            C01WK08        4A  O  4103COLOR(BLU)
+     A  67                                  DSPATR(RI)
+     A            C01WK09        4A  O  4109COLOR(BLU)
+     A  68                                  DSPATR(RI)
+     A            C01WK10        4A  O  4115COLOR(BLU)
+     A  69                                  DSPATR(RI)
+     A            C01WK11        4A  O  4121COLOR(BLU)
+     A  70                                  DSPATR(RI)
+     A            C01WK12        4A  O  4127COLOR(BLU)
+     A  71                                  DSPATR(RI)
+     A*
+     A            SMITEM         5A  B  5  2COLOR(YLW)
+     A                                      DSPATR(UL)
+     A  30                                  DSPATR(PC)
+     A            SMSIZE         3A  B  5  8COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SMDES1        30A  B  5 12COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SMLOOK        15A  B  5 43COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  5 59'|'
+     A                                      COLOR(BLU)
+     A*
+     A            C01DTE01       4Y 0O  5 61DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE02       4Y 0O  5 67DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE03       4Y 0O  5 73DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE04       4Y 0O  5 79DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE05       4Y 0O  5 85DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE06       4Y 0O  5 91DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE07       4Y 0O  5 97DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE08       4Y 0O  5103DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE09       4Y 0O  5109DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE10       4Y 0O  5115DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE11       4Y 0O  5121DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A            C01DTE12       4Y 0O  5127DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                      EDTWRD('  /  ')
+     A                                      DSPATR(RI)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R PLGFTR
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F7'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Backward'
+     A                                      COLOR(BLU)
+     A                                 26 26'F8'
+     A                                      COLOR(WHT)
+     A                                 26 29'=Forward'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

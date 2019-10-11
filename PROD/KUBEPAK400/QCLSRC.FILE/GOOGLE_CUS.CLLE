@@ -1,0 +1,23 @@
+             PGM        PARM(&CUST)
+             DCL        VAR(&CUST) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&CUST#) TYPE(*DEC) LEN(6 0) VALUE(0)
+             DCL        VAR(&LOOK) TYPE(*CHAR) LEN(15)
+             DCL        VAR(&NAME) TYPE(*CHAR) LEN(30)
+             DCL        VAR(&CUSTADR) TYPE(*CHAR) LEN(180)
+
+             DCL        VAR(&PCCMD) TYPE(*CHAR) LEN(256) +
+                          VALUE('EXPLORER.EXE +
+                          "http://maps.google.com/maps?saddr=40.172+
+                          ,-74.535&daddr=')
+
+             CALL       PGM(CUSTADRSTR) PARM(&CUST &CUSTADR)
+             IF         COND(&CUST *EQ '0') THEN(GOTO CMDLBL(SKIP))
+             CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *TCAT &CUSTADR)
+ SKIP:       CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *TCAT '"')
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             STRPCCMD   PCCMD(&PCCMD) PAUSE(*NO)
+
+ EOJ:        ENDPGM

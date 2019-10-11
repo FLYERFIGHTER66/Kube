@@ -1,0 +1,656 @@
+     A*%%TS  SD  20000804  180047  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V3R6M0                    910710
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A          R QPK100A
+     A*%%TS  SD  20000804  180047  EFD         REL-V3R7M0  5716-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A  99                                  ALARM
+     A  99                                  PUTOVR
+     A                                      ALWROL
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'QPK100A'
+     A            SCREEN         1A  I  1 13DFT('A')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A  99                                  OVRATR
+     A                                  1 28' FUTURE ORDER RELEASE '
+     A                                      DSPATR(RI)
+     A  99                                  OVRATR
+     A                                 10 24'ENTER ORDER NUMBER....'
+     A            VORDER         6D  B 10 48
+     A  60                                  DSPATR(PC)
+     A  99                                  OVRATR
+     A  60                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  60                                  ERRMSG('*** Invalid Order Number En-
+     A                                      tered.      Press RESET')
+     A                                 12 24'ENTER NEW SHIP DATE...'
+     A            VRLDTE         8A  B 12 48
+     A  61                                  DSPATR(PC)
+     A  99                                  OVRATR
+     A  61                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  61                                  ERRMSG('*** Invalid Requested Date -
+     A                                      Entered.    Press RESET')
+     A                                 14 24'PRINT PICKSLIP (Y/N)..'
+     A            VPPICK         1X  B 14 48
+     A  62                                  DSPATR(PC)
+     A  99                                  OVRATR
+     A  62                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  62                                  ERRMSG('*** Print Pick Slip Must be-
+     A                                       Y or N.    Press RESET')
+     A                                 24 25'ENTER-PROCESS   F3/F7-END JOB'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+0019 A          R QPK100D
+0019 A                                      DSPMOD(*DS3)
+0019 A                                      PRINT(*PGM)
+0019 A                                      INVITE
+0019 A                                      SLNO(01)
+0019 A                                      CLRL(*ALL)
+0019 A  99                                  ALARM
+0019 A  99                                  PUTOVR
+0019 A                                      ALWROL
+0019 A                                      CF06 CF10 CF11
+0019 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0019 A                                      HELP
+0020 A                                 01003'QPK100B'
+0021 A            SCREEN         1   I 01013DFT('B')
+0021 A                                      DSPATR(PR ND MDT)
+0021 A  99                                  OVRATR
+0022 A                                 01030' FUTURE ORDER RELEASE '
+0022 A                                      DSPATR(RI)
+0022 A  99                                  OVRATR
+0023 A                                 01066'DATE:'
+0024 A            UDATE          8   O 01072DSPATR(HI)
+0024 A  99                                  OVRATR
+0025 A                                 02066'TIME:'
+0026 A            RTIME          8   O 02072DSPATR(HI)
+0026 A  99                                  OVRATR
+0027 A                                 03003'ORDER NUMBER:'
+0028 A            VORDER         6   O 03018DSPATR(HI)
+0028 A  99                                  OVRATR
+0029 A                                 04007'CUSTOMER:'
+0030 A            OHCUST         6   O 04018DSPATR(HI)
+0030 A  99                                  OVRATR
+0031 A            OHSLD1        30   O 04025DSPATR(HI)
+0031 A  99                                  OVRATR
+0032 A                                 04058'RELEASE DATE:'
+0033 A            VRLDTE         8   O 04072DSPATR(HI)
+0033 A  99                                  OVRATR
+0035 A                                 06002'SHIP    AVAIL  SHIPPED  QTY     IT-
+0035 A                                      EM            ITEM              '
+0037 A                                 07002' QTY   TO SHIP TO DATE  ORDERED NU-
+0037 A                                      MBER          DESCRIPTION          -
+0037 A                                       '
+0038 A            RLQ$1          7D  B 08001CHECK(RB)
+0038 A                                      DSPATR(HI UL MDT)
+0038 A  31                                  DSPATR(PR ND)
+0038 A  99                                  OVRATR
+0039 A            ORD$1          5   O 08010DSPATR(HI)
+0039 A  99                                  OVRATR
+0040 A            SHP$1          7   O 08017DSPATR(HI)
+0040 A  99                                  OVRATR
+0041 A            AVL$1          5   O 08026DSPATR(HI)
+0041 A  99                                  OVRATR
+0042 A            ITM$1         12   O 08033DSPATR(HI)
+0042 A  99                                  OVRATR
+0043 A            DSC$1         30   O 08048DSPATR(HI)
+0043 A  99                                  OVRATR
+0044 A            RLQ$2          7D  B 09001CHECK(RB)
+0044 A                                      DSPATR(HI UL MDT)
+0044 A  32                                  DSPATR(PR ND)
+0044 A  99                                  OVRATR
+0045 A            ORD$2          5   O 09010DSPATR(HI)
+0045 A  99                                  OVRATR
+0046 A            SHP$2          7   O 09017DSPATR(HI)
+0046 A  99                                  OVRATR
+0047 A            AVL$2          5   O 09026DSPATR(HI)
+0047 A  99                                  OVRATR
+0048 A            ITM$2         12   O 09033DSPATR(HI)
+0048 A  99                                  OVRATR
+0049 A            DSC$2         30   O 09048DSPATR(HI)
+0049 A  99                                  OVRATR
+0050 A            RLQ$3          7D  B 10001CHECK(RB)
+0050 A                                      DSPATR(HI UL MDT)
+0050 A  33                                  DSPATR(PR ND)
+0050 A  99                                  OVRATR
+0051 A            ORD$3          5   O 10010DSPATR(HI)
+0051 A  99                                  OVRATR
+0052 A            SHP$3          7   O 10017DSPATR(HI)
+0052 A  99                                  OVRATR
+0053 A            AVL$3          5   O 10026DSPATR(HI)
+0053 A  99                                  OVRATR
+0054 A            ITM$3         12   O 10033DSPATR(HI)
+0054 A  99                                  OVRATR
+0055 A            DSC$3         30   O 10048DSPATR(HI)
+0055 A  99                                  OVRATR
+0056 A            RLQ$4          7D  B 11001CHECK(RB)
+0056 A                                      DSPATR(HI UL MDT)
+0056 A  34                                  DSPATR(PR ND)
+0056 A  99                                  OVRATR
+0057 A            ORD$4          5   O 11010DSPATR(HI)
+0057 A  99                                  OVRATR
+0058 A            SHP$4          7   O 11017DSPATR(HI)
+0058 A  99                                  OVRATR
+0059 A            AVL$4          5   O 11026DSPATR(HI)
+0059 A  99                                  OVRATR
+0060 A            ITM$4         12   O 11033DSPATR(HI)
+0060 A  99                                  OVRATR
+0061 A            DSC$4         30   O 11048DSPATR(HI)
+0061 A  99                                  OVRATR
+0062 A            RLQ$5          7D  B 12001CHECK(RB)
+0062 A                                      DSPATR(HI UL MDT)
+0062 A  35                                  DSPATR(PR ND)
+0062 A  99                                  OVRATR
+0063 A            ORD$5          5   O 12010DSPATR(HI)
+0063 A  99                                  OVRATR
+0064 A            SHP$5          7   O 12017DSPATR(HI)
+0064 A  99                                  OVRATR
+0065 A            AVL$5          5   O 12026DSPATR(HI)
+0065 A  99                                  OVRATR
+0066 A            ITM$5         12   O 12033DSPATR(HI)
+0066 A  99                                  OVRATR
+0067 A            DSC$5         30   O 12048DSPATR(HI)
+0067 A  99                                  OVRATR
+0068 A            RLQ$6          7D  B 13001CHECK(RB)
+0068 A                                      DSPATR(HI UL MDT)
+0068 A  36                                  DSPATR(PR ND)
+0068 A  99                                  OVRATR
+0069 A            ORD$6          5   O 13010DSPATR(HI)
+0069 A  99                                  OVRATR
+0070 A            SHP$6          7   O 13017DSPATR(HI)
+0070 A  99                                  OVRATR
+0071 A            AVL$6          5   O 13026DSPATR(HI)
+0071 A  99                                  OVRATR
+0072 A            ITM$6         12   O 13033DSPATR(HI)
+0072 A  99                                  OVRATR
+0073 A            DSC$6         30   O 13048DSPATR(HI)
+0073 A  99                                  OVRATR
+0074 A            RLQ$7          7D  B 14001CHECK(RB)
+0074 A                                      DSPATR(HI UL MDT)
+0074 A  37                                  DSPATR(PR ND)
+0074 A  99                                  OVRATR
+0075 A            ORD$7          5   O 14010DSPATR(HI)
+0075 A  99                                  OVRATR
+0076 A            SHP$7          7   O 14017DSPATR(HI)
+0076 A  99                                  OVRATR
+0077 A            AVL$7          5   O 14026DSPATR(HI)
+0077 A  99                                  OVRATR
+0078 A            ITM$7         12   O 14033DSPATR(HI)
+0078 A  99                                  OVRATR
+0079 A            DSC$7         30   O 14048DSPATR(HI)
+0079 A  99                                  OVRATR
+0080 A            RLQ$8          7D  B 15001CHECK(RB)
+0080 A                                      DSPATR(HI UL MDT)
+0080 A  38                                  DSPATR(PR ND)
+0080 A  99                                  OVRATR
+0081 A            ORD$8          5   O 15010DSPATR(HI)
+0081 A  99                                  OVRATR
+0082 A            SHP$8          7   O 15017DSPATR(HI)
+0082 A  99                                  OVRATR
+0083 A            AVL$8          5   O 15026DSPATR(HI)
+0083 A  99                                  OVRATR
+0084 A            ITM$8         12   O 15033DSPATR(HI)
+0084 A  99                                  OVRATR
+0085 A            DSC$8         30   O 15048DSPATR(HI)
+0085 A  99                                  OVRATR
+0086 A            RLQ$9          7D  B 16001CHECK(RB)
+0086 A                                      DSPATR(HI UL MDT)
+0086 A  39                                  DSPATR(PR ND)
+0086 A  99                                  OVRATR
+0087 A            ORD$9          5   O 16010DSPATR(HI)
+0087 A  99                                  OVRATR
+0088 A            SHP$9          7   O 16017DSPATR(HI)
+0088 A  99                                  OVRATR
+0089 A            AVL$9          5   O 16026DSPATR(HI)
+0089 A  99                                  OVRATR
+0090 A            ITM$9         12   O 16033DSPATR(HI)
+0090 A  99                                  OVRATR
+0091 A            DSC$9         30   O 16048DSPATR(HI)
+0091 A  99                                  OVRATR
+0092 A            RLQ$10         7D  B 17001CHECK(RB)
+0092 A                                      DSPATR(HI UL MDT)
+0092 A  40                                  DSPATR(PR ND)
+0092 A  99                                  OVRATR
+0093 A            ORD$10         5   O 17010DSPATR(HI)
+0093 A  99                                  OVRATR
+0094 A            SHP$10         7   O 17017DSPATR(HI)
+0094 A  99                                  OVRATR
+0095 A            AVL$10         5   O 17026DSPATR(HI)
+0095 A  99                                  OVRATR
+0096 A            ITM$10        12   O 17033DSPATR(HI)
+0096 A  99                                  OVRATR
+0097 A            DSC$10        30   O 17048DSPATR(HI)
+0097 A  99                                  OVRATR
+0098 A            RLQ$11         7D  B 18001CHECK(RB)
+0098 A                                      DSPATR(HI UL MDT)
+0098 A  41                                  DSPATR(PR ND)
+0098 A  99                                  OVRATR
+0099 A            ORD$11         5   O 18010DSPATR(HI)
+0099 A  99                                  OVRATR
+0100 A            SHP$11         7   O 18017DSPATR(HI)
+0100 A  99                                  OVRATR
+0101 A            AVL$11         5   O 18026DSPATR(HI)
+0101 A  99                                  OVRATR
+0102 A            ITM$11        12   O 18033DSPATR(HI)
+0102 A  99                                  OVRATR
+0103 A            DSC$11        30   O 18048DSPATR(HI)
+0103 A  99                                  OVRATR
+0104 A            RLQ$12         7D  B 19001CHECK(RB)
+0104 A                                      DSPATR(HI UL MDT)
+0104 A  42                                  DSPATR(PR ND)
+0104 A  99                                  OVRATR
+0105 A            ORD$12         5   O 19010DSPATR(HI)
+0105 A  99                                  OVRATR
+0106 A            SHP$12         7   O 19017DSPATR(HI)
+0106 A  99                                  OVRATR
+0107 A            AVL$12         5   O 19026DSPATR(HI)
+0107 A  99                                  OVRATR
+0108 A            ITM$12        12   O 19033DSPATR(HI)
+0108 A  99                                  OVRATR
+0109 A            DSC$12        30   O 19048DSPATR(HI)
+0109 A  99                                  OVRATR
+0110 A            RLQ$13         7D  B 20001CHECK(RB)
+0110 A                                      DSPATR(HI UL MDT)
+0110 A  43                                  DSPATR(PR ND)
+0110 A  99                                  OVRATR
+0111 A            ORD$13         5   O 20010DSPATR(HI)
+0111 A  99                                  OVRATR
+0112 A            SHP$13         7   O 20017DSPATR(HI)
+0112 A  99                                  OVRATR
+0113 A            AVL$13         5   O 20026DSPATR(HI)
+0113 A  99                                  OVRATR
+0114 A            ITM$13        12   O 20033DSPATR(HI)
+0114 A  99                                  OVRATR
+0115 A            DSC$13        30   O 20048DSPATR(HI)
+0115 A  99                                  OVRATR
+0116 A            RLQ$14         7D  B 21001CHECK(RB)
+0116 A                                      DSPATR(HI UL MDT)
+0116 A  44                                  DSPATR(PR ND)
+0116 A  99                                  OVRATR
+0117 A            ORD$14         5   O 21010DSPATR(HI)
+0117 A  99                                  OVRATR
+0118 A            SHP$14         7   O 21017DSPATR(HI)
+0118 A  99                                  OVRATR
+0119 A            AVL$14         5   O 21026DSPATR(HI)
+0119 A  99                                  OVRATR
+0120 A            ITM$14        12   O 21033DSPATR(HI)
+0120 A  99                                  OVRATR
+0121 A            DSC$14        30   O 21048DSPATR(HI)
+0121 A  99                                  OVRATR
+0122 A            RLQ$15         7D  B 22001CHECK(RB)
+0122 A                                      DSPATR(HI UL MDT)
+0122 A  45                                  DSPATR(PR ND)
+0122 A  99                                  OVRATR
+0123 A            ORD$15         5   O 22010DSPATR(HI)
+0123 A  99                                  OVRATR
+0124 A            SHP$15         7   O 22017DSPATR(HI)
+0124 A  99                                  OVRATR
+0125 A            AVL$15         5   O 22026DSPATR(HI)
+0125 A  99                                  OVRATR
+0126 A            ITM$15        12   O 22033DSPATR(HI)
+0126 A  99                                  OVRATR
+0127 A            DSC$15        30   O 22048DSPATR(HI)
+0127 A  99                                  OVRATR
+0128 A            SHPTOT         7   O 23001DSPATR(HI)
+0128 A  99                                  OVRATR
+0129 A                                 23009'<=SHIP TOTAL'
+0131 A            ERR           50   O 23027
+0131 A N99                                  DFTVAL('                           -
+0131 A                                                             ')
+0131 A  99                                  DSPATR(HI RI)
+0131 A  99                                  OVRATR
+0131 A  99                                  OVRDTA
+0133 A                                 24006'ENTER-PROCESS   CMD6-RESTART   CMD-
+0133 A                                      10-RELEASE ALL'
+0134 A                                 24057'CMD11-RELEASE SCRN'
+0135 A            BO1            1   O 08079
+0136 A            BO2            1   O 09079
+0137 A            BO3            1   O 10079
+0138 A            BO4            1   O 11079
+0139 A            BO5            1   O 12079
+0140 A            BO6            1   O 13079
+0141 A            BO7            1   O 14079
+0142 A            BO8            1   O 15079
+0143 A            BO9            1   O 16079
+0144 A            BO10           1   O 17079
+0145 A            BO11           1   O 18079
+0146 A            BO12           1   O 19079
+0147 A            BO13           1   O 20079
+0148 A            BO14           1   O 21079
+0149 A            BO15           1   O 22079
+0150 A                                 06078'BO '
+0151 A                                 07078'CD'
+0152 A          R QPK100B
+0152 A                                      DSPMOD(*DS3)
+0152 A                                      PRINT(*PGM)
+0152 A                                      INVITE
+0152 A                                      SLNO(01)
+0152 A                                      CLRL(*ALL)
+0152 A  99                                  ALARM
+0152 A  99                                  PUTOVR
+0152 A                                      ALWROL
+0152 A                                      CF05 CF06 CF10
+0152 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0152 A                                      HELP
+0153 A                                 01003'QPK100B'
+0154 A            SCREEN         1   I 01013DFT('B')
+0154 A                                      DSPATR(PR ND MDT)
+0154 A  99                                  OVRATR
+0155 A                                 01030' FUTURE ORDER RELEASE '
+0155 A                                      DSPATR(RI)
+0155 A  99                                  OVRATR
+0156 A                                 01066'DATE:'
+0157 A            UDATE          8   O 01072DSPATR(HI)
+0157 A  99                                  OVRATR
+0158 A                                 02066'TIME:'
+0159 A            RTIME          8   O 02072DSPATR(HI)
+0159 A  99                                  OVRATR
+0160 A                                 03003'ORDER NUMBER:'
+0161 A            VORDER         6   O 03018DSPATR(HI)
+0161 A  99                                  OVRATR
+0162 A                                 04007'CUSTOMER:'
+0163 A            OHCUST         6   O 04018DSPATR(HI)
+0163 A  99                                  OVRATR
+0164 A            OHSLD1        30   O 04025DSPATR(HI)
+0164 A  99                                  OVRATR
+0165 A                                 04058'RELEASE DATE:'
+0166 A            VRLDTE         8   O 04072DSPATR(HI)
+0166 A  99                                  OVRATR
+0168 A                                 06002'  SHIP  AVAIL  SHIPPED  QTY   ITEM-
+0168 A                                                 ITEM                    -
+0168 A                                       REQ.   BO'
+0170 A                                 07002'   QTY TO SHIP TO DATE ORDERED  # -
+0170 A                                              DESCRIPTION              SH-
+0170 A                                      IP DATE CD'
+0170 A                                      DSPATR(UL)
+0170 A  99                                  OVRATR
+0171 A            RLQ$1          7D  B 08002CHECK(RB)
+0171 A                                      DSPATR(HI UL MDT)
+0171 A  31                                  DSPATR(PR ND)
+0171 A  99                                  OVRATR
+0172 A            ORD$1          5   O 08010DSPATR(HI)
+0172 A  99                                  OVRATR
+0173 A            SHP$1          7   O 08017DSPATR(HI)
+0173 A  99                                  OVRATR
+0174 A            AVL$1          5   O 08026DSPATR(HI)
+0174 A  99                                  OVRATR
+0175 A            ITM$1          5   O 08032DSPATR(HI)
+0175 A  99                                  OVRATR
+0176 A            DSC$1         30   O 08039DSPATR(HI)
+0176 A  99                                  OVRATR
+0177 A            RSD$1          8   O 08070DSPATR(HI)
+0177 A  99                                  OVRATR
+0178 A            RLQ$2          7D  B 09002CHECK(RB)
+0178 A                                      DSPATR(HI UL MDT)
+0178 A  32                                  DSPATR(PR ND)
+0178 A  99                                  OVRATR
+0179 A            ORD$2          5   O 09010DSPATR(HI)
+0179 A  99                                  OVRATR
+0180 A            SHP$2          7   O 09017DSPATR(HI)
+0180 A  99                                  OVRATR
+0181 A            AVL$2          5   O 09026DSPATR(HI)
+0181 A  99                                  OVRATR
+0182 A            ITM$2          5   O 09032DSPATR(HI)
+0182 A  99                                  OVRATR
+0183 A            DSC$2         30   O 09039DSPATR(HI)
+0183 A  99                                  OVRATR
+0184 A            RSD$2          8   O 09070DSPATR(HI)
+0184 A  99                                  OVRATR
+0185 A            RLQ$3          7D  B 10002CHECK(RB)
+0185 A                                      DSPATR(HI UL MDT)
+0185 A  33                                  DSPATR(PR ND)
+0185 A  99                                  OVRATR
+0186 A            ORD$3          5   O 10010DSPATR(HI)
+0186 A  99                                  OVRATR
+0187 A            SHP$3          7   O 10017DSPATR(HI)
+0187 A  99                                  OVRATR
+0188 A            AVL$3          5   O 10026DSPATR(HI)
+0188 A  99                                  OVRATR
+0189 A            ITM$3          5   O 10032DSPATR(HI)
+0189 A  99                                  OVRATR
+0190 A            DSC$3         30   O 10039DSPATR(HI)
+0190 A  99                                  OVRATR
+0191 A            RSD$3          8   O 10070DSPATR(HI)
+0191 A  99                                  OVRATR
+0192 A            RLQ$4          7D  B 11002CHECK(RB)
+0192 A                                      DSPATR(HI UL MDT)
+0192 A  34                                  DSPATR(PR ND)
+0192 A  99                                  OVRATR
+0193 A            ORD$4          5   O 11010DSPATR(HI)
+0193 A  99                                  OVRATR
+0194 A            SHP$4          7   O 11017DSPATR(HI)
+0194 A  99                                  OVRATR
+0195 A            AVL$4          5   O 11026DSPATR(HI)
+0195 A  99                                  OVRATR
+0196 A            ITM$4          5   O 11032DSPATR(HI)
+0196 A  99                                  OVRATR
+0197 A            DSC$4         30   O 11039DSPATR(HI)
+0197 A  99                                  OVRATR
+0198 A            RSD$4          8   O 11070DSPATR(HI)
+0198 A  99                                  OVRATR
+0199 A            RLQ$5          7D  B 12002CHECK(RB)
+0199 A                                      DSPATR(HI UL MDT)
+0199 A  35                                  DSPATR(PR ND)
+0199 A  99                                  OVRATR
+0200 A            ORD$5          5   O 12010DSPATR(HI)
+0200 A  99                                  OVRATR
+0201 A            SHP$5          7   O 12017DSPATR(HI)
+0201 A  99                                  OVRATR
+0202 A            AVL$5          5   O 12026DSPATR(HI)
+0202 A  99                                  OVRATR
+0203 A            ITM$5          5   O 12032DSPATR(HI)
+0203 A  99                                  OVRATR
+0204 A            DSC$5         30   O 12039DSPATR(HI)
+0204 A  99                                  OVRATR
+0205 A            RSD$5          8   O 12070DSPATR(HI)
+0205 A  99                                  OVRATR
+0206 A            RLQ$6          7D  B 13002CHECK(RB)
+0206 A                                      DSPATR(HI UL MDT)
+0206 A  36                                  DSPATR(PR ND)
+0206 A  99                                  OVRATR
+0207 A            ORD$6          5   O 13010DSPATR(HI)
+0207 A  99                                  OVRATR
+0208 A            SHP$6          7   O 13017DSPATR(HI)
+0208 A  99                                  OVRATR
+0209 A            AVL$6          5   O 13026DSPATR(HI)
+0209 A  99                                  OVRATR
+0210 A            ITM$6          5   O 13032DSPATR(HI)
+0210 A  99                                  OVRATR
+0211 A            DSC$6         30   O 13039DSPATR(HI)
+0211 A  99                                  OVRATR
+0212 A            RSD$6          8   O 13070DSPATR(HI)
+0212 A  99                                  OVRATR
+0213 A            RLQ$7          7D  B 14002CHECK(RB)
+0213 A                                      DSPATR(HI UL MDT)
+0213 A  37                                  DSPATR(PR ND)
+0213 A  99                                  OVRATR
+0214 A            ORD$7          5   O 14010DSPATR(HI)
+0214 A  99                                  OVRATR
+0215 A            SHP$7          7   O 14017DSPATR(HI)
+0215 A  99                                  OVRATR
+0216 A            AVL$7          5   O 14026DSPATR(HI)
+0216 A  99                                  OVRATR
+0217 A            ITM$7          5   O 14032DSPATR(HI)
+0217 A  99                                  OVRATR
+0218 A            DSC$7         30   O 14039DSPATR(HI)
+0218 A  99                                  OVRATR
+0219 A            RSD$7          8   O 14070DSPATR(HI)
+0219 A  99                                  OVRATR
+0220 A            RLQ$8          7D  B 15002CHECK(RB)
+0220 A                                      DSPATR(HI UL MDT)
+0220 A  38                                  DSPATR(PR ND)
+0220 A  99                                  OVRATR
+0221 A            ORD$8          5   O 15010DSPATR(HI)
+0221 A  99                                  OVRATR
+0222 A            SHP$8          7   O 15017DSPATR(HI)
+0222 A  99                                  OVRATR
+0223 A            AVL$8          5   O 15026DSPATR(HI)
+0223 A  99                                  OVRATR
+0224 A            ITM$8          5   O 15032DSPATR(HI)
+0224 A  99                                  OVRATR
+0225 A            DSC$8         30   O 15039DSPATR(HI)
+0225 A  99                                  OVRATR
+0226 A            RSD$8          8   O 15070DSPATR(HI)
+0226 A  99                                  OVRATR
+0227 A            RLQ$9          7D  B 16002CHECK(RB)
+0227 A                                      DSPATR(HI UL MDT)
+0227 A  39                                  DSPATR(PR ND)
+0227 A  99                                  OVRATR
+0228 A            ORD$9          5   O 16010DSPATR(HI)
+0228 A  99                                  OVRATR
+0229 A            SHP$9          7   O 16017DSPATR(HI)
+0229 A  99                                  OVRATR
+0230 A            AVL$9          5   O 16026DSPATR(HI)
+0230 A  99                                  OVRATR
+0231 A            ITM$9          5   O 16032DSPATR(HI)
+0231 A  99                                  OVRATR
+0232 A            DSC$9         30   O 16039DSPATR(HI)
+0232 A  99                                  OVRATR
+0233 A            RSD$9          8   O 16070DSPATR(HI)
+0233 A  99                                  OVRATR
+0234 A            RLQ$10         7D  B 17002CHECK(RB)
+0234 A                                      DSPATR(HI UL MDT)
+0234 A  40                                  DSPATR(PR ND)
+0234 A  99                                  OVRATR
+0235 A            ORD$10         5   O 17010DSPATR(HI)
+0235 A  99                                  OVRATR
+0236 A            SHP$10         7   O 17017DSPATR(HI)
+0236 A  99                                  OVRATR
+0237 A            AVL$10         5   O 17026DSPATR(HI)
+0237 A  99                                  OVRATR
+0238 A            ITM$10         5   O 17032DSPATR(HI)
+0238 A  99                                  OVRATR
+0239 A            DSC$10        30   O 17039DSPATR(HI)
+0239 A  99                                  OVRATR
+0240 A            RSD$10         8   O 17070DSPATR(HI)
+0240 A  99                                  OVRATR
+0241 A            RLQ$11         7D  B 18002CHECK(RB)
+0241 A                                      DSPATR(HI UL MDT)
+0241 A  41                                  DSPATR(PR ND)
+0241 A  99                                  OVRATR
+0242 A            ORD$11         5   O 18010DSPATR(HI)
+0242 A  99                                  OVRATR
+0243 A            SHP$11         7   O 18017DSPATR(HI)
+0243 A  99                                  OVRATR
+0244 A            AVL$11         5   O 18026DSPATR(HI)
+0244 A  99                                  OVRATR
+0245 A            ITM$11         5   O 18032DSPATR(HI)
+0245 A  99                                  OVRATR
+0246 A            DSC$11        30   O 18039DSPATR(HI)
+0246 A  99                                  OVRATR
+0247 A            RSD$11         8   O 18070DSPATR(HI)
+0247 A  99                                  OVRATR
+0248 A            RLQ$12         7D  B 19002CHECK(RB)
+0248 A                                      DSPATR(HI UL MDT)
+0248 A  42                                  DSPATR(PR ND)
+0248 A  99                                  OVRATR
+0249 A            ORD$12         5   O 19010DSPATR(HI)
+0249 A  99                                  OVRATR
+0250 A            SHP$12         7   O 19017DSPATR(HI)
+0250 A  99                                  OVRATR
+0251 A            AVL$12         5   O 19026DSPATR(HI)
+0251 A  99                                  OVRATR
+0252 A            ITM$12         5   O 19032DSPATR(HI)
+0252 A  99                                  OVRATR
+0253 A            DSC$12        30   O 19039DSPATR(HI)
+0253 A  99                                  OVRATR
+0254 A            RSD$12         8   O 19070DSPATR(HI)
+0254 A  99                                  OVRATR
+0255 A            RLQ$13         7D  B 20002CHECK(RB)
+0255 A                                      DSPATR(HI UL MDT)
+0255 A  43                                  DSPATR(PR ND)
+0255 A  99                                  OVRATR
+0256 A            ORD$13         5   O 20010DSPATR(HI)
+0256 A  99                                  OVRATR
+0257 A            SHP$13         7   O 20017DSPATR(HI)
+0257 A  99                                  OVRATR
+0258 A            AVL$13         5   O 20026DSPATR(HI)
+0258 A  99                                  OVRATR
+0259 A            ITM$13         5   O 20032DSPATR(HI)
+0259 A  99                                  OVRATR
+0260 A            DSC$13        30   O 20039DSPATR(HI)
+0260 A  99                                  OVRATR
+0261 A            RSD$13         8   O 20070DSPATR(HI)
+0261 A  99                                  OVRATR
+0262 A            RLQ$14         7D  B 21002CHECK(RB)
+0262 A                                      DSPATR(HI UL MDT)
+0262 A  44                                  DSPATR(PR ND)
+0262 A  99                                  OVRATR
+0263 A            ORD$14         5   O 21010DSPATR(HI)
+0263 A  99                                  OVRATR
+0264 A            SHP$14         7   O 21017DSPATR(HI)
+0264 A  99                                  OVRATR
+0265 A            AVL$14         5   O 21026DSPATR(HI)
+0265 A  99                                  OVRATR
+0266 A            ITM$14         5   O 21032DSPATR(HI)
+0266 A  99                                  OVRATR
+0267 A            DSC$14        30   O 21039DSPATR(HI)
+0267 A  99                                  OVRATR
+0268 A            RSD$14         8   O 21070DSPATR(HI)
+0268 A  99                                  OVRATR
+0269 A            RLQ$15         7D  B 22002CHECK(RB)
+0269 A                                      DSPATR(HI UL MDT)
+0269 A  45                                  DSPATR(PR ND)
+0269 A  99                                  OVRATR
+0270 A            ORD$15         5   O 22010DSPATR(HI)
+0270 A  99                                  OVRATR
+0271 A            SHP$15         7   O 22017DSPATR(HI)
+0271 A  99                                  OVRATR
+0272 A            AVL$15         5   O 22026DSPATR(HI)
+0272 A  99                                  OVRATR
+0273 A            ITM$15         5   O 22032DSPATR(HI)
+0273 A  99                                  OVRATR
+0274 A            DSC$15        30   O 22039DSPATR(HI)
+0274 A  99                                  OVRATR
+0275 A            RSD$15         8   O 22070DSPATR(HI)
+0275 A  99                                  OVRATR
+0276 A            TOTSHP         7   O 23002DSPATR(HI)
+0276 A  99                                  OVRATR
+0277 A                                 23010'<=TOTAL SHIP'
+0277 A                                      DSPATR(HI)
+0277 A  99                                  OVRATR
+0279 A            ERR           50   O 23025
+0279 A N99                                  DFTVAL('                           -
+0279 A                                                             ')
+0279 A  99                                  DSPATR(HI RI)
+0279 A  99                                  OVRATR
+0279 A  99                                  OVRDTA
+0281 A                                 24007'ENTER-PROCESS   CMD5-REFRESH   CMD-
+0281 A                                      6-RESTART     '
+0282 A                                 24056'CMD10-RELEASE SCREEN'
+0283 A            BO1            1   O 08080
+0284 A            BO2            1   O 09080
+0285 A            BO3            1   O 10080
+0286 A            BO4            1   O 11080
+0287 A            BO5            1   O 12080
+0288 A            BO6            1   O 13080
+0289 A            BO7            1   O 14080
+0290 A            BO8            1   O 15080
+0291 A            BO9            1   O 16080
+0292 A            BO10           1   O 17080
+0293 A            BO11           1   O 18080
+0294 A            BO12           1   O 19080
+0295 A            BO13           1   O 20080
+0296 A            BO14           1   O 21080
+0297 A            BO15           1   O 22080

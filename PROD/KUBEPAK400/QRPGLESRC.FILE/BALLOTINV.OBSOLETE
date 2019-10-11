@@ -1,0 +1,344 @@
+000100000000    H/COPY QFunctDefn,@CopyRight
+000200000000    H DftActGrp(*no)
+000300000000    H DatFmt(*usa)
+000400000000    H BndDir('*LIBL/KPFUNCTION')
+000500000000
+000600000000      *                                                              
+000700000000      *|                                                            |
+000800000000      *|            Remove Lot Inventory (RMVLOTINV)                |
+000900000000      *|                                                            |
+001000000000
+001100000000      * :````````````````````````````````````````````````````````````:
+001200000000      * : Created:  February, 2006        Kube-Pak Corporation     :
+001300000000      * :      by:  William J. Behr                                  :
+001400000000      * :............................................................:
+001500000000      * :````````````````````````````````````````````````````````````:
+001600000000      * :  Program Description                                    :
+001700060313      * : This program balances FDLOT to FDLOTRD                     :
+001800000000      * :............................................................:
+001900000000      *                                                              
+002000000000      * |  Subroutine Usage                                        |
+002100000000      * |                                                           |
+002200000000      * | *InzSr     - Must I explain this ?!?!?                   |
+002300000000      *|                                                            |
+002400000000      *                                                              
+002500000000      * |  Function Usage                                          |
+002600000000      * |                                                           |
+002700000000      * | $MDYDate   - Return MDY Date from Date Field             |
+002800000000      * | $Date      - Return Date field from Number               |
+002900000000      * | $User      - Return Current User I.D.                    |
+003000000000      * | $Now       - Return Current Time as Number               |
+003100000000      *|                                                            |
+003200000000      *                                                              
+003300000000      * |  Indicator Usage                                         |
+003400000000      * |                                                           |
+003500000000      * |  LR      Does this really need a description ?           |
+003600000000      *|                                                            |
+003700000000      *                                                              
+003800000000      * |  Edit Log                                                |
+003900000000      * |                                                           |
+004000000000      * |WJB10/14/05-Initial Programming                        |
+004100000000      * |   mm/dd/yy-                                           |
+004200000000      *|                                                            |
+004300000000
+004400060316      * Order Details (FIORDR)
+004500060316     FFIORDRLOT IF   E           K DISK
+004600060320     FFIORDRPARTIF   E           K DISK
+004700060316      * Tray Records  (FTRAY)
+004800060316     FFTRAYD    IF   E           K DISK
+004900060316      * Lot Master File (FDLOT)
+005000060316     FFDLOTL    UF A E           K DISK
+005100060316      * Lot Ready date (FDLOTRD)
+005200060315     FFDLOTRDR  UF   E           K DISK
+005300060316     FFDLOTRDC  UF A E           K DISK    Rename(RDLOTRD:RDLOTRDC)
+005400060316      * Item Allocations (FALITEM)
+005500060315     FFALITEMRO UF   E           K DISK
+005600060316     FFALITEML  UF A E           K DISK    Rename(RALITEM:RALITEML)
+005700000000
+005800000000      * Function Prototypes
+005900060316    D/COPY QFunctDefn,$AddDate
+006000060316    D/COPY QFunctDefn,$MDYDate
+006100060316    D/COPY QFunctDefn,$Monday
+006200060316    D/COPY QFunctDefn,$Date7
+006300060316    D/COPY QFunctDefn,$Date
+006400060316    D/COPY QFunctDefn,$User
+006500060316    D/COPY QFunctDefn,$Now
+006600000000
+006700000000      * Field Definitions
+006800060316    D Need            S             11s 1
+006900060313    D ThisWeek        S                   Like(LDCRDY)
+007000060320    D SaveOIORD#      S                   Like(OIORD#)
+007100000000
+007200060313      * Indicators
+007300060313
+007400000000     *   ................................................
+007500000000     *   :   Main Calcs                                 :
+007600000000     *   :..............................................:
+007700000000
+007800000000      *   Process all Available Inventory Allocated to Customers
+007900060316    C     ThisWeek      SetLL     FDLOTL
+008000060317    C* TEMP             Read      FDLOTL
+008100060317TEMPC     ThisWeek      ReadE     FDLOTL
+008200000000
+008300060316    C                   DoW       not %EOF(FDLOTL)
+008400060317     C                   If        LDSOWD <> 0
+008500060315     C                   ExSr      ClrFDLOT
+008600060315     C                   ExSr      ClrFDLOTRD
+008700060315     C                   ExSr      ClrFALITEM
+008800060315     C                   ExSr      GetOrders
+008900060313     C                   Eval      LDDTLA = $MDYDate($Date(0))
+009000060313     C                   Eval      LDTIME = $Now()
+009100060315     C                   Eval      LDUSER = 'BALLOTINV'
+009200060313    C                   Update    RDLOT
+009300060317     C                   EndIf
+009400060317    C* TEMP             Read      FDLOTL
+009500060317TEMPC     ThisWeek      ReadE     FDLOTL
+009600000000    C                   EndDo
+009700000000
+009800060316     C* TEMP OUT         Call      'DLCLOTINV'
+009900060316     C* TEMP OUT         Call      'BALLOTINV2'
+010000060316
+010100000000     C                   Eval      *InLr = *On
+010200000000
+010300000000
+010400000000     *   ................................................
+010500060315     *   :      ClrFDLOT - Clear FDLOT                  :
+010600000000     *   :..............................................:
+010700000000
+010800060315     C     ClrFDLOT      BegSr
+010900060313
+011000060316     C                   Eval      LDQTOH = *Zero
+011100060316     C                   Eval      LDSOWN = *Zero
+011200060315     C                   Eval      LDQFIX = *Zero
+011300060315     C                   Eval      LDQDMP = *Zero
+011400060315     C                   Eval      LDQTAL = *Zero
+011500060316
+011600060316    C     ThisLOTtr     SetLL     FTRAYD
+011700060316    C     ThisLOTtr     ReadE     FTRAYD
+011800060316    C                   DoW       not %EOF(FTRAYD)
+011900060317     C                   If        TRCRDT = LDCRDY
+012000060315     C                   Eval      LDSOWN = LDSOWN + 1
+012100060315    C                   Select
+012200060315    C                   When      TRSTAT = 'D'
+012300060315     C                   Eval      LDSOWN = LDSOWN - 1
+012400060315    C                   When      TRSTAT = 'F' or
+012500060315    C                             TRSTAT = 'P'
+012600060315     C                   Eval      LDQFIX = LDQFIX + 1
+012700060315    C                   When      TRSTAT = 'M' or
+012800060315    C                             TRSTAT = 'B'
+012900060315     C                   Eval      LDQDMP = LDQDMP + 1
+013000060315    C                   Other
+013100060315     C                   Eval      LDQTOH = LDQTOH + 1
+013200060315    C                   EndSl
+013300060317     C                   EndIf
+013400060316    C     ThisLOTtr     ReadE     FTRAYD
+013500060315    C                   EndDo
+013600060315
+013700060315     C                   Eval      LDQTAL = *Zero
+013800060315     C                   Eval      LDQTAV = LDQTOH
+013900060315
+014000060315     C                   EndSr
+014100060315
+014200060315     *   ................................................
+014300060315     *   :      ClrFDLOTRD - Clear FDLOTRD              :
+014400060315     *   :..............................................:
+014500060315
+014600060315     C     ClrFDLOTRD    BegSr
+014700060315
+014800060315    C     ThisLOT       SetLL     FDLOTRDR
+014900060316    C     ThisLOT       ReadE     FDLOTRDR
+015000060315
+015100060315    C                   DoW       not %EOF(FDLOTRDR)
+015200060320     C                   Eval      LRQTOH = *Zero
+015300060320     C                   Eval      LRQTAV = *Zero
+015400060320     C                   Eval      LRQTAL = *Zero
+015500060315    C                   Update    RDLOTRD
+015600060315    C     ThisLOT       ReadE     FDLOTRDR
+015700060315    C                   EndDo
+015800060315
+015900060315     C                   EndSr
+016000060315
+016100060315     *   ................................................
+016200060315     *   :      ClrFALITEM - Clear FALITEM              :
+016300060315     *   :..............................................:
+016400060315
+016500060315     C     ClrFALITEM    BegSr
+016600060315
+016700060315     *   Clear everything except Ready Bay and Fixer Allocations
+016800060315    C     ThisLOT       SetLL     FALITEMRO
+016900060316    C     ThisLOT       ReadE     FALITEMRO
+017000060315
+017100060315    C                   DoW       not %EOF(FALITEMRO)
+017200060315     C                   If        AIGLOC <> 'R' and
+017300120301WJB  C*                            AIORD# <> 999999
+017400120301WJB  C                             AIORD# <  999990
+017500060315     C                   Eval      AIQTOA = *Zero
+017600060315    C                   Update    RALITEM
+017700060315     C                   EndIf
+017800060315    C     ThisLOT       ReadE     FALITEMRO
+017900060315    C                   EndDo
+018000060315
+018100060315     C                   EndSr
+018200060315
+018300060315     *   ................................................
+018400060315     *   :      GetOrders- Sum up Lot RD info           :
+018500060315     *   :..............................................:
+018600060315
+018700060316     C     GetOrders     BegSr
+018800060315
+018900060316    C     ThisLOTtr     SetLL     FIORDRLOT
+019000060316    C     ThisLOTtr     ReadE     FIORDRLOT
+019100060320     C                   Eval      Need = *Zero
+019200060313
+019300060316    C                   DoW       not %EOF(FIORDRLOT)
+019400060320      *   Only count need for non-Partial trays
+019500060320    C     OrderKey      Chain     FIORDRPART
+019600060320     C                   If        not %Found(FIORDRPART)
+019700060320     C                   Eval      Need = OIQORD - OIQSHP
+019800060320    C                   ExSr      UpdFDLOT
+019900060320    C                   ExSr      UpdFDLOTRD
+020000060320    C                   ExSr      UpdFALITEM
+020100060320     C                   EndIf
+020200060316
+020300060316    C     ThisLOTtr     ReadE     FIORDRLOT
+020400060313    C                   EndDo
+020500060320
+020600060313     C                   EndSr
+020700060313
+020800060313
+020900060315     *   ................................................
+021000060316     *   :      UpdFDLOT - Update FDLOT & FDLOTRD       :
+021100060315     *   :..............................................:
+021200060315
+021300060316     C     UpdFDLOT      BegSr
+021400060315
+021500060316     C                   Eval      LDQTAL = LDQTAL + Need
+021600060316     C                   Eval      LDQTAV = LDQTAV - Need
+021700060315
+021800060315     C                   EndSr
+021900060316
+022000060316     *   ................................................
+022100060316     *   :      UpdFDLOTRD - Update  FDLOTRD            :
+022200060316     *   :..............................................:
+022300060316
+022400060316     C     UpdFDLOTRD    BegSr
+022500060316
+022600060316     C                   Clear                   RDLOTRD
+022700060316
+022800060316      *   Update or Write the FDLOTRD file record
+022900060316    C     ThisLOTRD     Chain     FDLOTRDC
+023000060317
+023100060316     C                   If        %Found(FDLOTRDC)
+023200060320
+023300060320     C                   Eval      LRQTOH = LRQTOH + Need
+023400060320     C                   Eval      LRQTAL = LRQTAL + Need
+023500060316    C                   Update    RDLOTRDC
+023600060316     C                   Else
+023700060316     C                   Eval      LRSTAT = 'A'                                 STATUS A/D/C
+023800060316     C                   Eval      LRITEM = OIITEM                              ITEM #
+023900060316     C                   Eval      LRSIZE = OISIZE                              SIZE CODE
+024000060316     C                   Eval      LRWHSE = ' '                                 LOCATION
+024100060316     C                   Eval      LRSOWD = OISOW                               SOW DATE CYMD
+024200060316     C                   Eval      LRGLOC = ' '                                 GROW LOC. ORIG
+024300060316     C                   Eval      LRPHYT = ' '                                 PHYTO CODE
+024400060316     C                   Eval      LRCRDY = OIRVDT                              CURR. READY DATE C
+024500060316     C                   Eval      LRCPHY = ' '                                 CURR PHYTO CODE
+024600060316     C                   Eval      LRCLOC = ' '                                 LOC. CURR
+024700060316     C                   Eval      LRCODE = 'A'                                 CODE A/H/R/S/T
+024800060316     C                   Eval      LRCUST = OICUST                              RESERV. CUST #
+024900060316     C                   Eval      LRAREA = ' '                                 AREA
+025000060316     C                   Eval      LRCOMP = 1                                   COMPANY NO
+025100060317     C                   If        LDQTAV >= 0
+025200060317     C                   Eval      LRQTAV = 0                                   QTY AVAIL
+025300060317     C                   Eval      LRQTOH = Need
+025400060317     C                   Else
+025500060317     C                   Eval      LRQTOH = 0                                   QTY O/H
+025600060317     C                   Eval      LRQTAV = -Need                               QTY AVAIL
+025700060317     C                   EndIf
+025800060316     C                   Eval      LRDTLA = $MDYDATE($DATE(0))                  LAST ACTIVITY DATE
+025900060316     C                   Eval      LRTIME = $NOW()                              TIME
+026000060316     C                   Eval      LRUSER = $USER()                             USER
+026100060316     C                   Eval      LRALPH = OIITMA                              ALPHA SEARCH
+026200060316     C                   Eval      LRPRCL = OIPRCL                              PRODUCT CLASS
+026300060316     C                   Eval      LRQTAL = Need                                QTY ALOC
+026400060316     C                   Eval      LRDESC = OIDES1                              DESCRIPTION
+026500060316     C                   Eval      LRQTCM = 0                                   QTY COMIT
+026600060316     C                   Eval      LRQTSL = 0                                   QTY SOLD
+026700060316     C                   Eval      LRQADJ = 0                                   QTY ADJ
+026800060316    C                   Write     RDLOTRDC
+026900060316     C                   EndIf
+027000060316
+027100060316     C                   EndSr
+027200060316
+027300060316     *   ................................................
+027400060316     *   :      UpdFALITEM - Update  FALITEM            :
+027500060316     *   :..............................................:
+027600060316
+027700060316     C     UpdFALITEM    BegSr
+027800060316
+027900060316     C                   Clear                   RALITEM
+028000060316      *   Update or Write the FDLOTRD file record
+028100060316    C     ThisLOTAL     Chain     FALITEML
+028200060316     C                   If        %Found(FALITEML)
+028300060316     C                   Eval      AIQTOA = AIQTOA + Need
+028400060316    C                   Update    RALITEML
+028500060316     C                   Else
+028600060316     C                   Eval      AIORD# = OIORD#                              ORDER NUMBER
+028700060316     C                   Eval      AIOSEQ = OISEQ#                              ORDER SEQ #
+028800060316     C                   Eval      AISHPD = OIRVDT                              SHIP DATE CYMD
+028900060316     C                   Eval      AISTAT = 'A'                                 STATUS A/D/C
+029000060316     C                   Eval      AIITEM = OIITEM                              ITEM #
+029100060316     C                   Eval      AISIZE = OISIZE                              SIZE CODE
+029200060316     C                   Eval      AIWHSE = ' '                                 LOCATION
+029300060316     C                   Eval      AISOWD = OISOW                               SOW DATE CYMD
+029400060316     C                   Eval      AIGLOC = ' '                                 GROW LOC. ORIG
+029500060316     C                   Eval      AIPHYT = OIPHYT                              PHYTO CODE
+029600060316     C                   Eval      AICRDY = OIRVDT                              CURR READY DATE
+029700060316     C                   Eval      AICUST = OICUST                              RESERV. CUST #
+029800060316     C                   Eval      AICOMP = 1                                   COMPANY NO
+029900060316     C                   Eval      AIQTOA = Need                                QTY ALLOC
+030000060316     C                   Eval      AIDTLA = $MDYDate($Date(0))                  LAST ACTIVITY DATE
+030100060316     C                   Eval      AITIME = $Now()                              TIME
+030200060316     C                   Eval      AIUSER = $User                               USER
+030300060316     C                   Eval      AIPRCL = OIPRCL                              PRODUCT CLASS
+030400060316    C                   Write     RALITEML
+030500060316     C                   EndIf
+030600060316
+030700060316     C                   EndSr
+030800060317
+030900060313     *   ................................................
+031000060313     *   :      *InzSr - Initialization Subroutine      :
+031100060313     *   :..............................................:
+031200060313
+031300060313     C     *InzSr        BegSr
+031400060313
+031500060316    C     ThisLOT       KList
+031600060316    C                   KFld                    LDITEM                         Item
+031700060316    C                   KFld                    LDSIZE                         Size
+031800060316    C                   KFld                    LDCRDY                         Current Ready
+031900000000
+032000060316    C     ThisLOTtr     KList
+032100060316    C                   KFld                    LDCRDY                         Current Ready
+032200060316    C                   KFld                    LDITEM                         Item
+032300060316    C                   KFld                    LDSIZE                         Size
+032400060316
+032500060316    C     ThisLOTRD     KList
+032600060316    C                   KFld                    OICUST                         Customer
+032700060316    C                   KFld                    OIITEM                         Item
+032800060316    C                   KFld                    OISIZE                         Size
+032900060316    C                   KFld                    OIRVDT                         Current Ready
+033000060316
+033100060320    C     OrderKey      KList
+033200060320    C                   KFld                    OIORD#                         Order Number
+033300060320    C                   KFld                    OISEQ#                         Order Sequence
+033400060320
+033500060316    C     ThisLOTAL     KList
+033600060316    C                   KFld                    OIORD#                         Order Number
+033700060316    C                   KFld                    OISEQ#                         Order Sequence
+033800060316    C                   KFld                    OIITEM                         Item
+033900060316    C                   KFld                    OISIZE                         Size
+034000060316
+034100060316     C                   Eval      ThisWeek = $Date7($AddDate(
+034200060320     C                                        $Monday($Date(0):'SAT'):07))
+034300060313
+034400000000     C                   EndSr

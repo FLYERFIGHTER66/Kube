@@ -1,0 +1,14 @@
+             PGM
+             DCL        VAR(&PCCMD) TYPE(*CHAR) LEN(150) VALUE('_Sales Tax +
+                          Forms\State Tax Requirements Table.pdf"')
+
+             DCL        VAR(&SHRAPPDIR) TYPE(*CHAR) LEN(150)
+             RTVDTAARA  DTAARA(SHRAPPDIR *ALL) RTNVAR(&SHRAPPDIR)
+             CHGVAR     VAR(&PCCMD) VALUE('"' *TCAT &SHRAPPDIR *TCAT +
+                          &PCCMD)
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+             STRPCCMD   PCCMD(&PCCMD) PAUSE(*NO)
+
+             ENDPGM

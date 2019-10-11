@@ -1,0 +1,460 @@
+000100951115      *--------------------------------------------------------------
+000200951115      *
+000300960620      *  COPYRIGHT EFD ENTERPRISES, INC. 1996
+000400951115      *
+000500951115      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600951115      *       EFD ENTERPRISES, INC.  ALL RIGHTS RESERVED.  THE
+000700951115      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800951115      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900951115      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000951115      *       BY EXPRESS WRITTEN PERMISSION OF
+001100951115      *            EFD ENTERPRISES, INC.       215-643-5352
+001200951115      *
+001300951115      *--------------------------------------------------------------
+001400960620      **PROGRAM NAME-------- GRS500  -  PRODUCTION REVIEW REPORT
+001500951115      **COMPANY------------- EFD ENTERPRISES INC.
+001600951115      **SYSTEM-------------- GREENHOUSE MANAGEMENT SYSTEM
+001700951127      **APPLICATION--------- PRODUCTION
+001800951115      **
+001900951115      *
+002000951115      *            CHANGE--DATE-------DESCRIPTION
+002100961105      * 11/5/96 GD ADD LOCATION PARAMETERS
+002200951115      *
+002300951115      *
+002400951115      *
+002500961126     FFLOTND    IF   E           K DISK
+002600961126     FFDLOTRDR  IF   E           K DISK
+002700960620     FFIORITEM  IF   E           K DISK
+002800960620     FFMCOMP    IF   E           K DISK
+002900960620     FFMCUST    IF   E           K DISK
+003000961105     FFMWHSE    IF   E           K DISK
+003100951115     FFMINVT    IF   E           K DISK
+003200961126     FGRS535    O    F  132        PRINTER OFLIND(*INOF)
+003300951115      *
+003400951115      ***********************
+003500951115      * PROG DATA STRUCTURE *
+003600951115      ***********************
+003700951115     D                SDS
+003800951115      ** PROGRAM NAME
+003900951115     D  PROGID                 1     10                                         ARC380
+004000951115      ** RUN LIBRARY
+004100951115     D  RLIBR                 81     90                                         ARC380
+004200951115      * USER I.D.
+004300951115     D  USERID               254    263                                         ARC380
+004400951115      ** SOURCE LIBRARY
+004500951115     D  SLIBR                314    323                                         ARC380
+004600951115      *
+004700951115     D                UDS
+004800960620     D  LBEGDT                 1      6  0
+004900960620     D  LENDDT                 7     12  0
+005000960620     D  LBPC                  13     14
+005100960620     D  LEPC                  15     16
+005200960620     D  LSUM                  17     17
+005300960620     D  LJOBQ                 18     18
+005400960620     D  LFORM                 19     28
+005500960620     D  LP1COP                29     30  0
+005600960620     D  LBLIST                31     34
+005700960620     D  LELIST                35     38
+005800960620     D  LBSIZE                39     41
+005900960620     D  LESIZE                42     44
+006000960620     D  LBPHYT                45     45
+006100960620     D  LEPHYT                46     46
+006200961105     D  LBLOC                 47     49
+006300961105     D  LELOC                 50     52
+006400961105     D  LREGN                 53     54
+006500960620     D  LBITEM                89    100
+006600960620     D  LEITEM               101    112
+006700960620     D  LCANCL               133    133
+006800951115      *
+006900951115     C   OF              SETON                                        OF
+007000951115     C                   TIME                    TIMOD             6 0
+007100951115     C                   TIME                    TMWRK            12 0
+007200951115     C                   MOVE      TMWRK         TDATE             6 0
+007300961014     C                   Z-ADD     TDATE         ##MDY
+007400961014     C                   EXSR      @DT@A1
+007500961014     C                   Z-ADD     ##CYMD        CURDAT            7 0
+007600951127     C                   Z-ADD     1             ITM               3 0
+007700960620     C                   Z-ADD     1             FIRST             5 0
+007800960620     C                   MOVEL     '00'          MCCOMP
+007900961105     C     LREGN         IFGT      *BLANKS
+008000961105     C                   MOVEL     '*ALL'        REGN              4
+008100961105     C                   SETON                                        68
+008200961105     C                   ELSE
+008300961105     C                   MOVEL     LREGN         REGN
+008400961105     C                   END
+008500960620     C     CKEY          KLIST
+008600960620     C                   KFLD                    MCCOMP
+008700960620     C     CKEY          CHAIN(N)  FMCOMP                             90
+008800951115      *
+008900960620      *  GET SELECTIONS
+009000960620      *
+009100960620     C     LBITEM        IFGT      *BLANKS
+009200960620     C                   SETON                                        6066
+009300951115     C                   ENDIF
+009400951115      *
+009500951127     C     LBEGDT        IFGT      *ZEROS
+009600960807     C     LBEGDT        MULT      10000.01      BDAT1             6 0
+009700960807     C                   MOVEL     BDAT1         YY                2 0
+009800960807     C                   MOVE      BDAT1         BDATE             7 0
+009900960807     C     YY            IFLE      70
+010000960807     C                   MOVEL     1             BDATE
+010100960807     C                   ELSE
+010200960807     C                   MOVEL     0             BDATE
+010300960807     C                   END
+010400960807     C     LENDDT        MULT      10000.01      EDAT1             6 0
+010500960807     C                   MOVEL     EDAT1         YY                2 0
+010600960807     C                   MOVE      EDAT1         EDATE             7 0
+010700960807     C     YY            IFLE      70
+010800960807     C                   MOVEL     1             EDATE
+010900960807     C                   ELSE
+011000960807     C                   MOVEL     0             EDATE
+011100960807     C                   END
+011200951127     C                   SETON                                        6165
+011300951127     C                   ENDIF
+011400951127      *
+011500960620     C     LBLIST        IFGT      *BLANKS
+011600960620     C                   SETON                                        6365
+011700960620     C                   ENDIF
+011800960620      *
+011900960620     C     LBPC          IFGT      *BLANKS
+012000951127     C                   SETON                                        6265
+012100951127     C                   ENDIF
+012200951127      *
+012300960620     C     LBSIZE        IFGT      *BLANKS
+012400960620     C                   SETON                                        6466
+012500960620     C                   ENDIF
+012600960620      *
+012700960620     C     LBPHYT        IFGT      *BLANKS
+012800960620     C                   SETON                                        6766
+012900960620     C                   ENDIF
+013000960620      *
+013100961105     C     LBLOC         IFGT      *BLANKS
+013200961105     C                   SETON                                        6869
+013300961105     C                   ENDIF
+013400961105      *
+013500951115     C                   EXCEPT    HDG
+013600951115      *
+013700951115     C     NXT           TAG
+013800960807     C                   READ      RDLOTRD                                77
+013900951115     C   77              GOTO      END
+014000960620     C                   SETOFF                                       80
+014100960620      *
+014200960620      * ONLY RANGE OF READY DATES
+014300960620      *
+014400960807     C                   Z-ADD     LRCRDY        WK6               6 0
+014500960807     C     WK6           MULT      100.0001      SHPDTE            6 0
+014600960807     C   61LRCRDY        IFLT      BDATE
+014700960620     C                   GOTO      NXT
+014800960620     C                   ENDIF
+014900960620      *
+015000960807     C   61LRCRDY        IFGT      EDATE
+015100960620     C                   GOTO      NXT
+015200960620     C                   ENDIF
+015300960620      *
+015400960620      * ONLY RANGE OF LIST CODES
+015500960620      *
+015600960620     C   63ITMKEY        CHAIN     FMINVT                             50
+015700960807     C   63IMLIST        IFLT      LBLIST
+015800960620     C                   GOTO      NXT
+015900960620     C                   ENDIF
+016000960620      *
+016100960807     C   63IMLIST        IFGT      LELIST
+016200960620     C                   GOTO      NXT
+016300960620     C                   ENDIF
+016400960620      *
+016500960620      * ONLY RANGE OF ITEMS
+016600951127      *
+016700960807     C   60LRITEM        IFLT      LBITEM
+016800951127     C                   GOTO      NXT
+016900951127     C                   ENDIF
+017000951115      *
+017100960807     C   60LRITEM        IFGT      LEITEM
+017200960620     C                   GOTO      NXT
+017300960620     C                   ENDIF
+017400960620      *
+017500960620      * ONLY RANGE OF SIZES
+017600960620      *
+017700960807     C   64LRSIZE        IFLT      LBSIZE
+017800951127     C                   GOTO      NXT
+017900951127     C                   ENDIF
+018000951127      *
+018100960807     C   64LRSIZE        IFGT      LESIZE
+018200960620     C                   GOTO      NXT
+018300960620     C                   ENDIF
+018400961105      *
+018500961105      * ONLY RANGE OF LOCATIONS
+018600961105      *
+018700961105     C     LRCLOC        IFEQ      *BLANKS
+018800961105     C                   MOVEL     LRGLOC        LRCLOC
+018900961105     C                   END
+019000961105     C   69LRCLOC        IFLT      LBLOC
+019100961105     C                   GOTO      NXT
+019200961105     C                   ENDIF
+019300961105      *
+019400961105     C   69LRCLOC        IFGT      LELOC
+019500961105     C                   GOTO      NXT
+019600961105     C                   ENDIF
+019700961105      *
+019800961105      * SELECTED REGION
+019900961105      *
+020000961105     C     LREGN         IFGT      *BLANKS
+020100961105     C     LRCLOC        CHAIN     FMWHSE                             90
+020200961105     C     LREGN         IFNE      WHREG
+020300961105     C                   GOTO      NXT
+020400961105     C                   END
+020500961105     C                   END
+020600961105      *
+020700960620      * ONLY RANGE OF PRODUCT CLASSES
+020800951127      *
+020900960807     C   62LRPRCL        IFLT      LBPC
+021000951127     C                   GOTO      NXT
+021100951127     C                   ENDIF
+021200951127      *
+021300960807     C   62LRPRCL        IFGT      LEPC
+021400951127     C                   GOTO      NXT
+021500951127     C                   ENDIF
+021600951127      *
+021700960620      * ONLY RANGE OF PHYTO CODES
+021800960620      *
+021900960807     C   67LRCPHY        IFLT      LBPHYT
+022000960620     C                   GOTO      NXT
+022100960620     C                   ENDIF
+022200960620      *
+022300960807     C   67LRCPHY        IFGT      LEPHYT
+022400960620     C                   GOTO      NXT
+022500960620     C                   ENDIF
+022600960620      *
+022700960807     C     LRITEM        IFEQ      SAVITM
+022800960807     C     LRSIZE        ANDEQ     SAVSZE
+022900951127     C                   GOTO      NOCHG
+023000951127     C                   ENDIF
+023100960620      *
+023200960620     C   55TQNALL        SUB       TLQTAV        TQTREQ           11 120
+023300960620     C   55              EXCEPT    TL1
+023400960620     C   55              Z-ADD     *ZEROS        TQNALL
+023500961014     C   55              Z-ADD     *ZEROS        TQFAL
+023600951127      *
+023700951127     C                   Z-ADD     1             ITM
+023800960620     C                   Z-ADD     1             FIRST
+023900951127     C     ITMKEY        KLIST
+024000960807     C                   KFLD                    LRITEM
+024100960807     C                   KFLD                    LRSIZE
+024200951127     C     ITMKEY        CHAIN     FMINVT                             50
+024300960730     C                   EXSR      GETDES
+024400951115      *
+024500951127     C     NOCHG         TAG
+024600951115      *
+024700960620     C     FIRST         IFEQ      1
+024800960620     C     ITMKEY        SETLL     FIORITEM
+024900960620     C     NXTR          TAG
+025000960620     C     ITMKEY        READE     FIORITEM                               90
+025100960620     C  N90              DO
+025200960620     C     OISTAT        IFEQ      'D'
+025300960620     C                   GOTO      NXTR
+025400960620     C                   ENDIF
+025500961014     C**         OILOTC    IFEQ 'Y'
+025600961014     C**                   GOTO NXTR
+025700961014     C**                   ENDIF
+025800960620     C     OIQORD        SUB       OIQSHP        QNALL            11 1
+025900961014     C                   SUB       OIQTAL        QNALL
+026000961014      ** GET DATE
+026100961016     C                   Z-ADD     OISOW         ##MDY
+026200961014     C                   EXSR      @DT@A1
+026300961016     C     CURDAT        IFGE      ##CYMD
+026400960620     C                   ADD       QNALL         TQNALL           11 140
+026500961014     C                   ELSE
+026600961014     C                   ADD       QNALL         TQFAL            11 141
+026700961014     C                   END
+026800960620     C                   GOTO      NXTR
+026900960620     C                   ENDDO
+027000960620     C                   EXCEPT    HDG1
+027100961014     C                   SETOFF                                       4041
+027200960620     C                   ENDIF
+027300960620      *
+027400960807     C     LRQTOH        SUB       LRQTAL        QTAV             11 1
+027500960807     C                   ADD       LRQTOH        TLQTOH           12 1
+027600960807     C                   ADD       LRQTAL        TLQTAL           12 1
+027700960807     C                   ADD       QTAV          TLQTAV           12 1
+027800951127      *
+027900960807     C                   MOVEL     LRITEM        SAVITM           12
+028000960807     C                   MOVEL     LRSIZE        SAVSZE            3
+028100951127     C     ITM           IFEQ      1
+028200951127     C                   SETON                                        50
+028300951127     C                   ENDIF
+028400951115     C   OF              EXCEPT    HDG
+028500951115     C                   SETOFF                                       OF
+028600960807     C     LRCUST        IFGT      *ZEROS
+028700960807     C     LRCUST        CHAIN     FMCUST                             90
+028800960620     C                   SETON                                        80
+028900960620     C                   ENDIF
+029000951115     C                   EXCEPT    DTL1
+029100951127     C                   SETON                                        55
+029200951127     C                   ADD       1             ITM
+029300960620     C                   ADD       1             FIRST
+029400951127     C                   SETOFF                                       50
+029500951115     C                   GOTO      NXT
+029600951115      *
+029700951115     C     END           TAG
+029800960620     C     TQNALL        SUB       TLQTAV        TQTREQ           11 120
+029900951115     C                   EXCEPT    TL1
+030000951115     C                   SETON                                        LR
+030100960730      **********
+030200960730      * GETDES
+030300960730      **********
+030400960730     C     GETDES        BEGSR
+030500960730     C                   MOVEL     *BLANKS       DESCO            60
+030600960730     C                   MOVEL     'R'           TYPE              1
+030700960730     C                   CALL      'GETDESC'
+030800960730     C                   PARM                    IMITEM
+030900960730     C                   PARM                    IMSIZE
+031000960730     C                   PARM                    IMWHSE
+031100960730     C                   PARM                    TYPE
+031200960730     C                   PARM                    DESCO
+031300960730     C                   MOVEL     DESCO         DESP             50
+031400960730     C                   ENDSR
+031500961014      ********************************************************************@DT@A1
+031600961014      * VALIDATE DATES. INDICATOR 90 IS ON IF ERROR. 91-92 ALWAYS SETOF.  @DT@A1
+031700961014      * YY GE 00  MM 01-12 DAY 01-28/29/30/31                             @DT@A1
+031800961014      * ##MDY INPUT DATE MMDDYY                                           @DT@A1
+031900961014      * ##CYMD OUTPUT DATE CYYMMDD IF DATE IS OK. ELSE ZERO.              @DT@A1
+032000961014      * C IDENTIFIES 20 OR 21 CENTURY. C=0 FOR YY 70-99. C=1 FOR YY 00-69.@DT@A1
+032100961014     C     @DT@A1        BEGSR                                                                 @DT@A
+032200961014     C                   MOVE      ##MDY         #03A              3 0          MYY            @DT@A
+032300961014     C                   MOVEL     0             #03A                           CYY            @DT@A
+032400961014     C                   MOVEL     ##MDY         #04               4 0          MMDD           @DT@A
+032500961014     C                   MOVEL     ##MDY         #02B              2 0          MM             @DT@A
+032600961014     C                   MOVE      #04           #02C              2 0          DD             @DT@A
+032700961014     C                   Z-ADD     ##MDY         ##MDY             6 0  90      YY IS NEGATIVE @DT@A
+032800961014     C  N90              Z-ADD     #02B          #02               2 0    90    MM LT 01 ERROR @DT@A
+032900961014     C  N90#02B          COMP      12                                 90        MM GT 12 ERROR @DT@A
+033000961014     C  N90#02C          COMP      01                                   90      DD LT 01 ERROR @DT@A
+033100961014     C  N90#02C          COMP      31                                 90  91    DD GT OR EQ 31 @DT@A
+033200961014     C     #02B          COMP      07                                 92        MM 08-12       @DT@A
+033300961014     C   921             ADD       #02B          #02                            MAKE MM ODD    @DT@A
+033400961014     C     #02           DIV       2             #02                                           @DT@A
+033500961014     C                   MVR                     #02                  92        31 DAY MONTH   @DT@A
+033600961014     C   91
+033700961014     CANN92              SETON                                        90        MM EVEN DD 31  @DT@A
+033800961014     C     #02B          COMP      02                                     91    FEB            @DT@A
+033900961014     C  N91                                                                                    @DT@A
+034000961014     COR 90              GOTO      @DT@AX                                                      @DT@A
+034100961014     C     #03A          DIV       4             #03               3 0          JUST FOR MVR   @DT@A
+034200961014     C                   MVR                     #02                      91    LEAP YEAR      @DT@A
+034300961014     C     #02C          COMP      29                                 90  92    DD GT 29 ERROR @DT@A
+034400961014     C  N91
+034500961014     CAN 92              SETON                                        90        NO LEAP DD 29  @DT@A
+034600961014     C     @DT@AX        TAG                                                    GOOD DATE      @DT@A
+034700961014     C                   MOVEL     #03A          ##CYMD            7 0          CYY----        @DT@A
+034800961014     C                   MOVE      #04           ##CYMD                         CYYMMDD        @DT@A
+034900961014     C     #03A          COMP      070                                  91                     @DT@A
+035000961014     C   91              MOVEL     1             ##CYMD                         21ST CENTURY   @DT@A
+035100961014     C   90              Z-ADD     0             ##CYMD                         ERROR          @DT@A
+035200961014     C                   SETOFF                                       9192                     @DT@A
+035300961014     C                   ENDSR                                                                 @DT@A
+035400960730      *
+035500960620     OGRS530    E            HDG            1 03
+035600951115     O                       PROGID              10
+035700951115     O                                           24 'Requested by:'
+035800951115     O                       USERID              35
+035900960620     O                       MCNAME              75
+036000951115     O                                          114 'Page'
+036100951115     O                       PAGE          1    120
+036200951115     O          E            HDG            1
+036300951115     O                                            9 'Run Date:'
+036400951115     O                       TDATE         Y     19
+036500960620     O                                           62 'Production Rev'
+036600960620     O                                           72 'iew Report'
+036700951115     O                       TIMOD              120 '  :  :  '
+036800951127     O          E   N65      HDG            1
+036900951120     O                                            1 ' '
+037000960620     O          E    65      HDG         1  1
+037100960620     O               61                          16 'For Ready Dates:'
+037200960620     O               61      LBEGDT        Y     25
+037300960620     O               61                          27 '-'
+037400960620     O               61      LENDDT        Y     36
+037500960620     O               63                          66 'For List Codes:'
+037600960620     O               63      LBLIST              71
+037700960620     O               63                          73 '-'
+037800960620     O               63      LELIST              78
+037900960620     O               62                         112 'For Product Classes:'
+038000960620     O               62      LBPC               115
+038100951127     O               62                         117 '-'
+038200960620     O               62      LEPC               120
+038300960620     O          E    66      HDG            1
+038400960620     O               60                          10 'For Items:'
+038500960620     O               60      LBITEM              23
+038600960620     O               60                          25 '-'
+038700960620     O               60      LEITEM              38
+038800960620     O               64                          66 'For Size Codes:'
+038900960620     O               64      LBSIZE              70
+039000960620     O               64                          72 '-'
+039100960620     O               64      LESIZE              76
+039200960620     O               67                         112 'For Phyto Codes:'
+039300960620     O               67      LBPHYT             114
+039400960620     O               67                         116 '-'
+039500960620     O               67      LEPHYT             118
+039600961105     O          E    68      HDG            1
+039700961105     O               69                          14 'For Locations:'
+039800961105     O               69      LBLOC               18
+039900961105     O               69                          20 '-'
+040000961105     O               69      LELOC               24
+040100961105     O                                          112 'For Region:'
+040200961105     O                       REGN               117
+040300951115     O          E            HDG            1
+040400960515     O                                           78 'Ready'
+040500951127     O                                           97 'Qty'
+040600951127     O                                          108 'Qty'
+040700951127     O                                          119 'Qty'
+040800951127     O          E            HDG            1
+040900951127     O                                            4 'Item'
+041000951127     O                                           16 'Size'
+041100961016     O                                           70 'Code'
+041200951128     O                                           89 'Phyto'
+041300961016     O                                           37 'Description/P.C.'
+041400960515     O                                           83 'Loc'
+041500960515     O                                           77 'Date'
+041600951127     O                                           97 'O/H'
+041700951127     O                                          109 'Alloc'
+041800951127     O                                          120 'Avail'
+041900951115     O          E            HDG            2
+042000951115     O                                           24 '________________________'
+042100951115     O                                           48 '________________________'
+042200951115     O                                           72 '________________________'
+042300951115     O                                           96 '________________________'
+042400951115     O                                          120 '________________________'
+042500961014     O          EF           HDG1           1
+042600960807     O                       LRSIZE              16
+042700960807     O                       LRITEM              12
+042800960730     O                       DESP                67
+042900960807     O                       LRPRCL              70
+043000961014     O          EF   40      HDG1           1
+043100961014     O                                           88 'Qty Not Alloc. Past Sow'
+043200961014     O                                           94 'Date:'
+043300961014     O                       TQNALL        M    109
+043400961014     O          EF   41      HDG1           1
+043500961014     O                                           84 'Qty.Not Alloc. Future'
+043600961014     O                                           94 'Sow Date:'
+043700961014     O                       TQFAL         M    109
+043800951127     O          EF           DTL1           1
+043900961001     O                       QTAV          M    120
+044000961001     O                       LRQTAL        M    109
+044100961001     O                       LRQTOH        M     98
+044200960807     O                       LRCPHY              87
+044300960515     O*                        SHPDTEY   82
+044400960807     O                       LRCLOC              83
+044500960515     O                       SHPDTE        Y     79
+044600961016     O                       LRCODE              70
+044700960620     O               80                          13 'Reserved for:'
+044800960807     O                       LRCUST        ZB    20
+044900960620     O                       CMNAME         B    51
+045000951128     O          E            TL1            1
+045100951128     O                                          120 '---------'
+045200951128     O                                          109 '---------'
+045300951128     O                                           98 '---------'
+045400951128     O          E            TL1            2
+045500960620     O               20                          55 'Quantity Required ===>'
+045600960620     O               20      TQTREQ        MB    68
+045700960620     O*                                  85 'Item Totals ====>'
+045800961001     O                       TLQTAV        MB   120
+045900961001     O                       TLQTAL        MB   109
+046000961001     O                       TLQTOH        MB    98

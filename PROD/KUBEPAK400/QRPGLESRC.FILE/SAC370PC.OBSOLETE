@@ -1,0 +1,519 @@
+000100941122      *--------------------------------------------------------------
+000200941122      *
+000300941122      *
+000400941122      *--------------------------------------------------------------
+000500990403      *PROGRAM NAME-------- SAC370
+000600990403      *SYSTEM-------------- SALES ANALYSIS
+000700990403      *APPLICATION--------- SALES ANALYSIS BY CUSTOMER TOP RANKED
+000800941122      **
+000900941122      *
+001000960608     FFMAPER    IF   E           K DISK
+001100030724     FXATABL    IF   E           K DISK
+001200030728     FSAC370S   CF   E             WORKSTN
+001300030728     F                                     INFDS(INFDS3)
+001400960609      *
+001500030728      ********************************************************************
+001600030728      * Program Status Data Structure                                  *
+001700030728      ********************************************************************
+001800030728     D                SDS
+001900030728     D  ##PGM            *PROC
+002000030728     D  ##PARM           *PARMS
+002100030728     D  ##PERR                91    169
+002200030728     D  ##JOB                244    253
+002300030728     D  ##USER               254    263
+002400030728     D  ##JOBN               264    269
+002500030728     D  ##JBDT               276    281  0
+002600030728     D  ##JBTM               282    287  0
+002700960609      *
+002800030728     D                UDS
+002900030728     D  LCO                    1      2  0
+003000030728     D  LMONTH                 3      4  0
+003100030728     D  LDOLUN                 5      5  0
+003200030728     D  LRANK                  6     11  0
+003300030728     D  EMONTH                12     13  0
+003400990614     D  LPRTR                100    109
+003500990614     D  LFORM                110    119
+003600030728     D  LCOPY                120    121  0
+003700990614     D  LJOBQ                122    122
+003800990614     D  LHOLD                123    126
+003900990614     D  LSAVE                127    130
+004000990614     D  LCANCL               133    133
+004100990614     D  LPROG                134    141
+004200030723     D  LNAME                142    171
+004300030723      *
+004400030730     D  LPC01                172    172
+004500030730     D  LPC02                173    173
+004600030730     D  LPC03                174    174
+004700030730     D  LPC04                175    175
+004800030730     D  LPC05                176    176
+004900030730     D  LPC06                177    177
+005000030730     D  LPC07                178    178
+005100030730     D  LPC08                179    179
+005200030730     D  LPC09                180    180
+005300030730     D  LPC10                181    181
+005400030730     D  LPCFR                182    182
+005500030730     D  LPCTO                183    183
+005600030730     D  LCT01                184    185
+005700030730     D  LCT02                186    187
+005800030730     D  LCT03                188    189
+005900030730     D  LCT04                190    191
+006000030730     D  LCT05                192    193
+006100030730     D  LCT06                194    195
+006200030730     D  LCT07                196    197
+006300030730     D  LCT08                198    199
+006400030730     D  LCT09                200    201
+006500030730     D  LCT10                202    203
+006600030730     D  LCTFR                204    205
+006700030730     D  LCTTO                206    207
+006800030724      *
+006900030724      ********************************************************************
+007000030724      * Price Codes Selected                                           *
+007100030724      ********************************************************************
+007200030724     D                 DS
+007300030730     D  PC                     1     10  0 INZ(0)
+007400030730     D                                     DIM(10)
+007500030730     D  S1PC01                 1      1  0 INZ(0)
+007600030730     D  S1PC02                 2      2  0 INZ(0)
+007700030730     D  S1PC03                 3      3  0 INZ(0)
+007800030730     D  S1PC04                 4      4  0 INZ(0)
+007900030730     D  S1PC05                 5      5  0 INZ(0)
+008000030730     D  S1PC06                 6      6  0 INZ(0)
+008100030730     D  S1PC07                 7      7  0 INZ(0)
+008200030730     D  S1PC08                 8      8  0 INZ(0)
+008300030730     D  S1PC09                 9      9  0 INZ(0)
+008400030730     D  S1PC10                10     10  0 INZ(0)
+008500960617      *
+008600030724      ********************************************************************
+008700030724      * Customers Types Selected                                       *
+008800030724      ********************************************************************
+008900030724     D                 DS
+009000030724     D  CT                     1     20
+009100030724     D                                     DIM(10)
+009200030724     D  S1CT01                 1      2
+009300030724     D  S1CT02                 3      4
+009400030724     D  S1CT03                 5      6
+009500030724     D  S1CT04                 7      8
+009600030724     D  S1CT05                 9     10
+009700030724     D  S1CT06                11     12
+009800030724     D  S1CT07                13     14
+009900030724     D  S1CT08                15     16
+010000030724     D  S1CT09                17     18
+010100030724     D  S1CT10                19     20
+010200030728      ********************************************************************
+010300030728      * File Information Data Structure                                *
+010400030728      ********************************************************************
+010500030728     D INFDS3          DS
+010600030728      *   Display File name (internal RPG name)
+010700030728     D  $3FILN           *FILE
+010800030728      *   Record format ID for last record input
+010900030728     D  $3RCDF           *RECORD
+011000030728      *   AID byte: identifies which function key was pressed:
+011100030728     D  $3AID                369    369
+011200030728      *   Current Cursor row and column (Binary)
+011300030728     D  $3CURP               370    371B 0
+011400030728      *    Low Relative Record # on SFLPAG
+011500030728     D*                                   B 378 3790PAGRRN
+011600030728      *    Relative Record # of Last Changed Record in SFLRCD
+011700030728     D  $3RRN#               397    400B 0
+011800030728      *****************************************************************
+011900030728      * Define Program Constants                                    *
+012000030728      *****************************************************************
+012100030728     D YES             C                   CONST('YES')
+012200030728      *
+012300030728      ********************************************************************
+012400030728      ******************  Program Main Line  ***************************
+012500030728      ********************************************************************
+012600030728      ********************************************************************
+012700030728      *
+012800030728      * Program Main Loop                                             
+012900030728      *
+013000030728Do   C     ENDPGM        DOWNE     YES
+013100030728|     *
+013200030728|     * Write Cmd Key, Msgsfl                            
+013300030728|     *
+013400030728|    C*                    WRITECFKY01
+013500030728|    C                   WRITE     MSGCTL
+013600030728|    C                   EXFMT     SCRNA
+013700030728|     *
+013800030728|     * Reset Cursor Position                                         
+013900030728      *
+014000030728|    C                   Z-ADD     *ZERO         ##ROW
+014100030728|    C                   Z-ADD     *ZERO         ##COL
+014200030728|     *
+014300030728|     * Clear indicators and flags                       
+014400030728|     *
+014500950120     C                   SETOFF                                       98
+014600030728     C                   MOVEA     '00'          *IN(10)
+014700030728     C                   MOVEA     '0'           *IN(20)
+014800030728     C                   MOVEA     '000'         *IN(30)
+014900030723     C                   MOVEA     '00000000'    *IN(32)
+015000030723     C                   MOVEA     '0000'        *IN(40)
+015100030723     C                   MOVEA     '00000000'    *IN(51)
+015200030728     C                   MOVEA     '0000'        *IN(59)
+015300030724     C                   MOVEA     '00'          *IN(95)
+015400030728|    C                   MOVE      *BLANKS       ERROR             3
+015500030728|     *
+015600030728|     * Clear Messages                                   
+015700030728|     *
+015800030728|    C                   MOVE      'C'           $#MSFN            1
+015900030728|    C                   EXSR      SRMSGF
+016000030728|    C                   MOVE      'S'           $#MSFN            1
+016100030728|     * SELECT WHEN:
+016200030728|Sl  C                   SELECT
+016300030728||    *
+016400030728||    * F1 - Cursor Help                                 
+016500030728||    *
+016600030728||1  C     *IN01         WHENEQ    *ON
+016700030728||   C                   EXSR      SRCHLP
+016800030728      *
+016900030728      * F2 pressed                                
+017000030728     C     *IN02         WHENEQ    *ON
+017100030728     C                   Z-ADD     LCO           ACCOMP            2 0
+017200030728     C                   CALL      'LKACTP'
+017300030728     C                   PARM                    ACCOMP
+017400030728     C                   PARM                    VACTP
+017500030728||    *
+017600030728||    * F12 - Previous - end program no update           
+017700030728||    *
+017800030728||3  C     *IN12         WHENEQ    *ON
+017900030728||   C                   MOVE      YES           ENDPGM            3
+018000030729     C                   MOVE      'X'           LCANCL
+018100030728||   C                   LEAVE
+018200030728||    *
+018300030728||    * If change on screen -- reset confirm             
+018400030728||    *
+018500030728||O  C                   OTHER
+018600030729     C                   MOVE      *BLANKS       LCANCL
+018700030728||If C     *IN28         IFEQ      *ON
+018800030728|||  C                   MOVE      *OFF          $$CNFR            1
+018900030728||If C                   END
+019000030728||    *
+019100030728||    * Read SCREEN01 and check for "?", Validity.       
+019200030728||    *
+019300030728||   C                   EXSR      $EDT01
+019400030728||    *
+019500030728||If C     ERROR         IFEQ      YES
+019600030728|||  C                   MOVE      *OFF          $$CNFR
+019700030728||X  C                   ELSE
+019800030728|||   *
+019900030728|||IfC     $$CNFR        IFEQ      *OFF
+020000030728|||| C                   MOVE      *ON           $$CNFR
+020100030728|||| C                   MOVE      'SR00006'     $#MSID                         Message Id   
+020200030728|||| C                   EXSR      SRMSGF
+020300030728|||X C                   ELSE
+020400030728||||  *
+020500030728||    * Process
+020600030728||    *
+020700030728|||| C                   EXSR      MOV@TO
+020800030728||   C                   MOVE      YES           ENDPGM            3
+020900030728     C                   ENDIF
+021000030728     C                   ENDIF
+021100030728||    *
+021200030728|Sl  C                   ENDSL
+021300030728Do   C                   ENDDO
+021400030728      *
+021500030728      * End the program                                               
+021600030728      *
+021700030728     C                   MOVE      *ON           *INLR
+021800030728      *
+021900030728      ***************************************************************
+022000030728      * Edit Screen                                               *   
+022100030728      ***************************************************************
+022200030728     C     $EDT01        BEGSR
+022300960725     C                   Z-ADD     VACTP         LMONTH
+022400950120      *
+022500990716     C     VACTP         IFLE      0                                                        K
+022600960725     C     VACTP         ORGT      13                                                       K
+022700030728     C                   MOVE      *ON           *IN10
+022800030728     C                   MOVE      'YES'         ERROR
+022900030728     C                   MOVE      'SAC3703'     $#MSID
+023000030728     C                   EXSR      SRMSGF
+023100030728     C                   GOTO      END01
+023200960618     C                   ENDIF
+023300960618      *
+023400980131     C     LCO           CHAIN     FMAPER                             90
+023500990716     C     ACST13        IFEQ      0                                                        K
+023600960725     C     VACTP         ANDEQ     13                                                       K
+023700030728     C                   MOVE      *ON           *IN10
+023800030728     C                   MOVE      'SAC3703'     $#MSID
+023900030728     C                   EXSR      SRMSGF
+024000030728     C                   MOVE      'YES'         ERROR
+024100030728     C                   GOTO      END01
+024200960609     C                   ENDIF
+024300010517      *
+024400010517     C     EMONTH        IFLE      0
+024500010517     C                   Z-ADD     VACTP         EMONTH
+024600030728     C                   ENDIF
+024700960609      *
+024800010517      *
+024900010517     C     ACST13        IFEQ      0                                                        K
+025000010517     C     EMONTH        ANDEQ     13                                                       K
+025100030728     C                   MOVE      *ON           *IN30
+025200030728     C                   MOVE      'SAC3703'     $#MSID
+025300030728     C                   EXSR      SRMSGF
+025400030728     C                   MOVE      'YES'         ERROR
+025500030728     C                   GOTO      END01
+025600010517     C                   ENDIF
+025700010517      *
+025800010517     C     EMONTH        IFLT      VACTP                                                    K
+025900030728     C                   MOVE      *ON           *IN10
+026000030728     C                   MOVE      *ON           *IN30
+026100030728     C                   MOVE      'SAC3707'     $#MSID
+026200030728     C                   EXSR      SRMSGF
+026300030728     C                   MOVE      'YES'         ERROR
+026400030728     C                   GOTO      END01
+026500010517     C                   ENDIF
+026600010517      *
+026700990716     C     LDOLUN        IFLT      1                                                        K
+026800990716     C     LDOLUN        ORGT      2                                                        K
+026900030728     C                   MOVE      *ON           *IN20
+027000030728     C                   MOVE      'SAC3704'     $#MSID
+027100030728     C                   EXSR      SRMSGF
+027200030728     C                   MOVE      'YES'         ERROR
+027300030728     C                   GOTO      END01
+027400960725     C                   ENDIF
+027500030724      *
+027600030724     C                   EXSR      CKCT
+027700030724     C     *IN95         IFEQ      *ON
+027800030728     C                   MOVE      'YES'         ERROR
+027900030728     C                   MOVE      'SAC3701'     $#MSID
+028000030728     C                   EXSR      SRMSGF
+028100030728     C                   GOTO      END01
+028200030724     C                   ENDIF
+028300030724      *
+028400030730     C                   MOVEL     S1CTFR        CSTTYP            2
+028500030730     C     CSTTYP        IFNE      *BLANKS
+028600030728     C     'CT'          CAT(P)    CSTTYP:0      TBIDKY            8
+028700030728     C     TBKEY         CHAIN     XATABL                             99
+028800030728     C     *IN99         IFEQ      *ON
+028900030728     C                   MOVE      YES           ERROR
+029000030728     C                   MOVE      '1'           *IN(61)
+0291000307280054 C                   MOVEL     'SAC3702'     $#MSID                                        NORDT
+029200030728     C                   EXSR      SRMSGF
+029300030728     C                   GOTO      END01
+0294000307280069 C                   ENDIF                                                                 NORDT
+0295000307280069 C                   ENDIF                                                                 NORDT
+0296000307280051 C                   MOVEL     S1CTTO        CSTTYP                                        NORDT
+029700030728     C     CSTTYP        IFNE      *BLANKS
+029800030728     C     'CT'          CAT(P)    CSTTYP:0      TBIDKY            8
+029900030728     C     TBKEY         CHAIN     XATABL                             99
+030000030728     C     *IN99         IFEQ      *ON
+030100030728     C                   MOVE      YES           ERROR
+030200030728     C                   MOVE      '1'           *IN(62)
+0303000307280054 C                   MOVEL     'SAC3702'     $#MSID                                        NORDT
+030400030728     C                   EXSR      SRMSGF
+030500030728     C                   GOTO      END01
+0306000307280069 C                   ENDIF                                                                 NORDT
+0307000307280069 C                   ENDIF                                                                 NORDT
+030800030728      *****
+030900030728VS02  * Low CT Range if Entered Must be Lower Than High Range    
+031000030728      *****
+0311000307280051 C     S1CTFR        IFGT      S1CTTO                                                      NORDT
+031200030728     C                   MOVEA     '11'          *IN(61)
+031300030728     C                   MOVE      YES           ERROR
+0314000307280054 C                   MOVEL     'SAC3705'     $#MSID                                        NORDT
+031500030728     C                   EXSR      SRMSGF
+031600030728     C                   GOTO      END01
+0317000307280069 C                   ENDIF                                                                 NORDT
+031800030728      *
+031900030724     C                   EXSR      CKPC
+032000030724     C     *IN96         IFEQ      *ON
+032100030728     C                   MOVE      'YES'         ERROR
+032200030728     C                   MOVE      'SAC3702'     $#MSID
+032300030728     C                   EXSR      SRMSGF
+032400030728     C                   GOTO      END01
+032500030724     C                   ENDIF
+032600030728      *
+032700030730     C                   MOVEL     S1PCFR        PRCCDE            1
+032800030730     C     PRCCDE        IFNE      *ZEROS
+032900030728     C     'PC'          CAT(P)    PRCCDE:0      TBIDKY            8
+033000030728     C     TBKEY         CHAIN     XATABL                             99
+033100030728     C     *IN99         IFEQ      *ON
+033200030728     C                   MOVE      YES           ERROR
+033300030728     C                   MOVE      '1'           *IN(42)
+0334000307280054 C                   MOVEL     'SAC3701'     $#MSID                                        NORDT
+033500030728     C                   EXSR      SRMSGF
+033600030728     C                   GOTO      END01
+0337000307280069 C                   ENDIF                                                                 NORDT
+0338000307280069 C                   ENDIF                                                                 NORDT
+0339000307280051 C                   MOVEL     S1PCTO        PRCCDE                                        NORDT
+034000030730     C     PRCCDE        IFNE      *ZEROS
+034100030728     C     'PC'          CAT(P)    PRCCDE:0      TBIDKY            8
+034200030728     C     TBKEY         CHAIN     XATABL                             99
+034300030728     C     *IN99         IFEQ      *ON
+034400030728     C                   MOVE      YES           ERROR
+034500030728     C                   MOVE      '1'           *IN(43)
+0346000307280054 C                   MOVEL     'SAC3701'     $#MSID                                        NORDT
+034700030728     C                   EXSR      SRMSGF
+034800030728     C                   GOTO      END01
+0349000307280069 C                   ENDIF                                                                 NORDT
+0350000307280069 C                   ENDIF                                                                 NORDT
+035100030728      *****
+035200030728VS02  * Low PC Range if Entered Must be Lower Than High Range    
+035300030728      *****
+0354000307280051 C     S1PCFR        IFGT      S1PCTO                                                      NORDT
+035500030728     C                   MOVEA     '11'          *IN(42)
+035600030728     C                   MOVE      YES           ERROR
+0357000307280054 C                   MOVEL     'SAC3706'     $#MSID                                        NORDT
+035800030728     C                   EXSR      SRMSGF
+035900030728     C                   GOTO      END01
+0360000307280069 C                   ENDIF                                                                 NORDT
+036100030724      *
+036200030724     C                   EXSR      MOV@TO
+036300960618      *
+036400030728     C     END01         ENDSR
+036500960617      *
+036600030724      ***************************************************************
+036700030724      ***************************************************************
+036800030724      * Validate Customers Selected                               *   
+036900030724      ***************************************************************
+037000030724     C     CKCT          BEGSR
+037100030724     C                   DO        10            II                2 0
+037200030724     C                   MOVEL     CT(II)        CSTTYP            2
+037300030724     C     CSTTYP        IFNE      *BLANKS
+037400030724     C     'CT'          CAT(P)    CSTTYP:0      TBIDKY            8
+037500030724     C     TBKEY         CHAIN     XATABL                             99
+037600030724     C     *IN99         IFEQ      *ON
+037700030728     C     II            ADD       50            IN                2 0
+037800030724     C                   MOVE      *ON           *IN(IN)
+037900030724     C                   MOVE      *ON           *IN95
+038000030724     C                   ENDIF
+038100030724     C                   ENDIF
+038200030724     C                   ENDDO
+038300030724     C                   ENDSR
+038400030724      ***************************************************************
+038500030724      * Validate Price Codes                                      *   
+038600030724      ***************************************************************
+038700030724     C     CKPC          BEGSR
+038800030724     C                   DO        10            II                2 0
+038900030730     C                   MOVEL     PC(II)        PRCCDE
+039000030730     C     PRCCDE        IFNE      *ZEROS
+039100030724     C     'PC'          CAT       PRCCDE:0      TBIDKY
+039200030724     C     TBKEY         CHAIN     XATABL                             99
+039300030724     C     *IN99         IFEQ      *ON
+039400030728     C     II            ADD       31            IN                2 0
+039500030724     C                   MOVE      *ON           *IN(IN)
+039600030724     C                   MOVE      *ON           *IN96
+039700030724     C                   ENDIF
+039800030724     C                   ENDIF
+039900030724     C                   ENDDO
+040000030724      *
+040100030724     C                   ENDSR
+040200030724      ********************************************************************
+040300030724      *        Program Initialization and Housekeeping                 *
+040400030724      ********************************************************************
+040500030724     CSR   *INZSR        BEGSR
+040600030724      *
+040700030724      * Define Key Lists 
+040800030724      *
+040900030724      *
+041000030724      * KLIST for file - CBTABL      Library - *LIBL     
+041100030724      *
+041200030724     C     TBKEY         KLIST
+041300030724     C                   KFLD                    TBIDKY
+041400030724      *
+041500030728     C                   Z-ADD     1             LDOLUN
+041600030728     C                   Z-ADD     1             LRANK
+041700030728     C                   Z-ADD     0             EMONTH
+041800030728     C                   Z-ADD     0             LMONTH
+041900030728     C                   Z-ADD     1             LCO
+042000030728     C                   Z-ADD     1             LCOPY
+042100030728      *
+042200030728      * Initialize values for message subfile                         
+042300030728      *
+042400030728     C                   MOVE      ##PGM         $#PGMQ           10            Pgm Msg Queue
+042500030728     C                   MOVEL     'KPMSGF'      $#MSGF           10            Msg File N/A 
+042600030728     C                   MOVEL     '*LIBL'       $#MSGL           10            Library  N/A 
+042700030728      *
+042800030728      * Clear Message Subfile -- set function to send                 
+042900030728      *
+043000030728     C                   MOVE      'C'           $#MSFN            1
+043100030728     C                   EXSR      SRMSGF
+043200030728     C                   MOVE      'S'           $#MSFN            1
+043300030724     C                   ENDSR
+043400030724      ********************************************************************
+043500030724      *        Move Screen Fields to LDA                               *
+043600030724      ********************************************************************
+043700030724     CSR   MOV@TO        BEGSR
+043800030724     C                   MOVE      S1PC01        LPC01
+043900030724     C                   MOVE      S1PC02        LPC02
+044000030724     C                   MOVE      S1PC03        LPC03
+044100030724     C                   MOVE      S1PC04        LPC04
+044200030724     C                   MOVE      S1PC05        LPC05
+044300030724     C                   MOVE      S1PC06        LPC06
+044400030724     C                   MOVE      S1PC07        LPC07
+044500030724     C                   MOVE      S1PC08        LPC08
+044600030724     C                   MOVE      S1PC09        LPC09
+044700030724     C                   MOVE      S1PC10        LPC10
+044800030724     C                   MOVE      S1PCFR        LPCFR
+044900030724     C                   MOVE      S1PCTO        LPCTO
+045000030724     C                   MOVE      S1CT01        LCT01
+045100030724     C                   MOVE      S1CT02        LCT02
+045200030724     C                   MOVE      S1CT03        LCT03
+045300030724     C                   MOVE      S1CT04        LCT04
+045400030724     C                   MOVE      S1CT05        LCT05
+045500030724     C                   MOVE      S1CT06        LCT06
+045600030724     C                   MOVE      S1CT07        LCT07
+045700030724     C                   MOVE      S1CT08        LCT08
+045800030724     C                   MOVE      S1CT09        LCT09
+045900030724     C                   MOVE      S1CT10        LCT10
+046000030724     C                   MOVE      S1CTFR        LCTFR
+046100030724     C                   MOVE      S1CTTO        LCTTO
+046200030724     C                   ENDSR
+046300030728      ********************************************************************
+046400030728      * SRMSGF - Clear or send messages to Pgm msg queue               *
+046500030728      ********************************************************************
+046600030728     CSR   SRMSGF        BEGSR
+046700030728      *
+046800030728      * Define Parameter List - define variables         
+046900030728      *
+047000030728     C     PLMSGF        PLIST
+047100030728     C                   PARM                    $#PGMQ           10
+047200030728     C                   PARM                    $#MSGF           10
+047300030728     C                   PARM                    $#MSGL           10
+047400030728     C                   PARM                    $#MSID            7
+047500030728     C                   PARM                    $#MSGD           80
+047600030728     C                   PARM                    $#MSKY            4
+047700030728     C                   PARM                    $#MSFN            1
+047800030728      *
+047900030728      * Call Msg processing CL                           
+048000030728      *
+048100030728     C                   CALL      'XAMSFC'      PLMSGF
+048200030728      *
+048300030728     C                   ENDSR
+048400030728      *****************************************************************
+048500030728      * SRCHLP - Cursor Sensitive Help                              *
+048600030728      *                                                             *
+048700030728      *          This subroutine will call the program to display   *
+048800030728      *          field level help, check for returned values and    *
+048900030728      *          move the field value to the screen field.          *
+049000030728      *                                                             *
+049100030728      * This subroutine was created by the CRTSRCHLP Command        *
+049200030728      *                                                             *
+049300030728      *****************************************************************
+049400030728     CSR   SRCHLP        BEGSR
+049500030728      *
+049600030728      * Save Indicators                                  
+049700030728      *
+049800030728     C                   MOVE      *IN66         @@IN66            1
+049900030728     C                   MOVE      *IN69         @@IN69            1
+050000030728      *
+050100030728      * Retain Current Cursor Position                   
+050200030728      *
+050300030728     C     $3CURP        DIV       256           ##ROW
+050400030728     C                   MVR                     ##COL
+050500030728      *
+050600030728      * Call Cursor Help Program                         
+050700030728      *
+050800030728     C                   CALL      'XACHLPC'                            69
+050900030728     C                   PARM                    ##FLD
+051000030728     C                   PARM                    $3CURP
+051100030728     C                   PARM                    ##PGM
+051200030728     C                   PARM                    ##RCD
+051300030728      *
+051400030728      * Restore Indicators                               
+051500030728      *
+051600030728     C                   MOVE      @@IN66        *IN66
+051700030728     C                   MOVE      @@IN69        *IN69
+051800030728      *
+051900030728     CSR                 ENDSR

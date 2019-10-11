@@ -1,0 +1,21 @@
+000100071012     FPC_FMINVT IP   E             DISK    Prefix(PC_) Rename(RMINVT:PC_INVT)
+000200071012     FFMINVT    UF   E           K DISK
+000300040329
+000400101028     C                   Eval      Start = ( $year($Date(0)) - 1900 )
+000500071012     C                   KFld                    PC_IMITEM
+000600071012     C                   KFld                    PC_IMSIZE
+000700071012
+000800071012     C     ItemKey       Chain     FMINVT
+000900071012     C                   If        %Found(FMINVT)
+001000071012
+001100101028    c/exec sql
+001200101028    c+
+001300101028    c+    SELECT   sum( FSOHST.SOQSHP )
+001400101028    c+    INTO     :Shipped
+001500101028    c+    from     FSOHST, FMSIZC
+001600101028    c+    where    FSOHST.SOSIZE=FMSIZC.SCSIZE
+001700101028    c+      and    FMSIZC.SCCATG='PLUG'
+001800101028    c+      and    FSOHST.SOSHDT between :START and :END
+001900101028    c+      and    FSOHST.SOCUST = :CUST
+002000101028    c+
+002100101028    c/end-exec

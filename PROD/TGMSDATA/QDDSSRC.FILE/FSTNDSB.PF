@@ -1,0 +1,53 @@
+     A*     STANDING ORDER DETAIL FILE
+     A*     FILE NAME - FSTNDSB
+     A*
+     A*
+     A                                      UNIQUE
+     A          R RSTNDSB                   TEXT('ORDER SUB.')
+     A            SSSTAT         1A         TEXT('STATUS')
+     A                                      COLHDG('Status')
+      ** THE FOLLOWING TWO FIELDS ARE KEY TO FSTANDI
+     A            SSORD#         6S 0       TEXT('ORDER NUMBER')
+     A                                      COLHDG('Order #')
+     A                                      EDTCDE(Z)
+     A            SSSEQ#         3S 0       TEXT('SEQ NUMBER')
+     A                                      COLHDG('Item' 'Seq #')
+     A                                      EDTCDE(4)
+      ** THE FOLLOWING field determines the sequence we try to subst.
+      ** in.
+     A            SSPSEQ         3S 0       TEXT('PRIORITY')
+     A                                      COLHDG('Item' 'Prior.')
+     A                                      EDTCDE(4)
+     A            SSITEM        12A         TEXT('ITEM NUMBER')
+     A                                      COLHDG('Item #')
+     A            SSSIZE         3A         TEXT('SIZE')
+     A                                      COLHDG('Size')
+     A            SSCOMP         2S 0       TEXT('COMPANY #')
+     A                                      COLHDG('Company #')
+     A                                      EDTCDE(4)
+     A            SSWHSE         3A         TEXT('LOCATION')
+     A                                      COLHDG('Location')
+     A            SSUPRI         9P 4       TEXT('UNIT PRICE')
+     A                                      COLHDG('Unit Price')
+     A                                      EDTCDE(3)
+      *** THE FOLLOWING IS BASE PRICE CODE
+      *** M=MARKET  S=STANDING ORDER PRICE O=PRICE IN STANDI RECORD
+      *** " "(BLANK)=PRICE IN THIS RECORD
+     A            SSPRCD         1A         TEXT('BASE PRICE CODE')
+     A                                      COLHDG('Base' 'Price' 'Code')
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF %=110.00 then price will be marked up 10%
+      ** IF %= 90.00 then price will be discounted 10%
+     A            SSDISP         5S 2       TEXT('Mark-up/Disc. %')
+     A                                      COLHDG('Mark-up' 'Disc. %')
+     A                                      EDTCDE(3)
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF $=  .50 then .50 will be added to base price.
+      ** IF $=  .50- Then .50 will be subtracted form base price.
+     A            SSDIS$         5S 2       TEXT('Mark-up/Disc. $')
+     A                                      COLHDG('Mark-up' 'Disc. $')
+     A                                      EDTCDE(M)
+     A*
+     A          K SSORD#
+     A          K SSSEQ#
+     A          K SSPSEQ

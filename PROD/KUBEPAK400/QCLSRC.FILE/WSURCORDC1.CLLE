@@ -1,0 +1,40 @@
+/*? Program       : WSURCORDC1                                        */
+/*? Date Written  : 30 JAN 2019                                       */
+/*? Programmer    : Vimala                                            */
+/*? Description   : Supplier Order Create CL - Dummen & Eason         */
+/*?                 Create Workfile in QTEMP For Each Call            */
+/*? Parameters    : Vendor                                            */
+/*?                                                                   */
+/*? Revisions     : 11 Apr 2019 - Added Eason URC Order - S.Uthaya    */
+/*?               : 12 Jul 2019 - Added Parameter back in W.Behr      */
+/*?               : 12 Jul 2019 - Allow missing parameter W.Behr      */
+/*?               : 12 Jul 2019 - If Param missing do all W.Behr      */
+/*********************************************************************/
+             PGM        PARM(&P_VEND)
+
+             DCL        VAR(&P_VEND) TYPE(*DEC)  LEN(6 0)
+             DCL        VAR(&VEND) TYPE(*DEC)  LEN(6 0)
+
+             IF         COND(%ADDRESS(&P_VEND) = *NULL) THEN(CHGVAR +
+                          VAR(&VEND) VALUE(0))
+             ELSE       CMD(CHGVAR VAR(&VEND) VALUE(&P_VEND))
+
+/*? Create QTEMP copy of work file                                    */
+             CPYF       FROMFILE(WSCUTXMLWF) +
+                          TOFILE(QTEMP/WSCUTXMLWF) MBROPT(*REPLACE) +
+                          CRTFILE(*YES)
+             MONMSG     MSGID(CPF0000)
+             CLRPFM     FILE(QTEMP/WSCUTXMLWF)
+             OVRDBF     FILE(WSCUTXMLWF) TOFILE(QTEMP/WSCUTXMLWF)
+
+/*? Call Dummen URC Order Create Program                              */
+             IF         COND(&VEND *EQ 0 *OR &VEND *EQ 23) THEN(CALL +
+                          PGM(WSURCORD01) PARM(X'0000023F'))
+
+/*? Call Eason URC Order Create Program                               */
+             IF         COND(&VEND *EQ 0 *OR &VEND *EQ 928) THEN( +
+                          CALL PGM(WSURCORD02) PARM(X'0000928F'))
+
+             DLTOVR     FILE(WSCUTXMLWF)
+
+ END:        ENDPGM

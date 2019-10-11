@@ -1,0 +1,71 @@
+     A*%%TS  SD  19990330  171305  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19990330  171305  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC32AA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 23' D.P.C. Customer Change List Promp-
+     A                                      t '
+     A                                      DSPATR(RI)
+     A                                 23  3'Enter to Process                  -
+     A                                                                F3/F7=Can-
+     A                                      cel Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 26'Begining Date:'
+     A                                  8 26'Ending Date:'
+     A                                 13 26'Forms Number:'
+     A            VFORM          4A  B 13 50DSPATR(CS)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A  14                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                 14 26'Number of Copies:'
+     A            VCOPY          2Y 0B 14 52EDTCDE(3)
+     A  15                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  15                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A  15                                  ERRMSG('*** Number of Copies is Req-
+     A                                      uired.    Press Reset')
+     A                                 15 26'Printer ID:'
+     A            VPRTR         10A  B 15 44DSPATR(CS)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A  52                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 16 26'Print Status:'
+     A            VOUT           1Y 0B 16 53EDTCDE(3)
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 16 56'1 = Print'
+     A                                 17 56'2 = Print/Save'
+     A                                 18 56'3 = Hold'
+     A            BEGDAT         6Y 0B  6 43
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N21                               ERRMSG('*** Invalid Begining Date E-
+     A                                      ntered.     Press RESET')
+     A            ENDDAT         6Y 0B  8 43
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  20N21                               ERRMSG('*** Invalid Ending Date Ent-
+     A                                      ered.       Press RESET')
+     A  20 21                               ERRMSG('*** Ending Date Must be equ-
+     A                                      al to or greater than Begining Date-
+     A                                      .   Press RESET')

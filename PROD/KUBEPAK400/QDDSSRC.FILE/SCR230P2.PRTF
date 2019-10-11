@@ -1,0 +1,114 @@
+     A*%%***********************************************************************
+     A*%%TS  RD  20140313  151414  BILLB       REL-V7R1M0  5770-WDS
+     A*%%FI+10660100000000000000000000000000000000000000000000000000
+     A*%%FI       0000000000000000000000000000000000000000000000000
+     A*%%***********************************************************************
+     A                                      REF(*LIBL/KPREF  KPREFR)
+     A          R CHGHDR2
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 006
+     A*%%***********************************************************************
+      *
+     A                                      SKIPB(007)
+     A                                      SPACEA(001)
+     A                                     1
+     A                                      'SCR230P'
+     A                                    27
+     A                                      'Kube-Pak Shipping Reporting'
+     A                                      UNDERLINE
+     A                                      HIGHLIGHT
+     A                                    66
+     A                                      'Page:'
+     A                                    76
+     A                                      PAGNBR
+     A                                      EDTCDE(Z)
+     A                                     1
+     A                                      'Run Date:'
+     A                                      SPACEB(001)
+     A                                    11
+     A                                      DATE
+     A                                      EDTCDE(Y)
+     A                                    +9
+     A                                      'Order Modification Request'
+     A                                    66
+     A                                      'Time:'
+     A                                    72
+     A                                      TIME
+     A                                    34
+     A                                      'Shipping Copy'
+     A                                      SPACEB(001)
+     A                                    19
+     A                                      'Cart #:'
+     A                                      SPACEB(002)
+     A            CTCART    R        O    +3
+     A                                      REFFLD(RCART/CTCART *LIBL/FCART)
+     A                                    +9
+     A                                      'Control #:'
+     A            CTCNTL    R        O    +3
+     A                                      REFFLD(RCART/CTCNTL *LIBL/FCART)
+     A                                     2
+     A                                      'The Following Orders called for pa-
+     A                                      rtial flats but were filled with fu-
+     A                                      ll flats.'
+     A                                      SPACEB(003)
+     A                                     1
+     A                                      'Order Number'
+     A                                      SPACEB(002)
+     A                                      UNDERLINE
+     A                                    +2
+     A                                      'Location'
+     A                                      UNDERLINE
+     A                                    +2
+     A                                      'Cust#'
+     A                                      UNDERLINE
+     A                                    +3
+     A                                      'Item & Size'
+     A                                      UNDERLINE
+     A                                    +6
+     A                                      'Description'
+     A                                    +5
+     A                                      'Comment       '
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001                                                    es
+     A*%%CL 001
+     A*%%CL 002
+     A*%%CL 003
+     A*%%CL 001
+     A*%%CL 001                                        m &
+     A*%%CL 001
+     A*%%***********************************************************************
+     A          R CHGDET2
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A                                      SPACEB(001)
+     A            PDORD#    R        O     1
+     A                                      REFFLD(RPUTORD/PDORD# *LIBL/FPUTORD)
+     A                                    +0
+     A                                      '-'
+     A            PDSEQ#    R        O    +0
+     A                                      REFFLD(RPUTORD/PDSEQ# *LIBL/FPUTORD)
+     A            PDLOC     R        O    +2
+     A                                      REFFLD(RPUTORD/PDLOC *LIBL/FPUTORD)
+     A            PDCUST    R        O    +2
+     A                                      REFFLD(RPUTORD/PDCUST *LIBL/FPUTORD)
+     A            PDITEM    R        O    +2
+     A                                      REFFLD(RPUTORD/PDITEM *LIBL/FPUTORD)
+     A            PDSIZE    R        O    +0
+     A                                      REFFLD(RPUTORD/PDSIZE *LIBL/FPUTORD)
+     A            PDLOOK    R        O    +2
+     A                                      REFFLD(RPUTORD/PDLOOK *LIBL/FPUTORD)
+     A                                    +1
+     A                                      '              '
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CP+999CRTPRTF
+     A*%%CP+    FILE(KUBEPAK400/SCR230P2)
+     A*%%CP+    DEVTYPE(*SCS)
+     A*%%CP+    PAGESIZE(60 080)
+     A*%%CP     FORMTYPE(*NAR)
+     A*%%***********************************************************************

@@ -1,0 +1,289 @@
+     A*%%TS  SD  20160603  095607  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      HELP
+     A                                      CF24
+     A          R FPR07001
+     A*%%TS  SD  20160603  095607  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Tag Number')
+     A                                      CF03
+     A                                      CF10
+     A                                      OVERLAY
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  3  2SYSNAME
+     A                                      COLOR(BLU)
+     A            PPD#           8Y 0B  7 32
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A N10                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                      EDTCDE(4)
+     A                                 23  2'F3=Cancel Job'
+     A N10        LASTTAG#       8Y 0O  3 73EDTCDE(4)
+     A                                      COLOR(BLU)
+     A                                  2 25'   COUNT FINISHED PRODUCTION   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 63'Last Tag:'
+     A                                  7 15'Production Tag#:'
+     A                                  7 43'Quantity Counted:'
+     A            COUNTED        5Y 0B  7 61CHECK(ER)
+     A                                      EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A  10                                  DSPATR(PC)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                      FPR07007 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  5 10'                                  -
+     A                                                                '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7 10'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7 68'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9 10'                                  -
+     A                                                                '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6 10'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8 10'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8 68'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6 68'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A  10                             11 34'Batch:'
+     A  10        FPBAT#    R        O 11 41REFFLD(FFINPPDTAG/FPBAT# *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPWEEK    R        O 12 41REFFLD(FFINPPDTAG/FPWEEK *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A                                      DATFMT(*ISO)
+     A  10        FPDATE    R        O 13 41REFFLD(FFINPPDTAG/FPDATE *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A                                      DATFMT(*ISO)
+     A  10        FPSHIP    R        O 14 41REFFLD(FFINPPDTAG/FPSHIP *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A                                      DATFMT(*ISO)
+     A  10        FPPLTG    R        O 15 41REFFLD(FFINPPDTAG/FPPLTG *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPCUST    R        O 16 41REFFLD(FFINPPDTAG/FPCUST *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPCABB    R        O 16 48REFFLD(FFINPPDTAG/FPCABB *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPITEM    R        O 17 41REFFLD(FFINPPDTAG/FPITEM *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPSIZE    R        O 17 54REFFLD(FFINPPDTAG/FPSIZE *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPQTYPROJ R        O 19 41REFFLD(FFINPPDTAG/FPQTYPROJ *LIBL/F-
+     A                                      FINPPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPPRTD    R        O 20 41REFFLD(FFINPPDTAG/FPPRTD *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10                             12 35'Week:'
+     A  10                             13 29'Plant Date:'
+     A  10                             14 30'Ship Date:'
+     A  10                             15 24'Planting Number:'
+     A  10                             16 31'Customer:'
+     A  10        FPDESC    R        O 18 41REFFLD(FFINPPDTAG/FPDESC *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPINVT    R        O 21 41REFFLD(FFINPPDTAG/FPINVT *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10                             17 35'Item:'
+     A  10                             19 21'Projected Quantity:'
+     A  10                             20 32'Printed:'
+     A  10                             21 21'Added to Inventory:'
+     A  10        FPQTYACTL R        O 19 56REFFLD(FFINPPDTAG/FPQTYPROJ *LIBL/F-
+     A                                      FINPPDTAG)
+     A                                      COLOR(PNK)
+     A  10                             19 47'Counted:'
+     A                                 23 18'F10=Change Size'
+     A          R FPR07002
+     A*%%TS  SD  20160603  095607  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Tag Number')
+     A                                      CF03
+     A                                      CF10
+     A                                      OVERLAY
+     A                                  1 42DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 42TIME
+     A                                      COLOR(BLU)
+     A                                  3 42USER
+     A                                      COLOR(BLU)
+     A                                  4 42SYSNAME
+     A                                      COLOR(BLU)
+     A            PPD#           8Y 0B  1 10
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A N10                                  DSPATR(PC)
+     A                                      CHECK(ER)
+     A                                      EDTCDE(4)
+     A                                 13  1'F3=Cancel Job'
+     A N10        LASTTAG#       8Y 0O  1 25EDTCDE(4)
+     A                                      COLOR(BLU)
+     A                                  2 16'COUNT FINISHED PRODUCTION'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            COUNTED        5Y 0B  2 10CHECK(ER)
+     A                                      EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A  10                                  DSPATR(PC)
+     A  10                              5  3'Batch:'
+     A  10        FPBAT#    R        O  5 10REFFLD(FFINPPDTAG/FPBAT# *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPWEEK    R        O  6 10REFFLD(FFINPPDTAG/FPWEEK *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A                                      DATFMT(*ISO)
+     A  10        FPDATE    R        O  7 10REFFLD(FFINPPDTAG/FPDATE *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A                                      DATFMT(*ISO)
+     A  10        FPSHIP    R        O  8 10REFFLD(FFINPPDTAG/FPSHIP *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A                                      DATFMT(*ISO)
+     A  10        FPPLTG    R        O  9 10REFFLD(FFINPPDTAG/FPPLTG *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPCUST    R        O 10 10REFFLD(FFINPPDTAG/FPCUST *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPCABB    R        O 10 17REFFLD(FFINPPDTAG/FPCABB *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPITEM    R        O  3 10REFFLD(FFINPPDTAG/FPITEM *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPSIZE    R        O  3 23REFFLD(FFINPPDTAG/FPSIZE *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPQTYPROJ R        O 11 10REFFLD(FFINPPDTAG/FPQTYPROJ *LIBL/F-
+     A                                      FINPPDTAG)
+     A                                      COLOR(PNK)
+     A  10        FPPRTD    R        O 12 10REFFLD(FFINPPDTAG/FPPRTD *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10                              6  4'Week:'
+     A  10        FPDESC    R        O  4 10REFFLD(FFINPPDTAG/FPDESC *LIBL/FFIN-
+     A                                      PPDTAG)
+     A                                      COLOR(PNK)
+     A  10                              3  4'Item:'
+     A  10                             12  1'Printed:'
+     A  10        FPQTYACTL R        O 11 25REFFLD(FFINPPDTAG/FPQTYPROJ *LIBL/F-
+     A                                      FINPPDTAG)
+     A                                      COLOR(PNK)
+     A  10                             11 16'Counted:'
+     A                                  1  4'Tag#:'
+     A                                  2  1'Counted:'
+     A  10                              9  4'Pltg:'
+     A  10                              8  4'Ship:'
+     A  10                              7  3'Plant:'
+     A  10                             10  4'Cust'
+     A  10                             11  4'Proj:'
+     A                                  1 19'Last:'
+     A                                 14  1'F10=Change Size'
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20160126  132101  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20050221  152634  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

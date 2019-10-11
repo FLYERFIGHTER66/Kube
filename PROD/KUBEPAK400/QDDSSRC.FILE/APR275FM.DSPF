@@ -1,0 +1,245 @@
+     A*%%TS  SD  19990712  095016  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990712  095016  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF04
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  3
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 30' A/P Change Due Date '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  3USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 24'Vendor Number:'
+     A            VVEND          6Y 0B  5 46DSPATR(CS)
+     A  12                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.   Press Reset')
+     A  60                                  ERRMSG('*** This Record Is Not In O-
+     A                                      pen Payables.   Press Reset')
+     A                                  6 24'Alpha Search'
+     A            VALPHA        15A  B  6 46DSPATR(CS)
+     A            VMNAME        30A  O  7 46
+     A                                  9 24'Voucher Number'
+     A            VVOUCH         6Y 0B  9 46
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  20                                  ERRMSG('*** Voucher Number Is Requi-
+     A                                      red.    Press Reset')
+     A                                 11 24'Invoice Number:'
+     A            VINV#         10A  B 11 42CHECK(RB)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invoice Number Is Requi-
+     A                                      red.    Press Reset')
+     A                                 13 24'Invoice Type:'
+     A            VTYPE          1A  B 13 51DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Valid Types Are Blank, -
+     A                                      C or F.    Press Reset')
+     A  42                                  ERRMSG('*** Can Not Change Due Date-
+     A                                       For Immediate Pay Invoice.   Press-
+     A                                       Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'      Enter to Process       F4=Di-
+     A                                      splay Payables        F3/F7=End of -
+     A                                      Job      '
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  19990603  160909  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 30' A/P Change Due Dates '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  4'Vendor:'
+     A            VVEND          6Y 0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VMNAME        30A  O  4 20DSPATR(HI)
+     A                                  5  3'Voucher:'
+     A            VVOUCH         6Y 0O  5 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  6  5'Terms:'
+     A            VMTMCD         2A  O  6 16DSPATR(HI)
+     A            TCDESC        30A  O  6 20DSPATR(HI)
+     A                                  7  3'Company:'
+     A            LCO            2S 0O  7 16DSPATR(HI)
+     A                                  9  1'Invoice #:'
+     A            APINV#        10A  O  9 12DSPATR(HI)
+     A                                  9 25'Date:'
+     A            APIVDT         6Y 0O  9 31EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  9 42'Amount:'
+     A            APDUE$        11Y 2O  9 50EDTCDE(M)
+     A                                      DSPATR(HI)
+     A                                  9 65'Type:'
+     A            APITYP         1A  O  9 71DSPATR(HI)
+     A                                 10  1'Description:'
+     A            APTDES        30A  O 10 14DSPATR(HI)
+     A                                 11  1'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(UL)
+     A                                 13 22'Invoice Due Date:'
+     A            VIDATE         6Y 0B 13 44DSPATR(CS)
+     A                                      EDTWRD('  /  / 0')
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  12                                  ERRMSG('*** Invoice Date Can Not Be-
+     A                                       Lower Than Discount Due Date.   Pr-
+     A                                      ess Reset')
+     A                                 15 21'Discount Due Date:'
+     A            VDDATE         6Y 0B 15 44DSPATR(CS)
+     A                                      EDTWRD('  /  / 0')
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                      CHECK(RB)
+     A                                 17 23'Discount Amount:'
+     A            VAMT           7Y 2B 17 44DSPATR(CS)
+     A                                      EDTCDE(M)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  31                                  ERRMSG('*** Discount Due Date Requi-
+     A                                      red If Discount Amount Entered.    -
+     A                                      Press Reset')
+     A  32                                  ERRMSG('*** Discount Can Not Be Equ-
+     A                                      al or Higher Than Invoice Amount.  -
+     A                                       Press Reset')
+     A                                 20 16' Validate Data - Change or Press E-
+     A                                      nter to Process '
+     A  88                                  DSPATR(RI)
+     A N88                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                       Enter to Pr-
+     A                                      ocess      F6=Restart              -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990502  100750  AP          REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  8  3' Overview Change Due Date         -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3' In this option, you can change:  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3'                 1.  the date the -
+     A                                      invoice is due                     -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                 2.  the discount -
+     A                                      due date                           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3'                 3.  the discount -
+     A                                      amount                             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' Changing the invoice date will af-
+     A                                      fect both your cash requirements an-
+     A                                      d open  '
+     A                                      DSPATR(HI)
+     A                                 19  3' payables aging.                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' It will NOT have any affect on ge-
+     A                                      neral ledger.                      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3' You can not change the dates on a-
+     A                                      n invoice that was coded for immedi-
+     A                                      ate pay.'
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)

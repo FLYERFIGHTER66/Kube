@@ -1,0 +1,382 @@
+000100000000    H/COPY QFunctDefn,@CopyRight
+000200000000     H DftActGrp(*no)
+000300000000     H DatFmt(*usa)
+000400000000     H BndDir('*LIBL/KPFUNCTION')
+000500000000      *:````````````````````````````````````````````````````````````:
+000600000000      *:         Sow Confirmation Scanning                          :
+000700000000      *:............................................................:
+000800000000      * :````````````````````````````````````````````````````````````:
+000900000000      * : Created:  Sep. 2004             Kube-Pak Corporation     :
+001000000000      * :      by:  William J. Behr                                  :
+001100000000      * :............................................................:
+001200000000      * :````````````````````````````````````````````````````````````:
+001300000000      * :  Program Description                                     :
+001400000000      * :                                                           :
+001500000000      * :   This program allows item sow on the recip machines to   :
+001600000000      * : be scanned as having been sow.  Formerly, recip type trays:
+001700000000      * : where marked as sown as soon as they were prefilled.      :
+001800000000      * :............................................................:
+001900000000      * :````````````````````````````````````````````````````````````:
+002000000000      * :  Subroutine Usage                                        :
+002100000000      * :                                                           :
+002200000000      * : Subroutine -Subroutine Description                    :
+002300000000      * :  *INZSR      -Initialization Subroutine                  :
+002400000000      * :............................................................:
+002500000000      * :````````````````````````````````````````````````````````````:
+002600000000      * :  Function Usage                                          :
+002700000000      * :                                                           :
+002800000000      * : Function   -Function Description                      :
+002900000000      * :............................................................:
+003000000000      * :````````````````````````````````````````````````````````````:
+003100000000      * :  Indicator Usage                                         :
+003200000000      * :                                                           :
+003300000000      * : *IND  -Indicator Usage                                :
+003400000000      * :  LR      Does this really need a description ?           :
+003500000000      * :............................................................:
+003600000000
+003700000000     FFTRAYR    UF   E           K DISK
+003800000000     FFTRAY     UF A E           K DISK
+003900000000     FFMSIZE    IF   E           K DISK
+004000000000     FFMINVT    UF   E           K DISK
+004100000000     FKPITMWHS  UF A E           K DISK
+004200000000     FFSOWNBY   O  A E           K DISK
+004300000000     FKPHIST    O  A E           K DISK
+004400000000     FSOW031FM  CF   E             WORKSTN
+004500000000
+004600000000      *  LDA
+004700000000     D                UDS
+004800000000
+004900000000      * Fields
+005000000000     D  SED            S              3A   Inz('SED')                           Size Code for Seed
+005100000000     D  Remaining      S              7S 0                                      Records Left
+005200000000     D  Seed_Cell      S                   Like(IM#SED)                         SEEDS PER CELL
+005300000000     D  Cell_Tray      S                   Like(SZCELL)                         CELLS PER TRAY
+005400000000     D  Seeds          S              5S 0                                      Seeds Used
+005500000000     D  Factor         S              7S 6                                      Sow Factor
+005600000000     D  KPWhse         S                   Like(IWWHSE) Inz(1)                  Warehouse Number
+005700000000
+005800000000      * Indicators
+005900000000     D  EndOfFile      S               N   INZ(*Off)
+006000000000     D  Looking4Tag    S               N   INZ(*Off)
+006100000000     D  Looking4Usr    S               N   INZ(*Off)
+006200000000
+006300000000      * Function Prototypes
+006400051128    D/COPY QFunctDefn,$TimeStamp
+006500051128    D/COPY QFunctDefn,$MDYDate
+006600000000    D/COPY QFunctDefn,$Date8
+006700000000    D/COPY QFunctDefn,$Date
+006800000000    D/COPY QFunctDefn,$User
+006900000000
+007000000000      *  ...........................................................
+007100000000      *  :    M A I N   C A L C U L A T I O N S                    :
+007200000000      *  :.........................................................:
+007300000000
+007400000000    
+007500000000     C                   ExSr      Load01
+007600051128     C                   ExSr      Scrn01
+007700000000     C                   DoW       not *InLr
+007800000000    C                   ExSr      Edit01
+007900000000     C                   EndDo
+008000000000
+008100000000
+008200000000      *  ...........................................................
+008300000000      *  :      SCRN01 - Display Screen 01                         :
+008400000000      *  :.........................................................:
+008500000000
+008600000000     C     SCRN01        BegSR
+008700000000
+008800000000     C                   If        Looking4Tag
+008900000000     C                   Eval      *In11 = *On                                  Looking for Tag #
+009000000000     C                   Else
+009100000000     C                   Eval      *In11 = *Off                                 Looking for User #
+009200000000     C                   EndIf
+009300000000
+009400000000    C                   Write     MSGCTL                                       
+009500000000     C                   ExFmt     SOW03101
+009600000000    C                   ExSr      ClrError
+009700000000
+009800000000     C                   EndSr
+009900000000
+010000000000
+010100000000      *  ...........................................................
+010200000000      *  :      Load01     - Load Screen 1                         :
+010300000000      *  :.........................................................:
+010400000000
+010500000000     C     Load01        BegSr
+010600000000
+010700000000      * Clear the screen if new tray.
+010800051128     C                   Eval      Looking4Tag = *On
+010900051128     C                   Eval      Looking4Usr = *Off
+011000051128     C                   Eval      *In11 = *On                                  Looking for Tag #
+011100051128     C                   Eval      TAG  = 0
+011200000000     C                   Eval      USER = 0
+011300000000
+011400000000     C                   EndSr
+011500000000
+011600000000
+011700000000      *  ...........................................................
+011800000000      *  :      EDIT01 - Edit Screen 01                            :
+011900000000      *  :.........................................................:
+012000000000
+012100000000     C     EDIT01        BegSR
+012200000000
+012300000000     C                   If        Tag <> *Zero
+012400000000    C     Tag           SetLL     FTRAY                                  31
+012500000000    C     Tag           SetLL     FTRAYR                                 32
+012600000000     C                   EndIf
+012700000000
+012800000000    C                   Select
+012900000000    C                   When      *In03 or *In07
+013000000000     C                   Eval      *InLr = *On
+013100000000
+013200000000    C                   When      Looking4Tag and
+013300000000    C                             Tag = *Zero
+013400051128     C                   Eval      MessageID   = 'SOW0301'
+013500000000      * Enter the Tray Tag number to be comfirmed.
+013600000000     C                   ExSr      SndError
+013700000000     C                   ExSr      Scrn01
+013800000000
+013900000000    C                   When      Looking4Usr and
+014000000000    C                             User = *Zero
+014100051128     C                   Eval      MessageID   = 'SOW0305'
+014200000000      * Enter the User Number for the individual who produced this tray.
+014300000000     C                   ExSr      SndError
+014400000000     C                   ExSr      Scrn01
+014500000000
+014600000000    C                   When      %Equal(FTRAY)
+014601051202    C                             and Looking4Tag
+014700000000     C                   If        %Equal(FTRAYR)
+014800000000    C     Tag           Chain     FTRAYR
+014900000000    C                   Delete    RTRAYR
+015000000000     C                   EndIf
+015100051128     C                   Eval      MessageID   = 'SOW0303'
+015200000000     C                   Eval      MessageDta  = %Char(Tag)
+015300000000      * The Tray Tag number ( &1 ) has already been scanned.
+015400000000     C                   ExSr      SndError
+015600000000
+015700000000    C                   When      not %Equal(FTRAYR)
+015800051128     C                   Eval      MessageID   = 'SOW0302'
+015900000000     C                   Eval      MessageDta  = %Char(Tag)
+016000000000      * The Tray Tag number ( &1 ) is not valid.  Check the number and try again.
+016100000000     C                   ExSr      SndError
+016200000000     C                   ExSr      Scrn01
+016300000000
+016400000000    C                   When      %Equal(FTRAYR) and
+016500000000    C                             not %Equal(FTRAY) and
+016600000000    C                             not Looking4Usr
+016700000000     C                   Eval      Looking4Tag = *Off
+016800000000     C                   Eval      Looking4Usr = *On
+016900051128     C                   Eval      MessageID   = 'SOW0306'
+017000000000     C                   Eval      MessageDta  = *Blanks
+017100000000      * Valid Tag entered.  Scan Sown by Tag.
+017200000000     C                   ExSr      SndError
+017300000000     C                   ExSr      Scrn01
+017400000000
+017500000000    C                   Other
+017600000000    C     Tag           Chain     FTRAYR
+017700000000     C                   Eval      TRLIN# = 3
+017800000000     C                   Eval      TRDTLA = $MDYDate($Date(0))
+017900000000     C                   Eval      TRUSER = $User()
+018000000000     C                   Time                    TRTIME
+018100000000    C                   Write     RTRAY
+018200000000    C                   Delete    RTRAYR
+018300000000      *  Write produced by record.
+018400000000     C                   Eval      SBTAG# = TAG
+018500000000     C                   Eval      SBCARD = USER
+018600000000     C                   Eval      SBPROG = 'SOW031'
+018700000000     C                   Eval      SBUSER = $User()
+018800000000     C                   Eval      SBTIME = $TimeStamp()
+018900000000    C                   Write     RSOWNBY
+019000000000     C                   Eval      LastTag  = TAG
+019100000000     C                   Eval      LastUser = USER
+019200000000      *  Update Seed Inventory if the Operation Type is (R)ecip.
+019300000000     C                   If        OperType = 'R'
+019400000000     C                   ExSr      UpdateInv
+019500000000     C                   EndIf
+019600000000     C                   ExSr      Load01
+019700000000     C                   ExSr      Scrn01
+019800000000    C                   EndSl
+019900000000
+020000000000
+020100000000     C                   EndSr
+020200000000
+020300000000
+020400000000      *  ...........................................................
+020500000000      *  :      UpdateInv - Update Inventory                       :
+020600000000      *  :.........................................................:
+020700000000
+020800000000     C     UpdateInv     BegSR
+020900000000
+021000000000      *  Chain to Size Master to get Tray Size Information
+021100000000    C     TRSIZE        CHAIN     FMSIZE
+021200000000     C                   If        %Found(FMSIZE)
+021300000000     C                   Z-ADD     SZCELL        Cell_Tray                      CELLS PER TRAY
+021400000000     C                   ENDIF
+021500000000      *  Chain to Item Master to Get Seeds per Cell
+021600000000    C     ItemKey       CHAIN     FMINVT
+021700000000     C                   If        %Found(FMINVT)
+021800000000     C                   Z-ADD     IM#SED        Seed_Cell                      SEEDS PER CELL
+021900000000     C                   ENDIF
+022000000000      *  Chain to Seed Item to Get Sow Factor
+022100000000    C     SeedKey       CHAIN     FMINVT
+022200000000     C                   If        %Found(FMINVT)
+022300000000      *  Calculate Number of Seeds Used
+022400000000     C                   Eval      Factor = ( 1 + (IMMULT/100))
+022500000000     C                   Eval      Seeds = Factor * Cell_Tray * Seed_Cell
+022600000000      *  Update Seed Inventory on Inventory Master
+022700000000     C                   Eval      IMQTOH = IMQTOH - Seeds
+022800000000     C                   Eval      IMISSU = IMISSU + Seeds
+022900000000    C                   Update    RMINVT
+023000000000     C                   ENDIF
+023100000000      *  Update Seed Inventory on P.O. Inventory Master
+023200000000    C     WhseKey       CHAIN     KPITMWHS                           98
+023300000000     C                   If        %Found(KPITMWHS)
+023400000000     C                   SUB       SEEDS         IWQTOH
+023500000000    C                   UPDATE    ITMWHSR
+023600000000     C                   ELSE
+023700000000     C                   Eval      IWPITM = TRITEM
+023800000000     C                   Eval      IWSIZE = 'SED'
+023900000000     C                   Eval      IWWHSE = 1
+024000000000     C                   Eval      IWQTOH = -Seeds
+024100000000    C                   WRITE     ITMWHSR
+024200000000     C                   ENDIF
+024300000000
+024400000000      *  Write P.O. System Transaction History Record
+024500000000     C                   Eval      DHPITM = TRITEM                              D/G ITEM NUMBER
+024600000000     C                   Eval      DHTQTY = Seeds                               Opening Bal
+024700000000    C                   WRITE     DGHISTR
+024800000000
+024900000000     C                   EndSr
+025000000000
+025100000000
+025200000000      *  ...........................................................
+025300000000      *  :      Count  - Count un-confirmed Trays                  :
+025400000000      *  :.........................................................:
+025500000000
+025600051202     C     ReportData    BegSR
+025700000000
+026700000000    c/exec sql
+026800000000    c+
+026801051202    c+    SELECT    date(A.SBTIME)
+026802051202    c+         ,    B.TRITEM
+026803051202    c+         ,    B.TRSIZE
+026804051202    c+         ,    count(B.TRITEM)
+026805051202    c+         ,    C.IMDES1
+026806051202    c+    FROM      FSOWNBY as A
+026807051202    c+       ,      FTRAY   as B
+026808051202    c+       ,      FMINVT  as C
+026809051202    c+    WHERE     A.SBTAG# = B.TRTAG#
+026810051202    c+      and     B.TRITEM = C.IMITEM
+027500051202    c+      and     B.TRSIZE = C.IMSIZE
+027501051202    c+    GROUP BY  date(A.SBTIME)
+027502051202    c+           ,  B.TRITEM
+027503051202    c+           ,  B.TRSIZE
+027504051202    c+           ,  C.IMDES1
+027505051202    c+    ORDER BY  date(A.SBTIME)
+027506051202    c+           ,  C.IMDES1
+027507051202    c+
+027600000000    c/end-exec
+027700000000
+030100000000
+030200000000    C                   EndSl
+030300000000
+030400000000     C                   EndSr
+030500000000
+030600000000
+030700000000      *  ...........................................................
+030800000000      *  :      ClrError - Clear Error Message Subfile             :
+030900000000      *  :.........................................................:
+031000000000    C     ClrError      BegSr                                                  
+031100000000
+031200000000     C                   MOVE      'C'           SndClr
+031300000000     C                   ExSr      SRMSGF                                       
+031400000000     C                   Eval      *In50 = *Off                                 Error Indicator
+031500000000
+031600000000    C                   EndSr                                                  
+031700000000
+031800000000
+031900000000      *  ...........................................................
+032000000000      *  :      SndError - Send an Error Message to the PGMMSGQ    :
+032100000000      *  :.........................................................:
+032200000000    C     SndError      BegSr                                                  
+032300000000
+032400000000     C                   MOVE      'S'           SndClr
+032500000000     C                   ExSr      SRMSGF                                       
+032600000000     C                   Eval      *In50 = *On                                  Error Indicator
+032700000000
+032800000000    C                   EndSr                                                  
+032900000000
+033000000000      *  ...........................................................
+033100000000      *  :      SRMSGF - Clear or send messages to Pgm msg queue   :
+033200000000      *  :.........................................................:
+033300000000    C     SRMSGF        BegSr                                                  
+033400000000
+033500000000      * Define Parameter List - define variables         
+033600000000
+033700000000     C     MessageParm   PLIST                                                  
+033800000000     C                   Parm      'SOW031'      PgmQ             10            Pgm Msg Queue
+033900000000     C                   Parm      'KPMSGF'      MsgFile          10            Message File
+034000000000     C                   Parm      '*LIBL'       MsgfLib          10            Library
+034100000000     C                   Parm                    MessageID         7            Message Id
+034200000000     C                   Parm                    MessageDta      100            Message Data
+034300000000     C                   Parm                    MsgKey            4            Message Key
+034400000000     C                   Parm                    SndClr            1            Send or Clear
+034500000000
+034600000000      * Call Msg processing CL                           
+034700000000
+034800000000     C                   CALL      'XAMSFC'      MessageParm                    
+034900000000
+035000000000    C                   EndSr                                                  
+035100000000      *  ...........................................................
+035200000000      *  :      *INZSR - Initialization Subroutine                 :
+035300000000      *  :.........................................................:
+035400000000
+035500000000     C     *InzSr        BegSR
+035600000000
+035700000000     C     *Entry        PList
+035800000000     C                   Parm                    OperType          1            |Type of Operation
+035900000000
+036000000000     C     ItemKey       KList
+036100000000     C                   KFld                    TRITEM
+036200000000     C                   KFld                    TRSIZE
+036300000000
+036400000000     C     SeedKey       KList
+036500000000     C                   KFld                    TRITEM
+036600000000     C                   KFld                    SED
+036700000000
+036800000000     C     WhseKey       KList
+036900000000     C                   KFld                    TRITEM
+037000000000     C                   KFld                    SED
+037100000000     C                   KFld                    KPWHSE
+037200000000
+037300000000    C                   Select
+037400000000    C                   When      OperType = 'R'
+037500000000     C                   Eval      *In61 = *On                                  Recip. Sowing
+037600000000    C                   When      OperType = 'C'
+037700000000     C                   Eval      *In62 = *On                                  Rooted Cuttings
+037800000000    C                   When      OperType = 'T'
+037900000000     C                   Eval      *In63 = *On                                  Transplanting
+038000000000    C                   EndSl
+038100000000      * Initialize History File information
+038200000000     C                   Eval      DHPSIZ = 'SED'                               SIZE
+038300000000     C                   Eval      DHCYMD = $DATE8($DATE(0))                    DATE AS CCYYMMDD
+038400000000     C                   Eval      DHTRAN = 'I'                                 TRANS TYPE
+038500000000     C                   Eval      DHTYPE = 'Issue (Sown Recip.)'               TYPE OF TRANSACTION
+038600000000     C                   Eval      DHFWHS = '01'                                DFT RECV WAREHOUSE
+038700000000     C                   Eval      DHTWHS = 0                                   DFT RECV WAREHOUSE
+038800000000     C                   Eval      DHPPRC = 0                                   LAST PRICE
+038900000000     C                   Eval      DHPOYR = 0                                   JOBBER PO YEAR
+039000000000     C                   Eval      DHDGPO = 0                                   JOBBER PO NUMBER
+039100000000     C                   Eval      DHCLOK = 0                                   Employee Number
+039200000000     C                   Eval      DHUSER = $USER()                             USER
+039300000000
+039400000000    C                   ExSr      ClrError
+039500000000    C                   ExSr      Count
+039600051128     C                   Eval      MessageID   = 'SOW0304'
+039700000000     C                   Eval      MessageDta  = %Char(Remaining)
+039800000000     C                   ExSr      SndError
+039900051128     C*                  ExSr      Load01
+040000051128     C                   Write     SOW03101
+040100051128     C*                  ExSr      Scrn01
+040200000000
+040300000000     C                   EndSR

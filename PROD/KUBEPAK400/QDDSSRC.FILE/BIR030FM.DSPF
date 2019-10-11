@@ -1,0 +1,317 @@
+     A*%%TS  SD  20000511  165454  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990906  061607  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPA)
+     A  *DS3                                HLPARA(05 012 05 047)
+     A  *DS4                                HLPARA(05 051 05 053)
+     A                                  1 28' Tax Jurisdiction Master '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  1 17'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  5  3'Action:'
+     A            VACT           1A  B  5 12DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.     Press Reset')
+     A                                  5 29'Tax Jurisdiction?'
+     A            VTAX           3A  B  5 49DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** This Jurisdiction is Ac-
+     A                                      tive.       Press Reset')
+     A  22                                  ERRMSG('*** This Jurisdiction is no-
+     A                                      t Active.   Press Reset')
+     A  23                                  ERRMSG('*** Jurisdiction Is Require-
+     A                                      d.     Press Reset')
+     A            VDESC         30A  O  7 49
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'   Enter to Process      F3/F7=End-
+     A                                       of Job     F13=Print Tax Jurisdict-
+     A                                      ion List '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A          R HELPA
+     A*%%TS  SD  19990611  054925  APGL        REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 10  2'  Tax Jurisdiction:               -
+     A                                                                   Requir-
+     A                                      ed      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  2'    Example 1:   You collect state-
+     A                                       sales tax in both Texas and New Yo-
+     A                                      rk -     '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12  2'   You must create a Tax Jurisdict-
+     A                                      ion record for every state, county -
+     A                                      and/     '
+     A                                      DSPATR(HI)
+     A                                 13  2'   or city in which you collect sa-
+     A                                      les tax.  The Tax Jurisdiction code-
+     A                                       can     '
+     A                                      DSPATR(HI)
+     A                                 14  2'   a combination of characters and-
+     A                                      /or letters.                       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                 Set up a record f-
+     A                                      or Texas, such as Code TX and a rec-
+     A                                      ord      '
+     A                                      DSPATR(HI)
+     A                                 18  2'                 for New York, suc-
+     A                                      h as Code NY.                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'    Example 2:   You collect state-
+     A                                       sales tax for New York and city sa-
+     A                                      les      '
+     A                                      DSPATR(HI)
+     A                                 20  2'                 tax for New York -
+     A                                      City.  Set up a record to be used f-
+     A                                      or       '
+     A                                      DSPATR(HI)
+     A                                 21  2'                 customers only to-
+     A                                       be charged state tax, such as NY a-
+     A                                      nd a     '
+     A                                      DSPATR(HI)
+     A                                 22  2'                 record for custom-
+     A                                      ers to be charged both, such as NY1-
+     A                                      .        '
+     A                                      DSPATR(HI)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20000511  165454  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF23
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPB1)
+     A  *DS3                                HLPARA(07 034 07 063)
+     A  *DS4                                HLPARA(07 027 07 056)
+     A          H                           HLPRCD(HELPB2)
+     A  *DS3                                HLPARA(10 001 14 080)
+     A  *DS4                                HLPARA(09 037 13 044)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 28' Tax Jurisdiction Master '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 36DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Tax Jurisdiction:'
+     A            TXTXJU         3A  O  5 22
+     A  50                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A                                  7 15'Jurisdiction Location:'
+     A            TXJUNM        30A  B  7 39
+     A N16                                  DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  16                                  DSPATR(HI)
+     A  10                                  ERRMSG('*** Jurisction Location Is -
+     A                                      Required.   Press Reset')
+     A                                 10  3'Tax Percentages ==>'
+     A                                 10 31'State:'
+     A            TXPCT1         7Y 4B 10 39
+     A N16                                  DSPATR(CS)
+     A                                      CHECK(FE)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  16                                  DSPATR(HI)
+     A                                 12 30'County:'
+     A            TXPCT2         7Y 4B 12 39
+     A N16                                  DSPATR(CS)
+     A                                      CHECK(FE)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  16                                  DSPATR(HI)
+     A                                 14 25'Muncipality:'
+     A            TXPCT3         7Y 4B 14 39
+     A N16                                  DSPATR(CS)
+     A                                      CHECK(FE)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  16                                  DSPATR(HI)
+     A                                 17  8' WARNING: Are you sure you do not -
+     A                                      want to enter any tax percent? '
+     A                                      COLOR(YLW)
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A                                 18 18' Enter a percent, or Press Enter t-
+     A                                      o continue '
+     A                                      COLOR(YLW)
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  16                                  DSPATR(RI)
+     A N16                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'            Enter to Process      -
+     A                                      F6=Restart      F3/F7=End of Job   -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELPB1
+     A*%%TS  SD  19990611  054925  APGL        REL-V3R1M0  5763-PW1
+     A                                 18  2'  Tax Jurisdiction Location:      -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'  Enter up to 30 characters to des-
+     A                                      cribe this tax jurisdiction.       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2'  This description will print on t-
+     A                                      he Taxes by Tax Jurisdiction Report-
+     A                                      .        '
+     A                                      DSPATR(HI)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R HELPB2
+     A*%%TS  SD  20000428  202257  TGMS        REL-V4R4M0  5769-PW1
+     A                                 13  2' Tax Percents                     -
+     A                                                                    Optio-
+     A                                      nal      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'   Enter tax percent used to calcu-
+     A                                      late State, County or Municipal Tax-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'   for this jurisdiction.  If you -
+     A                                      collect sales tax for more than one-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'   taxing entity, enter the percen-
+     A                                      t in all appropriate fields even if-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'   the tax percent is the same.   -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'      For Example ==>      Enter 5-
+     A                                      .25% - 5.2500    Enter 6% - 6.0000 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'   A tax percent is not required i-
+     A                                      n any of the fields.               -
+     A                                               '
+     A                                      DSPATR(HI)

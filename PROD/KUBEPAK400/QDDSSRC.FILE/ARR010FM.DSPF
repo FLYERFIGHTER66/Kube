@@ -1,0 +1,3071 @@
+     A*%%TS  SD  20190319  101335  BILLB       REL-V7R2M0  5770-WDS
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   10/25/18   S.Uthaya     Added F5=Refresh function key in
+     A*                                 SCNRB
+     A* SUD02   12/05/18   S.Uthaya     Replaced F8 function with New Screen
+     A*                                 in SCNRH
+     A**********************************************************************
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A**********************************************************************
+     A          R SCRNA
+     A*%%TS  SD  20190319  101335  BILLB       REL-V7R2M0  5770-WDS
+     A                                      TEXT('Add, Change, Delete')
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP(04)
+     A                                      ROLLDOWN(02)
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPA)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(05 055 06 069)
+     A          H
+     A N95                                  HLPRCD(HELPA1)
+     A  *DS3                                HLPARA(05 055 06 069)
+     A  *DS4                                HLPARA(05 055 06 069)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 30' Customer Master File '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  5  3'Action:'
+     A                                      COLOR(GRN)
+     A            VACT           1A  B  5 12DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.      Press Reset')
+     A  07                                  ERRMSG('*** Control Record for Comp-
+     A                                      any 00 is Missing.  Press F7 to Can-
+     A                                      cel Job.')
+     A                                  5 26'Customer Number:'
+     A            VCUST          6Y 0B  5 47
+     A  14                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  14                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  11 14                               ERRMSG('*** Either Customer Number -
+     A                                      or Alpha Search Can Be Entered - No-
+     A                                      t Both')
+     A  09 14                               ERRMSG('*** Customer Number Cannot -
+     A                                      Be Entered on an ADD       Press Re-
+     A                                      set')
+     A  12 14                               ERRMSG('*** This Customer Number Al-
+     A                                      ready on File.    Press Reset')
+     A  36 14                               ERRMSG('*** This Customer Number Is-
+     A                                       Not on File.     Press Reset')
+     A  37 14                               ERRMSG('*** Customer Number is Dele-
+     A                                      ted.                Press Reset')
+     A  15 14                               ERRMSG('*** Cannot Reactivate, Cust-
+     A                                      omer is Not Deleted.     Press Rese-
+     A                                      t')
+     A  16 14                               ERRMSG('*** Cannot Delete, Customer-
+     A                                       Has an Accounts Receivable Balance-
+     A                                      .  Press Reset')
+     A  71 14                               ERRMSG('*** Cannot Delete, There ar-
+     A                                      e Open Orders for This Customer.   -
+     A                                      Press Reset')
+     A  14 25                               ERRMSG('*** Cannot Delete, Customer-
+     A                                       has Accounts Receivable History.  -
+     A                                       Press RESET')
+     A                                  6 26'Alpha Search:'
+     A            VALPHA        15A  B  6 47DSPATR(CS)
+     A                                  7 26'Telephone # Search:'
+     A            VTELE         10A  B  7 47DSPATR(CS)
+     A                                  8  1' A = Add       '
+     A                                      DSPATR(RI)
+     A            CMNAME        30A  O  9 47
+     A                                  9  1' C = Change    '
+     A                                      DSPATR(RI)
+     A                                 10  1' D = Delete    '
+     A                                      DSPATR(RI)
+     A                                 11  1' R = Reactivate'
+     A                                      DSPATR(RI)
+     A                                 12  1' I = Inquiry   '
+     A                                      DSPATR(RI)
+     A                                 15 32'The system will automatically assi-
+     A                                      gn'
+     A                                      DSPATR(HI)
+     A N95                                  DSPATR(ND)
+     A                                 16 32'Customer Number for Action Code ''-
+     A                                      A''.'
+     A                                      DSPATR(HI)
+     A N95                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                     Enter to Proc-
+     A                                      ess     F3/F7=End of Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  2 34'For Company:'
+     A            LCO            2S 0O  2 47DSPATR(HI)
+     A                                  1  2'ARR010A'
+     A                                      COLOR(BLU)
+     A                                  8 26'Zip Code Search:'
+     A            VZIP           9A  B  8 47DSPATR(CS)
+     A                                  3 64'Last Cust:'
+     A                                 21 80' '
+     A            LASTCUST       6Y 0O  3 75COLOR(BLU)
+     A                                      EDTCDE(Z)
+SUD01A***************************************************************
+     A          R SCRNB
+     A*%%TS  SD  20190312  165549  BILLB       REL-V7R2M0  5770-WDS
+     A                                      TEXT('Main Info - Name, Address, et-
+     A                                      c.')
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF05
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP(04)
+     A                                      ROLLDOWN(02)
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HBNAME)
+     A  *DS3                                HLPARA(06 015 06 044)
+     A  *DS4                                HLPARA(06 015 06 044)
+     A          H                           HLPRCD(HBALPHA)
+     A  *DS3                                HLPARA(06 063 06 077)
+     A  *DS4                                HLPARA(06 063 06 077)
+     A          H                           HLPRCD(HBADDR)
+     A  *DS3                                HLPARA(07 015 09 044)
+     A  *DS4                                HLPARA(07 015 09 044)
+     A          H                           HLPRCD(HBCSZ)
+     A  *DS3                                HLPARA(10 015 11 070)
+     A  *DS4                                HLPARA(10 015 10 070)
+     A          H                           HLPRCD(HBTEL)
+     A  *DS3                                HLPARA(13 015 13 052)
+     A  *DS4                                HLPARA(12 015 13 052)
+     A          H                           HLPRCD(HBCAR)
+     A  *DS3                                HLPARA(15 020 15 025)
+     A  *DS4                                HLPARA(15 020 15 025)
+     A          H                           HLPRCD(HBSLSP)
+     A  *DS3                                HLPARA(15 049 15 050)
+     A  *DS4                                HLPARA(15 049 15 050)
+     A          H                           HLPRCD(HBTYPE)
+     A  *DS3                                HLPARA(15 075 15 076)
+     A  *DS4                                HLPARA(15 075 15 076)
+     A          H                           HLPRCD(HBCSA)
+     A  *DS3                                HLPARA(16 020 16 025)
+     A  *DS4                                HLPARA(16 020 16 025)
+     A          H                           HLPRCD(HBTERR)
+     A  *DS3                                HLPARA(16 049 16 050)
+     A  *DS4                                HLPARA(16 049 16 050)
+     A          H                           HLPRCD(HBORDL)
+     A  *DS3                                HLPARA(16 071 16 076)
+     A  *DS4                                HLPARA(16 071 16 076)
+     A          H                           HLPRCD(HBCBI)
+     A  *DS3                                HLPARA(17 020 17 025)
+     A  *DS4                                HLPARA(17 020 17 025)
+     A          H                           HLPRCD(HBCOMM)
+     A  *DS3                                HLPARA(17 046 17 050)
+     A  *DS4                                HLPARA(17 046 17 050)
+     A          H                           HLPRCD(HBBROK)
+     A  *DS3                                HLPARA(17 076 17 076)
+     A  *DS4                                HLPARA(17 076 17 076)
+     A          H                           HLPRCD(HBXREF)
+     A  *DS3                                HLPARA(18 020 18 025)
+     A  *DS4                                HLPARA(18 020 18 025)
+     A          H                           HLPRCD(HBNOTES)
+     A  *DS3                                HLPARA(20 011 20 076)
+     A  *DS4                                HLPARA(20 013 20 076)
+     A          H                           HLPRCD(HBCNAM)
+     A  *DS3                                HLPARA(12 015 12 044)
+     A  *DS4                                HLPARA(11 015 11 044)
+     A          H                           HLPRCD(HBPORQ)
+     A  *DS3                                HLPARA(18 050 18 050)
+     A  *DS4                                HLPARA(18 050 18 050)
+     A          H                           HLPRCD(HBBABB)
+     A  *DS3                                HLPARA(18 072 18 076)
+     A  *DS4                                HLPARA(18 072 18 076)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 30' Customer Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 35DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  9' This customer will be deleted.   -
+     A                                      Press F6 to cancel deletion. '
+     A  70                                  DSPATR(RI)
+     A N70                                  DSPATR(ND)
+     A            NOTES          2Y 0B  3 68PSHBTNFLD
+     A N69                                  PSHBTNCHC(1 '>ADD NOTES')
+     A  69                                  PSHBTNCHC(2 '>VIEW NOTES')
+     A                                  5  5'Number:'
+     A            CMCUST         6Y 0O  5 15EDTCDE(Z)
+     A  50                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A                                  6  7'Name:'
+     A            CMNAME        30A  B  6 15
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  20                                  DSPATR(RI)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  20                                  ERRMSG('*** Customer Name is Requir-
+     A                                      ed.         Press Reset')
+     A                                  6 49'Alpha Search:'
+     A            VLOOK         15A  B  6 63
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Alpha Search is Require-
+     A                                      d.          Press Reset')
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  7  2'Address 2:'
+     A            CMADD2        30A  B  7 15
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  8  2'Address 3:'
+     A            CMADD3        30A  B  8 15
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  9  2'Address 4:'
+     A            CMADD4        30A  B  9 15
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 10  7'City:'
+     A            CMCITY        18A  B 10 15
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 10 36'State?'
+     A            CMSTST         2A  B 10 43
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  22                                  ERRMSG('*** Invalid State Entered. -
+     A                                                  Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 10 48'Zip Code:'
+     A            CMZIP          9A  B 10 58
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 11  4'Country:'
+     A            CMCOUN        10A  B 11 15
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 12  4'Contact:'
+     A            CMCNME        30A  B 12 15
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 13  4'Tel. #1:'
+     A            CMPHON        10Y 0B 13 15
+     A N50                                  DSPATR(CS)
+     A                                      EDTWRD('   -   -    ')
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(RB)
+     A  50                                  DSPATR(HI)
+     A                                 13 30'Tel. #2:'
+     A            CMPHO2        10Y 0B 13 41
+     A N50                                  DSPATR(CS)
+     A                                      EDTWRD('   -   -    ')
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(RB)
+     A  50                                  DSPATR(HI)
+     A                                 13 55'Fax:'
+     A            HSFAX         10Y 0B 13 62
+     A N50                                  DSPATR(CS)
+     A                                      EDTWRD('   -   -    ')
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(FE)
+     A                                      CHECK(RB)
+     A  50                                  DSPATR(HI)
+     A                                 15  9'A/R Cust#'
+     A            CMARCU         6Y 0B 15 20CHECK(FE)
+     A                                      CHECK(RB)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  23                                  DSPATR(RI)
+     A  23                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Invalid Accounts Receiv-
+     A                                      able Customer Number.       Press R-
+     A                                      eset')
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(HI)
+     A                                 15 32'Salesperson?'
+     A            CMSLSM         2A  B 15 49
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  24                                  DSPATR(RI)
+     A  24                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  24                                  ERRMSG('*** Invalid Salesperson Num-
+     A                                      ber.        Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 15 55'Customer Type?'
+     A            CMCTYP         2A  B 15 75
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A N50 25                               DSPATR(RI)
+     A N50 25                               DSPATR(PC)
+     A  25                                  ERRMSG('*** Invalid Customer Type. -
+     A                                             Press RESET')
+     A                                 16  9'S/A Cust#'
+     A            CMSACU         6Y 0B 16 20CHECK(FE)
+     A                                      CHECK(RB)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  26                                  DSPATR(MDT)
+     A  26                                  ERRMSG('*** Invalid Sales Analysis -
+     A                                      Customer Number.   Press Enter')
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(HI)
+     A                                 16 34'Territory?'
+     A            CMTERR         2A  B 16 49
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  27                                  DSPATR(RI)
+     A  27                                  DSPATR(PC)
+     A  50                                  DSPATR(HI)
+     A  27                                  ERRMSG('*** Territory is Invalid.  -
+     A                                                  Press Reset')
+     A                                 16 58'Order List?'
+     A            CMORLS         6A  B 16 71
+     A N50                                  DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  40                                  ERRMSG('*** Invalid Order List.    -
+     A                                             Press Reset')
+     A                                 17  8'Bill Cust#'
+     A            CMBLCU         6Y 0B 17 20CHECK(FE)
+     A                                      CHECK(RB)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  29                                  DSPATR(RI)
+     A  29                                  DSPATR(PC)
+     A  29                                  ERRMSG('*** Billing Customer Number-
+     A                                       is Invalid.     Press Reset')
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(HI)
+     A                                 17 31'Commission %:'
+     A            CMCOMM         4Y 2B 17 46
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A                                      EDTCDE(3)
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(HI)
+     A                                 17 57'Broker  Y/N:'
+     A            CMJOBR         1A  B 17 76
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A                                      VALUES('Y' 'N')
+     A  50                                  DSPATR(HI)
+     A                                 18  1'Cust/Item # XRef#'
+     A            CMIREF         6Y 0B 18 20CHECK(FE)
+     A                                      CHECK(RB)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Customer Item Cross Ref-
+     A                                      erence Not Valid.    Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 18 30'P.O. Required:'
+     A            CMPORQ         1A  B 18 50
+     A N50                                  DSPATR(CS)
+     A  39                                  DSPATR(RI)
+     A  39                                  DSPATR(PC)
+     A  50                                  DSPATR(HI)
+     A  50                                  DSPATR(PR)
+     A  39                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.     Press Reset')
+     A  42                                  ERRMSG('*** Bill To Customer Requir-
+     A                                      es A P.O.   Press Reset')
+     A                                 18 57'Broker Abbr:'
+     A            CMBABB         5A  B 18 72
+     A N50                                  DSPATR(CS)
+     A  48                                  DSPATR(RI)
+     A  48                                  DSPATR(PC)
+     A  45                                  DSPATR(PR)
+     A  49                                  ERRMSG('*** Broker Abbreviation is -
+     A                                      Required.   Press Reset')
+     A  47                                  ERRMSG('*** Abbreviation Cannot Be -
+     A                                      Entered, Cust. Not Assoc With Broke-
+     A                                      r.  Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 20  3'Notes:'
+     A            CCCOM1        30A  B 20 11
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(HI)
+     A            CCCOM2        30A  B 20 43
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(HI)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2' # = Enter 999999 for alpha search'
+     A                                      DSPATR(UL)
+     A                                 22 52'F5=Refresh'
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process    F6=Restart   -
+     A                                       F3/F7=End of Job    F1=Primary Con-
+     A                                      tact Data'
+     A                                      DSPATR(UL)
+     A                                  1  2'ARR010B'
+     A            CHECKZIP       2Y 0B 10 68PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>CHECK ZIP')
+SUD01A***********************************************************************
+     A          R SCRNC
+     A*%%TS  SD  20190214  125805  BILLB       REL-V7R2M0  5770-WDS
+     A                                      TEXT('2nd screen - Inst, ship, tax,-
+     A                                       A/R, etc.')
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP(04)
+     A                                      ROLLDOWN(02)
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF05
+     A                                      CF03
+     A                                      ALWROL
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPC1)
+     A  *DS3                                HLPARA(07 016 07 016)
+     A  *DS4                                HLPARA(07 017 07 017)
+     A          H                           HLPRCD(HELPC2)
+     A  *DS3                                HLPARA(07 029 07 029)
+     A  *DS4                                HLPARA(07 031 07 031)
+     A          H                           HLPRCD(HELPC3)
+     A  *DS3                                HLPARA(07 045 07 045)
+     A  *DS4                                HLPARA(07 048 07 048)
+     A          H                           HLPRCD(HELPC4)
+     A  *DS3                                HLPARA(07 077 07 077)
+     A  *DS4                                HLPARA(07 063 07 063)
+     A          H                           HLPRCD(HELPC5)
+     A  *DS3                                HLPARA(08 073 08 077)
+     A  *DS4                                HLPARA(07 074 07 078)
+     A          H                           HLPRCD(HELPC6)
+     A  *DS3                                HLPARA(09 019 09 048)
+     A  *DS4                                HLPARA(09 019 09 048)
+     A          H                           HLPRCD(HCFRTZ)
+     A  *DS3                                HLPARA(10 078 10 078)
+     A  *DS4                                HLPARA(09 071 09 071)
+     A          H                           HLPRCD(HCSPEC)
+     A  *DS3                                HLPARA(11 018 11 047)
+     A  *DS4                                HLPARA(10 019 10 048)
+     A          H                           HLPRCD(HCSVIA)
+     A  *DS3                                HLPARA(12 018 12 019)
+     A  *DS4                                HLPARA(11 019 11 020)
+     A          H                           HLPRCD(HCTAX)
+     A  *DS3                                HLPARA(13 019 13 080)
+     A  *DS4                                HLPARA(12 020 12 080)
+     A          H                           HLPRCD(HCTERM)
+     A  *DS3                                HLPARA(16 015 16 016)
+     A  *DS4                                HLPARA(15 015 15 016)
+     A          H                           HLPRCD(HCCRDL)
+     A  *DS3                                HLPARA(16 069 16 078)
+     A  *DS4                                HLPARA(15 069 15 078)
+     A          H                           HLPRCD(HCCNAM)
+     A  *DS3                                HLPARA(17 020 17 049)
+     A  *DS4                                HLPARA(16 020 16 049)
+     A          H                           HLPRCD(HCARTYP)
+     A  *DS3                                HLPARA(17 078 17 078)
+     A  *DS4                                HLPARA(16 078 16 078)
+     A          H                           HLPRCD(HCLATC)
+     A  *DS3                                HLPARA(18 031 18 031)
+     A  *DS4                                HLPARA(17 031 17 031)
+     A          H                           HLPRCD(HCSTMCY)
+     A  *DS3                                HLPARA(18 078 18 078)
+     A  *DS4                                HLPARA(17 078 17 078)
+     A          H                           HLPRCD(HCCOD)
+     A  *DS3                                HLPARA(19 031 19 031)
+     A  *DS4                                HLPARA(18 031 18 031)
+     A          H                           HLPRCD(HCCOPY)
+     A  *DS3                                HLPARA(19 078 19 078)
+     A  *DS4                                HLPARA(18 078 18 078)
+     A          H                           HLPRCD(HCPSLS)
+     A  *DS3                                HLPARA(20 031 20 031)
+     A  *DS4                                HLPARA(19 031 19 031)
+     A          H                           HLPRCD(HCOACK)
+     A  *DS3                                HLPARA(20 078 20 078)
+     A  *DS4                                HLPARA(19 078 19 078)
+     A          H                           HLPRCD(HPHYTO)
+     A  *DS3                                HLPARA(11 078 11 078)
+     A  *DS4                                HLPARA(10 075 10 075)
+     A          H                           HLPRCD(HFLOC)
+     A  *DS3                                HLPARA(12 076 12 078)
+     A  *DS4                                HLPARA(11 076 11 078)
+     A                                  1  2'ARR010C'
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 30' Customer Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 35DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            CMCUST         6Y 0O  4 12EDTCDE(Z)
+     A  50                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  5  2'Company:'
+     A            LCO            2S 0O  5 16DSPATR(HI)
+     A            CNAME         30A  O  5 19DSPATR(HI)
+     A                                  6 56'  D I S C O U N T S  '
+     A                                      DSPATR(UL)
+     A                                  7  2'Pricing Code:'
+     A            CMPRCD         1D 0B  7 16
+     A N50                                  DSPATR(CS)
+     A  54                                  DSPATR(RI)
+     A  54                                  DSPATR(PC)
+     A  54                                  ERRMSG('*** Valid Pricing Codes are-
+     A                                       1, 2, 3, 4 or 5.   Press Reset')
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  7 27'Contract:'
+     A            CMCTCD         1A  B  7 37
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  51                                  ERRMSGID(EFD0002 EFDSYS/EFDMSG)
+     A                                  7 40'B/O Allowed:'
+     A            CMBOOK         1A  B  7 53
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A  52                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press Reset')
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  7 56'Quantity and Volume:'
+     A            CMQDIS         1A  B  7 78
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press Reset')
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  8 66'Trade:'
+     A            CMTRDC         4Y 2B  8 74
+     A N50                                  DSPATR(CS)
+     A                                      EDTCDE(2)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 10  2'Shipping Inst:'
+     A            CMSHIN        30A  B 10 18
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 13  2'Freight Zone?'
+     A            CMUPSZ         1A  B 13 18DSPATR(CS)
+     A  50                                  DSPATR(HI)
+     A  43                                  DSPATR(RI)
+     A  43                                  DSPATR(PC)
+     A  43                                  ERRMSG('*** Enter A Valid Freight Z-
+     A                                      one.    Press Reset')
+     A                                 11  2'Special Inst:'
+     A            CMSPIN        30A  B 11 18
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  9 56'Override Phyto Code:'
+     A  77                                  DSPATR(ND)
+     A            CMPHYT         1A  B  9 78
+     A N50N77                               DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Phyto Code Cannot Be Lo-
+     A                                      wer Than State Phyto Code.   Press -
+     A                                      Reset')
+     A  33                                  ERRMSG('*** This Is Not A Valid Phy-
+     A                                      to Code.   Press Reset')
+     A  50                                  DSPATR(HI)
+     A  77                                  DSPATR(ND)
+     A  77                                  DSPATR(PR)
+     A                                 12  2'Ship Via Code?'
+     A            CMSVCD         2A  B 12 18
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  73                                  ERRMSG('*** Ship Via Code is Requir-
+     A                                      ed.         Press Reset')
+     A  74                                  ERRMSG('*** Ship Via Code is Not Va-
+     A                                      lid.        Press Reset')
+     A            CMSHPV        30A  O 12 21
+     A  50                                  DSPATR(HI)
+     A                                 10 56'Ship From Location?'
+     A            CMSHFR         3A  B 10 76
+     A N50                                  DSPATR(CS)
+     A  38                                  DSPATR(RI)
+     A  38                                  DSPATR(PC)
+     A  38                                  ERRMSG('*** This is not a Valid Loc-
+     A                                      ation Code.    Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 12 56'Taxes:'
+     A                                 12 68'Exempt:'
+     A            CMTXST         1A  B 12 78
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  56                                  DSPATR(RI)
+     A  56                                  DSPATR(PC)
+     A  56                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press Reset')
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 13 56'Tax Jurisdiction?'
+     A            CMTXJU         3A  B 13 76
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  58                                  DSPATR(RI)
+     A  58                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  58                                  ERRMSG('*** Invalid Tax Jurisdictio-
+     A                                      n.          Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 11 56'Tax I.D.'
+     A            CMTXID         9A  B 11 70
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            CMFETD         1A  B 11 80DSPATR(MDT)
+     A  46                                  DSPATR(RI)
+     A  46                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                 15 23'A C C O U N T S   R E C E I V A B -
+     A                                      L E'
+     A                                      DSPATR(UL)
+     A                                 16  2'Terms Code?'
+     A            VTRMCD         2A  B 16 15
+     A  50                                  DSPATR(HI)
+     A  57                                  DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  57                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  57                                  ERRMSG('*** Enter A Valid Terms Cod-
+     A                                      e.     Press Reset')
+     A            TCDESC        30A  O 16 20
+     A  50                                  DSPATR(HI)
+     A                                 16 55'Credit Limit:'
+     A            CMCRL$         9Y 2B 16 69EDTWRD('       .  ')
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 17  2'A/R Contact:'
+     A            CMCNAM        30A  B 17 20
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 17 55'A/R Type:'
+     A            CMARCD         1A  B 17 78
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  61                                  DSPATR(RI)
+     A  61                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  40                                  ERRMSG('*** Valid Entries are O for-
+     A                                       Open Item or B for Balance Forward-
+     A                                      .  Press Reset')
+     A  41                                  ERRMSG('*** Only Open Item Type All-
+     A                                      owed For This Company.     Press Re-
+     A                                      set')
+     A  42                                  ERRMSG('*** Only Balance Forward Ty-
+     A                                      pe Allowed For This Company.    Pre-
+     A                                      ss Reset')
+     A                                 18  2'Apply Late Chrgs:'
+     A            CMAPLC         1A  B 18 31
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  62                                  DSPATR(RI)
+     A  62                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  62                                  ERRMSG('*** Valid Entries are Y,N o-
+     A                                      r B for Broker.        Press Reset')
+     A                                 18 55'Statement Cycle:'
+     A            CMSMCD         1D 0B 18 78
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** Enter a Statement Code -
+     A                                      Between 1 - 9.    Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 19  2'Cash or Cash/Check Only:'
+     A            CMCODF         1A  B 19 31
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  64                                  DSPATR(RI)
+     A  64                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  64                                  ERRMSG('*** Valid Codes are C, K or-
+     A                                       N. C=Cash only - K=Cash or Check --
+     A                                       N=All methods')
+     A                                 19 55'Stmt/Invoice Copies:'
+     A            CMCOPY         1D 0B 19 78
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  59                                  DSPATR(RI)
+     A  59                                  DSPATR(PC)
+     A  59                                  ERRMSG('*** Valid Entries are 1, 2,-
+     A                                       or 3.      Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 20  2'Post Detail Sales History?'
+     A            CMDSHF         1A  B 20 31
+     A N50                                  DSPATR(CS)
+     A  63                                  DSPATR(RI)
+     A  63                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  63                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 20 55'Print Order Acks:'
+     A            CMACK          1A  B 20 78
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  65                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process     F2=Previous S-
+     A                                      creen    F5=Truck Stops   F3/F7=End-
+     A                                       of Job  '
+     A                                      DSPATR(UL)
+     A                                  9  2'No Trailer:'
+     A            CMFILL         2A  B  9 15
+     A  71                                  DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  71                                  DSPATR(PC)
+     A  71                                  ERRMSG('*** No Trailer Must be NT o-
+     A                                      r balnk.    Press RESET')
+     A  50                                  DSPATR(HI)
+     A  50                                  DSPATR(PR)
+     A                                  9 18'(NT or Blank)'
+     A                                 18 34'Y/N or B-Broker'
+     A            OVRPCD         1A  B  8 16COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                  8  2'Override'
+     A                                  8 11'P/C:'
+     A                                  8 18'Reason:'
+     A            OVRREA        30A  B  8 26COLOR(YLW)
+     A            FUDESC    R        O 13 20REFFLD(RUZONE/FUDESC *LIBL/FUZONE)
+     A            ZMMILE    R        O 13 41REFFLD(RMZIPS/ZMMILE *LIBL/FMZIPS)
+     A                                      COLOR(PNK)
+     A                                      EDTCDE(1)
+     A                                 13 49'ZMiles'
+     A                                      COLOR(PNK)
+     A            ZIPMILES       2Y 0B 14 42PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>ZIP MILES')
+     A            TAXBTN         2Y 0B 14 61PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>TAX RULES')
+     A            GGLMILES       2Y 0B 14  2PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>GGL MILES')
+     A            GGMILE         7Y 2O 14 20COLOR(PNK)
+     A                                      EDTCDE(4)
+     A            GGUPSZ         5A  O 14 30COLOR(PNK)
+     A***************************************************************
+     A          R SCRND
+     A*%%TS  SD  20190312  165549  BILLB       REL-V7R2M0  5770-WDS
+     A                                      TEXT('3rd screen - C/C, Tax Expempt-
+     A                                      , etc.')
+     A                                      ROLLUP(04)
+     A                                      ROLLDOWN(02)
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      CF03
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      CF10
+     A                                      CF11
+     A                                      ALWROL
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPD)
+     A  *DS3                                HLPARA(09 022 16 080)
+     A  *DS4                                HLPARA(06 002 14 078)
+     A          H                           HLPRCD(CREDCD)
+     A  *DS3                                HLPARA(06 015 06 061)
+     A  *DS4                                HLPARA(06 015 06 061)
+     A          H                           HLPRCD(INCLCUST)
+     A  *DS3                                HLPARA(18 052 18 052)
+     A  *DS4                                HLPARA(18 052 18 052)
+     A                                  1  2'ARR010D'
+     A                                  1 30' Customer Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 35DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            CMCUST         6Y 0O  4 12
+     A  50                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  6  2'Credit Card:'
+     A                                 18  2'Comments:'
+     A            HSCOM1        30A  B 18 13
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            HSCOM2        30A  B 19 13
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            HSCOM3        30A  B 20 13
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 16  2'Include on Customer and Ship Date -
+     A                                      Order Reports:'
+     A            HSINCL         1X  B 16 52
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  80                                  DSPATR(RI)
+     A  80                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  80                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press Reset')
+     A  50                                  DSPATR(HI)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process  F2=Previous Scre-
+     A                                      en  F3/F7=End of Job  F8=ShipTo/Dir-
+     A                                      ections '
+     A                                      DSPATR(UL)
+     A                                 10  4'on file for NJ Customers:'
+     A            VIEWST3        2Y 0B 11  5PSHBTNFLD
+     A                                      PSHBTNCHC(1 '>VIEW DOC')
+     A                                      PSHBTNCHC(2 '>SCAN DOC')
+     A                                 13  2'Credit Application on file:'
+     A            CCST3          1X  B 10 32DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  80                                  ERRMSG('*** Valid Entries are Y, N -
+     A                                      or E-Exempt -  Press Reset')
+     A                                      VALUES('Y' 'N' 'E')
+     A N80                                  DSPATR(PC)
+     A            CCCRED         1X  B 13 32DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  80                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press Reset')
+     A                                      VALUES('Y' 'N')
+     A                                 10 35'Customers need to have a Certifica-
+     A                                      te'
+     A                                      COLOR(BLU)
+     A                                 10 72'ON FILE'
+     A                                      DSPATR(HI)
+     A                                 13 35'All customers with credit should h-
+     A                                      ave a     '
+     A                                      COLOR(BLU)
+     A                                 14 35'credit application on file with Ku-
+     A                                      be Pak.   '
+     A                                      COLOR(BLU)
+     A                                  9  2'Is there a Tax Exemption Certifica-
+     A                                      te'
+     A                                 11 32'if they are to be considered tax e-
+     A                                      xempt, unless'
+     A                                      COLOR(BLU)
+     A  *DS4                           11 36
+     A                                 12 32'they are an exempt entity and mark-
+     A                                      ed "E".'
+     A                                      COLOR(BLU)
+     A                                  6 16'F9=Create CC Token'
+     A                                  6 36'F10=Manage Tokens'
+     A***************************************************************
+     A          R SCRNE
+     A                                      TEXT('F1=Primary Contact Data')
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP(04)
+     A                                      ROLLDOWN(02)
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF11
+     A                                      ALWROL
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPE)
+     A  *DS3                                HLPARA(05 001 10 078)
+     A  *DS4                                HLPARA(05 015 05 044)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 30' Customer Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 35DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  5'Customer:'
+     A            CMCUST         6Y 0O  5 16EDTCDE(Z)
+     A  50                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  5 23DSPATR(HI)
+     A                                  8  5'Salutation:'
+     A            CMPTTL         8A  B  8 20
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  9  5'First Name:'
+     A            CMFNAM        12A  B  9 20
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 10  6'Last Name:'
+     A            CMLNAM        20A  B 10 20
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 11 10'Title:'
+     A            CMBTTL        30A  B 11 20
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 21 27' Press Enter to Verify Data '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process   F6=Restart   F-
+     A                                      3/F7=End of Job (Data Not Saved)  F-
+     A                                      11=Email '
+     A                                      DSPATR(UL)
+     A                                 17  3'Email Address:'
+     A                                 13  4'Web Address:'
+     A            CCEML         80A  B 20  1
+     A  50                                  DSPATR(PR)
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A            CCURL         50A  B 13 20
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A                                  1  2'ARR010E'
+     A                                 15  1'                   Use F11 to Main-
+     A                                      tain Email Addresses for this custo-
+     A                                      mer         '
+     A                                      COLOR(PNK)
+     A                                      DSPATR(RI)
+     A                                 19  2'Old Email Address (Obsolete)'
+     A                                      COLOR(BLU)
+     A            EMAIL         61A  O 17 18
+     A            EMNAME        61A  O 16 18
+     A                                 16  6'Email Name:'
+     A                                 16 80'  '
+     A                                      COLOR(PNK)
+     A                                      DSPATR(RI)
+     A                                 17 80'                                  -
+     A                                                                         -
+     A                                                  '
+     A                                      COLOR(PNK)
+     A                                      DSPATR(RI)
+     A***************************************************************
+     A          R SCRNF
+     A                                      TEXT('OBSOLETE - Trucks / Routes')
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP(04)
+     A                                      ROLLDOWN(02)
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELPF)
+     A  *DS3                                HLPARA(01 001 22 078)
+     A  *DS4                                HLPARA(01 001 22 078)
+     A                                  1  2'ARR010F'
+     A                                  1 30' Customer Master File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            VMODE         10A  O  2 35DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            CMCUST         6Y 0O  4 12DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  6 21'T R U C K   R O U T E S   &   S T -
+     A                                      O P S'
+     A                                      DSPATR(UL)
+     A                                  8 30'Route?'
+     A                                      DSPATR(UL)
+     A                                  8 40'Stop'
+     A                                      DSPATR(UL)
+     A                                 10 15'Monday'
+     A            VRTE1          2A  B 10 32
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Route.   -
+     A                                        Press Reset')
+     A            CMSTP1         3Y 0B 10 41
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            RT1           30A  O 10 48
+     A                                 11 15'Tuesday'
+     A            VRTE2          2A  B 11 32
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Route.   -
+     A                                        Press Reset')
+     A            CMSTP2         3Y 0B 11 41
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            RT2           30A  O 11 48
+     A                                 12 15'Wednesday'
+     A            VRTE3          2A  B 12 32
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A  12                                  ERRMSG('*** Enter A Valid Route.   -
+     A                                        Press Reset')
+     A            CMSTP3         3Y 0B 12 41
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            RT3           30A  O 12 48
+     A                                 13 15'Thursday'
+     A            VRTE4          2A  B 13 32
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** Enter A Valid Route.   -
+     A                                        Press Reset')
+     A            CMSTP4         3Y 0B 13 41
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            RT4           30A  O 13 48
+     A                                 14 15'Friday'
+     A            VRTE5          2A  B 14 32
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A  14                                  ERRMSG('*** Enter A Valid Route.   -
+     A                                        Press Reset')
+     A            CMSTP5         3Y 0B 14 41
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            RT5           30A  O 14 48
+     A                                 15 15'Saturday'
+     A            VRTE6          2A  B 15 32
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** Enter A Valid Route.   -
+     A                                       Press Reset')
+     A            CMSTP6         3Y 0B 15 41
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            RT6           30A  O 15 48
+     A                                 16 15'Sunday'
+     A            VRTE7          2A  B 16 32
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  16                                  DSPATR(RI)
+     A  16                                  DSPATR(PC)
+     A  16                                  ERRMSG('*** Enter A Valid Route.   -
+     A                                        Press Reset')
+     A            CMSTP7         3Y 0B 16 41
+     A N50                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A            RT7           30A  O 16 48
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process       F2=P-
+     A                                      revious Screen      F3/F7=End of Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)
+SUD02A***************************************************************
+  |  A*         R SCRNH
+  |  A*                                     TEXT('F8=Directions')
+  |  A*                                     CF02
+  |  A*                                     CF07
+  |  A*                                     ROLLUP(04)
+  |  A*                                     ROLLDOWN(02)
+  |  A*                                     CLEAR
+  |  A*                                     HOME
+  |  A*                                     HELP
+  |  A*                                     CF03
+  |  A*                                     ALWROL
+  |  A*                                     DSPMOD(*DS3)
+  |  A*                                     SLNO(01)
+  |  A*                                     CLRL(*ALL)
+  |  A*         H                           HLPRCD(HELPH)
+  |  A* *DS3                                HLPARA(08 001 20 077)
+  |  A* *DS4                                HLPARA(08 001 20 077)
+  |  A*                                 1 30' Customer Master File '
+  |  A*                                     DSPATR(RI)
+  |  A*                                 1 67'Date:'
+  |  A*                                 1 73DATE
+  |  A*                                     EDTCDE(Y)
+  |  A*                                 2  2USER
+  |  A*           VMODE         10A  O  2 36DSPATR(RI)
+  |  A*                                 2 67'Time:'
+  |  A*                                 2 73TIME
+  |  A*                                 4  2'Customer:'
+  |  A*           CMCUST         6Y 0O  4 12EDTCDE(Z)
+  |  A*                                     DSPATR(HI)
+  |  A*           CMNAME        30A  O  4 19DSPATR(HI)
+  |  A*                                 6 31'D I R E C T I O N S'
+  |  A*                                     DSPATR(RI)
+  |  A*                                 8  2'Map Coordinates:'
+  |  A*           CMCOR1         2A  B  8 19
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*                                 8 22'-'
+  |  A*           CMCOR2         2A  B  8 24
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR01        72A  B 10  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR02        72A  B 11  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR03        72A  B 12  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR04        72A  B 13  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR05        72A  B 14  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR06        72A  B 15  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR07        72A  B 16  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR08        72A  B 17  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR09        72A  B 18  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR10        72A  B 19  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*           CMDR11        72A  B 20  6
+  |  A*N50                                  DSPATR(CS)
+  |  A*                                     DSPATR(MDT)
+  |  A* 50                                  DSPATR(PR)
+  |  A*                                22  2'                                  -
+  |  A*                                                                        -
+  |  A*                                              '
+  |  A*                                     DSPATR(UL)
+  |  A*                                23  2' Enter to Process       F2=Previou-
+  |  A*                                     s Screen       F3/F7=End of Job    -
+  |  A*                                              '
+  |  A*                                     DSPATR(UL)
+  |  A*                                 1  2'ARR010H'
+SUD02A***************************************************************
+     A          R HELPA
+     A                                      CLRL(*NO)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'   next available Customer Number -
+     A                                      to this Customer.                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'   On a Change, Delete, Reactivate-
+     A                                       or Inquiry - enter either the Cust-
+     A                                      omer     '
+     A                                      DSPATR(HI)
+     A                                 22  2'   Number or Alpha Search Name to -
+     A                                      look up the Customer Number.       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2' Customer Number                  -
+     A                                                       Required Except On-
+     A                                       Add     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'   This Customer Number contains t-
+     A                                      he data associated with the Ship To-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'   Location.  On the next screen, -
+     A                                      you can enter different Customer Nu-
+     A                                      mbers    '
+     A                                      DSPATR(HI)
+     A                                 14  2'   to determine where Accounts Rec-
+     A                                      eivable, Invoicing and Sales Analys-
+     A                                      is       '
+     A                                      DSPATR(HI)
+     A                                 15  2'   data should be posted when ship-
+     A                                      ments or credit memos are processed-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'   for this Ship To Location.     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'   On an Add - do not enter a Cust-
+     A                                      omer Number - the system will assig-
+     A                                      n the    '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***************************************************************
+     A* COMPANY NAME
+     A          R HBNAME
+     A                                 18  2' Name                             -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' print on invoices, pick tickets, -
+     A                                      etc.                               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2' Enter up to 30 characters for the-
+     A                                       company name.  This is the name th-
+     A                                      at will  '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***************************************************************
+     A          R HBALPHA
+     A                                 17  2'       Enter up to 15 characters t-
+     A                                      o define the Alpha Search.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'   Alpha Search:                  -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'       The Alpha Search field is u-
+     A                                      sed:                               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'          1. Look up an unknown cu-
+     A                                      stomer number                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'          2. Determine the sequenc-
+     A                                      e for reports printed alphabeticall-
+     A                                      y        '
+     A                                      DSPATR(HI)
+     A                                 22  2'             by customer          -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***************************************************************
+     A          R HBADDR
+     A                                 19  2' 3 Address Lines                  -
+     A                                                                   Option-
+     A                                      al       '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'       Enter up to three 30 charac-
+     A                                      ter lines for the address for this -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'       customer. This prints on in-
+     A                                      voices, pick tickets, etc.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***************************************************************
+     A          R HBCSZ
+     A                                 19  2'  City, State and Zip Code        -
+     A                                                                        O-
+     A                                      ptional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'      Enter City, State and Zip Co-
+     A                                      de.  If State is entered - it must -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'      be defined in the State File-
+     A                                      .   A Country may also be entered. -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***************************************************************
+     A          R HBCNAM
+     A                                 19  2' Contact Name                     -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'       Enter the name of the perso-
+     A                                      n you contact at this customer for -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'       order and shipping informat-
+     A                                      ion.                               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***************************************************************
+     A          R HBTEL
+     A                                 18  2' Telephone and Fax Numbers        -
+     A                                                                         -
+     A                                      Optional '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'      Enter Telephone & Fax Number-
+     A                                      s.  Can be entered as 215-555-1212 -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'      or 2155551212.        Press -
+     A                                      Field Exit after entering data.    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***************************************************************
+     A          R HBCAR
+     A                                 17  2'  A/R Customer Number             -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'      Enter the Number for the Cus-
+     A                                      tomer whose Accounts Receivable wil-
+     A                                      l        '
+     A                                      DSPATR(HI)
+     A                                 21  2'      Shipping Customer Location. -
+     A                                       This will default to the Shipping -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'      be posted for Invoices and C-
+     A                                      redit Memos associated with this   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'      Customer Number but can be c-
+     A                                      hanged to any valid Customer Number-
+     A                                      .        '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBSLSP
+     A                                 16  2'   Salesperson Code:              -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'   Enter the Code for the Salesper-
+     A                                      son assigned to this customer.  Thi-
+     A                                      s will   '
+     A                                      DSPATR(HI)
+     A                                 20  2'   any valid Salesperson Code.  If-
+     A                                       for some reason, another Salespers-
+     A                                      on       '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'   should get credit for an order -
+     A                                      shipped to this customer, the Sales-
+     A                                      person   '
+     A                                      DSPATR(HI)
+     A                                 22  2'   can be changed during order ent-
+     A                                      ry.                                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'   default to the Code in the Comp-
+     A                                      any Defaults File but can be change-
+     A                                      d to     '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBTYPE
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  2' Customer type is basically an inf-
+     A                                      ormation field and is not used by t-
+     A                                      he       '
+     A                                      DSPATR(HI)
+     A                                 17  2' a customer with type XX no new or-
+     A                                      ders can be entered for this custom-
+     A                                      er.      '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2' system.  The exception is that ty-
+     A                                      pe XX is a reserved type.  If you c-
+     A                                      ode      '
+     A                                      DSPATR(HI)
+     A                                 18  2' If an order is entered, the messa-
+     A                                      ge - Please contact office regardin-
+     A                                      g this   '
+     A                                      DSPATR(HI)
+     A                                 19  2' customer. - will appear on the sc-
+     A                                      reen and the order can not be conti-
+     A                                      nued.    '
+     A                                      DSPATR(HI)
+     A                                 13  2' Customer Type                    -
+     A                                                                        O-
+     A                                      ptional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2' customers for use in query or cus-
+     A                                      tomer labels.                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' All other customer types are info-
+     A                                      rmational only and can be used to g-
+     A                                      roup     '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBCSA
+     A                                 17  2' Sales Analysis Customer Number   -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'      Enter the Number for the Cus-
+     A                                      tomer whose Sales Analysis will    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'      Shipping Customer Location. -
+     A                                       This will default to the Shipping -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'      be posted for Invoices and C-
+     A                                      redit Memos associated with this   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'      Customer Number but can be c-
+     A                                      hanged to any valid Customer Number-
+     A                                      .        '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBTERR
+     A                                 18  2' Territory Code                   -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'     Enter the Code for the Territ-
+     A                                      ory to which this customer belongs.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'     This must be a valid code in -
+     A                                      the Territory Master File.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'     There are various Sales repor-
+     A                                      ts that run in Territory sequence. -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBORDL
+     A                                 18  2'  Order List                      -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'      Which order list number cont-
+     A                                      ains the items most ordered by this-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'      during Telephone Order Entry-
+     A                                       for this customer.                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'      customer.  This order list w-
+     A                                      ill be the first list displayed    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBCBI
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'     Enter the Number for the Cust-
+     A                                      omer whose data will be used for   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'     Shipping Customer Location.  -
+     A                                      This will default to the Shipping  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'     printing the Invoices and Cre-
+     A                                      dit Memos associated with this     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'     Customer Number but can be ch-
+     A                                      anged to any valid Customer Number.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'  Billing Customer Number         -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBCOMM
+     A                                 16  2'  Commission Percent              -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'     If the Salesperson assigned t-
+     A                                      o this customer is paid commission -
+     A                                      on       '
+     A                                      DSPATR(HI)
+     A                                 20  2'     is the only commission percen-
+     A                                      t used to calculate commissions.  T-
+     A                                      he       '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'     sales to this customer - ente-
+     A                                      r the commission percent here.  Thi-
+     A                                      s        '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'     commission percents in the sa-
+     A                                      lesperson and item files are inform-
+     A                                      a-       '
+     A                                      DSPATR(HI)
+     A                                 22  2'     tional only.  Enter 5% commis-
+     A                                      sion as 5.00.                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBBROK
+     A                                 19  2' Broker                           -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'     Is this customer a Broker?  E-
+     A                                      nter Y or N.                       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'     This is an information only f-
+     A                                      ield.                              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBBABB
+     A                                 17  2' Broker Abbreviation              -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2' If this customer is a shipping lo-
+     A                                      cation for a broker order, you can -
+     A                                      enter    '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2' the brokers abbreviation.  When d-
+     A                                      oing an alpha search for this custo-
+     A                                      mer,     '
+     A                                      DSPATR(HI)
+     A                                 21  2' this abbreviation is displayed, h-
+     A                                      elping you identify the exact custo-
+     A                                      mer you  '
+     A                                      DSPATR(HI)
+     A                                 22  2' are looking for.                 -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBXREF
+     A                                 11  2' Customer/Item Cross Reference Num-
+     A                                      ber                              Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  2' Some customers may require that t-
+     A                                      heir UPC number be printed on Order-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2' with a customer number.  If this -
+     A                                      customer needs UPC numbers printed,-
+     A                                       enter   '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2' Acknowledgements and Invoices.  E-
+     A                                      ach group of UPC numbers is associa-
+     A                                      ted      '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2' the customer number associated wi-
+     A                                      th these UPC numbers.              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' For Example:                     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'      Ryans Inc. has 25 garden cen-
+     A                                      ters.  The main office and each cen-
+     A                                      ter      '
+     A                                      DSPATR(HI)
+     A                                 21  2'      under the main office custom-
+     A                                      er number.  This customer number wo-
+     A                                      uld      '
+     A                                      DSPATR(HI)
+     A                                 20  2'      have their own customer numb-
+     A                                      er.  You set up Ryans UPC numbers  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'      become the Cust/Item XRef # -
+     A                                      for the 25 garden centers.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBNOTES
+     A                                 18  2' Customer Notes                   -
+     A                                                                      Opt-
+     A                                      ional    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'     Enter up to (2) 30 chararcter-
+     A                                       fields of notes for this customer.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'     Notes are displayed during or-
+     A                                      der entry, but do not print on cust-
+     A                                      omer     '
+     A                                      DSPATR(HI)
+     A                                 22  2'     documents.                   -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HBPORQ
+     A                                 19  2'  P.O. Required                   -
+     A                                                                     Requ-
+     A                                      ired     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'  a purchase order number has been-
+     A                                       provided.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  Does this customer require that -
+     A                                      an order can not be placed for them-
+     A                                       unless  '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HELPC1
+     A                                 16  2'  The Pricing Code relates to the -
+     A                                      5 prices that can be entered for ea-
+     A                                      ch       '
+     A                                      DSPATR(HI)
+     A                                 14  2'  Pricing Code                    -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'  customer will be based on the pr-
+     A                                      icing code entered in the customer -
+     A                                      file.    '
+     A                                      DSPATR(HI)
+     A                                 22  2'  This price can be changed during-
+     A                                       order entry.                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'  item in your inventory.   Refer -
+     A                                      to Item Master File.               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'  When you enter orders - the defa-
+     A                                      ult price that the system uses for -
+     A                                      each     '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A***********************************************************************
+     A          R HELPC2
+     A                                 19  2'  Do you allow this customer to ha-
+     A                                      ve contract pricing.  Enter Y or N.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'  Contract Pricing                -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'  this customer in the Contract Pr-
+     A                                      ice Master File.                   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  If coded N - you will not be abl-
+     A                                      e to enter a contract price schedul-
+     A                                      e for    '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A***********************************************************************
+     A          R HELPC3
+     A                                 19  2'  Does this customer allow you to -
+     A                                      partially ship an order and back or-
+     A                                      der     '
+     A                                      DSPATR(HI)
+     A                                 17  2' Backorders Allowed               -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  2'  partially shipped line items, th-
+     A                                      ey will be canceled.               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2'  the balance - or - does this cus-
+     A                                      tomer require that you cancel unshi-
+     A                                      pped    '
+     A                                      DSPATR(HI)
+     A                                 21  2'  items?  If you enter N for NO - -
+     A                                      if there are any unshipped line ite-
+     A                                      ms or   '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HELPC4
+     A                                 21  2'  If you offer quantity discounts -
+     A                                      on inventory items (See Item Master-
+     A                                       File)   '
+     A                                      DSPATR(HI)
+     A                                 19  2' Quantity Discount                -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'  is this customer eligible to rec-
+     A                                      eive this discount?                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HELPC5
+     A                                 19  2'  Trade Discount is a discount tha-
+     A                                      t is taken on the entire invoice af-
+     A                                      ter all  '
+     A                                      DSPATR(HI)
+     A                                 17  2' Trade Discount                   -
+     A                                                                        O-
+     A                                      ptional  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'  during order entry.  Example:  E-
+     A                                      nter 5% - 5.00                     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'  other pricing and discounts have-
+     A                                       been calculated for inventory item-
+     A                                      s.       '
+     A                                      DSPATR(HI)
+     A                                 21  2'  Enter the applicable discount pe-
+     A                                      rcent here.  This can be added or c-
+     A                                      hanged   '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HELPC6
+     A                                 20  2'  Enter up to 30 characters to des-
+     A                                      cribe Shipping Instructions.       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' Shipping Instructions            -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  Shipping Instructions print on P-
+     A                                      ick Slips, Order Acknowledgements a-
+     A                                      nd       '
+     A                                      DSPATR(HI)
+     A                                 22  2'  Invoices.   These instructions c-
+     A                                      an be changed during Order Entry.  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCFRTZ
+     A                                 20  2'  Enter the Freight Zone used for -
+     A                                      automatic freight charge calculatio-
+     A                                      n for    '
+     A                                      DSPATR(HI)
+     A                                 18  2' Freight Zone                     -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  this customer.  This must be a v-
+     A                                      alid freight zone.  This can be cha-
+     A                                      nged     '
+     A                                      DSPATR(HI)
+     A                                 22  2'  during order entry.             -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCSPEC
+     A                                 20  2'  Enter up to 30 characters to des-
+     A                                      cribe Special Instructions for cust-
+     A                                      omer.    '
+     A                                      DSPATR(HI)
+     A                                 18  2' Special Instructions             -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  Special Instructions print on Pi-
+     A                                      ck Slips, Order Acknowledgements an-
+     A                                      d        '
+     A                                      DSPATR(HI)
+     A                                 22  2'  Invoices.   These instructions c-
+     A                                      an be changed during Order Entry.  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCPHYT
+     A                                 20  2'  Phyto codes are normally determi-
+     A                                      ned by state.  If this customer has-
+     A                                       a       '
+     A                                      DSPATR(HI)
+     A                                 18  2'   Override Phyto Code            -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  higher requirement than the stat-
+     A                                      e, you can enter that phyto code he-
+     A                                      re.      '
+     A                                      DSPATR(HI)
+     A                                 22  2'  This will supercede the state co-
+     A                                      de for all shipments for this custo-
+     A                                      mer.     '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCSVIA
+     A                                 20  2'  Enter a valid Ship Via Code to d-
+     A                                      escribe the most frequent method of-
+     A                                       ship-   '
+     A                                      DSPATR(HI)
+     A                                 18  2'   Ship Via                       -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  ing for customer.   This can be -
+     A                                      changed during order enter.  This m-
+     A                                      ust be   '
+     A                                      DSPATR(HI)
+     A                                 22  2'  a valid Ship Via Code in the Shi-
+     A                                      p Via Code Master File.            -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HFLOC
+     A                                 20  2'  Orders shipped to this customer -
+     A                                      are normally shipped from this loca-
+     A                                      tion.    '
+     A                                      DSPATR(HI)
+     A                                 18  2'   Default Ship From Location     -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  If a location is entered here, i-
+     A                                      t must be a valid location that has-
+     A                                       been    '
+     A                                      DSPATR(HI)
+     A                                 22  2'  defined in the Location Master f-
+     A                                      ile.                               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCTAX
+     A                                 16  2'  1.  If this Customer is Tax Exem-
+     A                                      pt - Enter Y.   If Taxable - Enter -
+     A                                      N.       '
+     A                                      DSPATR(HI)
+     A                                 14  2'   Taxes                          -
+     A                                                                       Re-
+     A                                      quired   '''
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'      the total taxable and non ta-
+     A                                      xable sales by Tax Jurisdiction.  T-
+     A                                      his Tax  '
+     A                                      DSPATR(HI)
+     A                                 17  2'  2.  Enter the Tax Jurisdiction f-
+     A                                      or this Customer.  This field is re-
+     A                                      quired   '
+     A                                      DSPATR(HI)
+     A                                 18  2'      for both taxable and tax exe-
+     A                                      mpt customers because the tax repor-
+     A                                      t shows  '
+     A                                      DSPATR(HI)
+     A                                 20  2'      Jurisction must be a defined-
+     A                                       in the Tax Master File.           -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  3.  Tax ID is an information onl-
+     A                                      y field and can be used to store th-
+     A                                      e sales  '
+     A                                      DSPATR(HI)
+     A                                 22  2'      tax number of tax exempt cus-
+     A                                      tomers.                            -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCTERM
+     A                                 18  2'  This Code determines the terms y-
+     A                                      ou extend to this customer for paym-
+     A                                      ents     '
+     A                                      DSPATR(HI)
+     A                                 16  2'   Terms Code                     -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  File.   The terms code can be ch-
+     A                                      anged during order entry if you wis-
+     A                                      h to     '
+     A                                      DSPATR(HI)
+     A                                 19  2'  of invoices, such as Net 30 - or-
+     A                                       1% 10 Days Net 30.                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'  Enter a valid Terms Code that ha-
+     A                                      s been defined in the Terms Code Ma-
+     A                                      ster     '
+     A                                      DSPATR(HI)
+     A                                 22  2'  extend different payment terms f-
+     A                                      or a particular order.             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCCRDL
+     A                                 19  2'  If the total of accounts receiva-
+     A                                      ble due together with the total dol-
+     A                                      lar      '
+     A                                      DSPATR(HI)
+     A                                 16  2'   Credit Limit                   -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'  flagged on the Aged Trial Balanc-
+     A                                      e reports.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'  amount of open orders exceeds th-
+     A                                      e credit limit amount for a custome-
+     A                                      r, a     '
+     A                                      DSPATR(HI)
+     A                                 21  2'  warning will be displayed during-
+     A                                       order entry and the customer will -
+     A                                      be       '
+     A                                      DSPATR(HI)
+     A                                 18  2'  Enter the amount of the highest -
+     A                                      credit you want to extend to the cu-
+     A                                      stomer.  '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCCNAM
+     A                                 18  2'  Contact Name                    -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'       Enter the name of the perso-
+     A                                      n you contact at this customer for -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'       accounts receivable informa-
+     A                                      tion.  This name will display on A/-
+     A                                      R        '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'       inquiries and print on Deta-
+     A                                      il Aged Trial Balance reports.     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCARTYP
+     A                                 15  2'  Accounts Receivable Type        -
+     A                                                                        R-
+     A                                      equired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'       Valid types are:  O - Open -
+     A                                      Item  or  B - Balance Forward      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'       An Open Item Statement prin-
+     A                                      ts all open transactions for both t-
+     A                                      he       '
+     A                                      DSPATR(HI)
+     A                                 21  2'       prints the current period t-
+     A                                      ransactions but summarizes the bala-
+     A                                      nce      '
+     A                                      DSPATR(HI)
+     A                                 20  2'       current period and previous-
+     A                                       periods.  A Balance Forward Statem-
+     A                                      ent      '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'       A/R type defines how the cu-
+     A                                      stomer statement will print.       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'       from previous months as a s-
+     A                                      ingle line - Balance Forward.      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCLATC
+     A                                 19  2'  Apply Late Charges              -
+     A                                                                      Req-
+     A                                      uired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2'       a late charge be calcualted-
+     A                                       for this customer?  Enter Y or N. -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'       If your company charges lat-
+     A                                      e charges on unpaid balances, shoul-
+     A                                      d        '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCSTMCY
+     A                                 12  2'  Statement Cycle - Valid Entries -
+     A                                      are 1 - 9                         R-
+     A                                      equired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  2'       enter the statement cycle. -
+     A                                       Only customers coded with this cyc-
+     A                                      le       '
+     A                                      DSPATR(HI)
+     A                                 16  2'       will be included in this st-
+     A                                      atement run.  This allows you to   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'       customers that need weekly -
+     A                                      statements would be coded different-
+     A                                      ly       '
+     A                                      DSPATR(HI)
+     A                                 17  2'       print batches of statements-
+     A                                       at different times.  For example: -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'       When printing Customer A/R -
+     A                                      statements you will be prompted to -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'       than customers that receive-
+     A                                       monthly statements.               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'       Suggestion: Code customers -
+     A                                      that should not receive a statement-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'                   with their own -
+     A                                      unique code, i.e., code 9.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCCOD
+     A                                 16  2'  Cash or Cash/Check Only         -
+     A                                                                        R-
+     A                                      equired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'       customer.                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'       This determines the method -
+     A                                      of payment that you accept from thi-
+     A                                      s        '
+     A                                      DSPATR(HI)
+     A                                 20  2'                      C - Cash Onl-
+     A                                      y is accepted                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'                      K - Cash or -
+     A                                      Check is accepted                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'                      N - Cash, Ch-
+     A                                      eck or Charge is accepted          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCCOPY
+     A                                 16  3'  Number of Statement and Invoices-
+     A                                       - 1, 2 or 3                     Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  3'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'       statement.  You can code a -
+     A                                      customer for 1, 2 or 3 copies.     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  3'       When invoices or statements-
+     A                                       are printed, if there are any     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  3'       first copy has printed.    -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  3'       customers coded for 2 or 3 -
+     A                                      copies, they will print after the  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  3'       Some customers may require -
+     A                                      more than 1 copy of their invoice a-
+     A                                      nd       '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCPSLS
+     A                                 18  2'   Post Detail Sales History      -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'       each item that this custome-
+     A                                      r purchases.  If coded N - only sal-
+     A                                      es       '
+     A                                      DSPATR(HI)
+     A                                 22  2'       summary totals will be main-
+     A                                      tained for the customer.           -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'       If a customer is coded Y - -
+     A                                      sales history will be maintained fo-
+     A                                      r        '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HCOACK
+     A                                 17  2'  Print Order Acknowledgements    -
+     A                                                                        R-
+     A                                      equired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'       If this customer is coded N-
+     A                                      , order acknowledgements will not b-
+     A                                      e        '
+     A                                      DSPATR(HI)
+     A                                 21  2'       printed unless an acknowled-
+     A                                      gement is requested for a specific -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'       Not all customers require t-
+     A                                      hat an order acknowledgment be sent-
+     A                                      .        '
+     A                                      DSPATR(HI)
+     A                                 22  2'       order number using the repr-
+     A                                      int function.                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HELPD
+     A                                 21  2'  Data about source of customer, S-
+     A                                      IC code, D & B rating, Comments etc-
+     A                                      . is     '
+     A                                      DSPATR(HI)
+     A                                 19  2' Overview                         -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'  informational only and not used -
+     A                                      by the system.                     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R CREDCD
+     A                                 14  2'  If this customer may pay their a-
+     A                                      /r with a credit card, you can ente-
+     A                                      r the    '
+     A                                      DSPATR(HI)
+     A                                 12  2' Credit Card Information          -
+     A                                                                        O-
+     A                                      ptional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'  When entering a cash receipt for-
+     A                                       a credit card, after entering the -
+     A                                      credit   '
+     A                                      DSPATR(HI)
+     A                                 15  2'  information about this credit ca-
+     A                                      rd here.                           -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'  card type, the Number and Expira-
+     A                                      tion Date will display for verifica-
+     A                                      tion.    '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'  The type of credit card entered,-
+     A                                       VISA, AMEX, etc., must have been d-
+     A                                      efined   '
+     A                                      DSPATR(HI)
+     A                                 22  2'  Menu.                           -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  in the Credit Card Master file. -
+     A                                       This can be found on the A/R Maste-
+     A                                      r Files  '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R INCLCUST
+     A                                 18  2'  You may want to enter orders int-
+     A                                      o the system that are for your comp-
+     A                                      any,     '
+     A                                      DSPATR(HI)
+     A                                 16  2' Include on Customer and Ship Date-
+     A                                       Order Reports                    R-
+     A                                      equired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2'  If you enter these orders for th-
+     A                                      is customer number, and you do not -
+     A                                      want     '
+     A                                      DSPATR(HI)
+     A                                 19  2'  not for a customer order.       -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2'  these orders to print on order r-
+     A                                      eports - enter NO here.            -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A***********************************************************************
+     A          R HELPE
+     A                                 19  2' Primary Contact Data             -
+     A                                                                     Opti-
+     A                                      onal     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  6'  These fields are not used by the-
+     A                                       system.   You can enter this data'
+     A                                      DSPATR(HI)
+     A                                 22  6'  to use with Query or Word Proces-
+     A                                      sing applications.                '
+     A                                      DSPATR(HI)
+     A                                 20  6'                                  -
+     A                                                                        '
+     A                                 23  6'                                  -
+     A                                                                        '
+     A***********************************************************************
+     A          R HELPF
+     A                                 17  3' If your company makes scheduled d-
+     A                                      eliveries to customers with company-
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                 15  2'   Truck Routes and Stops         -
+     A                                                                       Op-
+     A                                      tional    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  2'                             Press-
+     A                                       Return to Return                  -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' There is a detail and a summary r-
+     A                                      eport of open orders that can be pr-
+     A                                      inted '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                            '
+     A                                 18  3' trucks, you can enter a Route Ide-
+     A                                      ntification Code and a Stop Number -
+     A                                      to    '
+     A                                      DSPATR(HI)
+     A                                 23  4'                                  -
+     A                                                                         -
+     A                                          '
+     A                                 19  3' assist with planning these delive-
+     A                                      ries.                              -
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                 22  3' in Route order.                  -
+     A                                                                         -
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                            '

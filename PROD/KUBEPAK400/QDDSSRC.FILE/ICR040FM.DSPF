@@ -1,0 +1,755 @@
+     A*%%TS  SD  20150731  104738  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20150731  104738  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      CF11(11 'Multiple Records View')
+     A                                      CF13
+     A                                      CF23
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF04(04 'Size Category Inquiry')
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(DESC)
+     A  *DS3                                HLPARA(06 043 06 052)
+     A  *DS4                                HLPARA(06 043 06 052)
+     A          H                           HLPRCD(SQFT)
+     A  *DS3                                HLPARA(08 045 08 052)
+     A  *DS4                                HLPARA(08 045 08 052)
+     A          H                           HLPRCD(PACKED)
+     A  *DS3                                HLPARA(10 047 10 052)
+     A  *DS4                                HLPARA(10 047 10 052)
+     A          H                           HLPRCD(PRODN)
+     A  *DS3                                HLPARA(12 047 12 052)
+     A  *DS4                                HLPARA(12 047 12 052)
+     A          H                           HLPRCD(SALE)
+     A  *DS3                                HLPARA(14 047 14 052)
+     A  *DS4                                HLPARA(14 047 14 052)
+     A          H                           HLPRCD(TAGS)
+     A  *DS3                                HLPARA(16 047 16 052)
+     A  *DS4                                HLPARA(16 047 16 052)
+     A          H                           HLPRCD(OVERVIEW)
+     A  *DS3                                HLPARA(04 001 04 080)
+     A  *DS4                                HLPARA(04 001 04 080)
+     A          H                           HLPRCD(UPCSIZE)
+     A  *DS3                                HLPARA(18 001 19 080)
+     A  *DS4                                HLPARA(18 001 19 080)
+     A            PROGID        10A  O  1  2COLOR(BLU)
+     A                                  1 16'Help'
+     A                                      COLOR(YLW)
+     A                                  1 27' Size Code File Maintenance '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3 14' Press F23 to Delete - or F6 to Re-
+     A                                      start without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  99 26                               ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.       Press Reset')
+     A  99 20                               ERRMSG('*** This Record Is Not On F-
+     A                                      ile.    Press Reset')
+     A  99 27                               ERRMSG('*** This Record Is On File.-
+     A                                          Press Reset')
+     A  99 41                               ERRMSG('*** Record Is Active.    Pr-
+     A                                      ess Reset')
+     A                                  4 30'Size Code?'
+     A            VSIZE          3A  B  4 45
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40
+     AO 77                                  DSPATR(PC)
+     A  40N41                               ERRMSG('*** Cannot Delete - There I-
+     A                                      s An Item With This Size In Invento-
+     A                                      ry.   Reset')
+     A  40 41                               ERRMSG('*** Cannot Delete - Reserve-
+     A                                      d Size Code.    Press Reset')
+     A                                  6 59'* Reserved Size Codes:'
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(UL)
+     A                                  5 28'Description:'
+     A N50                                  DSPATR(ND)
+     A            SZDESC        10A  B  5 43
+     A  57                                  DSPATR(RI)
+     A  50N25N77                            DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  50N25
+     AO 57                                  DSPATR(PC)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description Is Required-
+     A                                      .    Press Reset')
+     A                                  6  2' A = Add     '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  7 62'AST = Assortment'
+     A                                  7  2' C = Change  '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  7 28'Square Feet:'
+     A N50                                  DSPATR(ND)
+     A            SZCUBF         7Y 4B  7 45
+     A N50                                  DSPATR(ND)
+     A  50N25N77                            DSPATR(CS)
+     A                                      CHECK(RB)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A                                      EDTCDE(3)
+     A                                  8 62'CUT = Cuttings'
+     A                                  8  2' D = Delete  '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                  8 26'Packed/Carton:'
+     A N50                                  DSPATR(ND)
+     A            SZPERC         5Y 0B  8 47
+     A  50N25N77                            DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PC)
+     A N50
+     AO 77                                  DSPATR(PR)
+     A                                  9 62'ROY = Royalty'
+     A                                  9  2' I = Inquire '
+     A                                      DSPATR(RI)
+     A  50N24                               DSPATR(ND)
+     A                                  9 23'Prodn Cells/Flat:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZCELL         5Y 0B  9 47
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                 10 62'SED = Seed'
+     A                                 10 20'Saleable Cells/Flat:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZSALE         5Y 0B 10 47
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                 11 62'TAG = Tag'
+     A                                 11 20'Number Of Tags/Flat:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZTAGS         5Y 0B 11 47
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                 12 20'Number Of Rows/Flat:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZROWS         2Y 0B 12 51
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                 13 16'Flats or Pots per Shelf:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZPSHF         3Y 0B 13 50
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                 14 13'Number of Shelves per Cart:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZSHLV         3Y 0B 14 50
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                 15 17'Flats or Pots per Cart:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZPCRT    R     Y  B 15 47REFFLD(RMSIZE/SZPCRT *LIBL/FMSIZE)
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A                                      EDTCDE(1)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                 16  2'Long Description:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            SZLONG        80A  B 17  1
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A                                 18  2'UPC Size Description:'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A            UPC1          15A  B 18 25
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A                                 18 44'Try to keep legal size to one line'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      COLOR(PNK)
+     A                                 19  2'(Legal Size)'
+     A N50
+     AO 02                                  DSPATR(ND)
+     A                                      COLOR(PNK)
+     A            UPC2          15A  B 19 25
+     A  50N25N77
+     A  01                                  DSPATR(CS)
+     A N50
+     AO 02                                  DSPATR(ND)
+     A N50
+     AO 77
+     AO 02                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2' Enter to Process          F3/F7=E-
+     A                                      nd of Job         F13=Print Size Co-
+     A                                      de List  '
+     A                                      COLOR(BLU)
+     A                                 23  2' F6=Restart                       -
+     A                                                        F11=Multiple Reco-
+     A                                      rd View  '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 56'Category:'
+     A N50                                  DSPATR(ND)
+     A            SZCATG         6A  B  4 66
+     A N50                                  DSPATR(ND)
+     A  50N25
+     AO 58                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  58                                  ERRMSG('*** Category is Invalid .  -
+     A                                        Press Reset')
+     A                                      COLOR(TRQ)
+     A                                  5 58'_______________________'
+     A                                      COLOR(BLU)
+     A                                  6 57'|'
+     A                                      COLOR(BLU)
+     A                                  7 57'|'
+     A                                      COLOR(BLU)
+     A                                  8 57'|'
+     A                                      COLOR(BLU)
+     A                                  9 57'|'
+     A                                      COLOR(BLU)
+     A                                 10 57'|'
+     A                                      COLOR(BLU)
+     A                                 11 57'|'
+     A                                      COLOR(BLU)
+     A                                 12 57'|_______________________'
+     A                                      COLOR(BLU)
+     A                                  4 73'F4'
+     A                                      DSPATR(HI)
+     A N50                                  DSPATR(ND)
+     A                                  4 76'=Inq.'
+     A                                      COLOR(BLU)
+     A N50                                  DSPATR(ND)
+     A          R OVEROLD
+     A*%%TS  SD  19980712  103008  EFD         REL-V3R1M0  5763-PW1
+     A                                 13  3' Size Codes Overview              -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' the different sizes with the size-
+     A                                       code.                             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3' you may grow impatiens plugs in 1-
+     A                                      44, 288 or 512 trays.              -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3' sizes.  For example, you may grow-
+     A                                       poinsettias in 4", 6" and 10" pots-
+     A                                      , or    '
+     A                                      DSPATR(HI)
+     A                                 15  3' Many times the same plant, both v-
+     A                                      ariety and color, are grown in mult-
+     A                                      iple    '
+     A                                      DSPATR(HI)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' super elfin white, - for example -
+     A                                      item # 1234.  Then you would differ-
+     A                                      entiate '
+     A                                      DSPATR(HI)
+     A                                 19  3' By using size codes, you can assi-
+     A                                      gn the same item number to all impa-
+     A                                      tiens   '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R DESC
+     A*%%TS  SD  19980617  150042  EFD         REL-V3R1M0  5763-PW1
+     A                                 19  3' Description                      -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' Enter up to 10 characters to desc-
+     A                                      ribe this size code.               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SQFT
+     A*%%TS  SD  19980617  150042  EFD         REL-V3R1M0  5763-PW1
+     A                                 17  3' Square Feet                      -
+     A                                                                      Opt-
+     A                                      ional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' foot number is used for calculati-
+     A                                      ng the space in the Space Allocatio-
+     A                                      n Report'
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3' Enter the amount of square feet t-
+     A                                      hat this container size uses.  This-
+     A                                       square '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' The format for this field is XXX.-
+     A                                      XXXX                               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R PACKED
+     A*%%TS  SD  19980617  150042  EFD         REL-V3R1M0  5763-PW1
+     A                                 19  3' Number Of This Size Packed Per Ca-
+     A                                      rton                            Opt-
+     A                                      ional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' This is an information only field-
+     A                                      .                                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R PRODN
+     A*%%TS  SD  19980617  150042  EFD         REL-V3R1M0  5763-PW1
+     A                                 18  3' Number of Production Cells Per Fl-
+     A                                      at                              Opt-
+     A                                      ional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' example if this is a 512 plug tra-
+     A                                      y - enter 512.                     -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' Enter the number of plants that a-
+     A                                      re used in this size container.  Fo-
+     A                                      r       '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SALE
+     A*%%TS  SD  19980617  150042  EFD         REL-V3R1M0  5763-PW1
+     A                                 17  3' Number of Saleable Cells Per Flat-
+     A                                                                      Opt-
+     A                                      ional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3' Enter the number of plants that a-
+     A                                      re expected to be saleable in this -
+     A                                      size    '
+     A                                      DSPATR(HI)
+     A                                 20  3' container.  For example, in a 512-
+     A                                       tray you may only expect 495 plugs-
+     A                                       to be  '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' saleable.                        -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R TAGS
+     A*%%TS  SD  19980617  150042  EFD         REL-V3R1M0  5763-PW1
+     A                                 19  3' Number of Tags Per Flat          -
+     A                                                                      Opt-
+     A                                      ional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' Enter the number of tags that are-
+     A                                       usually shipped with this size con-
+     A                                      tainer. '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R OVERVIEW
+     A*%%TS  SD  20000714  062102  TGMS        REL-V4R4M0  5769-PW1
+     A                                  1  3' Size Codes Overview              -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5  3' the same plant.                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  4  3' size codes, the same item number -
+     A                                      can be assigned to all container si-
+     A                                      zes of  '
+     A                                      DSPATR(HI)
+     A                                  3  3' Most growers grow the same plant -
+     A                                      material in more than one size.  By-
+     A                                       using  '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  6  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3' For example: You grow super elfin-
+     A                                       white impatiens in a 512 plug tray-
+     A                                      , a 48  '
+     A                                      DSPATR(HI)
+     A                                  8  3'              cell bedding plant t-
+     A                                      ray and a 6" pot and you assign 123-
+     A                                      4 as    '
+     A                                      DSPATR(HI)
+     A                                 14  3'                          1234    -
+     A                                                 6                       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  3'              the item number.  In-
+     A                                       this instance the items might be: -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                          1234    -
+     A                                                48                       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3'                          1234    -
+     A                                               512                       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                       Item Number-
+     A                                           Size Code                     -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3' Five size codes are reserved: AST-
+     A                                      =Assortments, CUT=Cuttings, ROY=Roy-
+     A                                      alty    '
+     A                                      DSPATR(HI)
+     A                                 21  3' Other than the reserved codes, yo-
+     A                                      u can define the codes however you -
+     A                                      choose. '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' Refer to user documentation for f-
+     A                                      urther definition of reserved size -
+     A                                      codes.  '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'                               SED-
+     A                                      =Seed, TAG=Tags                    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R UPCSIZE
+     A*%%TS  SD  20090512  170239  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      CF11(11 'Multiple Records View')
+     A                                      CF13
+     A                                      CF23
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2COLOR(BLU)
+     A                                  1 27' Size Code File Maintenance '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 22' Help Screen for UPC Size Informat-
+     A                                      ion '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  5  4'UPC Size Description:'
+     A                                  5 27' 18 X 6.3fl oz '
+     A                                      DSPATR(CS)
+     A                                  6 27' 3.54qt(3.35L) '
+     A                                      DSPATR(CS)
+     A                                  5 54'Always Round Down'
+     A                                      DSPATR(HI)
+     A                                  6 54' on Volume Calcs.'
+     A                                      DSPATR(HI)
+     A                                  9  4'The UPC description is what will p-
+     A                                      rint on UPC spot label.  The spot l-
+     A                                      abel'
+     A                                      COLOR(PNK)
+     A                                 10  5'content is governed by law and mus-
+     A                                      t be correct.  If you don''t know'
+     A                                      COLOR(PNK)
+     A                                 10 72'ASK!'
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 13 13' Approved Abbreviations '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 13 48'| In general, volume shall be   '
+     A                                      COLOR(BLU)
+     A                                 14 48'| expressed in terms of the     '
+     A                                      COLOR(BLU)
+     A                                 15  2'U.S. Measure        '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 25'Metric Measure        '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 48'| largest whole unit, with any  '
+     A                                      COLOR(BLU)
+     A                                 16  2'fluid ounces = fl oz'
+     A                                      COLOR(BLU)
+     A                                 16 25'milliliter = mL or ml '
+     A                                      COLOR(BLU)
+     A                                 16 48'| remainder expressed as a common'
+     A                                      COLOR(BLU)
+     A                                 17  2'pint(s) = pt        '
+     A                                      COLOR(BLU)
+     A                                 17 25'milliliters = mL or ml'
+     A                                      COLOR(BLU)
+     A                                 17 48'| or decimal fraction.          '
+     A                                      COLOR(BLU)
+     A                                 18  2'quart(s) = qt       '
+     A                                      COLOR(BLU)
+     A                                 18 25'liter = L or l        '
+     A                                      COLOR(BLU)
+     A                                 18 48'|'
+     A                                      COLOR(BLU)
+     A                                 18 50'Acceptable   '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 18 64'Not Acceptable '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 19  2'gallon(s) = gal     '
+     A                                      COLOR(BLU)
+     A                                 19 25'liters = L or l       '
+     A                                      COLOR(BLU)
+     A                                 19 48'| 3 qt          .75 gal / 6 pt  '
+     A                                      COLOR(BLU)
+     A                                 20 48'| 1.25 gal      160 fl oz / 6 pt'
+     A                                      COLOR(BLU)
+     A                                 21 48'| 1.5 L         1500 mL oz      '
+     A                                      COLOR(BLU)
+     A                                 22  2'                                  -
+     A                                                  |                      -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2' Enter to Process          F3/F7=E-
+     A                                      nd of Job         F13=Print Size Co-
+     A                                      de List  '
+     A                                      COLOR(BLU)
+     A                                  4  2'........Example...................-
+     A                                      .........'
+     A                                  5  2':'
+     A                                  6  2':'
+     A                                  7  2':.................................-
+     A                                      ........:'
+     A                                  5 44':'
+     A                                  6 44':'

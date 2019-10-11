@@ -1,0 +1,127 @@
+     A*%%TS  SD  20181211  164238  BILLB       REL-V7R2M0  5770-WDS
+     A*? Program        : WSPCI001FM
+     A*?
+     A*? Description    : This display file has List of Credit cards for
+     A*?                  Bill to Customer (BIR235 & ARR210)
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 03 APR 2018
+     A*****************************************************************-----
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A* SUD01   06/25/18   S.Uthaya     Token Field replaced by Comment field
+     A*                                 in Screen
+     A* SUD02   08/01/18   S.Uthaya     Added Fucntion Key to Call CC Token
+     A*                                 Maintenance Screen
+     A*****************************************************************
+     A*? Indicator Area
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A*****************************************************************
+     A*? Subfile Display Part
+     A          R PCI001S01                 SFL
+     A*%%TS  SD  20181211  164238  BILLB       REL-V7R2M0  5770-WDS
+     A  25                                  SFLNXTCHG
+     A*
+     A            S01OPT         1Y 0B 10  3
+     A  50                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A            S01RRN         4S 0H
+     A            S01TYPE        4A  O 10  9
+     A            S01CARD        4Y 0O 10 22EDTWRD('0    ')
+     A            S01CMNT       50A  O 10 31
+     A*****************************************************************
+     A*? Subfile Control Part
+     A          R PCI001C01                 SFLCTL(PCI001S01)
+     A**
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(10)
+     A**
+     A                                      CF06(06 'AddNew')
+     A                                      CF12(12 'Cancel')
+SUD02A                                      CF23(23 'Edit CC Tokens')
+     A**
+     A                                      OVERLAY
+     A**
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A**
+     A            C01PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 32'Payment Information'
+     A                                      COLOR(WHT)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A**
+     A            C01USR        10A  O  2  2COLOR(BLU)
+     A                                  2 28'Credit Card Selection Screen'
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A**
+     A                                  4  2'Bill To Customer:'
+     A            C01CUST        6Y 0O  4 20COLOR(BLU)
+     A                                      EDTCDE(Z)
+     A            C01NAME       30A  O  4 27COLOR(BLU)
+     A                                  5  2'Order # :'
+     A            C01ORD#        6Y 0O  5 12COLOR(BLU)
+     A                                      EDTCDE(Z)
+     A                                  5 55'Invoice # :'
+     A            C01INV#        6Y 0O  5 67COLOR(BLU)
+     A                                      EDTCDE(Z)
+     A**
+     A                                  7  2'Options : 1=Select'
+     A                                      COLOR(BLU)
+     A**
+     A                                  9  2'Opt'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  9  7'Card Type'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  9 18'Last4Digits'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+SUD01A                                  9 31'Comments                          -
+SUD01A                                                      '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R PCI001F01
+     A                                 23  2'F6=Add New Card  F12=Cancel  F23=E-
+     A                                      dit CC Tokens'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(24)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A**
+     A                                      HELP
+     A                                      OVERLAY
+     A**
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A**
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

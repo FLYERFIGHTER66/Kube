@@ -1,0 +1,79 @@
+000100190520      * Program        : $_FEDEX
+000200190520      *
+000300190520      * Description    : This Function Definition is used to get FEDEX Information
+000400190520      *
+000500190520      * Created By     : S.Uthayadurga
+000600190520      *
+000700190520      * Date           : 20 May 2019
+000800190520      //---------------------------------------------------------------------------
+000900190529      * Special Notes  : ** ISFEDEXORD - SQL Function isFedExOrder(Order#)
+001000190529      *                : ** FEDEXBILL  - SQL Function FedExBillAmount(Order#)
+001100190529      *                : ** FEDEXONINV - SQL Function FedExBillOnInvoice(Order#)
+001200190529      *                : ** FEDEXBOXC  - SQL Function FedExBoxCount(Order#:BoxSize)
+001300190529      *                : ** FEDEXBOXCH - SQL Function FedExBoxSizeBoxing(Order#,BoxSize)
+001400190521      *                : ** FEDEXFRGHT - SQL Function FedExBoxSizeFreight(Order#,
+001500190521      *                                  BoxSize)
+001600190520      //---------------------------------------------------------------------------
+001700190520      *                :---------------:
+001800190520      *                : Modifications :
+001900190520      *                :---------------:
+002000190520      * ------  --------   ----------   -------------------------------------------
+002100190520      * MOD#    MOD Date   Programmer   Description
+002200190520      * ------  --------   ----------   -------------------------------------------
+002300190520      *
+002400190520      //---------------------------------------------------------------------------
+002500190520      *                :----------------------:
+002600190520      *                : Prototype Definition :
+002700190520      *                :----------------------:
+002800190520      *
+002900190529      /If Not Defined(ISFEDEXORD)
+003000190529     * ISFEDEXORD EXTPROCReturns a Status
+003100190529    * Prototype for ISFEDEXORD Function
+003200190529       Dcl-Pr ISFEDEXORD CHAR(1) ExtProc('ISFEDEXORD');
+003300190529           POrder#    Zoned(6:0) Const;
+003400190529       End-Pr;
+003500190529      /Endif
+003600190529      *
+003700190520      /If Not Defined(FEDEXBILL)
+003800190520     * FEDEXBILL  EXTPROCReturns a Bill Amount
+003900190520    * Prototype for FEDEXBILL  Function
+004000190529       Dcl-Pr FEDEXBILL   Packed(10:2) ExtProc('FEDEXBILL');
+004100190529           POrder#    Zoned(6:0) Const;
+004200190520       End-Pr;
+004300190520      /Endif
+004400190520      *
+004500190520      /If Not Defined(FEDEXONINV)
+004600190520     * FEDEXONINV EXTPROCReturns a Invoice
+004700190520    * Prototype for FEDEXONINV Function
+004800190529       Dcl-Pr FEDEXONINV  Zoned(6:0) ExtProc('FEDEXONINV');
+004900190529           POrder#    Zoned(6:0) Const;
+005000190520       End-Pr;
+005100190520      /Endif
+005200190520      *
+005300190520      /If Not Defined(FEDEXBOXC)
+005400190520     * FEDEXBOXC  EXTPROCReturns a Box Count
+005500190520     * Prototype for FEDEXBOXC Function
+005600190529       Dcl-Pr  FEDEXBOXC  Zoned(4:0) ExtProc('FEDEXBOXC');
+005700190529           POrder#    Zoned(6:0) Const;
+005800190529           PSize      Char(2)    Const;
+005900190520       End-Pr;
+006000190520      /Endif
+006100190529      *
+006200190527      /If Not Defined(FEDEXBOXCH)
+006300190527     * FEDEXBOXCH EXTPROCReturns a Boxing Charges
+006400190527     * Prototype for FEDEXBOXCH Function
+006500190529       Dcl-Pr FEDEXBOXCH  Char(15) ExtProc('FEDEXBOXCH');
+006600190529           POrder#    Zoned(6:0) Const;
+006700190529           PSize      Char(2)    Const;
+006800190529       End-Pr;
+006900190527      /Endif
+007000190529      *
+007100190529      /If Not Defined(FEDEXFRGHT)
+007200190529     * FEDEXFRGHT EXTPROCReturns a Freight
+007300190529     * Prototype for FEDEXFRGHT Function
+007400190529       Dcl-Pr FEDEXFRGHT Packed(10:2) ExtProc('FEDEXFRGHT');
+007500190529           POrder#    Zoned(6:0) Const;
+007600190529           PSize      Char(2)    Const;
+007700190529       End-Pr;
+007800190529      /Endif
+007900190520      *------------- End of Program ----------------------------------

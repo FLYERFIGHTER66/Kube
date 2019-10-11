@@ -1,0 +1,107 @@
+     A*%%TS  SD  20080811  113159  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20080811  113159  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'FCR020A'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  7 26'Item Number?'
+     A            VITEM         12A  B  7 44DSPATR(CS)
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A  12                                  ERRMSG('*** This Item Is Not on Fil-
+     A                                      e.     Press Reset')
+     A  13                                  ERRMSG('*** Item is Deleted.       -
+     A                                                          Press Reset')
+     A                                 22 18'                                  -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                 23 18'   Enter to Process        F3/F7=E-
+     A                                      nd of Job  '
+     A                                      DSPATR(UL)
+     A                                  1 25' Enter Parts per Million Table '
+     A                                      DSPATR(RI)
+     A                                  2 37'FINISHED'
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20080811  113159  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'FCR020B'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  1 25' Enter Parts per Million Table '
+     A                                      DSPATR(RI)
+     A                                  3 13'Item:'
+     A            IMITEM        12A  O  3 19
+     A            IMDES1        30A  O  3 32
+     A                                 24  3'Enter to Process            F6=Res-
+     A                                      tart(NO UPDATE)          F3=End(NO -
+     A                                      UPDATE)'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 37'FINISHED'
+     A                                      DSPATR(HI)
+     A          R PPMSFL                    SFL
+     A*%%TS  SD  20020621  142946  EFD         REL-V5R1M0  5722-WDS
+     A            PARTSM         5Y 0O  8 23EDTCDE(4)
+     A            OUNCE          7Y 3B  8 33DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  11                                  DSPATR(RI)
+     A            MILS           7Y 3B  8 46DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  21                                  DSPATR(RI)
+     A          R PPMCTL                    SFLCTL(PPMSFL)
+     A*%%TS  SD  20080811  113159  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(0045)
+     A                                      SFLPAG(0016)
+     A  98                                  CF01
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  10                                  SFLMSG('*** Onnces entered out of s-
+     A                                      equence.    Press RESET')
+     A  20                                  SFLMSG('*** M.L. Entered out of seq-
+     A                                      uence.      Press RESET')
+     A                                  1  2'FCR020SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 22' Enter/Update Parts per Million Ta-
+     A                                      ble '
+     A                                      DSPATR(RI)
+     A                                  2 17'Item:'
+     A            IMITEM        12A  O  2 23DSPATR(HI)
+     A            IMDES1        30A  O  2 36DSPATR(HI)
+     A                                  7 23'  PPM       Ounce        M.L.  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'Roll Keys'
+     A                                  4  2'F6=Restart(NO UPDATE)'
+     A                                  5  2'F3=End Job(NO UPDATE)'
+     A                                  4 30' F1=Update Data '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  3 37'FINISHED'
+     A                                      DSPATR(HI)

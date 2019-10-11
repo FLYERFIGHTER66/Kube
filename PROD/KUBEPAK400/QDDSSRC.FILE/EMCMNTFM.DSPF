@@ -1,0 +1,326 @@
+     A*%%TS  SD  20170811  123237  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R EMCMNT01S                 SFL
+     A*%%TS  SD  20141209  154841  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            EMNAME    R        H      REFFLD(RMEMAIL/EMNAME *LIBL/FMEMAIL)
+     A            EMAIL     R        H      REFFLD(RMEMAIL/EMAIL *LIBL/FMEMAIL)
+     A            CUSTNAME      30   H
+     A            EMACCT    R        O  7  2REFFLD(RMEMAIL/EMACCT *LIBL/FMEMAIL)
+     A            CUST20        20A  O  7  9DSPATR(HI)
+     A            EMAIL50       50A  O  7 30COLOR(BLU)
+     A                                  8  2'Types:'
+     A                                      DSPATR(HI)
+     A            CODE01         3A  O  8  9
+     A            CODE02         3A  O  8 13
+     A            CODE03         3A  O  8 17
+     A            CODE04         3A  O  8 21
+     A            CODE05         3A  O  8 25
+     A            CODE06         3A  O  8 29
+     A            CODE07         3A  O  8 33
+     A            CODE08         3A  O  8 37
+     A            CODE09         3A  O  8 41
+     A            CODE10         3A  O  8 45
+     A            CODE11         3A  O  8 49
+     A            CODE12         3A  O  8 53
+     A            CODE13         3A  O  8 57
+     A            CODE14         3A  O  8 61
+     A            CODE15         3A  O  8 65
+     A            CUSTVEND      75A  O  9  2COLOR(PNK)
+     A                                 10  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                      COLOR(BLU)
+     A          R EMCMNT01C                 SFLCTL(EMCMNT01S)
+     A*%%TS  SD  20141210  163404  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF04(04 'Prompt for Type')
+     A  41                                  CF05(05 'Refresh')
+     A  41                                  CF06(06 'Add Email Address')
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A                                      SFLDROP(CF11)
+     A                                      SFLSIZ(&SFLRCDS)
+     A                                      SFLPAG(0004)
+     A                                      MOUBTN(*ULP *ULR CF22)
+     A                                      MOUBTN(*URP *URR CF23)
+     A            SFLPOSTO1      4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLRCDS        5S 0P
+     A            SFLCSRRRN      5S 0H
+     A            CSRFLD        10A  H
+     A            CSRRCD        10A  H
+     A                                  1  2'EMCMNT01'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A            SELACCOUNT     6Y 0B  5  2EDTCDE(Z)
+     A                                      COLOR(PNK)
+     A            SELNAME       30A  B  4 25COLOR(YLW)
+     A            SELEMAIL      30A  B  5 25COLOR(YLW)
+     A            SELACTIVE      1A  B  2 38COLOR(PNK)
+     A                                  2 25'Active Only:'
+     A                                  2 41'Select Type:'
+     A            SELTYPE        3A  B  2 54COLOR(PNK)
+     A                                  6  1'  Acct | Customer           | Emai-
+     A                                      l name & <Address>                 -
+     A                                                '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1 25'   Customer Email Maintenance   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3 12'Cust Search:'
+     A            SELSEARCH     30A  B  3 25COLOR(YLW)
+     A                                  3 56'(Name,Address,Phone,etc)'
+     A                                  4 13'Email Name:'
+     A                                  5 10'Email Address:'
+     A                                  4 56'(Match email names)'
+     A                                  5 56'(Match email addresses)'
+     A                                  2 58'(F4=Select)'
+     A          R EMCMNT01F
+     A*%%TS  SD  20141210  163404  BILLB       REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A                                 23  2' Function Keys:                   -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  3'F3'
+     A                                      DSPATR(HI)
+     A                                 24  6'=Exit'
+     A                                      COLOR(BLU)
+     A  41                             24 26'F5'
+     A                                      DSPATR(HI)
+     A  41                             24 29'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 24 14'F4'
+     A                                      DSPATR(HI)
+     A                                 24 17'=Types'
+     A                                      COLOR(BLU)
+     A  41                             24 40'F6'
+     A                                      DSPATR(HI)
+     A  41                             24 43'=Add'
+     A                                      COLOR(BLU)
+     A          R EMCMNT01N
+     A*%%TS  SD  20120214  103104  BILLB       REL-V7R1M0  5770-WDS
+     A                                 22  2' Function Keys:                   -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A  48                             23  5'=Update'
+     A                                      COLOR(BLU)
+     A                                 24  2'F3'
+     A                                      DSPATR(HI)
+     A                                 24  5'=Exit'
+     A                                      COLOR(BLU)
+     A  48                             24 14'F16'
+     A                                      DSPATR(HI)
+     A  48                             24 18'=Clear'
+     A                                      COLOR(BLU)
+     A  48                             23 25'F9/F10'
+     A                                      DSPATR(HI)
+     A  48                             23 32'=Assign/Copy'
+     A                                      COLOR(BLU)
+     A  48                             23  2'F1'
+     A                                      DSPATR(HI)
+     A                                 24 29'F5'
+     A                                      DSPATR(HI)
+     A                                 24 32'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 23 46'F7/F8'
+     A                                      DSPATR(HI)
+     A                                 23 52'=-/+Day |'
+     A                                      COLOR(BLU)
+     A                                 13 22'No records found for date of'
+     A            WEEKDATE       6Y 0O 13 51EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                 24 46'F19/F20'
+     A                                      DSPATR(HI)
+     A                                 24 54'=-/+Wk|'
+     A                                      COLOR(BLU)
+     A          R EMCMNT02
+     A*%%TS  SD  20170811  123237  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF12(12 'Cancel')
+     A                                      CF03(03 'Exit')
+     A  53                                  CF13(13 'Delete')
+     A  54                                  CF14(14 'Override Bad email')
+     A                                      OVERLAY
+     A            TBS01         20A  P
+     A            TBS02         20A  P
+     A            TBS03         20A  P
+     A            TBS04         20A  P
+     A            TBS05         20A  P
+     A            TBS06         20A  P
+     A            TBS07         20A  P
+     A            TBS08         20A  P
+     A            TBS09         20A  P
+     A            TBS10         20A  P
+     A            TBS11         20A  P
+     A            TBS12         20A  P
+     A            TBS13         20A  P
+     A            TBS14         20A  P
+     A            TBS15         20A  P
+     A            CODE01         3   O 13 25COLOR(PNK)
+     A            CODE02         3A  O 13 29COLOR(PNK)
+     A            CODE03         3A  O 13 33COLOR(PNK)
+     A            CODE04         3A  O 13 37COLOR(PNK)
+     A            CODE05         3A  O 13 41COLOR(PNK)
+     A            CODE06         3A  O 13 45COLOR(PNK)
+     A            CODE07         3A  O 13 49COLOR(PNK)
+     A            CODE08         3A  O 13 53COLOR(PNK)
+     A            CODE09         3A  O 14 27COLOR(PNK)
+     A            CODE10         3A  O 14 31COLOR(PNK)
+     A            CODE11         3A  O 14 35COLOR(PNK)
+     A            CODE12         3A  O 14 39COLOR(PNK)
+     A            CODE13         3A  O 14 43COLOR(PNK)
+     A            CODE14         3A  O 14 47COLOR(PNK)
+     A            CODE15         3A  O 14 51COLOR(PNK)
+     A            PICKCODES      2Y 0B 16  3PSHBTNFLD
+     A                                      PSHBTNCHC(1 &TBS01)
+     A                                      PSHBTNCHC(2 &TBS02)
+     A                                      PSHBTNCHC(3 &TBS03)
+     A                                      PSHBTNCHC(4 &TBS04)
+     A                                      PSHBTNCHC(5 &TBS05)
+     A                                      PSHBTNCHC(6 &TBS06)
+     A                                      PSHBTNCHC(7 &TBS07)
+     A                                      PSHBTNCHC(8 &TBS08)
+     A                                      PSHBTNCHC(9 &TBS09)
+     A                                      PSHBTNCHC(10 &TBS10)
+     A                                      PSHBTNCHC(11 &TBS11)
+     A                                      PSHBTNCHC(12 &TBS12)
+     A                                      PSHBTNCHC(13 &TBS13)
+     A                                      PSHBTNCHC(14 &TBS14)
+     A                                      PSHBTNCHC(15 &TBS15)
+     A                                  5  4'Name:'
+     A                                  7  1'Address:'
+     A                                  2 35'Acct:'
+     A            EMACCT    R        O  2 41REFFLD(RMEMAIL/EMACCT *LIBL/FMEMAIL)
+     A                                      COLOR(PNK)
+     A            EMNAME    R        B  5 10REFFLD(RMEMAIL/EMNAME *LIBL/FMEMAIL)
+     A                                      COLOR(TRQ)
+     A                                      CHECK(LC)
+     A            EMAIL     R        B  7 10REFFLD(RMEMAIL/EMAIL *LIBL/FMEMAIL)
+     A                                      CHECK(LC)
+     A N51                                  COLOR(GRN)
+     A  51                                  COLOR(RED)
+     A                                  2  1DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3  1TIME
+     A                                      COLOR(BLU)
+     A                                  1  2'EMCMNT02'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A            CUSTNAME      30A  O  3 26DSPATR(HI)
+     A                                  1 23'   Update Customer Email Address  -
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 12 20'Email Types Associated with this A-
+     A                                      ddress:'
+     A                                 15  1'Select/Deselect Types:'
+     A                                 23  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 23 10'=Process Name Changes'
+     A                                      COLOR(BLU)
+     A                                 23 34'F12'
+     A                                      DSPATR(HI)
+     A                                 23 38'=Cancel'
+     A                                      COLOR(BLU)
+     A  53                             23 48'F13'
+     A                                      DSPATR(HI)
+     A  53                             23 52'=Delete'
+     A                                      COLOR(BLU)
+     A  54                             10 30'*** Invalid email address.  Use F1-
+     A                                      4 to accept ***'
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages Control')
+     A                                      OVERLAY
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

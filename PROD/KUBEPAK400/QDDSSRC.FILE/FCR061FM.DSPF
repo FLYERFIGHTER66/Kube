@@ -1,0 +1,303 @@
+     A*%%TS  SD  20160726  130557  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R FCR06101S                 SFL
+     A*%%TS  SD  20160726  130557  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            ITEM          12A  H
+     A            OUNCES         6S 3H
+     A            ITEM5          5A  B  7  2DSPATR(PR)
+     A            CTSPIT8        8A  H
+     A            SIZE           3A  H
+     A            PPM            7Y 2B  7 24EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            DESC15        15A  B  7  8DSPATR(PR)
+     A            SPRAY          5A  B  7 33DSPATR(PR)
+     A            TRAYS          5Y 0B  7 39EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            POLES          5Y 0B  7 45EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            GALS           5Y 2B  7 51EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            APP1           8A  B  7 58DSPATR(HI)
+     A  61                                  DSPATR(PC)
+     A  48                                  COLOR(PNK)
+     A N48                                  DSPATR(PR)
+     A N48                                  COLOR(GRN)
+     A            APP2           8A  B  7 67DSPATR(HI)
+     A  62                                  DSPATR(PC)
+     A  48                                  COLOR(PNK)
+     A N48                                  COLOR(GRN)
+     A N48                                  DSPATR(PR)
+     A*                                     ROLLUP
+     A*                                     ROLLDOWN
+     A          R FCR06101C                 SFLCTL(FCR06101S)
+     A*%%TS  SD  20160726  130557  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                SFLPAG(0015)
+     A  *DS4                                SFLPAG(0015)
+     A  48                                  CF01(01 'Update')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'Print')
+     A                                      CF07(07 'Previous Week')
+     A  48                                  CF09(09 'Applicator Selection Scree-
+     A                                      n')
+     A  48                                  CF10(10 'Assign Same Applicator aga-
+     A                                      in')
+     A                                      CF08(08 'Next Week')
+     A                                      CF11(11 'Print')
+     A  48                                  CF16(16 'Clear All')
+     A  48                                  CF22(22 'Applicator Selection Scree-
+     A                                      n Select by Mouse')
+     A  48                                  CF23(23 'Assign Same Applicator aga-
+     A                                      in Selected by Mouse')
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLSIZ(&SFLRCDS)
+     A                                      MOUBTN(*ULP *ULR CF22)
+     A                                      MOUBTN(*URP *URR CF23)
+     A            SFLPOSTO1      4S 0H      SFLRCDNBR(CURSOR)
+     A            SFLRCDS        5S 0P
+     A            SFLCSRRRN      5S 0H
+     A            CSRFLD        10A  H
+     A            CSRRCD        10A  H
+     A                                  1  2'FCR06101'
+     A                                      COLOR(BLU)
+     A                                  1 28'     Applicator Setup     '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A            DATELIT       35A  O  3 45DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4 45'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A N48 26                           4 49'APPLICATOR SHOWN FOR '
+     A                                      DSPATR(HI)
+     A N26N48 49                        4 54'This Date has not'
+     A                                      COLOR(BLU)
+     A N48N49N26                        4 53'No data found for'
+     A                                      COLOR(PNK)
+     A                                  5 45'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A N48 26                           5 49'Review purposes ONLY.'
+     A                                      DSPATR(HI)
+     A N26N48 49                        5 54'yet been entered.'
+     A                                      COLOR(BLU)
+     A N48N49N26                        5 54'Date Specified.'
+     A                                      COLOR(PNK)
+     A  26                              6  2'Item  Description        PPM   Spr-
+     A                                      ay Trays Poles  Gals  App1.    App2-
+     A                                      .        '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A N26                              6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                  2 37'FINISHED'
+     A                                      DSPATR(HI)
+     A          R FCR06101F
+     A*%%TS  SD  20081118  152325  BILLB       REL-V5R3M0  5722-WDS
+     A                                 22  2' Function Keys:                   -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A  48                             23  5'=Update'
+     A                                      COLOR(BLU)
+     A                                 24  2'F3'
+     A                                      DSPATR(HI)
+     A                                 24  5'=Exit'
+     A                                      COLOR(BLU)
+     A  48                             24 30'F16'
+     A                                      DSPATR(HI)
+     A  48                             24 34'=Clear'
+     A                                      COLOR(BLU)
+     A  48                             23 43'F9/F10'
+     A                                      DSPATR(HI)
+     A  48                             23 50'=Assign'
+     A                                      COLOR(BLU)
+     A  48                             23  2'F1'
+     A                                      DSPATR(HI)
+     A                                 23 15'F5'
+     A                                      DSPATR(HI)
+     A                                 23 18'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 24 15'F7/F8'
+     A                                      DSPATR(HI)
+     A                                 24 21'=+/-Day'
+     A                                      COLOR(BLU)
+     A                                 23 31'F6'
+     A                                      DSPATR(HI)
+     A                                 23 34'=Print'
+     A                                      COLOR(BLU)
+     A            PRINTER       10A  O 24 71COLOR(YLW)
+     A                                 24 62'Printer:'
+     A                                      COLOR(PNK)
+     A                                 23 60'|'
+     A                                      COLOR(BLU)
+     A                                 24 60'|'
+     A                                      COLOR(BLU)
+     A                                 23 62'F11'
+     A                                      DSPATR(HI)
+     A                                 23 66'=Change Printer'
+     A                                      COLOR(BLU)
+     A          R FCR06101N
+     A*%%TS  SD  20081118  152325  BILLB       REL-V5R3M0  5722-WDS
+     A                                 23  2' Function Keys:                   -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A  48                             24  5'=Update'
+     A                                      COLOR(BLU)
+     A                                 24 14'F3'
+     A                                      DSPATR(HI)
+     A                                 24 17'=Exit'
+     A                                      COLOR(BLU)
+     A  48                             24 51'F16'
+     A                                      DSPATR(HI)
+     A  48                             24 55'=Clear All'
+     A                                      COLOR(BLU)
+     A  48                             24 67'F9/F10'
+     A                                      DSPATR(HI)
+     A  48                             24 74'=Assign'
+     A                                      COLOR(BLU)
+     A  48                             24  2'F1'
+     A                                      DSPATR(HI)
+     A                                 24 24'F5'
+     A                                      DSPATR(HI)
+     A                                 24 27'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 24 37'F7/F8'
+     A                                      DSPATR(HI)
+     A                                 24 43'=+/-Day'
+     A                                      COLOR(BLU)
+     A                                 13 22'No records found for date of'
+     A            WEEKDATE       6Y 0O 13 51EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A          R FCR06102
+     A*%%TS  SD  20080811  113439  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                WINDOW(5 5 13 70)
+     A  *DS4                                WINDOW(5 5 12 70)
+     A                                      CF13(13 'Edit Names')
+     A            APP01          8A  P
+     A            APP02          8A  P
+     A            APP03          8A  P
+     A            APP04          8A  P
+     A            APP05          8A  P
+     A            APP06          8A  P
+     A            APP07          8A  P
+     A            APP08          8A  P
+     A            APP09          8A  P
+     A            APP10          8A  P
+     A            APP11          8A  P
+     A            APP12          8A  P
+     A            APP13          8A  P
+     A            APP14          8A  P
+     A            APP15          8A  P
+     A            APP16          8A  P
+     A            APP17          8A  P
+     A            APP18          8A  P
+     A            APP19          8A  P
+     A            APP20          8A  P
+     A            APP21          8A  P
+     A            APP22          8A  P
+     A            APP23          8A  P
+     A            APP24          8A  P
+     A            APPLIC         2Y 0B  4  3PSHBTNFLD
+     A                                      PSHBTNCHC(1 &APP01)
+     A                                      PSHBTNCHC(2 &APP02)
+     A                                      PSHBTNCHC(3 &APP03)
+     A                                      PSHBTNCHC(4 &APP04)
+     A                                      PSHBTNCHC(5 &APP05)
+     A                                      PSHBTNCHC(6 &APP06)
+     A                                      PSHBTNCHC(7 &APP07)
+     A                                      PSHBTNCHC(8 &APP08)
+     A                                      PSHBTNCHC(9 &APP09)
+     A                                      PSHBTNCHC(10 &APP10)
+     A                                      PSHBTNCHC(11 &APP11)
+     A                                      PSHBTNCHC(12 &APP12)
+     A                                      PSHBTNCHC(13 &APP13)
+     A                                      PSHBTNCHC(14 &APP14)
+     A                                      PSHBTNCHC(15 &APP15)
+     A                                      PSHBTNCHC(16 &APP16)
+     A                                      PSHBTNCHC(17 &APP17)
+     A                                      PSHBTNCHC(18 &APP18)
+     A                                      PSHBTNCHC(19 &APP19)
+     A                                      PSHBTNCHC(20 &APP20)
+     A                                      PSHBTNCHC(21 &APP21)
+     A                                      PSHBTNCHC(22 &APP22)
+     A                                      PSHBTNCHC(23 &APP23)
+     A                                      PSHBTNCHC(24 &APP24)
+     A                                  1  1'FCR06002'
+     A                                      COLOR(BLU)
+     A                                  1 21'     Select the Applicator     '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 12 52'F13'
+     A                                      DSPATR(HI)
+     A                                 12 56'=Change Names'
+     A                                      COLOR(BLU)
+     A                                  2 32'FINISHED'
+     A                                      DSPATR(HI)
+     A          R FCR06103
+     A*%%TS  SD  20080811  113439  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                WINDOW(7 7 9 64)
+     A  *DS4                                WINDOW(5 5 12 70)
+     A            APP01          8A  B  4  4
+     A            APP02          8A  B  4 14
+     A            APP03          8A  B  4 24
+     A            APP04          8A  B  4 34
+     A            APP05          8A  B  4 44
+     A            APP06          8A  B  4 54
+     A            APP07          8A  B  5  4
+     A            APP08          8A  B  5 14
+     A            APP09          8A  B  5 24
+     A            APP10          8A  B  5 34
+     A            APP11          8A  B  5 44
+     A            APP12          8A  B  5 54
+     A            APP13          8A  B  6  4
+     A            APP14          8A  B  6 14
+     A            APP15          8A  B  6 24
+     A            APP16          8A  B  6 34
+     A            APP17          8A  B  6 44
+     A            APP18          8A  B  6 54
+     A            APP19          8A  B  7  4
+     A            APP20          8A  B  7 14
+     A            APP21          8A  B  7 24
+     A            APP22          8A  B  7 34
+     A            APP23          8A  B  7 44
+     A            APP24          8A  B  7 54
+     A                                  2 13'     Update your list of Applicato-
+     A                                      rs     '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1  1'FCR06003'
+     A                                      COLOR(BLU)
+     A                                  1 55USER
+     A                                      COLOR(BLU)
+     A                                  8 41'Enter'
+     A                                      DSPATR(HI)
+     A                                  8 47'= Update '
+     A                                      COLOR(BLU)
+     A                                  3 29'FINISHED'
+     A                                      DSPATR(HI)

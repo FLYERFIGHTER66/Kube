@@ -1,0 +1,97 @@
+     A*%%TS  SD  20130911  145509  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20000907  144059  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'SDR500A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 31' Seed price look-up '
+     A                                      DSPATR(RI)
+     A                                  6 31'Series?'
+     A            SERIES        10   B  6 41
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Series Entered.-
+     A                                                  Press RESET')
+     A                                 24 14'Enter to Process                  -
+     A                                            F3/F7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 14'                                  -
+     A                                                         '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SEDSFL                    SFL
+     A*%%TS  SD  20130911  145509  BILLB       REL-V7R1M0  5770-WDS
+     A            VMNAME24      24A  O 10 14
+     A            SPPRC1         9Y 4O 10 48EDTCDE(4)
+     A  77                                  DSPATR(ND)
+     A            SPPRC2         9Y 4O 10 59EDTCDE(4)
+     A  77                                  DSPATR(ND)
+     A            SPPRC3         9Y 4O 10 70EDTCDE(4)
+     A  77                                  DSPATR(ND)
+     A            SPVEND         6Y 0O 10  7EDTCDE(4)
+     A  77                                  DSPATR(ND)
+     A            LIN            3Y 0O 10  3EDTCDE(4)
+     A  77                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            SPDTLA    R        O 10 39REFFLD(RSERPRC/SPDTLA *LIBL/FSERPRC)
+     A                                      COLOR(PNK)
+     A  95                                  DSPATR(ND)
+     A          R SEDCTL                    SFLCTL(SEDSFL)
+     A*%%TS  SD  20000922  150053  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0050)
+     A                                      SFLPAG(0014)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLCSRRRN(&LINE)
+     A                                  1  2'SDR500SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 31' Seed Price Look-up '
+     A                                      DSPATR(RI)
+     A                                  4  2'Series?'
+     A            SERIES        10A  B  4 10DSPATR(PR)
+     A            SEDESC        30A  O  4 22
+     A                                  6  2'Enter Line Number Wanted'
+     A  57                                  DSPATR(UL)
+     A  58                                  DSPATR(ND)
+     A            VLINE          3Y 0B  6 27
+     A  57                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  30N58                               DSPATR(RI)
+     A  57                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Line number ent-
+     A                                      ered.       Press RESET')
+     A  58                                  DSPATR(ND)
+     A  58                                  DSPATR(PR)
+     A                                  6 31'or move cursor to desired line and-
+     A                                       press ENTER'
+     A  57                                  DSPATR(UL)
+     A  58                                  DSPATR(ND)
+     A                                  9  2' Line  Vendor Name                -
+     A                                                  Form 1      Form 2     -
+     A                                        Raw    '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 48'---------Price per 1000---------'
+     A                                      DSPATR(HI)
+     A                                  4 53'Selected Form:'
+     A            SEFORM         1Y 0B  4 68DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            FLD001         1A  B  8  2DSPATR(ND)
+     A            LINE           5S 0H
+     A                                  7  2'Press Enter To Continue'
+     A N58                                  DSPATR(ND)
+     A  58                                  DSPATR(UL)

@@ -1,0 +1,100 @@
+     A*%%TS  SD  20081008  095238  BILLB       REL-V5R3M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20081008  095238  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2COLOR(BLU)
+     A                                  1 23' Sales Analysis By Producuct Class-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  6 23'Date Range:'
+     A            LBDATE         6Y 0B  6 44DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10N12                               ERRMSG('*** Enter A Valid Month And-
+     A                                       Year.   Press Reset')
+     A  12                                  ERRMSG('*** Begin date must be less-
+     A                                       than end date.       Press RESET')
+     A                                  6 53'-'
+     A            LEDATE         6Y 0B  6 55DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  11                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11N12                               ERRMSG('*** Enter A Valid Date.   P-
+     A                                      ress Reset')
+     A                                  7 23'(Enter as MMDDYY)'
+     A                                  9 23'Product Class Range?'
+     A            LBPC           2A  B  9 47
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** From Product Class Must-
+     A                                       Be Lower Than To. Press Reset')
+     A  52                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                  9 51'To:'
+     A            LEPC           2A  B  9 55DSPATR(CS)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'                   Enter to Proces-
+     A                                      s        F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 12 23'Customer Type Range:'
+     A            BEGTYP         2A  B 12 47
+     A  61                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  61                                  DSPATR(PC)
+     A  61                                  ERRMSG('*** From Customer Type Must-
+     A                                       Be Lower Than To. Press Reset')
+     A                                 12 51'To:'
+     A            ENDTYP         2A  B 12 55DSPATR(CS)
+     A                                 15 23'Customer Number:'
+     A            CUSTNO         6Y 0B 15 47
+     A  62                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  62                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  62                                  ERRMSG('*** Invalid Customer Number-
+     A                                       Entered.   Press RESET')
+     A                                 16 23'or Alpha Search:'
+     A            ALPHA         15A  B 16 47DSPATR(CS)
+     A                                 15 57'(0=All Customers)'

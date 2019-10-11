@@ -1,0 +1,119 @@
+000100941122      *--------------------------------------------------------------
+000200941122      *
+000300990403      *  COPYRIGHT EFD ENTERPRISES, INC.    1999
+000400941122      *
+000500941122      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600941122      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700941122      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800941122      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900941122      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000941122      *       BY EXPRESS WRITTEN PERMISSION OF
+001100941122      *            EFD ENTERPRISES, INC.     215-643-5352
+001200941122      *
+001300941122      *--------------------------------------------------------------
+001400990403      *PROGRAM NAME-------- SAC370
+001500990403      *SYSTEM-------------- SALES ANALYSIS
+001600990403      *APPLICATION--------- SALES ANALYSIS BY CUSTOMER TOP RANKED
+001700941122      **
+001800941122      *
+001900941122      *            CHANGE--DATE-------DESCRIPTION
+002000010517      *  5/17/01 EFD ADD PERIOD RANGE
+002100941122      *
+002200960608     FFMAPER    IF   E           K DISK
+002300990614     FSAC370FM  CF   E             WORKSTN
+002400941122     F                                     DEVID(WSID)
+002500960609      *
+002600980205      ***********************
+002700980205      * PROG DATA STRUCTURE *
+002800980205      ***********************
+002900980205     D                SDS
+003000990403      * PROGRAM NAME
+003100990403     D  PROGID                 1     10
+003200990403      * RUN LIBRARY
+003300990403     D  RLIBR                 81     90
+003400980205      * USER I.D.
+003500990403     D  USERID               254    263
+003600990403      * SOURCE LIBRARY
+003700990403     D  SLIBR                314    323
+003800960609      *
+003900960609     D                UDS
+004000980131     D  LCO                    1      2  0
+004100980131     D  LMONTH                 3      4  0
+004200980131     D  LDOLUN                 5      5  0
+004300980131     D  LRANK                  6     11  0
+004400010517     D  EMONTH                12     13  0
+004500990614     D  LPRTR                100    109
+004600990614     D  LFORM                110    119
+004700990614     D  LCOPY                120    121  0
+004800990614     D  LJOBQ                122    122
+004900990614     D  LHOLD                123    126
+005000990614     D  LSAVE                127    130
+005100990614     D  LCANCL               133    133
+005200990614     D  LPROG                134    141
+005300990614     D  LNAME                142    171
+005400960617      *
+005500950120     C                   SETOFF                                       98
+005600990716     C                   Z-ADD     1             LDOLUN
+005700991007     C                   Z-ADD     1             LRANK
+005800010517     C                   Z-ADD     0             EMONTH
+005900960608      *
+006000960609     C     NXTA          TAG
+006100931007     C                   WRITE     SCRNA
+006200950120     C                   Z-ADD     0             CNT               2 0
+006300941122     C                   SETOFF                                       101112
+006400010517     C                   SETOFF                                       203031
+006500931007     C                   READ      SCRNA                                  90
+006600930307     C   KC
+006700960609     COR KG              MOVE      'X'           LCANCL
+006800930307     C   KC
+006900941122     COR KG              GOTO      END
+007000960610     C                   MOVEL     *BLANKS       LCANCL
+007100990403      *
+007200990403     C   KB              DO
+007300990403     C                   Z-ADD     LCO           ACCOMP            2 0
+007400990403     C                   CALL      'LKACTP'
+007500960725     C                   PARM                    ACCOMP
+007600960725     C                   PARM                    VACTP
+007700990403     C                   GOTO      NXTA
+007800990403     C                   ENDDO
+007900960617      *
+008000960725     C                   Z-ADD     VACTP         LMONTH
+008100950120      *
+008200990716     C     VACTP         IFLE      0                                                        K
+008300960725     C     VACTP         ORGT      13                                                       K
+008400960618     C                   SETON                                        1011
+008500990716     C                   GOTO      NXTA
+008600960618     C                   ENDIF
+008700960618      *
+008800980131     C     LCO           CHAIN     FMAPER                             90
+008900990716     C     ACST13        IFEQ      0                                                        K
+009000960725     C     VACTP         ANDEQ     13                                                       K
+009100960618     C                   SETON                                        1012
+009200990716     C                   GOTO      NXTA
+009300960609     C                   ENDIF
+009400010517      *
+009500010517     C     EMONTH        IFLE      0
+009600010517     C                   Z-ADD     VACTP         EMONTH
+009700010517     C                   END
+009800960609      *
+009900010517      *
+010000010517     C     ACST13        IFEQ      0                                                        K
+010100010517     C     EMONTH        ANDEQ     13                                                       K
+010200010517     C                   SETON                                        3012
+010300010517     C                   GOTO      NXTA
+010400010517     C                   ENDIF
+010500010517      *
+010600010517     C     EMONTH        IFLT      VACTP                                                    K
+010700010517     C                   SETON                                        3031
+010800010517     C                   GOTO      NXTA
+010900010517     C                   ENDIF
+011000010517      *
+011100990716     C     LDOLUN        IFLT      1                                                        K
+011200990716     C     LDOLUN        ORGT      2                                                        K
+011300990716     C                   SETON                                        20
+011400990716     C                   GOTO      NXTA
+011500960725     C                   ENDIF
+011600960618      *
+011700941122     C     END           TAG
+011800941122     C                   SETON                                        LR
+011900960617      *

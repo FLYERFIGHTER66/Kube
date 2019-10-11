@@ -1,0 +1,434 @@
+     A*%%TS  SD  20110331  173600  BILLB       REL-V5R4M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      MSGALARM
+     A          R FXG07001
+     A*%%TS  SD  20110331  160312  BILLB       REL-V5R4M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      PAGEUP(08 'Previous Week')
+     A                                      PAGEDOWN(09 'Next Week')
+     A                                      CF08(08)
+     A                                      CF09(09)
+     A                                      OVERLAY
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A            SELRDYDATE     6Y 0B  9 68TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A            SELITEM       12A  B 13 68DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            SELSIZE        3A  B 14 68DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            SELFIND       15A  B 11 68DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 49'   Unfixed Plugs - Master Inquiry -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 45'Select the Ready Date:'
+     A                                  9 78'(Required)'
+     A                                      DSPATR(HI)
+     A                                 11 53'Search String:'
+     A                                 13 62'Item:'
+     A                                 14 62'Size:'
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                        FXG07001'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 20'F03'
+     A                                      DSPATR(HI)
+     A                                 26 24'=Exit'
+     A                                      COLOR(BLU)
+     A                                 16 58'Show ALL:'
+     A            SHOWALL        1A  B 16 68DSPATR(UL)
+     A                                      DFTVAL('N')
+     A                                      COLOR(PNK)
+     A                                 16 71'(Specifying Show ALL will include -
+     A                                      FIXED Lots)'
+     A                                      COLOR(BLU)
+     A                                 12 53'Search Desc 1:'
+     A            SELDES1       30A  B 12 68DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  9 89'(PgUp/PgDn -/+ Week)'
+     A                                      COLOR(BLU)
+     A          R FXG07002                  SFL
+     A*%%TS  SD  20110331  112915  BILLB       REL-V5R4M0  5722-WDS
+     A  28                                  SFLNXTCHG
+     A            IMITEM    R        O  7  2REFFLD(RMINVT/IMITEM *LIBL/FMINVT)
+     A            IMSIZE    R        O  7 15REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A            IMDES1    R        O  7 19REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      DSPATR(HI)
+     A            LDFIXD    R        O  7 51REFFLD(RDLOT/LDFIXD *LIBL/FDLOTDSA)
+     A            SLDQTOH   R    5 00O  7109REFFLD(RDLOT/LDQTOH *LIBL/FDLOTDSA)
+     A                                      EDTCDE(4)
+     A            SLDQTAL   R    5 00O  7116REFFLD(RDLOT/LDQTAL *LIBL/FDLOTDSA)
+     A                                      DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            SLDQTAV   R    5 00O  7123REFFLD(RDLOT/LDQTAV *LIBL/FDLOTDSA)
+     A                                      EDTCDE(4)
+     A            CNTFTRAY       4Y 0O  7 60EDTCDE(4)
+     A            TRAY_A         4Y 0O  7 72EDTCDE(4)
+     A            TRAY_F         4Y 0O  7 77DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            TRAY_P         4Y 0O  7 82EDTCDE(4)
+     A            TRAY_D         4Y 0O  7 87DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            TRAY_M         4Y 0O  7 92EDTCDE(4)
+     A            TRAY_B         4Y 0O  7 97DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            TRAY_OTH       4Y 0O  7102EDTCDE(4)
+     A                                  7107'|'
+     A                                      COLOR(BLU)
+     A            CNTFIXED       4Y 0O  7 65DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  7 58'|'
+     A                                      COLOR(BLU)
+     A                                  7129'|'
+     A                                      COLOR(BLU)
+     A                                  7 70'|'
+     A                                      COLOR(BLU)
+     A          R FXG07002C                 SFLCTL(FXG07002)
+     A*%%TS  SD  20110331  172245  BILLB       REL-V5R4M0  5722-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF08(08 'Previous Week')
+     A                                      CF09(09 'Next Week')
+     A                                      CF12(12 'Cancel (Previous Screen)')
+     A                                      CF01(01 'View Tray Details')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0018)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            STARTRRN02     4S 0H      SFLRCDNBR
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  2 43'Ready Date:'
+     A                                      DSPATR(HI)
+     A            SELRDYDATE     6Y 0B  2 55TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  5  2'Item'
+     A                                  5 20'Description'
+     A                                      DSPATR(HI)
+     A            SELITEM       12A  B  6  2DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            SELSIZE        3A  B  6 15DSPATR(UL)
+     A                                      COLOR(PNK)
+     A            SELFIND       15A  B  2 65DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  5 14'Size'
+     A                                  1 49'   Lot Inventory - Master Inquiry -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 82'<=Search'
+     A                                  5 49'Fixed'
+     A                                  6109'On Hd'
+     A                                      DSPATR(UL)
+     A                                  6116'Alloc'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6123'Avail'
+     A                                      DSPATR(UL)
+     A                                  5110'Qty'
+     A                                  5117'Qty'
+     A                                      DSPATR(HI)
+     A                                  5124'Qty'
+     A            SELDES1       30A  B  6 19COLOR(YLW)
+     A                                  5 70'|<-----Count by Tray Status Code---
+     A                                      -->|'
+     A                                      COLOR(BLU)
+     A                                  5129'|'
+     A                                      COLOR(BLU)
+     A                                  6 73'-A-'
+     A                                      DSPATR(UL)
+     A                                  6 78'-F-'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 83'-P-'
+     A                                      DSPATR(UL)
+     A                                  6 88'-D-'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 93'-M-'
+     A                                      DSPATR(UL)
+     A                                  6 98'-B-'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6103'OTH'
+     A                                      DSPATR(UL)
+     A                                  6 61'All'
+     A                                      DSPATR(UL)
+     A                                  6 66'Fxd'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 58'|<--------Tray File Summary Inform-
+     A                                      ation--------->|<--Lot File Summary-
+     A                                      ->|'
+     A                                      COLOR(BLU)
+     A                                  5 58'|'
+     A                                      COLOR(BLU)
+     A                                  6 58'|'
+     A                                      COLOR(BLU)
+     A                                  6107'|'
+     A                                      COLOR(BLU)
+     A            SHOWALL        1A  B  4 51COLOR(TRQ)
+     A                                      VALUES('Y' 'N')
+     A                                  4 41'Show All:'
+     A                                  6 70'|'
+     A                                      COLOR(BLU)
+     A                                  6129'|'
+     A                                      COLOR(BLU)
+     A            SELFIXD        1A  B  6 51COLOR(PNK)
+     A          R FXG07002F
+     A*%%TS  SD  20110331  161049  BILLB       REL-V5R4M0  5722-WDS
+     A                                      OVERLAY
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                        FXG07002'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 60'F05'
+     A                                      DSPATR(HI)
+     A                                 26 64'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 47'F03'
+     A                                      DSPATR(HI)
+     A                                 26 51'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 76'F08/F09'
+     A                                      COLOR(BLU)
+     A                                 26 84'=-/+ Week'
+     A                                      DSPATR(HI)
+     A                                 26 97'F12'
+     A                                      COLOR(BLU)
+     A                                 26101'=Cancel'
+     A                                      DSPATR(HI)
+     A                                 26 21'F01'
+     A                                      DSPATR(HI)
+     A                                 26 25'=View Tray Details'
+     A                                      COLOR(BLU)
+     A          R FXG07003                  SFL
+     A*%%TS  SD  20110331  171630  BILLB       REL-V5R4M0  5722-WDS
+     A  28                                  SFLNXTCHG
+     A            TRTAG#    R        O  7  2REFFLD(RTRAY/TRTAG# *LIBL/FTRAY)
+     A            TRSTAT    R        O  7 11REFFLD(RTRAY/TRSTAT *LIBL/FTRAY)
+     A                                      DSPATR(HI)
+     A            TRLIN#    R        O  7 13REFFLD(RTRAY/TRLIN# *LIBL/FTRAY)
+     A            TRREAS    R        O  7 15REFFLD(RTRAY/TRREAS *LIBL/FTRAY)
+     A                                      COLOR(PNK)
+     A            TRCNTD    R        O  7 19REFFLD(RTRAY/TRCNTD *LIBL/FTRAY)
+     A            TRDTLA    R        O  7 22REFFLD(RTRAY/TRDTLA *LIBL/FTRAY)
+     A            TRTIME    R        O  7 31REFFLD(RTRAY/TRTIME *LIBL/FTRAY)
+     A                                      DSPATR(HI)
+     A            TRUSER    R        O  7 40REFFLD(RTRAY/TRUSER *LIBL/FTRAY)
+     A            TFSTAT    R        O  7 53REFFLD(RTRAYFIXED/TFSTAT *LIBL/FTRA-
+     A                                      YFIXED)
+     A                                      DSPATR(HI)
+     A                                  7 51'|'
+     A                                      COLOR(BLU)
+     A                                  7 64' '
+     A                                      DSPATR(RI)
+     A            DATEFIXED      8   O  7 55
+     A          R FXG07003C                 SFLCTL(FXG07003)
+     A*%%TS  SD  20110331  170706  BILLB       REL-V5R4M0  5722-WDS
+     A  *DS4                                SFLLIN(0001)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0036)
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF12(12 'Cancel (Previous Screen)')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            STARTRRN03     4S 0H      SFLRCDNBR
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  2 57'Ready Date:'
+     A                                      DSPATR(HI)
+     A            SELRDYDATE     6Y 0B  2 69TEXT('Selected Sow Date')
+     A                                      EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  1 49'   Lot Inventory - Master Inquiry -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  5 14'Reason'
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                  6  4'Tag#'
+     A                                      DSPATR(UL)
+     A                                  5 10'Sts'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 23'<-- Last Accessed Info -->'
+     A                                      COLOR(BLU)
+     A                                  6 12'Lin'
+     A                                      DSPATR(UL)
+     A                                  6 53'Sts'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6 58'Date'
+     A                                      DSPATR(UL)
+     A                                  5 51'|'
+     A                                      COLOR(BLU)
+     A                                  6 64' '
+     A                                      DSPATR(RI)
+     A                                  4 64' '
+     A                                      DSPATR(RI)
+     A                                  6 51'|'
+     A                                      COLOR(BLU)
+     A                                  6 24'Date'
+     A                                      DSPATR(UL)
+     A                                  6 33'Time'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 41'User'
+     A                                      DSPATR(UL)
+     A                                  6 18'Ct'
+     A                                      DSPATR(UL)
+     A                                  5 53'<-Fixing->'
+     A                                      COLOR(BLU)
+     A                                  5 74'Sts'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 78'Reason'
+     A                                      COLOR(PNK)
+     A                                      DSPATR(UL)
+     A                                  5 87'<-- Last Accessed Info -->'
+     A                                      COLOR(BLU)
+     A                                  5115'|'
+     A                                      COLOR(BLU)
+     A                                  5117'<-Fixing->'
+     A                                      COLOR(BLU)
+     A                                  6 68'Tag#'
+     A                                      DSPATR(UL)
+     A                                  6 76'Lin'
+     A                                      DSPATR(UL)
+     A                                  6 82'Ct'
+     A                                      DSPATR(UL)
+     A                                  6 88'Date'
+     A                                      DSPATR(UL)
+     A                                  6 97'Time'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6105'User'
+     A                                      DSPATR(UL)
+     A                                  6115'|'
+     A                                      COLOR(BLU)
+     A                                  6117'Sts'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6122'Date'
+     A                                      DSPATR(UL)
+     A                                  1 91'Item:'
+     A                                  2 91'Size:'
+     A            IMITEM    R        O  1 97REFFLD(RMINVT/IMITEM *LIBL/FMINVT)
+     A                                      COLOR(PNK)
+     A            IMSIZE    R        O  2 97REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A                                      COLOR(PNK)
+     A            IMDES1    R        O  3 97REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      DSPATR(HI)
+     A                                  3 91'Desc:'
+     A                                  5 64' '
+     A                                      DSPATR(RI)
+     A          R FXG07003F
+     A*%%TS  SD  20110331  160312  BILLB       REL-V5R4M0  5722-WDS
+     A                                      OVERLAY
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                        FXG07003'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 26  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 26  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 26 34'F05'
+     A                                      DSPATR(HI)
+     A                                 26 38'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 26 21'F03'
+     A                                      DSPATR(HI)
+     A                                 26 25'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 50'F08/F09'
+     A                                      COLOR(BLU)
+     A                                 26 58'=-/+ Week'
+     A                                      DSPATR(HI)
+     A*COPY QFUNCTDEFN,$ERRMSGSCN
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(27)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20050221  152634  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A                                      OVERLAY
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

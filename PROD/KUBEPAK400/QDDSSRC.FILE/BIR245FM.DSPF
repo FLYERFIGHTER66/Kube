@@ -1,0 +1,153 @@
+     A*%%TS  SD  20170726  135706  BILLB       REL-V7R1M0  5770-WDS
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20020516  181622  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR245 '
+     A                                  1 29' Customer Order Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 22'Ship To Customer:'
+     A            VCUST          6Y 0B  4 44EDTCDE(Z)
+     A  14                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  11                                  ERRMSG('*** At Least One Entry Requ-
+     A                                      ired.      Press Reset')
+     A  12                                  ERRMSG('*** Either Customer Number -
+     A                                      or Alpha Search.      Press Reset')
+     A  13                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.   Press Reset')
+     A  80                                  ERRMSG('*** No Orders for this Cust-
+     A                                      omer Number/Date.      Press Reset')
+     A                                  5 22'or Alpha Search'
+     A            VALPHA        15A  B  5 44DSPATR(CS)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A            CMNAME        30A  O  6 44
+     A                                  7 22'Start With'
+     A                                  8 22'Ship Date:'
+     A            VSHDAT         6Y 0B  8 44EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                 10 22'Include:'
+     A            VCODE          1Y 0B 10 33EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  17 99                               ERRMSG('*** Valid Entries are 1 2 3-
+     A                                      .        Press Reset')
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A                                 10 37'1 = All Orders - Shipped and Open'
+     A                                 11 37'2 = Only Open Line Items'
+     A                                 12 37'3 = Only Shipped Line Items'
+     A                                 14 22'Include:'
+     A            VINCL          1Y 0B 14 33EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Valid Entries Are 1 or -
+     A                                      2.       Press Reset')
+     A                                 14 37'1 = Only Line Items'
+     A                                 15 37'2 = Line Items, Comments, etc.'
+     A                                 17 22'Ship From?'
+     A            VSHFR          3A  B 17 44DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('Enter A Valid Ship From.   -
+     A                                         Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                    Enter to Proce-
+     A                                      ss      F3/F7=End of Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20110513  143019  BILLB       REL-V5R4M0  5722-WDS
+     A            OHORD#         6Y 0O  6  2EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            OHDTOR         6Y 0O  6  9EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A            ITEM           5A  O  6 18DSPATR(HI)
+     A            OISIZE         3A  O  6 24DSPATR(HI)
+     A            DESC          25A  O  6 28DSPATR(HI)
+     A            QTY            6Y 1O  6 54EDTCDE(4)
+     A  88                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            QTYS           6Y 1O  6 62EDTCDE(4)
+     A  88                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            OIDTRQ         6Y 0O  6 70EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A            SHIPD          1A  O  6 79DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20170726  135706  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF11
+     A                                      CF10
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  *DS3                                SFLSIZ(0020)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0018)
+     A  *DS4                                SFLPAG(0018)
+     A            SFLCSRRRN      5S 0H
+     A                                  1  3' Roll   F3=End   F6=Restart   F11=-
+     A                                      Edit Order  F10=Invoice Inquiry    -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2'BIR245'
+     A                                  2 12'Company:'
+     A            LCO            2S 0O  2 21DSPATR(HI)
+     A                                  2 41'Ship From '
+     A N21                                  DSPATR(ND)
+     A            VSHFR          3A  O  2 52DSPATR(HI)
+     A N21                                  DSPATR(ND)
+     A            SDESC         20A  O  2 56
+     A N21                                  DSPATR(ND)
+     A            VCUST          6Y 0O  3  2EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  3  9DSPATR(HI)
+     A                                  3 41'Start With Ship Date:'
+     A            VSHDAT         6Y 0O  3 63
+     A  77                                  DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A                                  4  2'                                  -
+     A                                                       *=Shipped-Date Is -
+     A                                      Ship Date'
+     A                                      DSPATR(UL)
+     A                                  5  2' Order   Date   Item  Size   Descr-
+     A                                      iption                  Ord  Ship R-
+     A                                      eq/Ship *'
+     A                                      DSPATR(UL)

@@ -1,0 +1,257 @@
+     A*%%TS  SD  20150915  124225  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20150915  124225  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF04(04)
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A                                  1  2'BIC310 '
+     A                                      COLOR(BLU)
+     A                                  1 30' PICK SLIP SELECTIONS '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3 12'     Pick Slips      '
+     A                                      DSPATR(RI)
+     A                                  3 40' Summary Pick Slips '
+     A                                      DSPATR(RI)
+     A                                  4 12'1. = By Order Number'
+     A                                  4 40'5. = By Item'
+     A                                  5 12'2. = By Ship Via       '
+     A                                  5 40'6. = By Ship Via'
+     A                                  6 12'3. = By Location/Area'
+     A                                  6 40'7. = By Location'
+     A                                  7 12'4. = Reprint Changed Orders'
+     A                                  7 40'8. = Route'
+     A                                  7 61'Selection ===>'
+     A            VPICK          1Y 0B  7 77
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A  10N18                               ERRMSG('*** Enter a Selection Betwe-
+     A                                      en 1 - 8.   Press Reset')
+     A  18                                  ERRMSG('*** There are no changed or-
+     A                                      ders to reprint.   Press RESET')
+     A                                  9  6'Include:'
+     A                                      DSPATR(UL)
+     A                                  9 17'Req Ship Dates:'
+     A                                  9 35'From =>'
+     A            VBDATE         6Y 0B  9 43DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A  12                                  ERRMSG('*** Enter A Valid Date Equa-
+     A                                      l or Lower Than TO Date.    Press R-
+     A                                      eset')
+     A                                  9 54'To =>'
+     A            VEDATE         6Y 0B  9 60DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** This Is Not A Valid Dat-
+     A                                      e.       Press Reset')
+     A                                      DSPATR(HI)
+     A                                 10 17'Order Numbers:'
+     A                                 10 35'From =>'
+     A            VBORD          6Y 0B 10 45EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A  21
+     AO 57                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      DSPATR(HI)
+     A  20                                  ERRMSG('*** This Is Not An Open Ord-
+     A                                      er Number.      Press Reset')
+     A  22                                  ERRMSG('*** TO Order Must Be Higher-
+     A                                       Than FROM.     Press Reset')
+     A  23                                  ERRMSG('*** You must enter an Order-
+     A                                       Nuumber.   Press RESET')
+     A                                 10 54'To =>'
+     A            VEORD          6Y 0B 10 62EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  20                                  ERRMSG('*** This Is Not An Open Ord-
+     A                                      er Number.      Press Reset')
+     A  22                                  ERRMSG('*** Enter Either An Order N-
+     A                                      umber or ALL.   Press Reset')
+     A                                      CHECK(RB)
+     A                                      DSPATR(HI)
+     A                                 11 17'Product Classes:'
+     A                                 11 35'From =>'
+     A            VBPC           2A  B 11 49DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** To Product Class Must B-
+     A                                      e Higher Than From Product Class.  -
+     A                                      Press Reset')
+     A                                      DSPATR(HI)
+     A                                 11 54'To =>'
+     A            VEPC           2A  B 11 66DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                 12 17'Ship Via Codes:'
+     A                                 12 35'From =>'
+     A            VBSHPV         2A  B 12 49DSPATR(CS)
+     A  62                                  DSPATR(RI)
+     A  62                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A  62                                  ERRMSG('*** To Ship Via Must Be Hig-
+     A                                      her Than From Ship Via.    Press Re-
+     A                                      set')
+     A                                 12 54'To =>'
+     A            VESHPV         2A  B 12 66DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                 13 17'Area:      =============>'
+     A            AREA           2A  B 13 49DSPATR(HI)
+     A                                      DSPATR(CS)
+     A                                 13 54' o =>'
+     A                                      DSPATR(ND)
+     A            VELOC          3A  B 13 65DSPATR(ND)
+     A                                 14 17'Routes:'
+     A                                 14 35'From =>'
+     A            VBRTE          2A  B 14 49DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A  50                                  ERRMSG('*** To Route Must Be Higher-
+     A                                       Than From Route.    Press Reset')
+     A                                 14 54'To =>'
+     A            VERTE          2A  B 14 66DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                 15 17'Phyto Codes:'
+     A                                 15 35'From =>'
+     A            VBPHY          1A  B 15 50DSPATR(HI)
+     A                                      DSPATR(CS)
+     A  60                                  ERRMSG('*** To Phyto Must Be Higher-
+     A                                       Than From Phyto.    Press Reset')
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A                                 15 54'To =>'
+     A            VEPHY          1A  B 15 67DSPATR(HI)
+     A                                      DSPATR(CS)
+     A                                 16 17'Order Type:'
+     A            VTAG           1Y 0B 16 50DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  66                                  DSPATR(RI)
+     A  66                                  DSPATR(PC)
+     A  66                                  ERRMSG('*** Valid Entries Are 1 2 o-
+     A                                      r 3.   Press Reset')
+     A                                      DSPATR(HI)
+     A                                 16 54'1=Plants 2=Tags 3=Both'
+     A                                 17 17'Company Number:'
+     A            VCO            2Y 0B 17 49DSPATR(HI)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  30                                  ERRMSG('*** Enter A Valid Company N-
+     A                                      umber.    Press Reset')
+     A                                 18 17'Orders Previously Printed:'
+     A            VPREV          1A  B 18 50DSPATR(HI)
+     A                                      DSPATR(CS)
+     A  70                                  DSPATR(RI)
+     A  70                                  DSPATR(PC)
+     A  70                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.       Press Reset')
+     A  71                                  ERRMSG('*** Previously Printed Pick-
+     A                                       Slips Must Be Included For This Se-
+     A                                      lection. Reset')
+     A                                 20 17'Select Printers:'
+     A            DEV1           8A  B 20 35DSPATR(CS)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A  65                                  ERRMSG('*** At Least 1 Printer Must-
+     A                                       Be Defined.    Press Reset')
+     A                                 20 44'-'
+     A            DEV2           8A  B 20 46DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4 65'Last Order #'
+     A N57                                  DSPATR(ND)
+     A  57                                  DSPATR(RI)
+     A            LSTORD         6Y 0O  5 68
+     A N57                                  DSPATR(ND)
+     A                                      EDTCDE(4)
+     A  57                                  DSPATR(RI)
+     A                                 21 17'Number of Copies'
+     A            CPY1           2Y 0B 21 35COLOR(YLW)
+     A                                      EDTCDE(4)
+     A  73                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  73                                  DSPATR(PC)
+     A            CPY2           2Y 0B 21 46COLOR(YLW)
+     A                                      EDTCDE(4)
+     A  68                                  DSPATR(RI)
+     A  68                                  DSPATR(PC)
+     A                                 22 17'Print & Save?   '
+     A            PS1            1A  B 22 35COLOR(YLW)
+     A  67                                  DSPATR(RI)
+     A  67                                  DSPATR(PC)
+     A            PS2            1A  B 22 46COLOR(YLW)
+     A  69                                  DSPATR(RI)
+     A  69                                  DSPATR(PC)
+     A                                 19 54'Print Cart Requirements?'
+     A            CARTRQ         1A  B 19 79TEXT('Print Cart Requirements Repor-
+     A                                      t (BIR106)')
+     A                                      DSPATR(CS)
+     A                                      COLOR(YLW)
+     A  24                                  DSPATR(RI)
+     A  24                                  DSPATR(PC)
+     A  24 25                               ERRMSG('*** Cart Requirements repor-
+     A                                      t with selection 5 only - RESET')
+     A  24N25                               ERRMSG('*** Cart Requirements repor-
+     A                                      t must be Y or N.  RESET')
+     A                                  8 54'Master List Type Code'
+     A            MASTERTYPE     1A  B  8 77DSPATR(HI)
+     A                                      DSPATR(CS)
+     A                                      VALUES('K' 'C' 'A')
+     A                                      DFTVAL('K')
+     A                                  8 79'*'
+     A                                      COLOR(BLU)
+     A                                 22 55'* - only applies to opt.5'
+     A                                      COLOR(BLU)
+     A                                  8 12'9. = Trucks by DAY/TRK/Stop'
+     A                                 18 54'Print in Order Sequence?'
+     A            ORDSEQ         1A  B 18 79COLOR(YLW)
+     A                                      VALUES('Y' 'N')
+     A                                      DFTVAL('N')
+     A                                 24  6'<Enter>'
+     A                                      DSPATR(HI)
+     A                                 24 14'to Process'
+     A                                      COLOR(BLU)
+     A                                 24 33'F7'
+     A                                      DSPATR(HI)
+     A                                 24 36'=Cancel Job'
+     A                                      COLOR(BLU)
+     A                                 24 55'F4'
+     A                                      DSPATR(HI)
+     A                                 24 58'=Finished Picks'
+     A                                      COLOR(BLU)

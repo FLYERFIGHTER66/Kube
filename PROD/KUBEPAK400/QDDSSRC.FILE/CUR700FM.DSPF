@@ -1,0 +1,301 @@
+     A*%%TS  SD  20160726  161909  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20160726  161909  BILLB       REL-V7R1M0  5770-WDS
+     A                                  1  2'CUR700A'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 26' Cutting Lot File Update '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                 13 12'Sow Date:'
+     A            SOWDAT         6Y 0B 13 23
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTWRD('  /  /  ')
+     A  40N41                               ERRMSG('*** Invalid Date Entered.  -
+     A                                             Press RESET')
+     A  41                                  ERRMSG('*** Sow Date Must Be a Mond-
+     A                                      ay.    Press RESET')
+     A                                 13 33'OR'
+     A                                      COLOR(BLU)
+     A            YEAR           4Y 0B 13 50
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  45N46                               ERRMSG('*** Invalid Year Entered.  -
+     A                                             Press RESET')
+     A  46                                  ERRMSG('*** Invalid Year/Week Combi-
+     A                                      nation entered.      Press RESET')
+     A            WEEK           2Y 0B 13 57
+     A  48                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  48                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  48N45                               ERRMSG('*** Week number must be Bet-
+     A                                      ween 1 and 53.  Press RESET')
+     A                                 24 21'Enter to Process           F3/F7=E-
+     A                                      nd Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 21'                                  -
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 19 45'Item Number?'
+     A            ITEMI         12A  B 19 58
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.      Press RESET')
+     A                                 20 16'*  Only enter an Item number if yo-
+     A                                      u only want that item.'
+     A                                      COLOR(PNK)
+     A                                 12 12'The sow date you enter will be the-
+     A                                       starting date for input.'
+     A                                      DSPATR(HI)
+     A                                 19 12'Alpha Search:'
+     A            ALPHA         15A  B 19 26DSPATR(CS)
+     A                                 19 42'OR'
+     A                                      COLOR(BLU)
+     A                                 14 19' You Must enter a sow date or week-
+     A                                       number. '
+     A  31                                  DSPATR(RI)
+     A                                  5 12'Enter the Vendor Number you want t-
+     A                                      o work with.'
+     A                                      DSPATR(HI)
+     A                                  6 12'Vendor Number:'
+     A            SVEND          6Y 0B  6 28
+     A  43                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  43                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  43                                  ERRMSG('*** Invalid Vendor         -
+     A                                             Press RESET')
+     A                                  7 16'*  If you enter nothing you will b-
+     A                                      e prompted for Vendor.'
+     A                                      COLOR(PNK)
+     A                                 18 12'Optional:'
+     A                                      DSPATR(HI)
+     A                                 13 37'Year / Week:'
+     A                                 13 55'/'
+     A                                  9 12'                                  -
+     A                                                              '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 16 12'                                  -
+     A                                                              '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20160726  161909  BILLB       REL-V7R1M0  5770-WDS
+     A            IMITEM        12A  H
+     A            CLITEM        12A  H
+     A            CLSIZE         3A  H
+     A            IMLOOK        15A  H
+     A            SOW1           7S 0H
+     A            SOW2           7S 0H
+     A            SOW3           7S 0H
+     A            SOW4           7S 0H
+     A            SOW5           7S 0H
+     A            SOW6           7S 0H
+     A            SOW7           7S 0H
+     A            SOW8           7S 0H
+     A            SOW9           7S 0H
+     A            SOW10          7S 0H
+     A            ITEM           5A  O  7  2
+     A            IMDES1        30A  O  7 12
+     A            OQT1           7S 0H
+     A            OQT2           7S 0H
+     A            OQT3           7S 0H
+     A            OQT4           7S 0H
+     A            OQT5           7S 0H
+     A            OQT6           7S 0H
+     A            OQT7           7S 0H
+     A            OQT8           7S 0H
+     A            OQT9           7S 0H
+     A            OQT10          7S 0H
+     A            QTY1           7Y 0B  8  2EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY2           7Y 0B  8 10EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY3           7Y 0B  8 18EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY4           7Y 0B  8 26EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY5           7Y 0B  8 34EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY6           7Y 0B  8 42EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY7           7Y 0B  8 50EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY8           7Y 0B  8 58EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY9           7Y 0B  8 66EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            QTY10          7Y 0B  8 74EDTCDE(4)
+     A N01                                  DSPATR(CS)
+     A  01                                  DSPATR(PR)
+     A            IMSIZE    R        O  7  8REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20160726  161909  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0008)
+     A                                      OVERLAY
+     A                                      CF02
+     A                                      CF06
+     A                                      CF10
+     A                                      CF04
+     A                                      CF08(08)
+     A                                      CF09(09)
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'CUR700SFL'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 26' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A            LINE           5S 0H
+     A            DATE1          4Y 0O  6  3EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE2          4Y 0O  6 11EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE3          4Y 0O  6 19EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE4          4Y 0O  6 27EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE5          4Y 0O  6 35EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE6          4Y 0O  6 43EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE7          4Y 0O  6 51EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE8          4Y 0O  6 59EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE9          4Y 0O  6 67EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DATE10         4Y 0O  6 75EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            WEEK1          2Y 0O  5  5EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK2          2Y 0O  5 13EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK3          2Y 0O  5 21EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK4          2Y 0O  5 29EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK5          2Y 0O  5 37EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK6          2Y 0O  5 45EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK7          2Y 0O  5 53EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK8          2Y 0O  5 61EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK9          2Y 0O  5 69EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            WEEK10         2Y 0O  5 77EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            VMVEND         6S 0O  2 25COLOR(BLU)
+     A            VMNAME        30A  O  2 33COLOR(PNK)
+     A                                  2 16'Vendor:'
+     A                                      DSPATR(HI)
+     A            ITEMI2         5A  B  4  2COLOR(YLW)
+     A            ALPHA2        15A  B  4  8COLOR(YLW)
+     A                                  3  2'Item'
+     A                                  3  7'Search'
+     A          R RECFTR
+     A*%%TS  SD  20081031  123615  BILLB       REL-V5R3M0  5722-WDS
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                        CUR700 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 24  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 24  8'=Process'
+     A                                      COLOR(BLU)
+     A                                 24 20'F3'
+     A                                      DSPATR(HI)
+     A                                 24 23'=Exit'
+     A                                      COLOR(BLU)
+     A                                 24 32'F4'
+     A                                      DSPATR(HI)
+     A                                 24 35'=Update'
+     A                                      COLOR(BLU)
+     A                                 24 61'F8/F9'
+     A                                      DSPATR(HI)
+     A                                 24 67'=-/+'
+     A                                      COLOR(BLU)
+     A                                 24 75'weeks'
+     A                                      COLOR(BLU)
+     A            WEEKS          2Y 0B 24 72EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                 24 46'F6'
+     A                                      DSPATR(HI)
+     A                                 24 49'=Restart'
+     A                                      COLOR(BLU)
+     A          R SCRND
+     A*%%TS  SD  20011025  180114  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF06
+     A                                      CF10
+     A                                  1  2'CUR300D'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                  8 15' You have requested that we delete-
+     A                                       this work file. '
+     A                                      DSPATR(RI)
+     A                                 10  6'There are:'
+     A            TOTREC         9Y 0O 10 17DSPATR(HI)
+     A                                      EDTCDE(1)
+     A                                 10 29'Cuttings you have received, they w-
+     A                                      ill be lost.'
+     A                                 12  7' Press F10 to confirm delete, or P-
+     A                                      ress F6 to return with no delete.'
+     A                                      DSPATR(RI)

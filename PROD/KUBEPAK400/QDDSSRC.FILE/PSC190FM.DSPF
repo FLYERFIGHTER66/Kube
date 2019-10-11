@@ -1,0 +1,107 @@
+     A*%%TS  SD  20180323  131003  BILLB       REL-V7R2M0  5770-WDS
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20180323  131003  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      CF04
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  7  6'Enter Monday Date:'
+     A            FRMDAT         6Y 0B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                  7 36'or Year ex. 2000:'
+     A            BEGYY          4Y 0B  7 54
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  7 59'and Week Number:'
+     A            BEGWW          2Y 0B  7 76
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 19 15' Verify Data if OK Press Enter, El-
+     A                                      se Make Changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  1  2'PSC190A'
+     A                                  1 27' Build Weekly Location File '
+     A                                      DSPATR(RI)
+     A                                  8  4' Locations have NOT been entered f-
+     A                                      or selected week. Press F3 To end J-
+     A                                      ob. '
+     A  59                                  DSPATR(RI)
+     A N59                                  DSPATR(ND)
+     A                                  9 10' Take option 1 on the Plug Shipmen-
+     A                                      t menu to enter locations. '
+     A  59                                  DSPATR(RI)
+     A N59                                  DSPATR(ND)
+     A                                 10 27'Exclude Kube Pak Orders:'
+     A            LX1521         1A  B 10 53
+     A  22                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  22                                  DSPATR(PC)
+     A  22                                  ERRMSG('Entry must be (Y)es or (N)o-
+     A                                                  Press RESET')
+     A                                 14 28'Multiple Master Number:'
+     A                                 14 58'1 = Thursday'
+     A                                 15 58'2 = Monday  '
+     A            SMASTER        2Y 0B 14 52EDTCDE(Z)
+     A                                      VALUES(0 1 2 3)
+     A                                      COLOR(TRQ)
+     A                                 17 58'0 = No Multiple Mast.'
+     A                                 18 21'Monday Friday Ready Bay date:'
+     A            MFRBD          9A  O 18 52COLOR(PNK)
+     A                                 18 63'F4'
+     A                                      DSPATR(HI)
+     A                                 18 66'=Change'
+     A                                      COLOR(BLU)
+     A                                 16 58'3 = Wednesday        '
+     A                                 11 15'Convert available spec to RB Selec-
+     A                                      t:'
+     A                                      COLOR(BLU)
+     A            CVTRBSEL       1A  B 11 53VALUES('N')
+     A                                      COLOR(BLU)
+     A                                 12 16'Build Order for RB Select Material-
+     A                                      :'
+     A                                      COLOR(BLU)
+     A            BLDRBORD       1A  B 12 53COLOR(BLU)
+     A                                      VALUES('N' 'Y')
+     A                                 13 24'Create a Hold & Ship Order:'
+     A            CRTHSORD       1A  B 13 53COLOR(TRQ)
+     A                                      VALUES('Y' 'N')

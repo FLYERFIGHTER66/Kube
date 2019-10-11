@@ -1,0 +1,205 @@
+     A*%%TS  SD  19991003  174919  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19991003  174919  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF01
+     A                                      CF02
+     A                                      CF13
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(04 012 14 055)
+     A  *DS4                                HLPARA(04 012 09 052)
+     A            PROGID        10A  O  1  2
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 30' Ship Via Codes File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 54' Reserved Ship Vias '
+     A                                      DSPATR(UL)
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(HI)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  99 26                               ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.     Press Reset')
+     A                                  5 26'Ship Via Code?'
+     A            VCODE          2A  B  5 43
+     A  10                                  DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  50                                  DSPATR(HI)
+     A  19                                  ERRMSG('*** Ship Via Code Is Requir-
+     A                                      ed.      Press Reset')
+     A  27                                  ERRMSG('*** This Ship Via Is On Fil-
+     A                                      e.       Press Reset')
+     A  20                                  ERRMSG('*** This Ship Via Is Not On-
+     A                                       File.   Press Reset')
+     A  77                                  ERRMSG('*** Can Not Delete ON - It -
+     A                                      Is Reserved.   Press Reset')
+     A                                  5 55'ON = Ship With Next'
+     A                                  7  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  8  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  8 26'Description:'
+     A N50                                  DSPATR(ND)
+     A            VDESC         30A  B  8 41
+     A  57 50                               DSPATR(RI)
+     A  50N23N24
+     A N25                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  50                                  DSPATR(PC)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A                                  9  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                 10 26'Packing Charge:'
+     A N50                                  DSPATR(ND)
+     A            SVPACK         5Y 2B 10 47
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                      EDTCDE(1)
+     A                                      CHECK(RB)
+     A  50                                  DSPATR(CS)
+     A                                 12 26'Packing Charge'
+     A                                      DSPATR(ND)
+     A            SVPGLN         8Y 0B 12 47EDTWRD('    -    ')
+     A N50                                  DSPATR(PR)
+     A  50 40                               DSPATR(RI)
+     A  50 40                               DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter A Valid G/L Numbe-
+     A                                      r.      Press Reset')
+     A                                      DSPATR(ND)
+     A                                 12 59'F1=G/L Lookup'
+     A                                      DSPATR(ND)
+     A                                 13 26'G/L Number:'
+     A                                      DSPATR(ND)
+     A                                 15 26'Freight G/L Number:'
+     A                                      DSPATR(ND)
+     A            VPGL           8Y 0B 15 47EDTWRD('    -    ')
+     A N50                                  DSPATR(PR)
+     A  50 42                               DSPATR(RI)
+     A  50 42                               DSPATR(PC)
+     A  42                                  ERRMSG('*** Enter A Valid G/L Numbe-
+     A                                      r.     Press Reset')
+     A                                      DSPATR(ND)
+     A                                 15 59'F2=G/L Lookup'
+     A                                      DSPATR(ND)
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process   F6=Restart    F-
+     A                                      3/F7=End of Job    F13=Print Ship V-
+     A                                      ia List  '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990614  065923  APGL        REL-V3R1M0  5763-PW1
+     A                                      CLRL(*NO)
+     A                                  9  2' Ship Via Codes                   -
+     A                                                                       Ov-
+     A                                      erview  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  2' Ship Via Codes are used by order -
+     A                                      entry.  The ship via description wi-
+     A                                      ll print'
+     A                                      DSPATR(HI)
+     A                                 12  2' on customer invoices.  Certain or-
+     A                                      der entry reports can be printed in-
+     A                                       ship   '
+     A                                      DSPATR(HI)
+     A                                 13  2' via sequence.  A default ship via-
+     A                                       code can be entered in the custome-
+     A                                      r file  '
+     A                                      DSPATR(HI)
+     A                                 14  2' to indicate the most usual method-
+     A                                       of shipping for each customer.    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  2' If an amount is entered in the pa-
+     A                                      cking charge field, this amount wil-
+     A                                      l be    '
+     A                                      DSPATR(HI)
+     A                                 17  2' automatically charged for items w-
+     A                                      ith this ship via.  This charge is -
+     A                                      multi-  '
+     A                                      DSPATR(HI)
+     A                                 18  2' plied by the quantity shipped.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2' General Ledger Numbers can be ent-
+     A                                      ered for both freight and packing c-
+     A                                      harges  '
+     A                                      DSPATR(HI)
+     A                                 21  2' associated with this ship via cod-
+     A                                      e if these G/L numbers should be di-
+     A                                      fferent '
+     A                                      DSPATR(HI)
+     A                                 22  2' than the default general ledger n-
+     A                                      umber for freight charges.         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)

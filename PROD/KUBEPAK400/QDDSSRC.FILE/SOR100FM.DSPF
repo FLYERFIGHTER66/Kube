@@ -1,0 +1,133 @@
+     A*%%TS  SD  20110118  112731  BILLB       REL-V5R4M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19991122  054559  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 24' Customer Shipped Orders Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2  0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Customer Number:'
+     A            VCUST          6Y 0B  5 44EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.    Press Reset')
+     A  12                                  ERRMSG('*** Either Customer Number -
+     A                                      or Alpha Search.      Press Reset')
+     A                                  6 25'Alpha Search'
+     A            VALPHA        15A  B  6 44DSPATR(CS)
+     A            CMNAME        30A  O  7 44
+     A                                  9 25'Ship Date Range:'
+     A            VBDATE         6Y 0B  9 44EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date Lowe-
+     A                                      r Than To Date.    Press Reset')
+     A                                  9 54'-'
+     A            VEDATE         6Y 0B  9 57EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                          Press Reset')
+     A                                 11 25'Ship From?'
+     A            VSHFR          3A  B 11 44DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .    Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'               Enter to Process   -
+     A                                                  F3/F7=End of Job       -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20110117  161431  BILLB       REL-V5R4M0  5722-WDS
+     A            SOORD#         6Y 0O  6  2EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            SOORDT         6Y 0O  6  9EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A            ITEM           6A  O  6 18DSPATR(HI)
+     A            SOSIZE         3A  O  6 26DSPATR(HI)
+     A            DESC          30A  O  6 31DSPATR(HI)
+     A            SOUUOM         2A  O  6 62DSPATR(HI)
+     A            QTY            6Y 0O  6 65EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            SDATE          6Y 0O  6 73EDTWRD('  /  /  ')
+     A                                      DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20110118  112731  BILLB       REL-V5R4M0  5722-WDS
+     A  *DS3                                SFLSIZ(1000)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0018)
+     A  *DS4                                SFLPAG(0018)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF12
+     A                                      CF01
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLCSRRRN(&CSRRRN)
+     A                                      MOUBTN(*ULD CF01)
+     A            CSRRRN         5S 0H
+     A            PROGID        10A  O  1  2
+     A                                  1 16' Roll      F6=Next Inquiry      F3-
+     A                                      /F7=End of Job '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  2'For:'
+     A            VCUST          6Y 0O  3  8EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  3 15DSPATR(HI)
+     A                                  3 47'Ship Dates:'
+     A            VBDATE         6Y 0O  3 59DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  3 68'-'
+     A                                      DSPATR(HI)
+     A            VEDATE         6Y 0O  3 70DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  4  2'Ship From:'
+     A N50                                  DSPATR(ND)
+     A            VSHFR          3A  O  4 13DSPATR(HI)
+     A            VDESC         30A  O  4 17DSPATR(HI)
+     A                                  5  2' Order   Date   Item   Size  Descr-
+     A                                      iption                    UM  Shipd-
+     A                                          Date '
+     A                                      DSPATR(UL)
+     A                                  2 21' F1=Invoice(or DblClick) '
+     A                                      DSPATR(RI)
+     A                                  2 49' F12=Print '
+     A                                      DSPATR(RI)

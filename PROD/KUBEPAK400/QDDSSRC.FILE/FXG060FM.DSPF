@@ -1,0 +1,214 @@
+     A*%%TS  SD  20051223  082517  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R FXG06002
+     A*%%TS  SD  20051223  082517  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Confirm Customer Information')
+     A                                      CF03(03 'Exit')
+     A                                      OVERLAY
+     A                                  1  2'FXG06002'
+     A                                  1 13' Tray Loss '
+     A                                      DSPATR(RI)
+     A                                  2  2USER
+     A                                  9  2'ENTER'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 13'F3'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 16'=Exit'
+     A                                  9  8'=Go'
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A            FIXDATE        6Y 0B  5  9EDTCDE(Y)
+     A                                  4  5'Enter Loss Date'
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A          R FXG06003
+     A*%%TS  SD  20051101  155712  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Confirm Customer Information')
+     A                                      CF03(03 'Exit')
+     A                                      OVERLAY
+     A                                  1  2'FXG06003'
+     A                                  1 13' Tray Loss '
+     A                                      DSPATR(RI)
+     A                                  2  2USER
+     A            SREASON        2Y 0B  5  8PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      TEXT('Select reason Code')
+     A                                      PSHBTNCHC(1 '>Fixing')
+     A                                      PSHBTNCHC(2 '>Partial')
+     A                                      PSHBTNCHC(3 '>Dumped')
+     A                                      PSHBTNCHC(4 '>Damage')
+     A                                  9  2'ENTER'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 13'F3'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 16'=Exit'
+     A                                  9  8'=Go'
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  4  6'Select Reason'
+     A          R FXG06004                  SFL
+     A*%%TS  SD  20051101  125552  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Scan Trays Subfile')
+     A  28                                  SFLNXTCHG
+     A            SCANTAG        8Y 0B  2  2EDTCDE(Z)
+     A  27                                  CHECK(ER)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  COLOR(RED)
+     A          R FXG06004C                 SFLCTL(FXG06004)
+     A*%%TS  SD  20051101  125552  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLLIN(0002)
+     A                                      SFLSIZ(0176)
+     A                                      SFLPAG(0064)
+     A                                      TEXT('Scan Trays Subfile Control')
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A                                  1  2'FXG06003'
+     A                                  1 12'   Scan Loss Trays   '
+     A                                      DSPATR(RI)
+     A                                  1 34'Enter'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 40'to'
+     A                                  1 43'Continue'
+     A                                  1 54'F6'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  1 57'=Restart'
+     A          R FXG06005
+     A*%%TS  SD  20051101  133942  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Scan more items ?')
+     A                                      CF06(06 'Restart')
+     A                                      CF02
+     A                                      OVERLAY
+     A                                  1  2'FXG06005'
+     A                                  1 13' Tray Loss '
+     A                                      DSPATR(RI)
+     A                                  4  5'Scan more items?'
+     A            SMORES         2Y 0B  6  6PSHBTNFLD
+     A  70                                  PSHBTNCHC(1 '>YES')
+     A                                      PSHBTNCHC(2 '>NO')
+     A N70                                  PSHBTNCHC(3 '>YES')
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  9  2'Enter'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9  8'=OK'
+     A                                  9 13'F6'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 16'=Restart'
+     A                                  2  2USER
+     A          R FXG06006
+     A*%%TS  SD  20051101  161704  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Order Complete ?')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                  1  2'FXG06006'
+     A                                  1 13' Tray Loss '
+     A                                      DSPATR(RI)
+     A                                  4  6'LOSS SUMMARY'
+     A                                      DSPATR(HI)
+     A                                  2  2USER
+     A                                  1 25':'
+     A                                      COLOR(PNK)
+     A                                  2 25':'
+     A                                      COLOR(PNK)
+     A                                  3 25':'
+     A                                      COLOR(PNK)
+     A                                  4 25':'
+     A                                      COLOR(PNK)
+     A                                  5 25':'
+     A                                      COLOR(PNK)
+     A                                  6 25':'
+     A                                      COLOR(PNK)
+     A                                  7 25':'
+     A                                      COLOR(PNK)
+     A                                  8 25':'
+     A                                      COLOR(PNK)
+     A                                  9 25':'
+     A                                      COLOR(PNK)
+     A                                  9  2'Enter'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9  8'=OK'
+     A                                  9 13'F6'
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 16'=Restart'
+     A            SCOUNT         4Y 0O  5  2EDTCDE(3)
+     A                                  5  8'Flat(s) Counted'
+     A                                  6  5'Done scanning  ?'
+     A            COMPLETE       2Y 0B  7  7PSHBTNFLD
+     A  70                                  PSHBTNCHC(1 '>YES')
+     A                                      PSHBTNCHC(2 '>NO')
+     A N70                                  PSHBTNCHC(3 '>YES')
+     A            REASON        15A  O  3  5
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(10)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040406  091800  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ(10)

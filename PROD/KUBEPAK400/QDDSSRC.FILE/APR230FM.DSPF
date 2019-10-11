@@ -1,0 +1,168 @@
+     A*%%TS  SD  19991002  090405  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990607  063418  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(05 046 14 053)
+     A  *DS4                                HLPARA(05 046 14 053)
+     A            PROGID        10A  O  1  2
+     A                                  1 16'Help'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  1 27' Cash Requirements Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2  0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6 25'Invoices Due By:'
+     A            VDATE          6Y 0B  6 47DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Reset')
+     A                                  8 25'Display Date Totals:'
+     A            VTOTAL         1A  B  8 54DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 10 25'Display This Date Only:'
+     A            VDATEO         1A  B 10 54DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                                F3/F7=End of Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19981107  062154  EFD         REL-V3R1M0  5763-PW1
+     A                                 14  3' Overview Cash Requirements Inquir-
+     A                                      y                                  -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3' This inquiry displays all of the -
+     A                                      open payables in ascending order by-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' invoice due date.                -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' You can choose to display only in-
+     A                                      voices due on or before a particula-
+     A                                      r date, '
+     A                                      DSPATR(HI)
+     A                                 20  3' or, only invoices due for a speci-
+     A                                      fic date.                          -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' Totals for each due date - or - o-
+     A                                      nly final totals can be selected.  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19991002  090405  TGMS        REL-V4R2M0  5769-PW1
+     A            APVEND         6Y 0O  5  2DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            NAME          21A  O  5  9DSPATR(HI)
+     A            APINV#        10A  O  5 31DSPATR(HI)
+     A            APDUDT         6Y 0O  5 44DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            DUE            9Y 2O  5 53DSPATR(HI)
+     A                                      EDTCDE(M)
+     A  77                                  COLOR(YLW)
+     A  77                                  DSPATR(UL)
+     A            APDCDT         6Y 0O  5 65DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            DISC           5Y 2O  5 74EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            APITYP         1A  O  5 42DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19990607  063418  APGL        REL-V3R1M0  5763-PW1
+     A  *DS3                                SFLSIZ(0100)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0018)
+     A  *DS4                                SFLPAG(0001)
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CF09
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1 21' Roll   F6=Restart    F3/F7=End of-
+     A                                       Job '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2'For Company:'
+     A            LCO            2S 0O  2 15DSPATR(HI)
+     A                                  4  2'Vendor    Name                 Inv-
+     A                                      oice Tp Due Date    Amount   Disc D-
+     A                                      te   Disc'
+     A                                      DSPATR(UL)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2 72TIME
+     A                                  1 66'Date:'
+     A                                  2 66'Time:'
+     A            PROGID        10A  O  1  2
+     A                                  2 27'Cash Required By:'
+     A            VDATE          6Y 0O  2 45EDTCDE(Y)
+     A                                      DSPATR(HI)

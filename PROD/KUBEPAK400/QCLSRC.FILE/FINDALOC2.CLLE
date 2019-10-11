@@ -1,0 +1,26 @@
+             PGM        PARM(&DELAY &LIMIT &COUNT)
+
+             DCL        VAR(&DELAY)  TYPE(*DEC)  LEN(15 5)
+             DCL        VAR(&LIMIT)  TYPE(*DEC)  LEN(15 5)
+             DCL        VAR(&COUNT)  TYPE(*DEC)  LEN(15 5)
+
+             CHGVAR     VAR(&COUNT) VALUE(&COUNT + 1)
+
+             IF         COND(&COUNT > &LIMIT) THEN(GOTO CMDLBL(EOJ))
+
+             IF         COND(&COUNT = 1) THEN(DO)
+             RUNQRY     QRY(ALOCATED)
+             RUNQRY     QRY(ALOCATE2)
+             ENDDO
+
+             DLYJOB     DLY(&DELAY)
+
+             SBMJOB     CMD(CALL PGM(FINDALOC2) PARM(&DELAY &LIMIT +
+                          &COUNT)) JOB(CHECKALOC) +
+                          JOBD(*LIBL/KUBEPAK) JOBQ(*LIBL/QINTER) +
+                          OUTQ(P6)
+
+             RUNQRY     QRY(ALOCATED)
+             RUNQRY     QRY(ALOCATE2)
+
+ EOJ:        ENDPGM

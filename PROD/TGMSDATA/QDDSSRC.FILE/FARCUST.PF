@@ -1,0 +1,66 @@
+     A*     CUSTOMER MONTHLY A/R INFORMATION FILE
+     A*     FILE NAME - FARCUST
+     A* This file is created at end of month with ending balances for
+     A* that month, i.e. Year 2001 Month 01 is end of January 2001
+     A*
+     A                                      UNIQUE
+     A          R RARCUST                   TEXT('CUSTOMER MTH SUMMARY')
+     A            AMSTAT         1A         TEXT('STATUS')
+     A                                      COLHDG('Status')
+     A            AMCUST         6S         TEXT('CUSTOMER #')
+     A                                      COLHDG('Customer #')
+     A                                      EDTCDE(4)
+     A            AMYEAR         4S         TEXT('YEAR')
+     A                                      COLHDG('Year')
+     A                                      EDTCDE(4)
+     A            AMMTH          2S         TEXT('MONTH')
+     A                                      COLHDG('Month')
+     A                                      EDTCDE(4)
+      ** THIS IS A/R BALANCE AT END OF MONTH
+     A            AMARBL        11P 2       TEXT('A/R  BALANCE')
+     A                                      COLHDG('A/R Balance')
+     A                                      EDTCDE(J)
+     A            AMAROV        11P 2       TEXT('A/R  OVER DUE')
+     A                                      COLHDG('A/R Over Due')
+     A                                      EDTCDE(J)
+      ** THE FOLLOWING ARE TOTALS FOR THE MONTH
+     A            AMINV$        11P 2       TEXT('INVOICE $')
+     A                                      COLHDG('Total Invoice $'   )
+     A                                      EDTCDE(J)
+     A            AMCRM$        11P 2       TEXT('CREDIT MEMO $')
+     A                                      COLHDG('Total Credits')
+     A                                      EDTCDE(J)
+     A            AMPAY$        11P 2       TEXT('PAYMENTS $')
+     A                                      COLHDG('Total Payments')
+     A                                      EDTCDE(J)
+     A            AMADJ$        11P 2       TEXT('ADJUSTMENT $')
+     A                                      COLHDG('Total Adjustments')
+     A                                      EDTCDE(J)
+     A            AMLC$          7P 2       TEXT('LATE CHARGE $')
+     A                                      COLHDG('Total Late Charge')
+     A                                      EDTCDE(J)
+      ** The following are the Terms discount
+      ** The first two were calculated Last Month, to be taken this
+      ** month.
+     A            AMDISP         7P 4       TEXT('DISCOUNT %')
+     A                                      COLHDG('Discount %')
+     A                                      EDTCDE(J)
+     A            AMDIS$         9P 2       TEXT('DISC. AVAIL. $')
+     A                                      COLHDG('Disc. Avail $')
+     A                                      EDTCDE(J)
+      ** This is what was taken this month.
+     A            AMDIT$         9P 2       TEXT('DISC. TAKEN $')
+     A                                      COLHDG('Disc. Taken $')
+     A                                      EDTCDE(J)
+      ** THE FOLLOWING ARE UPDATED AT END OF MONTH
+     A            AMTMCD         2A         TEXT('TERMS CODE')
+     A                                      COLHDG('Terms' 'Code')
+      ** STATUS 1=NEW  2=MORE THAN 1 MONTH ON LIST D=DROPPED
+      **        5=REACTIVATED THIS MONTH  " "=NEVER DPC
+      **        F=FORCED ON LIST           X=FORCED OUT OF LIST
+     A            AMDPCS         1A         TEXT('DPC STATUS')
+     A                                      COLHDG('DPC ' 'Stat')
+     A*
+     A          K AMCUST
+     A          K AMYEAR
+     A          K AMMTH

@@ -1,0 +1,153 @@
+     A*%%TS  SD  19971105  161418  EFD         REL-V3R6M0  5716-PW1
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19971105  130708  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF04
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  1 24' Sow Line Schedule Update Screen '
+     A                                      DSPATR(RI)
+     A                                  7  6'Enter Monday Date:'
+     A            FRMDAT         6Y 0B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                  7 36'or Year ex. 1998:'
+     A            BEGYY          4Y 0B  7 54
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  7 59'and Week Number:'
+     A            BEGWW          2Y 0B  7 76
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 10  6'Include Only Changed:'
+     A            SHOWAL         1A  B 10 29
+     A  25                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Show Changed or All Mus-
+     A                                      t BE A or C. Press RESET')
+     A                                 11 32'C=Only Changed or Added'
+     A                                 10 32'A=All Records in Week'
+     A          R SOWSFL                    SFL
+     A*%%TS  SD  19971105  161418  EFD         REL-V3R6M0  5716-PW1
+     A            SRTRY1         9Y 0O  8  6EDTCDE(2)
+     A  41                                  DSPATR(RI)
+     A            SRFIX1         9Y 0O  8 18EDTCDE(2)
+     A            NEWFX1         9Y 0B  8 30EDTCDE(4)
+     A  51                                  DSPATR(CS)
+     A N51                                  DSPATR(ND)
+     A N51                                  DSPATR(PR)
+     A            SRTRY2         9Y 0O  8 46EDTCDE(2)
+     A  42                                  DSPATR(RI)
+     A            SRFIX2         9Y 0O  8 58EDTCDE(2)
+     A            NEWFX2         9Y 0B  8 70EDTCDE(4)
+     A  52                                  DSPATR(CS)
+     A N52                                  DSPATR(ND)
+     A N52                                  DSPATR(PR)
+     A                                  8  2'144'
+     A                                      DSPATR(UL)
+     A                                  8 42'288'
+     A                                      DSPATR(UL)
+     A                                  9  2'512'
+     A                                      DSPATR(UL)
+     A            SRTRY3         9Y 0O  9  6EDTCDE(2)
+     A  43                                  DSPATR(RI)
+     A            SRFIX3         9Y 0O  9 18EDTCDE(2)
+     A            NEWFX3         9Y 0B  9 30EDTCDE(4)
+     A  53                                  DSPATR(CS)
+     A N53                                  DSPATR(ND)
+     A N53                                  DSPATR(PR)
+     A                                  9 42'648'
+     A                                      DSPATR(UL)
+     A            SRTRY4         9Y 0O  9 46EDTCDE(2)
+     A  44                                  DSPATR(RI)
+     A            SRFIX4         9Y 0O  9 58EDTCDE(2)
+     A            NEWFX4         9Y 0B  9 70EDTCDE(4)
+     A  54                                  DSPATR(CS)
+     A N54                                  DSPATR(ND)
+     A N54                                  DSPATR(PR)
+     A            SRITEM        12A  O  7  2
+     A            IMDES1        30A  O  7 19
+     A            SRSIZE         3A  O  7 15
+     A          R SOWCTL                    SFLCTL(SOWSFL)
+     A*%%TS  SD  19971105  155152  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  *DS3                                SFLSIZ(1000)
+     A  *DS4                                SFLSIZ(1000)
+     A  *DS3                                SFLPAG(0006)
+     A  *DS4                                SFLPAG(0001)
+     A                                  1  2'SED190SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Sow Line Schedule Update '
+     A                                      DSPATR(RI)
+     A                                  2 26'For:'
+     A            TODAT          6Y 0O  2 31EDTCDE(Y)
+     A                                  2 41'Week:'
+     A            BEGYY          4S 0O  2 47
+     A                                  2 52'-'
+     A            BEGWW          2S 0O  2 54
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4  2'Enter to Process         F6-Restar-
+     A                                      t(NO Update)        F3/F7-End Job(N-
+     A                                      o Update)'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  2'           Sold   Calc Fix   New F-
+     A                                      ix               Sold   Calc Fix   -
+     A                                      New Fix  '
+     A                                      DSPATR(UL)

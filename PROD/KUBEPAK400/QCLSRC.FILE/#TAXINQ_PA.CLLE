@@ -1,0 +1,14 @@
+             PGM        PARM(&ZIP5)
+             DCL        VAR(&ZIP5) TYPE(*CHAR) LEN(5)
+             DCL        VAR(&PCCMD) TYPE(*CHAR) LEN(256) +
+                          VALUE('EXPLORER.EXE  +
+                          "http://www.getzips.com/cgi-bin/ziplook.exe?What=1+
+                          &Zip=')
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             CHGVAR     VAR(&PCCMD) VALUE(&PCCMD *TCAT &ZIP5 *TCAT '"')
+             STRPCCMD   PCCMD(&PCCMD) PAUSE(*NO)
+
+             ENDPGM

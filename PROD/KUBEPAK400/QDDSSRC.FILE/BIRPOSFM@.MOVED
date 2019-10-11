@@ -1,0 +1,2419 @@
+000010990525     A*%%TS  SD  19990525  185346  EFD         REL-V3R7M0  5716-PW1
+000020990525     A*%%EC
+000030990525     A                                      DSPSIZ(24 80 *DS3)
+000040990525     A                                      PRINT
+000050990209     A          R SCRNA
+000060990209     A*%%TS  SD  19990209  182846  EFD         REL-V3R7M0  5716-PW1
+000070990209     A                                      CF07
+000080990209     A                                      CF08
+000090990209     A                                      ROLLUP
+000100990209     A                                      ROLLDOWN
+000110990209     A                                      CLEAR
+000120990209     A                                      CF03
+000130990209     A                                      HOME
+000140990209     A                                      HELP
+000150990209     A                                      CF06
+000160990209     A                                      SLNO(01)
+000170990209     A                                      CLRL(*ALL)
+000180990209     A          H                           HLPRCD(HSCUS)
+000190990209     A                                      HLPARA(04 046 04 051)
+000200990209     A                                  1 33' POINT OF SALE '
+000210990209     A                                      DSPATR(RI)
+000220990209     A                                  1 67'Date:'
+000230990209     A                                  1 73DATE
+000240990209     A                                      EDTCDE(Y)
+000250990209     A                                  2  2USER
+000260990209     A                                  2 67'Time:'
+000270990209     A                                  2 73TIME
+000280990209     A                                  4  3'Action:'
+000290990209     A                                      DSPATR(ND)
+000300990209     A            VACT           1X  B  4 12
+000310990209     A  10                                  ERRMSG('*** Valid Action Codes are -
+000320990209     A                                      A - C - D.  Press Reset')
+000330990209     A                                      DSPATR(ND)
+000340990209     A                                      DSPATR(PR)
+000350990209     A                                  4 23'Ship To Customer #:'
+000360990209     A            VSCUST         6Y 0B  4 46EDTCDE(Z)
+000370990209     A                                      DSPATR(CS)
+000380990209     A  11
+000390990209     AO 17                                  DSPATR(RI)
+000400990209     A                                      DSPATR(PC)
+000410990209     A  16                                  DSPATR(PR)
+000420990209     A                                      CHECK(RB)
+000430990209     A                                      DSPATR(HI)
+000440990209     A  14                                  ERRMSG('*** Enter Either a Customer-
+000450990209     A                                       Number or a Search Argument.   Pre-
+000460990209     A                                      ss Reset')
+000470990209     A  17N15                               ERRMSG('*** This Is Not a Valid Cus-
+000480990209     A                                      tomer Number.   Press Reset')
+000490990209     A  17 15                               ERRMSG('*** Check with office for f-
+000500990209     A                                      urther Details. Press RESET')
+000510990209     A                                  5 23'Alpha Search'
+000520990209     A            VSALPH        15A  B  5 46DSPATR(CS)
+000530990209     A  16                                  DSPATR(PR)
+000540990209     A                                      DSPATR(HI)
+000550990209     A                                  6  2' A = Add    '
+000560990209     A                                      DSPATR(ND)
+000570990209     A                                  6 23'Telephone # Search'
+000580990209     A            VSTELE        10A  B  6 46
+000590990209     A  16                                  DSPATR(PR)
+000600990209     A                                      DSPATR(HI)
+000610990209     A                                      DSPATR(CS)
+000620990209     A                                  7  2' C = Change '
+000630990209     A                                      DSPATR(ND)
+000640990209     A            VSNAME        30A  O  7 46DSPATR(HI)
+000650990209     A                                  8  2' D = Delete '
+000660990209     A                                      DSPATR(ND)
+000670990209     A                                  8 23'Order Number:'
+000680990209     A                                      DSPATR(ND)
+000690990209     A            VORDER         6Y 0B  8 46EDTCDE(Z)
+000700990209     A  29                                  DSPATR(RI)
+000710990209     A  29                                  DSPATR(PC)
+000720990209     A  16                                  DSPATR(PR)
+000730990209     A                                      CHECK(RB)
+000740990209     A                                      DSPATR(HI)
+000750990209     A  13                                  ERRMSG('*** Order Number Not Allowe-
+000760990209     A                                      d on Action A.  Press Reset')
+000770990209     A  20                                  ERRMSG('*** Order Number Required o-
+000780990209     A                                      n Action C or D.   Press Reset')
+000790990209     A  21                                  ERRMSG('*** This Is Not An Open Ord-
+000800990209     A                                      er Number.   Press Reset')
+000810990209     A                                      DSPATR(ND)
+000820990209     A                                  9 23'Company Number:'
+000830990209     A            VCO            2Y 0B  9 50DSPATR(CS)
+000840990209     A  19                                  DSPATR(RI)
+000850990209     A  19                                  DSPATR(PC)
+000860990209     A  16                                  DSPATR(PR)
+000870990209     A                                      DSPATR(HI)
+000880990209     A  19                                  ERRMSG('*** Enter a Valid Company N-
+000890990209     A                                      umber.    Press Reset')
+000900990209     A                                 11 23'Last Order:'
+000910990209     A            LDAORD         6Y 0O 11 46EDTCDE(Z)
+000920990209     A                                      DSPATR(HI)
+000930990209     A            ARNAME        30A  O 14 28
+000940990209     A N16                                  DSPATR(ND)
+000950990209     A                                 16  7'Current'
+000960990209     A N16                                  DSPATR(ND)
+000970990209     A  16                                  DSPATR(HI)
+000980990209     A                                 16 24'1'
+000990990209     A N16                                  DSPATR(ND)
+001000990209     A  16                                  DSPATR(HI)
+001010990209     A                                 16 26'-'
+001020990209     A N16                                  DSPATR(ND)
+001030990209     A  16                                  DSPATR(HI)
+001040990209     A            MCAGDY         3Y 0O 16 28EDTCDE(Z)
+001050990209     A N16                                  DSPATR(ND)
+001060990209     A  16                                  DSPATR(HI)
+001070990209     A            SVFRM2         3Y 0O 16 38EDTCDE(Z)
+001080990209     A N16                                  DSPATR(ND)
+001090990209     A  16                                  DSPATR(HI)
+001100990209     A                                 16 42'-'
+001110990209     A N16                                  DSPATR(ND)
+001120990209     A  16                                  DSPATR(HI)
+001130990209     A            MCAGD2         3Y 0O 16 44EDTCDE(Z)
+001140990209     A N16                                  DSPATR(ND)
+001150990209     A  16                                  DSPATR(HI)
+001160990209     A            SVFRM3         3Y 0O 16 54EDTCDE(Z)
+001170990209     A N16                                  DSPATR(ND)
+001180990209     A  16                                  DSPATR(HI)
+001190990209     A                                 16 58'-'
+001200990209     A N16                                  DSPATR(ND)
+001210990209     A  16                                  DSPATR(HI)
+001220990209     A            MCAGD3         3Y 0O 16 60EDTCDE(Z)
+001230990209     A N16                                  DSPATR(ND)
+001240990209     A  16                                  DSPATR(HI)
+001250990209     A                                 16 71'Over'
+001260990209     A N16                                  DSPATR(ND)
+001270990209     A  16                                  DSPATR(HI)
+001280990209     A            MCAGD4         3Y 0O 16 76EDTCDE(Z)
+001290990209     A N16                                  DSPATR(ND)
+001300990209     A  16                                  DSPATR(HI)
+001310990209     A            CURAR         11Y 2O 17  2DSPATR(HI)
+001320990209     A                                      EDTCDE(L)
+001330990209     A N16                                  DSPATR(ND)
+001340990209     A            AR1           11Y 2O 17 19DSPATR(HI)
+001350990209     A                                      EDTCDE(L)
+001360990209     A N16                                  DSPATR(ND)
+001370990209     A            AR2           11Y 2O 17 35DSPATR(HI)
+001380990209     A                                      EDTCDE(L)
+001390990209     A N16                                  DSPATR(ND)
+001400990209     A            AR3           11Y 2O 17 51DSPATR(HI)
+001410990209     A                                      EDTCDE(L)
+001420990209     A N16                                  DSPATR(ND)
+001430990209     A            AR4           11Y 2O 17 67DSPATR(HI)
+001440990209     A                                      EDTCDE(L)
+001450990209     A N16                                  DSPATR(ND)
+001460990209     A                                 19 47'Total Balance Due:'
+001470990209     A N16                                  DSPATR(ND)
+001480990209     A            TOTAR         11Y 2O 19 67DSPATR(HI)
+001490990209     A                                      EDTCDE(L)
+001500990209     A N16                                  DSPATR(ND)
+001510990209     A                                 20 44'Value of Open Orders:'
+001520990209     A N16                                  DSPATR(ND)
+001530990209     A            CMVOPO         9Y 2O 20 69DSPATR(HI)
+001540990209     A                                      EDTCDE(L)
+001550990209     A N16                                  DSPATR(ND)
+001560990209     A                                 22  2'                                  -
+001570990209     A                                                                         -
+001580990209     A                                               '
+001590990209     A                                      DSPATR(UL)
+001600990209     A                                 23  2'  Enter to Process     F3/F7=End o-
+001610990209     A                                      f Job      F6=Restart              -
+001620990209     A                                               '
+001630990209     A                                      DSPATR(UL)
+001640990209     A                                  1  2'BIRPOSA'
+001650990209     A                                 14  2'A/R Status for Customer:'
+001660990209     A N16                                  DSPATR(ND)
+001670990209     A                                 20 23'Flats:'
+001680990209     A N16                                  DSPATR(ND)
+001690990209     A            OPNFLT        11Y 1O 20 30DSPATR(HI)
+001700990209     A                                      EDTCDE(L)
+001710990209     A N16                                  DSPATR(ND)
+001720990209     A                                 14 61'Exp Date:'
+001730990209     A N16                                  DSPATR(ND)
+001740990209     A            HSCRDT         4Y 0O 14 72EDTCDE(Y)
+001750990209     A  67                                  COLOR(RED)
+001760990209     A  16                                  DSPATR(HI)
+001770990209     A N16                                  DSPATR(ND)
+001780990209     A            CSHMSG        16A  O 19  3
+001790990209     A N16N71                               DSPATR(ND)
+001800990209     A            TYDESC        30A  O  2 26
+001810990209     A  85                                  DSPATR(RI)
+001820990209     A N85                                  DSPATR(ND)
+001830990209     A                                  2 20'Sale:'
+001840990209     A  85                                  DSPATR(RI)
+001850990209     A N85                                  DSPATR(ND)
+001860990209     A                                  4 60' DPC Customer '
+001870990209     A  49                                  DSPATR(RI)
+001880990209     A N49                                  DSPATR(ND)
+001890960903     A          R HSCUS
+001900960109     A*%%TS  SD  19960109  162353  GINNY       REL-V3R1M0  5763-PW1
+001910960109     A                                 12  3'                                  -
+001920960109     A                                                                         -
+001930960109     A                                              '
+001940960109     A                                 13  3' Ship To Customer                 -
+001950960109     A                                                                     Requ-
+001960960109     A                                      ired    '
+001970960109     A                                      DSPATR(RI)
+001980960109     A                                 14  3'                                  -
+001990960109     A                                                                         -
+002000960109     A                                              '
+002010960109     A                                 15  3' This is the customer and address -
+002020960109     A                                      to which the goods will be shipped.-
+002030960109     A                                              '
+002040960109     A                                 16  3' In the customer file, it defines -
+002050960109     A                                      the customer to whom the invoice is-
+002060960109     A                                       sent,  '
+002070960109     A                                 17  3' the customer where the accounts r-
+002080960109     A                                      eceivable data will be updated and -
+002090960109     A                                      the     '
+002100960109     A                                 18  3' customer that will be credited wi-
+002110960109     A                                      th the sales analysis data.        -
+002120960109     A                                              '
+002130960109     A                                 21  3' next screen.                     -
+002140960109     A                                                                         -
+002150960109     A                                              '
+002160960109     A                                 23  3'                                  -
+002170960109     A                                                                         -
+002180960109     A                                              '
+002190960109     A                                      DSPATR(RI)
+002200960109     A                                 24  3'                                  -
+002210960109     A                                                                         -
+002220960109     A                                              '
+002230960109     A                                 20  3' You can change the shipping name -
+002240960109     A                                      and address for this order only on -
+002250960109     A                                      the     '
+002260960109     A                                 19  3'                                  -
+002270960109     A                                                                         -
+002280960109     A                                              '
+002290960109     A                                 22  3'                                  -
+002300960109     A                                                                         -
+002310960109     A                                              '
+002320990324     A          R SCRNB
+002330990324     A*%%TS  SD  19990324  154725  EFD         REL-V3R7M0  5716-PW1
+002340990324     A                                      CF06
+002350990324     A                                      HELP
+002360990324     A                                      CF11
+002370990324     A                                      SLNO(01)
+002380990324     A                                      CLRL(*ALL)
+002390990324     A          H                           HLPRCD(HTDISC)
+002400990324     A                                      HLPARA(11 014 11 018)
+002410990324     A          H                           HLPRCD(HPONO)
+002420990324     A                                      HLPARA(09 030 09 044)
+002430990324     A          H                           HLPRCD(HORDTE)
+002440990324     A                                      HLPARA(09 059 09 066)
+002450990324     A          H                           HLPRCD(HPRCDE)
+002460990324     A                                      HLPARA(10 014 10 014)
+002470990324     A          H                           HLPRCD(HSHPFR)
+002480990324     A                                      HLPARA(10 047 10 049)
+002490990324     A          H                           HLPRCD(HTDISC)
+002500990324     A                                      HLPARA(06 005 06 010)
+002510990324     A          H                           HLPRCD(HSHVIA)
+002520990324     A                                      HLPARA(11 047 11 048)
+002530990324     A          H                           HLPRCD(HTERMS)
+002540990324     A                                      HLPARA(12 014 12 015)
+002550990324     A          H                           HLPRCD(HINVCD)
+002560990324     A                                      HLPARA(12 069 12 069)
+002570990324     A          H                           HLPRCD(HBO)
+002580990324     A                                      HLPARA(13 069 13 069)
+002590990324     A          H                           HLPRCD(HORDLS)
+002600990324     A                                      HLPARA(14 014 14 019)
+002610990324     A                                  1  2'SCRNB'
+002620990324     A            VMODE          6A  O  1 20DSPATR(UL)
+002630990324     A                                  1 33' Point of Sale '
+002640990324     A                                      DSPATR(RI)
+002650990324     A                                  1 50'Order #:'
+002660990324     A            VORDER         6Y 0O  1 60EDTCDE(Z)
+002670990324     A                                      DSPATR(HI)
+002680990324     A                                  1 73DATE
+002690990324     A                                      EDTCDE(Y)
+002700990324     A                                  2  2'Ship To:'
+002710990324     A            VSCUST         6Y 0O  2 12EDTCDE(Z)
+002720990324     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+002730990324     A                                  2 43'Bill To:'
+002740990324     A            BLCUST         6Y 0O  2 53EDTCDE(Z)
+002750990324     A                                  2 73TIME
+002760990324     A            CMNAME        30A  B  3  5DSPATR(CS)
+002770990324     A                                      DSPATR(MDT)
+002780990324     A                                      CHECK(LC)
+002790990324     A            VNAM1B        30A  O  3 46
+002800990324     A            CMADD2        30A  B  4  5DSPATR(CS)
+002810990324     A                                      DSPATR(MDT)
+002820990324     A                                      CHECK(LC)
+002830990324     A            VADD2B        30A  O  4 46
+002840990324     A            CMADD3        30A  B  5  5DSPATR(CS)
+002850990324     A                                      DSPATR(MDT)
+002860990324     A                                      CHECK(LC)
+002870990324     A            VADD3B        30A  O  5 46
+002880990324     A            CMADD4        30A  B  6  5DSPATR(CS)
+002890990324     A                                      DSPATR(MDT)
+002900990324     A                                      CHECK(LC)
+002910990324     A            VADD4B        30A  O  6 46
+002920990324     A            CMCITY        18A  B  7  5DSPATR(CS)
+002930990324     A                                      DSPATR(MDT)
+002940990324     A                                      CHECK(LC)
+002950990324     A            CMSTST         2A  B  7 24DSPATR(CS)
+002960990324     A                                      DSPATR(MDT)
+002970990324     A            VZIPA1         5A  B  7 27DSPATR(CS)
+002980990324     A                                      DSPATR(MDT)
+002990990324     A                                  7 33'-'
+003000990324     A            VZIPA2         4A  B  7 35DSPATR(CS)
+003010990324     A                                      DSPATR(MDT)
+003020990324     A            VCITYB        18A  O  7 46
+003030990324     A            VSTATB         2A  O  7 65
+003040990324     A            VZIPB1         5A  O  7 68
+003050990324     A                                  7 74'-'
+003060990324     A            VZIPB2         4A  O  7 76
+003070990324     A                                  8  2'-----------------------------------
+003080990324     A                                      ------------------------------------
+003090990324     A                                      ---------'
+003100990324     A                                  9  1'Reqd Date:'
+003110990324     A            VRQDTE         6Y 0B  9 14DSPATR(CS)
+003120990324     A                                      DSPATR(PC)
+003130990324     A  24                                  DSPATR(RI)
+003140990324     A                                      DSPATR(HI)
+003150990324     A                                      EDTWRD('  /  /  ')
+003160990324     A  23                                  ERRMSG('*** Requested Date May Not -
+003170990324     A                                      Be Prior To The Order Date.   Press-
+003180990324     A                                       Reset')
+003190990324     A  47                                  ERRMSG('*** Enter A Valid Date.    -
+003200990324     A                                       Press Reset')
+003210990324     A                                  9 24'P.O. #:'
+003220990324     A            VPURCH        15A  B  9 32DSPATR(CS)
+003230990324     A  21                                  DSPATR(RI)
+003240990324     A  21                                  DSPATR(PC)
+003250990324     A                                      CHECK(LC)
+003260990324     A                                      DSPATR(HI)
+003270990324     A  21                                  ERRMSG('*** Purchase Order Is Requi-
+003280990324     A                                      red For This Ship To Customer.   Pr-
+003290990324     A                                      ess Reset')
+003300990324     A                                  9 48'Order Date:'
+003310990324     A            VORDTE         6Y 0B  9 60DSPATR(CS)
+003320990324     A                                      EDTCDE(Y)
+003330990324     A  50N85                               DSPATR(RI)
+003340990324     A  50N85                               DSPATR(PC)
+003350990324     A                                      DSPATR(HI)
+003360990324     A  85                                  DSPATR(PR)
+003370990324     A  50                                  ERRMSG('*** Enter A Valid Date.    -
+003380990324     A                                      Press Reset')
+003390990324     A                                  9 69'Company:'
+003400990324     A            VCO            2S 0O  9 78
+003410990324     A                                 10  1'Price Code:'
+003420990324     A            CMPRCD         1Y 0B 10 14DSPATR(CS)
+003430990324     A                                      EDTCDE(Z)
+003440990324     A  25                                  DSPATR(RI)
+003450990324     A  25                                  DSPATR(PC)
+003460990324     A  25                                  ERRMSG('*** Valid Price Codes are 1-
+003470990324     A                                      -2-3-4-5.   Press Reset')
+003480990324     A                                      DSPATR(HI)
+003490990324     A                                 10 34'Ship From:'
+003500990324     A            VSHFR          3A  B 10 46
+003510990324     A  26                                  DSPATR(RI)
+003520990324     A                                      DSPATR(CS)
+003530990324     A  26                                  DSPATR(PC)
+003540990324     A  26                                  ERRMSG('*** Enter a Valid Location -
+003550990324     A                                      Code.     Press Reset')
+003560990324     A                                      DSPATR(HI)
+003570990324     A                                      DSPATR(PR)
+003580990324     A            WHDESC        30A  O 10 50DSPATR(HI)
+003590990324     A                                 11  1'Trade Disc:'
+003600990324     A            CMTRDC         4Y 2B 11 14DSPATR(CS)
+003610990324     A                                      EDTCDE(3)
+003620990324     A                                      DSPATR(HI)
+003630990324     A                                      DSPATR(PR)
+003640990324     A                                 11 34'Ship Via?'
+003650990324     A            VSVCD          2A  B 11 46DSPATR(CS)
+003660990324     A  27                                  DSPATR(RI)
+003670990324     A  27                                  DSPATR(PC)
+003680990324     A N27                                  DSPATR(HI)
+003690990324     A  27                                  ERRMSG('*** This Is Not A Valid Shi-
+003700990324     A                                      p Via Code.   Press Reset')
+003710990324     A            SVDESC        30A  O 11 50DSPATR(HI)
+003720990324     A                                 12  1'Terms?'
+003730990324     A            VTRMCD         2A  B 12 14
+003740990324     A  31                                  DSPATR(RI)
+003750990324     A                                      DSPATR(CS)
+003760990324     A  31                                  DSPATR(PC)
+003770990324     A  31                                  ERRMSG('*** Terms code Must be Eith-
+003780990324     A                                      er 02-Defered Billing or Customer T-
+003790990324     A                                      erms.  Press RESEt')
+003800990324     A            TCDESC        30A  O 12 21DSPATR(HI)
+003810990324     A  31                                  DSPATR(RI)
+003820990324     A                                 12 52'Invoice Only:'
+003830990324     A            VINVCD         1A  B 12 66DSPATR(CS)
+003840990324     A  28                                  DSPATR(RI)
+003850990324     A  28                                  DSPATR(PC)
+003860990324     A                                      DSPATR(HI)
+003870990324     A  28                                  ERRMSG('*** Valid Entries are Y or -
+003880990324     A                                      N.      Press Reset')
+003890990324     A                                 13  1'Frt Code:'
+003900990324     A            VFRTCD         6Y 0B 13 14DSPATR(CS)
+003910990324     A                                      DSPATR(HI)
+003920990324     A  29                                  DSPATR(RI)
+003930990324     A  29                                  DSPATR(PC)
+003940990324     A                                      EDTCDE(4)
+003950990324     A                                      CHECK(RB)
+003960990324     A  29                                  ERRMSG('*** This Is Not A Valid Fre-
+003970990324     A                                      ight Code.    Press Reset')
+003980990324     A                                 13 52'B O Allowed:'
+003990990324     A            CMBOOK         1A  B 13 66DSPATR(CS)
+004000990324     A  30                                  DSPATR(RI)
+004010990324     A  30                                  DSPATR(PC)
+004020990324     A                                      DSPATR(HI)
+004030990324     A  30                                  ERRMSG('*** Valid Entries are Y or -
+004040990324     A                                      N.      Press Reset')
+004050990324     A                                 14  1'Ord List?'
+004060990324     A            VMORLS         6A  B 14 14DSPATR(CS)
+004070990324     A N42                                  DSPATR(HI)
+004080990324     A  42                                  DSPATR(RI)
+004090990324     A  42                                  DSPATR(PC)
+004100990324     A  42                                  ERRMSG('*** This Is Not A Valid Ord-
+004110990324     A                                      er List.    Press Reset')
+004120990324     A            HLDESC        30A  O 14 21DSPATR(HI)
+004130990324     A                                 14 52'Lot Order:'
+004140990324     A            VLOTC          1A  B 14 66DSPATR(CS)
+004150990324     A  32                                  DSPATR(RI)
+004160990324     A  32                                  DSPATR(PC)
+004170990324     A                                      DSPATR(HI)
+004180990324     A  32                                  ERRMSG('*** Valid Entries are Y or -
+004190990324     A                                      N.       Press Reset')
+004200990324     A                                 15  1'Inv. Comnt:'
+004210990324     A            CMSPIN        30A  B 15 14DSPATR(CS)
+004220990324     A                                      DSPATR(MDT)
+004230990324     A                                      CHECK(LC)
+004240990324     A                                      DSPATR(HI)
+004250990324     A                                 15 52'Frt Type?'
+004260990324     A            VPPCOL         1A  B 15 66DSPATR(CS)
+004270990324     A                                      DSPATR(HI)
+004280990324     A  33                                  DSPATR(RI)
+004290990324     A  33                                  DSPATR(PC)
+004300990324     A  33                                  ERRMSG('*** Enter A Valid Freight T-
+004310990324     A                                      ype.    Press Reset')
+004320990324     A            FRDESC        12A  O 15 68DSPATR(HI)
+004330990324     A                                 16  1'Ship Instr:'
+004340990324     A            CMSHIN        30A  B 16 14DSPATR(CS)
+004350990324     A                                      DSPATR(MDT)
+004360990324     A                                      CHECK(LC)
+004370990324     A                                      DSPATR(HI)
+004380990324     A                                 16 52'Tax Exempt:'
+004390990324     A            CMTXST         1X  B 16 66DSPATR(CS)
+004400990324     A                                      DSPATR(HI)
+004410990324     A  34                                  DSPATR(RI)
+004420990324     A  34                                  DSPATR(PC)
+004430990324     A  34                                  ERRMSG('*** Valid Entries are Y or -
+004440990324     A                                      N.       Press Reset')
+004450990324     A                                 16 68'Juris?'
+004460990324     A            VTXJU          3A  B 16 75DSPATR(CS)
+004470990324     A                                      DSPATR(HI)
+004480990324     A  44                                  DSPATR(RI)
+004490990324     A  44                                  DSPATR(PC)
+004500990324     A  44                                  ERRMSG('*** This Is Not A Valid Tax-
+004510990324     A                                       Jurisdiction.   Press Reset')
+004520990324     A                                 17  1'Frt Zone?'
+004530990324     A            VUPSZ          1A  B 17 14DSPATR(HI)
+004540990324     A                                      DSPATR(CS)
+004550990324     A  47                                  DSPATR(RI)
+004560990324     A  47                                  DSPATR(PC)
+004570990324     A  47                                  ERRMSG('*** This Is Not A Valid Fre-
+004580990324     A                                      ight Zone.    Press Reset')
+004590990324     A                                 17 52'Tax Frt Chrg:'
+004600990324     A            VTXFRG         1X  B 17 66DSPATR(CS)
+004610990324     A                                      DSPATR(HI)
+004620990324     A  35                                  DSPATR(RI)
+004630990324     A  35                                  DSPATR(PC)
+004640990324     A  35                                  ERRMSG('*** Valid Entries are Y or -
+004650990324     A                                      N.         Press Reset')
+004660990324     A                                 18  1'Sub/Avail:'
+004670990324     A            VSTA           1X  B 18 14DSPATR(CS)
+004680990324     A                                      DSPATR(HI)
+004690990324     A  37                                  DSPATR(RI)
+004700990324     A  37                                  DSPATR(PC)
+004710990324     A  37                                  ERRMSG('*** Valid Entries are Y or -
+004720990324     A                                      N.     Press Reset')
+004730990324     A                                 18 34'Print Ack:'
+004740990324     A            VACK           1X  B 18 45DSPATR(CS)
+004750990324     A                                      DSPATR(HI)
+004760990324     A  68                                  DSPATR(RI)
+004770990324     A  68                                  DSPATR(PC)
+004780990324     A  68                                  ERRMSG('*** Valid Entries are Y or -
+004790990324     A                                      N.         Press Reset')
+004800990324     A                                 18 52'Tax Spc Chrg:'
+004810990324     A            VTXSPC         1X  B 18 66DSPATR(CS)
+004820990324     A                                      DSPATR(HI)
+004830990324     A  36                                  DSPATR(RI)
+004840990324     A  36                                  DSPATR(PC)
+004850990324     A  36                                  ERRMSG('*** Valid Entries are Y or -
+004860990324     A                                      N.     Press Reset')
+004870990324     A                                 19  1'Cancel Date:'
+004880990324     A            VCNDTE         6Y 0B 19 14DSPATR(CS)
+004890990324     A                                      DSPATR(HI)
+004900990324     A                                      EDTWRD('  /  /  ')
+004910990324     A                                 19 52'Location:'
+004920990324     A            VLOC           8A  B 19 66DSPATR(CS)
+004930990324     A                                      COLOR(YLW)
+004940990324     A                                 20  1' lsp 1?'
+004950990324     A                                      DSPATR(ND)
+004960990324     A            VSLSM1         2A  B 20 14
+004970990324     A N38                                  DSPATR(HI)
+004980990324     A  38                                  DSPATR(RI)
+004990990324     A  38                                  DSPATR(PC)
+005000990324     A  38                                  ERRMSG('*** Enter A Valid Salespers-
+005010990324     A                                      on Code.    Press Reset')
+005020990324     A                                      DSPATR(ND)
+005030990324     A                                      DSPATR(PR)
+005040990324     A            SNAME1        30A  O 20 17DSPATR(HI)
+005050990324     A                                      DSPATR(ND)
+005060990324     A                                 20 52'Comm:'
+005070990324     A                                      DSPATR(ND)
+005080990324     A            CMCOMM         4Y 2B 20 58EDTCDE(3)
+005090990324     A                                      CHECK(RB)
+005100990324     A                                      COLOR(YLW)
+005110990324     A                                      DSPATR(ND)
+005120990324     A                                      DSPATR(PR)
+005130990324     A                                 20 65'Route:'
+005140990324     A            VROUTE         2A  B 20 72DSPATR(CS)
+005150990324     A                                      COLOR(YLW)
+005160990324     A                                 21  1'Slsp 2?'
+005170990324     A                                      DSPATR(ND)
+005180990324     A            VSLSM2         2A  B 21 14
+005190990324     A N38                                  DSPATR(HI)
+005200990324     A  38                                  DSPATR(RI)
+005210990324     A  38                                  DSPATR(PC)
+005220990324     A  38                                  ERRMSG('*** Enter A Valid Salespers-
+005230990324     A                                      on Code.    Press Reset')
+005240990324     A                                      DSPATR(ND)
+005250990324     A                                      DSPATR(PR)
+005260990324     A            SNAME2        30A  O 21 17DSPATR(HI)
+005270990324     A                                      DSPATR(ND)
+005280990324     A                                 21 52'Comm:'
+005290990324     A                                      DSPATR(ND)
+005300990324     A            VCOMM2         4Y 2B 21 58EDTCDE(3)
+005310990324     A                                      COLOR(YLW)
+005320990324     A                                      CHECK(RB)
+005330990324     A                                      DSPATR(ND)
+005340990324     A                                      DSPATR(PR)
+005350990324     A                                 21 66'Stop:'
+005360990324     A            VSTOP          3Y 0B 21 72DSPATR(CS)
+005370990324     A                                      EDTCDE(3)
+005380990324     A                                      CHECK(RB)
+005390990324     A                                      COLOR(YLW)
+005400990324     A                                 22  1'Notes:'
+005410990324     A            CCCOM1        30A  O 22 14DSPATR(HI)
+005420990324     A                                      COLOR(RED)
+005430990324     A            CCCOM2        30A  O 22 45DSPATR(HI)
+005440990324     A                                      COLOR(RED)
+005450990324     A                                 23  2'  Enter to Process     F6=Restart/-
+005460990324     A                                      With No Update     F11=Order List E-
+005470990324     A                                      ntry '
+005480990324     A                                      DSPATR(UL)
+005490990324     A                                  3 37' S    '
+005500990324     A  85                                  DSPATR(RI)
+005510990324     A N85                                  DSPATR(ND)
+005520990324     A                                  4 37'  A   '
+005530990324     A  85                                  DSPATR(RI)
+005540990324     A N85                                  DSPATR(ND)
+005550990324     A                                  5 37'   L  '
+005560990324     A  85                                  DSPATR(RI)
+005570990324     A N85                                  DSPATR(ND)
+005580990324     A                                  6 37'    E '
+005590990324     A  85                                  DSPATR(RI)
+005600990324     A N85                                  DSPATR(ND)
+005610980122     A          R SCRNBD
+005620980122     A*%%TS  SD  19980122  153030  EFD         REL-V3R6M0  5716-PW1
+005630980122     A                                      CF06
+005640980122     A                                      CF23
+005650980122     A                                      SLNO(01)
+005660980122     A                                      CLRL(*ALL)
+005670980122     A                                  1  2'SCRNBD'
+005680980122     A            VMODE          6A  O  1 20DSPATR(UL)
+005690980122     A                                  1 33' Point of Sale '
+005700980122     A                                      DSPATR(RI)
+005710980122     A                                  1 50'Order #:'
+005720980122     A            VORDER         6Y 0O  1 60EDTCDE(Z)
+005730980122     A                                      DSPATR(HI)
+005740980122     A                                  1 73DATE
+005750980122     A                                      EDTCDE(Y)
+005760980122     A                                  2  2'Ship To:'
+005770980122     A            VSCUST         6Y 0O  2 12EDTCDE(Z)
+005780980122     A                                  2 43'Bill To:'
+005790980122     A            BLCUST         6Y 0O  2 53EDTCDE(Z)
+005800980122     A                                  2 73TIME
+005810980122     A            CMNAME        30A  B  3  5DSPATR(CS)
+005820980122     A                                      DSPATR(MDT)
+005830980122     A                                      CHECK(LC)
+005840980122     A                                      DSPATR(PR)
+005850980122     A            VNAM1B        30A  O  3 46
+005860980122     A            CMADD2        30A  B  4  5DSPATR(CS)
+005870980122     A                                      DSPATR(MDT)
+005880980122     A                                      CHECK(LC)
+005890980122     A                                      DSPATR(PR)
+005900980122     A            VADD2B        30A  O  4 46
+005910980122     A            CMADD3        30A  B  5  5DSPATR(CS)
+005920980122     A                                      DSPATR(MDT)
+005930980122     A                                      CHECK(LC)
+005940980122     A                                      DSPATR(PR)
+005950980122     A            VADD3B        30A  O  5 46
+005960980122     A            CMADD4        30A  B  6  5DSPATR(CS)
+005970980122     A                                      DSPATR(MDT)
+005980980122     A                                      CHECK(LC)
+005990980122     A                                      DSPATR(PR)
+006000980122     A            VADD4B        30A  O  6 46
+006010980122     A            CMCITY        18A  B  7  5DSPATR(CS)
+006020980122     A                                      DSPATR(MDT)
+006030980122     A                                      CHECK(LC)
+006040980122     A                                      DSPATR(PR)
+006050980122     A            CMSTST         2A  B  7 24DSPATR(CS)
+006060980122     A                                      DSPATR(MDT)
+006070980122     A                                      DSPATR(PR)
+006080980122     A            VZIPA1         5A  B  7 27DSPATR(CS)
+006090980122     A                                      DSPATR(MDT)
+006100980122     A                                      DSPATR(PR)
+006110980122     A                                  7 33'-'
+006120980122     A            VZIPA2         4A  B  7 35DSPATR(CS)
+006130980122     A                                      DSPATR(MDT)
+006140980122     A                                      DSPATR(PR)
+006150980122     A            VCITYB        18A  O  7 46
+006160980122     A            VSTATB         2A  O  7 65
+006170980122     A            VZIPB1         5A  O  7 68
+006180980122     A                                  7 74'-'
+006190980122     A            VZIPB2         4A  O  7 76
+006200980122     A                                  8  2'   Press F23 To Confirm DELETE.   -
+006210980122     A                                                F6 To Restart(NO DELETE) -
+006220980122     A                                               '
+006230980122     A                                      DSPATR(RI)
+006240980122     A                                      COLOR(YLW)
+006250980122     A                                  9  1'Reqd Date:'
+006260980122     A            VRQDTE         6Y 0B  9 14DSPATR(CS)
+006270980122     A                                      EDTWRD('  /  /  ')
+006280980122     A                                      DSPATR(PR)
+006290980122     A                                  9 24'P.O. #:'
+006300980122     A            VPURCH        15A  B  9 32DSPATR(CS)
+006310980122     A                                      CHECK(LC)
+006320980122     A                                      DSPATR(PR)
+006330980122     A                                  9 48'Order Date:'
+006340980122     A            VORDTE         6Y 0B  9 60DSPATR(CS)
+006350980122     A                                      EDTCDE(Y)
+006360980122     A                                      DSPATR(PR)
+006370980122     A                                  9 69'Company:'
+006380980122     A            VCO            2S 0O  9 78
+006390980122     A                                 10  1'Price Code:'
+006400980122     A            CMPRCD         1Y 0B 10 14DSPATR(CS)
+006410980122     A                                      EDTCDE(Z)
+006420980122     A                                      DSPATR(PR)
+006430980122     A                                 10 34'Ship From:'
+006440980122     A            VSHFR          3A  B 10 46DSPATR(CS)
+006450980122     A                                      DSPATR(PR)
+006460980122     A            WHDESC        30A  O 10 50
+006470980122     A                                 11  1'Trade Disc:'
+006480980122     A            CMTRDC         4Y 2B 11 14DSPATR(CS)
+006490980122     A                                      EDTCDE(3)
+006500980122     A                                      DSPATR(PR)
+006510980122     A                                 11 34'Ship Via:'
+006520980122     A            VSVCD          2A  B 11 46DSPATR(CS)
+006530980122     A                                      DSPATR(PR)
+006540980122     A            SVDESC        30A  O 11 50
+006550980122     A                                 12  1'Terms:'
+006560980122     A            VTRMCD         2A  B 12 14DSPATR(CS)
+006570980122     A                                      DSPATR(PR)
+006580980122     A            COTERM        30A  O 12 21
+006590980122     A                                 12 54'Invoice Only:'
+006600980122     A            VINVCD         1A  B 12 68DSPATR(CS)
+006610980122     A                                      DSPATR(PR)
+006620980122     A                                 13  1'Frt Code:'
+006630980122     A            VFRTCD         6Y 0B 13 14DSPATR(CS)
+006640980122     A                                      EDTCDE(4)
+006650980122     A                                      CHECK(RB)
+006660980122     A                                      DSPATR(PR)
+006670980122     A                                 13 54'B/O Allowed:'
+006680980122     A            CMBOOK         1A  B 13 68DSPATR(CS)
+006690980122     A                                      DSPATR(PR)
+006700980122     A                                 14  1'Ord List:'
+006710980122     A            VMORLS         6A  B 14 14DSPATR(CS)
+006720980122     A                                      DSPATR(PR)
+006730980122     A            OLDESC        30A  O 14 21
+006740980122     A                                 14 54'Lot Order:'
+006750980122     A            VLOTC          1A  B 14 68DSPATR(CS)
+006760980122     A                                      DSPATR(PR)
+006770980122     A                                 15  1'Spec Instr:'
+006780980122     A            CMSPIN        30A  B 15 14DSPATR(CS)
+006790980122     A                                      CHECK(LC)
+006800980122     A                                      DSPATR(PR)
+006810980122     A                                 15 54'PPD/Collect:'
+006820980122     A            VPPCOL         1X  B 15 68DSPATR(CS)
+006830980122     A                                      DSPATR(PR)
+006840980122     A                                 16  1'Ship Instr:'
+006850980122     A            CMSHIN        30A  B 16 14DSPATR(CS)
+006860980122     A                                      CHECK(LC)
+006870980122     A                                      DSPATR(PR)
+006880980122     A                                 16 54'Tax Exempt:'
+006890980122     A            CMTXST         1X  B 16 68DSPATR(CS)
+006900980122     A                                      DSPATR(PR)
+006910980122     A                                 16 70'Juris:'
+006920980122     A            VTXJU          3A  B 16 77DSPATR(CS)
+006930980122     A                                      DSPATR(PR)
+006940980122     A                                 17  1'Frt Zone:'
+006950980122     A            VUPSZ          1A  B 17 14DSPATR(CS)
+006960980122     A                                      DSPATR(PR)
+006970980122     A                                 17 54'Tax Frt Chrg:'
+006980980122     A            VTXFRG         1X  B 17 68DSPATR(CS)
+006990980122     A                                      DSPATR(PR)
+007000980122     A                                 18  1'Sub/Avail:'
+007010980122     A            VSTA           1X  B 18 14DSPATR(CS)
+007020980122     A                                      DSPATR(PR)
+007030980122     A                                 18 34'Print Ack:'
+007040980122     A            VACK           1A  B 18 45DSPATR(CS)
+007050980122     A                                      DSPATR(PR)
+007060980122     A                                 18 54'Tax Spc Chrg:'
+007070980122     A            VTXSPC         1X  B 18 68DSPATR(CS)
+007080980122     A                                      DSPATR(PR)
+007090980122     A                                 19  1'Cancel Date:'
+007100980122     A            VCNDTE         6Y 0B 19 14DSPATR(CS)
+007110980122     A                                      EDTWRD('  /  /  ')
+007120980122     A                                      DSPATR(PR)
+007130980122     A                                 19 54'Location:'
+007140980122     A            VLOC           8A  B 19 68DSPATR(CS)
+007150980122     A                                      DSPATR(PR)
+007160980122     A                                 20  1'Slsp 1:'
+007170980122     A            VSLSM1         2A  B 20 14DSPATR(CS)
+007180980122     A                                      DSPATR(PR)
+007190980122     A            SNAME1        30A  O 20 17
+007200980122     A                                 20 48'Comm:'
+007210980122     A            CMCOMM         4Y 2B 20 54DSPATR(CS)
+007220980122     A                                      EDTCDE(3)
+007230980122     A                                      DSPATR(PR)
+007240980122     A                                 20 61'Route:'
+007250980122     A            VROUTE         2A  B 20 68DSPATR(CS)
+007260980122     A                                      DSPATR(PR)
+007270980122     A                                 21  1'Slsp 2:'
+007280980122     A            VSLSM2         2A  B 21 14DSPATR(CS)
+007290980122     A                                      DSPATR(PR)
+007300980122     A            SNAME2        30A  O 21 17
+007310980122     A                                 21 48'Comm:'
+007320980122     A            VCOMM2         4Y 2B 21 54DSPATR(CS)
+007330980122     A                                      EDTCDE(3)
+007340980122     A                                      DSPATR(PR)
+007350980122     A                                 21 62'Stop:'
+007360980122     A            VSTOP          3Y 0B 21 68DSPATR(CS)
+007370980122     A                                      EDTCDE(3)
+007380980122     A                                      CHECK(RB)
+007390980122     A                                      DSPATR(PR)
+007400980122     A                                 23  2'   Press F23 To Confirm DELETE.   -
+007410980122     A                                                F6 To Restart(NO DELETE) -
+007420980122     A                                               '
+007430980122     A                                      DSPATR(RI)
+007440980122     A                                      COLOR(YLW)
+007450951215     A          R HRDATE
+007460951215     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+007470951215     A                                 15  3'                                  -
+007480951215     A                                                                         -
+007490951215     A                                              '
+007500951215     A                                 16  3' Requested Ship Date              -
+007510951215     A                                                                     Requ-
+007520951215     A                                      ired    '
+007530951215     A                                      DSPATR(RI)
+007540951215     A                                 17  3'                                  -
+007550951215     A                                                                         -
+007560951215     A                                              '
+007570951215     A                                 18  3' This is the date that the custome-
+007580951215     A                                      r has requested for delivery of you-
+007590951215     A                                      r       '
+007600951215     A                                 19  3' material.  The format is MMDDYY. -
+007610951215     A                                       There is a default requested ship -
+007620951215     A                                      date    '
+007630951215     A                                 20  3' in the company control file which-
+007640951215     A                                       automatically displays when a new -
+007650951215     A                                      order   '
+007660951215     A                                 21  3' is entered.  This default date ca-
+007670951215     A                                      n be overridden.                   -
+007680951215     A                                              '
+007690951215     A                                 22  3'                                  -
+007700951215     A                                                                         -
+007710951215     A                                              '
+007720951215     A                                 23  3'                                  -
+007730951215     A                                                                         -
+007740951215     A                                              '
+007750951215     A                                      DSPATR(RI)
+007760951215     A                                 24  3'                                  -
+007770951215     A                                                                         -
+007780951215     A                                              '
+007790951215     A          R HPONO
+007800951215     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+007810951215     A                                 15  3'                                  -
+007820951215     A                                                                         -
+007830951215     A                                              '
+007840951215     A                                 16  3' Customer Purchase Order Number   -
+007850951215     A                                                            Required/Opti-
+007860951215     A                                      onal    '
+007870951215     A                                      DSPATR(RI)
+007880951215     A                                 17  3'                                  -
+007890951215     A                                                                         -
+007900951215     A                                              '
+007910951215     A                                 18  3' Enter up to 15 characters for the-
+007920951215     A                                       customer purchase order number.  T-
+007930951215     A                                      his     '
+007940951215     A                                 19  3' will print on the customer invoic-
+007950951215     A                                      e.  A customer can be coded that a -
+007960951215     A                                              '
+007970951215     A                                 20  3' purchase order number is required-
+007980951215     A                                       for all orders.  If no purchase or-
+007990951215     A                                      der is  '
+008000951215     A                                 21  3' entered for these customers, an e-
+008010951215     A                                      rror will be displayed.            -
+008020951215     A                                              '
+008030951215     A                                 22  3'                                  -
+008040951215     A                                                                         -
+008050951215     A                                              '
+008060951215     A                                 23  3'                                  -
+008070951215     A                                                                         -
+008080951215     A                                              '
+008090951215     A                                      DSPATR(RI)
+008100951215     A                                 24  3'                                  -
+008110951215     A                                                                         -
+008120951215     A                                              '
+008130951215     A          R HORDTE
+008140951215     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+008150951215     A                                 15  3'                                  -
+008160951215     A                                                                         -
+008170951215     A                                              '
+008180951215     A                                 16  3' Order Date                       -
+008190951215     A                                                                     Requ-
+008200951215     A                                      ired    '
+008210951215     A                                      DSPATR(RI)
+008220951215     A                                 17  3'                                  -
+008230951215     A                                                                         -
+008240951215     A                                              '
+008250951215     A                                 18  3' This is the date that the order h-
+008260951215     A                                      as been placed by the customer.  It-
+008270951215     A                                              '
+008280951215     A                                 19  3' defaults to the current date, but-
+008290951215     A                                       can be overridden.                -
+008300951215     A                                              '
+008310951215     A                                 20  3'                                  -
+008320951215     A                                                                         -
+008330951215     A                                              '
+008340951215     A                                 21  3'                                  -
+008350951215     A                                                                         -
+008360951215     A                                              '
+008370951215     A                                      DSPATR(RI)
+008380951215     A                                 22  3'                                  -
+008390951215     A                                                                         -
+008400951215     A                                              '
+008410951215     A                                 23  3'                                  -
+008420951215     A                                                                         -
+008430951215     A                                              '
+008440951215     A                                 24  3'                                  -
+008450951215     A                                                                         -
+008460951215     A                                              '
+008470951215     A          R HPRCDE
+008480951215     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+008490951215     A                                 15  3'                                  -
+008500951215     A                                                                         -
+008510951215     A                                              '
+008520951215     A                                 16  3' Price Code                       -
+008530951215     A                                                                     Requ-
+008540951215     A                                      ired    '
+008550951215     A                                      DSPATR(RI)
+008560951215     A                                 17  3'                                  -
+008570951215     A                                                                         -
+008580951215     A                                              '
+008590951215     A                                 18  3' For every item in inventory you c-
+008600951215     A                                      an enter up to 5 different prices. -
+008610951215     A                                       Each   '
+008620951215     A                                 19  3' customer is coded with a default -
+008630951215     A                                      price code number to indicate which-
+008640951215     A                                       price  '
+008650951215     A                                 20  3' level they are normally charged. -
+008660951215     A                                       The code in this customer''s recor-
+008670951215     A                                      d is     '
+008680951215     A                                 21  3' displayed when an order is entere-
+008690951215     A                                      d.  If overridden on the order head-
+008700951215     A                                      er, it  '
+008710951215     A                                 22  3' changes the price level for the e-
+008720951215     A                                      ntire order.                       -
+008730951215     A                                              '
+008740951215     A                                 23  3'                                  -
+008750951215     A                                                                         -
+008760951215     A                                              '
+008770951215     A                                 24  3'                                  -
+008780951215     A                                                                         -
+008790951215     A                                              '
+008800951215     A                                      DSPATR(RI)
+008810951215     A          R HSHPFR
+008820951215     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+008830951215     A                                 15  3'                                  -
+008840951215     A                                                                         -
+008850951215     A                                              '
+008860951215     A                                 16  3' Ship From Location               -
+008870951215     A                                                                     Opti-
+008880951215     A                                      onal    '
+008890951215     A                                      DSPATR(RI)
+008900951215     A                                 17  3'                                  -
+008910951215     A                                                                         -
+008920951215     A                                              '
+008930951215     A                                 18  3' If you maintain inventory in mult-
+008940951215     A                                      iple locations - you can enter the -
+008950951215     A                                              '
+008960951215     A                                 19  3' location from which this order sh-
+008970951215     A                                      ould be shipped.                   -
+008980951215     A                                              '
+008990951215     A                                 20  3'                                  -
+009000951215     A                                                                         -
+009010951215     A                                              '
+009020951215     A                                 21  3'                                  -
+009030951215     A                                                                         -
+009040951215     A                                              '
+009050951215     A                                      DSPATR(RI)
+009060951215     A                                 22  3'                                  -
+009070951215     A                                                                         -
+009080951215     A                                              '
+009090951215     A                                 23  3'                                  -
+009100951215     A                                                                         -
+009110951215     A                                              '
+009120951215     A                                 24  3'                                  -
+009130951215     A                                                                         -
+009140951215     A                                              '
+009150960104     A          R HTDISC
+009160960104     A*%%TS  SD  19960104  094232  GINNY       REL-V3R1M0  5763-PW1
+009170960104     A                                 15  3'                                  -
+009180960104     A                                                                         -
+009190960104     A                                              '
+009200960104     A                                 16  3' Trade Discount                   -
+009210960104     A                                                                     Opti-
+009220960104     A                                      onal    '
+009230960104     A                                      DSPATR(RI)
+009240960104     A                                 17  3'                                  -
+009250960104     A                                                                         -
+009260960104     A                                              '
+009270960104     A                                 18  3' Trade discounts apply to the tota-
+009280960104     A                                      l dollar amount of the order after -
+009290960104     A                                      all     '
+009300960104     A                                 19  3' prices for each line item have be-
+009310960104     A                                      en calculated.  If a customer''s re-
+009320960104     A                                      cord     '
+009330960104     A                                 20  3' contains a trade discount it will-
+009340960104     A                                       be displayed here.  This discount -
+009350960104     A                                      can     '
+009360960104     A                                 21  3' be changed for each order if requ-
+009370960104     A                                      ired.                              -
+009380960104     A                                              '
+009390960104     A                                 22  3'                                  -
+009400960104     A                                                                         -
+009410960104     A                                              '
+009420960104     A                                 23  3'                                  -
+009430960104     A                                                                         -
+009440960104     A                                              '
+009450960104     A                                      DSPATR(RI)
+009460960104     A                                 24  3'                                  -
+009470960104     A                                                                         -
+009480960104     A                                              '
+009490960104     A          R HSHVIA
+009500960104     A*%%TS  SD  19960104  114425  GINNY       REL-V3R1M0  5763-PW1
+009510960104     A                                 15  3'                                  -
+009520960104     A                                                                         -
+009530960104     A                                              '
+009540960104     A                                 16  3' Ship Via Code                    -
+009550960104     A                                                                     Opti-
+009560960104     A                                      onal    '
+009570960104     A                                      DSPATR(RI)
+009580960104     A                                 17  3'                                  -
+009590960104     A                                                                         -
+009600960104     A                                              '
+009610960104     A                                 18  3' Enter the Ship Via Code that desc-
+009620960104     A                                      ribes the method of shipping for th-
+009630960104     A                                      is      '
+009640960104     A                                 19  3' order.   This code is contained i-
+009650960104     A                                      n the Ship To Customer record and t-
+009660960104     A                                      his     '
+009670960104     A                                 20  3' code will be displayed when a new-
+009680960104     A                                       order is entered.  This code can b-
+009690960104     A                                      e       '
+009700960104     A                                 21  3' changed for this order if necessa-
+009710960104     A                                      ry.                                -
+009720960104     A                                              '
+009730960104     A                                 22  3'                                  -
+009740960104     A                                                                         -
+009750960104     A                                              '
+009760960104     A                                 23  3'                                  -
+009770960104     A                                                                         -
+009780960104     A                                              '
+009790960104     A                                      DSPATR(RI)
+009800960104     A                                 24  3'                                  -
+009810960104     A                                                                         -
+009820960104     A                                              '
+009830960104     A          R HTERMS
+009840960104     A*%%TS  SD  19960104  115157  GINNY       REL-V3R1M0  5763-PW1
+009850960104     A                                 15  3'                                  -
+009860960104     A                                                                         -
+009870960104     A                                              '
+009880960104     A                                 16  3' Terms Code                       -
+009890960104     A                                                                     Requ-
+009900960104     A                                      ired    '
+009910960104     A                                      DSPATR(RI)
+009920960104     A                                 17  3'                                  -
+009930960104     A                                                                         -
+009940960104     A                                              '
+009950960104     A                                 18  3' This code determines the terms yo-
+009960960104     A                                      u extend to this customer for payme-
+009970960104     A                                      nts of  '
+009980960104     A                                 19  3' invoices, such as Net 30 Days.  T-
+009990960104     A                                      his code is contained in the custom-
+010000960104     A                                      er      '
+010010960104     A                                 20  3' record and will be displayed when-
+010020960104     A                                       a new order is entered.  This code-
+010030960104     A                                       can be '
+010040960104     A                                 21  3' changed for this order if necessa-
+010050960104     A                                      ry.                                -
+010060960104     A                                              '
+010070960104     A                                 22  3'                                  -
+010080960104     A                                                                         -
+010090960104     A                                              '
+010100960104     A                                 23  3'                                  -
+010110960104     A                                                                         -
+010120960104     A                                              '
+010130960104     A                                      DSPATR(RI)
+010140960104     A                                 24  3'                                  -
+010150960104     A                                                                         -
+010160960104     A                                              '
+010170960104     A          R HINVCD
+010180960104     A*%%TS  SD  19960104  121933  GINNY       REL-V3R1M0  5763-PW1
+010190960104     A                                 15  3'                                  -
+010200960104     A                                                                         -
+010210960104     A                                              '
+010220960104     A                                 16  3' Invoice Only Code                -
+010230960104     A                                                                     Requ-
+010240960104     A                                      ired    '
+010250960104     A                                      DSPATR(RI)
+010260960104     A                                 17  3'                                  -
+010270960104     A                                                                         -
+010280960104     A                                              '
+010290960104     A                                 18  3' Invoice Only Code N   Open Order -
+010300960104     A                                          Invoice Only Code Y r Invoice  -
+010310960104     A                                              '
+010320960104     A                                 19  3'                                  -
+010330960104     A                                                                         -
+010340960104     A                                              '
+010350960104     A                                 20  3' Open orders require pick slips an-
+010360960104     A                                      d shipment confirmation prior to in-
+010370960104     A                                      voicing.'
+010380960104     A                                 21  3' Orders coded for invoice will pri-
+010390960104     A                                      nt on the next invoice print run wi-
+010400960104     A                                      thout   '
+010410960104     A                                 22  3' having to be shipment confirmed. -
+010420960104     A                                                                         -
+010430960104     A                                              '
+010440960104     A                                 23  3'                                  -
+010450960104     A                                                                         -
+010460960104     A                                              '
+010470960104     A                                 24  3'                                  -
+010480960104     A                                                                         -
+010490960104     A                                              '
+010500960104     A                                      DSPATR(RI)
+010510960104     A          R HBO
+010520960104     A*%%TS  SD  19960104  153333  GINNY       REL-V3R1M0  5763-PW1
+010530960104     A                                 15  3'                                  -
+010540960104     A                                                                         -
+010550960104     A                                              '
+010560960104     A                                 16  3' Backorders Allowed               -
+010570960104     A                                                                     Requ-
+010580960104     A                                      ired    '
+010590960104     A                                      DSPATR(RI)
+010600960104     A                                 17  3'                                  -
+010610960104     A                                                                         -
+010620960104     A                                              '
+010630960104     A                                 18  2'  Valid Entries are Y = Backorders-
+010640960104     A                                       are allowed for this order by this-
+010650960104     A                                       customer'
+010660960104     A                                 19  2'                    N = Backorders-
+010670960104     A                                       are not allowed                   -
+010680960104     A                                               '
+010690960104     A                                 20  3'                                  -
+010700960104     A                                                                         -
+010710960104     A                                              '
+010720960104     A                                 21  3' However, if any inventory item on-
+010730960104     A                                       this order is coded Backorders NO -
+010740960104     A                                      - that  '
+010750960104     A                                 22  3' will override any backorder entry-
+010760960104     A                                       made on this screen.              -
+010770960104     A                                              '
+010780960104     A                                 23  3'                                  -
+010790960104     A                                                                         -
+010800960104     A                                              '
+010810960104     A                                 24  3'                                  -
+010820960104     A                                                                         -
+010830960104     A                                              '
+010840960104     A                                      DSPATR(RI)
+010850960612     A          R HORDLS
+010860960612     A*%%TS  SD  19960612  151708  GINNY       REL-V3R1M0  5763-PW1
+010870960612     A                                 15  3'                                  -
+010880960612     A                                                                         -
+010890960612     A                                              '
+010900960612     A                                 14  3' Order List Number                -
+010910960612     A                                                                     Opti-
+010920960612     A                                      onal    '
+010930960612     A                                      DSPATR(RI)
+010940960612     A                                 16  3' This code determines which order -
+010950960612     A                                      list will display first if you sele-
+010960960612     A                                      ct      '
+010970960612     A                                 17  3' telephone order entry for this or-
+010980960612     A                                      der.   The code most ofter used by -
+010990960612     A                                      each    '
+011000960612     A                                 18  3' customer is contained in the cust-
+011010960612     A                                      omer record and this code will disp-
+011020960612     A                                      lay when'
+011030960612     A                                 19  3' a new order is entered.  This cod-
+011040960612     A                                      e can be changed for this order.   -
+011050960612     A                                              '
+011060960612     A                                 22  3'                                  -
+011070960612     A                                                                         -
+011080960612     A                                              '
+011090960612     A                                 23  3'                                  -
+011100960612     A                                                                         -
+011110960612     A                                              '
+011120960612     A                                      DSPATR(RI)
+011130960612     A                                 24  3'                                  -
+011140960612     A                                                                         -
+011150960612     A                                              '
+011160960612     A                                 21  3' If this is an order for tags ONLY-
+011170960612     A                                       - enter TAG as the Order List Numb-
+011180960612     A                                      er.     '
+011190960612     A                                 20  3'                                  -
+011200960612     A                                        -or-                             -
+011210960612     A                                              '
+011220951220     A          R SCRACT
+011230951220     A*%%TS  SD  19951220  121002  EFD         REL-V3R1M0  5763-PW1
+011240951220     A                                  1  2'SCRACT'
+011250951220     A                                  2  2USER
+011260951220     A                                  1 73DATE
+011270951220     A                                      EDTCDE(Y)
+011280951220     A                                  2 73TIME
+011290951220     A                                  1 26' Action Code Selection Screen '
+011300951220     A                                      DSPATR(RI)
+011310951220     A            ADD            1   B  8  4DSPATR(CS)
+011320951220     A  10 11                               DSPATR(RI)
+011330951220     A  10N20                               ERRMSG('You Must Select one Action -
+011340960416     A                                      Code.       Press Reset')
+011350951220     A  10 20                               ERRMSG('You Must Select ONLY one Ac-
+011360960416     A                                      tion Code.  Press Reset')
+011370951220     A            CHG            1   B 11  4
+011380951220     A  10 12                               DSPATR(RI)
+011390951220     A                                      DSPATR(CS)
+011400951220     A            DELE           1   B 14  4
+011410951220     A  10 13                               DSPATR(RI)
+011420951220     A                                      DSPATR(CS)
+011430951220     A                                 15 16'that will be deleted.'
+011440951220     A            INSERT         1   B 17  4
+011450951220     A  10 14                               DSPATR(RI)
+011460951220     A                                  8  7'ADD -    A new line at the end of -
+011470951220     A                                      the order.  No line number is neede-
+011480951220     A                                      d,'
+011490951220     A                                  9 16'the system will assign the next av-
+011500951220     A                                      ailable number.'
+011510951220     A                                 11  7'CHANGE - A line already on the ord-
+011520951220     A                                      er.  The line number you enter is t-
+011530951220     A                                      he'
+011540951220     A                                 12 16'line that will be changed.'
+011550951220     A                                 14  7'DELETE - A line on the order.  The-
+011560951220     A                                       line number you enter is the line'
+011570951220     A                                 17  7'INSERT - A line within the order. -
+011580951220     A                                       Select a blank line number where'
+011590951220     A                                 18 16'you want this line inserted.'
+011600951220     A                                  5  3'To select an Action Code - enter a-
+011610951220     A                                      n X'
+011620951220     A                                  1 67'Date:'
+011630951220     A                                  2 67'Time:'
+011640951220     A          R SCRTYP
+011650951220     A*%%TS  SD  19951220  172414  EFD         REL-V3R1M0  5763-PW1
+011660951220     A                                  1  2'SCRTYP'
+011670951220     A                                  2  2USER
+011680951220     A                                  1 73DATE
+011690951220     A                                      EDTCDE(Y)
+011700951220     A                                  2 73TIME
+011710951220     A                                  1 27' Line Type Selection Screen '
+011720951220     A                                      DSPATR(RI)
+011730951220     A            STOCK          1A  B  7  4DSPATR(CS)
+011740951220     A  20                                  DSPATR(RI)
+011750951220     A  20                                  DSPATR(PC)
+011760951220     A  20                                  ERRMSG('You Must Select one AND Onl-
+011770951220     A                                      y One Line Type.')
+011780951220     A            NSTOCK         1A  B  9  4
+011790951220     A  20                                  DSPATR(RI)
+011800951220     A                                      DSPATR(CS)
+011810951220     A            COMENT         1A  B 12  4
+011820951220     A  20                                  DSPATR(RI)
+011830951220     A                                      DSPATR(CS)
+011840951220     A            FREIGT         1A  B 15  4
+011850951220     A  20                                  DSPATR(RI)
+011860951220     A                                  7  7'STOCK          -  To enter an item-
+011870951220     A                                       that is in your item master file. -
+011880951220     A                                        '
+011890951220     A                                  9  7'NON STOCK      -  To enter a merch-
+011900951220     A                                      andise item that is not in your'
+011910951220     A                                 12  7'COMMENT        -  To enter a comme-
+011920951220     A                                      nt line which will describe the lin-
+011930951220     A                                      e'
+011940951220     A                                 15  7'FREIGHT        -  To enter a freig-
+011950951220     A                                      ht charge for the entire order.'
+011960951220     A                                  4  3'To select a Line Type - enter an X'
+011970951220     A                                  1 67'Date:'
+011980951220     A                                  2 67'Time:'
+011990951220     A                                 10 25'item master file.'
+012000951220     A                                 13 25'above.  No price may be entered fo-
+012010951220     A                                      r a comment.'
+012020951220     A                                 16 25'You must enter an amount and you c-
+012030951220     A                                      an change the'
+012040951220     A                                 17 25'description.'
+012050951220     A            SPECHG         1A  B 19  4
+012060951220     A  20                                  DSPATR(RI)
+012070951220     A                                 19  7'SPECIAL CHARGE -  To enter any cha-
+012080951220     A                                      rge that is not merchandise or frei-
+012090951220     A                                      ght.'
+012100951220     A                                 20 25'You must enter an amount and you c-
+012110951220     A                                      an change the'
+012120951220     A                                 21 25'description.'
+012130961024     A          R SCRND
+012140961024     A*%%TS  SD  19961024  115616  EFD         REL-V3R6M0  5716-PW1
+012150961024     A                                  2  2'BIRPOSD'
+012160961024     A                                  2 73DATE
+012170961024     A                                      EDTCDE(Y)
+012180961024     A                                  2 11'Ord:'
+012190961024     A            VORDER         6Y 0O  2 16EDTCDE(4)
+012200961024     A                                  3 73TIME
+012210961024     A                                  2 24'Cust:'
+012220961024     A            VSCUST         6Y 0O  2 30EDTCDE(4)
+012230961024     A            CMNAME        30A  O  2 37
+012240961024     A                                 22 13'Quantity:'
+012250961024     A            TOTQTY         8Y 1O 22 24EDTCDE(1)
+012260961024     A                                 22 38'Dollars:'
+012270961024     A            TOTDOL         8Y 2O 22 48EDTCDE(1)
+012280961024     A                                 22 62'Vol Disc %:'
+012290961024     A            VOLDSC         4Y 2O 22 75EDTWRD('  .  ')
+012300961024     A                                  3 18'Order List:'
+012310961024     A            VORLST         6Y 0B  3 30EDTCDE(Z)
+012320961024     A                                  4  2'Quantity UM   Price   Item        -
+012330961024     A                                                                        A-
+012340961024     A                                      vailable'
+012350961024     A                                      DSPATR(UL)
+012360961024     A            VQT1           7Y 1B  5  2EDTCDE(4)
+012370961024     A                                      DSPATR(CS)
+012380961024     A            UM1            2A  O  5 11
+012390961024     A            PRC1           7Y 4O  5 15EDTCDE(4)
+012400961024     A            FLD009         6A  O  5 24
+012410961024     A            FLD010         3A  O  5 31
+012420961024     A            FLD011        30A  O  3 37
+012430961024     A            AV1            7Y 1O  5 71EDTCDE(4)
+012440961024     A            DESC1         35A  O  5 35
+012450961024     A            FLD014         7Y 1B  6  2EDTCDE(4)
+012460961024     A                                      DSPATR(CS)
+012470961024     A            FLD015         2A  O  6 11
+012480961024     A            FLD016         7Y 4O  6 15EDTCDE(4)
+012490961024     A            FLD017         6A  O  6 24
+012500961024     A            FLD018         3A  O  6 31
+012510961024     A            FLD019        35A  O  6 35
+012520961024     A            FLD020         7Y 1O  6 71EDTCDE(4)
+012530961024     A            FLD021         7Y 1B  7  2EDTCDE(4)
+012540961024     A                                      DSPATR(CS)
+012550961024     A            FLD022         2A  O  7 11
+012560961024     A            FLD023         7Y 4O  7 15EDTCDE(4)
+012570961024     A            FLD024         6A  O  7 24
+012580961024     A            FLD025         3A  O  7 31
+012590961024     A            FLD026        35A  O  7 35
+012600961024     A            FLD027         7Y 1O  7 71EDTCDE(4)
+012610961024     A            FLD028         7Y 1B  8  2EDTCDE(4)
+012620961024     A                                      DSPATR(CS)
+012630961024     A            FLD029         2A  O  8 11
+012640961024     A            FLD030         7Y 4O  8 15EDTCDE(4)
+012650961024     A            FLD031         6A  O  8 24
+012660961024     A            FLD032         3A  O  8 31
+012670961024     A            FLD033        35A  O  8 35
+012680961024     A            FLD034         7Y 1O  8 71EDTCDE(4)
+012690961024     A            FLD035         7Y 1B  9  2EDTCDE(4)
+012700961024     A                                      DSPATR(CS)
+012710961024     A            FLD036         2A  O  9 11
+012720961024     A            FLD037         7Y 4O  9 15EDTCDE(4)
+012730961024     A            FLD038         6A  O  9 24
+012740961024     A            FLD039         3A  O  9 31
+012750961024     A            FLD040        35A  O  9 35
+012760961024     A            FLD041         7Y 1O  9 71EDTCDE(4)
+012770961024     A            FLD042         7Y 1B 10  2EDTCDE(4)
+012780961024     A                                      DSPATR(CS)
+012790961024     A            FLD043         2A  O 10 11
+012800961024     A            FLD044         7Y 4O 10 15EDTCDE(4)
+012810961024     A            FLD045         6A  O 10 24
+012820961024     A            FLD046         3A  O 10 31
+012830961024     A            FLD047        35A  O 10 35
+012840961024     A            FLD048         7Y 1O 10 71EDTCDE(4)
+012850961024     A            FLD049         7Y 1B 11  2EDTCDE(4)
+012860961024     A                                      DSPATR(CS)
+012870961024     A            FLD050         2A  O 11 11
+012880961024     A            FLD051         7Y 4O 11 15EDTCDE(4)
+012890961024     A            FLD052         6A  O 11 24
+012900961024     A            FLD053         3A  O 11 31
+012910961024     A            FLD054        35A  O 11 35
+012920961024     A            FLD055         7Y 1O 11 71EDTCDE(4)
+012930961024     A            FLD056         7Y 1B 12  2EDTCDE(4)
+012940961024     A                                      DSPATR(CS)
+012950961024     A            FLD057         2A  O 12 11
+012960961024     A            FLD058         7Y 4O 12 15EDTCDE(4)
+012970961024     A            FLD059         6A  O 12 24
+012980961024     A            FLD060         3A  O 12 31
+012990961024     A            FLD061        35A  O 12 35
+013000961024     A            FLD062         7Y 1O 12 71EDTCDE(4)
+013010961024     A            FLD063         7Y 1B 13  2EDTCDE(4)
+013020961024     A                                      DSPATR(CS)
+013030961024     A            FLD064         2A  O 13 11
+013040961024     A            FLD065         7Y 4O 13 15EDTCDE(4)
+013050961024     A            FLD066         6A  O 13 24
+013060961024     A            FLD067         3A  O 13 31
+013070961024     A            FLD068        35A  O 13 35
+013080961024     A            FLD069         7Y 1O 13 71EDTCDE(4)
+013090961024     A            FLD070         7Y 1B 14  2EDTCDE(4)
+013100961024     A                                      DSPATR(CS)
+013110961024     A            FLD071         2A  O 14 11
+013120961024     A            FLD072         7Y 4O 14 15EDTCDE(4)
+013130961024     A            FLD073         6A  O 14 24
+013140961024     A            FLD074         3A  O 14 31
+013150961024     A            FLD075        35A  O 14 35
+013160961024     A            FLD076         7Y 1O 14 71EDTCDE(4)
+013170961024     A            FLD077         7Y 1B 15  2EDTCDE(4)
+013180961024     A                                      DSPATR(CS)
+013190961024     A            FLD078         2A  O 15 11
+013200961024     A            FLD079         7Y 4O 15 15EDTCDE(4)
+013210961024     A            FLD080         6A  O 15 24
+013220961024     A            FLD081         3A  O 15 31
+013230961024     A            FLD082        35A  O 15 35
+013240961024     A            FLD083         7Y 1O 15 71EDTCDE(4)
+013250961024     A            FLD084         7Y 1B 16  2EDTCDE(4)
+013260961024     A                                      DSPATR(CS)
+013270961024     A            FLD085         2A  O 16 11
+013280961024     A            FLD086         7Y 4O 16 15EDTCDE(4)
+013290961024     A            FLD087         6A  O 16 24
+013300961024     A            FLD088         3A  O 16 31
+013310961024     A            FLD089        35A  O 16 35
+013320961024     A            FLD090         7Y 1O 16 71EDTCDE(4)
+013330961024     A            FLD091         7Y 1B 17  2EDTCDE(4)
+013340961024     A                                      DSPATR(CS)
+013350961024     A            FLD092         2A  O 17 11
+013360961024     A            FLD093         7Y 4O 17 15EDTCDE(4)
+013370961024     A            FLD094         6A  O 17 24
+013380961024     A            FLD095         3A  O 17 31
+013390961024     A            FLD096        35A  O 17 35
+013400961024     A            FLD097         7Y 1O 17 71EDTCDE(4)
+013410961024     A            FLD098         7Y 1B 18  2EDTCDE(4)
+013420961024     A                                      DSPATR(CS)
+013430961024     A            FLD099         2A  O 18 11
+013440961024     A            FLD100         7Y 4O 18 15EDTCDE(4)
+013450961024     A            FLD101         6A  O 18 24
+013460961024     A            FLD102         3A  O 18 31
+013470961024     A            FLD103        35A  O 18 35
+013480961024     A            FLD104         7Y 1O 18 71EDTCDE(4)
+013490961024     A            FLD105         7Y 1B 19  2EDTCDE(4)
+013500961024     A                                      DSPATR(CS)
+013510961024     A            FLD106         2A  O 19 11
+013520961024     A            FLD107         7Y 4O 19 15EDTCDE(4)
+013530961024     A            FLD108         6A  O 19 24
+013540961024     A            FLD109         3A  O 19 31
+013550961024     A            FLD110        35A  O 19 35
+013560961024     A            FLD111         7Y 1O 19 71EDTCDE(4)
+013570961024     A            FLD112         7Y 1B 20  2EDTCDE(4)
+013580961024     A                                      DSPATR(CS)
+013590961024     A            FLD113         2A  O 20 11
+013600961024     A            FLD114         7Y 4O 20 15EDTCDE(4)
+013610961024     A            FLD115         6A  O 20 24
+013620961024     A            FLD116         3A  O 20 31
+013630961024     A            FLD117        35A  O 20 35
+013640961024     A            FLD118         7Y 1O 20 71EDTCDE(4)
+013650961024     A                                  1  2'Enter/Process  F2=New Ord  F3=Canc-
+013660961024     A                                      el  F4=Relist  F6=Add Item         -
+013670961024     A                                               '
+013680961024     A                                      DSPATR(RI)
+013690961024     A                                 21  2'                                  -
+013700961024     A                                                                         -
+013710961024     A                                               '
+013720961024     A                                      DSPATR(UL)
+013730961024     A                                 22  2'Totals==>'
+013740961008     A          R SCRNCFS
+013750961008     A*%%TS  SD  19961008  115947  EFD         REL-V3R6M0  5716-PW1
+013760961008     A                                      CF06
+013770961008     A                                  1  2'BIR100CF'
+013780961008     A                                  1 12'Ord:'
+013790961008     A            VORDER         6Y 0O  1 17EDTCDE(4)
+013800961008     A                                      DSPATR(RI)
+013810961008     A                                  1 28'Cust:'
+013820961008     A            VSCUST         6Y 0O  1 34EDTCDE(4)
+013830961008     A                                      DSPATR(UL)
+013840961008     A            CMNAME        30A  O  1 41DSPATR(UL)
+013850961008     A                                  1 73DATE
+013860961008     A                                      EDTCDE(Y)
+013870961008     A                                  2 73TIME
+013880961008     A                                  3  2'Action:'
+013890961008     A            ACTNCD         1A  B  3 10
+013900961008     A  11                                  DSPATR(RI)
+013910961008     A                                      DSPATR(CS)
+013920961008     A  10                                  DSPATR(PC)
+013930961008     A  10                                  ERRMSG('*** Invalid Action Code.   -
+013940961008     A                                                  Press Reset')
+013950961008     A            ACTDES         9A  O  3 12DSPATR(HI)
+013960961008     A                                  3 23'Line:'
+013970961008     A            LINE           3Y 0B  3 29EDTCDE(4)
+013980961008     A                                      CHECK(RB)
+013990961008     A  21                                  DSPATR(RI)
+014000961008     A                                      DSPATR(CS)
+014010961008     A  20                                  DSPATR(PC)
+014020961008     A  20N26                               ERRMSG('Invalid Line Number.       -
+014030961008     A                                                  Press Reset')
+014040961008     A  20 26                               ERRMSG('Line Already Exists inOrder-
+014050961008     A                                      .           Press Reset')
+014060961008     A                                  3 34'Type:'
+014070961008     A            LINTYP         1A  B  3 40
+014080961008     A  25                                  DSPATR(RI)
+014090961008     A                                      DSPATR(CS)
+014100961008     A  25                                  DSPATR(PC)
+014110961008     A  25                                  ERRMSG('*** Invalid Line Type.     -
+014120961008     A                                                  Press Reset')
+014130961008     A            TYPDES        14A  O  3 42DSPATR(HI)
+014140961008     A            VFSPRC         9Y 4B  6 47CHECK(RB)
+014150961008     A                                      EDTCDE(4)
+014160961008     A N41                                  DSPATR(CS)
+014170961008     A  40                                  DSPATR(RI)
+014180961008     A  40                                  DSPATR(PC)
+014190961008     A  41                                  DSPATR(PR)
+014200961008     A  40N41                               ERRMSG('***  Charge Is Required.   -
+014210961008     A                                            Press Reset')
+014220961008     A  41                                  DSPATR(ND)
+014230961008     A                                  5  7'Description'
+014240961008     A            FSDESC        30A  B  6  7DSPATR(CS)
+014250961008     A  31                                  DSPATR(RI)
+014260961008     A  30                                  DSPATR(PC)
+014270961008     A  31                                  ERRMSG('*** Description Is Required-
+014280961008     A                                      .        Press Reset')
+014290961008     A                                      CHECK(LC)
+014300961008     A                                 10  2'Line  Item      Size   Qty Ord    -
+014310961008     A                                       Description                       -
+014320961008     A                                       Ext Price'
+014330961008     A                                      DSPATR(UL)
+014340961008     A            LN01           3Y 0O 11  2EDTCDE(4)
+014350961008     A            ITM01         12A  O 11  6
+014360961008     A            SZ01           3A  O 11 19
+014370961008     A            QT01           8Y 1O 11 23EDTWRD('       . ')
+014380961008     A            DE01          38A  O 11 33
+014390961008     A            EX01           8Y 2O 11 72EDTWRD('      .  ')
+014400961008     A            LN02           3Y 0O 12  2EDTCDE(4)
+014410961008     A            ITM02         12A  O 12  6
+014420961008     A            SZ02           3A  O 12 19
+014430961008     A            QT02           8Y 1O 12 23EDTWRD('       . ')
+014440961008     A            DE02          38A  O 12 33
+014450961008     A            EX02           8Y 2O 12 72EDTWRD('      .  ')
+014460961008     A            LN03           3Y 0O 13  2EDTCDE(4)
+014470961008     A            ITM03         12A  O 13  6
+014480961008     A            SZ03           3A  O 13 19
+014490961008     A            QT03           8Y 1O 13 23EDTWRD('       . ')
+014500961008     A            DE03          38A  O 13 33
+014510961008     A            EX03           8Y 2O 13 72EDTWRD('      .  ')
+014520961008     A            LN04           3Y 0O 14  2EDTCDE(4)
+014530961008     A            ITM04         12A  O 14  6
+014540961008     A            SZ04           3A  O 14 19
+014550961008     A            QT04           8Y 1O 14 23EDTWRD('       . ')
+014560961008     A            DE04          38A  O 14 33
+014570961008     A            EX04           8Y 2O 14 72EDTWRD('      .  ')
+014580961008     A            LN05           3Y 0O 15  2EDTCDE(4)
+014590961008     A            ITM05         12A  O 15  6
+014600961008     A            SZ05           3A  O 15 19
+014610961008     A            QT05           8Y 1O 15 23EDTWRD('       . ')
+014620961008     A            DE05          38A  O 15 33
+014630961008     A            EX05           8Y 2O 15 72EDTWRD('      .  ')
+014640961008     A            LN06           3Y 0O 16  2EDTCDE(4)
+014650961008     A            ITM06         12A  O 16  6
+014660961008     A            SZ06           3A  O 16 19
+014670961008     A            QT06           8Y 1O 16 23EDTWRD('       . ')
+014680961008     A            DE06          38A  O 16 33
+014690961008     A            EX06           8Y 2O 16 72EDTWRD('      .  ')
+014700961008     A            LN07           3Y 0O 17  2EDTCDE(4)
+014710961008     A            ITM07         12A  O 17  6
+014720961008     A            SZ07           3A  O 17 19
+014730961008     A            QT07           8Y 1O 17 23EDTWRD('       . ')
+014740961008     A            DE07          38A  O 17 33
+014750961008     A            EX07           8Y 2O 17 72EDTWRD('      .  ')
+014760961008     A            LN08           3Y 0O 18  2EDTCDE(4)
+014770961008     A            ITM08         12A  O 18  6
+014780961008     A            SZ08           3A  O 18 19
+014790961008     A            QT08           8Y 1O 18 23EDTWRD('       . ')
+014800961008     A            DE08          38A  O 18 33
+014810961008     A            EX08           8Y 2O 18 72EDTWRD('      .  ')
+014820961008     A            LN09           3Y 0O 19  2EDTCDE(4)
+014830961008     A            ITM09         12A  O 19  6
+014840961008     A            SZ09           3A  O 19 19
+014850961008     A            QT09           8Y 1O 19 23EDTWRD('       . ')
+014860961008     A            DE09          38A  O 19 33
+014870961008     A            EX09           8Y 2O 19 72EDTWRD('      .  ')
+014880961008     A            LN10           3Y 0O 20  2EDTCDE(4)
+014890961008     A            ITM10         12A  O 20  6
+014900961008     A            SZ10           3A  O 20 19
+014910961008     A            QT10           8Y 1O 20 23EDTWRD('       . ')
+014920961008     A            DE10          38A  O 20 33
+014930961008     A            EX10           8Y 2O 20 72EDTWRD('      .  ')
+014940961008     A            LN11           3Y 0O 21  2EDTCDE(4)
+014950961008     A            ITM11         12A  O 21  6
+014960961008     A            SZ11           3A  O 21 19
+014970961008     A            QT11           8Y 1O 21 23EDTWRD('       . ')
+014980961008     A            DE11          38A  O 21 33
+014990961008     A            EX11           8Y 2O 21 72EDTWRD('      .  ')
+015000961008     A            LN12           3Y 0O 22  2EDTCDE(4)
+015010961008     A            ITM12         12A  O 22  6
+015020961008     A            SZ12           3A  O 22 19
+015030961008     A            QT12           8Y 1O 22 23EDTWRD('       . ')
+015040961008     A            DE12          38A  O 22 33
+015050961008     A            EX12           8Y 2O 22 72EDTWRD('      .  ')
+015060961008     A                                 23  6'Totals ====>'
+015070961008     A            TOTQTY         8Y 1O 23 23EDTCDE(3)
+015080961008     A                                 23 38'Volume Discount %:'
+015090961008     A            VOLDSC         4Y 2O 23 58EDTWRD('  .  ')
+015100961008     A            TOTDOL        10Y 2O 23 70EDTCDE(3)
+015110961008     A                                  5 49'Charge'
+015120961008     A  41                                  DSPATR(ND)
+015130961008     A                                 24 31'F6 = Restart'
+015140961008     A                                  8  7'G/L #:'
+015150961008     A  56                                  DSPATR(ND)
+015160961008     A            GLNO1          4Y 0B  8 14
+015170961008     A N56 58                               DSPATR(RI)
+015180961008     A N56                                  DSPATR(CS)
+015190961008     A N56 58                               DSPATR(PC)
+015200961008     A  56                                  DSPATR(PR)
+015210961008     A                                      CHECK(RZ)
+015220961008     A                                      EDTCDE(4)
+015230961008     A  58                                  ERRMSG('Invalid General Ledger Numb-
+015240961008     A                                      er Entered. Press RESET')
+015250961008     A  56                                  DSPATR(ND)
+015260961008     A                                  8 19'-'
+015270961008     A  56                                  DSPATR(ND)
+015280961008     A            GLNO2          4Y 0B  8 21
+015290961008     A N56 58                               DSPATR(RI)
+015300961008     A N56                                  DSPATR(CS)
+015310961008     A N56 58                               DSPATR(PC)
+015320961008     A  56                                  DSPATR(PR)
+015330961008     A                                      CHECK(RZ)
+015340961008     A                                      EDTCDE(4)
+015350961008     A  58                                  ERRMSG('Invalid General Ledger Numb-
+015360961008     A                                      er Entered. Press RESET')
+015370961008     A  56                                  DSPATR(ND)
+015380961008     A            GCDESC        30A  O  8 27
+015390961008     A  56                                  DSPATR(ND)
+015400960314     A* OVERRIDE ORDER OPTIONS SCREEN
+015410961020     A          R SCRNCD
+015420961020     A*%%TS  SD  19961020  124312  EFD         REL-V3R1M0  5763-PW1
+015430961020     A                                      CF06
+015440961020     A                                  1  2'BIR100CD'
+015450961020     A                                  1 12'Order:'
+015460961020     A            VORDER         6Y 0O  1 19EDTCDE(4)
+015470961020     A                                  1 27'Cust:'
+015480961020     A            VSCUST         6Y 0O  1 33EDTCDE(4)
+015490961020     A            CMNAME        30A  O  1 40
+015500961020     A                                  1 73DATE
+015510961020     A                                      EDTCDE(Y)
+015520961020     A                                  2 73TIME
+015530961020     A                                  3  2'Action:'
+015540961020     A            ACTNCD         1A  B  3 10DSPATR(PR)
+015550961020     A            ACTDES         9A  O  3 12DSPATR(HI)
+015560961020     A                                  3 23'Line:'
+015570961020     A            LINE           3Y 0B  3 29EDTCDE(4)
+015580961020     A                                      CHECK(RB)
+015590961020     A                                      DSPATR(PR)
+015600961020     A                                  3 34'Type:'
+015610961020     A            LINTYP         1A  B  3 40DSPATR(PR)
+015620961020     A            TYPDES        14A  O  3 42DSPATR(HI)
+015630961020     A                                  5  2'Item?        Size  Loc   Quantity -
+015640961020     A                                       SP   Unit Price  Dsc %  Req Date  -
+015650961020     A                                      Ext Price'
+015660961020     A                                      DSPATR(HI)
+015670961020     A            VITEM         12A  B  6  2DSPATR(PR)
+015680961020     A            VSIZE          3A  B  6 16DSPATR(PR)
+015690961020     A            VWHS           3A  B  6 21DSPATR(PR)
+015700961020     A            QTYORD         8Y 1B  6 26CHECK(RB)
+015710961020     A                                      EDTCDE(4)
+015720961020     A                                      DSPATR(PR)
+015730961020     A            VOVER          1A  B  6 38DSPATR(PR)
+015740961020     A            VUPRIC         9Y 2B  6 42CHECK(RB)
+015750961020     A                                      EDTCDE(4)
+015760961020     A                                      DSPATR(PR)
+015770961020     A            VDISC          4Y 2B  6 54EDTWRD('  .  ')
+015780961020     A                                      DSPATR(PR)
+015790961020     A            VREQDT         6Y 0B  6 61CHECK(RB)
+015800961020     A                                      EDTCDE(Y)
+015810961020     A                                      DSPATR(PR)
+015820961020     A            VEXT           9Y 2B  6 71CHECK(RB)
+015830961020     A                                      EDTCDE(4)
+015840961020     A                                      DSPATR(PR)
+015850961020     A                                  7  2'Description'
+015860961020     A                                  7 54'UM'
+015870961020     A                                  7 59'Tags'
+015880961020     A                                  7 70'Available'
+015890961020     A            VDESC         50A  B  8  2DSPATR(PR)
+015900961020     A            VUOM           2A  B  8 54DSPATR(PR)
+015910961020     A            VTAGS          7Y 0B  8 58CHECK(RB)
+015920961020     A                                      EDTCDE(4)
+015930961020     A                                      DSPATR(PR)
+015940961020     A            VAVAIL         8Y 1O  8 70DSPATR(RI)
+015950961020     A                                      EDTCDE(L)
+015960961020     A                                      COLOR(WHT)
+015970961020     A                                 23  2'  Enter to Return to Previous Scre-
+015980961020     A                                      en      F6=Return No Change        -
+015990961020     A                                               '
+016000961020     A                                      DSPATR(UL)
+016010961020     A                                  4 52' FORCED '
+016020961020     A  76                                  DSPATR(RI)
+016030961020     A N76                                  DSPATR(ND)
+016040961020     A                                  7 20'Include in Prompt Pay Discount'
+016050961020     A  74                                  DSPATR(HI)
+016060961020     A N74                                  DSPATR(ND)
+016070961020     A                                 22  2'                                  -
+016080961020     A                                                                         -
+016090961020     A                                               '
+016100961020     A                                      DSPATR(UL)
+016110961020     A                                 12 11'Line Item Quantity Discount'
+016120961020     A                                 14 11'Line Item to Qualify For Terms Dis-
+016130961020     A                                      count'
+016140961020     A                                 16 11'Volume Discount for Entire Order'
+016150961020     A                                 19 29'Y or N'
+016160961020     A                                      DSPATR(UL)
+016170961020     A                                 11 66'New Disc %'
+016180961020     A                                      DSPATR(UL)
+016190961020     A                                 10  2'      * * * * *  Override Normal C-
+016200961020     A                                      alculated Discount Percents * * * *-
+016210961020     A                                       *       '
+016220961020     A                                      DSPATR(UL)
+016230961020     A            VIQD           1A  B 12 59DSPATR(HI)
+016240961020     A  10                                  DSPATR(RI)
+016250961020     A                                      DSPATR(CS)
+016260961020     A  10                                  DSPATR(PC)
+016270961020     A  10N11N12                            ERRMSG('*** Valid Entries Are Y or -
+016280961020     A                                      N.       Press Reset')
+016290961020     A  10 11                               ERRMSG('*** If Yes You MUST Enter a-
+016300961020     A                                       Percent.   Press Reset')
+016310961020     A  10 12                               ERRMSG('*** If No You Cannot Enter -
+016320961020     A                                      a Percent.  Press Reset')
+016330961020     A            VQPPD          1A  B 14 59DSPATR(HI)
+016340961020     A  20                                  DSPATR(RI)
+016350961020     A                                      DSPATR(CS)
+016360961020     A  20                                  DSPATR(PC)
+016370961020     A  20                                  ERRMSG('*** Valid Entries Are Y or -
+016380961020     A                                      N.        Press Reset')
+016390961020     A            VVD            1A  B 16 59DSPATR(HI)
+016400961020     A  30                                  DSPATR(RI)
+016410961020     A                                      DSPATR(CS)
+016420961020     A  30                                  DSPATR(PC)
+016430961020     A  30N31N32                            ERRMSG('*** Valid Responses are Y o-
+016440961020     A                                      r N.    Press Reset')
+016450961020     A  30 31                               ERRMSG('*** If Yes You Must Enter a-
+016460961020     A                                       Percent.   Press Reset')
+016470961020     A  30 32                               ERRMSG('*** If No You Cannot Enter -
+016480961020     A                                      a Percent.  Press Reset')
+016490961020     A            VIQP           4Y 2B 12 68EDTCDE(1)
+016500961020     A                                      DSPATR(HI)
+016510961020     A  10                                  DSPATR(RI)
+016520961020     A                                      DSPATR(CS)
+016530961020     A  12                                  ERRMSG('*** Discount % is Required.-
+016540961020     A                                           Press Reset')
+016550961020     A  13                                  ERRMSG('*** No Discount is Allowed.-
+016560961020     A                                           Press Reset')
+016570961020     A                                      CHECK(RB)
+016580961020     A            VVP            4Y 2B 16 68EDTCDE(1)
+016590961020     A                                      DSPATR(HI)
+016600961020     A  30                                  DSPATR(RI)
+016610961020     A                                      DSPATR(CS)
+016620961020     A                                      CHECK(RB)
+016630961020     A                                 11  4'Force:'
+016640961020     A                                      DSPATR(RI)
+016650961020     A                                 18  2'      * * * * * * * Override Tag O-
+016660961020     A                                      rdering Parameters * * * * * * * * -
+016670961020     A                                               '
+016680961020     A                                      DSPATR(UL)
+016690961020     A                                 20 11'Create Tag Order?'
+016700961020     A            LABYN          1A  B 20 31DSPATR(HI)
+016710961020     A                                      DSPATR(CS)
+016720961020     A                                      VALUES('Y' 'N')
+016730961020     A                                 11 56'Y or N'
+016740961020     A                                      DSPATR(UL)
+016750961020     A                                 20 35'If Yes, Order in Bundles of 100?'
+016760961020     A            LABHUN         1A  B 20 69DSPATR(HI)
+016770961020     A                                      DSPATR(CS)
+016780961020     A                                      VALUES('Y' 'N')
+016790961020     A                                 19 67'Y or N'
+016800961020     A                                      DSPATR(UL)
+016810980212     A          R ORDSFL                    SFL
+016820980212     A*%%TS  SD  19980212  180828  EFD         REL-V3R6M0  5716-PW1
+016830980212     A            SEQ            3Y 0O 13  2EDTCDE(4)
+016840980212     A            ITEM          12A  O 13  6
+016850980212     A            SIZE           3A  O 13 19
+016860980212     A            ORDQTY         8Y 1O 13 23EDTWRD('       . ')
+016870980212     A            DESC          36A  O 13 33
+016880980212     A            EXTPRC         9Y 2O 13 70EDTCDE(M)
+016890990324     A          R ORDCTL                    SFLCTL(ORDSFL)
+016900990324     A*%%TS  SD  19990324  152239  EFD         REL-V3R7M0  5716-PW1
+016910990324     A                                      SFLSIZ(0999)
+016920990324     A                                      SFLPAG(0011)
+016930990324     A                                      CF02
+016940990324     A                                      CF05
+016950990324     A                                      CF08
+016960990324     A                                      CF01
+016970990324     A                                      CF12
+016980990324     A                                      CF11
+016990990324     A                                      CF23
+017000990324     A  89                                  ALARM
+017010990324     A N80N81                               SFLDSP
+017020990324     A N80N81                               SFLDSPCTL
+017030990324     A  80                                  SFLCLR
+017040990324     A                                  1  3'Enter   F11=Order List F12=Prev Sc-
+017050990324     A                                      r F2=New Ord  F23=Canc. F5=Inq   F8-
+017060990324     A                                      =Organize'
+017070990324     A                                      DSPATR(RI)
+017080990324     A                                  2  2'ORDSFL'
+017090990324     A                                  2 73DATE
+017100990324     A                                      EDTCDE(Y)
+017110990324     A                                  3  3'Order:'
+017120990324     A            VORDER         6Y 0O  3 10EDTCDE(4)
+017130990324     A                                  3 20'Ship To:'
+017140990324     A            VSCUST         6Y 0O  3 29EDTCDE(4)
+017150990324     A            CMNAME        30A  O  3 36
+017160990324     A                                  3 73TIME
+017170990324     A                                  4  2'Action?'
+017180990324     A            ACTNCD         1A  B  4 10
+017190990324     A  11                                  DSPATR(RI)
+017200990324     A                                      DSPATR(CS)
+017210990324     A  10                                  DSPATR(PC)
+017220990324     A  10                                  ERRMSG('*** Invalid Action Code.   -
+017230990324     A                                                  Press Reset')
+017240990324     A            ACTDES         9A  O  4 12DSPATR(HI)
+017250990324     A                                  4 23'Line:'
+017260990324     A            LINE           3Y 0B  4 29EDTCDE(4)
+017270990324     A                                      CHECK(RB)
+017280990324     A  21                                  DSPATR(RI)
+017290990324     A                                      DSPATR(CS)
+017300990324     A  20                                  DSPATR(PC)
+017310990324     A  20N26                               ERRMSG('Invalid Line Number.       -
+017320990324     A                                                  Press Reset')
+017330990324     A  20 26                               ERRMSG('Line Number Already exists.-
+017340990324     A                                                  Press Reset')
+017350990324     A                                  4 34'Type?'
+017360990324     A            LINTYP         1A  B  4 40
+017370990324     A  25                                  DSPATR(RI)
+017380990324     A                                      DSPATR(CS)
+017390990324     A  25                                  DSPATR(PC)
+017400990324     A  25                                  ERRMSG('*** Invalid Line Type.     -
+017410990324     A                                                  Press Reset')
+017420990324     A            TYPDES        14A  O  4 42DSPATR(HI)
+017430990324     A                                  6  2'Item?        Size  Loc   Quantity -
+017440990324     A                                       SP   Unit Price  Dsc %  Req Date  -
+017450990324     A                                       Ext Price'
+017460990324     A                                      DSPATR(HI)
+017470990324     A            VITEM         12A  B  7  2
+017480990324     A N35                                  DSPATR(CS)
+017490990324     A  31N35                               DSPATR(RI)
+017500990324     A  30N35                               DSPATR(PC)
+017510990324     A  35                                  DSPATR(PR)
+017520990324     A  31                                  ERRMSG('*** Item/Size/Location Is N-
+017530990324     A                                      ot In Item Master File.    Press Re-
+017540990324     A                                      set')
+017550990324     A            VSIZE          3A  B  7 16
+017560990324     A N35                                  DSPATR(CS)
+017570990324     A  31N35                               DSPATR(RI)
+017580990324     A  35                                  DSPATR(PR)
+017590990324     A            VWHS           3A  B  7 21
+017600990324     A N35                                  DSPATR(CS)
+017610990324     A  31N35                               DSPATR(RI)
+017620990324     A  36                                  ERRMSG('*** Location Not Allowed Wi-
+017630990324     A                                      th C-F-S Line Types.      Press Res-
+017640990324     A                                      et')
+017650990324     A                                      DSPATR(PR)
+017660990324     A            QTYORD         8Y 1B  7 26CHECK(RB)
+017670990324     A                                      EDTCDE(4)
+017680990324     A                                      DSPATR(CS)
+017690990324     A  41                                  DSPATR(RI)
+017700990324     A  40                                  DSPATR(PC)
+017710990324     A  42                                  ERRMSG('*** Quantity Cannot Be Blan-
+017720990324     A                                      k.      Press Reset')
+017730990324     A  43                                  ERRMSG('*** Quantity Not Allowed On-
+017740990324     A                                       C-F-S Line Types.   Press Reset')
+017750990324     A            VOVER          1A  B  7 38DSPATR(CS)
+017760990324     A  45                                  DSPATR(RI)
+017770990324     A  45                                  ERRMSG('*** Valid Entries are Y,N,1-
+017780990324     A                                      ,2,3,4 or 5.   Press Reset')
+017790990324     A  45                                  DSPATR(PC)
+017800990324     A            VUPRIC         9Y 2B  7 42CHECK(RB)
+017810990324     A                                      EDTCDE(4)
+017820990324     A                                      DSPATR(CS)
+017830990324     A  08                                  DSPATR(RI)
+017840990324     A  08                                  DSPATR(BL)
+017850990324     A  08                                  DSPATR(PC)
+017860990324     A  08                                  ERRMSG('*** WARNING *** Unit Price -
+017870990324     A                                      Is ZERO.  Press Reset')
+017880990324     A            VDISC          4Y 2B  7 54EDTWRD('  .  ')
+017890990324     A                                      DSPATR(CS)
+017900990324     A            VREQDT         6Y 0B  7 61CHECK(RB)
+017910990324     A                                      EDTCDE(Y)
+017920990324     A                                      DSPATR(CS)
+017930990324     A  24                                  DSPATR(RI)
+017940990324     A  24                                  DSPATR(PC)
+017950990324     A  24                                  ERRMSG('Invalid Requested Date Ente-
+017960990324     A                                      red.        Press Reset')
+017970990324     A            VEXT           9Y 2B  7 71CHECK(RB)
+017980990324     A                                      EDTCDE(4)
+017990990324     A                                      DSPATR(CS)
+018000990324     A                                      DSPATR(PR)
+018010990324     A                                  8  8'Description'
+018020990324     A                                  8 29'Included Terms Discount'
+018030990324     A  74N74                               DSPATR(RI)
+018040990324     A N74
+018050990324     AO 74                                  DSPATR(ND)
+018060990324     A                                  8 54'UM'
+018070990324     A                                  8 59'Tags'
+018080990324     A                                  8 71'Available'
+018090990324     A            VDESC         50A  B  9  2DSPATR(PR)
+018100990324     A            VUOM           2A  B  9 54DSPATR(CS)
+018110990324     A                                      DSPATR(PR)
+018120990324     A            VTAGS          7Y 0B  9 58CHECK(RB)
+018130990324     A                                      EDTCDE(4)
+018140990324     A                                      DSPATR(CS)
+018150990324     A N01                                  DSPATR(PR)
+018160990324     A            VAVAIL         8Y 1O  9 71DSPATR(RI)
+018170990324     A                                      EDTCDE(L)
+018180990324     A                                      COLOR(WHT)
+018190990324     A  89                                  DSPATR(BL)
+018200990324     A                                 11 10'Total Qty:'
+018210990324     A            TOTQTY         8Y 1O 11 21EDTWRD(' ,   ,   . ')
+018220990324     A                                      DSPATR(UL)
+018230990324     A                                 11 34'Forced'
+018240990324     A  77                                  DSPATR(RI)
+018250990324     A N77                                  DSPATR(ND)
+018260990324     A                                 11 41'Volume Discount:'
+018270990324     A            VOLDSC         4Y 2O 11 58EDTWRD('  .  ')
+018280990324     A            TOTDOL        10Y 2O 11 67EDTWRD('  ,   ,   .  ')
+018290990324     A                                      DSPATR(UL)
+018300990324     A                                 12  2'Line  Item      Size   Qty Ord    -
+018310990324     A                                       Description                       -
+018320990324     A                                       Ext Price'
+018330990324     A                                      DSPATR(UL)
+018340990324     A                                 10  3'Addl Description for Item - Press -
+018350990324     A                                      F1'
+018360990324     A  07                                  DSPATR(HI)
+018370990324     A N07                                  DSPATR(ND)
+018380990324     A                                 10 45' Press F23 to Confirm Cancel '
+018390990324     A  54                                  DSPATR(RI)
+018400990324     A N54                                  DSPATR(ND)
+018410990324     A            PAGE#          4S 0B  4 76SFLRCDNBR(*TOP)
+018420990324     A                                      DSPATR(ND)
+018430990324     A                                      DSPATR(PR)
+018440990324     A                                  2 10' There are no line items on this o-
+018450990324     A                                      rder press F23 to Delete '
+018460990324     A  57                                  DSPATR(RI)
+018470990324     A N57                                  DSPATR(ND)
+018480990324     A                                  5  3'Sale:'
+018490990324     A  85                                  DSPATR(RI)
+018500990324     A N85                                  DSPATR(ND)
+018510990324     A            TYDESC        30A  O  5  9
+018520990324     A  85                                  DSPATR(RI)
+018530990324     A N85                                  DSPATR(ND)
+018540990324     A                                  5 42' DPC Customer '
+018550990324     A  49                                  DSPATR(RI)
+018560990324     A N49                                  DSPATR(ND)
+018570990324     A  49                                  DSPATR(BL)
+018580990324     A                                  5 57' 3 for 1 Points '
+018590990324     A  48                                  DSPATR(RI)
+018600990324     A N48                                  DSPATR(ND)
+018610990324     A  48                                  DSPATR(BL)
+018620961020     A          R SCRNCE
+018630961020     A*%%TS  SD  19961020  124312  EFD         REL-V3R1M0  5763-PW1
+018640961020     A                                      CF11
+018650961020     A                                  1  2'BIR100CE'
+018660961020     A                                  1 12'Order:'
+018670961020     A            VORDER         6Y 0O  1 19EDTCDE(4)
+018680961020     A                                  1 27'Cust:'
+018690961020     A            VSCUST         6Y 0O  1 33EDTCDE(4)
+018700961020     A            CMNAME        30A  O  1 40
+018710961020     A                                  1 73DATE
+018720961020     A                                      EDTCDE(Y)
+018730961020     A                                  2 73TIME
+018740961020     A                                  3  2'Action:'
+018750961020     A            ACTNCD         1A  B  3 10DSPATR(PR)
+018760961020     A            ACTDES         9A  O  3 12DSPATR(HI)
+018770961020     A                                  3 23'Line:'
+018780961020     A            LINE           3Y 0B  3 29EDTCDE(4)
+018790961020     A                                      CHECK(RB)
+018800961020     A                                      DSPATR(PR)
+018810961020     A                                  3 34'Type:'
+018820961020     A            LINTYP         1A  B  3 40DSPATR(PR)
+018830961020     A            TYPDES        14A  O  3 42DSPATR(HI)
+018840961020     A                                  4 52' FORCED '
+018850961020     A  76                                  DSPATR(RI)
+018860961020     A N76                                  DSPATR(ND)
+018870961020     A                                  5  2'Item         Size  Loc   Quantity -
+018880961020     A                                       SP   Unit Price  Dsc %  Req Date  -
+018890961020     A                                       Ext Price'
+018900961020     A                                      DSPATR(HI)
+018910961020     A            VITEM         12A  B  6  2DSPATR(PR)
+018920961020     A            VSIZE          3A  B  6 16DSPATR(PR)
+018930961020     A            VWHS           3A  B  6 21DSPATR(PR)
+018940961020     A            QTYORD         8Y 1B  6 26CHECK(RB)
+018950961020     A                                      EDTCDE(4)
+018960961020     A                                      DSPATR(PR)
+018970961020     A            VOVER          1A  B  6 38DSPATR(PR)
+018980961020     A            VUPRIC         9Y 2B  6 42CHECK(RB)
+018990961020     A                                      EDTCDE(4)
+019000961020     A                                      DSPATR(PR)
+019010961020     A            VDISC          4Y 2B  6 54EDTWRD('  .  ')
+019020961020     A                                      DSPATR(PR)
+019030961020     A            VREQDT         6Y 0B  6 61CHECK(RB)
+019040961020     A                                      EDTCDE(Y)
+019050961020     A                                      DSPATR(PR)
+019060961020     A            VEXT           9Y 2B  6 71CHECK(RB)
+019070961020     A                                      EDTCDE(4)
+019080961020     A                                      DSPATR(PR)
+019090961020     A                                  7  2'Description'
+019100961020     A                                  7 20'Include in Prompt Pay Discount'
+019110961020     A  74                                  DSPATR(HI)
+019120961020     A N74                                  DSPATR(ND)
+019130961020     A                                  7 54'UM'
+019140961020     A                                  7 59'Tags'
+019150961020     A                                  7 70'Available'
+019160961020     A            VDESC         50A  B  8  2DSPATR(PR)
+019170961020     A            VUOM           2A  B  8 54DSPATR(PR)
+019180961020     A            VTAGS          7Y 0B  8 58CHECK(RB)
+019190961020     A                                      EDTCDE(4)
+019200961020     A                                      DSPATR(PR)
+019210961020     A            VAVAIL         8Y 1O  8 70DSPATR(RI)
+019220961020     A                                      EDTCDE(L)
+019230961020     A                                      COLOR(WHT)
+019240961020     A                                 11  7'**********************************-
+019250961020     A                                      *********************************'
+019260961020     A                                 12  7'*'
+019270961020     A                                 12 73'*'
+019280961020     A                                 13  7'*'
+019290961020     A                                 13 10'This item not available for shippi-
+019300961020     A                                      ng until ===>'
+019310961020     A N51                                  DSPATR(ND)
+019320961020     A                                 13 73'*'
+019330961020     A                                 14  7'*'
+019340961020     A                                 15 10'Not enough available - can be sown-
+019350961020     A                                       & ready by ==>'
+019360961020     A N52                                  DSPATR(ND)
+019370961020     A            NEWRDY         6Y 0B 15 61
+019380961020     A N52                                  DSPATR(ND)
+019390961020     A                                      EDTCDE(Y)
+019400961020     A                                 14 73'*'
+019410961020     A                                 15  7'*'
+019420961020     A            AVCOMM        30A  O 16 10
+019430961020     A N51N53                               DSPATR(ND)
+019440961020     A                                 15 73'*'
+019450961020     A                                 16  7'*'
+019460961020     A                                 16 73'*'
+019470961020     A                                 17  7'*'
+019480961020     A                                 17 73'*'
+019490961020     A                                 18  7'**********************************-
+019500961020     A                                      *********************************'
+019510961020     A                                 22  2'                                  -
+019520961020     A                                                                         -
+019530961020     A                                               '
+019540961020     A                                      DSPATR(UL)
+019550961020     A                                 23  2' Enter to Return to Previous Scree-
+019560961020     A                                      n   F11-Override and accept order. -
+019570961020     A                                               '
+019580961020     A                                      DSPATR(UL)
+019590961020     A            AVDMDY         8Y 0B 13 60
+019600961020     A N51                                  DSPATR(ND)
+019610961020     A                                      EDTWRD('  /  /    ')
+019620961020     A                                 14 10'This item is only available From-'
+019630961020     A N53                                  DSPATR(ND)
+019640961020     A                                 14 50'to'
+019650961020     A N53                                  DSPATR(ND)
+019660961020     A            SESBEG         4Y 0O 14 44
+019670961020     A N53                                  DSPATR(ND)
+019680961020     A                                      EDTCDE(Y)
+019690961020     A            SESEND         4Y 0O 14 53
+019700961020     A N53                                  DSPATR(ND)
+019710961020     A                                      EDTCDE(Y)
+019720961020     A          R SCRNCI
+019730961020     A*%%TS  SD  19961020  124312  EFD         REL-V3R1M0  5763-PW1
+019740961020     A                                  1  2'BIR100CI'
+019750961020     A                                  1 12'Order:'
+019760961020     A            VORDER         6Y 0O  1 19EDTCDE(4)
+019770961020     A                                  1 27'Cust:'
+019780961020     A            VSCUST         6Y 0O  1 33EDTCDE(4)
+019790961020     A            CMNAME        30A  O  1 40
+019800961020     A                                  1 73DATE
+019810961020     A                                      EDTCDE(Y)
+019820961020     A                                  2 73TIME
+019830961020     A                                  3  2'Action:'
+019840961020     A            ACTNCD         1A  B  3 10DSPATR(PR)
+019850961020     A            ACTDES         9A  O  3 12DSPATR(HI)
+019860961020     A                                  3 23'Line:'
+019870961020     A            LINE           3Y 0B  3 29EDTCDE(4)
+019880961020     A                                      CHECK(RB)
+019890961020     A                                      DSPATR(PR)
+019900961020     A                                  3 34'Type:'
+019910961020     A            LINTYP         1A  B  3 40DSPATR(PR)
+019920961020     A            TYPDES        14A  O  3 42DSPATR(HI)
+019930961020     A                                  4 52' FORCED '
+019940961020     A  76                                  DSPATR(RI)
+019950961020     A N76                                  DSPATR(ND)
+019960961020     A                                  5  2'Item         Size  Loc   Quantity -
+019970961020     A                                       SP   Unit Price  Dsc %  Req Date  -
+019980961020     A                                       Ext Price'
+019990961020     A                                      DSPATR(HI)
+020000961020     A            VITEM         12A  B  6  2DSPATR(PR)
+020010961020     A            VSIZE          3A  B  6 16DSPATR(PR)
+020020961020     A            VWHS           3A  B  6 21DSPATR(PR)
+020030961020     A            QTYORD         8Y 1B  6 26CHECK(RB)
+020040961020     A                                      EDTCDE(4)
+020050961020     A                                      DSPATR(PR)
+020060961020     A            VOVER          1A  B  6 38DSPATR(PR)
+020070961020     A            VUPRIC         9Y 2B  6 42CHECK(RB)
+020080961020     A                                      EDTCDE(4)
+020090961020     A                                      DSPATR(PR)
+020100961020     A            VDISC          4Y 2B  6 54EDTWRD('  .  ')
+020110961020     A                                      DSPATR(PR)
+020120961020     A            VREQDT         6Y 0B  6 61CHECK(RB)
+020130961020     A                                      EDTCDE(Y)
+020140961020     A                                      DSPATR(PR)
+020150961020     A            VEXT           9Y 2B  6 71CHECK(RB)
+020160961020     A                                      EDTCDE(4)
+020170961020     A                                      DSPATR(PR)
+020180961020     A                                  7  2'Description'
+020190961020     A                                  7 20'Include in Prompt Pay Discount'
+020200961020     A  74                                  DSPATR(HI)
+020210961020     A N74                                  DSPATR(ND)
+020220961020     A                                  7 54'UM'
+020230961020     A                                  7 59'Tags'
+020240961020     A                                  7 70'Available'
+020250961020     A            VDESC         50A  B  8  2DSPATR(PR)
+020260961020     A            VUOM           2A  B  8 54DSPATR(PR)
+020270961020     A            VTAGS          7Y 0B  8 58CHECK(RB)
+020280961020     A                                      EDTCDE(4)
+020290961020     A                                      DSPATR(PR)
+020300961020     A            VAVAIL         8Y 1O  8 70DSPATR(RI)
+020310961020     A                                      EDTCDE(L)
+020320961020     A                                      COLOR(WHT)
+020330961020     A                                 22  2'                                  -
+020340961020     A                                                                         -
+020350961020     A                                               '
+020360961020     A                                      DSPATR(UL)
+020370961020     A                                 23  2' Enter to Return to Previous Scree-
+020380961020     A                                      n                                  -
+020390961020     A                                               '
+020400961020     A                                      DSPATR(UL)
+020410961020     A            IADES1        50A  O 12 16
+020420961020     A            IADES2        50A  O 13 16
+020430961020     A            IADES3        50A  O 14 16
+020440961020     A            IADES4        50A  O 15 16
+020450961020     A            IADES5        50A  O 16 16
+020460961020     A                                 10 33'Long Description'
+020470961020     A                                      DSPATR(UL)
+020480990525     A          R SCRNI
+020490990525     A*%%TS  SD  19990525  185346  EFD         REL-V3R7M0  5716-PW1
+020500990525     A                                  1  2'BIR100I '
+020510990525     A                                  1 12'Order:'
+020520990525     A            VORDER         6Y 0O  1 19EDTCDE(4)
+020530990525     A                                  1 27'Cust:'
+020540990525     A            VSCUST         6Y 0O  1 33EDTCDE(4)
+020550990525     A            CMNAME        30A  O  1 40
+020560990525     A                                  1 73DATE
+020570990525     A                                      EDTCDE(Y)
+020580990525     A                                  2 73TIME
+020590990525     A                                  3  2'Action:'
+020600990525     A            ACTNCD         1A  B  3 10DSPATR(PR)
+020610990525     A            ACTDES         9A  O  3 12DSPATR(HI)
+020620990525     A                                  3 23'Line:'
+020630990525     A            LINE           3Y 0B  3 29EDTCDE(4)
+020640990525     A                                      CHECK(RB)
+020650990525     A                                      DSPATR(PR)
+020660990525     A                                  3 34'Type:'
+020670990525     A            LINTYP         1A  B  3 40DSPATR(PR)
+020680990525     A            TYPDES        14A  O  3 42DSPATR(HI)
+020690990525     A                                  4 52' FORCED '
+020700990525     A  76                                  DSPATR(RI)
+020710990525     A N76                                  DSPATR(ND)
+020720990525     A                                  5  2'Item         Size  Loc   Quantity -
+020730990525     A                                       SP   Unit Price  Dsc %  Req Date  -
+020740990525     A                                       Ext Price'
+020750990525     A                                      DSPATR(HI)
+020760990525     A            VITEM         12A  B  6  2DSPATR(PR)
+020770990525     A            VSIZE          3A  B  6 16DSPATR(PR)
+020780990525     A            VWHS           3A  B  6 21DSPATR(PR)
+020790990525     A            QTYORD         8Y 1B  6 26CHECK(RB)
+020800990525     A                                      EDTCDE(4)
+020810990525     A                                      DSPATR(PR)
+020820990525     A            VOVER          1A  B  6 38DSPATR(PR)
+020830990525     A            VUPRIC         9Y 2B  6 42CHECK(RB)
+020840990525     A                                      EDTCDE(4)
+020850990525     A                                      DSPATR(PR)
+020860990525     A            VDISC          4Y 2B  6 54EDTWRD('  .  ')
+020870990525     A                                      DSPATR(PR)
+020880990525     A            VREQDT         6Y 0B  6 61CHECK(RB)
+020890990525     A                                      EDTCDE(Y)
+020900990525     A                                      DSPATR(PR)
+020910990525     A            VEXT           9Y 2B  6 71CHECK(RB)
+020920990525     A                                      EDTCDE(4)
+020930990525     A                                      DSPATR(PR)
+020940990525     A                                  7  2'Description'
+020950990525     A                                  7 20'Include in Prompt Pay Discount'
+020960990525     A  74                                  DSPATR(HI)
+020970990525     A N74                                  DSPATR(ND)
+020980990525     A                                  7 54'UM'
+020990990525     A                                  7 59'Tags'
+021000990525     A                                  7 70'Available'
+021010990525     A            VDESC         50A  B  8  2DSPATR(PR)
+021020990525     A            VUOM           2A  B  8 54DSPATR(PR)
+021030990525     A            VTAGS          7Y 0B  8 58CHECK(RB)
+021040990525     A                                      EDTCDE(4)
+021050990525     A                                      DSPATR(PR)
+021060990525     A            VAVAIL         8Y 1O  8 70DSPATR(RI)
+021070990525     A                                      EDTCDE(L)
+021080990525     A                                      COLOR(WHT)
+021090990525     A                                 10 36'Inquiries'
+021100990525     A                                      DSPATR(UL)
+021110990525     A                                 11 25'1. - Accounts Receivable Status'
+021120990525     A                                 12 25'2. - Item Balance Locator'
+021130990525     A                                 13 25'3. - Shipped Order History by Cust-
+021140990525     A                                      omer'
+021150990525     A                                 14 25'4. - Shipped Order History by Item'
+021160990525     A                                 15 25'5. - Open Orders by Customer'
+021170990525     A                                 16 25'6. - Open Orders by Item'
+021180990525     A                                 19 25'Enter Option ===>'
+021190990525     A            OPTION         1Y 0B 19 45DSPATR(CS)
+021200990525     A                                      EDTCDE(4)
+021210990525     A  10                                  DSPATR(RI)
+021220990525     A  10                                  DSPATR(PC)
+021230990525     A  10                                  ERRMSG('*** Valid Options are 1 thr-
+021240990525     A                                      ough 6.   Press Reset')
+021250990525     A                                 22  2'                                  -
+021260990525     A                                                                         -
+021270990525     A                                               '
+021280990525     A                                      DSPATR(UL)
+021290990525     A                                 23  2' Enter to Return to Previous Scree-
+021300990525     A                                      n                                  -
+021310990525     A                                               '
+021320990525     A                                      DSPATR(UL)
+021330990525     A                                 17 25'7. - Customer Information'
+021340960328     A          R LSTSFL                    SFL
+021350960328     A*%%TS  SD  19960328  095157  EFD         REL-V3R1M0  5763-PW1
+021360960328     A            LSTQTY         6Y 0B  7  2EDTCDE(4)
+021370960328     A            EXTDES         1A  B  7 33
+021380960328     A  07                                  DSPATR(RI)
+021390960328     A N07                                  DSPATR(PC)
+021400960328     A            LSTDES        45A  O  7 35
+021410960328     A            VAVAIL         8Y 1O  8 43EDTWRD('       . -')
+021420960328     A            VTAGS          7Y 0B  8 22EDTCDE(4)
+021430960328     A            LSTPRC         5Y 2O  7  9EDTWRD('   .  ')
+021440960328     A            VITEM         12A  O  7 16
+021450960328     A            VSIZE          3A  O  7 29
+021460960328     A                                  8 16'Tags:'
+021470960328     A                                  8 32'Available:'
+021480960328     A            SEQ#           3Y 0O  8  2DSPATR(ND)
+021490960328     A                                      EDTCDE(4)
+021500960328     A                                  8 54'Not Avail. Until:'
+021510960328     A            NXTAVA         6Y 0O  8 72DSPATR(RI)
+021520960328     A                                      EDTCDE(Y)
+021530960314     A          R LSTCTL                    SFLCTL(LSTSFL)
+021540960314     A*%%TS  SD  19960314  164129  EFD         REL-V3R1M0  5763-PW1
+021550960314     A                                      SFLDSP
+021560960314     A                                      SFLSIZ(0100)
+021570960314     A                                      SFLPAG(0008)
+021580960314     A                                  1  3' Enter/Process   F2=New Order   F4-
+021590960314     A                                      =Cancel Order   F5=Inquiry   F8=O/R-
+021600960314     A                                       Discount'
+021610960314     A                                      DSPATR(RI)
+021620960314     A                                  2  3'LSTSFL'
+021630960314     A                                  2 73DATE
+021640960314     A                                      EDTCDE(Y)
+021650960314     A                                  3 73TIME
+021660960314     A                                  3  3'Order:'
+021670960314     A            VORDER         6  0O  3 10
+021680960314     A                                  3 18'Ship To:'
+021690960314     A            VSCUST         6  0O  3 27
+021700960314     A            CMNAME        30   O  3 34
+021710960314     A            TOTQTY         8  1O  4  2EDTWRD('       . ')
+021720960314     A                                  4 12'<-Total Qty.'
+021730960314     A                                  4 28'Volume Discount:'
+021740960314     A            VOLDSC         4  2O  4 45EDTWRD('  .  ')
+021750960314     A                                  4 53'Total Dollars:'
+021760960314     A            TOTDOL        10  2O  4 68EDTWRD('        .  ')
+021770960314     A                                  6  2'  Qty.  Price Item        Size ?(E-
+021780960314     A                                      xt.Desc)    Description            -
+021790960314     A                                               '
+021800960314     A                                      DSPATR(UL)
+021810960521     A*         R SCRNCD
+021820961020     A          R SCRNDEL
+021830961020     A*%%TS  SD  19961020  124312  EFD         REL-V3R1M0  5763-PW1
+021840961020     A                                      CF06
+021850961020     A                                  1  2'BIR100DEL'
+021860961020     A                                  1 12'Order:'
+021870961020     A            VORDER         6Y 0O  1 19EDTCDE(4)
+021880961020     A                                  1 27'Cust:'
+021890961020     A            VSCUST         6Y 0O  1 33EDTCDE(4)
+021900961020     A            CMNAME        30A  O  1 40
+021910961020     A                                  1 73DATE
+021920961020     A                                      EDTCDE(Y)
+021930961020     A                                  2 73TIME
+021940961020     A                                  3  2'Action:'
+021950961020     A                                  3 23'Line:'
+021960961020     A            LINE           3Y 0B  3 29EDTCDE(4)
+021970961020     A                                      CHECK(RB)
+021980961020     A                                      DSPATR(PR)
+021990961020     A                                  3 34'Type:'
+022000961020     A            LINTYP         1A  B  3 40DSPATR(PR)
+022010961020     A            TYPDES        14A  O  3 42DSPATR(HI)
+022020961020     A                                  7  2'Item?        Size  Loc   Quantity -
+022030961020     A                                       SP   Unit Price  Dsc %  Req Date  -
+022040961020     A                                      Ext Price'
+022050961020     A                                      DSPATR(HI)
+022060961020     A            VITEM         12A  B  8  2DSPATR(PR)
+022070961020     A            VSIZE          3A  B  8 16DSPATR(PR)
+022080961020     A            VWHS           3A  B  8 21DSPATR(PR)
+022090961020     A            QTYORD         8Y 1B  8 26CHECK(RB)
+022100961020     A                                      EDTCDE(4)
+022110961020     A                                      DSPATR(PR)
+022120961020     A            VOVER          1A  B  8 38DSPATR(PR)
+022130961020     A            VUPRIC         9Y 2B  8 42CHECK(RB)
+022140961020     A                                      EDTCDE(4)
+022150961020     A                                      DSPATR(PR)
+022160961020     A            VDISC          4Y 2B  8 54EDTWRD('  .  ')
+022170961020     A                                      DSPATR(PR)
+022180961020     A            VREQDT         6Y 0B  8 61CHECK(RB)
+022190961020     A                                      EDTCDE(Y)
+022200961020     A                                      DSPATR(PR)
+022210961020     A            VEXT           9Y 2B  8 71CHECK(RB)
+022220961020     A                                      EDTCDE(4)
+022230961020     A                                      DSPATR(PR)
+022240961020     A                                  9  2'Description'
+022250961020     A                                  9 54'UM'
+022260961020     A                                  9 59'Tags'
+022270961020     A            VDESC         50A  B 10  2DSPATR(PR)
+022280961020     A            VUOM           2A  B 10 54DSPATR(PR)
+022290961020     A            VTAGS          7Y 0B 10 58CHECK(RB)
+022300961020     A                                      EDTCDE(4)
+022310961020     A                                      DSPATR(PR)
+022320961020     A                                 14  2'  Enter to Confirm Delete         -
+022330961020     A                                              F6=Return No Delete        -
+022340961020     A                                               '
+022350961020     A N99                                  DSPATR(UL)
+022360961020     A N99                                  DSPATR(RI)
+022370961020     A  99                                  DSPATR(ND)
+022380961020     A                                  3 11'DELETE'
+022390961020     A                                      DSPATR(HI)
+022400961020     A                                      DSPATR(RI)
+022410961020     A                                 16  5' This line can NOT be deleted. The-
+022420961020     A                                      re have been shipments against it. '
+022430961020     A  99                                  DSPATR(RI)
+022440961020     A N99                                  DSPATR(ND)
+022450961020     A  99                                  DSPATR(UL)
+022460961122     A          R SCRNJPOS
+022470961122     A*%%TS  SD  19961122  103302  EFD         REL-V3R6M0  5716-PW1
+022480961122     A                                      CF06
+022490961122     A                                  1  2'BIR100J '
+022500961122     A                                  1 24' Point of Sale - Cash Application '
+022510961122     A                                  1 73DATE
+022520961122     A                                      EDTCDE(Y)
+022530961122     A                                  2 73TIME
+022540961122     A                                  3  2'Bill To Customer:'
+022550961122     A            BLCUST         6Y 0O  3 20EDTCDE(4)
+022560961122     A            CMNAME        30A  O  3 27
+022570961122     A                                  3 59'Order:'
+022580961122     A            VORDER         6Y 0O  3 66EDTCDE(4)
+022590961122     A                                  5  2'Terms:'
+022600961122     A            OHTMCD         2S 0O  5  9
+022610961122     A            OHTERM        30A  O  5 12
+022620961122     A                                  7 21'Merchandise Amount.....'
+022630961122     A            PMERCH         9Y 2O  7 47EDTCDE(1)
+022640961122     A                                  8 21'Discount Amount........'
+022650961122     A            PDISC          7Y 2O  8 50EDTCDE(J)
+022660961122     A                                  9 21'State Tax..............'
+022670961122     A            PSTAX          7Y 2O  9 50EDTCDE(1)
+022680961122     A                                 10 21'County Tax.............'
+022690961122     A            PTTAX          7Y 2O 10 50EDTCDE(1)
+022700961122     A                                 11 21'Local Tax..............'
+022710961122     A            PLTAX          7Y 2O 11 50EDTCDE(1)
+022720961122     A                                 12 21'Freight Charges........'
+022730961122     A            PFRT           7Y 2O 12 50EDTCDE(1)
+022740961122     A                                 13 21'Special Charges........'
+022750961122     A            PSPEC          7Y 2O 13 50EDTCDE(J)
+022760961122     A                                 15 21'Invoice Amount.........'
+022770961122     A            PTOTAL         9Y 2O 15 47EDTCDE(1)
+022780961122     A                                 20 21'Amount Received ======>'
+022790961122     A                                      DSPATR(ND)
+022800961122     A            PPAID          9Y 2B 20 47EDTCDE(1)
+022810961122     A                                      DSPATR(ND)
+022820961122     A                                      DSPATR(PR)
+022830961122     A                                 21 21'Check Number...........'
+022840961122     A                                      DSPATR(ND)
+022850961122     A            CKNUM         10A  B 21 49DSPATR(ND)
+022860961122     A                                      DSPATR(PR)
+022870961122     A                                 22  2'                                  -
+022880961122     A                                                                         -
+022890961122     A                                               '
+022900961122     A                                      DSPATR(UL)
+022910961122     A                                 23  2'Press Enter To Print Invoice      -
+022920961122     A                                                    F6-Return To Order En-
+022930961122     A                                      try      '
+022940961122     A                                      DSPATR(UL)
+022950961122     A                                 16 21'On Account Amount......'
+022960961122     A                                 18 21'Total Due..............'
+022970961122     A            ONACPD         3Y 0B 16 53DSPATR(CS)
+022980961122     A                                      DSPATR(PC)
+022990961122     A                                      CHECK(RB)
+023000961122     A                                      EDTCDE(4)
+023010961122     A            TOTDUE         9Y 2O 18 47EDTCDE(1)
+023020961122     A                                      DSPATR(RI)
+023030971211     A          R SCRNTAX
+023040971211     A*%%TS  SD  19971211  175747  EFD         REL-V3R6M0  5716-PW1
+023050971211     A                                      CF06
+023060971211     A                                      HELP
+023070971211     A                                      CF11
+023080971211     A                                      SLNO(01)
+023090971211     A                                      CLRL(*ALL)
+023100971211     A          H                           HLPRCD(HTDISC)
+023110971211     A                                      HLPARA(11 014 11 018)
+023120971211     A          H                           HLPRCD(HPONO)
+023130971211     A                                      HLPARA(09 030 09 044)
+023140971211     A          H                           HLPRCD(HORDTE)
+023150971211     A                                      HLPARA(09 059 09 066)
+023160971211     A          H                           HLPRCD(HPRCDE)
+023170971211     A                                      HLPARA(10 014 10 014)
+023180971211     A          H                           HLPRCD(HSHPFR)
+023190971211     A                                      HLPARA(10 047 10 049)
+023200971211     A          H                           HLPRCD(HTDISC)
+023210971211     A                                      HLPARA(06 005 06 010)
+023220971211     A          H                           HLPRCD(HSHVIA)
+023230971211     A                                      HLPARA(11 047 11 048)
+023240971211     A          H                           HLPRCD(HTERMS)
+023250971211     A                                      HLPARA(12 014 12 015)
+023260971211     A          H                           HLPRCD(HINVCD)
+023270971211     A                                      HLPARA(12 069 12 069)
+023280971211     A          H                           HLPRCD(HBO)
+023290971211     A                                      HLPARA(13 069 13 069)
+023300971211     A          H                           HLPRCD(HORDLS)
+023310971211     A                                      HLPARA(14 014 14 019)
+023320971211     A                                  1  2'SCRNTAX'
+023330971211     A            VMODE          6A  O  1 20DSPATR(UL)
+023340971211     A                                  1 33' Point of Sale '
+023350971211     A                                      DSPATR(RI)
+023360971211     A                                  1 50'Order #:'
+023370971211     A            VORDER         6Y 0O  1 60EDTCDE(Z)
+023380971211     A                                      DSPATR(HI)
+023390971211     A                                  1 73DATE
+023400971211     A                                      EDTCDE(Y)
+023410971211     A                                  2  2'Ship To:'
+023420971211     A            VSCUST         6Y 0O  2 12EDTCDE(Z)
+023430971211     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+023440971211     A                                  2 43'Bill To:'
+023450971211     A            BLCUST         6Y 0O  2 53EDTCDE(Z)
+023460971211     A                                  2 73TIME
+023470971211     A            CMNAME        30A  B  3  5CHECK(LC)
+023480971211     A                                      DSPATR(PR)
+023490971211     A            VNAM1B        30A  O  3 46
+023500971211     A            CMADD2        30A  B  4  5CHECK(LC)
+023510971211     A                                      DSPATR(PR)
+023520971211     A            VADD2B        30A  O  4 46
+023530971211     A            CMADD3        30A  B  5  5CHECK(LC)
+023540971211     A                                      DSPATR(PR)
+023550971211     A            VADD3B        30A  O  5 46
+023560971211     A            CMADD4        30A  B  6  5CHECK(LC)
+023570971211     A                                      DSPATR(PR)
+023580971211     A            VADD4B        30A  O  6 46
+023590971211     A            CMCITY        18A  B  7  5CHECK(LC)
+023600971211     A                                      DSPATR(PR)
+023610971211     A            CMSTST         2A  B  7 24DSPATR(PR)
+023620971211     A            VZIPA1         5A  B  7 27DSPATR(PR)
+023630971211     A                                  7 33'-'
+023640971211     A            VZIPA2         4A  B  7 35DSPATR(PR)
+023650971211     A            VCITYB        18A  O  7 46
+023660971211     A            VSTATB         2A  O  7 65
+023670971211     A            VZIPB1         5A  O  7 68
+023680971211     A                                  7 74'-'
+023690971211     A            VZIPB2         4A  O  7 76
+023700971211     A                                  8  2'-----------------------------------
+023710971211     A                                      ------------------------------------
+023720971211     A                                      ---------'
+023730971211     A                                 23 29'  Enter to Process '
+023740971211     A                                      DSPATR(UL)
+023750971211     A                                 12  3'                                  -
+023760971211     A                                                                         -
+023770971211     A                                              '
+023780971211     A                                      DSPATR(HI)
+023790971211     A                                      DSPATR(RI)
+023800971211     A                                 13  3'         WARNING This customer is -
+023810971211     A                                      TAXABLE do NOT Mix Taxable and     -
+023820971211     A                                              '
+023830971211     A                                      DSPATR(HI)
+023840971211     A                                      DSPATR(RI)
+023850971211     A                                 14  3'                 Non-Taxable Goods-
+023860971211     A                                       on this order.  Press Enter to    -
+023870971211     A                                              '
+023880971211     A                                      DSPATR(HI)
+023890971211     A                                      DSPATR(RI)
+023900971211     A                                 15  3'                 Continue.        -
+023910971211     A                                                                         -
+023920971211     A                                              '
+023930971211     A                                      DSPATR(HI)
+023940971211     A                                      DSPATR(RI)
+023950971211     A                                 16  3'                                  -
+023960971211     A                                                                         -
+023970971211     A                                              '
+023980971211     A                                      DSPATR(HI)
+023990971211     A                                      DSPATR(RI)
+024000971211     A                                 17  3'                                  -
+024010971211     A                                                                         -
+024020971211     A                                              '
+024030971211     A                                      DSPATR(HI)
+024040971211     A                                      DSPATR(RI)
+024050971211     A                                 18  3'                                  -
+024060971211     A                                                                         -
+024070971211     A                                              '
+024080971211     A                                      DSPATR(HI)
+024090971211     A                                      DSPATR(RI)
+024100971211     A                                 19  3'                                  -
+024110971211     A                                                                         -
+024120971211     A                                              '
+024130971211     A                                      DSPATR(HI)
+024140971211     A                                      DSPATR(RI)
+024150971211     A                                 11  3'                                  -
+024160971211     A                                                                         -
+024170971211     A                                              '
+024180971211     A                                      DSPATR(RI)
+024190971211     A                                      DSPATR(HI)

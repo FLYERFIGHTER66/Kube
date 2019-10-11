@@ -1,0 +1,38 @@
+             PGM
+
+             DCL        VAR(&RESULT) TYPE(*CHAR) LEN(80)
+             DCL        VAR(&BADCOUNT) TYPE(*DEC) LEN(5 0)
+             DCL        VAR(&BADCOUNT@) TYPE(*Char) LEN(5)
+             DCLF       FILE(FAP_TEST)
+
+ READ_IP:    RCVF
+             MONMSG     MSGID(CPF0864) EXEC(GOTO CMDLBL(END_IP))
+             CHGVAR     VAR(&RESULT) VALUE('AP Network Online 100%')
+
+  /* CHECK TO SEE IF HOST IS UP OR DOWN */
+
+             IF         COND(&AP_STATUS *EQ 'A') THEN(DO)
+             PING       RMTSYS(&AP_IP00001) MSGMODE(*QUIET +
+                          *ESCAPE) NBRPKT(1) WAITTIME(9)
+             MONMSG     MSGID(TCP3202 TCP3210) EXEC(CHGVAR +
+                          VAR(&RESULT) VALUE('Inactive'))
+             IF         COND(&RESULT *EQ 'Inactive') THEN(CHGVAR +
+                          VAR(&BADCOUNT) VALUE(&BADCOUNT + 1))
+             CHGVAR     VAR(&BADCOUNT@) VALUE(&BADCOUNT)
+             ENDDO
+             GOTO       CMDLBL(READ_IP)
+
+
+  /* PUT STATUS MESSAGES BACK THE WAY WE FOUND THEM */
+
+ END_IP:     IF         COND(&BADCOUNT *NE 0) THEN(CHGVAR +
+                          VAR(&RESULT) VALUE(&BADCOUNT@ *BCAT 'bad +
+                          access points found'))
+             SNDMSG     MSG('The Access Point Network was tested: ' +
+                          *CAT &RESULT) TOMSGQ(*SYSOPR)
+  /* REPORT RESULTS */
+      SNDPGMMSG MSGID(CPF9897) MSGF(QCPFMSG) +
+           MSGDTA(&RESULT) MSGTYPE(*COMP)
+      RETURN
+
+  ENDPGM

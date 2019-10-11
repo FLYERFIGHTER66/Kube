@@ -1,0 +1,209 @@
+     A*%%TS  SD  20000322  144201  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A          R SCRNA1
+     A*%%TS  SD  20000322  113737  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'TRANSA1'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Greenhouse Transfer Entry '
+     A                                      DSPATR(RI)
+     A                                  5 26'Invoice Number:'
+     A            TRAN#          6Y 0B  5 43
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20 21                               ERRMSG('*** Selected Invoice has be-
+     A                                      en posted you cannot Change/Delete.-
+     A                                          Press RESET')
+     A  20 22                               ERRMSG('*** Selected Invoice does n-
+     A                                      ot exist you cannot Change/Delete. -
+     A                                          Press RESET')
+     A  20 23                               ERRMSG('*** Selected Invoice alread-
+     A                                      y Exists you cannot Add.           -
+     A                                      Press RESET')
+     A  20 24                               ERRMSG('*** On a Change/Delete you -
+     A                                      must enter an invoice number.      -
+     A                                      Press RESET')
+     A  20 25                               ERRMSG('*** From the Greenhouse you-
+     A                                       must enter an invoice number.    P-
+     A                                      ress RESET')
+     A                                 24  2' Enter to Process               F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  3'Action (A,C,D):'
+     A                                  6  3' A=Add    '
+     A                                      DSPATR(RI)
+     A                                  7  3' C=Change '
+     A                                      DSPATR(RI)
+     A                                  8  3' D=Delete '
+     A                                      DSPATR(RI)
+     A            ACTION         1A  B  5 19
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Action Entered.-
+     A                                       Must be A, C, or D.   Press RESET')
+     A                                  5 52'NOTE: On an ADD in the'
+     A                                  6 52'Branches an invoice number'
+     A                                  7 52'will be assigned.'
+     A                                 12  4' Requested Transfer is not from yo-
+     A                                      ur department. Press Enter to Resta-
+     A                                      rt. '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A          R SCRNA
+     A*%%TS  SD  20000321  205433  EFD         REL-V3R7M0  5716-PW1
+     A  77                                  CF23
+     A                                  1  2'TRANSA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Greenhouse Transfer Entry '
+     A                                      DSPATR(RI)
+     A                                  6 16'From Location?'
+     A            FRMWHS         3A  B  6 33
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid From Location E-
+     A                                      ntered.     Press RESET')
+     A  11                                  ERRMSG('*** From Location is not yo-
+     A                                      ur Department.     Press RESET')
+     A            FRDESC        30A  O  6 37
+     A                                  9 16'To Location?'
+     A            TOWHS          3A  B  9 33
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20N21N22                            ERRMSG('*** Invalid To Location Ent-
+     A                                      ered.     Press RESET')
+     A  21                                  ERRMSG('*** To Location Must be F, -
+     A                                      L, D, or G.   Press RESET')
+     A  22                                  ERRMSG('*** To Location Cannot be t-
+     A                                      he same as From Location.    Press -
+     A                                      RESET')
+     A            TODESC        30A  O  9 37
+     A            TRAN#          6Y 0B  3 48EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                 24  2' Enter to Process               F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12 16'Transfer Date:'
+     A            TRNDAT         6Y 0B 12 33
+     A  35                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  35                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  35                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A                                  3 28'Transfer Invoice #:'
+     A                                      DSPATR(HI)
+     A                                 16  2' Press F23 to confirm delete. Or P-
+     A                                      ress F6 to restart with no delete. '
+     A  77                                  DSPATR(RI)
+     A N77                                  DSPATR(ND)
+     A          R ITMSFL                    SFL
+     A*%%TS  SD  20000322  105151  EFD         REL-V3R7M0  5716-PW1
+     A            LINTOT         6Y 0O  8  2
+     A  15                                  DSPATR(ND)
+     A                                      EDTCDE(4)
+     A            NAME          15A  O  8  9
+     A            QTYD           6Y 0B  8 28
+     A N15                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  15
+     AO 17                                  DSPATR(ND)
+     A  16
+     AO 17                                  DSPATR(PR)
+     A            QTY10          6Y 0B  8 37
+     A N15                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  15                                  DSPATR(ND)
+     A  16                                  DSPATR(PR)
+     A            QTY14          6Y 0B  8 46
+     A N15                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  15                                  DSPATR(ND)
+     A  16                                  DSPATR(PR)
+     A            QTY18          6Y 0B  8 55
+     A N15                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  15                                  DSPATR(ND)
+     A  16                                  DSPATR(PR)
+     A            QTY22          6Y 0B  8 64
+     A N15                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  15                                  DSPATR(ND)
+     A  16                                  DSPATR(PR)
+     A            QTY26          6Y 0B  8 73
+     A N15N17                               DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  15
+     AO 17                                  DSPATR(ND)
+     A  16
+     AO 17                                  DSPATR(PR)
+     A          R ITMCTL                    SFLCTL(ITMSFL)
+     A*%%TS  SD  20000321  205729  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0050)
+     A                                      SFLPAG(0016)
+     A  98                                  CF02
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'TRANSSFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Greenhouse Transfer Entry '
+     A                                      DSPATR(RI)
+     A                                  7  2'Total  Description        Design  -
+     A                                       10 in.   14 in.   18 in.   22 in. -
+     A                                        26 in. '
+     A                                      DSPATR(UL)
+     A                                  2 14'Transfer Date:'
+     A            TRNDAT         6Y 0O  2 29EDTCDE(Y)
+     A                                  2 47'Invoice Number:'
+     A            TRAN#          6Y 0O  2 63EDTCDE(4)
+     A                                  3  2'From:'
+     A            FRMWHS         3A  O  3  8
+     A            FRNAME        30A  O  3 12
+     A                                  3 43'To:'
+     A            TOWHS          3A  O  3 47
+     A            TONAME        30A  O  3 51
+     A                                  4  2'Enter to Process'
+     A                                      DSPATR(HI)
+     A                                  5  2'F3/F7=End Job'
+     A                                      DSPATR(HI)
+     A                                  5 25' Data OK Press F2 to Update and pr-
+     A                                      int Edit list '
+     A  98                                  DSPATR(RI)
+     A N98
+     AO 99                                  DSPATR(ND)
+     A                                  4 24' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)

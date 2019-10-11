@@ -1,0 +1,124 @@
+000100961004      *--------------------------------------------------------------
+000200961004      *
+000300990810      *  COPYRIGHT EFD ENTERPRISES, INC.    1999
+000400961004      *
+000500961004      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600961004      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700961004      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800961004      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900961004      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000961004      *       BY EXPRESS WRITTEN PERMISSION OF
+001100961004      *            EFD ENTERPRISES, INC.     215-643-5352
+001200961004      *
+001300961004      *--------------------------------------------------------------
+001400001116      *PROGRAM NAME-------- FXMINVT
+001500001116      *SYSTEM-------------- INVENTORY
+001600001116      *APPLICATION--------- FIX MINVT - CHANGE FOR EACH FIX
+001700961004      *
+001800990810      *
+001900961004      *            CHANGE--DATE-------DESCRIPTION
+002000961004      *
+002100990810      *
+002200011018     FFMINVT    UF   E           K DISK
+002300020510      ** MINVT ARRAYS
+002400020510     D IGB             S              4  0 DIM(4)                               BEG WKS GERM 4
+002500020510     D IGE             S              4  0 DIM(4)                               END WKS GERM 4
+002600020510     D IGW             S              2  0 DIM(4)                               # OF WKS GERM
+002700020510     IRMINVT
+002800020510     I              IMBD1                       IGB(1)
+002900020510     I              IMBD2                       IGB(2)
+003000020510     I              IMBD3                       IGB(3)
+003100020510     I              IMBD4                       IGB(4)
+003200020510     I              IMED1                       IGE(1)
+003300020510     I              IMED2                       IGE(2)
+003400020510     I              IMED3                       IGE(3)
+003500020510     I              IMED4                       IGE(4)
+003600020510     I              IMWG1                       IGW(1)
+003700020510     I              IMWG2                       IGW(2)
+003800020510     I              IMWG3                       IGW(3)
+003900020510     I              IMWG4                       IGW(4)
+004000011018      *
+004100961004      ** GET NEXT RECORD
+004200961004     C     NXT           TAG
+004300011018     C                   READ      FMINVT                                 90
+004400961004     C   90              GOTO      END
+004500020517     C                   MOVEL     IMLOOK        TST3              3
+004600020517     C     TST3          IFNE      'POI'
+004700020517     C                   GOTO      NXT
+004800020517     C                   END
+004900020510     C     IMSIZE        IFEQ      '100'
+005000180911     C                   MOVEL     'XERPRT01'    IMFTAB
+005100011018     C                   UPDATE    RMINVT
+005200000512     C                   END
+005300020517     C     IMSIZE        IFEQ      '111'
+005400020517     C     IMSIZE        OREQ      '114'
+005500020517     C     IMSIZE        OREQ      '115'
+005600020517     C     IMSIZE        OREQ      '116'
+005700020517     C     IMSIZE        OREQ      '117'
+005800020517     C     IMSIZE        OREQ      '154'
+005900020517     C     IMSIZE        OREQ      '155'
+006000020517     C     IMSIZE        OREQ      '156'
+006100020517     C     IMSIZE        OREQ      '157'
+006200020517     C     IMSIZE        OREQ      '134'
+006300020517     C     IMSIZE        OREQ      '136'
+006400020517     C     IMSIZE        OREQ      '137'
+006500020517     C     IMSIZE        OREQ      '174'
+006600020517     C     IMSIZE        OREQ      '176'
+006700020517     C     IMSIZE        OREQ      '177'
+006800020517     C                   MOVEL     'P3'          IMFTAB
+006900020517     C                   UPDATE    RMINVT
+007000020517     C                   END
+007100020517     C     IMSIZE        IFEQ      '118'
+007200020517     C     IMSIZE        OREQ      '119'
+007300020517     C     IMSIZE        OREQ      '120'
+007400020517     C     IMSIZE        OREQ      '121'
+007500020517     C     IMSIZE        OREQ      '158'
+007600020517     C     IMSIZE        OREQ      '159'
+007700020517     C     IMSIZE        OREQ      '160'
+007800020517     C     IMSIZE        OREQ      '161'
+007900020517     C     IMSIZE        OREQ      '108'
+008000020517     C     IMSIZE        OREQ      '110'
+008100020517     C                   MOVEL     'P4'          IMFTAB
+008200020517     C                   UPDATE    RMINVT
+008300020517     C                   END
+008400020517     C     IMSIZE        IFEQ      '103'
+008500020517     C                   MOVEL     'P5'          IMFTAB
+008600020517     C                   UPDATE    RMINVT
+008700020517     C                   END
+008800020517     C     IMSIZE        IFEQ      '123'
+008900020517     C     IMSIZE        OREQ      '124'
+009000020517     C     IMSIZE        OREQ      '126'
+009100020517     C     IMSIZE        OREQ      '163'
+009200020517     C     IMSIZE        OREQ      '164'
+009300020517     C     IMSIZE        OREQ      '165'
+009400020517     C     IMSIZE        OREQ      '166'
+009500020517     C                   MOVEL     'P6'          IMFTAB
+009600020517     C                   UPDATE    RMINVT
+009700020517     C                   END
+009800020517     C     IMSIZE        IFEQ      '122'
+009900020517     C     IMSIZE        OREQ      '127'
+010000020517     C     IMSIZE        OREQ      '129'
+010100020517     C     IMSIZE        OREQ      '130'
+010200020517     C     IMSIZE        OREQ      '151'
+010300020517     C     IMSIZE        OREQ      '167'
+010400020517     C     IMSIZE        OREQ      '169'
+010500020517     C     IMSIZE        OREQ      '170'
+010600020517     C     IMSIZE        OREQ      '131'
+010700020517     C     IMSIZE        OREQ      '132'
+010800020517     C     IMSIZE        OREQ      '171'
+010900020517     C     IMSIZE        OREQ      '172'
+011000020517     C                   MOVEL     'P7'          IMFTAB
+011100020517     C                   UPDATE    RMINVT
+011200020517     C                   END
+011300020517     C     IMSIZE        IFEQ      '106'
+011400020517     C     IMSIZE        OREQ      '112'
+011500020517     C     IMSIZE        OREQ      '113'
+011600020517     C     IMSIZE        OREQ      '150'
+011700020517     C     IMSIZE        OREQ      '152'
+011800020517     C     IMSIZE        OREQ      '153'
+011900020517     C                   MOVEL     'P8'          IMFTAB
+012000020517     C                   UPDATE    RMINVT
+012100020517     C                   END
+012200000512     C                   GOTO      NXT
+012300961004     C     END           TAG
+012400961004     C                   SETON                                        LR

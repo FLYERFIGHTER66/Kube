@@ -1,0 +1,33 @@
+000100020621     D PPM             S              4  0 DIM(45)                              PARTS PER MILLION
+000200020621      *********************
+000300020621      ** SET UP PPM ARRAY *
+000400020621      *********************
+000500020621     C     GETPPM        BEGSR
+000600020621     C                   Z-ADD     0             P                 5 0
+000700020621     C                   Z-ADD     0             ##PPM             4 0
+000800020621     C                   Z-ADD     0             PPM
+000900020621     C     NXTPPM        TAG
+001000020621     C                   ADD       1             P
+001100020621     C     P             IFGT      45
+001200020621     C                   GOTO      ENDPPM
+001300020621     C                   END
+001400020621     C     ##PPM         IFLT      10
+001500020621     C                   ADD       1             ##PPM
+001600020621     C                   Z-ADD     ##PPM         PPM(P)
+001700020621     C                   GOTO      NXTPPM
+001800020621     C                   END
+001900020621     C     ##PPM         IFLT      50
+002000020621     C                   ADD       5             ##PPM
+002100020621     C                   Z-ADD     ##PPM         PPM(P)
+002200020621     C                   GOTO      NXTPPM
+002300020621     C                   END
+002400020621     C     ##PPM         IFLE      950
+002500020621     C                   ADD       50            ##PPM
+002600020621     C                   Z-ADD     ##PPM         PPM(P)
+002700020621     C                   GOTO      NXTPPM
+002800020621     C                   END
+002900020621      ** FROM HERE ALWAYS ADD 500
+003000020621     C                   ADD       500           ##PPM
+003100020621     C                   Z-ADD     ##PPM         PPM(P)
+003200020621     C                   GOTO      NXTPPM
+003300020621     C     ENDPPM        ENDSR

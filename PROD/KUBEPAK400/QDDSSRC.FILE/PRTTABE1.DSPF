@@ -1,0 +1,69 @@
+     A*%%TS  SD  20010216  103130  RP          REL-V4R4M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      REF(*LIBL/RBXREF RBXREFR)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      HELP(47 'Help Key')
+     A                                      CF01(01 'Help')
+     A                                      CF12(12 'Previous Screen')
+     A*
+     A*
+     A          R SCREEN01
+     A*%%TS  SD  20010216  103130  RP          REL-V4R4M0  5769-PW1
+     A                                      CHANGE(28)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                      MSGID(KP0 0001 KPMSGF)
+     A                                  1 72TIME
+     A                                  2  3'SCREEN01'
+     A            PGTL##        40A  O  2 19DSPATR(HI)
+     A                                      MSGID(PRT 0001 KPMSGF)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8  7'Printer Code '
+     A  10                                  DSPATR(RI)
+     A                                 11  7'Printer Description       '
+     A  13                                  DSPATR(RI)
+     A            OUTQID        10A  B  8 23DSPATR(HI)
+     A  10                                  DSPATR(PC)
+     A  66                                  DSPATR(CS)
+     A  66                                  DSPATR(UL)
+     A N66                                  DSPATR(PR)
+     A            DESC          40A  B 11 34
+     A                                      DSPATR(HI)
+     A                                      DSPATR(CS)
+     A  13                                  DSPATR(PC)
+     A                                  1  3'PRTTABE1'
+     A                                 21 20'F12=Return To Previous Screen--No -
+     A                                      Update'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A*
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

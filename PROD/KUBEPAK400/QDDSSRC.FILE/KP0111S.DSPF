@@ -1,0 +1,107 @@
+     A*%%TS  SD  20040115  125302  RP          REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      REF(*LIBL/RBXREF RBXREFR)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      HELP(47 'Help Key')
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A                                      CF01(01 'Help')
+     A                                      CF03(03 'Exit')
+     A                                      CF12(12 'Return')
+     A                                      CF04(04 'Prompt')
+     A*
+     A          R SCREEN01
+     A*%%TS  SD  20040115  125302  RP          REL-V5R1M0  5722-WDS
+     A                                      CHANGE(28)
+     A                                      KEEP
+     A                                      RTNCSRLOC(&##RCD &##FLD)
+     A                                      BLINK
+     A                                      CSRLOC(##ROW      ##COL)
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A            CONM##        40A  O  1 21DSPATR(HI)
+     A                                      MSGID(KP0 0001 KPMSGF)
+     A                                  1 72TIME
+     A                                  2  3'S1CNTL'
+     A            PGTL##        45A  O  2 21DSPATR(HI)
+     A                                      MSGID(KPR 1000 KPMSGF)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A            UNDER         78A  O  4  2TEXT('Under Lined Output Field')
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DGPOYR         2Y 0O  9 36DSPATR(HI)
+     A                                  9 39'-'
+     A                                      DSPATR(HI)
+     A            DGDGPO         6Y 0O  9 41DSPATR(HI)
+     A                                 11 18'*'
+     A                                      DSPATR(HI)
+     A            DGVNDR         6Y 0B 11 36DSPATR(HI)
+     A  31                                  DSPATR(PC)
+     A  81
+     AO 82                                  DSPATR(PR)
+     A N81N82                               DSPATR(UL)
+     A            DGNAME        30A  O 11 46
+     A            DGDATE         6Y 0B 13 36EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A  32                                  DSPATR(PC)
+     A  82                                  DSPATR(PR)
+     A N82                                  DSPATR(UL)
+     A            DGDDSC        30A  O 13 46
+     A                                 15  9'*'
+     A                                      DSPATR(HI)
+     A            DGWHSE         2S 0B 15 36DSPATR(HI)
+     A  33                                  DSPATR(PC)
+     A  82                                  DSPATR(PR)
+     A N82                                  DSPATR(UL)
+     A            DGWNAM        30A  O 15 46
+     A                                 23 12'Enter to Continue'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 23 35'F4=Prompt'
+     A                                      COLOR(BLU)
+     A                                 23 53'F12=Return'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 19 18'Last changed by:'
+     A            DGUSCB        10A  O 19 36DSPATR(HI)
+     A                                 11 20'Vendor Number:'
+     A  31                                  DSPATR(RI)
+     A                                  9 13'Return Order Number:'
+     A                                 13 22'Return Date:'
+     A  32                                  DSPATR(RI)
+     A                                 15 11'Returned From Warehouse:'
+     A  33                                  DSPATR(RI)
+     A                                  1  3'KP0111'
+     A*
+     A          R CFKY01
+     A*%%TS  SD  19980716  115619  REP         REL-V4R2M0  5769-PW1
+     A                                      TEXT('Valid Cmd Keys Display')
+     A                                      OVERLAY
+     A                                 23 12'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A                                 23 48'F12=Return'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(HI)
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

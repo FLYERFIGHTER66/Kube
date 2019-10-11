@@ -1,0 +1,157 @@
+     A*%%TS  SD  19961218  131533  EFD         REL-V3R6M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19961218  131533  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HALL)
+     A  *DS3                                HLPARA(03 002 12 066)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A                                  1  2'BIR265 '
+     A                                  1 31' Item Order Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3  2'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  5 23'Item/Size:'
+     A            VITEM         12A  B  5 40
+     A  14                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  14                                  DSPATR(PC)
+     A  26                                  ERRMSG('*** Enter A Valid Item/Size-
+     A                                      .      Press Reset')
+     A  80                                  ERRMSG('*** No Orders For This Item-
+     A                                      .      Press Reset')
+     A            VSIZE          3A  B  5 55DSPATR(CS)
+     A                                  6 23'or Alpha Search'
+     A            VALPHA        15A  B  6 40DSPATR(CS)
+     A            DESC          40A  O  7 40
+     A                                  9 23'Start With'
+     A                                 10 23'Ship Date:'
+     A            VSHDAT         6Y 0B 10 40EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A                                 12 23'Include:'
+     A            VCODE          1Y 0B 12 35DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  17                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 12 40'1 = All Orders - Shipped and Open'
+     A                                 13 40'2 = Only Open Line Items'
+     A                                 14 40'3 = Only Shipped Line Items'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process           -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 17 23'Ship From:'
+     A            VSHFR          3   B 17 35DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .      Press Reset')
+     A                                 17 40'Leave Blank to include ALL Ship Fr-
+     A                                      oms'
+     A          R HALL
+     A*%%TS  SD  19960717  201844  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3' Orders by Item Inquiry           -
+     A                                                                      Ove-
+     A                                      rview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 17  3' This inquiry will display all the-
+     A                                       orders in the order detail file fo-
+     A                                      r the   '
+     A                                      DSPATR(HI)
+     A                                 18  3' item that you select.  If the lin-
+     A                                      e item has been shipped an asterisk-
+     A                                       will   '
+     A                                      DSPATR(HI)
+     A                                 19  3' print at the end of the line.  Th-
+     A                                      e items display in order number seq-
+     A                                      uence.  '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 21  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19960919  153739  GINNY       REL-V3R1M0  5763-PW1
+     A            OHORD#         6Y 0O  8  2EDTCDE(Z)
+     A            OHDTOR         6Y 0O  8  9EDTWRD('  /  /  ')
+     A            OIDTRQ         6Y 0O  8 71EDTWRD('  /  /  ')
+     A            SHIPD          1A  O  8 80
+     A            NAME          26A  O  8 25
+     A            QTY            5Y 0O  8 52EDTCDE(Z)
+     A            SHP            5  0O  8 58EDTCDE(Z)
+     A            OISHFR         3A  O  8 67
+     A            OICUST         6Y 0O  8 18EDTCDE(Z)
+     A            OIPHYT         1   O  8 64
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19961218  131533  EFD         REL-V3R6M0  5716-PW1
+     A  *DS3                                SFLSIZ(0020)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0016)
+     A  *DS4                                SFLPAG(0018)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  3' Roll Forward/Backward   F6=Restar-
+     A                                      t   F3/F7=End of Job   *=Item Has S-
+     A                                      hipped  '
+     A                                      DSPATR(RI)
+     A                                  2  2'BIR265'
+     A                                  2 73DATE
+     A                                      EDTCDE(Y)
+     A                                  3  2'Orders For:'
+     A            VITEM         12A  O  3 14DSPATR(HI)
+     A            VSIZE          3A  O  3 27DSPATR(HI)
+     A            DESC          40A  O  3 31DSPATR(HI)
+     A                                  3 73TIME
+     A            VSHFR          3A  O  4 14
+     A                                  5  2'On Hand ='
+     A            ONHAND        10Y 0O  5 12EDTCDE(L)
+     A                                  5 25'Available ='
+     A            AVAIL         10Y 0O  5 37EDTCDE(L)
+     A                                  5 51'Available on P/O ='
+     A            AVAOPO        10Y 0O  5 70EDTCDE(L)
+     A                                  7  2' Ord #   Date   Cust              -
+     A                                                      Order Shipd H From -
+     A                                      Req Date *'
+     A                                      DSPATR(UL)
+     A                                  6  3'                                  -
+     A                                                                 P Ship'
+     A                                  4  3'Ship From:'

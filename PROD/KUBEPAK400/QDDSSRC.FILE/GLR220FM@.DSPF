@@ -1,0 +1,105 @@
+     A*%%TS  SD  19991003  154657  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19991003  154657  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      CF02
+     A            PROGID        10A  O  1  2
+     A                                  1 28' G/L Video Trial Balance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'Lower Limit:'
+     A            VBGL           8Y 0B  5 46DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Lower Limit or Alpha Se-
+     A                                      arch Required.   Press Reset')
+     A  12                                  ERRMSG('*** Lower Limit Must Be Low-
+     A                                      er Than Upper Limit.  Press Reset')
+     A                                  6 25'or Alpha Search'
+     A            VBALPH        15A  B  6 46DSPATR(CS)
+     A            VDESC1        30A  O  7 46
+     A                                  9 25'Upper Limit:'
+     A            VEGL           8Y 0B  9 46DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Upper Limit or Alpha Se-
+     A                                      arch Required.   Press Reset')
+     A                                 10 25'or Alpha Search'
+     A            VEALPH        15A  B 10 46DSPATR(CS)
+     A            VDESC2        30A  O 11 46
+     A                                 13 25'Accounting Period:'
+     A            VACTP          2Y 0B 13 46DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  30                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.     Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process       F2=Disp-
+     A                                      lay Acctg Period       F3/F7=End of-
+     A                                       Job     '
+     A                                      DSPATR(UL)
+     A          R DSPSFL                    SFL
+     A*%%TS  SD  19990306  064306  EFD         REL-V3R1M0  5763-PW1
+     A            GLGLNO         8  0O  6  2EDTWRD('    -    ')
+     A                                      DSPATR(HI)
+     A            GCDESC        30   O  6 14DSPATR(HI)
+     A            CUR           11  2O  6 47EDTCDE(J)
+     A                                      DSPATR(HI)
+     A            CURBAL        11  2O  6 65EDTCDE(J)
+     A                                      DSPATR(HI)
+     A          R DSPCTL                    SFLCTL(DSPSFL)
+     A*%%TS  SD  19990723  063301  TGMS        REL-V4R2M0  5769-PW1
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0018)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            PROGID        10A  O  1  2
+     A                                  1 17'  Roll      F6=Restart       F3/F7-
+     A                                      =End of Job   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  2'Company:'
+     A            LCO            2S 0O  3 11DSPATR(HI)
+     A            RGNAME        30   O  3 14DSPATR(HI)
+     A                                  3 46'Period:'
+     A            VACTP          2S 0O  3 54DSPATR(HI)
+     A            BEGDTE         6Y 0O  3 58EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  3 68'To:'
+     A            ENDDTE         6Y 0O  3 72EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4  2'                                  -
+     A                                                        Current          -
+     A                                       Account'
+     A                                  5  2' Account          Description     -
+     A                                                        Posting          -
+     A                                       Balance '
+     A                                      DSPATR(UL)

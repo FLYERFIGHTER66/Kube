@@ -1,0 +1,50 @@
+     A*%%TS  SD  20010207  164823  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20010207  164823  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DILALOA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Update Allocate Thru Date '
+     A                                      DSPATR(RI)
+     A                                  4 18'Department:'
+     A            DEDEPT         3A  O  4 30
+     A            DEDESC        30A  O  4 34
+     A                                  7 18'Current Date:'
+     A            CDATE          6Y 0O  7 32EDTCDE(Y)
+     A                                 10 18'New Date:'
+     A                                 23  2'Enter to process               F6=-
+     A                                      Restart                        F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            VDATE          6Y 0B 10 28
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Date cannot be less tha-
+     A                                      n today, if not 0.    Press RESET')
+     A  12                                  ERRMSG('*** Invalid Date entered.  -
+     A                                                 Press RESET')
+     A                                 12  7'NOTE: The date you enter will NOT -
+     A                                      take effect until the next night'
+     A                                 13 13'process runs. How ever any orders -
+     A                                      entered after you change'
+     A                                 14 13'this date will be allocated using -
+     A                                      this date.'
+     A                                 15 13'To allocate everything for all dat-
+     A                                      es leave the date Blank.'
+     A                                      DSPATR(UL)

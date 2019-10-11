@@ -1,0 +1,152 @@
+     A*%%TS  SD  20131219  113012  BILLB       REL-V7R1M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20131219  113012  BILLB       REL-V7R1M0  5770-WDS
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A                                  1  2'QPK212'
+     A                                      COLOR(BLU)
+     A                                  1 31' Sowing Selections '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A            OPTION         2Y 0B  3 11PSHBTNFLD(*RSTCSR (*NUMCOL 3))
+     A                                      PSHBTNCHC(1 'Next Week Clear')
+     A                                      PSHBTNCHC(2 'Last Week Post')
+     A                                      PSHBTNCHC(3 'This Week Clear')
+     A                                      PSHBTNCHC(4 'Next Week Prod')
+     A                                      PSHBTNCHC(5 'This Week Update')
+     A                                      PSHBTNCHC(6 'This Week Recap')
+     A                                  6  2'Enter Sowing Date:'
+     A            VDATE          6Y 0B  6 28EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                      DSPATR(PC)
+     A                                  6 40'Include This Date Only:'
+     A            VIDATE         1X  B  6 64DSPATR(CS)
+     A  64                                  DSPATR(RI)
+     A  64                                  DSPATR(PC)
+     A  65                                  ERRMSG('*** Enter Either Y or N.   -
+     A                                         Press Reset')
+     A  66                                  ERRMSG('*** Can Only Print Queries -
+     A                                      For Include Sow Date Only.    Press-
+     A                                       Reset')
+     A                                  6 66'(Y/N)'
+     A                                  8  2'Product Class Range:'
+     A                                  8 27'From?'
+     A            VFRPC          2A  B  8 34DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** From Product Class Is R-
+     A                                      equired.    Press Reset')
+     A  22                                  ERRMSG('*** Enter A Valid Prod Cls -
+     A                                      Equal To or Lower Than To Prod Cls.-
+     A                                          Press Reset')
+     A                                  8 39'To?'
+     A            VTOPC          2A  B  8 43DSPATR(CS)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('***  Enter A Valid Product -
+     A                                      Class.     Press Reset')
+     A                                  8 49'Blank for ALL'
+     A                                 10  2'Post Items:'
+     A            VPOST          1X  B 10 35DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter Either Y or N.   -
+     A                                         Press Reset')
+     A                                 10 38'(Y/N)'
+     A                                 12  2'Remove Posted Flag:'
+     A            VREM           1X  B 12 35DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter Either Y or N.   -
+     A                                       Press Reset')
+     A                                 12 38'(Y/N)'
+     A                                 14  2'Print Detail or Summary:'
+     A            VDORS          1X  B 14 35DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Enter Either D or S.   -
+     A                                        Press Enter')
+     A                                 14 38'(D/S)'
+     A                                 16  2'Print Queries:'
+     A            VPRTQY         1X  B 16 35DSPATR(CS)
+     A  62                                  DSPATR(RI)
+     A  62                                  DSPATR(PC)
+     A  62                                  ERRMSG('*** Enter Either Y or N.   -
+     A                                       Press Reset')
+     A                                 16 38'(Y/N)'
+     A                                 15 60'1 = Production'
+     A                                 16 46'If Yes ====>'
+     A                                 16 60'2 = Update'
+     A            VQUERY         1Y 0B 16 77EDTCDE(Z)
+     A  60                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 17 60'3 = Recap'
+     A                                 18  2'Print Labels:'
+     A            VLABEL         1X  B 18 35DSPATR(CS)
+     A  70                                  DSPATR(RI)
+     A  70                                  DSPATR(PC)
+     A  70                                  ERRMSG('*** Enter Either Y or N.   -
+     A                                         Press Reset')
+     A                                 18 38'(Y/N)'
+     A                                 21 15' Validate Data - Change or Press E-
+     A                                      nter to Continue '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'                     Enter Process-
+     A                                           F3/F7=End of Job              -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 20  2'Run New Sow Line File Build:'
+     A            NEWSOW         1X  B 20 35DSPATR(CS)
+     A  71                                  DSPATR(RI)
+     A  71                                  DSPATR(PC)
+     A  71                                  ERRMSG('*** Enter Either Y or N.   -
+     A                                         Press Reset')
+     A                                 20 38'(Y/N)'
+     A                                  2 13'  Production  '
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  2 34'    Update    '
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  2 55'    Recap     '
+     A                                      DSPATR(UL)
+     A                                      COLOR(PNK)

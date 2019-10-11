@@ -1,0 +1,260 @@
+     A*%%TS  SD  20180504  091900  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R EMLFINAV01
+     A*%%TS  SD  20180504  091900  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Send via SMS')
+     A                                      CF07(07 'Send to Multiples')
+     A                                      CF10(10 'Work with Email')
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 24'   Email Finished Availability   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4 23'Select the Customer:'
+     A            SELCUST   R        B  4 45REFFLD(RMCUST/CMCUST *LIBL/FMCUST)
+     A                                      COLOR(TRQ)
+     A  51                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A            SELLOOKUP     20A  B  4 61COLOR(TRQ)
+     A            HSSNCD01  R        O  9  1REFFLD(RMORLSEAS/HSSNCD *LIBL/FMORL-
+     A                                      SEAS)
+     A                                      EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            HSSEAS01  R        O  9  4REFFLD(RMORLSEAS/HSSEAS *LIBL/FMORL-
+     A                                      SEAS)
+     A                                      COLOR(PNK)
+     A            HSSNCD02  R        O 10  1REFFLD(RMORLSEAS/HSSNCD *LIBL/FMORL-
+     A                                      SEAS)
+     A                                      EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            HSSEAS02  R        O 10  4REFFLD(RMORLSEAS/HSSEAS *LIBL/FMORL-
+     A                                      SEAS)
+     A                                      COLOR(PNK)
+     A            HSSNCD03  R        O 11  1REFFLD(RMORLSEAS/HSSNCD *LIBL/FMORL-
+     A                                      SEAS)
+     A                                      EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            HSSEAS03  R        O 11  4REFFLD(RMORLSEAS/HSSEAS *LIBL/FMORL-
+     A                                      SEAS)
+     A                                      COLOR(PNK)
+     A                                 15 27'Include Pricing:'
+     A            INCL_PR        1A  B 15 45COLOR(TRQ)
+     A                                      VALUES('Y' 'N')
+     A                                  8  1'Current Seasons'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 23'Select Lists or All:'
+     A            SELLIST        1A  B  9 45COLOR(TRQ)
+     A                                      VALUES('S' 'A')
+     A                                  9 50'(S)elect or (A)ll'
+     A                                      COLOR(BLU)
+     A                                 15 50'(Y)es or (N)o'
+     A                                      COLOR(BLU)
+     A                                 17 28'Use Price Code:'
+     A            PRICE_CODE     1A  B 17 45COLOR(TRQ)
+     A                                      VALUES('1' '2' '3' '4' '5' 'C')
+     A                                 17 50'(1-5) or (C)ustomer PC'
+     A                                      COLOR(BLU)
+     A                                 19 35'Send as:'
+     A            SEND_AS        1A  B 19 45COLOR(TRQ)
+     A                                      VALUES('P' 'C' 'X' 'H')
+     A                                 19 50'(P)DF, (C)SV, (X)LSX, or (H)TML'
+     A                                      COLOR(BLU)
+     A                                 13 24'Omit not Available:'
+     A                                 11 28'Omit not Ready:'
+     A            OMIT_NR        1A  B 11 45COLOR(TRQ)
+     A                                      VALUES('Y' 'N')
+     A            OMIT_NA        1A  B 13 45COLOR(TRQ)
+     A                                      VALUES('Y' 'N')
+     A                                 21  2'                                  -
+     A                                                                        E-
+     A                                      MLFINAVL1'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'F3'
+     A                                      DSPATR(HI)
+     A                                 22  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 11 50'(Y)es or (N)o'
+     A                                      COLOR(BLU)
+     A                                 13 50'(Y)es or (N)o'
+     A                                      COLOR(BLU)
+     A                                 22 64'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 22 72'=to Send'
+     A                                      COLOR(BLU)
+     A                                  5 31'...or Email:'
+     A            SELEMAIL     116A  B  5 45COLOR(TRQ)
+     A  52                                  DSPATR(RI)
+     A                                      CHECK(LC)
+     A  41                                  DSPATR(PC)
+     A                                 22 13'F6'
+     A                                      DSPATR(HI)
+     A                                 22 16'=Send via SMS'
+     A                                      COLOR(BLU)
+     A                                 23 13'F7'
+     A                                      DSPATR(HI)
+     A                                 23 16'=Send to Multiple'
+     A                                      COLOR(BLU)
+     A                                 13  1'Price Codes'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 14  2'1 - Delivered in NJ   '
+     A                                      COLOR(PNK)
+     A                                 15  2'2 - Delivered out NJ  '
+     A                                      COLOR(PNK)
+     A                                 16  2'3 - Pick-up           '
+     A                                      COLOR(PNK)
+     A                                 17  2'4 - Mums truck in NJ  '
+     A                                      COLOR(PNK)
+     A                                 18  2'5 - Mums truck out NJ'
+     A                                      COLOR(PNK)
+     A                                 19  6'* also flower tent'
+     A                                      COLOR(BLU)
+     A                                 18 24'*'
+     A                                      COLOR(BLU)
+     A                                  7 25'Name of recipient:'
+     A            TONAME        35A  B  7 45COLOR(TRQ)
+     A                                      CHECK(LC)
+     A  42                                  DSPATR(PC)
+     A                                  4 53'Lookup:'
+     A                                 22 35'F10'
+     A                                      DSPATR(HI)
+     A                                 22 39'=Work with Email'
+     A                                      COLOR(BLU)
+     A          R EMLFINAVS2                SFL
+     A*%%TS  SD  20180503  113347  BILLB       REL-V7R2M0  5770-WDS
+     A            WLS_NAME  R        B  8  1REFFLD(RMWLSCAR/WLS_NAME *LIBL/FMWL-
+     A                                      SCAR)
+     A  62                                  DSPATR(PC)
+     A                                      DSPATR(PR)
+     A          R EMLFINAV02                SFLCTL(EMLFINAVS2)
+     A*%%TS  SD  20180503  113347  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03(03 'Exit Program')
+     A                                      CF12(12 'Cancel SMS')
+     A                                      SFLCSRRRN(&SFLCSRRRN2)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0016)
+     A  *DS3                                SFLLIN(0001)
+     A                                      WINDOW(5 9 16 62)
+     A            SFLCSRRRN2     5S 0H
+     A                                  1  1SYSNAME
+     A                                      COLOR(BLU)
+     A                                  2  1USER
+     A                                      COLOR(BLU)
+     A                                  1 53DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 53TIME
+     A                                      COLOR(BLU)
+     A                                  1 23'   Send Via SMS   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 25'(text message)'
+     A                                  4  1'Enter the recipient phone number:'
+     A            PHONE#        10Y 0B  4 36EDTWRD('   -   -    ')
+     A                                      COLOR(TRQ)
+     A                                      CHECK(ER)
+     A  60                                  DSPATR(PC)
+     A                                  6  4'Select the cell phone carrier:'
+     A                                  7 10'Search:'
+     A            SEARCH        30A  B  7 18COLOR(TRQ)
+     A  61                                  DSPATR(PC)
+     A            COUNTRY       15A  B  6 47COLOR(PNK)
+     A                                      DSPATR(PR)
+     A                                  6 44'in'
+     A                                      COLOR(PNK)
+     A                                  3 53'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                  4 53'F12=Cancel'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20050118  084136  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

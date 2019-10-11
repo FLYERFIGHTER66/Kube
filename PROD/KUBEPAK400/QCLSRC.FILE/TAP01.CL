@@ -1,0 +1,4 @@
+/*                                     TAP01       6/27/02 12:44:19 */
+CRTDEVTAP DEVD(TAP01) RSRCNAME(TAP01) ONLINE(*YES) ASSIGN(*YES) +
+         UNLOAD(*NO) MSGQ(*LIBL/QSYSOPR) +
+         TEXT('CREATED BY AUTO-CONFIGURATION')

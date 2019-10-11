@@ -1,0 +1,207 @@
+     A*%%TS  SD  20010125  174930  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19991003  160751  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      CF07
+     A                                  1  2'GLR229'
+     A                                  1 20' G/L Consolidation Detail With Ven-
+     A                                      dor Name '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  5 24'Account Number:'
+     A            VGL            8Y 0B  5 46DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Account # or Alpha Sear-
+     A                                      ch Required.   Press Reset')
+     A  12                                  ERRMSG('*** Enter A Valid G/L Numbe-
+     A                                      r.    Press Reset')
+     A                                  6 24'or Alpha Search'
+     A            VALPHA        15A  B  6 46DSPATR(CS)
+     A            GCDESC        30A  O  7 46
+     A                                  9 22'Accounting Period From:'
+     A            VACTP          2Y 0B  9 46DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  20N21                               ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.     Press Reset')
+     A  20 21                               ERRMSG('*** From Period Must be les-
+     A                                      s than or equal to the TO period.  -
+     A                                        Press RESET')
+     A                                  9 50'To:'
+     A            EACTP          2Y 0B  9 54DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  22                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.     Press Reset')
+     A                                 11 24'Include:'
+     A            VINCL          1Y 0B 11 46DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  30                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 11 54'1 = All Entries'
+     A                                 12 54'2 = Unposted Entries Only'
+     A                                 13 54'3 = Posted Entries Only'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process  F2=Disp Acctg P-
+     A                                      eriod   F4=Lookup Sources  F3/F7=En-
+     A                                      d of Job '
+     A                                      DSPATR(UL)
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                 14 24'Include Only Records'
+     A                                 15 24'From This Source:'
+     A            LSRCE          3A  B 14 46DSPATR(CS)
+     A          R SCRNB
+     A*%%TS  SD  19990803  080519  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF02
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      CF03
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 27' G/L Account Detail Display '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'             Enter to Process     -
+     A                                       F6=Restart      F7=Cancel Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  3 25' Line   Source                  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4 25'                                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7 25'  03    A/P  Accounts Payable     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8 25'  04    CAS  Cash Receipts        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18 26'Enter Line Number:'
+     A            VLINE          2Y 0B 18 47
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  10                                  ERRMSG('*** Enter A Valid Line Numb-
+     A                                      er - or - F6 To Return.    Press Re-
+     A                                      set')
+     A                                 11 25'  07    J/E  Journal Entries      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13 25'  09    NAR  Non-A/R Cash         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  5 25'  01    ADJ  A/R Adjustments      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14 25'  10    P/R  Payroll              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12 25'  08    L/C  Late Charges         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9 25'  05    DIS  Cash Discounts       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10 25'  06    INV  Inventory Transaction-
+     A                                      s        '
+     A                                      DSPATR(HI)
+     A                                 15 25'  11    SLS  Sales                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6 25'  02    A/L  Allocated Journal Ent-
+     A                                      ries     '
+     A                                      DSPATR(HI)
+     A          R DSPSFL                    SFL
+     A*%%TS  SD  19990820  171930  TGMS        REL-V4R2M0  5769-PW1
+     A            GTTDAT         6Y 0O  7  2DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            GTSRCE         3A  O  7 12DSPATR(HI)
+     A            GTDOL$        11Y 2O  7 24EDTCDE(L)
+     A                                      DSPATR(HI)
+     A            GTVEND         6Y 0O  7 39EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VNAME         30A  O  7 47DSPATR(HI)
+     A            POST           1A  O  7 79DSPATR(HI)
+     A            GTCON#         6Y 0O  7 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A          R DSPCTL                    SFLCTL(DSPSFL)
+     A*%%TS  SD  19991003  160751  TGMS        REL-V4R2M0  5769-PW1
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0016)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'GLR229'
+     A                                      DSPATR(PC)
+     A                                  1 15'  Roll    F6=Restart   F3/F7=End o-
+     A                                      f Job    *=Posted '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  2'From Date:'
+     A            BEGDTE         6Y 0O  3 13EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  3 22'Thru:'
+     A            ENDDTE         6Y 0O  3 28EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  3 39'Company:'
+     A            VCO            2S 0O  3 48DSPATR(HI)
+     A                                  3 53'Only Source:'
+     A N77                                  DSPATR(ND)
+     A            LSRCE          3A  B  3 67DSPATR(HI)
+     A                                  4  2'Account:'
+     A            VGL            8Y 0O  4 11DSPATR(HI)
+     A                                      EDTWRD('    -    ')
+     A            GCDESC        30A  O  4 21
+     A                                  4 53'Selected:'
+     A            SELECT        16A  O  4 63DSPATR(HI)
+     A                                  6  2' Date     Src  Cons.#      Amount -
+     A                                         Vendor                          -
+     A                                              *'
+     A                                      DSPATR(UL)

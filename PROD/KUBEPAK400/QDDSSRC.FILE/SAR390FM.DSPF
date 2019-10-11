@@ -1,0 +1,100 @@
+     A*%%TS  SD  19980209  063710  EFD         REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19980209  063710  EFD         REL-V3R1M0  5763-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 23' Sales Analysis By Bill To Custome-
+     A                                      r '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 24'For Accounting Period:'
+     A            VACTP          2Y 0B  5 51DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.   Press Reset')
+     A  12                                  ERRMSG('*** Accounting Period 13 No-
+     A                                      t Valid For This Company.   Press R-
+     A                                      eset')
+     A                                  7 24'Print:'
+     A            VDOLUN         1Y 0B  7 52
+     A  16                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  16                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  16                                  ERRMSG('*** Valid Entries Are 1 2 o-
+     A                                      r 3.    Press Reset')
+     A                                  7 55'1=Dollars  2=Units  3=Both'
+     A                                  9 24'Print Gross Profit (Y/N):'
+     A            VGROSS         1A  B  9 52DSPATR(CS)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.       Press Reset')
+     A  22                                  ERRMSG('*** Gross Profit Not Allowe-
+     A                                      d For UNITS or BOTH.   Press Reset')
+     A                                 11 24'If YES - Print Profit'
+     A                                 12 24'as Percent or Dollars:'
+     A            VPERDO         1A  B 12 52DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Valid Entries are $ or -
+     A                                      %.     Press Reset')
+     A  19                                  ERRMSG('*** No Entry Required - Gro-
+     A                                      ss Profit Print = N.     Press Rese-
+     A                                      t')
+     A                                 12 55'(% or $)'
+     A                                 14 24'Customer Type Range?'
+     A            VSTYP          2A  B 14 51
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Enter A Valid Type Lowe-
+     A                                      r Than To Type.   Press Reset')
+     A                                 14 55'-'
+     A            VETYP          2A  B 14 58
+     A  51                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Enter A Valid Type.    -
+     A                                        Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process     F2=Display -
+     A                                      Acctg. Period         F7=Cancel Job-
+     A                                               '
+     A                                      DSPATR(UL)
+     A            VACTIV         1A  B 17 52DSPATR(CS)
+     A  77                                  DSPATR(RI)
+     A  77                                  DSPATR(PC)
+     A  77                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.       Press Reset')
+     A                                 16 24'Include Only Customers'
+     A                                 17 24'With Activity:'

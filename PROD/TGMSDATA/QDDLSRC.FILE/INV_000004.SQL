@@ -1,0 +1,49 @@
+CREATE OR REPLACE VIEW
+PHPDATA.Inv_Plug_Windows AS
+
+
+SELECT SORT                     as SORT
+, ITEM_NUMBER                   as ITEM
+, ITEM_SIZE                     as SIZE
+, ITEM_DESCRIPTION              as DESCRIPTION
+, BASE_WEEK                     as BASE_WEEK
+, sum(QUANTITY_AVAILABLE_READY) as RB
+, sum(QUANTITY_AVAILABLE_SPEC0) as WK0
+, sum(QUANTITY_AVAILABLE_SPEC1) as WK1
+, sum(QUANTITY_AVAILABLE_SPEC2) as WK2
+, sum(QUANTITY_AVAILABLE_SPEC3) as WK3
+, sum(QUANTITY_AVAILABLE_SPEC4) as WK4
+, sum(QUANTITY_AVAILABLE_SPEC5) as WK5
+
+FROM
+PHPDATA.Inv_Plugs_Ready_Windows_w_holdback
+
+WHERE ITEM_NUMBER  not like '%P%'
+
+GROUP BY
+  SORT
+, ITEM_NUMBER
+, ITEM_SIZE
+, ITEM_DESCRIPTION
+, BASE_WEEK
+
+Union
+
+SELECT SORT                     as SORT
+, ITEM_NUMBER                   as ITEM
+, ITEM_SIZE                     as SIZE
+, trim(ITEM_DESCRIPTION) || ' - Partial'   as DESCRIPTION
+, BASE_WEEK                     as BASE_WEEK
+, QUANTITY_AVAILABLE_READY      as RB
+, QUANTITY_AVAILABLE_SPEC0      as WK0
+, QUANTITY_AVAILABLE_SPEC1      as WK1
+, QUANTITY_AVAILABLE_SPEC2      as WK2
+, QUANTITY_AVAILABLE_SPEC3      as WK3
+, QUANTITY_AVAILABLE_SPEC4      as WK4
+, QUANTITY_AVAILABLE_SPEC5      as WK5
+
+FROM
+PHPDATA.Inv_Plugs_Ready_Windows_w_holdback
+
+WHERE ITEM_NUMBER like '%P%'
+

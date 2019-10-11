@@ -1,0 +1,139 @@
+     A*%%TS  SD  19990623  075003  TGMS        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990623  075003  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF13
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 31' Freight Code File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 13
+     A  50                                  DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  50                                  DSPATR(PC)
+     A N50                                  DSPATR(PR)
+     A  99 26                               ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.   Press Reset')
+     A                                  4 28'Company Number:'
+     A            FPCONO         2D 0B  4 50CHECK(RZ)
+     A  50                                  DSPATR(CS)
+     A  99 28 50                            DSPATR(RI)
+     A  99 28 50                            DSPATR(PC)
+     A N50                                  DSPATR(PR)
+     A  99 28                               ERRMSG('Invalid Company Number Ente-
+     A                                      red       Press Reset')
+     A                                  6  2' A = Add    '
+     A                                      DSPATR(RI)
+     A N50N21                               DSPATR(ND)
+     A                                  6 28'Freight Code:'
+     A            FPCODE         6Y 0B  6 46CHECK(RB)
+     A  50                                  DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  99 19                               DSPATR(PC)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(FE)
+     A  99 19                               DSPATR(RI)
+     A                                      EDTCDE(4)
+     A  99 19                               ERRMSG('*** Freigt Codes Is Require-
+     A                                      d.     Press Reset')
+     A  99 27                               ERRMSG('*** Freight Code is on File-
+     A                                              Press Reset')
+     A  99 22 80                            ERRMSG('*** Freight Code Is Deleted-
+     A                                      .      Press Reset')
+     A  99 23 80                            ERRMSG('*** Freight Code Has Been D-
+     A                                      eleted.   Press Reset')
+     A  99 24 80                            ERRMSG('*** Freight Code Is Active.-
+     A                                           Press Reset')
+     A  99 20                               ERRMSG('Freight Code is not on File-
+     A                                           Press Reset')
+     A  99 25 80                            ERRMSG('Freight Code has been Delet-
+     A                                      ed   Press Reset')
+     A                                  7  2' C = Change '
+     A                                      DSPATR(RI)
+     A N50N22                               DSPATR(ND)
+     A                                  8  2' D = Delete '
+     A                                      DSPATR(RI)
+     A N50N23                               DSPATR(ND)
+     A                                  8 28'Freight Type:'
+     A  50                                  DSPATR(ND)
+     A            FPTYPE         1A  B  8 51
+     A  31N50                               DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(ND)
+     A N50
+     AON35                                  DSPATR(PC)
+     A  50
+     AO 35
+     AO 33
+     AO 34                                  DSPATR(PR)
+     A                                      VALUES('F' 'P')
+     A  31N50                               ERRMSG('*** Valid Freight Code Type-
+     A                                      s Are F or P.   Press Reset')
+     A  99 57                               ERRMSG('*** Freight Code Type is Re-
+     A                                      quired   Press Reset')
+     A                                  8 55'===> F=Flat Rate'
+     A  50                                  DSPATR(ND)
+     A                                  9 60'P=Percent'
+     A  50                                  DSPATR(ND)
+     A                                 11 28'% to Charge:'
+     A  50                                  DSPATR(ND)
+     A            FPCHRG         5Y 2B 11 46
+     A N50 32                               DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(ND)
+     A N50 32                               DSPATR(PC)
+     A  50
+     AO 35
+     AO 33
+     AO 34                                  DSPATR(PR)
+     A                                      COMP(LT 100.01)
+     A                                      EDTCDE(3)
+     A                                      CHECK(FE)
+     A                                      CHECK(RB)
+     A  99 55                               ERRMSG('*** Percent to Charge Not A-
+     A                                      llowed With Type F.   Press Reset')
+     A  99 56                               ERRMSG('*** Percent To Charge Is Re-
+     A                                      quired With Type P.   Press Reset')
+     A                                 11 55'===> Type P Only'
+     A  50                                  DSPATR(ND)
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  33                                  DSPATR(RI)
+     A N33                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  35                                  DSPATR(RI)
+     A N35                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process   F6=Restart  F3-
+     A                                      /F7=End of Job  F13=Print Freight C-
+     A                                      ode List '
+     A                                      DSPATR(UL)

@@ -1,0 +1,172 @@
+     A*%%TS  SD  19990713  103014  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19990713  103014  TGMS        REL-V4R2M0  5769-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(RHELP)
+     A                                      HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 29' Vendor Payment History '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 28'Report Sequence:'
+     A            LSEQ           1Y 0B  4 49
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  10                                  ERRMSG('*** Valid Entries Are 1 or -
+     A                                      2.    Press Reset')
+     A                                  4 57'1 = By Alpha'
+     A                                  5 57'2 = By Vendor Number'
+     A                                  7 12'Include Only =>'
+     A                                  7 28'Vendor Number:'
+     A            LVEND          6Y 0B  7 49
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  20                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.    Press Reset')
+     A                                  8 28'Alpha Search'
+     A            VALPHA        15A  B  8 49CHECK(FE)
+     A                                      DSPATR(CS)
+     A                                 10 12'Include Only => Checks Dated'
+     A                                 11 28'On Or After:'
+     A            LCKDTE         6Y 0B 11 49
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A                                      CHECK(RB)
+     A  30                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Reset')
+     A                                 13 28'Printer ID:'
+     A            LPRTR         10A  B 13 48DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 14 28'Forms Number:'
+     A            LFORM         10A  B 14 48DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                 15 28'Number of Copies:'
+     A            LCOPY          2Y 0B 15 56EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  52                                  ERRMSG('*** Number Of Copies Is Req-
+     A                                      uired.   Press Reset')
+     A                                 16 28'Run From JobQ:'
+     A            LJOBQ          1X  B 16 57CHECK(FE)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 17 28'Print Status:'
+     A            VOUT           1Y 0B 17 57EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(RI)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.   Press Reset')
+     A                                 17 61'1 = Print'
+     A                                 18 61'2 = Print/Save'
+     A                                 19 61'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                    Enter to Proce-
+     A                                      ss      F3/F7=Cancel Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R RHELP
+     A*%%TS  SD  19980811  114357  EFD         REL-V3R1M0  5763-PW1
+     A                                 10  2' Vendor Payment History           -
+     A                                                                     Over-
+     A                                      view     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2' This report prints a list showing-
+     A                                       the detail data for payments made -
+     A                                      to       '
+     A                                      DSPATR(HI)
+     A                                 13  2' vendors.  This data comes from th-
+     A                                      e Vendor Payment History file - FAP-
+     A                                      DTP.     '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2' The report usually prints all dat-
+     A                                      a for all vendors, in either vendor-
+     A                                       number  '
+     A                                      DSPATR(HI)
+     A                                 16  2' or vendor alpha sequence, based o-
+     A                                      n your selection.                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2' You can choose to print the repor-
+     A                                      t for only 1 vendor by entering tha-
+     A                                      t vendor '
+     A                                      DSPATR(HI)
+     A                                 19  2' number.                          -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' You can also select only to inclu-
+     A                                      de checks dated after a specific da-
+     A                                      te.      '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)

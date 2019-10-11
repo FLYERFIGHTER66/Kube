@@ -1,0 +1,5 @@
+             CLRPFM     FILE(FMSALE)
+             CLRPFM     FILE(FDSALE)
+             CLRPFM     FILE(FMTRAN)
+             CLRPFM     FILE(FARWRK)
+             CLRPFM     FILE(FGLPRE)

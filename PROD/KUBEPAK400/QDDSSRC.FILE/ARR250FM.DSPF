@@ -1,0 +1,105 @@
+     A*%%TS  SD  19991108  212611  TGMS        REL-V4R4M0  5769-PW1
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19991107  083930  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ARR250 '
+     A                                  1 29' Display Customer Aging '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6 27'Display Customers'
+     A                                  7 27'With Balances Over:'
+     A            DAYS           3Y 0B  7 48
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  20                                  ERRMSG('*** Days Are Greater Than H-
+     A                                      ighest Aging Bucket.   Press Reset')
+     A                                  7 53'Days'
+     A                                 12 19'* Leave Days Blank To Display All -
+     A                                      Customers'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                    Enter to Proce-
+     A                                      ss      F3/F7=End of Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19991108  211220  TGMS        REL-V4R4M0  5769-PW1
+     A            CMCUST         6Y 0O  6  2EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            NAME          16A  O  6  9DSPATR(HI)
+     A            ARCUR          8Y 2O  6 26EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            AR1$           8Y 2O  6 37EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            AR2$           8Y 2O  6 48EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            AR3$           8Y 2O  6 59EDTCDE(M)
+     A                                      DSPATR(HI)
+     A            ARB$           9Y 2O  6 70EDTCDE(M)
+     A                                      DSPATR(HI)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19991108  212611  TGMS        REL-V4R4M0  5769-PW1
+     A  *DS3                                SFLSIZ(0020)
+     A  *DS4                                SFLSIZ(0020)
+     A  *DS3                                SFLPAG(0018)
+     A  *DS4                                SFLPAG(0018)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1 21' Roll    F6=Restart    F3/F7=End o-
+     A                                      f Job '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1  3'ARR250'
+     A                                  2  3'Company:'
+     A            LCO            2S 0O  2 12DSPATR(HI)
+     A                                  4  2' Cust  Name'
+     A                                  4 41'-'
+     A            ACAGPY         3Y 0O  4 43EDTCDE(Z)
+     A            AGE2           3Y 0O  4 48EDTCDE(Z)
+     A                                  4 52'-'
+     A            ACAGP2         3Y 0O  4 54EDTCDE(Z)
+     A                                  5  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A            AGP3           3Y 0O  4 65EDTCDE(Z)
+     A                                  4 74'Total'
+     A                                  4 60'Over'
+     A                                  3 37'-------- Overdue Days ---------'
+     A                                  4 39'1'
+     A                                  1 65'Date:'
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                  2 65'Time:'
+     A                                  2 71TIME
+     A                                  4 28'Current'

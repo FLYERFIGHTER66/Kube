@@ -1,0 +1,270 @@
+             PGM        PARM(&RUNHOURS@) /*?Hours to run */
+
+             DCL        VAR(&RUNHOURS@) TYPE(*Char) LEN(2)
+             DCL        VAR(&RUNHOURS) TYPE(*DEC) LEN(2 0)
+
+             DCL        VAR(&LOOPS) TYPE(*INT)
+             DCL        VAR(&THISHOUR) TYPE(*CHAR) LEN(2)
+             DCL        VAR(&THISMINUTE) TYPE(*CHAR) LEN(2)
+             DCL        VAR(&NEXTTIME) TYPE(*CHAR) LEN(6)
+
+             DCL        VAR(&HOUR#) TYPE(*DEC) LEN(2 0)
+             DCL        VAR(&MINUTE#) TYPE(*DEC) LEN(2 0)
+
+             DCL        VAR(&SQL) TYPE(*CHAR) LEN(256) VALUE('INSERT INTO +
+                          scheduler_log(description) VALUES(''')
+             DCL        VAR(&SQLSEND) TYPE(*CHAR) LEN(256)
+
+             CHGVAR     VAR(&RUNHOURS) VALUE(&RUNHOURS@)
+
+             RUNSQL     SQL('delete from scheduler_log where +
+                          created_ts < current date - 30 days') +
+                          COMMIT(*NONE)
+
+             CALLSUBR   SUBR(SYNCHTIME)
+             CALLSUBR   SUBR(LOOP1MIN)
+
+             RETURN
+
+             /*?============================================================ */
+             SUBR       SUBR(SYNCHTIME) /*?Synch this run with the clock     */
+             /*?============================================================ */
+
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT 'SCHEDULER STARTED'')')
+                CALLSUBR   SUBR(LogIt)
+
+                CALLSUBR   SUBR(NEXTMINUTE)
+                DLYJOB     RSMTIME(&NEXTTIME)
+
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT 'SCHEDULER RUNNING'')')
+                CALLSUBR   SUBR(LogIt)
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(NEXTMINUTE) /*?Calculate next tminute           */
+             /*?============================================================ */
+                RTVSYSVAL  SYSVAL(QHOUR) RTNVAR(&THISHOUR)
+                RTVSYSVAL  SYSVAL(QMINUTE) RTNVAR(&THISMINUTE)
+
+                CHGVAR     VAR(&HOUR#) VALUE(&THISHOUR)
+                CHGVAR     VAR(&MINUTE#) VALUE(&THISMINUTE)
+
+                Select
+                   WHEN       COND(&MINUTE# *LT 59) THEN(CHGVAR VAR(&MINUTE#) VALUE(&MINUTE# + +
+                                1))
+                   OTHERWISE  CMD(DO)
+                      CHGVAR     VAR(&HOUR#) VALUE(&HOUR# + 1)
+                      CHGVAR     VAR(&MINUTE#) VALUE(0)
+                   ENDDO
+                ENDSELECT
+
+                IF         COND(&HOUR# *GT 24) THEN(CHGVAR VAR(&HOUR#) VALUE(0))
+
+                CHGVAR     VAR(&THISHOUR) VALUE(&HOUR#)
+                CHGVAR     VAR(&THISMINUTE) VALUE(&MINUTE#)
+                CHGVAR     VAR(&NEXTTIME) VALUE(&THISHOUR *TCAT &THISMINUTE *TCAT '00')
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(LOOP1MIN) /*?Loop Every minute and submit jobs  */
+             /*?============================================================ */
+
+                DOFOR      VAR(&LOOPS) FROM(1) TO(&RUNHOURS * 60)
+
+                   RTVSYSVAL  SYSVAL(QMINUTE) RTNVAR(&THISMINUTE)
+
+                   SELECT
+                      WHEN       COND(&THISMINUTE = '15') THEN(CALLSUBR SUBR(RUN15))
+                      WHEN       COND(&THISMINUTE = '30') THEN(CALLSUBR SUBR(RUN30))
+                      WHEN       COND(&THISMINUTE = '45') THEN(CALLSUBR SUBR(RUN45))
+                      WHEN       COND(&THISMINUTE = '00') THEN(CALLSUBR SUBR(RUN60))
+                      OTHERWISE  CMD(CALLSUBR SUBR(RUN01))
+                   ENDSELECT
+
+                   CALLSUBR   SUBR(NEXTMINUTE)
+                   DLYJOB     RSMTIME(&NEXTTIME)
+                ENDDO
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(RUN01) /*?Add all every minute jobs here        */
+             /*?============================================================ */
+
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT 'SCHEDULER RUN01 submitted'')')
+                /* CALLSUBR   SUBR(LogIt) - Do not Log this...  it is just too much to look at */
+
+                /*?EHR PO/CO FTP - Check FTP site for new PO/CO */
+                SBMJOB     CMD(CALL PGM(WSGETFTPC) PARM('WSPOEHRFTP' 'WSPOEHRLOG')) +
+                             JOB(GETFTPEHRO) JOBD(*LIBL/KUBE_NOLOG) JOBQ(QBATCH2) +
+                             PRTTXT(*SYSVAL) LOG(1 20 *NOLIST) MSGQ(*NONE)
+                /*?McHutchison PO/CO FTP - Check FTP site for new PO/CO */
+            /*  SBMJOB     CMD(CALL PGM(WSGETFTPC) PARM('WSPOMCVFTP' 'WSPOMCVLOG')) +
+                             JOB(GETORDMCH) JOBD(*LIBL/KUBE_NOLOG) JOBQ(QBATCH2) MSGQ(*NONE)  */
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(RUN15) /*?Add all 15 minute jobs here           */
+             /*?============================================================ */
+                CALLSUBR   SUBR(RUN01) /*?Also run every minute jobs */
+
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '--Subroutine RUN15'')')
+                CALLSUBR   SUBR(LogIt)
+
+                /*?Add all on the 15 minute jobs here */
+                if         COND(&THISMINUTE = '15') THEN(DO)
+
+                   /*?INV020 - Build Inventory Availability from Supplier Data */
+                   SBMJOB     CMD(CALL PGM(INV020)) JOB(BLDINVURC) JOBD(*LIBL/KUBE_NOLOG) +
+                                JOBQ(QBATCH2)  MSGQ(*NONE)
+                   CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  BLDINVURC(INV020) - Build +
+                                Inventory'')')
+                   CALLSUBR   SUBR(LogIt)
+
+                ENDDO
+
+                /*?Add all every 15 minute jobs here */
+
+                /*?WEBBUILD */
+                SBMJOB     CMD(CALL PGM(WEB005CLSA)) JOB(WEBBUILD2) JOBD(*LIBL/KUBE_NOLOG) +
+                             JOBQ(QBATCH2) MSGQ(*NONE)  LOG(1 20 *NOLIST)
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  WEBBUILD2(WEB005CLSA)'')')
+                CALLSUBR   SUBR(LogIt)
+
+                /*?GETACKFTP */
+             SBMJOB     CMD(CALL PGM(WSACKFTPC)) JOB(WSACKFTPC) +
+                          JOBD(*LIBL/KUBE_NOLOG) JOBQ(QBATCH2) +
+                          LOG(1 20 *NOLIST) MSGQ(*NONE)
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  GETACKFTP(WSACKFTPC)'')')
+                CALLSUBR   SUBR(LogIt)
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(RUN30) /*?Add all 30 minute jobs here           */
+             /*?============================================================ */
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '--Subroutine RUN30'')')
+                CALLSUBR   SUBR(LogIt)
+
+                CALLSUBR   SUBR(RUN15) /*?Also run 15 minute jobs */
+
+                If         COND(&THISMINUTE = '30') THEN(DO)
+                 /*?Add all on the 30 minute jobs here */
+                   CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  No on the 30 minute jobs'')')
+                   CALLSUBR   SUBR(LogIt)
+                ENDDO
+
+                  /*?Add all every 30 minute jobs here */
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  No every 30 minute jobs'')')
+                CALLSUBR   SUBR(LogIt)
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(RUN45) /*?Add all xx:45 jobs here               */
+             /*?============================================================ */
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '--Subroutine RUN45'')')
+                CALLSUBR   SUBR(LogIt)
+
+                /*?Add all on the 45 minute jobs here */
+                CALLSUBR   SUBR(RUN15) /*?Also run 15 minute jobs */
+
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  No 45 minute jobs'')')
+                CALLSUBR   SUBR(LogIt)
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(RUN60)
+             /*?============================================================ */
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '--Subroutine RUN60'')')
+                CALLSUBR   SUBR(LogIt)
+
+                /*? Run even/odd hourly jobs here */
+                select
+                   when       COND(&THISHOUR *EQ '00' *OR &THISHOUR *EQ '02' *OR &THISHOUR *EQ +
+                                '04' *OR &THISHOUR *EQ '06' *OR &THISHOUR *EQ '08' *OR +
+                                &THISHOUR *EQ '10' *OR &THISHOUR *EQ '12' *OR &THISHOUR *EQ +
+                                '14' *OR &THISHOUR *EQ '16' *OR &THISHOUR *EQ '18' *OR +
+                                &THISHOUR *EQ '20' *OR &THISHOUR *EQ '22') THEN(CALLSUBR +
+                                SUBR(RUN120EVEN))
+                   otherwise  callsubr subr(RUN120ODD)
+                endselect
+
+                /*?Add all every hour jobs here */
+                CALLSUBR   SUBR(RUN30)
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(RUN120ODD) /* Every other hour on odd hours  */
+             /*?============================================================ */
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  **Every Odd hour**'')')
+                CALLSUBR   SUBR(LogIt)
+
+                /*?W/S Standard Inventory Send process  */
+                SBMJOB     CMD(CALL PGM(WSSTDINV01)) JOB(WSSENDAVL) JOBD(*LIBL/KUBE_NOLOG) +
+                             JOBQ(QBATCH2) MSGQ(*NONE)
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  WSSENDAVL(WSSTDINV01) - Send +
+                             Standard Availablility'')')
+                CALLSUBR   SUBR(LogIt)
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(RUN120EVEN) /* Every other hour on even hours  */
+             /*?============================================================ */
+                             /*?Add all 120 minute jobs here (7200 seconds)*/
+                RTVSYSVAL  SYSVAL(QHOUR) RTNVAR(&THISHOUR)
+                CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  **Every Even hour**'')')
+                   CALLSUBR   SUBR(LogIt)
+
+                /*?INNOVAPLNT - Get URC Info for Innovaplant xml from URL  (Calls WSURCSUP01 x52)*/
+                   SBMJOB     CMD(CALL PGM(WSINNOCALL)) JOB(GETURCINNO) JOBD(*LIBL/KUBE_NOLOG) +
+                                JOBQ(QBATCH2) MSGQ(*NONE)
+                   CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  GETURCINNO(WSINNOCALL) - Get +
+                                URC - InnovaPlant'')')
+                   CALLSUBR   SUBR(LogIt)
+
+                /*?SYNGENTA - Get URC Info for Syngenta .csv file  */
+                   SBMJOB     CMD(CALL PGM(WSURCSUP02) PARM('2099')) JOB(GETURCSYNG) +
+                                JOBD(*LIBL/KUBE_NOLOG) JOBQ(QBATCH2) MSGQ(*NONE)
+                   CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  GETURCSYNG(WSURCSUP02) - Get +
+                                URC - SYNGENTA'')')
+                   CALLSUBR   SUBR(LogIt)
+
+                /*?PLANT SOURCE INTL. - Get URC Info for PSI .csv file  */
+                   SBMJOB     CMD(CALL PGM(WSURCSUP03) PARM('1908')) JOB(GETURCPSI) +
+                                JOBD(*LIBL/KUBE_NOLOG) JOBQ(QBATCH2) MSGQ(*NONE)
+                   CHGVAR     VAR(&SQLSEND) VALUE(&SQL *TCAT '  GETURCPSI(WSURCSUP03) - Get +
+                                URC - P.S.I.'')')
+                   CALLSUBR   SUBR(LogIt)
+
+             ENDSUBR
+
+
+             /*?============================================================ */
+             SUBR       SUBR(LOGIT) /*?Log to SCHEULER_LOG table */
+             /*?============================================================ */
+             /*   SBMJOB     CMD(RUNSQL SQL(&SQLSEND) COMMIT(*NONE)) JOBQ(QBATCH2) USER(NIGHT) +
+                             SYSLIBL(*CURRENT) INLLIBL(*CURRENT) LOG(0 99) LOGCLPGM(*NO)  */
+
+                RUNSQL     SQL(&SQLSEND) COMMIT(*NONE)
+             ENDSUBR
+
+
+             /*?============================================================ */
+             ENDPGM
+             /*?============================================================ */
+

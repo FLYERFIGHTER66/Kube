@@ -1,0 +1,518 @@
+     A*%%TS  SD  19990615  055846  TGMS        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990614  121423  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 26' Sales Analysis Item Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 24'Item Number?'
+     A            VITEM         12A  B  5 43DSPATR(CS)
+     A  12                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Item Numb-
+     A                                      er.     Press Reset')
+     A  14                                  ERRMSG('*** No Sales History For Th-
+     A                                      is Item.   Press Reset')
+     A                                  6 24'Size?'
+     A            VSIZE          3A  B  6 43DSPATR(CS)
+     A            DESP          50A  O  7 29
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'               Enter to Process   -
+     A                                            F3/F7=End of Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  2 33'For Company:'
+     A            LCO            2  0O  2 46DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  19990615  055846  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF06
+     A                                      HOME
+     A                                      HELP
+     A                                      CF08
+     A                                      CF09
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 26' Sales Analysis Item Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3  2'Item:'
+     A            VITEM         12A  O  3  8DSPATR(HI)
+     A            VSIZE          3A  O  3 21DSPATR(HI)
+     A            DESP          50A  O  3 25DSPATR(HI)
+     A                                  5  1' Period  ------------  Sales  -----
+     A                                      ----------   ---------- Quantity ---
+     A                                      ---------'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  6  2'Ending     This Year     Last Year-
+     A                                          % Var   This Year   Last Year  -
+     A                                         % Var'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A            ACEN01         6Y 0O  7  1EDTCDE(Y)
+     A            SHCS01         9Y 2O  7 10EDTCDE(K)
+     A            SHLS01         9Y 2O  7 24EDTCDE(K)
+     A            SV01           6Y 2O  7 38EDTCDE(M)
+     A            SHCQ01         7Y 0O  7 48EDTCDE(K)
+     A            SHLQ01         7Y 0O  7 60EDTCDE(K)
+     A            QV01           6Y 2O  7 72EDTCDE(M)
+     A            ACEN02         6Y 0O  8  1EDTCDE(Y)
+     A            SHCS02         9Y 2O  8 10EDTCDE(K)
+     A            SHLS02         9Y 2O  8 24EDTCDE(K)
+     A            SV02           6Y 2O  8 38EDTCDE(M)
+     A            SHCQ02         7Y 0O  8 48EDTCDE(K)
+     A            SHLQ02         7Y 0O  8 60EDTCDE(K)
+     A            QV02           6Y 2O  8 72EDTCDE(M)
+     A            ACEN03         6Y 0O  9  1EDTCDE(Y)
+     A            SHCS03         9Y 2O  9 10EDTCDE(K)
+     A            SHLS03         9Y 2O  9 24EDTCDE(K)
+     A            SV03           6Y 2O  9 38EDTCDE(M)
+     A            SHCQ03         7Y 0O  9 48EDTCDE(K)
+     A            SHLQ03         7Y 0O  9 60EDTCDE(K)
+     A            QV03           6Y 2O  9 72EDTCDE(M)
+     A            ACEN04         6Y 0O 10  1EDTCDE(Y)
+     A            SHCS04         9Y 2O 10 10EDTCDE(K)
+     A            SHLS04         9Y 2O 10 24EDTCDE(K)
+     A            SV04           6Y 2O 10 38EDTCDE(M)
+     A            SHCQ04         7Y 0O 10 48EDTCDE(K)
+     A            SHLQ04         7Y 0O 10 60EDTCDE(K)
+     A            QV04           6Y 2O 10 72EDTCDE(M)
+     A            ACEN05         6Y 0O 11  1EDTCDE(Y)
+     A            SHCS05         9Y 2O 11 10EDTCDE(K)
+     A            SHLS05         9Y 2O 11 24EDTCDE(K)
+     A            SV05           6Y 2O 11 38EDTCDE(M)
+     A            SHCQ05         7Y 0O 11 48EDTCDE(K)
+     A            SHLQ05         7Y 0O 11 60EDTCDE(K)
+     A            QV05           6Y 2O 11 72EDTCDE(M)
+     A            ACEN06         6Y 0O 12  1EDTCDE(Y)
+     A            SHCS06         9Y 2O 12 10EDTCDE(K)
+     A            SHLS06         9Y 2O 12 24EDTCDE(K)
+     A            SV06           6Y 2O 12 38EDTCDE(M)
+     A            SHCQ06         7Y 0O 12 48EDTCDE(K)
+     A            SHLQ06         7Y 0O 12 60EDTCDE(K)
+     A            QV06           6Y 2O 12 72EDTCDE(M)
+     A            ACEN07         6Y 0O 13  1EDTCDE(Y)
+     A            SHCS07         9Y 2O 13 10EDTCDE(K)
+     A            SHLS07         9Y 2O 13 24EDTCDE(K)
+     A            SV07           6Y 2O 13 38EDTCDE(M)
+     A            SHCQ07         7Y 0O 13 48EDTCDE(K)
+     A            SHLQ07         7Y 0O 13 60EDTCDE(K)
+     A            QV07           6Y 2O 13 72EDTCDE(M)
+     A            ACEN08         6Y 0O 14  1EDTCDE(Y)
+     A            SHCS08         9Y 2O 14 10EDTCDE(K)
+     A            SHLS08         9Y 2O 14 24EDTCDE(K)
+     A            SV08           6Y 2O 14 38EDTCDE(M)
+     A            SHCQ08         7Y 0O 14 48EDTCDE(K)
+     A            SHLQ08         7Y 0O 14 60EDTCDE(K)
+     A            QV08           6Y 2O 14 72EDTCDE(M)
+     A            ACEN09         6Y 0O 15  1EDTCDE(Y)
+     A            SHCS09         9Y 2O 15 10EDTCDE(K)
+     A            SHLS09         9Y 2O 15 24EDTCDE(K)
+     A            SV09           6Y 2O 15 38EDTCDE(M)
+     A            SHCQ09         7Y 0O 15 48EDTCDE(K)
+     A            SHLQ09         7Y 0O 15 60EDTCDE(K)
+     A            QV09           6Y 2O 15 72EDTCDE(M)
+     A            ACEN10         6Y 0O 16  1EDTCDE(Y)
+     A            SHCS10         9Y 2O 16 10EDTCDE(K)
+     A            SHLS10         9Y 2O 16 24EDTCDE(K)
+     A            SV10           6Y 2O 16 38EDTCDE(M)
+     A            SHCQ10         7Y 0O 16 48EDTCDE(K)
+     A            SHLQ10         7Y 0O 16 60EDTCDE(K)
+     A            QV10           6Y 2O 16 72EDTCDE(M)
+     A            ACEN11         6Y 0O 17  1EDTCDE(Y)
+     A            SHCS11         9Y 2O 17 10EDTCDE(K)
+     A            SHLS11         9Y 2O 17 24EDTCDE(K)
+     A            SV11           6Y 2O 17 38EDTCDE(M)
+     A            SHCQ11         7Y 0O 17 48EDTCDE(K)
+     A            SHLQ11         7Y 0O 17 60EDTCDE(K)
+     A            QV11           6Y 2O 17 72EDTCDE(M)
+     A            ACEN12         6Y 0O 18  1EDTCDE(Y)
+     A            SHCS12         9Y 2O 18 10EDTCDE(K)
+     A            SHLS12         9Y 2O 18 24EDTCDE(K)
+     A            SV12           6Y 2O 18 38EDTCDE(M)
+     A            SHCQ12         7Y 0O 18 48EDTCDE(K)
+     A            SHLQ12         7Y 0O 18 60EDTCDE(K)
+     A            QV12           6Y 2O 18 72EDTCDE(M)
+     A            ACEN13         6Y 0O 19  1EDTCDE(Y)
+     A  30                                  DSPATR(ND)
+     A            SHCS13         9Y 2O 19 10EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SHLS13         9Y 2O 19 24EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SV13           6Y 2O 19 38EDTCDE(M)
+     A  30                                  DSPATR(ND)
+     A            SHCQ13         7Y 0O 19 48EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SHLQ13         7Y 0O 19 60EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            QV13           6Y 2O 19 72EDTCDE(M)
+     A  30                                  DSPATR(ND)
+     A                                 20  8'  ------------  ------------      -
+     A                                            ---------   ---------        -
+     A                                         '
+     A            TCSLS          9Y 2O 21 10EDTCDE(K)
+     A            TPSLS          9Y 2O 21 24EDTCDE(K)
+     A            TSV            6Y 2O 21 38EDTCDE(M)
+     A            TCQTY          7Y 0O 21 48EDTCDE(K)
+     A            TLQTY          7Y 0O 21 60EDTCDE(K)
+     A            TQV            6Y 2O 21 72EDTCDE(M)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' F6=Next Inquiry   F3/F7=End of Jo-
+     A                                      b   F8=Display Costs  F9=Display Av-
+     A                                      g. Price '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A          R SCRNC
+     A*%%TS  SD  19990614  121423  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF06
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      CF09
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' Sales Analysis Item Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3  2'Item:'
+     A            VITEM         12A  O  3  8DSPATR(HI)
+     A            VSIZE          3A  O  3 21DSPATR(HI)
+     A            DESP          50A  O  3 25DSPATR(HI)
+     A                                  5  1' Period     Sales       Costs     -
+     A                                      Profit/        Sales       Costs   -
+     A                                        Profit/'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  6  2'Ending   This Year   This Year    -
+     A                                       Loss       Last Year   Last Year  -
+     A                                        Loss   '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A            ACEN01         6Y 0O  7  1EDTCDE(Y)
+     A            CS01           8Y 2O  7 10EDTCDE(K)
+     A            CC01           8Y 2O  7 22EDTCDE(K)
+     A            PL01           8Y 2O  7 34EDTCDE(M)
+     A            LS01           8Y 2O  7 46EDTCDE(K)
+     A            LC01           8Y 2O  7 58EDTCDE(K)
+     A            PLL01          8Y 2O  7 70EDTCDE(M)
+     A            ACEN02         6Y 0O  8  1EDTCDE(Y)
+     A            CS02           8Y 2O  8 10EDTCDE(K)
+     A            CC02           8Y 2O  8 22EDTCDE(K)
+     A            PL02           8Y 2O  8 34EDTCDE(M)
+     A            LS02           8Y 2O  8 46EDTCDE(K)
+     A            LC02           8Y 2O  8 58EDTCDE(K)
+     A            PLL02          8Y 2O  8 70EDTCDE(M)
+     A            ACEN03         6Y 0O  9  1EDTCDE(Y)
+     A            CS03           8Y 2O  9 10EDTCDE(K)
+     A            CC03           8Y 2O  9 22EDTCDE(K)
+     A            PL03           8Y 2O  9 34EDTCDE(M)
+     A            LS03           8Y 2O  9 46EDTCDE(K)
+     A            LC03           8Y 2O  9 58EDTCDE(K)
+     A            PLL03          8Y 2O  9 70EDTCDE(M)
+     A            ACEN04         6Y 0O 10  1EDTCDE(Y)
+     A            CS04           8Y 2O 10 10EDTCDE(K)
+     A            CC04           8Y 2O 10 22EDTCDE(K)
+     A            PL04           8Y 2O 10 34EDTCDE(M)
+     A            LS04           8Y 2O 10 46EDTCDE(K)
+     A            LC04           8Y 2O 10 58EDTCDE(K)
+     A            PLL04          8Y 2O 10 70EDTCDE(M)
+     A            ACEN05         6Y 0O 11  1EDTCDE(Y)
+     A            CS05           8Y 2O 11 10EDTCDE(K)
+     A            CC05           8Y 2O 11 22EDTCDE(K)
+     A            PL05           8Y 2O 11 34EDTCDE(M)
+     A            LS05           8Y 2O 11 46EDTCDE(K)
+     A            LC05           8Y 2O 11 58EDTCDE(K)
+     A            PLL05          8Y 2O 11 70EDTCDE(M)
+     A            ACEN06         6Y 0O 12  1EDTCDE(Y)
+     A            CS06           8Y 2O 12 10EDTCDE(K)
+     A            CC06           8Y 2O 12 22EDTCDE(K)
+     A            PL06           8Y 2O 12 34EDTCDE(M)
+     A            LS06           8Y 2O 12 46EDTCDE(K)
+     A            LC06           8Y 2O 12 58EDTCDE(K)
+     A            PLL06          8Y 2O 12 70EDTCDE(M)
+     A            ACEN07         6Y 0O 13  1EDTCDE(Y)
+     A            CS07           8Y 2O 13 10EDTCDE(K)
+     A            CC07           8Y 2O 13 22EDTCDE(K)
+     A            PL07           8Y 2O 13 34EDTCDE(M)
+     A            LS07           8Y 2O 13 46EDTCDE(K)
+     A            LC07           8Y 2O 13 58EDTCDE(K)
+     A            PLL07          8Y 2O 13 70EDTCDE(M)
+     A            ACEN08         6Y 0O 14  1EDTCDE(Y)
+     A            CS08           8Y 2O 14 10EDTCDE(K)
+     A            CC08           8Y 2O 14 22EDTCDE(K)
+     A            PL08           8Y 2O 14 34EDTCDE(M)
+     A            LS08           8Y 2O 14 46EDTCDE(K)
+     A            LC08           8Y 2O 14 58EDTCDE(K)
+     A            PLL08          8Y 2O 14 70EDTCDE(M)
+     A            ACEN09         6Y 0O 15  1EDTCDE(Y)
+     A            CS09           8Y 2O 15 10EDTCDE(K)
+     A            CC09           8Y 2O 15 22EDTCDE(K)
+     A            PL09           8Y 2O 15 34EDTCDE(M)
+     A            LS09           8Y 2O 15 46EDTCDE(K)
+     A            LC09           8Y 2O 15 58EDTCDE(K)
+     A            PLL09          8Y 2O 15 70EDTCDE(M)
+     A            ACEN10         6Y 0O 16  1EDTCDE(Y)
+     A            CS10           8Y 2O 16 10EDTCDE(K)
+     A            CC10           8Y 2O 16 22EDTCDE(K)
+     A            PL10           8Y 2O 16 34EDTCDE(M)
+     A            LS10           8Y 2O 16 46EDTCDE(K)
+     A            LC10           8Y 2O 16 58EDTCDE(K)
+     A            PLL10          8Y 2O 16 70EDTCDE(M)
+     A            ACEN11         6Y 0O 17  1EDTCDE(Y)
+     A            CS11           8Y 2O 17 10EDTCDE(K)
+     A            CC11           8Y 2O 17 22EDTCDE(K)
+     A            PL11           8Y 2O 17 34EDTCDE(M)
+     A            LS11           8Y 2O 17 46EDTCDE(K)
+     A            LC11           8Y 2O 17 58EDTCDE(K)
+     A            PLL11          8Y 2O 17 70EDTCDE(M)
+     A            ACEN12         6Y 0O 18  1EDTCDE(Y)
+     A            CS12           8Y 2O 18 10EDTCDE(K)
+     A            CC12           8Y 2O 18 22EDTCDE(K)
+     A            PL12           8Y 2O 18 34EDTCDE(M)
+     A            LS12           8Y 2O 18 46EDTCDE(K)
+     A            LC12           8Y 2O 18 58EDTCDE(K)
+     A            PLL12          8Y 2O 18 70EDTCDE(M)
+     A            ACEN13         6Y 0O 19  1EDTCDE(Y)
+     A  30                                  DSPATR(ND)
+     A            CS13           8Y 2O 19 10EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            CC13           8Y 2O 19 22EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            PL13           8Y 2O 19 34EDTCDE(M)
+     A  30                                  DSPATR(ND)
+     A            LS13           8Y 2O 19 46EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            CL13           8Y 2O 19 58EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            PLL13          8Y 2O 19 70EDTCDE(M)
+     A  30                                  DSPATR(ND)
+     A            TSLS           8Y 2O 21 10EDTCDE(K)
+     A            TCCOS          8Y 2O 21 22EDTCDE(K)
+     A            TPL            8Y 2O 21 34EDTCDE(M)
+     A            TPYSLS         8Y 2O 21 46EDTCDE(K)
+     A            TPCOS          8Y 2O 21 58EDTCDE(K)
+     A            TPLL           8Y 2O 21 70EDTCDE(M)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    F2=Prev Screen   F6=Next Inqui-
+     A                                      ry   F3/F7=End of Job   F9=Average -
+     A                                      Price    '
+     A                                      DSPATR(UL)
+     A                                 20 10'=========='
+     A                                 20 22'=========='
+     A                                 20 46'=========='
+     A                                 20 58'=========='
+     A                                 20 34'========='
+     A                                 20 70'========='
+     A          R SCRND
+     A*%%TS  SD  19990614  121423  APGL        REL-V3R1M0  5763-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF06
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' Sales Analysis Item Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3  2'Item:'
+     A            VITEM         12A  O  3  8DSPATR(HI)
+     A            VSIZE          3A  O  3 21DSPATR(HI)
+     A            DESP          50A  O  3 25DSPATR(HI)
+     A                                  5  1' Period      Qty          Sales   -
+     A                                        Average      Qty         Sales   -
+     A                                        Average'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  6  2'Ending   This Year     This Year  -
+     A                                        Price    Last Year    Last Year  -
+     A                                        Price  '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A            ACEN01         6Y 0O  7  1EDTCDE(Y)
+     A            SHCQ01         7Y 0O  7 11EDTCDE(K)
+     A            SHCS01         9Y 2O  7 22EDTCDE(K)
+     A            CAVG01         7Y 3O  7 36EDTCDE(M)
+     A            SHLQ01         7Y 0O  7 46EDTCDE(K)
+     A            SHLS01         9Y 2O  7 57EDTCDE(K)
+     A            LAVG01         7Y 3O  7 71EDTCDE(M)
+     A            ACEN02         6Y 0O  8  1EDTCDE(Y)
+     A            SHCQ02         7Y 0O  8 11EDTCDE(K)
+     A            SHCS02         9Y 2O  8 22EDTCDE(K)
+     A            CAVG02         7Y 3O  8 36EDTCDE(M)
+     A            SHLQ02         7Y 0O  8 46EDTCDE(K)
+     A            SHLS02         9Y 2O  8 57EDTCDE(K)
+     A            LAVG02         7Y 3O  8 71EDTCDE(M)
+     A            ACEN03         6Y 0O  9  1EDTCDE(Y)
+     A            SHCQ03         7Y 0O  9 11EDTCDE(K)
+     A            SHCS03         9Y 2O  9 22EDTCDE(K)
+     A            CAVG03         7Y 3O  9 36EDTCDE(M)
+     A            SHLQ03         7Y 0O  9 46EDTCDE(K)
+     A            SHLS03         9Y 2O  9 57EDTCDE(K)
+     A            LAVG03         7Y 3O  9 71EDTCDE(M)
+     A            ACEN04         6Y 0O 10  1EDTCDE(Y)
+     A            SHCQ04         7Y 0O 10 11EDTCDE(K)
+     A            SHCS04         9Y 2O 10 22EDTCDE(K)
+     A            CAVG04         7Y 3O 10 36EDTCDE(M)
+     A            SHLQ04         7Y 0O 10 46EDTCDE(K)
+     A            SHLS04         9Y 2O 10 57EDTCDE(K)
+     A            LAVG04         7Y 3O 10 71EDTCDE(M)
+     A            ACEN05         6Y 0O 11  1EDTCDE(Y)
+     A            SHCQ05         7Y 0O 11 11EDTCDE(K)
+     A            SHCS05         9Y 2O 11 22EDTCDE(K)
+     A            CAVG05         7Y 3O 11 36EDTCDE(M)
+     A            SHLQ05         7Y 0O 11 46EDTCDE(K)
+     A            SHLS05         9Y 2O 11 57EDTCDE(K)
+     A            LAVG05         7Y 3O 11 71EDTCDE(M)
+     A            ACEN06         6Y 0O 12  1EDTCDE(Y)
+     A            SHCQ06         7Y 0O 12 11EDTCDE(K)
+     A            SHCS06         9Y 2O 12 22EDTCDE(K)
+     A            CAVG06         7Y 3O 12 36EDTCDE(M)
+     A            SHLQ06         7Y 0O 12 46EDTCDE(K)
+     A            SHLS06         9Y 2O 12 57EDTCDE(K)
+     A            LAVG06         7Y 3O 12 71EDTCDE(M)
+     A            ACEN07         6Y 0O 13  1EDTCDE(Y)
+     A            SHCQ07         7Y 0O 13 11EDTCDE(K)
+     A            SHCS07         9Y 2O 13 22EDTCDE(K)
+     A            CAVG07         7Y 3O 13 36EDTCDE(M)
+     A            SHLQ07         7Y 0O 13 46EDTCDE(K)
+     A            SHLS07         9Y 2O 13 57EDTCDE(K)
+     A            LAVG07         7Y 3O 13 71EDTCDE(M)
+     A            ACEN08         6Y 0O 14  1EDTCDE(Y)
+     A            SHCQ08         7Y 0O 14 11EDTCDE(K)
+     A            SHCS08         9Y 2O 14 22EDTCDE(K)
+     A            CAVG08         7Y 3O 14 36EDTCDE(M)
+     A            SHLQ08         7Y 0O 14 46EDTCDE(K)
+     A            SHLS08         9Y 2O 14 57EDTCDE(K)
+     A            LAVG08         7Y 3O 14 71EDTCDE(M)
+     A            ACEN09         6Y 0O 15  1EDTCDE(Y)
+     A            SHCQ09         7Y 0O 15 11EDTCDE(K)
+     A            SHCS09         9Y 2O 15 22EDTCDE(K)
+     A            CAVG09         7Y 3O 15 36EDTCDE(M)
+     A            SHLQ09         7Y 0O 15 46EDTCDE(K)
+     A            SHLS09         9Y 2O 15 57EDTCDE(K)
+     A            LAVG09         7Y 3O 15 71EDTCDE(M)
+     A            ACEN10         6Y 0O 16  1EDTCDE(Y)
+     A            SHCQ10         7Y 0O 16 11EDTCDE(K)
+     A            SHCS10         9Y 2O 16 22EDTCDE(K)
+     A            CAVG10         7Y 3O 16 36EDTCDE(M)
+     A            SHLQ10         7Y 0O 16 46EDTCDE(K)
+     A            SHLS10         9Y 2O 16 57EDTCDE(K)
+     A            LAVG10         7Y 3O 16 71EDTCDE(M)
+     A            ACEN11         6Y 0O 17  1EDTCDE(Y)
+     A            SHCQ11         7Y 0O 17 11EDTCDE(K)
+     A            SHCS11         9Y 2O 17 22EDTCDE(K)
+     A            CAVG11         7Y 3O 17 36EDTCDE(M)
+     A            SHLQ11         7Y 0O 17 46EDTCDE(K)
+     A            SHLS11         9Y 2O 17 57EDTCDE(K)
+     A            LAVG11         7Y 3O 17 71EDTCDE(M)
+     A            ACEN12         6Y 0O 18  1EDTCDE(Y)
+     A            SHCQ12         7Y 0O 18 11EDTCDE(K)
+     A            SHCS12         9Y 2O 18 22EDTCDE(K)
+     A            CAVG12         7Y 3O 18 36EDTCDE(M)
+     A            SHLQ12         7Y 0O 18 46EDTCDE(K)
+     A            SHLS12         9Y 2O 18 57EDTCDE(K)
+     A            LAVG12         7Y 3O 18 71EDTCDE(M)
+     A            ACEN13         6Y 0O 19  1EDTCDE(Y)
+     A  30                                  DSPATR(ND)
+     A            SHCQ13         7Y 0O 19 11EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SHCS13         9Y 2O 19 22EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            CAVG13         7Y 3O 19 36EDTCDE(M)
+     A  30                                  DSPATR(ND)
+     A            SHLQ13         7Y 0O 19 46EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            SHLS13         9Y 2O 19 57EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            LAVG13         8Y 4O 19 72EDTCDE(4)
+     A  30                                  DSPATR(ND)
+     A                                 20 11'========='
+     A                                 20 22'============'
+     A                                 20 36'========'
+     A                                 20 46'========='
+     A                                 20 57'============'
+     A                                 20 72'========'
+     A            TCQTY          7Y 0O 21 11EDTCDE(K)
+     A            TCSLS          9Y 2O 21 22EDTCDE(K)
+     A            TCAVG          7Y 3O 21 36EDTCDE(M)
+     A            TLQTY          7Y 0O 21 46EDTCDE(K)
+     A            TPSLS          9Y 2O 21 57EDTCDE(K)
+     A            TLAVG          7Y 3O 21 72EDTCDE(M)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        F2=Previous Screen       F-
+     A                                      6=Next Inquiry     F3/F7=End of Job-
+     A                                               '
+     A                                      DSPATR(UL)

@@ -1,0 +1,85 @@
+     A*%%TS  SD  20010926  154819  EFD         REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20010926  153928  EFD         REL-V5R1M0  5722-WDS
+     A                                  1  2'TRR220A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 29' Truck Schedule Inquiry '
+     A                                      DSPATR(RI)
+     A                                  8 29'Week Date:'
+     A            WKDATE         6Y 0B  8 41
+     A  10                                  DSPATR(RI)
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A  10N11N12                            ERRMSG('*** Invalid Date Entered.  -
+     A                                              Press RESET')
+     A  11                                  ERRMSG('*** There is no schedule fo-
+     A                                      r selected week.   Press RESET')
+     A  12                                  ERRMSG('*** Date is not a Monday Da-
+     A                                      te.     Press RESET')
+     A                                 23 19'Enter to Process              F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22 19'                                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20010926  154819  EFD         REL-V5R1M0  5722-WDS
+     A            FLD001         1A  B  7  3
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A            THROUT         2A  O  7  6
+     A            THTRK#         4A  O  7 10
+     A            DAY            9A  O  7 16
+     A            THDRIV         6A  O  7 26
+     A            THSTOP         8A  O  7 34
+     A            THCOMM        30A  O  7 44
+     A            DATE           6  0H
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20010926  151431  EFD         REL-V5R1M0  5722-WDS
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0017)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLCSRRRN(&LINE)
+     A            LINE           5S 0H
+     A                                  1  2'TRR220SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 29' Truck Schedule Inquiry '
+     A                                      DSPATR(RI)
+     A                                  6  3'  Rout Truck Day       Driver  1st-
+     A                                       Stop  Comment                     -
+     A                                        '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            FLD001         1A  B  5  3
+     A                                  5  6'Position cursor on line wanted and-
+     A                                       Press ENTER'
+     A                                      DSPATR(HI)
+     A                                  5 56'F3/F7=Cancel'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 56'            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 31'Roll for more Trucks'
+     A  25                                  DSPATR(HI)
+     A N25                                  DSPATR(ND)
+     A  25                                  DSPATR(UL)
+     A                                  2 31'                    '
+     A  25                                  DSPATR(HI)
+     A N25                                  DSPATR(ND)
+     A  25                                  DSPATR(UL)

@@ -1,0 +1,224 @@
+     A*%%TS  SD  19990511  055442  GLAP        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF05
+     A                                      CF07
+     A                                      CF02
+     A          R SCRNA
+     A*%%TS  SD  19990511  055442  GLAP        REL-V3R1M0  5763-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 30' Vendor Label Options '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2  0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 23'Label Size:'
+     A            LSIZE          1D 0B  4 50
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries are 1 or -
+     A                                      2.       Press Reset')
+     A                                  4 53'1 = 3in. x 15/16in.'
+     A                                  5 53'2 = 4in. x 2-15/16in.'
+     A                                  7 23'Sequence For'
+     A            LORD           1D 0B  7 50
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.     Press Reset')
+     A                                  7 53'1 = Vendor Number'
+     A                                  8 23'Printing Labels:'
+     A                                  8 53'2 = Zip Code'
+     A                                  9 53'3 = Vendor Alpha'
+     A                                 12 23'Printer ID:'
+     A            LPRTR         10A  B 12 43DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 13 23'Forms Number:'
+     A            LFORM         10A  B 13 43DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                 14 23'Number of Copies:'
+     A            LCOPY          2Y 0B 14 51EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  52                                  ERRMSG('*** Number Of Copies Is Req-
+     A                                      uired.   Press Reset')
+     A                                 15 23'Run From JobQ:'
+     A            LJOBQ          1X  B 15 52CHECK(FE)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.    Press Reset')
+     A                                 16 23'Print Status:'
+     A            VOUT           1Y 0B 16 52EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(RI)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.   Press Reset')
+     A                                 16 56'1 = Print'
+     A                                 17 56'2 = Print/Save'
+     A                                 18 56'3 = Hold'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'         Enter to Process     F5=L-
+     A                                      abel Selections       F7=Cancel Job-
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  19990415  061612  EFD         REL-V3R1M0  5763-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 30' Vendor Label Options '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  4'Include ===>'
+     A                                  4 20'                                  -
+     A                                                    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6 29'  Vendor Types:'
+     A                                  6 48'From:'
+     A            LBTYPE         1A  B  6 59DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** From Type Is Required I-
+     A                                      f To Type Is Entered.     Press Res-
+     A                                      et')
+     A                                  6 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7 48'To:'
+     A            LETYPE         1A  B  7 59DSPATR(CS)
+     A                                  7 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9 29'Zip Code Range:'
+     A                                  9 48'From:'
+     A            LBZIP          5A  B  9 55
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** From Zip Is Required If-
+     A                                       To Zip Is Entered.   Press Reset')
+     A                                  9 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 48'To:'
+     A            LEZIP          5A  B 10 55DSPATR(CS)
+     A                                 10 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12 30'1099 Required:'
+     A            L1099          1A  B 12 59DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 12 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14 20'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14 66'  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15 20'                                  -
+     A                                                    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19 10'* Choose up to 3 selections to be -
+     A                                      included in this label run.'
+     A                                      DSPATR(HI)
+     A                                 20  3'For Example: Select all vendors fr-
+     A                                      om Type 1 thru Type 3 that require -
+     A                                      1099s.'
+     A                                      DSPATR(HI)
+     A                                 22  1'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(UL)
+     A                                 23  1'  Enter to Process       F2=Previo-
+     A                                      us Screen        F7=Cancel Job     -
+     A                                                '
+     A                                      DSPATR(UL)

@@ -1,0 +1,313 @@
+     A*%%TS  SD  20000613  110501  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000613  110501  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ARR240A'
+     A                                  1 26' Company A/R Summary Balance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6 30'Age As Of:'
+     A            LDATE          6Y 0B  6 43
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                            F3/F7=End of Job             -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20000613  110501  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ARR240B'
+     A                                  1 26' Company A/R Summary Balance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'For Company:'
+     A            LCO            2S 0O  4 15DSPATR(HI)
+     A            RGNAME        30A  O  4 18DSPATR(HI)
+     A                                  6 14'Total A/R Balance:'
+     A            VARBAL        13Y 2O  6 34DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                  8 23'Invoices:'
+     A            VTINV$        11Y 2O  8 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTINV          6Y 0O  8 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  9 19'Credit Memos:'
+     A            VTCRM$        11Y 2O  9 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTCRM          6Y 0O  9 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 10 19'Late Charges:'
+     A            VTLCH$        11Y 2O 10 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTLC           6Y 0O 10 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 11 12'On Account Payments:'
+     A            VTOCT$        11Y 2O 11 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTOA           6Y 0O 11 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 15 17'Current'
+     A            #WKP0          3  0O 15 32EDTCDE(Z)
+     A                                 15 36'-'
+     A            #WKP1          3Y 0O 15 38EDTCDE(Z)
+     A            #WKP1A         3  0O 15 49EDTCDE(Z)
+     A                                 15 53'-'
+     A            #WKP2          3Y 0O 15 55EDTCDE(Z)
+     A            #WKP2A         3  0O 15 66EDTCDE(Z)
+     A                                 15 70'-'
+     A            #WKP3          3Y 0O 15 72EDTCDE(Z)
+     A            #WKP3A         3  0O 19 15EDTCDE(Z)
+     A                                 19 19'-'
+     A            #WKP4          3Y 0O 19 21EDTCDE(Z)
+     A                                 19 33'Over'
+     A            #WKP4A         3Y 0O 19 38EDTCDE(Z)
+     A            SCUR          10Y 2O 16 11DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$01        10Y 2O 16 28DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$02        10Y 2O 16 45DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$03        10Y 2O 16 62DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$04        10Y 2O 20 11DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$05        10Y 2O 20 28DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'               Enter to Process   -
+     A                                         F3/F7=End of Job                -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            VTOTP$        11Y 2O 12 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                 12 23'Payments:'
+     A            VTOTP#         6Y 0O 12 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 13 20'Adjustments:'
+     A            VTOAD$        11Y 2O 13 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTOAD#         6Y 0O 13 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 16  2'Dollars:'
+     A                                 17  2'Invoices:'
+     A            IN1            6Y 0O 17 14DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            IN2            6Y 0O 17 31DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            IN3            6Y 0O 17 48DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            IN4            6Y 0O 17 65DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                 20  2'Dollars:'
+     A                                 21  2'Invoices:'
+     A            IN5            6Y 0O 21 14DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                  4 51'Aged As Of:'
+     A            LDATE          6Y 0O  4 63DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A          R SCRNBOLD
+     A*%%TS  SD  20000608  181517  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ARR240B'
+     A                                  1 26' Company A/R Summary Balance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'For Company:'
+     A            LCO            2S 0O  4 15DSPATR(HI)
+     A            MCNAME        30A  O  4 18DSPATR(HI)
+     A                                  6 14'Total A/R Balance:'
+     A            VARBAL        13Y 2O  6 34DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                  8 23'Invoices:'
+     A            VTINV$        11Y 2O  8 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTINV          6Y 0O  8 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  9 19'Credit Memos:'
+     A            VTCRM$        11Y 2O  9 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTCRM          6Y 0O  9 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 10 19'Late Charges:'
+     A            VTLCH$        11Y 2O 10 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTLC           6Y 0O 10 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 11 12'On Account Payments:'
+     A            VTOCT$        11Y 2O 11 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTOA           6Y 0O 11 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 15  6'Current'
+     A            #WKP0          3Y 0O 15 17EDTCDE(Z)
+     A                                 15 21'-'
+     A            #WKP1          3Y 0O 15 23EDTCDE(Z)
+     A            #WKP1A         3Y 0O 15 30EDTCDE(Z)
+     A                                 15 34'-'
+     A            #WKP2          3Y 0O 15 36EDTCDE(Z)
+     A            #WKP2A         3Y 0O 15 43EDTCDE(Z)
+     A                                 15 47'-'
+     A            #WKP3          3Y 0O 15 49EDTCDE(Z)
+     A            #WKP3A         3Y 0O 15 56EDTCDE(Z)
+     A                                 15 60'-'
+     A            #WKP4          3Y 0O 15 62EDTCDE(Z)
+     A                                 15 70'Over'
+     A            #WKP4A         3Y 0O 15 75EDTCDE(Z)
+     A            SCUR          10Y 2O 16  1DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$01        10Y 2O 17 15DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$02        10Y 2O 16 27DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$03        10Y 2O 17 41DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$04        10Y 2O 16 53DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            #PD$05        10Y 2O 17 67DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                 18  2'Inv:'
+     A            IN1            6Y 0O 18  7DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            IN2            6Y 0O 18 19DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            IN3            6Y 0O 18 32DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            IN4            6Y 0O 18 45DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            IN5            6Y 0O 18 58DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            IN6            6Y 0O 18 71DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 19  2'C/M:'
+     A            CM1            6Y 0O 19  7DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CM2            6Y 0O 19 19DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CM3            6Y 0O 19 32DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CM4            6Y 0O 19 45DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CM5            6Y 0O 19 58DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            CM6            6Y 0O 19 71DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 20  2'L/C:'
+     A            LC1            6Y 0O 20  7DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            LC2            6Y 0O 20 19DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            LC3            6Y 0O 20 32DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            LC4            6Y 0O 20 45DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            LC5            6Y 0O 20 58DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            LC6            6Y 0O 20 71DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 21  2'O/A:'
+     A            OA1            6Y 0O 21  7DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            OA2            6Y 0O 21 19DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            OA3            6Y 0O 21 32DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            OA4            6Y 0O 21 45DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            OA5            6Y 0O 21 58DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            OA6            6Y 0O 21 71DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'               Enter to Process   -
+     A                                         F3/F7=End of Job                -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            VTOTP$        11Y 2O 12 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A                                 12 23'Payments:'
+     A            VTOTP#         6Y 0O 12 60DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 13 20'Adjustments:'
+     A            VTOAD$        11Y 2O 13 37DSPATR(HI)
+     A                                      EDTCDE(J)
+     A            VTOAD#         6Y 0O 13 60DSPATR(HI)
+     A                                      EDTCDE(Z)

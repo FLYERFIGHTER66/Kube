@@ -1,0 +1,104 @@
+     A*%%TS  SD  20040506  102723  BILLB       REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20040506  102338  BILLB       REL-V5R1M0  5722-WDS
+     A                                  1  2'LOCCHGA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 24' Change Location In Order Header '
+     A                                      DSPATR(RI)
+     A                                  6 10'Enter Monday Date of Ship Week:'
+     A            SHPWK          6Y 0B  6 42
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N15N16                            ERRMSG('*** Invalid Date Entered.  -
+     A                                             Press RESET')
+     A  10 15N16                            ERRMSG('*** Selected Date is Not a -
+     A                                      Monday.     Press RESET')
+     A  10N15 16                            ERRMSG('*** There are No orders for-
+     A                                       selected Week.     Press RESET')
+     A                                      EDTWRD('  /  /  ')
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process                  -
+     A                                                           F3/F7 = Cancel-
+     A                                       Job     '
+     A                                      DSPATR(UL)
+     A                                  8 17'Exclude Kube Pak Orders:'
+     A                                 22 80' '
+     A            LX1521         1   B  8 42
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Entry must be (Y)es or -
+     A                                      (N)o     Press RESET')
+     A          R LOCSFL                    SFL
+     A*%%TS  SD  20010315  172315  EFD         REL-V3R7M0  5716-PW1
+     A            ORGSEQ         4D 0H
+     A            OLOCWC         6   H
+     A            OLOCWF         6   H
+     A            OLOC           6   H
+     A            OHSHPC         2A  O  7  2
+     A            SHPVNM        15A  O  7  5
+     A            OHNAME        30A  O  7 21
+     A            ORD            6Y 0B  7 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  71                                  DSPATR(PR)
+     A  30N71                               DSPATR(RI)
+     A  30N71                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A            LOC            6A  B  7 60DSPATR(CS)
+     A                                      DSPATR(PC)
+     A            LOCWC          6A  B  7 67DSPATR(CS)
+     A            LOCWF          6A  B  7 74DSPATR(CS)
+     A          R LOCCTL                    SFLCTL(LOCSFL)
+     A*%%TS  SD  20000324  180739  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0018)
+     A                                      CF01
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  81                                  SFLMSG('*** Invalid Item Number/Siz-
+     A                                      e Code.     Press RESET')
+     A  82                                  SFLMSG('*** Item Allready Exists in-
+     A                                       List.      Press RESET')
+     A  83                                  SFLMSG('*** Sequence Allready exist-
+     A                                      s in File.  Press RESET')
+     A                                  2 32' Add Order Location '
+     A                                      DSPATR(RI)
+     A                                  2 67'Date:'
+     A                                  2 73DATE
+     A                                      EDTCDE(Y)
+     A                                  3 67'Time:'
+     A                                  3 73TIME
+     A                                  1  6' Roll Forward/Backward     F6=Rest-
+     A                                      art(No Update)     F3/F7=End of Job-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                  6  2'Ship Via.          Ship To        -
+     A                                                      Number   Norm   W-C-
+     A                                          W-F  '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 23' Data Is OK  -  Press F1 To Accept-
+     A                                       '
+     A N99 98                               DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  2  3'LOCCHGFM'
+     A                                  3 30'For Ship Week:'
+     A            SHPWK          6Y 0O  3 45EDTCDE(Y)
+     A                                  5 61'-----Locations-----'
+     A                                      DSPATR(HI)
+     A                                  5 52'Order'
+     A                                      DSPATR(HI)

@@ -1,0 +1,77 @@
+     A*%%TS  SD  19991003  093446  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19991003  093446  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      CF07
+     A                                  1  2'GLR222'
+     A                                  1 27' G/L Consolidation Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 73TIME
+     A                                  5 26'Consolidation Number:'
+     A            GTCON#         6Y 0B  5 48DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Consolidation Number Is-
+     A                                       Required.  Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                   Enter to Proces-
+     A                                      s        F3/F7=End of Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R DSPSFL                    SFL
+     A*%%TS  SD  19991003  093446  TGMS        REL-V4R2M0  5769-PW1
+     A            GTACCT         8Y 0O  6  2DSPATR(HI)
+     A                                      EDTWRD('    -    ')
+     A            GTTDAT         6Y 0O  6 13DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            GTSRCE         3A  O  6 23DSPATR(HI)
+     A            GTDOL$        11Y 2O  6 28EDTCDE(L)
+     A                                      DSPATR(HI)
+     A            GTJEDS        30A  O  6 43DSPATR(HI)
+     A            GTAPER         4Y 0O  6 75DSPATR(HI)
+     A                                      EDTWRD('  / 0')
+     A          R DSPCTL                    SFLCTL(DSPSFL)
+     A*%%TS  SD  19991003  093446  TGMS        REL-V4R2M0  5769-PW1
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0018)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'GLR222'
+     A                                      DSPATR(PC)
+     A                                  1 20'  Roll    F6=Restart   F3/F7=End o-
+     A                                      f Job  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  2'Company:'
+     A            VCO            2S 0O  3 11DSPATR(HI)
+     A                                  3 16'Consolidation Number:'
+     A            GTCON#         6Y 0O  3 38DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                  5  2' Acct #       Date   Src        Am-
+     A                                      ount   Description                 -
+     A                                         Act Per'
+     A                                      DSPATR(UL)

@@ -1,0 +1,265 @@
+     A*%%TS  SD  20170203  124343  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20130404  122407  BILLB       REL-V7R1M0  5770-WDS
+     A                                  1  2'SCR410A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  6 24'Enter Ship Week:'
+     A            SHPDAT         6Y 0B  6 48
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                          Press RESET')
+     A  12                                  ERRMSG('*** Date Must be a Monday D-
+     A                                      ate.    Press RESET')
+     A                                 23 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 26' Un-Filled Order Work Screens '
+     A                                      DSPATR(RI)
+     A                                 17 24'Show only open or All:'
+     A            OPNALL         1A  B 17 48
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Open or All Must be O o-
+     A                                      r A.     Press RESET')
+     A                                 17 51'O=Open Only'
+     A                                 18 51'A=All'
+     A                                 10 24'Start With Item Number?'
+     A            VITEM         12A  B 10 48
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Item number ent-
+     A                                      ered.     Press RESET')
+     A                                 12 24'Start With Size Code?'
+     A            VSIZE          3A  B 12 48
+     A  35                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.       Press RESET')
+     A                                 14 24'Show only Scheduled:'
+     A            SCHONL         1A  B 14 48
+     A  25                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Scheduled Must be Y or -
+     A                                      N.     Press RESET')
+     A                                 14 51'Y=Only Items Scanned'
+     A                                 15 51'N=All Items'
+     A                                  8 24'Enter Master Number:'
+     A            SMASTER        2Y 0B  8 48EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A          R ITMSFL                    SFL
+     A*%%TS  SD  20170203  123921  BILLB       REL-V7R1M0  5770-WDS
+     A            IMITEM        12A  H
+     A            IMITEM_OLD    12A  H
+     A            ITEM           5A  O  9  2
+     A            IMSIZE         3A  O  9 10
+     A            IMDES1        30A  O  9 14
+     A            QTYORD         5Y 1O  9 46EDTCDE(K)
+     A                                      COLOR(PNK)
+     A            QTYREC         5Y 1O  9 56EDTCDE(K)
+     A            NEED           5Y 1O  9 66EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            PRINT          1A  B  9 77DSPATR(CS)
+     A                                      VALUES(' ' 'P')
+     A            DISP           1A  B  9 80DSPATR(CS)
+     A                                      VALUES(' ' 'N')
+     A            P              1A  O  9  8
+     A          R ITMCTL                    SFLCTL(ITMSFL)
+     A*%%TS  SD  20170203  124343  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0015)
+     A                                      CF01
+     A                                      CF04
+     A                                      CF11
+     A                                      CF12
+     A                                      SFLCSRRRN(&LINE1)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            LINE1          5S 0H
+     A            PAGE#          4S 0H      SFLRCDNBR
+     A                                  1  3'SCR410ITM'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 26' Un-Filled Order Work Screens '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  2 20'Ship Date:'
+     A            SHPDAT         6Y 0O  2 31EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 40'Week #:'
+     A            CLWEEK         2Y 0O  2 48EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  8  2'Item   Size Description           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            VITEM         12A  B  7 13
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.    Press RESET')
+     A                                  7 26'Size:'
+     A            VSIZE          3A  B  7 32
+     A  35                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Invalid Size Entered.  -
+     A                                          Press RESET')
+     A                                  6 80'D'
+     A                                      DSPATR(HI)
+     A                                  7 77'R'
+     A                                      DSPATR(HI)
+     A                                  7 80'S'
+     A                                      DSPATR(HI)
+     A                                  7  2'Find Item:'
+     A                                  6 62'To Print Enter P'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 59'To Non-Display Enter N'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 16'F11'
+     A                                      DSPATR(HI)
+     A                                  4 20'=Print Due Now Report'
+     A                                      COLOR(BLU)
+     A                                  4 42'(Include RB:'
+     A                                      COLOR(PNK)
+     A            INCLUDE_RB     1A  B  4 55COLOR(TRQ)
+     A                                      VALUES('Y' 'N')
+     A                                      DFTVAL('N')
+     A                                  4 75')'
+     A                                      COLOR(PNK)
+     A                                  5 17'F4'
+     A                                      DSPATR(HI)
+     A                                  5 20'=Print All Items.....'
+     A                                      COLOR(BLU)
+     A                                  5 42'(Include RB:'
+     A                                      COLOR(PNK)
+     A                                  5 57')'
+     A                                      COLOR(PNK)
+     A                                  4  2'F3'
+     A                                      DSPATR(HI)
+     A                                  4  5'=End Job'
+     A                                      COLOR(BLU)
+     A                                  5  2'F6'
+     A                                      DSPATR(HI)
+     A                                  5  5'=Restart'
+     A                                      COLOR(BLU)
+     A            PRINT_RB       1A  B  5 55COLOR(TRQ)
+     A                                      VALUES('Y' 'N')
+     A                                      DFTVAL('Y')
+     A                                  3  2'F1'
+     A                                      DSPATR(HI)
+     A                                  3  5'=Display Orders'
+     A                                      COLOR(BLU)
+     A                                  3 21'(Place Cursor on Item)'
+     A                                      COLOR(PNK)
+     A                                  4 57'Print Locations'
+     A                                      COLOR(PNK)
+     A            PRINT_LOCS     1A  B  4 73COLOR(TRQ)
+     A                                      VALUES('Y' 'N')
+     A                                      DFTVAL('N')
+     A                                  2 52'Master:'
+     A            SMASTER        2S 0O  2 60COLOR(YLW)
+     A            QTYORDT        6Y 1O  7 46EDTCDE(M)
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A            QTYRECT        6Y 1O  7 56EDTCDE(M)
+     A                                      DSPATR(RI)
+     A            NEEDT          6Y 1O  7 66EDTCDE(M)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  8 46' Ordered'
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  8 56'Received'
+     A                                      DSPATR(RI)
+     A                                  8 66'  Short '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  8 77'T  P'
+     A                                      DSPATR(HI)
+     A            PRINTER       10   B  3 71COLOR(YLW)
+     A                                  3 49'Printer (F12=Change):'
+CAB  A**          OHNAME        30A  O  9  9
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  20090515  120841  BILLB       REL-V5R3M0  5722-WDS
+CAB  A**          OHNAME        30A  O  9  9
+     A            NAME          24A  O  9  9
+     A            QTYORD         5Y 1O  9 54EDTCDE(K)
+     A            QTYREC         5Y 1O  9 63EDTCDE(K)
+     A            NEED           5Y 1O  9 72EDTCDE(K)
+     A                                      DSPATR(HI)
+     A            PDORD#         6Y 0O  9  2EDTCDE(4)
+     A            CNTL#          6Y 0O  9 34EDTCDE(4)
+     A            PDLOC          8A  O  9 41
+     A            PDSTA          1A  O  9 50
+     A            PDBORD         1A  O  9 52
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  20130404  122407  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0015)
+     A                                      CF01
+     A                                      SFLCSRRRN(&LINE2)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            LINE2          5S 0H
+     A                                  1  2'SCR410ORD'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Un-Filled Order Work Screens '
+     A                                      DSPATR(RI)
+     A                                  2 19'Ship Date:'
+     A            SHPDAT         6Y 0O  2 30EDTCDE(Y)
+     A                                      COLOR(YLW)
+     A                                  2 40'Week #:'
+     A            CLWEEK         2Y 0O  2 48EDTCDE(4)
+     A                                      COLOR(YLW)
+     A                                  7 54'---------Quantity--------'
+     A                                      DSPATR(HI)
+     A                                  8  2'Order# Customer                   -
+     A                                      Ctl# Location A O Ordered  Received-
+     A                                         Short'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  3'Orders for Item:'
+     A            ITEM           5A  O  4 20DSPATR(HI)
+     A                                  4 26'Size:'
+     A            IMSIZE         3A  O  4 32DSPATR(HI)
+     A            IMDES1        30A  O  4 36DSPATR(HI)
+     A                                  6  2'Press Enter to Return'
+     A                                  7 50'T /'
+     A                                      DSPATR(HI)
+     A                                  6 50'S B'
+     A                                      DSPATR(HI)
+     A                                  2 52'Master:'
+     A            SMASTER        2  0O  2 60COLOR(YLW)

@@ -1,0 +1,348 @@
+     A*%%TS  SD  20030210  113658  CBUCK       REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20020809  143319  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF03
+     A                                      CF07
+     A                                  1  2'CHR200A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            FRMDAT         6Y 0B  9 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11N12                            ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A  12                                  ERRMSG('*** Weekly Control record i-
+     A                                      s not in file. Press RESET')
+     A                                  9 37'or Year:'
+     A            BEGYY          4Y 0B  9 46
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  9 51'and Week:'
+     A            BEGWW          2Y 0B  9 61
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 24 26'Enter to Process F3=Cancel Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 26' Review Weekly Sprayer Input '
+     A                                      DSPATR(RI)
+     A                                  9  6'Enter Monday Date:'
+     A          R SPYSFL                    SFL
+     A*%%TS  SD  20020815  163232  EFD         REL-V5R1M0  5722-WDS
+     A            DISP           1A  B  8  2VALUES(' ' 'R')
+     A            DESC1         10A  O  8  4
+     A            PPM            7Y 2O  8 18EDTCDE(4)
+     A            GAL            5Y 0O  8 47EDTCDE(2)
+     A            OUNCE          9Y 3O  8 55EDTCDE(2)
+     A            MILL           9Y 3O  8 68EDTCDE(2)
+     A            TRAYS          7Y 0O  8 29EDTCDE(2)
+     A            X              5S 0H
+     A          R SPYCTL                    SFLCTL(SPYSFL)
+     A*%%TS  SD  20020809  164058  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0016)
+     A                                  1  2'CHR200SPY'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 31' Weekly Spray Input '
+     A                                      DSPATR(RI)
+     A                                  2 24'Date:'
+     A            FRMDAT         6Y 0O  2 30EDTCDE(Y)
+     A                                  2 39'Year:'
+     A            BEGYY          4S 0O  2 45
+     A                                  2 50'Week:'
+     A            BEGWW          2Y 0O  2 56EDTCDE(4)
+     A                                  7  2'| Description       PPM        Tra-
+     A                                      ys        Gallons      Ounces     M-
+     A                                      il. Ltr.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 49'Formula = 100 trays per gallon'
+     A                                  6 54'Round to next full gallon.'
+     A                                  3  2'F3=End Job'
+     A                                      DSPATR(HI)
+     A                                  4  2'F6=Restart'
+     A                                      DSPATR(HI)
+     A                                  6  2'R=Review Trays'
+     A                                      DSPATR(HI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20020815  165953  EFD         REL-V5R1M0  5722-WDS
+     A            OPTION         1A  B  9  2VALUES(' ' 'C')
+     A            CJJOB#         6Y 0O  9  4EDTCDE(4)
+     A            IMDES1        30A  O  9 11
+     A            CJRDYD         6Y 0O  9 42EDTCDE(Y)
+     A                                  9 51'Section:'
+     A            CJSECT         2Y 0O  9 60EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  9 63'Bay:'
+     A            CJBAY          2Y 0O  9 68EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            DIRECT         5A  O  9 72DSPATR(HI)
+     A                                 10 42'Start Pole:'
+     A            CJSPOL         2Y 0O 10 54EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            CJSLOR         1A  O 10 57DSPATR(HI)
+     A                                 10 63'End Pole:'
+     A            CJEPOL         2Y 0O 10 73EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            CJELOR         1A  O 10 76DSPATR(HI)
+     A            CJTRAY         5Y 0O 10 18EDTCDE(2)
+     A                                      DSPATR(HI)
+     A                                 10 11'Trays:'
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20020815  165953  EFD         REL-V5R1M0  5722-WDS
+     A                                      SFLSIZ(5000)
+     A                                      SFLPAG(0008)
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'CHR200REC'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 30' Weekly Spray Review '
+     A                                      DSPATR(RI)
+     A            ITEM           4A  O  3  2
+     A            DES           30A  O  3  7
+     A                                  3 53'PPM'
+     A            PPM            7Y 2O  3 43EDTCDE(2)
+     A            TRAYS          7Y 0O  5  2EDTCDE(2)
+     A                                  4  5'Trays'
+     A                                  4 13'Gallons'
+     A            GAL            5Y 0O  5 14EDTCDE(2)
+     A                                  4 26'Ounces'
+     A            OUNCE          9Y 3O  5 22EDTCDE(2)
+     A                                  4 38'Mil.Ltr.'
+     A            MILL           9Y 3O  5 35EDTCDE(2)
+     A                                  8  2'|  Job # Item                     -
+     A                                           Ready Date                    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7  2'C=Change'
+     A                                      DSPATR(HI)
+     A                                  7 71'F6=Return'
+     A                                      DSPATR(HI)
+     A          R SCRNC
+     A*%%TS  SD  20020816  121259  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF06
+     A                                      CF10
+     A                                      CF23
+     A                                  1  2'CHR200C'
+     A                                  1 30' Weekly Spray Review '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A            ITEM           4A  O  3  2
+     A            DES           30A  O  3  7
+     A            PPM            7Y 2O  3 43EDTCDE(2)
+     A                                  3 53'PPM'
+     A                                 15  2' #  Name          PPM  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 30' #  Name          PPM  '
+     A  08                                  DSPATR(HI)
+     A  08                                  DSPATR(UL)
+     A N08                                  DSPATR(ND)
+     A                                 15 58' #  Name          PPM  '
+     A  16                                  DSPATR(HI)
+     A  16                                  DSPATR(UL)
+     A N16                                  DSPATR(ND)
+     A                                 16  2' 1.'
+     A N01                                  DSPATR(ND)
+     A            DES01         10A  O 16  6
+     A N01                                  DSPATR(ND)
+     A            PPM01          7Y 2O 16 17EDTCDE(4)
+     A N01                                  DSPATR(ND)
+     A                                 16 30' 8.'
+     A N08                                  DSPATR(ND)
+     A            DES08         10A  O 16 34
+     A N08                                  DSPATR(ND)
+     A            PPM08          7Y 2O 16 45EDTCDE(4)
+     A N08                                  DSPATR(ND)
+     A                                 16 58'15.'
+     A N15                                  DSPATR(ND)
+     A            DES15         10A  O 16 62
+     A N15                                  DSPATR(ND)
+     A            PPM15          7Y 2O 16 73EDTCDE(4)
+     A N15                                  DSPATR(ND)
+     A                                 17  2' 2.'
+     A N02                                  DSPATR(ND)
+     A            DES02         10A  O 17  6
+     A N02                                  DSPATR(ND)
+     A            PPM02          7Y 2O 17 17EDTCDE(4)
+     A N02                                  DSPATR(ND)
+     A                                 17 30' 9.'
+     A N09                                  DSPATR(ND)
+     A            DES09         10A  O 17 34
+     A N09                                  DSPATR(ND)
+     A            PPM09          7Y 2O 17 45EDTCDE(4)
+     A N09                                  DSPATR(ND)
+     A                                 17 58'16.'
+     A N16                                  DSPATR(ND)
+     A            DES16         10A  O 17 62
+     A N16                                  DSPATR(ND)
+     A            PPM16          7Y 2O 17 73EDTCDE(4)
+     A N16                                  DSPATR(ND)
+     A                                 18  2' 3.'
+     A N03                                  DSPATR(ND)
+     A            DES03         10A  O 18  6
+     A N03                                  DSPATR(ND)
+     A            PPM03          7Y 2O 18 17EDTCDE(4)
+     A N03                                  DSPATR(ND)
+     A                                 18 30'10.'
+     A N10                                  DSPATR(ND)
+     A            DES10         10A  O 18 34
+     A N10                                  DSPATR(ND)
+     A            PPM10          7Y 2O 18 45EDTCDE(4)
+     A N10                                  DSPATR(ND)
+     A                                 18 58'17.'
+     A N17                                  DSPATR(ND)
+     A            DES17         10A  O 18 62
+     A N17                                  DSPATR(ND)
+     A            PPM17          7Y 2O 18 73EDTCDE(4)
+     A N17                                  DSPATR(ND)
+     A                                 19  2' 4.'
+     A N04                                  DSPATR(ND)
+     A            DES04         10A  O 19  6
+     A N04                                  DSPATR(ND)
+     A            PPM04          7Y 2O 19 17EDTCDE(4)
+     A N04                                  DSPATR(ND)
+     A                                 19 30'11.'
+     A N11                                  DSPATR(ND)
+     A            DES11         10A  O 19 34
+     A N11                                  DSPATR(ND)
+     A            PPM11          7Y 2O 19 45EDTCDE(4)
+     A N11                                  DSPATR(ND)
+     A                                 19 58'18.'
+     A N18                                  DSPATR(ND)
+     A            DES18         10A  O 19 62
+     A N18                                  DSPATR(ND)
+     A            PPM18          7Y 2O 19 73EDTCDE(4)
+     A N18                                  DSPATR(ND)
+     A                                 20  2' 5.'
+     A N05                                  DSPATR(ND)
+     A            DES05         10A  O 20  6
+     A N05                                  DSPATR(ND)
+     A            PPM05          7Y 2O 20 17EDTCDE(4)
+     A N05                                  DSPATR(ND)
+     A                                 20 30'12.'
+     A N12                                  DSPATR(ND)
+     A            DES12         10A  O 20 34
+     A N12                                  DSPATR(ND)
+     A            PPM12          7Y 2O 20 45EDTCDE(4)
+     A N12                                  DSPATR(ND)
+     A                                 20 58'19.'
+     A N19                                  DSPATR(ND)
+     A            DES19         10A  O 20 62
+     A N19                                  DSPATR(ND)
+     A            PPM19          7Y 2O 20 73EDTCDE(4)
+     A N19                                  DSPATR(ND)
+     A                                 21  2' 6.'
+     A N06                                  DSPATR(ND)
+     A            DES06         10A  O 21  6
+     A N06                                  DSPATR(ND)
+     A            PPM06          7Y 2O 21 17EDTCDE(4)
+     A N06                                  DSPATR(ND)
+     A                                 21 30'13.'
+     A N13                                  DSPATR(ND)
+     A            DES13         10A  O 21 34
+     A N13                                  DSPATR(ND)
+     A            PPM13          7Y 2O 21 45EDTCDE(4)
+     A N13                                  DSPATR(ND)
+     A                                 21 58'20.'
+     A N20                                  DSPATR(ND)
+     A            DES20         10A  O 21 62
+     A N20                                  DSPATR(ND)
+     A            PPM20          7Y 2O 21 73EDTCDE(4)
+     A N20                                  DSPATR(ND)
+     A                                 22  2' 7.'
+     A N07                                  DSPATR(ND)
+     A            DES07         10A  O 22  6
+     A N07                                  DSPATR(ND)
+     A            PPM07          7Y 2O 22 17EDTCDE(4)
+     A N07                                  DSPATR(ND)
+     A                                 22 30'14.'
+     A N14                                  DSPATR(ND)
+     A            DES14         10A  O 22 34
+     A N14                                  DSPATR(ND)
+     A            PPM14          7Y 2O 22 45EDTCDE(4)
+     A N14                                  DSPATR(ND)
+     A                                 24  3'Enter to Process            F6=Res-
+     A                                      tart(NO UPDATE)           F10=Delet-
+     A                                      e Record'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  1'Job#:'
+     A            CJJOB#         6Y 0O  5  7EDTCDE(4)
+     A                                  5 14'Item:'
+     A            IMDES1        30A  O  5 20
+     A                                  5 51'Ready Date:'
+     A            CJRDYD         6Y 0O  5 63EDTWRD('  /  /  ')
+     A            DIRECT         5A  O  6 21
+     A                                  6  1'Section:'
+     A            CJSECT         2Y 0O  6 10EDTCDE(4)
+     A                                  6 13'Bay:'
+     A            CJBAY          2Y 0O  6 18EDTCDE(4)
+     A                                  6 29'Starting Pole:'
+     A            CJSPOL         2Y 0O  6 44EDTCDE(4)
+     A            CJSLOR         1A  O  6 47
+     A                                  6 51'Ending Pole:'
+     A            CJEPOL         2Y 0O  6 64EDTCDE(4)
+     A            CJELOR         1A  O  6 67
+     A                                  8  2'Number of Flats:'
+     A            CJTRAY         5Y 0O  8 19EDTCDE(2)
+     A                                 10  2'Enter new number of flats:'
+     A            NEWNUM         5Y 0B 10 29EDTCDE(4)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** You cannot enter more f-
+     A                                      lats than are open.     Press RESET-
+     A                                      ')
+     A                                 12  2'Select chemical and dose from tabl-
+     A                                      e below:'
+     A            NEWSL          2Y 0B 12 46EDTCDE(4)
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Select from chemical op-
+     A                                      itions below.  Press RESET')
+     A                                  8 32'Maximum Open Flats:'
+     A            OPNFLT         5Y 0O  8 52EDTCDE(2)
+     A                                  8 59'Poles:'
+     A            OPNPOL         3Y 0O  8 66EDTCDE(4)

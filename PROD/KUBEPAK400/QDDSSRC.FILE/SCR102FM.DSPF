@@ -1,0 +1,656 @@
+     A*%%TS  SD  20140210  134425  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20140210  115841  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter ship week')
+     A                                  1 25'SCR100A'
+     A                                      COLOR(BLU)
+     A                                  5 25USER
+     A                                      COLOR(BLU)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  1  3' Order Verification '
+     A                                      DSPATR(RI)
+     A                                  6  5'Enter Ship Week:'
+     A            SHPDAT         6Y 0B  7  9
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                          Press RESET')
+     A  12                                  ERRMSG('*** Date Must be a Monday D-
+     A                                      ate.    Press RESET')
+     A                                      CHECK(ER)
+     A                                  4 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                 10  3'F3=Exit'
+     A                                      DSPATR(HI)
+     A                                  3  7'Enter Master:'
+     A            SMASTER        2Y 0B  4 12EDTCDE(Z)
+     A                                      COLOR(TRQ)
+     A          R SCRNA1
+     A*%%TS  SD  20140210  134425  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter order number')
+     A                                  1 25'SCR100A1'
+     A                                      COLOR(BLU)
+     A                                  5 25USER
+     A                                      COLOR(BLU)
+     A                                  1  3' Order Verification '
+     A                                      DSPATR(RI)
+     A                                  4  2'Ship Week:'
+     A            SHPDAT         6Y 0B  4 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  6  2'Enter Order#:'
+     A            ORDNO          6Y 0B  6 16
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Order Number En-
+     A                                      tered.    Press RESET')
+     A  22                                  ERRMSG('*** Order is not scheduled -
+     A                                      for selected week.  Press RESET')
+     A  23                                  ERRMSG('*** Order has already been -
+     A                                      billed.   Press RESET')
+     A  24                                  ERRMSG('*** Order is complete no sc-
+     A                                      an required. Press RESET')
+     A                                      CHECK(ER)
+     A                                  8  2'Last Order #:'
+     A            LSTORD         6Y 0B  8 16EDTCDE(4)
+     A                                      DSPATR(PR)
+     A  55                              9  5'Confirmed OK.'
+     A  55                                  DSPATR(RI)
+     A N55                                  DSPATR(ND)
+     A  56                              9  5'Contains Errors'
+     A  56                                  DSPATR(RI)
+     A N56                                  DSPATR(ND)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  4 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                 10  2'F3=Exit   Enter=Next'
+     A                                      DSPATR(HI)
+     A          R SCRNA2
+     A*%%TS  SD  20050317  115706  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Clear previous data for order-
+     A                                       ?')
+     A                                  1 25'SCR100A2'
+     A                                      COLOR(BLU)
+     A                                  5 25USER
+     A                                      COLOR(BLU)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  1  2' Order Verification '
+     A                                      DSPATR(RI)
+     A                                  3  2'Ship Week:'
+     A            SHPDAT         6Y 0B  3 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  4  2'Order #:'
+     A            ORDNO          6Y 0B  4 13EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            CLR            2Y 0B  9  3PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'Do Not Clear')
+     A                                      PSHBTNCHC(2 'Clear the Order')
+     A                                      PSHBTNCHC(3 'Clear a Tray')
+     A                                  7  2'partialy scanned. Do '
+     A                                  8  2'you want to clear it?'
+     A                                  4 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6  2'This order has been  '
+     A          R SCRNB
+     A*%%TS  SD  20140210  115841  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Scan tag #s')
+     A                                      CF01
+     A                                      ALARM
+     A                                  1  2'SCR100B'
+     A                                  1 13' Order Verification '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'Ship Week:'
+     A            SHPDAT         6Y 0B  2 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  2 22'Order #:'
+     A            ORDNO          6Y 0B  2 31EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  2 73TIME
+     A                                  3  2'Ship To:'
+     A            OHNAME        30A  O  3 11
+     A            TAG01          8Y 0B  4  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG02          8Y 0B  4 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG03          8Y 0B  4 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG04          8Y 0B  4 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG05          8Y 0B  4 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  41                                  CHECK(ER)
+     A            TAG06          8Y 0B  4 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG07          8Y 0B  4 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG08          8Y 0B  4 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG09          8Y 0B  5  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG10          8Y 0B  5 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG11          8Y 0B  5 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG12          8Y 0B  5 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG13          8Y 0B  5 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG14          8Y 0B  5 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG15          8Y 0B  5 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  42                                  CHECK(ER)
+     A            TAG16          8Y 0B  5 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG17          8Y 0B  6  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG18          8Y 0B  6 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG19          8Y 0B  6 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG20          8Y 0B  6 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG21          8Y 0B  6 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG22          8Y 0B  6 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG23          8Y 0B  6 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG24          8Y 0B  6 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG25          8Y 0B  7  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG26          8Y 0B  7 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG27          8Y 0B  7 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG28          8Y 0B  7 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG29          8Y 0B  7 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG30          8Y 0B  7 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG31          8Y 0B  7 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG32          8Y 0B  7 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG33          8Y 0B  8  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG34          8Y 0B  8 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG35          8Y 0B  8 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG36          8Y 0B  8 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG37          8Y 0B  8 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG38          8Y 0B  8 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG39          8Y 0B  8 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG40          8Y 0B  8 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG41          8Y 0B  9  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG42          8Y 0B  9 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG43          8Y 0B  9 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG44          8Y 0B  9 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG45          8Y 0B  9 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG46          8Y 0B  9 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG47          8Y 0B  9 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG48          8Y 0B  9 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG49          8Y 0B 10  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG50          8Y 0B 10 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG51          8Y 0B 10 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG52          8Y 0B 10 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG53          8Y 0B 10 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG54          8Y 0B 10 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG55          8Y 0B 10 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG56          8Y 0B 10 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG57          8Y 0B 11  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG58          8Y 0B 11 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG59          8Y 0B 11 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG60          8Y 0B 11 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG61          8Y 0B 11 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG62          8Y 0B 11 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG63          8Y 0B 11 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG64          8Y 0B 11 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG65          8Y 0B 12  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG66          8Y 0B 12 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG67          8Y 0B 12 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG68          8Y 0B 12 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG69          8Y 0B 12 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG70          8Y 0B 12 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  43                                  CHECK(ER)
+     A            TAG71          8Y 0B 12 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG72          8Y 0B 12 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG73          8Y 0B 13  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG74          8Y 0B 13 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG75          8Y 0B 13 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG76          8Y 0B 13 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG77          8Y 0B 13 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG78          8Y 0B 13 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG79          8Y 0B 13 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG80          8Y 0B 13 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG81          8Y 0B 14  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG82          8Y 0B 14 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG83          8Y 0B 14 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG84          8Y 0B 14 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG85          8Y 0B 14 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG86          8Y 0B 14 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG87          8Y 0B 14 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG88          8Y 0B 14 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG89          8Y 0B 15  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG90          8Y 0B 15 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG91          8Y 0B 15 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG92          8Y 0B 15 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG93          8Y 0B 15 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG94          8Y 0B 15 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG95          8Y 0B 15 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG96          8Y 0B 15 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG97          8Y 0B 16  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG98          8Y 0B 16 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG99          8Y 0B 16 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG100         8Y 0B 16 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG101         8Y 0B 16 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG102         8Y 0B 16 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG103         8Y 0B 16 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG104         8Y 0B 16 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG105         8Y 0B 17  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG106         8Y 0B 17 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG107         8Y 0B 17 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG108         8Y 0B 17 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG109         8Y 0B 17 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG110         8Y 0B 17 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG111         8Y 0B 17 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG112         8Y 0B 17 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG113         8Y 0B 18  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG114         8Y 0B 18 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG115         8Y 0B 18 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG116         8Y 0B 18 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG117         8Y 0B 18 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG118         8Y 0B 18 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG119         8Y 0B 18 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG120         8Y 0B 18 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG121         8Y 0B 19  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG122         8Y 0B 19 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG123         8Y 0B 19 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG124         8Y 0B 19 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG125         8Y 0B 19 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG126         8Y 0B 19 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG127         8Y 0B 19 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG128         8Y 0B 19 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG129         8Y 0B 20  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG130         8Y 0B 20 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG131         8Y 0B 20 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG132         8Y 0B 20 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG133         8Y 0B 20 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG134         8Y 0B 20 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG135         8Y 0B 20 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG136         8Y 0B 20 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG137         8Y 0B 21  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG138         8Y 0B 21 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG139         8Y 0B 21 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG140         8Y 0B 21 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG141         8Y 0B 21 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG142         8Y 0B 21 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG143         8Y 0B 21 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG144         8Y 0B 21 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG145         8Y 0B 22  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG146         8Y 0B 22 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG147         8Y 0B 22 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG148         8Y 0B 22 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG149         8Y 0B 22 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG150         8Y 0B 22 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG151         8Y 0B 22 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG152         8Y 0B 22 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG153         8Y 0B 23  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG154         8Y 0B 23 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG155         8Y 0B 23 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG156         8Y 0B 23 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG157         8Y 0B 23 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG158         8Y 0B 23 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG159         8Y 0B 23 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG160         8Y 0B 23 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG161         8Y 0B 24  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG162         8Y 0B 24 12DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG163         8Y 0B 24 22DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG164         8Y 0B 24 32DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG165         8Y 0B 24 42DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG166         8Y 0B 24 52DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG167         8Y 0B 24 62DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            TAG168         8Y 0B 24 72DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A                                  2 39'Master:'
+     A            SMASTER        2  0O  2 47DSPATR(HI)
+     A          R SCRNE
+     A*%%TS  SD  20140210  115841  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Not used')
+     A                                      CF01
+     A                                      CF02
+     A                                      ALARM
+     A                                  1  2'SCR100E'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 13' Order Verification '
+     A                                      DSPATR(RI)
+     A                                  2  2'Ship Week:'
+     A            SHPDAT         6Y 0B  2 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  2 22'Order #:'
+     A            ORDNO          6Y 0B  2 31EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  3  2'Ship To:'
+     A            OHNAME        30A  O  3 11
+     A                                  9  2' Press F2 to Return to scanning   -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                  7  2' Press F1 to Accept order as compl-
+     A                                      ete '
+     A                                      DSPATR(RI)
+     A                                 11  2' Press F6 to start new order      -
+     A                                        '
+     A                                      DSPATR(RI)
+     A                                  5  6' Order is not Complete. '
+     A                                      DSPATR(RI)
+     A                                  2 38'Master:'
+     A            SMASTER        2  0O  2 46DSPATR(HI)
+     A          R SCRNF
+     A*%%TS  SD  20140210  115841  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Prompt for Error Report Type')
+     A                                      CF01
+     A                                      CF02
+     A                                      ALARM
+     A                                  1 25'SCR100F'
+     A                                      COLOR(BLU)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  1  2' Order Verification '
+     A                                      DSPATR(RI)
+     A                                  2  2'Ship Week:'
+     A            SHPDAT         6Y 0B  2 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  3  2'Order #:'
+     A            ORDNO          6Y 0B  3 13EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            OHNAME        30A  O  4  2
+     A                                  5 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 25USER
+     A                                      COLOR(BLU)
+     A                                  5  4'Print Error for:'
+     A            ERRORT         2Y 0B  6  3PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'Cold Only')
+     A                                      PSHBTNCHC(2 'Warm on Carts')
+     A                                      PSHBTNCHC(3 'Warm on Ground')
+     A                                      PSHBTNCHC(10 'All Areas')
+     A                                      PSHBTNCHC(11 'No Report')
+     A            SMASTER        2  0O  3 21DSPATR(HI)
+     A          R SCRNG
+     A*%%TS  SD  20130313  110606  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Tag on another order')
+     A                                  1 25'SCR100G '
+     A                                      COLOR(BLU)
+     A                                  6 25USER
+     A                                      COLOR(BLU)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  1  2' Order Verification '
+     A                                      DSPATR(RI)
+     A            KEEPDUP        2Y 0B  8  4PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'Keep on Order')
+     A                                      PSHBTNCHC(2 'Remove from Order')
+     A                                  6  2'scanned on a previous'
+     A                                  7  2'order.  Keep it here?'
+     A                                  5 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                  5  2'This tag has been    '
+     A                                  3  2'Tag:'
+     A            TAG#           8S 0O  3  8
+     A            IMDES1        30A  O  4  2DSPATR(RI)
+     A            SHPDAT         6Y 0O  2  2EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            ORDNO          6S 0O  2 16DSPATR(HI)
+     A                                  2 12'Ord'
+     A          R SCRNH
+     A*%%TS  SD  20130313  110606  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('How many trays before edit ?')
+     A                                  1 25'SCR100H '
+     A                                      COLOR(BLU)
+     A                                  5 25USER
+     A                                      COLOR(BLU)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  1  2' Order Verification '
+     A                                      DSPATR(RI)
+     A            HOWMANY        2Y 0B  8  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'Check me after 5')
+     A                                      PSHBTNCHC(2 'Check me after 15')
+     A                                      PSHBTNCHC(3 'Check me after 70')
+     A                                      PSHBTNCHC(4 'Check when I am done')
+     A                                  4 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                  3  2'How many trays do you'
+     A                                  4  2'want to scan before I'
+     A                                  5  2'check your work for  '
+     A                                  6  2'possible errors?     '
+     A          R SCRNI
+     A*%%TS  SD  20130313  110606  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Tag does not belong here')
+     A                                  1 25'SCR100I '
+     A                                      COLOR(BLU)
+     A                                  6 25USER
+     A                                      COLOR(BLU)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  1  2' Order Verification '
+     A                                      DSPATR(RI)
+     A            KEEPBAD        2Y 0B  9  4PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'Remove from Order')
+     A                                      PSHBTNCHC(2 'Keep on Order')
+     A                                  7  2'belong on this order '
+     A                                  8  2'Keep it on here ?    '
+     A                                  5 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6  2'This tag does not    '
+     A                                  3  2'Tag:'
+     A            TAG#           8S 0O  3  8
+     A            IMDES1        30A  O  4  2DSPATR(RI)
+     A            SHPDAT         6Y 0O  2  2EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  2 12'Ord'
+     A            ORDNO          6S 0O  2 16DSPATR(HI)
+     A          R SCRNJ
+     A*%%TS  SD  20130319  214811  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Tag does not belong here')
+     A                                  1 25'SCR100J '
+     A                                      COLOR(BLU)
+     A                                  6 25USER
+     A                                      COLOR(BLU)
+     A                                  2 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  3 25TIME
+     A                                      COLOR(BLU)
+     A                                  1  2' Order Verification '
+     A                                      DSPATR(RI)
+     A                                  5 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6  2'Tag:'
+     A            TAG#           8Y 0B  6  8COLOR(YLW)
+     A                                      CHECK(ER)
+     A            IMDES1        30A  O  4  2DSPATR(RI)
+     A            SHPDAT         6Y 0O  2  2EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  2 12'Ord'
+     A            ORDNO          6S 0O  2 16DSPATR(HI)
+     A                                  5  3'Enter Tag to Remove'
+     A                                      COLOR(PNK)

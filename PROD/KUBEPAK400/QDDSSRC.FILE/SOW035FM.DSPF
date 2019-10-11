@@ -1,0 +1,371 @@
+     A*%%TS  SD  20160726  132048  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R SOW03501                  SFL
+     A*%%TS  SD  20160726  131931  BILLB       REL-V7R1M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            OPTION         1A  B  6  2
+     A  50                                  COLOR(RED)
+     A            IN81           1A  H
+     A            IN82           1A  H
+     A            SOWDATE6       6Y 0O  6  5EDTCDE(Y)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            RDYDATE6       6Y 0O  6 15EDTCDE(Y)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            SIZE      R        O  6 25REFFLD(RTRAYR/TRSIZE *LIBL/FTRAYR)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            ITEM5     R    5   O  6 29REFFLD(RTRAYR/TRITEM *LIBL/FTRAYR)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            ITEM          12A  H
+     A            ALPHA     R        O  6 35REFFLD(RTRAYR/TRALPH *LIBL/FTRAYR)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            FACTOR         5Y 3O  6 52EDTWRD('  .   ')
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            SEED_CELL R        O  6 60REFFLD(RMINVT/IM#SED *LIBL/FMINVT)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            TRAY_COUNT     4Y 0O  6 64EDTCDE(4)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            SEED_NEED      7Y 0O  6 70EDTCDE(4)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A                                  7  5'  '
+     A                                      DSPATR(RI)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A                                  7  8'Description:'
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            DESC01        30A  O  7 21
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A                                  7 55'Seed On Hand:'
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            S_ONHAND       7Y 0O  7 69DSPATR(UL)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A                                      EDTCDE(Q)
+     A                                  8  5'                                  -
+     A                                                      Seed Balance:'
+     A                                      DSPATR(RI)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A            BALANCE        7Y 0O  8 69DSPATR(RI)
+     A                                      EDTCDE(Q)
+     A N81N82                               COLOR(GRN)
+     A  81N82                               COLOR(PNK)
+     A N81 82                               COLOR(RED)
+     A          R SOW03501C                 SFLCTL(SOW03501)
+     A*%%TS  SD  20100921  100656  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLSIZ(9999)
+     A  *DS4                                SFLSIZ(9999)
+     A  *DS3                                SFLPAG(0004)
+     A  *DS4                                SFLPAG(0006)
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'Restart')
+     A                                      CF07(07 'Quit')
+     A                                      CF09(09 'Print Un-sown report')
+     A                                      CF01(01 'Update')
+     A                                      CF05(05 'Refresh')
+     A                                      CF10(10 'Change Printer')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 58'    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  2 63'=Sown'
+     A                                      COLOR(PNK)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  3 58'    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(RED)
+     A                                  3 63'=Deleted'
+     A                                      COLOR(RED)
+     A                                  4  7'4=Delete'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  5  1'Opt'
+     A                                      DSPATR(HI)
+     A                                  5  5'Sow Date'
+     A                                      DSPATR(HI)
+     A                                  5 15'Rdy Date'
+     A                                      DSPATR(HI)
+     A                                  5 25'Size/Item'
+     A                                      DSPATR(HI)
+     A                                  5 36'Alpha'
+     A                                      DSPATR(HI)
+     A                                  5 52'Factor'
+     A                                      DSPATR(HI)
+     A                                  5 59'/Cel'
+     A                                      DSPATR(HI)
+     A                                  5 64'Tray'
+     A                                      DSPATR(HI)
+     A                                  5 71'Seeds'
+     A                                      DSPATR(HI)
+     A                                  4 58'    '
+     A                                      DSPATR(RI)
+     A                                  4 63'=UnSown'
+     A                                  4 17'5=Details'
+     A                                      COLOR(BLU)
+     A                                  4 40'9=Reset'
+     A                                      COLOR(BLU)
+     A                                  1 24'   Unconfirmed Prelabled Items   '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A  61                              2 30'Unsown Recip. Inquiry'
+     A                                      COLOR(PNK)
+     A  62                              2 29'Rooted Cuttings Inquiry'
+     A  62                                  COLOR(PNK)
+     A  63                              2 30'Transplanting Inquiry'
+     A  63                                  COLOR(PNK)
+     A                                  4 28'6=LabelPrt'
+     A                                      COLOR(BLU)
+     A                                  3 31'Unsown'
+     A                                  3 38'Trays:'
+     A            UNSOWN         5S 0O  3 45
+     A          R SOW03501F
+     A*%%TS  SD  20041008  111030  BILLB       REL-V5R2M0  5722-WDS
+     A                                 21  1'                                  -
+     A                                                                         -
+     A                                        SOW03501 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 22  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 22 26'F05'
+     A                                      DSPATR(HI)
+     A                                 22 30'=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 47'F09'
+     A                                      DSPATR(HI)
+     A                                 22 51'=Print'
+     A                                      COLOR(BLU)
+     A                                 23  2'F01'
+     A                                      DSPATR(HI)
+     A                                 23  6'=Update'
+     A                                      COLOR(BLU)
+     A                                 22 64'F11'
+     A                                      DSPATR(HI)
+     A                                 22 68'=Description'
+     A                                      COLOR(BLU)
+     A                                 23 26'F06'
+     A                                      DSPATR(HI)
+     A                                 23 30'=Restart'
+     A                                      COLOR(BLU)
+     A                                 23 43'Printer:'
+     A                                      COLOR(PNK)
+     A            PRTTOUSE      10   O 23 52COLOR(YLW)
+     A                                 23 64'F10'
+     A                                      DSPATR(HI)
+     A                                 23 68'=Chg Printer'
+     A                                      COLOR(BLU)
+     A*
+     A          R SOW03502                  SFL
+     A*%%TS  SD  20120130  165240  BILLB       REL-V7R1M0  5770-WDS
+     A  38                                  SFLNXTCHG
+     A            IN83           1A  H
+     A            IN84           1A  H
+     A            OPTION         1A  B 10  5
+     A  50                                  COLOR(RED)
+     A            TRAY#          9Y 0O 10  7
+     A N83N84                               COLOR(GRN)
+     A  83N84                               COLOR(PNK)
+     A N83 84                               COLOR(RED)
+     A            ITEM#         12A  O 10 17
+     A            SIZE#          3A  O 10 30
+     A            READY          7S 0O 10 34
+     A          R SOW03502C                 SFLCTL(SOW03502)
+     A*%%TS  SD  20160726  131931  BILLB       REL-V7R1M0  5770-WDS
+     A  *DS3                                SFLSIZ(9999)
+     A  *DS4                                SFLSIZ(9999)
+     A  *DS3                                SFLPAG(0011)
+     A  *DS4                                SFLPAG(0006)
+     A                                      CF06(06 'Restart')
+     A                                      CF01(01 'Update')
+     A                                      CF05(05 'Refresh')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  35 36                               SFLDSP
+     A  35                                  SFLDSPCTL
+     A N35                                  SFLCLR
+     A N37                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 58'    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A                                  2 63'=Sown'
+     A                                      COLOR(PNK)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3  2'Type options, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  3 58'    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(RED)
+     A                                  3 63'=Deleted'
+     A                                      COLOR(RED)
+     A                                  4  5'1=Sown'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  4 13'4=Delete'
+     A                                      DSPATR(HI)
+     A                                      COLOR(BLU)
+     A                                  5  5'Sow Date'
+     A                                      DSPATR(HI)
+     A                                  5 15'Rdy Date'
+     A                                      DSPATR(HI)
+     A                                  5 25'Size/Item'
+     A                                      DSPATR(HI)
+     A                                  5 36'Alpha'
+     A                                      DSPATR(HI)
+     A                                  5 52'Factor'
+     A                                      DSPATR(HI)
+     A                                  5 59'/Cel'
+     A                                      DSPATR(HI)
+     A                                  5 64'Tray'
+     A                                      DSPATR(HI)
+     A                                  5 71'Seeds'
+     A                                      DSPATR(HI)
+     A                                  1 30'Prefilled Trays Unsown'
+     A                                      DSPATR(HI)
+     A                                  4 58'    '
+     A                                      DSPATR(RI)
+     A                                  4 63'=UnSown'
+     A                                  4 35'9=Reset'
+     A                                      COLOR(BLU)
+     A            SOWDATE6       6Y 0O  6  5EDTCDE(Y)
+     A            RDYDATE6       6Y 0O  6 15EDTCDE(Y)
+     A            SIZE      R        O  6 25REFFLD(RTRAYR/TRSIZE *LIBL/FTRAYR)
+     A            ITEM5     R    5   O  6 29REFFLD(RTRAYR/TRITEM *LIBL/FTRAYR)
+     A            ALPHA     R        O  6 35REFFLD(RTRAYR/TRALPH *LIBL/FTRAYR)
+     A            FACTOR         5Y 3O  6 52EDTWRD('  .   ')
+     A            SEED_CELL R        O  6 60REFFLD(RMINVT/IM#SED *LIBL/FMINVT)
+     A            TRAY_COUNT     4Y 0O  6 64EDTCDE(4)
+     A            SEED_NEED      7Y 0O  6 70EDTCDE(4)
+     A                                  7  5'  '
+     A                                      DSPATR(RI)
+     A                                  7  8'Description:'
+     A                                      DSPATR(HI)
+     A            DESC01        30A  O  7 21
+     A                                  7 55'Seed On Hand:'
+     A                                      DSPATR(HI)
+     A            S_ONHAND       7Y 0O  7 69EDTCDE(Q)
+     A                                  8  5'                                  -
+     A                                                     '
+     A                                      DSPATR(RI)
+     A            BALANCE        7Y 0O  8 69DSPATR(RI)
+     A                                      EDTCDE(Q)
+     A                                  8 55'Seed Balance:'
+     A                                      DSPATR(HI)
+     A                                  2 37'Line:'
+     A                                      COLOR(PNK)
+     A            LINE           1A  O  2 43COLOR(PNK)
+     A                                  4 23'6=LabelPrt'
+     A                                      COLOR(BLU)
+     A          R SOW03502F
+     A*%%TS  SD  20041008  162732  BILLB       REL-V5R2M0  5722-WDS
+     A                                 22  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Continue'
+     A                                      COLOR(BLU)
+     A                                 23 69'F06'
+     A                                      DSPATR(HI)
+     A                                 23 73'=Restart'
+     A                                      COLOR(BLU)
+     A                                 23 26'F01'
+     A                                      DSPATR(HI)
+     A                                 23 30'=Update'
+     A                                      COLOR(BLU)
+     A                                 23 47'F5'
+     A                                      DSPATR(HI)
+     A                                 23 50'=Refresh'
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS3                                SFLMSGRCD(24)
+     A  *DS4                                SFLMSGRCD(24)
+     A            MSGKEY                    SFLMSGKEY
+     A            PGMQ                      SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS3                                SFLSIZ(0002)
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS3                                SFLPAG(0001)
+     A  *DS4                                SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

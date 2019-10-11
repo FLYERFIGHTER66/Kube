@@ -1,0 +1,132 @@
+     A*%%TS  SD  19991101  065418  TGMS        REL-V4R2M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19991101  065418  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF06
+     A  98                                  CF02
+     A                                  1  2'GETDEPA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  2 27' Enter Deposit/Downpayment '
+     A                                      DSPATR(RI)
+     A                                  3 11'Order #:'
+     A            OHORD#         6  0O  3 20EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  3 28'Ship to Customer:'
+     A            OHNAME        30   O  3 46DSPATR(HI)
+     A                                  5 24'Payment Amount:'
+     A            AMOUNT        11Y 2B  5 40EDTWRD('         .  ')
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** An Amount Must be Enter-
+     A                                      ed.         Press RESET')
+     A                                 11  3'Cash or Check'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12  7'Bank Code?'
+     A            BANK           3A  B 12 18
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Bank Code Enter-
+     A                                      ed.         Press RESET')
+     A            BADESC        30A  O 12 22
+     A                                 12 54'Check Number:'
+     A            CHECK#        10A  B 12 68
+     A                                 15  3'Credit Card'
+     A                                 16  7'Card Code?'
+     A            CARDID         4A  B 16 18
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Credit Card Cod-
+     A                                      e Entered.  Press RESET')
+     A            CCDESC        30A  O 16 24
+     A                                 18  8'Card Number:'
+     A                                 20  8'Approval Code:'
+     A            CRCA          10A  B 20 23
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSGID(AR00001 *LIBL/EFDMSG)
+     A                                 18 44'Expire Date:'
+     A            CRCE           4Y 0B 18 57EDTCDE(Y)
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Invalid Expire Date Ent-
+     A                                      ered.       Press RESET')
+     A            CRCD          16Y 0B 18 22EDTWRD('                ')
+     A                                      CHECK(M10)
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** No Credit Card Number E-
+     A                                      ntered.     Press RESET')
+     A                                  9  6'Select one of the following method-
+     A                                      s of payment. Only one can be used.'
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  2'     Enter to Verify              -
+     A                                                       F6=Restart (NO UPD-
+     A                                      ATE)     '
+     A                                      DSPATR(UL)
+     A                                 21  2' Review Carefully.  Carefully. Onc-
+     A                                      e this is updated it can only be   -
+     A                                           '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2' changed in Accounts Receivable ad-
+     A                                      justments.  If OK Press F2 To Updat-
+     A                                      e. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 14 17' You May Only Enter one Type Cash/-
+     A                                      Check or Credit Card. '
+     A  70                                  DSPATR(RI)
+     A N70                                  DSPATR(ND)
+     A                                 15 17'Press F5 To get credit card info f-
+     A                                      rom the customer file'
+     A                                      DSPATR(UL)
+     A  60                                  DSPATR(RI)
+     A                                 16 55' Not Available in File '
+     A  60                                  DSPATR(RI)
+     A N60                                  DSPATR(ND)
+     A                                 10 28' Select method of payment '
+     A  71                                  DSPATR(RI)
+     A N71                                  DSPATR(ND)
+     A          R SCRNE
+     A*%%TS  SD  19991030  144105  TGMS        REL-V4R2M0  5769-PW1
+     A                                  1  2'GETDEPE'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  2 27' Enter Deposit/Downpayment '
+     A                                      DSPATR(RI)
+     A                                  6  3' No Order Header was found for the-
+     A                                       requested order. Press ENTER to Re-
+     A                                      turn. '
+     A  01                                  DSPATR(RI)
+     A N01                                  DSPATR(ND)
+     A                                  8 10' Requested Order already has a dep-
+     A                                      osit. Press ENTER to Return.'
+     A  02                                  DSPATR(RI)
+     A N02                                  DSPATR(ND)
+     A                                 10  2' Requested Order is Closed. You ma-
+     A                                      y not enter a deposit. Press ENTER -
+     A                                      To Return '
+     A  03                                  DSPATR(RI)
+     A N03                                  DSPATR(ND)

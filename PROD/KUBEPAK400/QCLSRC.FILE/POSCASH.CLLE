@@ -1,0 +1,14 @@
+             PGM
+             DCL        VAR(&PRT) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&USER) TYPE(*CHAR) LEN(10)
+             RTVJOBA    USER(&USER)
+             CHGVAR     VAR(&PRT) VALUE('*USER')
+             CALL       PGM(#CHGPRT) PARM((&USER) ('POSCASH') (&PRT))
+             IF         COND(&PRT = '*USER') THEN(GOTO CMDLBL(ENDTAG))
+             OVRPRTF    FILE(QPQUPRFIL) DEV(&PRT) PAGESIZE(66 120) +
+                          LPI(6) CPI(15) ALIGN(*NO) PAGRTT(0) +
+                          REDUCE(*NONE) SPOOL(*YES) OUTQ(&PRT) +
+                          FORMTYPE(*NAR)
+             RUNQRY     QRY(POSCASH) QRYFILE((*SAME)) OUTTYPE(*PRINTER)
+             DLTOVR     FILE(*ALL)
+ ENDTAG:     ENDPGM

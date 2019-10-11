@@ -1,0 +1,77 @@
+             PGM        PARM(&PDATE &PCUST &JOBNAME &JOBUSER &JOBNUMB +
+                          &EmlName &EML1 &EML2 &EML3)
+
+             DCL        VAR(&PDATE) TYPE(*DEC)
+             DCL        VAR(&PCUST) TYPE(*DEC)
+             DCL        VAR(&JOBNAME) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&JOBUSER) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&JOBNUMB) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&EMLName) TYPE(*CHAR) LEN(30)
+             DCL        VAR(&EML1) TYPE(*CHAR) LEN(32)
+             DCL        VAR(&EML2) TYPE(*CHAR) LEN(32)
+             DCL        VAR(&EML3) TYPE(*CHAR) LEN(32)
+             DCL        VAR(&EMAIL) TYPE(*CHAR) LEN(96)
+             DCL        VAR(&SUBJECT) TYPE(*CHAR) LEN(50)
+
+             DCL        VAR(&SELDATE) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&SELDATE@) TYPE(*Char) LEN(6)
+             DCL        VAR(&SELCUST) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&SELCUST@) TYPE(*Char) LEN(6)
+
+             DCL        VAR(&LINK) TYPE(*CHAR) LEN(60) VALUE('/Kube +
+                          Pak/PDF/EMAIL/INVOICES/Invoice_')
+
+             DCL        VAR(&LINKM) TYPE(*CHAR) LEN(60) VALUE('/Kube +
+                          Pak/PDF/EMAIL/INVOICES/Manifest_')
+
+             DCL        VAR(&HTML) TYPE(*CHAR) LEN(65) VALUE('/Kube +
+                          Pak/Production Applications/iSeries +
+                          Email/Invoices.html')
+
+             CHGVAR     VAR(&SELDATE) VALUE(&PDATE)
+             CHGVAR     VAR(&SELDATE@) VALUE(&SELDATE)
+             CHGVAR     VAR(&SELCUST) VALUE(&PCUST)
+             CHGVAR     VAR(&SELCUST@) VALUE(&SELCUST)
+
+             CHGVAR     VAR(&LINK) VALUE(&LINK *TCAT &SELDATE@ *TCAT '_' +
+                          *TCAT &SELCUST@ *TCAT '.pdf')
+
+             CHGVAR     VAR(&LINKM) VALUE(&LINKM *TCAT &SELDATE@ *TCAT '_' +
+                          *TCAT &SELCUST@ *TCAT '.pdf')
+
+             RMVLNK     OBJLNK(&LINK)
+             MONMSG     MSGID(CPF0000)
+             RMVLNK     OBJLNK(&LINKM)
+             MONMSG     MSGID(CPF0000)
+
+             DLYJOB     DLY(2)
+
+             CVTSPLFPDF SPLF(EMINVCUSP) JOB(&JOBNUMB/&JOBUSER/&JOBNAME) +
+                          SPLNBR(1) TOPDF(&LINKM) PAPERSIZE(*LETTER) +
+                          ORIENTAT(*V)
+             CVTSPLFPDF SPLF(BIR330A) JOB(&JOBNUMB/&JOBUSER/&JOBNAME) +
+                          SPLNBR(2) TOPDF(&LINK) PAPERSIZE(*LETTER) +
+                          ORIENTAT(*V)
+
+             CHGVAR     VAR(&EMAIL) VALUE(&EML1 *CAT &EML2 *CAT &EML3)
+             CHGVAR     VAR(&SUBJECT) VALUE('Kube-Pak Invoice (' *CAT +
+                          &SELDATE@ *TCAT '_' *TCAT &SELCUST@ *TCAT ')')
+
+             IF         COND(&EMAIL *EQ ' ') THEN(CHGVAR VAR(&EMAIL) +
+                          VALUE(WBEHR@KUBEPAK.COM))
+             EMLHTML2   SUBJECT(&SUBJECT) FROMNAME('Kube-Pak +
+                          Growers') FROMADDR('ar@kubepak.com') +
+                          TO(&EMAIL/&EMLNAME/*TO +
+                          BCC@KUBEPAK.NET/'Kube-Pak BCC'/*BCC) +
+                          HTML(&HTML) STMF(&LINKM &LINK)
+             DLTSPLF    FILE(EMINVCUSP) JOB(&JOBNUMB/&JOBUSER/&JOBNAME) +
+                          SPLNBR(1)
+             DLTSPLF    FILE(BIR330A) JOB(&JOBNUMB/&JOBUSER/&JOBNAME) +
+                          SPLNBR(2)
+
+             RMVLNK     OBJLNK(&LINK)
+             MONMSG     MSGID(CPF0000)
+             RMVLNK     OBJLNK(&LINKM)
+             MONMSG     MSGID(CPF0000)
+
+ EOJ:        ENDPGM

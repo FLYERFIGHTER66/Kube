@@ -1,0 +1,87 @@
+     A*     READY ROSE/GROWERS CHOICE AND STANDING ORDER WORK FILE
+     A*     FILE NAME - FSTSUMM
+     A* IT WILL BE NAMED AS FOLLOWS:
+     A*        FSUMXXXXXX  XXXXXX=TIME
+     A* IT SHOULD BE DELETED AFTER USE
+     A*
+     A*
+     A                                      FIFO
+     A          R RSTSUMM                   TEXT('ORDER DETAIL')
+     A            SUSTAT         1A         TEXT('STATUS')
+     A                                      COLHDG('Status')
+     A            SUTYPE         1A         TEXT('TYPE')
+     A                                      COLHDG('Type')
+     A            SUORD#         6S 0       TEXT('ORDER NUMBER')
+     A                                      COLHDG('Order #')
+     A                                      EDTCDE(Z)
+     A            SUSEQ#         3S 0       TEXT('SEQ NUMBER')
+     A                                      COLHDG('Item' 'Seq #')
+     A                                      EDTCDE(4)
+     A            SUITEM        12A         TEXT('ITEM NUMBER')
+     A                                      COLHDG('Item #')
+     A            SUSIZE         3A         TEXT('SIZE')
+     A                                      COLHDG('Size')
+     A            SUWHSE         3A         TEXT('LOCATION')
+     A                                      COLHDG('Location')
+     A            SUUUOM         2A         TEXT('UNIT OF MEASURE')
+     A                                      COLHDG('UOM')
+     A            SUUPRI         9P 4       TEXT('UNIT PRICE')
+     A                                      COLHDG('Unit Price')
+     A                                      EDTCDE(3)
+      *** THE FOLLOWING IS BASE PRICE CODE
+      *** M=MARKET  S=STANDING ORDER PRICE " "=PRICE IN THIS RECORD
+     A            SUPRCD         1A         TEXT('BASE PRICE CODE')
+     A                                      COLHDG('Base' 'Price' 'Code')
+      *** NOTE THE FOLLOWING TWO FIELDS ARE ONLY VALID IF PRICE NOT
+      **       SPECIFIED IN THIS RECORD (SIUPRI)
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF %=110.00 then price will be marked up 10%
+      ** IF %= 90.00 then price will be discounted 10%
+     A            SUDISP         5S 2       TEXT('Mark-up/Disc. %')
+     A                                      COLHDG('Mark-up' 'Disc. %')
+     A                                      EDTCDE(3)
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF $=  .50 then .50 will be added to base price.
+      ** IF $=  .50- Then .50 will be subtracted form base price.
+     A            SUDIS$         5S 2       TEXT('Mark-up/Disc. $')
+     A                                      COLHDG('Mark-up' 'Disc. $')
+     A                                      EDTCDE(M)
+     A            SUEXT$         9P 2       TEXT('EXT AMOUNT ')
+     A                                      COLHDG('Extended' ' Amount ')
+     A                                      EDTCDE(3)
+     A            SUQORD        11P 1       TEXT('QTY ORDERED')
+     A                                      COLHDG('Quantity' 'Ordered')
+     A                                      EDTCDE(1)
+     A            SUCUST         6S 0       TEXT('CUSTOMER # ')
+     A                                      COLHDG('Customer #')
+     A                                      EDTCDE(4)
+     A            SUITYP         1A         TEXT('ITEM TYPE')
+     A                                      COLHDG('Item' 'Type')
+     A            SUSHFR         3A         TEXT('SHIP FROM')
+     A                                      COLHDG('Ship''From')
+     A            SULOOK        15A         TEXT('ITEM ALPHA SEARCH')
+     A                                      COLHDG('Item' 'Alpha')
+     A            SUALPH        15A         TEXT('CUST ALPHA SEARCH')
+     A                                      COLHDG('Cust' 'Alpha')
+     A            SUPCL1         2A         TEXT('PROD CLASS 1')
+     A                                      COLHDG('Prod' 'Cls 1')
+     A            SUPCL3         2A         TEXT('PROD CLASS 3')
+     A                                      COLHDG('Prod' 'Cls 3')
+     A            SUNXDY         7P 0       TEXT('NEXT SHIP DATE CYMD')
+     A                                      COLHDG('Next Ship CYMD')
+     A                                      EDTWRD(' -  /  /  ')
+     A            SUNXDT         6S 0       TEXT('NEXT SHIP DATE MDY')
+     A                                      COLHDG('Next Ship MDY')
+     A                                      EDTWRD('  /  /  ')
+     A            SUNDAY         1S 0       TEXT('NEXT SHIP DAY')
+     A                                      COLHDG('Next Ship Day')
+     A                                      EDTCDE(4)
+     A            SUNSEL         1A         TEXT('SEL SHIP O/E/A/P')
+     A                                      COLHDG('Next Ship' 'O/E/A/P')
+     A            SURUSR        10A         TEXT('USER I.D. RESP')
+     A                                      COLHDG('User I.D.' 'Respons.')
+     A*
+     A          K SUITEM
+     A          K SUSIZE
+     A          K SUSHFR
+     A          K SUNXDY

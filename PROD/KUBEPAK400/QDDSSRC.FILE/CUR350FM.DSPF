@@ -1,0 +1,187 @@
+     A*%%TS  SD  20160726  160725  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20091013  161839  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF04
+     A                                  6 36'Vendor Alpha Search:'
+     A                                  1  2'CUR350A'
+     A            VMVEND         6S 0O  2 25COLOR(BLU)
+     A            VMNAME        30A  O  2 33COLOR(PNK)
+     A                                  2 16'Vendor:'
+     A                                      DSPATR(HI)
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                 24 21'Enter to Process           F3/F7=E-
+     A                                      nd Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 21'                                  -
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 21' There are no Open Orders at this -
+     A                                      time. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  9 30'Order Number:'
+     A            ORDNO          6Y 0B  9 46
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** There is no open order -
+     A                                      with this number.     Press RESET')
+     A                                 17 24' You Must enter an Order Number.  '
+     A  58                                  DSPATR(RI)
+     A N58                                  DSPATR(ND)
+     A                                  9 56'F4'
+     A                                      DSPATR(HI)
+     A                                  9 59'=List'
+     A                                      COLOR(BLU)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20160726  160725  BILLB       REL-V7R1M0  5770-WDS
+     A            COSTAT         1A  H
+     A            COORDD         7S 0H
+     A            COITEM        12A  H
+     A            COSOWD         7S 0H
+     A            COLOOK        15A  H
+     A            COVNAL        15A  H
+     A            ITEM           5A  O  9  2
+     A  60                                  COLOR(BLU)
+     A            IMDES1        30A  O  9 12
+     A  60                                  COLOR(BLU)
+     A            SOWD           6Y 0O  9 46EDTWRD('  /  /  ')
+     A            COQTOO         7Y 0O  9 64EDTCDE(M)
+     A            ORDER          6Y 0B  9 73
+     A N15                                  DSPATR(CS)
+     A                                      EDTCDE(M)
+     A  15                                  DSPATR(ND)
+     A  15
+     AO 60                                  DSPATR(PR)
+     A  60                                  COLOR(BLU)
+     A            SHIPDATE       6Y 0O  9 55EDTWRD('  /  /  ')
+     A            WEEK           2Y 0O  9 43EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            COSIZE         3A  O  9  8
+     A  60                                  COLOR(BLU)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20160726  160725  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0015)
+     A                                      CF02
+     A                                      CF06
+     A                                      CF10
+     A                                      CF04
+     A                                      CF01
+     A                                      CF08
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A            SMVEND         6S 0O  2 25COLOR(BLU)
+     A            SMNAME        30A  O  2 33COLOR(PNK)
+     A                                  2 16'Vendor:'
+     A                                      DSPATR(HI)
+     A                                  1  2'CUR350SFL'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 26' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A            LINE           5S 0H
+     A                                  8  2'Item Size Description             -
+     A                                             Wk Date     Rdy Date Ordered-
+     A                                       Confirm'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7  2'Start With:'
+     A            ALPHA         15A  B  7 14DSPATR(CS)
+     A                                  5  2'Enter'
+     A                                      DSPATR(HI)
+     A                                  4 34'F2'
+     A                                      DSPATR(HI)
+     A                                  4  2'F1'
+     A                                      DSPATR(HI)
+     A                                  2 16'Order Number:'
+     A            ORDNO1         6Y 0O  2 30EDTCDE(4)
+     A                                  2 45'Order Date:'
+     A            ORDDAT         6Y 0O  2 57EDTCDE(Y)
+     A                                  7 64'Vendor'
+     A                                      DSPATR(HI)
+     A                                  7 72'Vendor'
+     A                                      DSPATR(HI)
+     A                                  7 42'Sow'
+     A                                      DSPATR(HI)
+     A                                  7 46'Sow'
+     A                                      DSPATR(HI)
+     A                                  4  5'=Move Ordered To Confirmed'
+     A                                      COLOR(BLU)
+     A                                  5 34'F4'
+     A                                      DSPATR(HI)
+     A                                  5 37'=Post'
+     A                                      COLOR(BLU)
+     A                                  5  8'=Process'
+     A                                      COLOR(BLU)
+     A                                  5 43'F6'
+     A                                      DSPATR(HI)
+     A                                  5 46'=Restart(NO Update)'
+     A                                      COLOR(BLU)
+     A                                  4 57'F3/F7'
+     A                                      DSPATR(HI)
+     A                                  4 63'=End(NO Update)'
+     A                                      COLOR(BLU)
+     A                                  4 37'=Post and Restart'
+     A                                      COLOR(BLU)
+     A                                  5 67'F10'
+     A                                      DSPATR(HI)
+     A                                  5 71'=Delete'
+     A                                      COLOR(BLU)
+     A                                  5 19'F8'
+     A                                      DSPATR(HI)
+     A                                  5 22'=Zero Line'
+     A                                      COLOR(BLU)
+     A                                  3  2'Order Number:'
+     A                                      COLOR(PNK)
+     A            COORD#    R        O  3 16REFFLD(RCUTORD/COORD# *LIBL/FCUTORD)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 23'provided by'
+     A                                      COLOR(PNK)
+     A            SUPVEND       36A  O  3 35DSPATR(HI)
+     A          R SCRND
+     A*%%TS  SD  20011026  142600  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF06
+     A                                      CF10
+     A                                  1  2'CUR350D'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                  8 17' You have requested that we delete-
+     A                                       this Order. '
+     A                                      DSPATR(RI)
+     A                                 10  6'There are:'
+     A            TOTREC         9Y 0O 10 17DSPATR(HI)
+     A                                      EDTCDE(1)
+     A                                 10 29'Cuttings you have received, they w-
+     A                                      ill be lost.'
+     A                                 12  7' Press F10 to confirm delete, or P-
+     A                                      ress F6 to return with no delete.'
+     A                                      DSPATR(RI)

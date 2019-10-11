@@ -1,0 +1,213 @@
+     A*%%TS  SD  20190521  163607  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R TRR55101                  SFL
+     A*%%TS  SD  20090212  123551  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Customer Selection Subfile')
+     A  28                                  SFLNXTCHG
+     A            TRTRK#    R        O  4 61REFFLD(RTRSCHD/TRTRK# *LIBL/FTRSCHD-
+     A                                      S)
+     A  51                                  DSPATR(HI)
+     A            TRSHDT    R        H      REFFLD(RTRSCHD/TRSHDT *LIBL/FTRSCHD-
+     A                                      S)
+     A            CMLOOK    R        H      REFFLD(RMCUST/CMLOOK *LIBL/FMCUST)
+     A            SMCUST    R        O  4  3REFFLD(RMCUST/CMCUST *LIBL/FMCUST)
+     A  51                                  DSPATR(HI)
+     A            SMNAME    R        O  4 10REFFLD(RMCUST/CMNAME *LIBL/FMCUST)
+     A  51                                  DSPATR(HI)
+     A            CMADD2    R        O  5 10REFFLD(RMCUST/CMADD2 *LIBL/FMCUST)
+     A                                      COLOR(BLU)
+     A            CITYST    R        O  4 41REFFLD(RMCUST/CMCITY *LIBL/FMCUST)
+     A  51                                  DSPATR(HI)
+     A                                  5 41'Phone:'
+     A                                      DSPATR(HI)
+     A            CMPHON    R        O  5 48REFFLD(RMCUST/CMPHON *LIBL/FMCUST)
+     A                                      COLOR(BLU)
+     A            SSEL           1A  B  4  1DSPATR(PC)
+     A  51                                  DSPATR(HI)
+     A            TRSTOP    R        O  4 67REFFLD(RTRSCHD/TRSTOP *LIBL/FTRSCHD-
+     A                                      S)
+     A  51                                  DSPATR(HI)
+     A            TRORD#    R        O  5 64REFFLD(RTRSCHD/TRORD# *LIBL/FTRSCHD-
+     A                                      S)
+     A                                      COLOR(PNK)
+     A                                  5 61'O#'
+     A                                      COLOR(PNK)
+     A          R TRR55101C                 SFLCTL(TRR55101)
+     A*%%TS  SD  20090212  123551  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLPAG(0005)
+     A  *DS4                                SFLPAG(0003)
+     A  *DS3                                WINDOW(8 3 15 71)
+     A  *DS4                                WINDOW(11 5 11 68)
+     A                                      TEXT('Customer Selection Subfile Co-
+     A                                      ntrol')
+     A                                      CF03(03 'Exit F3')
+     A                                      CF10(10 'SELECT')
+     A                                      CF07(03)
+     A                                      CF08(08 'Minus one week')
+     A                                      CF09(09 'Plus one Week')
+     A N25                                  OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLDROP(CF11)
+     A                                      SFLSIZ(&SFLSIZ)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            SFLCSRRRN      5S 0H
+     A            SFLSIZ         5S 0P
+     A                                  1  8'Customer Alpha Search for Shipping-
+     A                                       Week:'
+     A            MONDATE        6Y 0O  1 49EDTCDE(Y)
+     A                                  1  1'S'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  2  1'E'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  3  1'L'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  3  3'Acct#.'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  3 10'Name                          '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  3 41'City              '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  2  7'SEARCHING FOR:'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(RI)
+     A            SMLOOK        15A  B  2 23TEXT('Customer Alpha Search you are-
+     A                                       looking for')
+     A                                      DSPATR(CS)
+     A                                  2 39'Tab to Cust and Enter'
+     A                                      COLOR(BLU)
+     A                                  1 64'F8=-Week'
+     A                                      COLOR(PNK)
+     A                                  2 64'F9=+Week'
+     A                                      COLOR(PNK)
+     A                                  3 60'Truck'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 66'Stop'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R TRR55102                  SFL
+     A*%%TS  SD  20190521  163607  BILLB       REL-V7R2M0  5770-WDS
+     A  28                                  SFLNXTCHG
+     A            CMLOOK    R        H      REFFLD(RMCUST/CMLOOK *LIBL/FMCUST)
+     A            TRSHDT         7S 0H      TEXT('Ship Date')
+     A            TRQTY1    R        H      REFFLD(RTRSCHD/TRQTY1 *LIBL/FTRSCHD)
+     A            TRQTY2    R        H      REFFLD(RTRSCHD/TRQTY2 *LIBL/FTRSCHD)
+     A            TRQTY3    R        H      REFFLD(RTRSCHD/TRQTY3 *LIBL/FTRSCHD)
+     A            SSEL           1A  B  4  1DSPATR(PC)
+     A  51                                  DSPATR(HI)
+     A            SRSHDT         6Y 0O  4  4EDTCDE(Y)
+     A            TRTRK#    R        O  4 14REFFLD(RTRSCHD/TRTRK# *LIBL/FTRSCHD)
+     A            TRSTOP    R        O  4 20REFFLD(RTRSCHD/TRSTOP *LIBL/FTRSCHD)
+     A            TRORD#    R        O  4 25REFFLD(RTRSCHD/TRORD# *LIBL/FTRSCHD-
+     A                                      S)
+     A            SRQTY1    R    4S00O  4 32REFFLD(RTRSCHD/TRQTY1 *LIBL/FTRSCHD)
+     A                                      EDTCDE(4)
+     A            SRQTY2    R    4S00O  4 37REFFLD(RTRSCHD/TRQTY2 *LIBL/FTRSCHD)
+     A                                      EDTCDE(4)
+     A            SRQTY4    R    4S00O  4 42REFFLD(RTRSCHD/TRQTY3 *LIBL/FTRSCHD)
+     A                                      EDTCDE(4)
+     A            SRQTY3    R    4S00O  4 47REFFLD(RTRSCHD/TRQTY3 *LIBL/FTRSCHD)
+     A                                      EDTCDE(4)
+     A            SRQTY5         4S 0H
+     A            SRQTY6         4S 0H
+     A          R TRR55102C                 SFLCTL(TRR55102)
+     A*%%TS  SD  20190521  163607  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03(03 'Exit F3')
+     A                                      CF10(10 'SELECT')
+     A                                      CF07(03)
+     A                                      CF08(08 'Minus one week')
+     A                                      CF09(09 'Plus one Week')
+     A                                      CF12(12 'Cancel')
+     A N25                                  OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A                                      SFLSIZ(&SFLSIZ)
+     A  *DS3                                SFLPAG(0015)
+     A  *DS4                                SFLPAG(0003)
+     A  *DS3                                WINDOW(2 11 19 52 *NOMSGLIN *NORSTC-
+     A                                      SR)
+     A  *DS4                                WINDOW(11 5 11 68 *NOMSGLIN *NORSTC-
+     A                                      SR)
+     A                                      MOUBTN(*ULP *ULR CF10)
+     A                                      MOUBTN(*URP ROLLUP)
+     A            SFLCSRRRN      5S 0H
+     A            SFLSIZ         5S 0P
+     A                                  1  5'Shipping Cutomer has multple shipm-
+     A                                      ents'
+     A                                  1  1'S'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  2  1'E'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  3  1'L'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  2  9'Tab to Truck and Enter'
+     A                                      COLOR(BLU)
+     A                                  3  4' Date   '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  3 20'Stop'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  3 13'Truck'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  2 35'F12=Cancel'
+     A                                      COLOR(PNK)
+     A            HDR4           4A  O  3 42DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            HDR3           4A  O  3 47DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            HDR1           4A  O  3 32DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            HDR2           4A  O  3 37DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 25' Order'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R ASSUME
+     A*%%TS  SD  20040325  162406  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  5'ASSUME'
+     A          R MSGSFL                    SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS3                                SFLMSGRCD(22)
+     A  *DS4                                SFLMSGRCD(22)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGSFL)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS3                                SFLSIZ(0002)
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS3                                SFLPAG(0001)
+     A  *DS4                                SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ(10)

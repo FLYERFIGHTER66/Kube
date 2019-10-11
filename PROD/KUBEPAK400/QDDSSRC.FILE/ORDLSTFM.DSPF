@@ -1,0 +1,317 @@
+     A*%%TS  SD  20160310  152326  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000706  060622  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                  1  2'ORDLSTA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            LISTID         6A  B  5 47
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N12N13                            ERRMSG('*** You Must Enter A List I-
+     A                                      .D.         Press RESET')
+     A  10 12N13                            ERRMSG('*** List I.D. Does NOT Exis-
+     A                                      t.          Press RESET')
+     A  10 13                               ERRMSG('*** You May NOT Enter an As-
+     A                                      sortment from here, Return to Order-
+     A                                       entry. Press RESET')
+     A                                 23  2'             Enter to Process     -
+     A                                      F6=Restart      F3/F7=End of Job   -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(UL)
+     A                                  5 31'Order List ID?'
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  1 31' Display Order List '
+     A                                      DSPATR(RI)
+     A                                  8 25'Requested Ship Date:'
+     A            OHDTRQ         6Y 0B  8 47
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  20                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A          R HLSTSFL                   SFL
+     A*%%TS  SD  20010517  181309  EFD         REL-V3R7M0  5716-PW1
+     A            OLSQ1          3S 0H
+     A            OLSQ2          3S 0H
+     A            OLSQ3          3S 0H
+     A            OLSQ4          3S 0H
+     A            OLSQ5          3S 0H
+     A            OLSQ6          3S 0H
+     A            ITEM#         12A  O  8  2DSPATR(HI)
+     A            QTYLIN         8Y 0O  8 16EDTCDE(2)
+     A                                      DSPATR(HI)
+     A            QTYOR1         7Y 0B  8 27
+     A  11N21                               DSPATR(RI)
+     A N21                                  DSPATR(CS)
+     A  11N21                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  21                                  DSPATR(ND)
+     A  21                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            QTYOR2         7Y 0B  8 36
+     A  12N22                               DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  12N22                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  22                                  DSPATR(ND)
+     A  22                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            QTYOR3         7Y 0B  8 45
+     A  13N23                               DSPATR(RI)
+     A N23                                  DSPATR(CS)
+     A  13N23                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  23                                  DSPATR(ND)
+     A  23                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            QTYOR4         7Y 0B  8 54
+     A  14N24                               DSPATR(RI)
+     A N24                                  DSPATR(CS)
+     A  14N24                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  24                                  DSPATR(ND)
+     A  24                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            QTYOR5         7Y 0B  8 63
+     A  15N25                               DSPATR(RI)
+     A N25                                  DSPATR(CS)
+     A  15N25                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  25                                  DSPATR(ND)
+     A  25                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            QTYOR6         7Y 0B  8 72
+     A  16N26                               DSPATR(RI)
+     A N26                                  DSPATR(CS)
+     A  16N26                               DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(4)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            DESCH         20A  O  9  2DSPATR(HI)
+     A            QTYAV1         7Y 0O  9 27EDTCDE(M)
+     A  21                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            QTYAV2         7Y 0O  9 36EDTCDE(M)
+     A  22                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            QTYAV3         7Y 0O  9 45EDTCDE(M)
+     A  23                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            QTYAV4         7Y 0O  9 54EDTCDE(M)
+     A  24                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            QTYAV5         7Y 0O  9 63EDTCDE(M)
+     A  25                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            QTYAV6         7Y 0O  9 72EDTCDE(M)
+     A  26                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A            SQE#           3Y 0B 10 10DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                      EDTCDE(4)
+     A                                 10 14'$'
+     A                                      DSPATR(HI)
+     A            TOTLIN         7Y 2O 10 16EDTCDE(2)
+     A                                      DSPATR(HI)
+     A            PRIC1          7Y 2O 10 26
+     A  21                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC2          7Y 2O 10 35
+     A  22                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC3          7Y 2O 10 44
+     A  23                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC4          7Y 2O 10 53
+     A  24                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC5          7Y 2O 10 62
+     A  25                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A            PRIC6          7Y 2O 10 71
+     A  26                                  DSPATR(ND)
+     A                                      EDTWRD('    0.  ')
+     A          R HLSTCTL                   SFLCTL(HLSTSFL)
+     A*%%TS  SD  20000706  054302  TGMS        REL-V4R4M0  5769-PW1
+     A                                      SFLSIZ(1999)
+     A                                      SFLPAG(0005)
+     A                                      CF01
+     A                                      CF02
+     A                                      CF05
+     A                                      CF06
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'ORDLSTHLST'
+     A                                  1 14USER
+     A                                  1 61DATE
+     A                                      EDTCDE(Y)
+     A                                  1 73TIME
+     A            HLDESC        30A  O  1 26DSPATR(RI)
+     A                                  7  2'Item #       Item Total'
+     A                                      DSPATR(UL)
+     A            HDG1           7   O  7 27DSPATR(UL)
+     A            HDG2           7   O  7 36DSPATR(UL)
+     A            HDG3           7   O  7 45DSPATR(UL)
+     A            HDG4           7   O  7 54DSPATR(UL)
+     A            HDG5           7   O  7 63DSPATR(UL)
+     A            HDG6           7   O  7 72DSPATR(UL)
+     A                                  3  2'Order #:'
+     A            OHORD#         6  0O  3 11EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  3 19'Ship To:'
+     A            OHNAME        30A  O  3 28
+     A                                  3 61'Req Date:'
+     A            OHDTRQ         6  0O  3 72EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4  2'Qty This List:'
+     A            LSTTOT         8  0O  4 17DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  4 32'Order Qty:'
+     A            QTYTOT         8  0O  4 43DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  4 58'Order Total:'
+     A            TOTDOL         7  2O  4 71DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  6  2' Enter to Process  F1=Addl Desc  F-
+     A                                      2=Return to Order  F2=New List  F6=-
+     A                                      Restart  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R VLSTSFL                   SFL
+     A*%%TS  SD  20130502  160826  BILLB       REL-V7R1M0  5770-WDS
+     A            OLDO          11S 0H
+     A            OLDSEQ         3S 0H
+     A            QTYORD         5Y 0B  9  2EDTCDE(4)
+     A  57                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A            QTYAV          5Y 0O  9  8EDTCDE(M)
+     A                                      DSPATR(HI)
+     A  31N30                               DSPATR(RI)
+     A            DESC          30A  O  9 15DSPATR(HI)
+     A  31N30                               DSPATR(RI)
+     A            PRICE          7Y 2O  9 62EDTWRD('    0.  ')
+     A  57                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A  31N30                               DSPATR(RI)
+     A            ITEM           6A  O  9 71DSPATR(HI)
+     A  31N30                               DSPATR(RI)
+     A            SIZE           3A  O  9 78DSPATR(HI)
+     A  31N30                               DSPATR(RI)
+     A            NOTERDYC      15A  O  9 46DSPATR(HI)
+     A                                      COLOR(PNK)
+     A  31N30                               DSPATR(RI)
+     A          R VLSTCTL                   SFLCTL(VLSTSFL)
+     A*%%TS  SD  20160310  152326  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF01
+     A                                      CF02
+     A                                      CF05
+     A                                      CF06
+     A                                      CF11
+     A                                      CF07
+     A                                      RTNCSRLOC(*RECNAME &CSRRCD &CSRFLD -
+     A                                      &CSRPOS)
+     A                                      CSRLOC(PUTCSRLIN  PUTCSRPOS)
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(1999)
+     A                                      SFLPAG(0015)
+     A            SFLCSRRRN      5S 0H
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            CSRPOS         4S 0H
+     A            PUTCSRLIN      3S 0H
+     A            PUTCSRPOS      3S 0H
+     A            PUTSFLRRN      3S 0H      SFLRCDNBR
+     A            CSRRRN         5S 0H
+     A                                  1  2'ORDLSTVLST'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            HLDESC        30A  O  1 26DSPATR(RI)
+     A                                  3  2'Order #:'
+     A            OHORD#         6Y 0O  3 11EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  3 19'Ship to:'
+     A            OHNAME        30A  O  3 28DSPATR(HI)
+     A                                  3 59'Req.Date:'
+     A            OHDTRQ         6Y 0O  3 70EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4  2'Qty This List:'
+     A            LSTTOT         8Y 0O  4 17DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  4 30'Order Qty:'
+     A            QTYTOT         8Y 0O  4 41DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(HI)
+     A                                  4 56'Order Total:'
+     A            TOTDOL         7Y 2O  4 69DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(HI)
+     A  30                              6  2' Enter to Process  F11=Rdy Color F-
+     A                                      2=Return to Order  F5=New List  F6=-
+     A                                      Restart'
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8  2'Order Avail  Description          -
+     A                                                Note/Rdy Color     Price -
+     A                                       Item/Siz'
+     A                                      DSPATR(UL)
+     A                                  7  9'--Quantity---'
+     A N30                              6  2' Enter to Process  F11=Use Note  F-
+     A                                      2=Return to Order  F5=New List  F6=-
+     A                                      Restart'
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7 55'F7=Picture             '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A          R SCRNNCG
+     A*%%TS  SD  19970619  092731  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                  1  2'ORDLSTNCG'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  1 31' Display Order List '
+     A                                      DSPATR(RI)
+     A                                  7  6' You Can NOT Change order lists in-
+     A                                       the middle of an assortment entry.-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                 10 28' Press Enter to continue '
+     A                                      DSPATR(RI)

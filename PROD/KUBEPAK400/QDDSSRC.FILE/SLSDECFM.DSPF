@@ -1,0 +1,74 @@
+     A*%%TS  SD  20000126  081428  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000126  081428  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 23' Customer Sales/Open Orders Report-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 25'From Month/Year:'
+     A            LBMTHY         4Y 0B  5 48DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  12                                  ERRMSG('*** From Date Is Before or -
+     A                                      After Dates Available in S/A.     P-
+     A                                      ress Reset')
+     A  14                                  ERRMSG('*** From Date Must Be Equal-
+     A                                       Or Lower Than To Date.    Press Re-
+     A                                      set')
+     A                                  7 25'To Month/Year:'
+     A            LEMTHY         4Y 0B  7 48DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** To Date Is Before or Af-
+     A                                      ter Dates Available in S/A.     Pre-
+     A                                      ss Reset')
+     A                                  9 25'Product Class Range?'
+     A            LBPC           2A  B  9 48
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass Lower Than To.    Press Reset')
+     A                                  9 52'To:'
+     A            LEPC           2A  B  9 56DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                 Enter to Process -
+     A                                                F3/F7=End of Job         -
+     A                                               '
+     A                                      DSPATR(UL)

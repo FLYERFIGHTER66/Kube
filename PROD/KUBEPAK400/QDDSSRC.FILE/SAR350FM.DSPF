@@ -1,0 +1,78 @@
+     A*%%TS  SD  19980209  100709  GINNY       REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19980209  100709  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'SAR350'
+     A                                  1 20' Sales Analysis By Salesperson - S-
+     A                                      ummary '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 23'For Accounting Period:'
+     A            VACTP          2Y 0B  4 51DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.   Press Reset')
+     A  12                                  ERRMSG('*** Accounting Period 13 No-
+     A                                      t Valid For This Company.   Press R-
+     A                                      eset')
+     A                                      CHECK(RB)
+     A                                  6 23'Print:'
+     A            VDOLUN         1Y 0B  6 52DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  16                                  DSPATR(RI)
+     A  16                                  DSPATR(PC)
+     A  16                                  ERRMSG('*** Valid Entries Are 1 2 o-
+     A                                      r 3.    Press Reset')
+     A                                  6 55'1=Dollars  2=Units  3=Both'
+     A                                  8 23'Print Gross Profit (Y/N):'
+     A            VGROSS         1A  B  8 52DSPATR(CS)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A  22                                  ERRMSG('*** Gross Profit Not Allowe-
+     A                                      d For UNITS.   Press Reset')
+     A                                 10 23'If YES - Print Profit'
+     A                                 11 23'as Percent or Dollars:'
+     A            VPERDO         1A  B 11 52DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Valid Entries are $ or -
+     A                                      %.     Press Reset')
+     A  19                                  ERRMSG('*** No Entry Required - Gro-
+     A                                      ss Profit Print = N.     Press Rese-
+     A                                      t')
+     A                                 11 55'(% or $)'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process     F2=Display -
+     A                                      Acctg. Period         F7=Cancel Job-
+     A                                               '
+     A                                      DSPATR(UL)

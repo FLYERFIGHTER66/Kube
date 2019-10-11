@@ -1,0 +1,108 @@
+     A*%%TS  SD  19961017  144611  GINNY       REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19961017  144611  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'GRS350 '
+     A                                  1116'Date:'
+     A                                  1122DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2116'Time:'
+     A                                  2122TIME
+     A                                  5 52'Enter Order Number:'
+     A            VORDER         6Y 0B  5 75EDTCDE(Z)
+     A  14                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  14                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10                                  ERRMSG('*** Enter A Valid Order Num-
+     A                                      ber.      Press Reset')
+     A  11                                  ERRMSG('*** No Allocations For This-
+     A                                       Order.    Press Reset')
+     A                                 25  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                                '
+     A                                      DSPATR(UL)
+     A                                 26  2'                                 E-
+     A                                      nter to Process               F3/F7-
+     A                                      =End of Job                        -
+     A                                                                '
+     A                                      DSPATR(UL)
+     A                                  1 51' Lot Allocation By Order Number '
+     A                                      DSPATR(RI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19961017  143452  GINNY       REL-V3R1M0  5763-PW1
+     A            DESC          32   O  7  2
+     A            OIITEM        12A  O  7 35
+     A N88                                  DSPATR(ND)
+     A            OISIZE         3A  O  7 48
+     A N88                                  DSPATR(ND)
+     A            OIDTRQ         6Y 0O  7 53
+     A N88                                  DSPATR(ND)
+     A                                      EDTWRD('  /  / 0')
+     A            QOPEN          6  0O  7 64EDTCDE(Z)
+     A N88                                  DSPATR(ND)
+     A            QALLOC         6Y 0O  7 73EDTCDE(Z)
+     A            CRDY           6Y 0O  7 82EDTWRD('  /  / 0')
+     A            AICLOC         3A  O  7 92
+     A            AICPHY         1A  O  7 99
+     A            SOWD           6Y 0O  7104EDTWRD('  /  / 0')
+     A            AIGLOC         3A  O  7115
+     A            AIPHYT         1A  O  7122
+     A            AICODE         1A  O  7129
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19961017  140645  GINNY       REL-V3R1M0  5763-PW1
+     A                                      SFLSIZ(0020)
+     A                                      SFLPAG(0019)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1 39' Roll Forward/Backward   F6=Restar-
+     A                                      t   F3/F7=End of Job  '
+     A                                      DSPATR(RI)
+     A                                  1  3'GRS350'
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                  3  2'Order #:'
+     A            VORDER         6Y 0O  3 11EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  3 36'Ship To'
+     A                                  3 44'Customer:'
+     A            OHCUST         6Y 0O  3 54DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            OHNAME        30A  O  3 62DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  2123TIME
+     A                                  4  2'                                  -
+     A                                                                         -
+     A                                                                         -
+     A                                                                '
+     A                                      DSPATR(UL)
+     A                                  5  2'                                  -
+     A                                                                    Qty  -
+     A                                          Qty             - Current -    -
+     A                                             - Origianl -       '
+     A                                  6  2'Description                      I-
+     A                                      tem        Size  Req Date    Order -
+     A                                         Alloc   Rdy Date  Loc  Phyto  So-
+     A                                      w Date   Loc  Phyto  Code'
+     A                                      DSPATR(UL)

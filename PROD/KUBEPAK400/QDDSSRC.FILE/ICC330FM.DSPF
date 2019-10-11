@@ -1,0 +1,234 @@
+     A*%%TS  SD  20000703  063231  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000703  063231  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF04
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICC330'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 37'Beginning'
+     A                                      DSPATR(UL)
+     A                                  4 53'Ending'
+     A                                      DSPATR(UL)
+     A                                  5 20'Item?'
+     A            LBITEM        12A  B  5 37DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Item Numb-
+     A                                      er Equal or Lower Than Ending Numbe-
+     A                                      r. Press Reset')
+     A            LEITEM        12A  B  5 53DSPATR(CS)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A  15                                  ERRMSG('*** Enter A Valid Item Numb-
+     A                                      er.       Press Reset')
+     A                                  7 65'Leave Beginning'
+     A                                 10 65'To Include ALL'
+     A                                  6 20'Size?'
+     A            LBSIZE         3A  B  6 37DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Size Lowe-
+     A                                      r Than Ending Size.    Press Reset')
+     A            LESIZE         3A  B  6 53DSPATR(CS)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Enter A Valid Size.    -
+     A                                        Press Reset')
+     A                                  7 20'Location?'
+     A            LBLOC          3A  B  7 37DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter A Valid Location -
+     A                                      Equal or Lower Than Ending.   Press-
+     A                                       Reset')
+     A            LELOC          3A  B  7 53DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Enter A Valid Location.-
+     A                                            Press Reset')
+     A                                  8 20'Vendor Number:'
+     A            LBVEND         6Y 0B  8 37DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  40                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber Equal or Lower Than Ending.   -
+     A                                       Press Reset')
+     A            LEVEND         6Y 0B  8 53DSPATR(CS)
+     A  45                                  DSPATR(RI)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.     Press Reset')
+     A                                  9 20'Product Class?'
+     A            LPC1           2A  B  9 37DSPATR(CS)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass Equal or Lower Than Ending.   -
+     A                                        Press Reset')
+     A            LPC2           2A  B  9 53DSPATR(CS)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A  65                                  ERRMSG('*** Enter A Valid Product C-
+     A                                      lass.     Press Reset')
+     A                                 12  4'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ------'
+     A                                 13 11'Print All Selected Items or Choose-
+     A                                       Exceptions to be Printed'
+     A                                      DSPATR(UL)
+     A                                 15  4'Include:'
+     A                                 15 16'Only Items with an On-Hand Quantit-
+     A                                      y..............'
+     A            LOH            1X  B 15 67DSPATR(CS)
+     A  70                                  DSPATR(RI)
+     A  70                                  DSPATR(PC)
+     A  78                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A  79                                  ERRMSG('*** Only One Selection Allo-
+     A                                      wed.        Press Reset')
+     A                                 16 16'Only Items with Zero On-Hand Quant-
+     A                                      ity............'
+     A            LZOH           1X  B 16 67DSPATR(CS)
+     A  71                                  DSPATR(RI)
+     A  71                                  DSPATR(PC)
+     A  71                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                 17 16'Only Items with a Negative-On Hand-
+     A                                       Quantity......'
+     A            LNOH           1X  B 17 67DSPATR(CS)
+     A  72                                  DSPATR(RI)
+     A  72                                  DSPATR(PC)
+     A  72                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                 18 16'Only Items at or Below Reorder Poi-
+     A                                      nt.............'
+     A            LBRO           1X  B 18 67DSPATR(CS)
+     A  73                                  DSPATR(RI)
+     A  73                                  DSPATR(PC)
+     A  73                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                 19 16'Only Items on Back Order..........-
+     A                                      ...............'
+     A            LBO            1X  B 19 67DSPATR(CS)
+     A  74                                  DSPATR(RI)
+     A  74                                  DSPATR(PC)
+     A  74                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Ent1r to Process   F2=Lookup Beg -
+     A                                      Vend   F4=Lookup End Vend   F3/F7=C-
+     A                                      ancel Job'
+     A                                      DSPATR(UL)
+     A                                  8 65'and Ending'
+     A                                  9 65'Fields Blank'
+     A            HEAD          45A  O  1 18DSPATR(RI)
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20000405  062342  TGMS        REL-V4R4M0  5769-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF02
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF07
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ICC330'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4 34'Print Options'
+     A                                      DSPATR(UL)
+     A                                  6 25'Printer ID:'
+     A            LPRTR         10A  B  6 46DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                  7 25'Forms Number:'
+     A            LFORM         10A  B  7 46DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                  8 25'Number of Copies:'
+     A            LCOPY          2Y 0B  8 54
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                  9 25'Run From JobQ:'
+     A            LJOBQ          1A  B  9 55DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 10 25'Print Status:'
+     A            VOUT           1Y 0B 10 55
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 10 59'1 = Print'
+     A                                 11 59'2 = Print/Save'
+     A                                 12 59'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'      Enter to Process        F2=P-
+     A                                      revious Screen        F3/F7=Cancel -
+     A                                      Job      '
+     A                                      DSPATR(UL)
+     A            HEAD          45A  O  1 18DSPATR(RI)

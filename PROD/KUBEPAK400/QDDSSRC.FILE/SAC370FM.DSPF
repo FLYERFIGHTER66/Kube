@@ -1,0 +1,85 @@
+     A*%%TS  SD  20010517  163808  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20010517  163808  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF02
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' S/A By Customer - Top Ranked '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6 25'For Accounting Periods:'
+     A            VACTP          2Y 0B  6 53DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11                                  ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.   Press Reset')
+     A  12                                  ERRMSG('*** Accounting Period 13 No-
+     A                                      t Valid For This Company.   Press R-
+     A                                      eset')
+     A                                  8 25'# of Customers to Rank:'
+     A            LRANK          6Y 0B  8 49DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                  8 57'*'
+     A                                      DSPATR(HI)
+     A                                 10 25'Rank By:'
+     A            LDOLUN         1Y 0B 10 54DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  20                                  ERRMSG('*** Valid Entries Are 1 or -
+     A                                      2.     Press Reset')
+     A                                 10 57'1 = YTD Dollars'
+     A                                 11 57'2 = YTD Units'
+     A                                 20 22'* Leave blank to select ALL custom-
+     A                                      ers'
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process     F2=Display -
+     A                                      Acctg Period       F3/F7=Cancel Job-
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  6 56'-'
+     A            EMONTH         2Y 0B  6 58DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11 30                               ERRMSG('*** Enter A Valid Accountin-
+     A                                      g Period.   Press Reset')
+     A  12 30                               ERRMSG('*** Accounting Period 13 No-
+     A                                      t Valid For This Company.   Press R-
+     A                                      eset')
+     A  30 31                               ERRMSG('*** Ending Period can Not b-
+     A                                      e less than begining period.    Pre-
+     A                                      ss RESET')

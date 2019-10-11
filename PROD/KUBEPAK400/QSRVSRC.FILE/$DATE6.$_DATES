@@ -1,0 +1,33 @@
+000100040617     H/Copy QFunctDefn,@CopyRight                                               Copyright Info.
+000200000000     H DATFMT(*USA)
+000300000000     H NOMAIN
+000400000000
+000500000000      * Function Prototype(s)
+000600000000     D/Copy QFunctDefn,$date6
+000700000000
+000800000000
+000900000000     *   ..................................................................
+001000000000     *   :  $date6                                               function :
+001100000000     *   :................................................................:
+001200000000
+001300000000
+001400000000     P $date6          B                   Export
+001500000000     D $date6          PI             6S 0
+001600000000     D   Date                          D   const datfmt(*USA)
+001700000000
+001800000000     *  The $date* function returns the six numeric date in YYMMDD format of the given date
+001900000000     *  ie. you pass (01/15/2006) you get 060115... you pass (02/01/2004) and get 040201
+002000000000
+002100000000     D  AlphaDate      DS            10
+002200000000     D  Alpha                  1     10    INZ('00/00/0000')
+002300000000     D   AlphaMM               1      2  0
+002400000000     D   AlphaDD               4      5  0
+002500000000     D   AlphaYY               9     10  0
+002600000000
+002700000000     C                   Move      Date          AlphaDate
+002800000000     C                   return    AlphaYY   * 10000 +
+002900000000     C                             AlphaMM   * 100 +
+003000000000     C                             AlphaDD   * 1
+003100000000
+003200000000     P   $date6        E
+003300000000

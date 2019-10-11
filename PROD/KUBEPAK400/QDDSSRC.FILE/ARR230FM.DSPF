@@ -1,0 +1,725 @@
+     A*%%TS  SD  19990809  061044  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A                                      CF23
+     A          R SCRNA
+     A*%%TS  SD  19990326  062308  EFD         REL-V3R1M0  5763-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'ARR230 '
+     A                                  1 34' A/R Start Up '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 28'Type of Entry:'
+     A            VSELEC         1Y 0B  5 46
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                      EDTCDE(Z)
+     A                                  5 51'1 = Invoice'
+     A                                  6 51'2 = Credit Memo'
+     A                                  7 51'3 = Late Charge'
+     A                                  9 28'Customer Number:'
+     A            VCUST          6Y 0B  9 46DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Customer -
+     A                                      Number.    Press Reset')
+     A  12                                  ERRMSG('*** Enter Only Customer # o-
+     A                                      r Alpha Search.    Press Reset')
+     A                                      CHECK(RB)
+     A                                 10 28'Alpha Search'
+     A            VALPHA        15A  B 10 46DSPATR(CS)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                   Enter to Proces-
+     A                                      s       F3/F7=End of Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 15 26'* Enter ALL Fields as Positive'
+     A                                 16 28'System will sign fields based'
+     A                                 17 28'on Type of Entry.'
+     A          R SCRNB
+     A*%%TS  SD  19990809  061044  TGMS        REL-V4R2M0  5769-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'ARR200 '
+     A                                  1 34' A/R Start Up '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6  0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  5  2'Terms:'
+     A            CMTMCD         2   B  5 16DSPATR(HI)
+     A            TCDESC        30A  O  5 19DSPATR(HI)
+     A                                  7  2'Action:'
+     A            VACT           1X  B  7 10
+     A  10N82                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Entries Are A, C -
+     A                                      or D.     Press Reset')
+     A                                  7 14'A=Add'
+     A                                  7 25'Invoice Number:'
+     A            VINV#          6Y 0B  7 41DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  13                                  ERRMSG('*** Invoice Number Is Requi-
+     A                                      red.    Press Reset')
+     A  14                                  ERRMSG('*** Invoice # Already On Fi-
+     A                                      le For This Customer.     Press Res-
+     A                                      et')
+     A  15                                  ERRMSG('*** Invoice # Not In File. -
+     A                                          Press Reset')
+     A                                  7 49'Suffix:'
+     A            VINVSF         2A  B  7 57DSPATR(CS)
+     A                                  7 61'Ship From?'
+     A            VSHFR          3A  B  7 72DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .    Press Reset')
+     A                                  8 14'C=Change'
+     A                                  9 14'D=Delete'
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process      F6=Re-
+     A                                      start(No Update)     F3/F7=End of J-
+     A                                      ob       '
+     A                                      DSPATR(UL)
+     A          R SCRNB1
+     A*%%TS  SD  19990809  061044  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      PRINT(*PGM)
+     A                                  1  2'ARR230 '
+     A                                  1 34' A/R Start Up '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6  0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30   O  4 19DSPATR(HI)
+     A                                  5  2'Terms:'
+     A            CMTMCD         2   B  5 16DSPATR(HI)
+     A            TCDESC        30   O  5 19DSPATR(HI)
+     A                                  7  2'Action:'
+     A            VACT           1X  B  7 10
+     A  10N82                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Entries Are A, C -
+     A                                      or D.     Press Reset')
+     A                                      DSPATR(PR)
+     A                                  7 14'A=Add'
+     A                                  7 25'Invoice Number:'
+     A            VINV#          6Y 0B  7 41DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  13                                  ERRMSG('*** Invoice Number Is Requi-
+     A                                      red.    Press Reset')
+     A  14                                  ERRMSG('*** Invoice # Already On Fi-
+     A                                      le For This Customer.     Press Res-
+     A                                      et')
+     A  15                                  ERRMSG('*** Invoice # Not In File. -
+     A                                          Press Reset')
+     A                                      DSPATR(PR)
+     A                                  7 49'Suffix:'
+     A            VINVSF         2A  B  7 57DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                  7 61'Ship From?'
+     A            VSHFR          3A  B  7 72DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .    Press Reset')
+     A                                      DSPATR(PR)
+     A                                  8 14'C=Change'
+     A                                  9 14'D=Delete'
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 12  3'Invoice Date:'
+     A            VTDATE         6Y 0B 12 17DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  88                                  DSPATR(PR)
+     A  61                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Reset')
+     A  62                                  ERRMSG('*** Invoice Date Earlier Th-
+     A                                      an First Fiscal Year Date.   Press -
+     A                                      Reset')
+     A  63                                  ERRMSG('*** Invoice Date Is A Futur-
+     A                                      e Date, Change or Press Reset & Ent-
+     A                                      er To Accept')
+     A                                 12 29'Due Date:'
+     A            VDDATE         6Y 0B 12 39DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A                                      CHECK(RB)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Enter')
+     A  23                                  ERRMSG('*** Due Date Cannot Be Less-
+     A                                       Than Invoice Date.     Press Enter-
+     A                                      ')
+     A                                 12 51'Salesperson?'
+     A            VSLSM          2A  B 12 65
+     A  30                                  DSPATR(PC)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  ERRMSG('*** Enter A Valid Salespers-
+     A                                      on.     Press Reset')
+     A                                 14  3'Total Invoice Amount:'
+     A            VTOTAL         9Y 2B 14 26DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Total Invoice Amount Is-
+     A                                       Required.    Press Reset')
+     A                                      CHECK(RB)
+     A                                 16  8'Merchandise Amt:'
+     A            VMERCH         9Y 2B 16 26DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Total Distribution Does-
+     A                                       Not Equal Invoice Amount.   Press -
+     A                                      Reset')
+     A                                      CHECK(RB)
+     A                                 16 43'Trade Disc. Amt:'
+     A            VTDISC         7Y 2B 16 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 17  8'Freight Charges:'
+     A            VFRT           7Y 2B 17 29DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 17 43'Qty. Disc. Amt:'
+     A            VQDISC         7Y 2B 17 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 18  8'Special Charges:'
+     A            VSPCHG         7Y 2B 18 29DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 18 43'State Tax:'
+     A            VSTTAX         7Y 2B 18 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 19  8'County Tax:'
+     A            VCOTAX         7Y 2B 19 29DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 19 43'City Tax:'
+     A            VCYTAX         7Y 2B 19 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A            MESS          62A  O 21 10DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process      F6=Re-
+     A                                      start(No Update)    F3/F7=End of Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)
+     A          R SCRNC
+     A*%%TS  SD  19990809  061044  TGMS        REL-V4R2M0  5769-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'ARR230 '
+     A                                  1 34' A/R Start Up '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6  0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  5  2'Terms:'
+     A            CMTMCD         2   B  5 16DSPATR(HI)
+     A            TCDESC        30A  O  5 19DSPATR(HI)
+     A                                  7  2'Action:'
+     A            VACT           1X  B  7 10
+     A  10N82                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Entries Are A, C -
+     A                                      or D.     Press Reset')
+     A                                  7 14'A=Add'
+     A                                  7 23'Credit Memo Number:'
+     A            VINV#          6Y 0B  7 43DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  13                                  ERRMSG('*** Credit Memo Number Is R-
+     A                                      equired.    Press Reset')
+     A  14                                  ERRMSG('*** Credit Memo # Already O-
+     A                                      n File For This Customer.     Press-
+     A                                       Reset')
+     A  15                                  ERRMSG('*** Credit Memo Is Not On F-
+     A                                      ile.    Press Reset')
+     A                                  7 51'Suffix:'
+     A            VINVSF         2A  B  7 59DSPATR(CS)
+     A                                  7 63'Ship From?'
+     A            VSHFR          3A  B  7 74DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .    Press Reset')
+     A                                  8 14'C=Change'
+     A                                  9 14'D=Delete'
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process      F6=Re-
+     A                                      start(No Update)     F3/F7=End of J-
+     A                                      ob       '
+     A                                      DSPATR(UL)
+     A          R SCRNC1
+     A*%%TS  SD  19990809  061044  TGMS        REL-V4R2M0  5769-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'ARR230 '
+     A                                  1 34' A/R Start Up '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6  0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30   O  4 19DSPATR(HI)
+     A                                  5  2'Terms:'
+     A            CMTMCD         2   B  5 16DSPATR(HI)
+     A            TCDESC        30   O  5 19DSPATR(HI)
+     A                                  7  2'Action:'
+     A            VACT           1X  B  7 10
+     A  10N82                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Entries Are A, C -
+     A                                      or D.     Press Reset')
+     A                                      DSPATR(PR)
+     A                                  7 14'A=Add'
+     A                                  7 23'Credit Memo Number:'
+     A            VINV#          6Y 0B  7 43DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** Invoice Number Is Requi-
+     A                                      red.    Press Reset')
+     A  14                                  ERRMSG('*** Invoice # Already On Fi-
+     A                                      le For This Customer.     Press Res-
+     A                                      et')
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A                                  7 51'Suffix:'
+     A            VINVSF         2A  B  7 59DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                  7 63'Ship From?'
+     A            VSHFR          3A  B  7 74DSPATR(CS)
+     A  18                                  DSPATR(RI)
+     A  18                                  DSPATR(PC)
+     A  18                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                      .    Press Reset')
+     A                                      DSPATR(PR)
+     A                                  8 14'C=Change'
+     A                                  9 14'D=Delete'
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 12  2'Credit Memo Date:'
+     A            VTDATE         6Y 0B 12 21DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  61                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Reset')
+     A  62                                  ERRMSG('*** Invoice Date Earlier Th-
+     A                                      an First Fiscal Year Date.   Press -
+     A                                      Reset')
+     A  63                                  ERRMSG('*** Invoice Date Is A Futur-
+     A                                      e Date, Change or Press Reset & Ent-
+     A                                      er To Accept')
+     A                                      CHECK(RB)
+     A                                 12 33'Due Date:'
+     A            VDDATE         6Y 0B 12 43DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A                                      CHECK(RB)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Enter')
+     A  23                                  ERRMSG('*** Due Date Cannot Be Less-
+     A                                       Than Invoice Date.     Press Enter-
+     A                                      ')
+     A                                 12 55'Salesperson?'
+     A            VSLSM          2A  B 12 69
+     A  30                                  DSPATR(PC)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  ERRMSG('*** Enter A Valid Salespers-
+     A                                      on.     Press Reset')
+     A                                 14  2'Total Credit Memo Amt:'
+     A            VTOTAL         9Y 2B 14 26DSPATR(CS)
+     A                                      EDTCDE(J)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Total Invoice Amount Is-
+     A                                       Required.    Press Reset')
+     A                                      CHECK(RB)
+     A                                 16  8'Merchandise Amt:'
+     A            VMERCH         9Y 2B 16 26DSPATR(CS)
+     A                                      EDTCDE(J)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Total Distribution Does-
+     A                                       Not Equal Invoice Amount.   Press -
+     A                                      Reset')
+     A                                      CHECK(RB)
+     A                                 16 43'Qty. Disc. Amt:'
+     A            VQDISC         7Y 2B 16 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 17  8'Trade Disc. Amt:'
+     A            VTDISC         7Y 2B 17 29DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 17 43'Freight Charges:'
+     A            VFRT           7Y 2B 17 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 18  8'Special Charges:'
+     A            VSPCHG         7Y 2B 18 29DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 18 43'State Tax:'
+     A            VSTTAX         7Y 2B 18 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 19  8'County Tax:'
+     A            VCOTAX         7Y 2B 19 29DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A                                 19 43'City Tax:'
+     A            VCYTAX         7Y 2B 19 61DSPATR(CS)
+     A                                      EDTCDE(J)
+     A                                      CHECK(RB)
+     A            MESS          62A  O 21 10DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process      F6=Re-
+     A                                      start(No Update)     F3/F7=End of J-
+     A                                      ob       '
+     A                                      DSPATR(UL)
+     A          R SCRND
+     A*%%TS  SD  19990809  061044  TGMS        REL-V4R2M0  5769-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'ARR230 '
+     A                                  1 34' A/R Start Up '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6  0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  5  2'Terms:'
+     A            CMTMCD         2   B  5 16DSPATR(HI)
+     A            TCDESC        30A  O  5 19DSPATR(HI)
+     A                                  7  2'Action:'
+     A            VACT           1X  B  7 10
+     A  10N82                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Entries Are A, C -
+     A                                      or D.     Press Reset')
+     A                                  7 14'A=Add'
+     A                                  7 27'Late Charge Number:'
+     A            VINV#          6Y 0B  7 47DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  13                                  ERRMSG('*** Late Charge # Is Requir-
+     A                                      ed.    Press Reset')
+     A  14                                  ERRMSG('*** Late Charge # Already O-
+     A                                      n File For This Customer.     Press-
+     A                                       Reset')
+     A  15                                  ERRMSG('*** Late Charge # Is Not On-
+     A                                       File.   Press Reset')
+     A                                  7 55'Suffix:'
+     A            VINVSF         2A  B  7 63DSPATR(CS)
+     A                                  8 14'C=Change'
+     A                                  9 14'D=Delete'
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process      F6=Re-
+     A                                      start(No Update)     F3/F7=End of J-
+     A                                      ob       '
+     A                                      DSPATR(UL)
+     A          R SCRND1
+     A*%%TS  SD  19990809  061044  TGMS        REL-V4R2M0  5769-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'ARR230 '
+     A                                  1 34' A/R Start Up '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6  0O  4 12EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMNAME        30   O  4 19DSPATR(HI)
+     A                                  5  2'Terms:'
+     A            CMTMCD         2   B  5 16DSPATR(HI)
+     A            TCDESC        30   O  5 19DSPATR(HI)
+     A                                  7  2'Action:'
+     A            VACT           1X  B  7 10
+     A  10N82                               DSPATR(PC)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Entries Are A, C -
+     A                                      or D.     Press Reset')
+     A                                      DSPATR(PR)
+     A                                  7 14'A=Add'
+     A                                  7 27'Late Charge Number:'
+     A            VINV#          6Y 0B  7 47DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  12                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** Invoice Number Is Requi-
+     A                                      red.    Press Reset')
+     A  14                                  ERRMSG('*** Invoice # Already On Fi-
+     A                                      le For This Customer.     Press Res-
+     A                                      et')
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A                                  7 55'Suffix:'
+     A            VINVSF         2A  B  7 63DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                  8 14'C=Change'
+     A                                  9 14'D=Delete'
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 12 21'Late Charge Date:'
+     A            VTDATE         6Y 0B 12 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  61                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Reset')
+     A  62                                  ERRMSG('*** Invoice Date Earlier Th-
+     A                                      an First Fiscal Year Date.   Press -
+     A                                      Reset')
+     A  63                                  ERRMSG('*** Invoice Date Is A Futur-
+     A                                      e Date, Change or Press Reset & Ent-
+     A                                      er To Accept')
+     A                                      CHECK(RB)
+     A                                 14 19'Late Charge Amount:'
+     A            VTOTAL         9Y 2B 14 42DSPATR(CS)
+     A                                      EDTCDE(J)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Total Invoice Amount Is-
+     A                                       Required.    Press Reset')
+     A                                      CHECK(RB)
+     A                                 16 29'Due Date:'
+     A            VDDATE         6Y 0B 16 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A                                      CHECK(RB)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Enter')
+     A  23                                  ERRMSG('*** Due Date Cannot Be Less-
+     A                                       Than Invoice Date.     Press Enter-
+     A                                      ')
+     A            MESS          62A  O 21 10DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'       Enter to Process      F6=Re-
+     A                                      start(No Update)     F3/F7=End of J-
+     A                                      ob       '
+     A                                      DSPATR(UL)

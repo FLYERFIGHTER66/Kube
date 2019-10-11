@@ -1,0 +1,216 @@
+     A*%%TS  SD  19980902  141746  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19980902  120748  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'ICR065A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  4 18'Department:'
+     A            LOCAT          3A  O  4 30
+     A            DEDESC        30A  O  4 34
+     A                                  2 22' Update Prices and Quantity Discou-
+     A                                      nts '
+     A                                      DSPATR(RI)
+     A                                 23  2'Enter to Process                  -
+     A                                                                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  8 18'Item Number?'
+     A            ITEM          12A  B  8 31
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid Item Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Item is marked as delet-
+     A                                      ed.         press RESET')
+     A                                  8 44'Size:'
+     A            SIZE           3A  B  8 50
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A          R SCRNB
+     A*%%TS  SD  19980902  141746  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF06
+     A                                  1  2'ICR065B'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 22' Update Prices and Quantity Discou-
+     A                                      nts '
+     A                                      DSPATR(RI)
+     A                                 23  2'Enter to Process        F6=Restart-
+     A                                      (NO UPDATE)                    F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4  3'Item:'
+     A            ITEM          12A  O  4  9
+     A            SIZE           3A  O  4 22
+     A            IMDES1        30A  O  4 26
+     A                                  6  3'Will be updated in the following d-
+     A                                      epartments:'
+     A            DEP1           3A  O  8  3
+     A            NAM1          30A  O  8  7
+     A            DEP3           3A  O  9  3
+     A            NAM3          30A  O  9  7
+     A            DEP5           3A  O 10  3
+     A            NAM5          30A  O 10  7
+     A            DEP9           3A  O 12  3
+     A            NAM7          30A  O 11  7
+     A            DEP7           3A  O 11  3
+     A            NAM9          30A  O 12  7
+     A            DEP2           3A  O  8 42
+     A            NAM2          30A  O  8 46
+     A            DEP4           3A  O  9 42
+     A            NAM4          30A  O  9 46
+     A            DEP6           3A  O 10 42
+     A            NAM6          30A  O 10 46
+     A            DEP8           3A  O 11 42
+     A            NAM8          30A  O 11 46
+     A            DEP10          3A  O 12 42
+     A            NAM10         30A  O 12 46
+     A                                 13  3'Product Class 3?'
+     A            QCPCL3         2A  B 13 20
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Product Class 3-
+     A                                       Entered.   Press RESET')
+     A            QCDESC        30A  O 13 23
+     A                                 15  3'Prices:'
+     A                                 15 11'1.'
+     A            PRIC1          9Y 4B 15 14DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 16 11'2.'
+     A            PRIC2          9Y 4B 16 14DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 17 11'3.'
+     A            PRIC3          9Y 4B 17 14DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 18 11'4.'
+     A            PRIC4          9Y 4B 18 14DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 19 11'5.'
+     A            PRIC5          9Y 4B 19 14DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 16 33'Quantity'
+     A                                 17 34'Breaks'
+     A                                 15 44'1 '
+     A            QTY1          11Y 1B 15 47EDTWRD('          . ')
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A  21                                  ERRMSG('If Discount Entered Quantit-
+     A                                      y must be entered.   Press RESET')
+     A  61                                  ERRMSG('*** Last Quantity Must Be 9-
+     A                                      99999999    Press RESET')
+     A            PCT1           4Y 2B 15 64EDTWRD('  .  ')
+     A                                      DSPATR(CS)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** If a Quantity is entere-
+     A                                      d Percent Must be entered.   Press -
+     A                                      RESET')
+     A                                 16 44'2.'
+     A            QTY2          11Y 1B 16 47EDTWRD('          . ')
+     A  22                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  22                                  DSPATR(PC)
+     A  22N42                               ERRMSG('*** If percent entered Quan-
+     A                                      tity Must be entered.   Press RESET-
+     A                                      ')
+     A  22 42                               ERRMSG('*** Quantity 2 Must be Grea-
+     A                                      ter than Qantity 1.      Press RESE-
+     A                                      T')
+     A            PCT2           4Y 2B 16 64EDTWRD('  .  ')
+     A                                      DSPATR(CS)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** If a Quantity is entere-
+     A                                      d Percent Must be entered.   Press -
+     A                                      RESET')
+     A                                 17 44'3.'
+     A            QTY3          11Y 1B 17 47EDTWRD('          . ')
+     A  23                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  23                                  DSPATR(PC)
+     A  23N43                               ERRMSG('*** If percent entered Quan-
+     A                                      tity Must be entered.   Press RESET-
+     A                                      ')
+     A  23 43                               ERRMSG('*** Quantity 3 Must be Grea-
+     A                                      ter than Qantity 2.      Press RESE-
+     A                                      T')
+     A            PCT3           4Y 2B 17 64EDTWRD('  .  ')
+     A                                      DSPATR(CS)
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A  33                                  ERRMSG('*** If a Quantity is entere-
+     A                                      d Percent Must be entered.   Press -
+     A                                      RESET')
+     A                                 18 44'4.'
+     A            QTY4          11Y 1B 18 47EDTWRD('          . ')
+     A  24                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  24                                  DSPATR(PC)
+     A  24N44                               ERRMSG('*** If percent entered Quan-
+     A                                      tity Must be entered.   Press RESET-
+     A                                      ')
+     A  24 44                               ERRMSG('*** Quantity 4 Must be Grea-
+     A                                      ter than Qantity 3.      Press RESE-
+     A                                      T')
+     A            PCT4           4Y 2B 18 64EDTWRD('  .  ')
+     A                                      DSPATR(CS)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** If a Quantity is entere-
+     A                                      d Percent Must be entered.   Press -
+     A                                      RESET')
+     A                                 19 44'5.'
+     A            QTY5          11Y 1B 19 47EDTWRD('          . ')
+     A  25                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  25                                  DSPATR(PC)
+     A  25N45                               ERRMSG('*** If percent entered Quan-
+     A                                      tity Must be entered.   Press RESET-
+     A                                      ')
+     A  24 44                               ERRMSG('*** Quantity 5 Must be Grea-
+     A                                      ter than Qantity 4.      Press RESE-
+     A                                      T')
+     A            PCT5           4Y 2B 19 64EDTWRD('  .  ')
+     A                                      DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** If a Quantity is entere-
+     A                                      d Percent Must be entered.   Press -
+     A                                      RESET')
+     A                                 14 61'Discount %'
+     A                                      DSPATR(UL)
+     A          R SCRNE
+     A*%%TS  SD  19980901  202311  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'ICR065E'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  8 18' User is NOT Authorized to run thi-
+     A                                      s program. '
+     A                                      DSPATR(RI)
+     A                                 11 26' Press ENTER to end program. '
+     A                                      DSPATR(RI)
+     A                                  2 22' Update Prices and Quantity Discou-
+     A                                      nts '
+     A                                      DSPATR(RI)

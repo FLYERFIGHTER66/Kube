@@ -1,0 +1,1356 @@
+     A*%%TS  SD  20190618  092400  BILLB       REL-V7R2M0  5770-WDS
+     A*? Program        : BIR275FM
+     A*?
+     A*? Description    : This Display file used for Credit Memo
+     A*?                  Entry Program
+     A*? Created By     :
+     A*?
+     A*? Date           : 18 Jun 2019
+     A**********************************************************************
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A*****************************************************************
+     A*? Indicator Area
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A*****************************************************************
+     A*? Credit Memo Entry Main Screen
+     A          R SCRNA
+     A*%%TS  SD  20190618  092400  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF07
+     A                                      CF02
+     A                                      CF04
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      CF05
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HSCUS)
+     A                                      HLPARA(04 046 04 051)
+     A                                  1  2'BIR275A'
+     A                                  1 31' Credit Memo Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Action Codes are -
+     A                                      A - C - D.  Press Reset')
+     A                                  4 21'A/R Customer #:'
+     A            VBCUST         6Y 0B  4 44EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A  11N71 17                            ERRMSG('*** Enter Either a Customer-
+     A                                       Number or a Search Argument.   Pre-
+     A                                      ss Reset')
+     A  11N71N17                            ERRMSG('*** This Is Not a Valid Cus-
+     A                                      tomer Number.   Press Reset')
+     A  11 71                               ERRMSG('*** Check with office for f-
+     A                                      urther details. Press RESET')
+     A                                  5 21'Alpha Search'
+     A            VBALPH        15A  B  5 44DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                  6  2' A = Add    '
+     A                                  6 21'Telephone # Search'
+     A            VBTELE        10A  B  6 44
+     A  16                                  DSPATR(PR)
+     A                                      DSPATR(CS)
+     A                                  7  2' C = Change '
+     A            VBNAME        30A  O  7 44DSPATR(HI)
+     A                                  8  2' D = Delete '
+     A                                  9 21'Apply To Invoice #:'
+     A            VINV           6Y 0B  9 44DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20N21                               ERRMSG('**** Invalid Invoice Number-
+     A                                       Entered.   Press RESET')
+     A  20 21                               ERRMSG('**** Invoice is from anothe-
+     A                                      r Department. Press RESET')
+     A            VORDER#        6Y 0B 10 75DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A  60 61                               ERRMSG('**** Order Number Should be-
+     A                                       Entered.   Press RESET')
+     A                                 11 21'Credit Memo Number:'
+     A            VCRM           6Y 0B 11 44EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  29                                  DSPATR(RI)
+     A  29                                  DSPATR(PC)
+     A  28 29N27
+     A N26                                  ERRMSG('*** Credit Memo  Number Not-
+     A                                       Allowed on Action A.  Press Reset')
+     A  28N29N27
+     A N26                                  ERRMSG('*** Credit Memo Number Requ-
+     A                                      ired on Action C or D.   Press Rese-
+     A                                      t')
+     A  28N29 27
+     A N26                                  ERRMSG('*** This Is Not An Open Cre-
+     A                                      dit Memo Number.   Press Reset')
+     A  28 26                               ERRMSG('*** Credit Memo is from ano-
+     A                                      ther Department.  Preaa RESET')
+     A                                 13 21'Company Number:'
+     A            VCO            2Y 0B 13 48
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A  19                                  ERRMSG('*** Enter a Valid Company N-
+     A                                      umber.    Press Reset')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 17 21'Last Credit Memo:'
+     A            LBCRM          6Y 0O 17 39EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process               F-
+     A                                      6=Restart                   F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(UL)
+     A                                 19 21'Last Invoice Num:'
+     A            LBINV          6Y 0O 19 39EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  9 52'F2=Display Cust. Invoices'
+     A                                 10 52'F4=Invoices for order:'
+     A                                 11 52'F5=Select Invoice by Item'
+     A                                 15 12' The Invoice you selected is a cre-
+     A                                      dit memo. Press ENTER. '
+     A  77                                  DSPATR(RI)
+     A N77                                  DSPATR(ND)
+     A*****************************************************************
+     A*? Process Screen
+     A          R HSCUS
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Bill To Customer                 -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' This is the customer and address -
+     A                                      to which the credit memo will be se-
+     A                                      nt.     '
+     A                                      DSPATR(HI)
+     A                                 19  3' The accounts receivable customer -
+     A                                      number associated with this bill to-
+     A                                       number '
+     A                                      DSPATR(HI)
+     A                                 20  3' will reflect this credit memo.   -
+     A                                      The sales analysis customer number -
+     A                                      for this'
+     A                                      DSPATR(HI)
+     A                                 21  3' bill to number will be reduced by-
+     A                                       this credit memo.                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A*****************************************************************
+     A*? Screen
+     A          R SCRNE
+     A                                      CF06
+     A                                      HELP
+     A                                      CF23
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'SCRNE'
+     A            VMODE          6A  O  1 20DSPATR(UL)
+     A                                  1 33' Credit Memo '
+     A                                      DSPATR(RI)
+     A                                  1 50'C/M #:'
+     A            OHCRM#         6Y 0O  1 57EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'Bill To:'
+     A            OHBLCU         6Y 0O  2 12EDTCDE(Z)
+     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+     A                                  2 45'Ship To:'
+     A            OHCUST         6Y 0O  2 54EDTCDE(Z)
+     A                                  2 73TIME
+     A            BIL1          32A  O  3  3
+     A            SHIP1         32A  O  3 46
+     A            BIL2          32A  O  4  3
+     A            SHIP2         32A  O  4 46
+     A            BIL3          32A  O  5  3
+     A            SHIP3         32A  O  5 46
+     A            BIL4          32A  O  6  3
+     A            SHIP4         32A  O  6 46
+     A            BIL5          32A  O  7  3
+     A            SHIP5         32A  O  7 46
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A            VINV           6S 0O  9 13
+     A                                  9 36'Total Invoice Amount:'
+     A                                  9  2'Invoice #:'
+     A                                  9 20'Dated:'
+     A            INDT           6Y 0O  9 27EDTCDE(Y)
+     A            INTOT         11Y 2O  9 59EDTCDE(J)
+     A                                 10 12'Credit #'
+     A                                 10 28'Date'
+     A                                 10 67'Amount'
+     A            CRD1           6S 0O 11 13
+     A N01                                  DSPATR(ND)
+     A            CDT1           6Y 0O 11 27EDTCDE(Y)
+     A N01                                  DSPATR(ND)
+     A            CAM1          11Y 2O 11 59EDTCDE(J)
+     A N01                                  DSPATR(ND)
+     A  11                                  DSPATR(UL)
+     A            CRD2           6S 0O 12 13
+     A N02                                  DSPATR(ND)
+     A            CDT2           6Y 0O 12 27EDTCDE(Y)
+     A N02                                  DSPATR(ND)
+     A            CAM2          11Y 2O 12 59EDTCDE(J)
+     A N02                                  DSPATR(ND)
+     A  12                                  DSPATR(UL)
+     A            CRD3           6S 0O 13 13
+     A N03                                  DSPATR(ND)
+     A            CDT3           6Y 0O 13 27EDTCDE(Y)
+     A N03                                  DSPATR(ND)
+     A            CAM3          11Y 2O 13 59EDTCDE(J)
+     A N03                                  DSPATR(ND)
+     A  13                                  DSPATR(UL)
+     A            CRD4           6S 0O 14 13
+     A N04                                  DSPATR(ND)
+     A            CDT4           6Y 0O 14 27EDTCDE(Y)
+     A N04                                  DSPATR(ND)
+     A            CAM4          11Y 2O 14 59EDTCDE(J)
+     A N04                                  DSPATR(ND)
+     A  14                                  DSPATR(UL)
+     A            CRD5           6S 0O 15 13
+     A N05                                  DSPATR(ND)
+     A            CDT5           6Y 0O 15 27EDTCDE(Y)
+     A N05                                  DSPATR(ND)
+     A            CAM5          11Y 2O 15 59EDTCDE(J)
+     A N05                                  DSPATR(ND)
+     A  15                                  DSPATR(UL)
+     A            CRD6           6S 0O 16 13
+     A N06                                  DSPATR(ND)
+     A            CDT6           6Y 0O 16 27EDTCDE(Y)
+     A N06                                  DSPATR(ND)
+     A            CAM6          11Y 2O 16 59EDTCDE(J)
+     A N06                                  DSPATR(ND)
+     A  16                                  DSPATR(UL)
+     A            CRD7           6S 0O 17 13
+     A N07                                  DSPATR(ND)
+     A            CDT7           6Y 0O 17 27EDTCDE(Y)
+     A N07                                  DSPATR(ND)
+     A            CAM7          11Y 2O 17 59EDTCDE(J)
+     A N07                                  DSPATR(ND)
+     A  17                                  DSPATR(UL)
+     A            CRD8           6S 0O 18 13
+     A N08                                  DSPATR(ND)
+     A            CDT8           6Y 0O 18 27EDTCDE(Y)
+     A N08                                  DSPATR(ND)
+     A            CAM8          11Y 2O 18 59EDTCDE(J)
+     A N08                                  DSPATR(ND)
+     A  18                                  DSPATR(UL)
+     A            CRD9           6S 0O 19 13
+     A N09                                  DSPATR(ND)
+     A            CDT9           6Y 0O 19 27EDTCDE(Y)
+     A N09                                  DSPATR(ND)
+     A            CAM9          11Y 2O 19 59EDTCDE(J)
+     A N09                                  DSPATR(ND)
+     A  19                                  DSPATR(UL)
+     A            CRD10          6S 0O 20 13
+     A N10                                  DSPATR(ND)
+     A            CDT10          6Y 0O 20 27EDTCDE(Y)
+     A N10                                  DSPATR(ND)
+     A            CAM10         11Y 2O 20 59EDTCDE(J)
+     A N10                                  DSPATR(ND)
+     A  20                                  DSPATR(UL)
+     A            CRT           11Y 2O 21 59EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21 36'Total Amount Credited:'
+     A                                 22 31'Amount Available to Credit:'
+     A  99                                  DSPATR(RI)
+     A            LEFTT         11Y 2O 22 59EDTCDE(J)
+     A                                      DSPATR(HI)
+     A  99                                  DSPATR(RI)
+     A                                 24 30'Press Enter to Continue'
+     A N99                                  DSPATR(HI)
+     A  99                                  DSPATR(ND)
+     A N99                                  DSPATR(UL)
+     A                                 24 55' Press Enter to Return '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A*****************************************************************
+     A*? Screen
+     A          R SCRNB
+     A                                      CF06
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HTDISC)
+     A                                      HLPARA(11 014 11 018)
+     A          H                           HLPRCD(HPONO)
+     A                                      HLPARA(09 030 09 044)
+     A          H                           HLPRCD(HORDTE)
+     A                                      HLPARA(09 059 09 066)
+     A          H                           HLPRCD(HPRCDE)
+     A                                      HLPARA(10 014 10 014)
+     A          H                           HLPRCD(HSHPFR)
+     A                                      HLPARA(10 047 10 049)
+     A          H                           HLPRCD(HTDISC)
+     A                                      HLPARA(06 005 06 010)
+     A          H                           HLPRCD(HSHVIA)
+     A                                      HLPARA(11 047 11 048)
+     A          H                           HLPRCD(HTERMS)
+     A                                      HLPARA(12 014 12 015)
+     A          H                           HLPRCD(HINVCD)
+     A                                      HLPARA(12 069 12 069)
+     A          H                           HLPRCD(HBO)
+     A                                      HLPARA(13 069 13 069)
+     A          H                           HLPRCD(HORDLS)
+     A                                      HLPARA(14 014 14 019)
+     A                                  1  2'SCRNB'
+     A            VMODE          6A  O  1 20DSPATR(UL)
+     A                                  1 33' Credit Memo '
+     A                                      DSPATR(RI)
+     A                                  1 50'C/M #:'
+     A            OHCRM#         6Y 0O  1 57EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'Bill To:'
+     A            OHBLCU         6Y 0O  2 11EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+     A                                  2 45'Ship To:'
+     A            OHCUST         6Y 0O  2 54EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  2 73TIME
+     A            BIL1          32A  O  3  3DSPATR(HI)
+     A            SHIP1         32A  O  3 46DSPATR(HI)
+     A            BIL2          32A  O  4  3DSPATR(HI)
+     A            SHIP2         32A  O  4 46DSPATR(HI)
+     A            BIL3          32A  O  5  3DSPATR(HI)
+     A            SHIP3         32A  O  5 46DSPATR(HI)
+     A            BIL4          32A  O  6  3DSPATR(HI)
+     A            SHIP4         32A  O  6 46DSPATR(HI)
+     A            BIL5          32A  O  7  3DSPATR(HI)
+     A            SHIP5         32A  O  7 46DSPATR(HI)
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                  9  2'Reason Code?'
+     A            OHREAS         3A  B  9 16
+     A  26                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  26                                  DSPATR(PC)
+     A  57                                  DSPATR(PR)
+     A  26N27N28                            ERRMSG('*** Enter a Valid Reason Co-
+     A                                      de.     Press Reset')
+     A  26 27                               ERRMSG('*** Selected Invoice Does N-
+     A                                      OT Have any tax charges.  Press RES-
+     A                                      ET')
+     A  26 28                               ERRMSG('*** Selected Invoice Does N-
+     A                                      OT Have any delivery Charges.      -
+     A                                      Press RESET')
+     A            CRDESC        30A  O  9 20DSPATR(HI)
+     A                                  9 54'Apply to Invoice:'
+     A            OHAPNO         6Y 0O  9 72DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A                                 10  2'Credit Memo Date:'
+     A            OHDTOR         6Y 0B 10 20DSPATR(CS)
+     A  24                                  DSPATR(PC)
+     A  24                                  DSPATR(RI)
+     A                                      EDTWRD('  /  /  ')
+     A  24N25                               ERRMSG('*** Invalid Date entered.  -
+     A                                                  Press Reset')
+     A  24 25                               ERRMSG('*** Date Can NOT be less th-
+     A                                      an todays Date. Press RESET')
+     A                                 10 32'C/M Comment:'
+     A            OHCOMM        30A  B 10 45DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 12  2'Price Code:'
+     A            OHPRCD         1Y 0B 12 16DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Price Codes are 1-
+     A                                      -2-3-4-5.   Press Reset')
+     A                                 12 21'Trade Disc:'
+     A            OHTRDC         4Y 2B 12 34DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                 12 52'Tax Exempt:'
+     A            OHTXST         1X  B 12 66DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.         Press Reset')
+     A                                 12 68'Juris?'
+     A            OHTXJU         3A  B 12 75DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** This Is Not A Valid Tax-
+     A                                       Jurisdiction.   Press Reset')
+     A                                 13  2'Terms?'
+     A            OHTMCD         2A  B 13 15
+     A  31                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  31                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** This Is Not a Valid Ter-
+     A                                      ms Code.   Press Reset')
+     A            TCDESC        30A  O 13 18
+     A                                 13 52'Tax Frt Chrg:'
+     A            OHFRTX         1X  B 13 66DSPATR(CS)
+     A  45                                  DSPATR(RI)
+     A  45                                  DSPATR(PC)
+     A  45                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.         Press Reset')
+     A                                 14  2'Ship From:'
+     A            OHSHFR         3A  B 14 14DSPATR(CS)
+     A                                      DSPATR(PR)
+     A            WHDESC        30A  O 14 18
+     A                                 14 52'Tax Spc Chrg:'
+     A            OHSPTX         1X  B 14 66DSPATR(CS)
+     A  46                                  DSPATR(RI)
+     A  46                                  DSPATR(PC)
+     A  46                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.     Press Reset')
+     A                                 15  2'Company:'
+     A            OHCOMP         2S 0O 15 15
+     A                                 17  2'Affect Inventory:'
+     A            OHAFIV         1X  B 17 20DSPATR(CS)
+     A  47                                  DSPATR(RI)
+     A  47                                  DSPATR(PC)
+     A  47                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A                                 17 24'Affect Sales Analysis:'
+     A            OHAFSL         1X  B 17 47DSPATR(CS)
+     A  48                                  DSPATR(RI)
+     A  48                                  DSPATR(PC)
+     A  48                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A                                 19  2'Slsp 1?'
+     A            OHSLM1         2A  B 19 11DSPATR(CS)
+     A N38                                  DSPATR(HI)
+     A  38                                  DSPATR(RI)
+     A  38                                  DSPATR(PC)
+     A  38                                  ERRMSG('*** Enter A Valid Salespers-
+     A                                      on Code.    Press Reset')
+     A            SNAME1        30A  O 19 14
+     A                                 19 46'Comm:'
+     A            OHSCM1         4Y 2B 19 52DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                      CHECK(RB)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                 20  2'Slsp 2?'
+     A            OHSLM2         2A  B 20 11DSPATR(CS)
+     A N38                                  DSPATR(HI)
+     A  38                                  DSPATR(RI)
+     A  38                                  DSPATR(PC)
+     A  38                                  ERRMSG('*** Enter A Valid Salespers-
+     A                                      on Code.    Press Reset')
+     A            SNAME2        30A  O 20 14
+     A                                 20 46'Comm:'
+     A            OHSCM2         4Y 2B 20 52DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                      COLOR(YLW)
+     A                                      CHECK(RB)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                 21  2'Notes:'
+     A            CCCOM1        30A  O 21 15COLOR(RED)
+     A                                      DSPATR(CS)
+     A  27                                  ERRMSG('*** You Cannot restart now -
+     A                                      press Enter to return to Previous S-
+     A                                      creen. Press RESET')
+     A            CCCOM2        30A  O 21 46COLOR(RED)
+     A                                      DSPATR(CS)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'              Enter to Process    -
+     A                                          F6=Restart/With No Update      -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 17 50'Auto Spread in A/R:'
+     A            OHPOS          1A  B 17 70
+     A            OHPONO        15A  B 11 45DSPATR(CS)
+     A*                                     CHECK(LC)
+     A                                 11 33'P/O NUMBER:'
+     A*****************************************************************
+     A*? Screen
+     A          R SCRNBD
+     A                                      CF06
+     A                                      HELP
+     A                                      CF23
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'SCRNBD'
+     A            VMODE          6A  O  1 20DSPATR(UL)
+     A                                  1 33' Credit Memo '
+     A                                      DSPATR(RI)
+     A                                  1 50'C/M #:'
+     A            OHCRM#         6Y 0O  1 57EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'Bill To:'
+     A            OHBLCU         6Y 0O  2 12EDTCDE(Z)
+     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+     A                                  2 45'Ship To:'
+     A            OHCUST         6Y 0O  2 54EDTCDE(Z)
+     A                                  2 73TIME
+     A            BIL1          32A  O  3  3
+     A            SHIP1         32A  O  3 46
+     A            BIL2          32A  O  4  3
+     A            SHIP2         32A  O  4 46
+     A            BIL3          32A  O  5  3
+     A            SHIP3         32A  O  5 46
+     A            BIL4          32A  O  6  3
+     A            SHIP4         32A  O  6 46
+     A            BIL5          32A  O  7  3
+     A            SHIP5         32A  O  7 46
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                 10  2'Reason Code?'
+     A            OHREAS         3A  B 10 16DSPATR(PR)
+     A            CRDESC        30A  O 10 20DSPATR(HI)
+     A                                 10 53'Apply to Invoice:'
+     A            OHAPNO         6S 0O 10 71
+     A                                 11  2'Credit Memo Date:'
+     A            OHINDT         6Y 0B 11 20EDTWRD('  /  /  ')
+     A                                      DSPATR(PR)
+     A                                 11 62'Company:'
+     A            ONCOMP         2S 0O 11 71
+     A                                 13  2'Price Code:'
+     A            OHPRCD         1Y 0B 13 16EDTCDE(Z)
+     A                                      DSPATR(PR)
+     A                                 13 21'Trade Disc:'
+     A            OHTRDC         4Y 2B 13 34EDTCDE(3)
+     A                                      DSPATR(PR)
+     A                                 14  2'Terms?'
+     A            OHTMCD         2A  B 14 15DSPATR(PR)
+     A            TCDESC        30A  O 14 18DSPATR(HI)
+     A                                 14 52'Tax Exempt:'
+     A            OHTXST         1X  B 14 66DSPATR(PR)
+     A                                 14 68'Juris?'
+     A            OHTXJU         3A  B 14 75DSPATR(PR)
+     A                                 15  2'Ship From?'
+     A            OHSHFR         3A  B 15 14
+     A            WHDESC        30A  O 15 18DSPATR(HI)
+     A                                 15 52'Tax Frt Chrg:'
+     A            OHFRTX         1X  B 15 66DSPATR(PR)
+     A                                 16  2'C/M Comment:'
+     A            OHCOMM        30A  B 16 18CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                 16 52'Tax Spc Chrg:'
+     A            OHSPTX         1X  B 16 66DSPATR(PR)
+     A                                 18  2'Affect Inventory:'
+     A            OHAFIV         1X  B 18 20DSPATR(PR)
+     A                                 18 35'Affect Sales Analysis:'
+     A            OHAFSL         1X  B 18 58DSPATR(PR)
+     A                                 20  2'Slsp 1?'
+     A            OHSLM1         2A  B 20 15DSPATR(PR)
+     A            SNAME1        30A  O 20 18DSPATR(HI)
+     A                                 20 53'Comm:'
+     A            CMCOMM         4Y 2B 20 59EDTCDE(3)
+     A                                      CHECK(RB)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                 21  2'Slsp 2?'
+     A            OHSLM2         2A  B 21 15DSPATR(PR)
+     A            SNAME2        30A  O 21 18DSPATR(HI)
+     A                                 21 53'Comm:'
+     A            VCOMM2         4Y 2B 21 59EDTCDE(3)
+     A                                      COLOR(YLW)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Press F23 To Confirm DELETE     -
+     A                                                F6 to Restart with NO DEL-
+     A                                      ETE      '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                  9  2'  Press F23 To Confirm DELETE     -
+     A                                                F6 to Restart with NO DEL-
+     A                                      ETE      '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(RI)
+     A                                      COLOR(YLW)
+     A            OHPONO        15A  B 17 18CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                 17  2'P/O NUMBER:'
+     A*****************************************************************
+     A*? Screen
+     A          R HRDATE
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Requested Ship Date              -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' This is the date that the custome-
+     A                                      r has requested for delivery of you-
+     A                                      r       '
+     A                                      DSPATR(HI)
+     A                                 19  3' material.  The format is MMDDYY. -
+     A                                       There is a default requested ship -
+     A                                      date    '
+     A                                      DSPATR(HI)
+     A                                 20  3' in the company control file which-
+     A                                       automatically displays when a new -
+     A                                      order   '
+     A                                      DSPATR(HI)
+     A                                 21  3' is entered.  This default date ca-
+     A                                      n be overridden.                   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A*****************************************************************
+     A*? Screen
+     A          R HPONO
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Customer Purchase Order Number   -
+     A                                                            Required/Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Enter up to 15 characters for the-
+     A                                       customer purchase order number.  T-
+     A                                      his     '
+     A                                      DSPATR(HI)
+     A                                 19  3' will print on the customer invoic-
+     A                                      e.  A customer can be coded that a -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' purchase order number is required-
+     A                                       for all orders.  If no purchase or-
+     A                                      der is  '
+     A                                      DSPATR(HI)
+     A                                 21  3' entered for these customers, an e-
+     A                                      rror will be displayed.            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A*****************************************************************
+     A*? Screen
+     A          R HORDTE
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Order Date                       -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' This is the date that the order h-
+     A                                      as been placed by the customer.  It-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' defaults to the current date, but-
+     A                                       can be overridden.                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 21  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A*****************************************************************
+     A*? Screen
+     A          R HPRCDE
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Price Code                       -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' For every item in inventory you c-
+     A                                      an enter up to 5 different prices. -
+     A                                       Each   '
+     A                                      DSPATR(HI)
+     A                                 19  3' customer is coded with a default -
+     A                                      price code number to indicate which-
+     A                                       price  '
+     A                                      DSPATR(HI)
+     A                                 20  3' level they are normally charged. -
+     A                                       The code in this customer''s recor-
+     A                                      d is     '
+     A                                      DSPATR(HI)
+     A                                 21  3' displayed when an order is entere-
+     A                                      d.  If overridden on the order head-
+     A                                      er, it  '
+     A                                      DSPATR(HI)
+     A                                 22  3' changes the price level for the e-
+     A                                      ntire order.                       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Screen
+     A          R HTDISC
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Trade Discount                   -
+     A                                                                     Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Trade discounts apply to the tota-
+     A                                      l dollar amount of the order after -
+     A                                      all     '
+     A                                      DSPATR(HI)
+     A                                 19  3' prices for each line item have be-
+     A                                      en calculated.  If a customer''s re-
+     A                                      cord     '
+     A                                      DSPATR(HI)
+     A                                 20  3' contains a trade discount it will-
+     A                                       be displayed here.  This discount -
+     A                                      can     '
+     A                                      DSPATR(HI)
+     A                                 21  3' be changed for each order if requ-
+     A                                      ired.                              -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A*****************************************************************
+     A*? Screen
+     A          R HTERMS
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Terms Code                       -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' This code determines the terms yo-
+     A                                      u extend to this customer for payme-
+     A                                      nts of  '
+     A                                      DSPATR(HI)
+     A                                 19  3' invoices, such as Net 30 Days.  T-
+     A                                      his code is contained in the custom-
+     A                                      er      '
+     A                                      DSPATR(HI)
+     A                                 20  3' record and will be displayed when-
+     A                                       a new order is entered.  This code-
+     A                                       can be '
+     A                                      DSPATR(HI)
+     A                                 21  3' changed for this order if necessa-
+     A                                      ry.                                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A*****************************************************************
+     A*? Screen
+     A          R HINVCD
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Invoice Only Code                -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Invoice Only Code N = Open Order -
+     A                                          Invoice Only Code Y = Invoice  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 20  3' Open orders require pick slips an-
+     A                                      d shipment confirmation prior to in-
+     A                                      voicing.'
+     A                                      DSPATR(HI)
+     A                                 21  3' Orders coded for invoice will pri-
+     A                                      nt on the next invoice print run wi-
+     A                                      thout   '
+     A                                      DSPATR(HI)
+     A                                 22  3' having to be shipment confirmed. -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Screen
+     A          R HORDLS
+     A                                 14  3' Order List Number                -
+     A                                                                     Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' This code determines which order -
+     A                                      list will display first if you sele-
+     A                                      ct      '
+     A                                      DSPATR(HI)
+     A                                 17  3' telephone order entry for this or-
+     A                                      der.   The code most ofter used by -
+     A                                      each    '
+     A                                      DSPATR(HI)
+     A                                 18  3' customer is contained in the cust-
+     A                                      omer record and this code will disp-
+     A                                      lay when'
+     A                                      DSPATR(HI)
+     A                                 19  3' a new order is entered.  This cod-
+     A                                      e can be changed for this order.   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                        -or-                             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' If this is an order for tags ONLY-
+     A                                       - enter TAG as the Order List Numb-
+     A                                      er.     '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A*****************************************************************
+     A*? Screen
+     A*         R SCRNCD
+     A          R SCRNDEL
+     A                                      CF06
+     A                                  1  2'BIR100DEL'
+     A                                  1 12'Order:'
+     A            VORDER         6Y 0O  1 19EDTCDE(4)
+     A                                  1 27'Cust:'
+     A            VSCUST         6Y 0O  1 33EDTCDE(4)
+     A            CMNAME        30A  O  1 40
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  3  2'Action:'
+     A                                  3 23'Line:'
+     A            LINE           3Y 0B  3 29EDTCDE(4)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A                                  3 34'Type:'
+     A            LINTYP         1A  B  3 40DSPATR(PR)
+     A            TYPDES        14A  O  3 42DSPATR(HI)
+     A                                  7  2'Item?        Size  Loc   Quantity -
+     A                                       SP   Unit Price  Dsc %  Req Date  -
+     A                                      Ext Price'
+     A                                      DSPATR(HI)
+     A            VITEM         12A  B  8  2DSPATR(PR)
+     A            VSIZE          3A  B  8 16DSPATR(PR)
+     A            VWHS           3A  B  8 21DSPATR(PR)
+     A            QTYORD         8Y 1B  8 26CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            VOVER          1A  B  8 38DSPATR(PR)
+     A            VUPRIC         9Y 2B  8 42CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            VDISC          4Y 2B  8 54EDTWRD('  .  ')
+     A                                      DSPATR(PR)
+     A            VREQDT         6Y 0B  8 61CHECK(RB)
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            VEXT           9Y 2B  8 71CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  9  2'Description'
+     A                                  9 54'UM'
+     A                                  9 59'Tags'
+     A            VDESC         50A  B 10  2DSPATR(PR)
+     A            VUOM           2A  B 10 54DSPATR(PR)
+     A            VTAGS          7Y 0B 10 58CHECK(RB)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 14  2'  Enter to Confirm Delete         -
+     A                                              F6=Return No Delete        -
+     A                                               '
+     A N99                                  DSPATR(UL)
+     A N99                                  DSPATR(RI)
+     A  99                                  DSPATR(ND)
+     A                                  3 11'DELETE'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                 16  5' This line can NOT be deleted. The-
+     A                                      re have been shipments against it. '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A  99                                  DSPATR(UL)
+     A*****************************************************************
+     A*? Screen
+     A          R TAXSFL                    SFL
+     A            OISEQ#         3Y 0B 12 13DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                      EDTCDE(4)
+     A            OIDES1        30   B 12 21DSPATR(CS)
+     A          R TAXCTL                    SFLCTL(TAXSFL)
+     A                                      SFLSIZ(0900)
+     A                                      SFLPAG(0013)
+     A                                      CF02
+     A                                      CF06
+     A                                      CF12
+     A                                      CF23
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'BIR275TAX'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 27' Tax Only Credit Memo Entry '
+     A                                      DSPATR(RI)
+     A                                  6  2'Credit Memo #:'
+     A            OHCRM#         6Y 0O  6 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  6 24'Customer:'
+     A            OHNAME        30A  O  6 34DSPATR(HI)
+     A                                  7  6'Invoice #:'
+     A            OHAPNO         6Y 0O  7 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  7 24'Invoice Date:'
+     A            OHINDT         6Y 0O  7 38DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Enter  Roll  F2=New Credit   F6=Re-
+     A                                      start  F12=Previous Screen  F23=Del-
+     A                                      ete CRM  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            CRDESC        30A  O  9  1
+     A                                  9 32'On Invoice:'
+     A            WHTAX$         7Y 2O  9 44EDTWRD('     .  ')
+     A                                  9 53'Amount To Refund:'
+     A            TAX$           7Y 2B  9 71EDTWRD('     .  ')
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  20                                  ERRMSG('*** You can Not refund more-
+     A                                       taxes than were billed.   Press RE-
+     A                                      SET')
+     A                                 11  2'The following lines are comments t-
+     A                                      o print on the credit memo'
+     A                                      DSPATR(UL)
+     A                                  5 13' Press F23 To Confirm Delete Or Pr-
+     A                                      ess F6 to Not Delete. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A*****************************************************************
+     A*? Screen
+     A          R DLVSFL                    SFL
+     A            OISEQ#         3Y 0B 12 13DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                      EDTCDE(4)
+     A            OIDES1        30A  B 12 21DSPATR(CS)
+     A*****************************************************************
+     A*? Screen
+     A          R DLVCTL                    SFLCTL(DLVSFL)
+     A                                      CF02
+     A                                      CF06
+     A                                      CF12
+     A                                      CF23
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0900)
+     A                                      SFLPAG(0013)
+     A                                  1  2'BIR275DLV'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  6  2'Credit Memo #:'
+     A            OHCRM#         6Y 0O  6 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  6 24'Customer:'
+     A            OHNAME        30A  O  6 34DSPATR(HI)
+     A                                  7  6'Invoice #:'
+     A            OHAPNO         6Y 0O  7 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  7 24'Invoice Date:'
+     A            OHINDT         6Y 0O  7 38DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Enter  Roll  F2=New Credit   F6=Re-
+     A                                      start  F12=Previous Screen  F23=Del-
+     A                                      ete CRM  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            CRDESC        30A  O  9  1
+     A                                  9 32'On Invoice:'
+     A            WHFRT$         7Y 2O  9 44EDTWRD('     .  ')
+     A                                  9 53'Amount To Refund:'
+     A            FRT$           7Y 2B  9 71EDTWRD('     .  ')
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  20                                  ERRMSG('*** You can Not refund more-
+     A                                       freight than was billed.   Press R-
+     A                                      ESET')
+     A                                 11  2'The following lines are comments t-
+     A                                      o print on the credit memo'
+     A                                      DSPATR(UL)
+     A                                  5 13' Press F23 To Confirm Delete Or Pr-
+     A                                      ess F6 to Not Delete. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  1 24' Delivery Charge Only Credit Memo '
+     A                                      DSPATR(RI)
+     A                                 10 28'Tax On Invoice:'
+     A            WHTAX$         7Y 2O 10 44EDTWRD('     .  ')
+     A                                 10 53'Amount To Refund:'
+     A            TAX$           7Y 2B 10 71EDTWRD('     .  ')
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  30                                  ERRMSG('*** You can Not refund more-
+     A                                       taxes than were billed.   Press RE-
+     A                                      SET')
+     A*****************************************************************
+     A*? Screen
+     A          R ORDSFL                    SFL
+     A            WIITEM        12A  O 13  6
+     A            WISIZE         3A  O 13 19
+     A            WIITYP         1A  H
+     A            WIOVER         1A  H
+     A            IMTXBL         1A  H
+     A            ALCAC          1A  H
+     A            DESO          50A  O 13 23
+     A            QTYINV         6Y 1O 14  2EDTWRD('     . ')
+     A            WIUPRI         9Y 4O 14 10EDTWRD('     .    ')
+     A            WIAMT          9Y 2O 14 21EDTCDE(M)
+     A            QTYCRD         6Y 1B 14 61EDTWRD('     . ')
+     A  25N58                               DSPATR(RI)
+     A N58                                  DSPATR(CS)
+     A  25N58                               DSPATR(PC)
+     A  58                                  DSPATR(PR)
+     A            EXT$           9Y 2B 14 69
+     A  35N58                               DSPATR(RI)
+     A N58                                  DSPATR(CS)
+     A  35N58                               DSPATR(PC)
+     A                                      EDTCDE(M)
+     A  58                                  DSPATR(PR)
+     A            OIRSCD         3A  B 14 33
+     A  45N58                               DSPATR(RI)
+     A N58                                  DSPATR(CS)
+     A  45N58                               DSPATR(PC)
+     A  58                                  DSPATR(PR)
+     A            REASDC        23A  O 14 37
+     A            WISEQ#         3Y 0O 13  2EDTCDE(4)
+     A*****************************************************************
+     A*? Screen
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A                                      CF02
+     A                                      CF06
+     A                                      CF12
+     A                                      CF23
+     A                                      CF01
+     A                                      CF24
+     A                                      CF08
+     A                                      CF09
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0900)
+     A                                      SFLPAG(0006)
+     A  26                                  SFLMSG('*** Quantity Credited is Gr-
+     A                                      eater than Quantity Invoiced.     P-
+     A                                      ress RESET')
+     A  36                                  SFLMSG('*** Extended Amount is Grea-
+     A                                      ter Than Invoice Amount.     Press -
+     A                                      RESET')
+     A  46                                  SFLMSG('*** Invalid Reason Code.   -
+     A                                              Press RESET')
+     A  56                                  SFLMSG('*** Credit Memo Total is gr-
+     A                                      eater Than Invoice Total.     Press-
+     A                                       RESET')
+     A  57                                  SFLMSG('*** Credit Memo Total is Eq-
+     A                                      ual to Zero or Greater Than 0.    P-
+     A                                      ress RESET')
+     A                                  1  2'BIR275ORD'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 25' Credit Memo Detail Line Entry '
+     A                                      DSPATR(RI)
+     A                                  6  2'Credit Memo #:'
+     A            OHCRM#         6Y 0O  6 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  6 24'Customer:'
+     A            #WSHP1        30A  O  6 41DSPATR(HI)
+     A                                  7  6'Invoice #:'
+     A            OHAPNO         6Y 0O  7 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  7 24'Invoice Date:'
+     A            OHINDT         6Y 0O  7 38DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Enter  Roll  F2=New Credit   F6=Re-
+     A                                      start  F12=Previous Screen  F23=Del-
+     A                                      ete CRM  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 24'Freight On Invoice:'
+     A            WHFRT$         7Y 2O  9 44EDTWRD('     .  ')
+     A                                  9 53'Amount To Refund:'
+     A            FRT$           7Y 2B  9 71
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(M)
+     A  20                                  ERRMSG('*** You can Not refund more-
+     A                                       freight than was billed.   Press R-
+     A                                      ESET')
+     A                                  2 14' Press F23 To Confirm Delete Or Pr-
+     A                                      ess F6 to Not Delete. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 10 28'Tax On Invoice:'
+     A            WHTAX$         7Y 2O 10 44EDTWRD('     .  ')
+     A                                 10 53'Amount To Refund:'
+     A            TAX$           7Y 2B 10 71
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  30                                  ERRMSG('*** You can Not refund more-
+     A                                       taxes than were billed.   Press RE-
+     A                                      SET')
+     A                                      EDTCDE(M)
+     A                                  7 50'Credit Memo Total:'
+     A            CRMTOT         7Y 2B  7 69DSPATR(RI)
+     A                                      EDTCDE(J)
+     A                                      DSPATR(PR)
+     A  27                                  ERRMSG('*** You can Not refund more-
+     A                                       than is left to credit.    Press R-
+     A                                      ESET')
+     A                                 11 11'Add Restocking Charge, This will D-
+     A                                      educt From Credit Amount:'
+     A            RESTCK         7Y 2B 11 71
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Restocking Charge is Gr-
+     A                                      eater Than Credit Amount.  Press RE-
+     A                                      SET')
+     A                                      EDTCDE(M)
+     A                                  5  2'F1=Credit The Entire Inv.   F8=Cal-
+     A                                      c Restock Chg.  F24=Deselect Entire-
+     A                                       Invoice '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12  2'Invoice Qty. Price  Extended   Rea-
+     A                                      son?             Credit Quantity   -
+     A                                       Price  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8  2' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  8 62' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                 10 13'F9=Calc Tax'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            OHCUST         6Y 0O  6 34EDTCDE(4)
+     A                                  8 21'Amount Left to Credit:'
+     A            LEFTT         11Y 2O  8 44EDTWRD('         .  ')
+     A*****************************************************************
+     A*? Screen
+     A          R SCRNI
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      CF05
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 32' Invoice Inquiry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  4'Customer Number:'
+     A            VBCUST         6Y 0B  5 21CHECK(RB)
+     A                                      EDTCDE(Z)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PR)
+     A            CMNAME        30A  O  5 29
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process           F6=Res-
+     A                                      tart                        F3/F7=E-
+     A                                      nd of Job'
+     A                                      DSPATR(UL)
+     A                                  8  4'Item Number?'
+     A            ITEM          12A  B  8 18
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.       Press RESET')
+     A                                  8 32'Size:'
+     A            SIZE           3A  B  8 38
+     A            IMDES1        30A  O  8 42
+     A                                 10  7'Location?'
+     A            WHSE           3A  B 10 18
+     A  90                                  DSPATR(PR)

@@ -1,0 +1,652 @@
+     A*%%TS  SD  20060403  114446  BILLB       REL-V5R3M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20000629  070709  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(05 014 05 050)
+     A  *DS4                                HLPARA(05 014 05 050)
+     A            PROGID        10A  O  1  2
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 32' Company Defaults '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 11DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.    Press Reset')
+     A                                  5 31'Company Number:'
+     A            VCO            2Y 0B  5 49
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTWRD('  ')
+     A  21                                  ERRMSG('*** Enter a Valid Company N-
+     A                                      umber.    Press Reset')
+     A  22                                  ERRMSG('*** Company Defaults on Fil-
+     A                                      e.    Press Reset')
+     A  23                                  ERRMSG('*** Company Defaults Not on-
+     A                                       File for This Company.    Press Re-
+     A                                      set')
+     A  24                                  ERRMSG('*** Cannot Delete, Company -
+     A                                      is Active.  Press Reset')
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                 Enter to Process -
+     A                                                F3/F7=End of Job         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HELP
+     A*%%TS  SD  19990614  074206  APGL        REL-V3R1M0  5763-PW1
+     A                                 13  2' Company Defaults                 -
+     A                                                                       Ov-
+     A                                      erview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2' In order to make data entry easie-
+     A                                      r and more accurate, the system kee-
+     A                                      ps this  '
+     A                                      DSPATR(HI)
+     A                                 16  2' default file.  This file contains-
+     A                                       data that is used by the customer -
+     A                                      file     '
+     A                                      DSPATR(HI)
+     A                                 17  2' and the inventory file.  When you-
+     A                                       enter a new customer or item, the -
+     A                                      data     '
+     A                                      DSPATR(HI)
+     A                                 18  2' that is in this file is automatic-
+     A                                      ally entered in the new record.    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2' For example, if you enter RM as t-
+     A                                      he default salesperson, each time y-
+     A                                      ou add   '
+     A                                      DSPATR(HI)
+     A                                 21  2' a new customer, RM will automatic-
+     A                                      ally be displayed in the salesperso-
+     A                                      n field. '
+     A                                      DSPATR(HI)
+     A                                 22  2' You can override any of this data-
+     A                                       for a new customer or item.       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SCRNB
+     A*%%TS  SD  20060403  111729  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(TERMS)
+     A  *DS3                                HLPARA(06 015 06 016)
+     A  *DS4                                HLPARA(06 015 06 016)
+     A          H                           HLPRCD(PRICE)
+     A  *DS3                                HLPARA(06 034 06 034)
+     A  *DS4                                HLPARA(06 034 06 034)
+     A          H                           HLPRCD(CONTRACT)
+     A  *DS3                                HLPARA(06 056 06 056)
+     A  *DS4                                HLPARA(06 056 06 056)
+     A          H                           HLPRCD(MARKUP)
+     A  *DS3                                HLPARA(06 079 06 079)
+     A  *DS4                                HLPARA(06 079 06 079)
+     A          H                           HLPRCD(SHIPVIA)
+     A  *DS3                                HLPARA(07 015 07 016)
+     A  *DS4                                HLPARA(07 015 07 016)
+     A          H                           HLPRCD(BACKORD)
+     A  *DS3                                HLPARA(07 034 07 034)
+     A  *DS4                                HLPARA(07 034 07 034)
+     A          H                           HLPRCD(SALESP)
+     A  *DS3                                HLPARA(07 055 07 056)
+     A  *DS4                                HLPARA(07 055 07 056)
+     A          H                           HLPRCD(COMM)
+     A  *DS3                                HLPARA(07 075 07 079)
+     A  *DS4                                HLPARA(07 075 07 079)
+     A          H                           HLPRCD(CASHONLY)
+     A  *DS3                                HLPARA(08 016 08 016)
+     A  *DS4                                HLPARA(08 016 08 016)
+     A          H                           HLPRCD(TERR)
+     A  *DS3                                HLPARA(08 033 08 034)
+     A  *DS4                                HLPARA(08 033 08 034)
+     A          H                           HLPRCD(QDISC)
+     A  *DS3                                HLPARA(08 056 08 056)
+     A  *DS4                                HLPARA(08 056 08 056)
+     A            PROGID        10A  O  1  2
+     A                                  1 32' Company Defaults '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3  2'For Company:'
+     A            VCO            2S 0O  3 15DSPATR(HI)
+     A            MCNAME        30A  O  3 18DSPATR(HI)
+     A                                  4  3'=======================   CUSTOMER-
+     A                                       FILE DEFAULTS   ==================-
+     A                                      ========'
+     A                                  6  2'Cust Terms?'
+     A            CDTMCD         2A  B  6 15DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Terms Cod-
+     A                                      e.     Press Reset')
+     A                                  6 18''
+     A                                  6 20'Price Code:'
+     A            CDPRCD         1Y 0B  6 34DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  21                                  DSPATR(RI)
+     A  21                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Enter A Price Code Betw-
+     A                                      een 1 - 5.  Press Reset')
+     A                                  6 36''
+     A                                  6 38'Contract Price:'
+     A            CDCTCD         1A  B  6 56DSPATR(CS)
+     A  22                                  DSPATR(RI)
+     A  22                                  DSPATR(PC)
+     A  22                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.     Press Reset')
+     A                                  6 58''
+     A                                  6 60'Markup Price:'
+     A            CDMRKP         1X  B  6 79DSPATR(CS)
+     A  23                                  DSPATR(RI)
+     A  23                                  DSPATR(PC)
+     A  23                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.      Press Reset')
+     A                                  7  4'Ship Via?'
+     A            CDSVIA         2A  B  7 15DSPATR(CS)
+     A  24                                  DSPATR(RI)
+     A  24                                  DSPATR(PC)
+     A  24                                  ERRMSG('*** Enter A Valid Ship Via.-
+     A                                             Press Reset')
+     A                                  7 18''
+     A                                  7 20'Back Order:'
+     A            CDBOOK         1A  B  7 34DSPATR(CS)
+     A  25                                  DSPATR(RI)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.      Press Reset')
+     A                                  7 36''
+     A                                  7 41'Salesperson?'
+     A            CDSLSM         2A  B  7 55DSPATR(CS)
+     A  26                                  DSPATR(RI)
+     A  26                                  DSPATR(PC)
+     A  26                                  ERRMSG('*** Enter a Valid Salersper-
+     A                                      son.   Press Reset')
+     A                                  7 58''
+     A                                  7 60'Commission %:'
+     A            CDCOMM         4Y 2B  7 75DSPATR(CS)
+     A                                      EDTCDE(1)
+     A                                  8  2'Cash/Check:'
+     A            CDCODF         1A  B  8 16DSPATR(CS)
+     A  27                                  DSPATR(RI)
+     A  27                                  DSPATR(PC)
+     A  27                                  ERRMSG('*** Valid Entries C=Cash On-
+     A                                      ly, K=Cash or Check, N=All Methods.-
+     A                                         Press Reset')
+     A                                  8 18''
+     A                                  8 21'Territory?'
+     A            CDTERR         2A  B  8 33DSPATR(CS)
+     A  28                                  DSPATR(RI)
+     A  28                                  DSPATR(PC)
+     A  28                                  ERRMSG('*** Enter A Valid Territory-
+     A                                       Code.    Press Reset')
+     A                                  8 36''
+     A                                  8 39'Quantity Disc:'
+     A            CDQDIS         1A  B  8 56DSPATR(CS)
+     A  29                                  DSPATR(RI)
+     A  29                                  DSPATR(PC)
+     A  29                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A                                  8 58''
+     A                                  8 60'Trade Disc %:'
+     A            CDTRDC         4Y 2B  8 75DSPATR(CS)
+     A                                      EDTCDE(1)
+     A                                  9  2'Tax Codes=>'
+     A                                  9 18''
+     A                                  9 20'Tax Exempt:'
+     A            CDTXST         1A  B  9 34DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.      Press Reset')
+     A                                  9 36''
+     A                                  9 58''
+     A                                  9 60'Freight Zone:'
+     A            CDFRTZ         1S 0B  9 79DSPATR(CS)
+     A                                 10  5'Juris==>'
+     A                                 10 18''
+     A                                 10 25'State:'
+     A            CDTCD1         1A  B 10 34DSPATR(CS)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A  32                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A                                 10 36''
+     A                                 10 46'County:'
+     A            CDTCD2         1A  B 10 56DSPATR(CS)
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A  33                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.     Press Reset')
+     A                                 10 58''
+     A                                 10 68'City:'
+     A            CDTCD3         1A  B 10 79DSPATR(CS)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.      Press Reset')
+     A                                 12  4'A/R Code:'
+     A            CDARCD         1A  B 12 16DSPATR(CS)
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('*** Valid Entries are O = O-
+     A                                      pen Item  or  B = Balance Forward. -
+     A                                       Press Reset')
+     A                                 12 22'# of Copies Inv/Stmt:'
+     A            CDCOPY         1Y 0B 12 46DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  38                                  DSPATR(RI)
+     A  38                                  DSPATR(PC)
+     A  38                                  ERRMSG('*** Valid Entries are 1 2 o-
+     A                                      r 3.   Press Reset')
+     A                                 12 54'Credit Limit:'
+     A            CDCRL$         9Y 2B 12 68EDTCDE(1)
+     A                                      DSPATR(CS)
+     A                                 13  2'Stmt Cycle:'
+     A            CDSMCD         1Y 0B 13 16DSPATR(CS)
+     A                                      EDTCDE(1)
+     A                                 13 20'Post Detail Sales Hist:'
+     A            CDPDSL         1X  B 13 46DSPATR(CS)
+     A  37                                  DSPATR(RI)
+     A  37                                  DSPATR(PC)
+     A  37                                  ERRMSG('***  Valid Entries are Y or-
+     A                                       N.     Press Reset')
+     A                                 13 54'Apply Late Charges:'
+     A            CDAPLC         1A  B 13 79DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.     Press Reset')
+     A                                 15  2'Shipping Instr:'
+     A            CDSHIN        30A  B 15 19DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 16  2'Special Instr: '
+     A            CDSPIN        30A  B 16 19DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                 18  2'========================== INVENTO-
+     A                                      RY FILE DEFAULTS ==================-
+     A                                      ========='
+     A                                 20  2'Taxable:'
+     A            CDTXBL         1A  B 20 14DSPATR(CS)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A  31                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.     Press Reset')
+     A                                 20 29'Consolidate Qty''s:'
+     A            CDCNSF         1X  B 20 49DSPATR(CS)
+     A  41                                  DSPATR(RI)
+     A  41                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press Reset')
+     A                                 20 60'Lot Control:'
+     A            CDLOTC         1X  B 20 74DSPATR(CS)
+     A  39                                  DSPATR(RI)
+     A  39                                  DSPATR(PC)
+     A  39                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.     Press Reset')
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A          R TERMS
+     A*%%TS  SD  20000629  070709  TGMS        REL-V4R4M0  5769-PW1
+     A                                 20  2' Customer Terms                   -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2' Enter the terms code that is offe-
+     A                                      red to the majority of your custome-
+     A                                      rs.      '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R PRICE
+     A*%%TS  SD  20000629  070709  TGMS        REL-V4R4M0  5769-PW1
+     A                                 19  2' Price Code                       -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' Enter a price code from 1 to 5 th-
+     A                                      at reflects the price that the majo-
+     A                                      rity     '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' of your customers will pay.      -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R CONTRACT
+     A*%%TS  SD  20000629  070709  TGMS        REL-V4R4M0  5769-PW1
+     A                                 20  2' Markup Price                     -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2' Do you allow most of your custome-
+     A                                      rs to set up contract prices.  Ente-
+     A                                      r Y or N.'
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SHIPVIA
+     A*%%TS  SD  20000629  070709  TGMS        REL-V4R4M0  5769-PW1
+     A                                 19  2' Ship Via Code                    -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' Your company probably ships produ-
+     A                                      ct by one method more than any othe-
+     A                                      r.  Enter'
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' the ship via code for that method-
+     A                                      .  This code must be in the Ship Vi-
+     A                                      a file.  '
+     A                                      DSPATR(HI)
+     A          R BACKORD
+     A*%%TS  SD  20000629  070709  TGMS        REL-V4R4M0  5769-PW1
+     A                                 19  2' Back Order                       -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' Do you allow most customers to ba-
+     A                                      ckorder products that can not be sh-
+     A                                      ipped    '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' with the original shipment.  Ente-
+     A                                      ry Y or N.                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R SALESP
+     A*%%TS  SD  20000629  070709  TGMS        REL-V4R4M0  5769-PW1
+     A                                 19  2' Salesperson                      -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' Enter the salesperson code for th-
+     A                                      e salesperson that would be assigne-
+     A                                      d to the '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' majority of your customers.  This-
+     A                                       must be defined in the Salesperson-
+     A                                       file.   '
+     A                                      DSPATR(HI)
+     A          R COMM
+     A*%%TS  SD  20000629  072105  TGMS        REL-V4R4M0  5769-PW1
+     A                                 19  2' Commission Percent               -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' If you pay your salepersons commi-
+     A                                      ssions, enter the standard percent -
+     A                                      that is  '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' paid.                            -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R CASHONLY
+     A*%%TS  SD  20000629  072105  TGMS        REL-V4R4M0  5769-PW1
+     A                                 14  2' Cash/Check                       -
+     A                                                                       Op-
+     A                                      tional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2' This code is used for point of sa-
+     A                                      le invoices and defines if this cus-
+     A                                      tomer    '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2' must pay:         C = Cash only i-
+     A                                      s accepted                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                   N = All methods-
+     A                                       of payment are acceptable         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                   K = Cash, check-
+     A                                       or credit card is accepted        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' Enter the code that defines the p-
+     A                                      ayment method assigned to most of y-
+     A                                      our      '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2' customers.                       -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R TERR
+     A*%%TS  SD  20000629  072105  TGMS        REL-V4R4M0  5769-PW1
+     A                                 19  2' Territory                        -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 21  2' Enter the territory code for the -
+     A                                      territory that would be assigned to-
+     A                                       the     '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 22  2' majority of your customers.  This-
+     A                                       must be defined in the Territory f-
+     A                                      ile.     '
+     A                                      DSPATR(HI)
+     A          R QDISC
+     A*%%TS  SD  20000629  072105  TGMS        REL-V4R4M0  5769-PW1
+     A                                 20  2' Quantity Discount                -
+     A                                                                       Re-
+     A                                      quired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  2' If most of your customers qualify-
+     A                                       for a quantity discount enter Y.  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

@@ -1,0 +1,109 @@
+     A*%%***********************************************************************
+     A*%%TS  RD  20140206  103142  BILLB       REL-V7R1M0  5770-WDS
+     A*%%FI+10660100000000000000000000000000000000000000000000000000
+     A*%%FI       0000000000000000000000000000000000000000000000000
+     A*%%***********************************************************************
+     A          R HEADER
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 003
+     A*%%***********************************************************************
+     A                                      SKIPB(004)
+     A                                      SPACEA(002)
+     A                                     1
+     A                                      'RBR602P'
+     A                                    26
+     A                                      'K u b e - P a k   C o r p .'
+     A                                      HIGHLIGHT
+     A                                      COLOR(BLU)
+     A                                   +17
+     A                                      DATE(*SYS *YY)
+     A                                      EDTWRD('  /  /    ')
+     A            USER          10A  O     1
+     A                                      SPACEB(001)
+     A                                   +15
+     A                                      'Ready Bay Scan Batch Report'
+     A                                      COLOR(BLU)
+     A                                    72
+     A                                      TIME
+     A                                      SPACEA(002)
+      *
+     A                                     1
+     A                                      'Batch:'
+     A            BATCH#         3S 0O     8
+      *
+     A                                    28
+     A                                      'Batch Date:'
+     A                                      COLOR(RED)
+     A            BATCHDATE R        O    40
+     A                                      REFFLD(RRBBATCH/BATCHDATE          -
+     A                                                           *LIBL/FRBBATCH)
+     A                                      COLOR(RED)
+     A                                     1
+     A                                      'Cart#'
+     A                                      UNDERLINE
+     A                                      SPACEB(003)
+     A                                     9
+     A                                      'Tray'
+     A                                      UNDERLINE
+     A                                    17
+     A                                      'Item(Size)'
+     A                                      UNDERLINE
+     A                                    +4
+     A                                      'Description'
+     A                                      UNDERLINE
+     A                                   +19
+     A                                      'Scanned By'
+     A                                      UNDERLINE
+     A                                    +2
+     A                                      'Message'
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CL 002
+     A*%%CL 003
+     A*%%CL 002
+     A*%%***********************************************************************
+     A          R DETAIL
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A                                      SPACEB(001)
+     A            CART#     R        O     1
+     A                                      REFFLD(RRBBATCH/CART#              -
+     A                                                           *LIBL/FRBBATCH)
+     A                                      EDTCDE(Z)
+     A            TAG#      R        O     7
+     A                                      REFFLD(RRBBATCH/TAG#               -
+     A                                                           *LIBL/FRBBATCH)
+     A                                      EDTCDE(Z)
+     A            ITEMSIZE      10   O    +2
+     A            IMDES1    R        O    +2
+     A                                      REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A            ADDEDBY   R        O    +2
+     A                                      REFFLD(RRBBATCH/ADDEDBY            -
+     A                                                           *LIBL/FRBBATCH)
+     A            MSGCODE   R        O    +2
+     A                                      REFFLD(RRBBATCH/MSGCODE *LIBL/FRBBA-
+     A                                      TCH)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%***********************************************************************
+     A          R MSGRCD
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A                                      SPACEB(001)
+     A            MSGDESC       50A  O    30
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CP+999CRTPRTF
+     A*%%CP+    FILE(KUBEPAK400/RBR602P)
+     A*%%CP+    DEVTYPE(*SCS)
+     A*%%CP+    PAGESIZE(65 080)
+     A*%%CP+    OVRFLW(60)
+     A*%%CP     FORMTYPE(*NAR)
+     A*%%***********************************************************************
+     A

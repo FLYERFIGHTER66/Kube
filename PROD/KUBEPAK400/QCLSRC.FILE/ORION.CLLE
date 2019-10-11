@@ -1,0 +1,15 @@
+             PGM        PARM(&TASK)
+             DCL        VAR(&TASK) TYPE(*CHAR) LEN(6)
+
+             IF         COND(&TASK *EQ '*START') THEN(DO)
+             QSH CMD('/QOpenSys/QIBM/ProdData/OPS/Orion/orion')
+             ENDDO
+
+             ELSE DO
+             QSH CMD('/QOpenSys/QIBM/ProdData/OPS/Orion/stopOrion')
+             ENDDO
+
+             DLYJOB     DLY(3)
+             WRKACTJOB SBS(QHTTPSVR) JOB(QORION)
+
+             ENDPGM

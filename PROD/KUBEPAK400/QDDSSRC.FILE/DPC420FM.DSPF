@@ -1,0 +1,198 @@
+     A*%%TS  SD  19990429  205940  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990429  205723  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 12'Customer Number:'
+     A            VCUST          6Y 0B  5 32EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  10N11                               ERRMSG('*** Enter Either a Customer-
+     A                                       Number or a Search Argument.   Pre-
+     A                                      ss Reset')
+     A  10 11                               ERRMSG('*** This Is Not a Valid Cus-
+     A                                      tomer Number.   Press Reset')
+     A                                  7 12'Alpha Search:'
+     A            VALPHA        15A  B  7 32DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  9 12'Telephone # Search:'
+     A            VTELE         10A  B  9 32
+     A  16                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(CS)
+     A            CMNAME        30A  O  5 39DSPATR(HI)
+     A                                  1  2'DPC420A'
+     A                                  1 28' D.P.C. Certificate Entry '
+     A                                      DSPATR(RI)
+     A                                  6 16'or'
+     A                                  8 16'or'
+     A                                 23  2'Enter to Process                F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12 12'Certificate Number:'
+     A            CERT#          6Y 0B 12 32
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20N21                               ERRMSG('*** You Must enter a certif-
+     A                                      icate Number.  Press RESET')
+     A  20 21                               ERRMSG('*** Certificate Number has -
+     A                                      already been issued.  Press RESET')
+     A                                 16  4' Verify Data if OK, Press Enter. I-
+     A                                      f not OK make changes and press Ent-
+     A                                      er. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R SCRNB
+     A*%%TS  SD  19990429  205434  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            VCUST          6Y 0B  4 12EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  1  2'DPC420B'
+     A                                  1 28' D.P.C. Certificate Entry '
+     A                                      DSPATR(RI)
+     A                                 23  2'Enter to Process                F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 13'Certificate Number:'
+     A            CERT#          6Y 0B  6 33EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                 18  4' Verify Data if OK, Press Enter. I-
+     A                                      f not OK make changes and press Ent-
+     A                                      er. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  8 13'Type:'
+     A            CCTYPE         1A  B  8 26
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Type must be T, C, or B-
+     A                                      lank.       Press RESET')
+     A                                 11 13'Amount:'
+     A            CC$AMT         7Y 2O 11 25DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                 15 13'Expire Date:'
+     A            EXWRK          6Y 0O 15 26DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                  8 32'NOTE: Type T=Travel C=Computer or -
+     A                                      Blank if'
+     A                                  9 38'unknown.'
+     A                                 13 13'Issue Date:'
+     A            TDATE          6Y 0O 13 26DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A          R SCRNE
+     A*%%TS  SD  19990429  205940  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 12'Customer Number:'
+     A            VCUST          6Y 0B  5 32EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A            CMNAME        30A  O  5 39DSPATR(HI)
+     A                                  1  2'DPC420E'
+     A                                  1 28' D.P.C. Certificate Entry '
+     A                                      DSPATR(RI)
+     A                                  7 25' This is NOT a D.P.C. Customer. '
+     A  10                                  DSPATR(RI)
+     A N10                                  DSPATR(ND)
+     A                                 13 14' Customer has NOT reached the 20,0-
+     A                                      00 point threshold. '
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A                                 21 29' Press Enter to Return. '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  9 14'Total Points Earned:'
+     A  10                                  DSPATR(ND)
+     A                                 10 14'Points Redeemed:'
+     A  10                                  DSPATR(ND)
+     A            TOTPTS         7Y 0B  9 35
+     A  10                                  DSPATR(ND)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(PR)
+     A            DPPTRD         7Y 0B 10 35
+     A  10                                  DSPATR(ND)
+     A                                      EDTCDE(1)
+     A N10                                  DSPATR(UL)
+     A                                      DSPATR(PR)
+     A            NETPTS         7Y 0B 11 35
+     A  10                                  DSPATR(ND)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(PR)
+     A                                 14 10' Customer does NOT have enough poi-
+     A                                      nts to earn a certificate. '
+     A  21                                  DSPATR(RI)
+     A N21                                  DSPATR(ND)
+     A                                 15 19' Customer has an A/R Balance over -
+     A                                      30 Days. '
+     A  22                                  DSPATR(RI)
+     A N22                                  DSPATR(ND)

@@ -1,0 +1,678 @@
+     A*%%TS  SD  20180712  161148  BILLB       REL-V7R2M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      PRINT
+     A*                                     DSPMOD(*DS4)
+     A          R SCRNA
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A                                      HLPARA(01 002 24 080)
+     A                                  1 42'Help'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  1 55' A/P Payment Selection '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 99DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 28USER
+     A                                      COLOR(BLU)
+     A                                  2 99TIME
+     A                                      COLOR(BLU)
+     A                                  5 55'1. - Select By Vendor'
+     A                                  6 55'2. - Select By Due Date'
+     A                                  7 55'3. - Select By Voucher'
+     A                                  8 55'4. - Select Held Invoices'
+     A                                 10 55'5. - Pay All Open Payables'
+     A                                 11 55'6. - Pay All Specific Due Date'
+     A                                 15 57'Enter Selection:'
+     A            VSEL           1Y 0B 15 75DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  13                                  ERRMSG('*** Valid Entries Are 1 thr-
+     A                                      u 6.   Press Reset')
+     A  12                                  ERRMSG('*** Last Check Run Was Not -
+     A                                      Posted For This Company.    Press R-
+     A                                      eset')
+     A                                 22 28'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 28'                    Enter to Proce-
+     A                                      ss      F3/F7=End of Job           -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  1 28'APR220A'
+     A                                      COLOR(BLU)
+     A          R SCRNB
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 42'Help'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  1 50' A/P Payment Selection By Vendor '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 99DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 28USER
+     A                                      COLOR(BLU)
+     A                                  2 99TIME
+     A                                      COLOR(BLU)
+     A                                  5 52'Vendor Number:'
+     A            VVEND          6Y 0B  5 69DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.   Press Reset')
+     A  25                                  ERRMSG('*** No Open Invoices For Th-
+     A                                      is Vendor.  Press Reset')
+     A                                  6 52'Alpha Search'
+     A            VALPHA        15A  B  6 69DSPATR(CS)
+     A            VNAME         30A  O  7 69
+     A                                 22 28'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 28'        Enter to Process      F6=R-
+     A                                      estart      F3/F7=End of Job       -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  1 28'APR220B'
+     A                                      COLOR(BLU)
+     A          R SCRNC
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 49' A/P Payment Selection By Due Date-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 99DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 28USER
+     A                                      COLOR(BLU)
+     A                                  2 99TIME
+     A                                      COLOR(BLU)
+     A            VDDATE         6Y 0B  7 63DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                         Press Reset')
+     A  25                                  ERRMSG('*** No Open Payables Due By-
+     A                                       This Date.     Press Reset')
+     A                                 22 28'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 28'        Enter to Process      F6=R-
+     A                                      estart      F3/F7=End of Job       -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  5 50'Select Invoices Due On Or Before:'
+     A                                  1 28'APR220C'
+     A                                      COLOR(BLU)
+     A          R SCRND
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03
+     A                                      CF04
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 50' A/P Payment Selection By Voucher '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 99DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 28USER
+     A                                      COLOR(BLU)
+     A                                  2 99TIME
+     A                                      COLOR(BLU)
+     A                                  5 51'Vendor Number:'
+     A            VVEND          6Y 0B  5 68DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.   Press Reset')
+     A                                  6 51'Alpha Search'
+     A            VALPHA        15A  B  6 68DSPATR(CS)
+     A            VMNAME        30A  O  7 68
+     A                                  9 51'Voucher Number:'
+     A            VVOUC          6Y 0B  9 68DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Voucher N-
+     A                                      umber.   Press Reset')
+     A                                 22 28'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 28'   Enter to Process     F4=Lookup -
+     A                                      Voucher    F6=Restart    F3/F7=End -
+     A                                      of Job   '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  1 28'APR220D'
+     A                                      COLOR(BLU)
+     A          R SCRNE
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 46' A/P Payment Selection All Open In-
+     A                                      voices '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 99DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 28USER
+     A                                      COLOR(BLU)
+     A                                  2 99TIME
+     A                                      COLOR(BLU)
+     A                                  6 45' You have selected to pay ALL open-
+     A                                       invoices '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                 11 56' F1=Pay All Invoices '
+     A                                      DSPATR(HI)
+     A                                      COLOR(YLW)
+     A                                 16 37' F6=Return to Selection - No Invoi-
+     A                                      ces Selected For Payment '
+     A                                      DSPATR(HI)
+     A                                      COLOR(YLW)
+     A                                 22 28'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 28'        F1=Accept Entry       F6=R-
+     A                                      estart      F3/F7=End of Job       -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      COLOR(BLU)
+     A                                  1 28'APR220E'
+     A                                      COLOR(BLU)
+     A          R SCRNF
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 46' A/P Payment Selection For Specifi-
+     A                                      c Date '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 99DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 28USER
+     A                                      COLOR(BLU)
+     A                                  2 99TIME
+     A                                      COLOR(BLU)
+     A                                  5 49'Select Invoices Due On:'
+     A            VFDATE         6Y 0B  5 74DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                         Press Reset')
+     A  25                                  ERRMSG('*** No Open Invoices Due On-
+     A                                       This Date.    Press Reset')
+     A                                 22 28'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 28'        Enter to Process      F6=R-
+     A                                      estart      F3/F7=End of Job       -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  1 28'APR220F'
+     A                                      COLOR(BLU)
+     A          R VENSFL                    SFL
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A            AMT            8S 2H
+     A            CODE           1A  B  8 27
+     A N26                                  DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A            PAY            8Y 2B  8 30
+     A N26                                  DSPATR(CS)
+     A                                      EDTCDE(M)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A            DIS            6Y 2B  8 42
+     A N26                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A            VOUCH          6Y 0O  8 50DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            INV#          10A  O  8 57DSPATR(HI)
+     A            ITYP           1A  O  8 68DSPATR(HI)
+     A            IDATE          6Y 0O  8 70DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            BAL            8Y 2O  8 79DSPATR(HI)
+     A                                      EDTCDE(M)
+     A            DISC           6Y 2O  8 90EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            DDATE          6Y 0O  8 98DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A            APSEQ#         3S 0H
+     A          R VENCTL                    SFLCTL(VENSFL)
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(5000)
+     A                                      SFLPAG(0016)
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  21                                  SFLMSG('*** Valid Pay Codes Are Y, -
+     A                                      N or H.     Press Reset')
+     A  31                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       0.     Press Reset')
+     A  36                                  SFLMSG('*** Discount Cannot Be Equa-
+     A                                      l To Or Greater Than Amt To Pay.   -
+     A                                      Press Reset')
+     A  37                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       Greater Than Balance Due.      Pre-
+     A                                      ss Reset')
+     A                                  1 32' Roll  F1=Accept Entries  F6=Resta-
+     A                                      rt   F8=Select All  F9=Deselect All-
+     A                                       '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2 51' Vendor Has Invoices on Hold '
+     A  24                                  DSPATR(RI)
+     A N24                                  DSPATR(ND)
+     A                                  3 26' Y=Pay    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2 97DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4 26' N=No Pay '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4 43'Vendor:'
+     A            VVEND          6Y 0O  4 51EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VMNAME        30A  O  4 58DSPATR(HI)
+     A                                  3 97TIME
+     A                                      COLOR(BLU)
+     A                                  5 26' H=Hold   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6 27'C     Amount     Disc             -
+     A                                             T    Due    Balance   Discou-
+     A                                      nt  Disc '
+     A                                  7 27'D     To Pay   To Take  Vouch   In-
+     A                                      voice  P   Date       Due       Amt-
+     A                                          Date '
+     A                                      DSPATR(UL)
+     A                                  3 42'Company:'
+     A            LCO            2S 0O  3 51DSPATR(HI)
+     A                                  2 26'APR220VEN'
+     A          R RECSFL                    SFL
+     A*%%TS  SD  20180712  161148  BILLB       REL-V7R2M0  5770-WDS
+     A            AMT            8S 2H
+     A            APCOMP         2S 0H
+     A            APSEQ#         3S 0H
+     A            APITYP         1A  H
+     A            CODE           1A  B  8  2
+     A N26                                  DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A            PAY            8Y 2B  8  5
+     A N26                                  DSPATR(CS)
+     A                                      EDTCDE(M)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A            DIS            6Y 2B  8 16
+     A N26                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A            VEND           6Y 0O  8 24DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            VNME          30A  O  8 31DSPATR(HI)
+     A            VOUCH          6Y 0O  8 62DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            INV#          10A  O  8 70DSPATR(HI)
+     A            IDATE          6Y 0O  8 82DSPATR(HI)
+     A                                      EDTCDE(Y)
+     A            BAL            8Y 2O  8 92DSPATR(HI)
+     A                                      EDTCDE(M)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  20180712  161148  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(5000)
+     A                                      SFLPAG(0019)
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  21                                  SFLMSG('*** Valid Pay Codes Are Y, -
+     A                                      N or H.     Press Reset')
+     A  31                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       0.     Press Reset')
+     A  36                                  SFLMSG('*** Discount Cannot Be Equa-
+     A                                      l To Or Greater Than Amt To Pay.   -
+     A                                      Press Reset')
+     A  37                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       Greater Than Balance Due.      Pre-
+     A                                      ss Reset')
+     A                                  1 31' Roll   F1=Accept Entries   F6=Res-
+     A                                      tart  F8=Select All   F9=Deselect A-
+     A                                      ll '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  1' Y=Pay    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3 17'Company:'
+     A            LCO            2S 0O  3 26DSPATR(HI)
+     A                                  2124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4  1' N=No Pay '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  4 22'Due on or before:'
+     A  44                                  DSPATR(ND)
+     A            VDDATE         6Y 0O  4 42DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A  44                                  DSPATR(ND)
+     A                                  3124TIME
+     A                                      COLOR(BLU)
+     A                                  5  1' H=Hold   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3 33' Held Invoices '
+     A N44                                  DSPATR(ND)
+     A  44                                  DSPATR(RI)
+     A                                  6  2'C    Amount     Take              -
+     A                                                                         -
+     A                                                    Due     Balance      -
+     A                                                                '
+     A                                  7  2'D    To Pay     Disc  Vendor      -
+     A                                                                Vouch   I-
+     A                                      nvoice       Date        Due       -
+     A                                                                '
+     A                                      DSPATR(UL)
+     A                                  2  1'APR220REC'
+     A                                      COLOR(BLU)
+     A          R DTESFL                    SFL
+     A*%%TS  SD  19990426  074606  AP          REL-V3R1M0  5763-PW1
+     A            APCOMP         2S 0H
+     A            APSEQ#         3S 0H
+     A            APITYP         1A  H
+     A            AMT            8S 2H
+     A            CODE           1A  B  8  2
+     A N26                                  DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A            PAY            8Y 2B  8  4
+     A N26                                  DSPATR(CS)
+     A                                      EDTCDE(M)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A            DIS            6Y 2B  8 17
+     A N26                                  DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  26                                  DSPATR(ND)
+     A  26                                  DSPATR(PR)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A            VEND           6Y 0O  8 23DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            VENNAM        11A  O  8 26DSPATR(HI)
+     A            VOUCH          6Y 0O  8 38DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A            INV#          10A  O  8 45DSPATR(HI)
+     A            BAL            8Y 2O  8 56DSPATR(HI)
+     A                                      EDTCDE(M)
+     A            DISC           6Y 2O  8 67EDTCDE(4)
+     A                                      DSPATR(HI)
+     A            DDATE          6Y 0O  8 75DSPATR(HI)
+     A                                      EDTCDE(Z)
+     A          R DTECTL                    SFLCTL(DTESFL)
+     A*%%TS  SD  20180712  134452  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(5000)
+     A                                      SFLPAG(0016)
+     A                                      CF01
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  21                                  SFLMSG('*** Valid Pay Codes Are Y, -
+     A                                      N or H.     Press Reset')
+     A  31                                  SFLMSG('*** Amount To Pay Cannot Be-
+     A                                       0.     Press Reset')
+     A  36                                  SFLMSG('*** Discount Cannot Be Equa-
+     A                                      l To Or Greater Than Amt To Pay.   -
+     A                                      Press Reset')
+     A                                  1 31' Roll   F1=Accept Entries   F6=Res-
+     A                                      tart  F8=Select All   F9=Deselect A-
+     A                                      ll '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  1' Y=Pay    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3 17'Company:'
+     A            LCO            2S 0O  3 26DSPATR(HI)
+     A                                  2124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4  1' N=No Pay '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3124TIME
+     A                                      COLOR(BLU)
+     A                                  5  1' H=Hold   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3 33' Held Invoices '
+     A N44                                  DSPATR(ND)
+     A  44                                  DSPATR(RI)
+     A                                  6  2'C    Amount    Take               -
+     A                                                           Balance    Dis-
+     A                                      c    Disc'
+     A                                  7  2'D    To Pay    Disc     Vendor    -
+     A                                         Vouch    Invoice    Due       Am-
+     A                                      t    Date                          -
+     A                                                                '
+     A                                      DSPATR(UL)
+     A                                  5 28'Invoices Due On:'
+     A            VFDATE         6Y 0O  5 45DSPATR(HI)
+     A                                      EDTWRD('  /  / 0')
+     A                                  2  1'APR220DTE'
+     A          R HELP
+     A*%%TS  SD  19980514  100541  GINNY       REL-V3R1M0  5763-PW1
+     A                                  5  3' Payment Selection                -
+     A                                                                     Over-
+     A                                      view    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  6  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                  7  3' This program is where you select -
+     A                                      the vendor invoices that you want t-
+     A                                      o pay.  '
+     A                                      DSPATR(HI)
+     A                                  8  3' There are 7 different ways you ca-
+     A                                      n select these invoices:           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3' 3. By Voucher - only this voucher-
+     A                                      /invoice will be displayed.        -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3' 4. Held Invoices - all invoices m-
+     A                                      arked as held (disputed) will be di-
+     A                                      splayed.'
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3' For options 1-4 you can pick any -
+     A                                      or all of the invoices displayed fo-
+     A                                      r       '
+     A                                      DSPATR(HI)
+     A                                 17  3' payment.  Or you can place an inv-
+     A                                      oice on hold.                      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' 5. All Open Payables -  all invoi-
+     A                                      ces (not on hold) will be automatic-
+     A                                      ally    '
+     A                                      DSPATR(HI)
+     A                                 20  3'                         selected -
+     A                                      for payment.                       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' 6. All Due Date - all invoices (n-
+     A                                      ot on hold) for the date entered wi-
+     A                                      ll be   '
+     A                                      DSPATR(HI)
+     A                                 22  3'                   automatically s-
+     A                                      elected for payment.               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3' 1. By Vendor - all open invoices -
+     A                                      for vendor will be displayed.      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3' 2. By Due Date - all open invoice-
+     A                                      s due on or before the date entered-
+     A                                       will   '
+     A                                      DSPATR(HI)
+     A                                 12  3'                  be displayed.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '

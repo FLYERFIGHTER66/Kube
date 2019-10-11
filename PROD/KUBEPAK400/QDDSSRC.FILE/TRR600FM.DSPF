@@ -1,0 +1,65 @@
+     A          R TRR60001S                 SFL
+     A            STYPE          5   B  5  2
+     A            SSVIA          4   B  5  8
+     A            SORD#          6   B  5 13
+     A            SRDAT           L  B  5 20DATFMT(*MDY)
+     A            SDATE           L  B  5 33DATFMT(*DMY)
+     A            STRK#          4   B  5 42
+     A            SSTOP          2N 0B  5 47
+     A            SDEST         25   B  5 50
+     A                                  5 30'|'
+     A          R TRR60001C                 SFLCTL(TRR60001S)
+     A                                      SFLDSPCTL
+     A                                      SFLDSP
+     A                                      SFLPAG(15)
+     A                                      SFLSIZ(15)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  3  2'Type'
+     A                                      DSPATR(UL)
+     A                                  3  8'SVIA'
+     A                                      DSPATR(UL)
+     A                                  3 13'Order#'
+     A                                      DSPATR(UL)
+     A                                  4 42'TRK#'
+     A                                      DSPATR(UL)
+     A                                  3 20'Req Date'
+     A                                      DSPATR(UL)
+     A                                  4 33'Trk Date'
+     A                                      DSPATR(UL)
+     A                                  4 47'SP'
+     A                                      DSPATR(UL)
+     A                                  4 50'Destination              '
+     A                                      DSPATR(UL)
+     A                                  4 30'|'
+     A                                  1 29'   Unscheduled Orders   '
+     A                                      DSPATR(HI RI)
+     A            SELTYPE        5   B  4  2COLOR(YLW)
+     A            SELSVIA        4   B  4  8COLOR(YLW)
+     A            SELORD#        6   B  4 13COLOR(YLW)
+     A            SELWEEK         L  B  2 43DATFMT(*MDY)
+     A                                      COLOR(YLW)
+     A                                  2 31'Ship Week:'
+     A            SELRDAT         L  B  4 20DATFMT(*MDY)
+     A                                      COLOR(YLW)
+     A          R TRR60001F
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A*%%RS+<record-sequences>
+     A*%%RS+ <sequence name="Main Screen">
+     A*%%RS+  <device type="display" width="80" height="24" />
+     A*%%RS+  <record-write record-format="TRR60001S" />
+     A*%%RS+  <record-write record-format="TRR60001C" />
+     A*%%RS+  <record-write record-format="TRR60001F" />
+     A*%%RS+ </sequence>
+     A*%%RS </record-sequences>

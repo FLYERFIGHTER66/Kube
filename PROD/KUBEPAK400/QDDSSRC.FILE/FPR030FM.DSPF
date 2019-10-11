@@ -1,0 +1,189 @@
+     A*%%TS  SD  20160726  163445  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      INDARA
+     A                                      VLDCMDKEY(48 'Valid Function Key Pr-
+     A                                      essed')
+     A          R FPR03001                  SFL
+     A*%%TS  SD  20160726  163328  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CHGINPDFT
+     A  28                                  SFLNXTCHG
+     A            FLSIZE    R        B  6  2REFFLD(RFINSCH/FLSIZE *LIBL/FFINSCH)
+     A  62                                  DSPATR(UL)
+     A N62                                  DSPATR(PR)
+     A  61                                  DSPATR(ND)
+     A            FLITEM5   R    5A  B  6  6REFFLD(RFINSCH/FLITEM *LIBL/FFINSCH)
+     A  62                                  DSPATR(UL)
+     A N62                                  DSPATR(PR)
+     A  61                                  DSPATR(ND)
+     A            DESC          25A  O  6 12
+     A  61                                  DSPATR(HI)
+     A  61                                  DSPATR(UL)
+     A            FLORDQ    R        B  6 54REFFLD(RFINSCH/FLORDQ *LIBL/FFINSCH)
+     A  61                                  DSPATR(ND)
+     A                                      DSPATR(PR)
+     A            FLSOWT    R        B  6 63REFFLD(RFINSCH/FLSOWT *LIBL/FFINSCH)
+     A  61                                  DSPATR(ND)
+     A  62                                  DSPATR(UL)
+     A N62                                  DSPATR(PR)
+     A            FLSOWQ    R        B  6 72REFFLD(RFINSCH/FLSOWQ *LIBL/FFINSCH)
+     A  61                                  DSPATR(ND)
+     A                                      DSPATR(UL)
+     A  61                                  DSPATR(PR)
+     A            FLSOWD6   R    6S00B  6 39REFFLD(RFINSCH/FLSOWD *LIBL/FFINSCH)
+     A                                      TEXT('SOW DATE')
+     A                                      EDTCDE(Y)
+     A  61                                  DSPATR(ND)
+     A  62                                  DSPATR(UL)
+     A N62                                  DSPATR(PR)
+     A          R FPR03001C                 SFLCTL(FPR03001)
+     A*%%TS  SD  20080506  125009  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLSIZ(9999)
+     A  *DS4                                SFLSIZ(9999)
+     A  *DS3                                SFLPAG(0015)
+     A  *DS4                                SFLPAG(0017)
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Old Exit')
+     A                                      CF11(11 'Toggle for Edit all fields-
+     A                                      ')
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&SFLCSRRRN)
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A N27                                  SFLEND(*SCRBAR *SCRBAR)
+     A            SFLCSRRRN      5S 0H
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1 26'   Record Daily Production   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  5  1'Size'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5 12'Description'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  6'Position to Size:'
+     A            GOTOSIZE       3A  B  3 25COLOR(YLW)
+     A                                  5 72'Planted'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 54'Ordered'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 63'PrdSchd'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  4 18'Item:'
+     A            GOTOITEM      12A  B  4 25COLOR(YLW)
+     A                                  2 28'Production Date:'
+     A                                      COLOR(PNK)
+     A            GOTODATE       6Y 0B  2 45EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  4 40'Planting:'
+     A            GOTOPLNTNG     2Y 0B  4 51EDTCDE(Z)
+     A                                      COLOR(YLW)
+     A                                  5  6'Item'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 39'Scd.Date'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 54'* on or before'
+     A                                      COLOR(BLU)
+     A          R FPR03001F
+     A*%%TS  SD  20040922  123436  BILLB       REL-V5R2M0  5722-WDS
+     A                                 22  1'                                  -
+     A                                                                         -
+     A                                         FPR03001'
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23  2'Enter'
+     A                                      DSPATR(HI)
+     A                                 23  8'=Update'
+     A                                      COLOR(BLU)
+     A                                 23 54'F03/F07'
+     A                                      DSPATR(HI)
+     A                                 23 62'=Exit w/out Update'
+     A                                      COLOR(BLU)
+     A                                 23 19'F11'
+     A                                      DSPATR(HI)
+     A          R FPR03002
+     A*%%TS  SD  20080506  113700  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF03(03 'Do NOT confirm production')
+     A                                  1  2SYSNAME
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  1 21'   Finished Production - Confirmat-
+     A                                      ion   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 63' '
+     A                                  7 21'You have entered production for'
+     A            FLSIZE    R        O  7 53REFFLD(RFINSCH/FLSIZE *LIBL/FFINSCH)
+     A            FLITEM    R        O  7 57REFFLD(RFINSCH/FLITEM *LIBL/FFINSCH)
+     A                                  8 21'Is'
+     A            FLSOWQ    R        O  8 24REFFLD(RFINSCH/FLSOWQ *LIBL/FFINSCH)
+     A                                  8 31'the'
+     A                                  8 35'final'
+     A                                  8 41'quantity'
+     A                                  8 50'to'
+     A                                  8 53'be'
+     A                                  8 56'produced'
+     A                                  9 21'for'
+     A            FLD003        25   O  9 25
+     A                                 14 21'Click'
+     A                                 14 27'<Yes>'
+     A                                      COLOR(PNK)
+     A                                 14 33'or hit'
+     A                                 14 40'<Enter>'
+     A                                      DSPATR(HI)
+     A                                 14 48'to finalize production'
+     A                                 15 18'or Click'
+     A                                 15 27'<No>'
+     A                                      COLOR(PNK)
+     A                                 15 32'or use'
+     A                                 15 39'<F3>'
+     A                                      DSPATR(HI)
+     A                                 15 44'to leave production open.'
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A  *DS3                                SFLMSGRCD(24)
+     A  *DS4                                SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040319  114608  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A  *DS3                                SFLSIZ(0002)
+     A  *DS4                                SFLSIZ(0002)
+     A  *DS3                                SFLPAG(0001)
+     A  *DS4                                SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ
+     A          R ASSUME
+     A*%%TS  SD  20040621  100219  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' '

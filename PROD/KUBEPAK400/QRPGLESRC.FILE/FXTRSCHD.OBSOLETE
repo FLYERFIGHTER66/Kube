@@ -1,0 +1,35 @@
+000100961004      *--------------------------------------------------------------
+000200961004      *
+000300020128      *  COPYRIGHT EFD ENTERPRISES, INC.    2002
+000400961004      *
+000500961004      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600961004      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700961004      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800961004      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900961004      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000961004      *       BY EXPRESS WRITTEN PERMISSION OF
+001100961004      *            EFD ENTERPRISES, INC.     215-643-5352
+001200961004      *
+001300961004      *--------------------------------------------------------------
+001400020131      *PROGRAM NAME-------- FXTRAY
+001500020128      *SYSTEM-------------- BAR CODES
+001600020131      *APPLICATION--------- FIX TRAY - CHANGE FOR EACH FIX
+001700961004      *
+001800990810      *
+001900961004      *            CHANGE--DATE-------DESCRIPTION
+002000961004      *
+002100990810      *
+002200020308     FFTRSCHD   UF   E           K DISK
+002300011018      *
+002400961004      ** GET NEXT RECORD
+002500961004     C     NXT           TAG
+002600020308     C                   READ      FTRSCHD                                90
+002700961004     C   90              GOTO      END
+002800020131     C     TRREAS        IFEQ      'PNS'
+002900020131     C                   MOVEL     'A'           TRSTAT
+003000020131     C                   MOVE      *BLANKS       TRREAS
+003100020131     C                   UPDATE    RTRAY
+003200020131     C                   END
+003300000512     C                   GOTO      NXT
+003400961004     C     END           TAG
+003500961004     C                   SETON                                        LR

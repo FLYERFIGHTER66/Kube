@@ -1,0 +1,38 @@
+             PGM
+
+             DCL        VAR(&SYSDATE) TYPE(*CHAR) LEN(20)
+             DCL        VAR(&SYSNAME) TYPE(*CHAR) LEN(8)
+             RTVJOBA    DATETIME(&SYSDATE)
+             RTVNETA    SYSNAME(&SYSNAME)
+             SNDDST     TYPE(*LMSG) +
+                          TOINTNET(('webmaster@kubepak.com' *BCC) +
+                          ('bcc@kubepak.net' *BCC)) DSTD('Kube-Pak +
+                          iSeries Daily Email Test') MSG('A daily +
+                          test of the Kube-Pak iSeries email +
+                          capabilities may help identify problems +
+                          earlier.  Visit SpiceWorks here: +
+                          http://spiceworks/tickets/v2#single_ticket/+
+                          727   ...verify receipt and add 1 minute +
+                          to time spent.') LONGMSG('This email was +
+                          generated on the Kube-Pak iSeries.  It +
+                          was generated at:' *BCAT &SYSDATE *BCAT +
+                          'on system' *BCAT &SYSNAME *BCAT '. If +
+                          you have any questions regarding the +
+                          origin of this message, contact +
+                          webmaster@kubepak.com.') +
+                          IMPORTANCE(*HIGH) PTY(*HIGH)
+             SNDDST     TYPE(*LMSG) TOINTNET(('helpdesk@kubepak.net' +
+                          *BCC) ('bcc@kubepak.net' *BCC)) +
+                          DSTD('[Ticket #727]') MSG('This test +
+                          email was generated on the Kube-Pak +
+                          iSeries at:' *BCAT &SYSDATE *BCAT 'on +
+                          system' *BCAT &SYSNAME *BCAT '.') +
+                          LONGMSG('This message is sent directly to +
+                          SpiceWorks to document that email is +
+                          functioning properly on the Kube-Pak +
+                          iSeries system. If thereis any questions +
+                          regarding the origin of this message, +
+                          contact webmaster@kubepak.com.') +
+                          IMPORTANCE(*HIGH) PTY(*HIGH)
+
+  ENDPGM

@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW Mondays AS
+
+SELECT
+DATE(SUBSTR(RIGHT('000'||TRIM(CHAR(CLDATE)),6),1,2) ||'/'||
+     SUBSTR(RIGHT('000'||TRIM(CHAR(CLDATE)),6),3,2) ||'/'||TRIM(CHAR(CLCENT))||
+     SUBSTR(RIGHT('000'||TRIM(CHAR(CLDATE)),6),5,2)) AS MONDAY_DATE
+, CLDATE                   as MONDAY_DATE_MDY6
+, CLCYMD                   as MONDAY_DATE_CYYMMDD
+, CLCENT||right('00'||CLYEAR,2)||'-'||right('00'||CLWEEK,2)
+                           as MONDAY_WEEK
+FROM fcalen WHERE CL#Y = 1

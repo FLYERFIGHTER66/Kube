@@ -1,0 +1,24 @@
+             PGM        PARM(&DATE7 &MASTER &ORDER)
+
+             DCL        VAR(&DATE7) TYPE(*DEC) LEN(7 0)
+             DCL        VAR(&MASTER) TYPE(*DEC) LEN(2 0)
+             DCL        VAR(&ORDER) TYPE(*DEC) LEN(6 0)
+
+             DCL        VAR(&DATETIME) TYPE(*CHAR) LEN(20)
+             DCL        VAR(&PRT) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&TOSTMF) TYPE(*CHAR) LEN(130)
+
+             RTVDTAARA  DTAARA(*LDA (100 10)) RTNVAR(&PRT)
+             RTVJOBA    DATETIME(&DATETIME)
+             CHGVAR     VAR(&TOSTMF) VALUE('/Kube +
+                          Pak/PDF/PickSlipCoverSheets/CVR-' *TCAT +
+                          &DATETIME *TCAT '.pdf')
+             OVRPRTF    FILE(BAY010P) DEVTYPE(*AFPDS) +
+                          TOSTMF(&TOSTMF) WSCST(*PDF) OPNSCOPE(*JOB)
+             CALL       PGM(BAY010) PARM(&DATE7 &MASTER &ORDER)
+             DLTOVR     FILE(BAY010P)
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+             STRPCCMD   PCCMD('"//10.151.151.1' *TCAT &TOSTMF *TCAT '"') +
+                          PAUSE(*NO)
+ END:        ENDPGM

@@ -1,0 +1,309 @@
+     A*%%TS  SD  20190412  095956  BILLB       REL-V7R2M0  5770-WDS
+     A*?Program        : WSPLG002FM
+     A*?
+     A*?Description    : This display file for Plug Order Item Entry Screen
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 12 Jul 2018
+     A**********************************************************************
+     A*?Special Notes  : Subfile Type -  Expandable/ Page + 1
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*                                 Added Manual Entry
+     A*                                 Added Filter for entered Qty
+     A*                                 Added Ready Bay Week Indicator
+     A**********************************************************************
+     A*?Indicator Area
+     A*%%EC
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**************************************************************************
+     A*?Subfile Display Part
+     A          R PLGSFL2                   SFL
+     A  25                                  SFLNXTCHG
+     A*
+     A            H2ORQTY1       4S 0H
+     A            H2ORQTY2       4S 0H
+     A            H2ORQTY3       4S 0H
+     A            H2ORQTY4       4S 0H
+     A            H2ORQTY5       4S 0H
+     A*
+     A            S02ITEM        5A  O  7  2
+     A            S02SIZE        3A  O  7  8
+     A            S02DES1       30A  O  7 12COLOR(BLU)
+     A            S02LOOK       15A  O  7 43COLOR(WHT)
+     A            S02PRICE       6Y 2O  7 59COLOR(BLU)
+     A                                      EDTCDE(3)
+     A            S2AVQTY1       4A  O  7 69DSPATR(UL)
+     A N50                                  COLOR(PNK)
+     A  50                                  COLOR(BLU)
+     A            S2ORQTY1       4Y 0B  7 75EDTCDE(Z)
+     A                                      SFLCSRPRG
+     A N31                                  COLOR(YLW)
+     A N31                                  DSPATR(UL)
+     A  31                                  DSPATR(RI)
+     A  31                                  DSPATR(PC)
+     A            S2AVQTY2       4A  O  7 82DSPATR(UL)
+     A N51                                  COLOR(PNK)
+     A  51                                  COLOR(BLU)
+     A            S2ORQTY2       4Y 0B  7 88EDTCDE(Z)
+     A                                      SFLCSRPRG
+     A N32                                  COLOR(YLW)
+     A N32                                  DSPATR(UL)
+     A  32                                  DSPATR(RI)
+     A  32                                  DSPATR(PC)
+     A            S2AVQTY3       4A  O  7 95DSPATR(UL)
+     A N52                                  COLOR(PNK)
+     A  52                                  COLOR(BLU)
+     A            S2ORQTY3       4Y 0B  7101EDTCDE(Z)
+     A                                      SFLCSRPRG
+     A N33                                  COLOR(YLW)
+     A N33                                  DSPATR(UL)
+     A  33                                  DSPATR(RI)
+     A  33                                  DSPATR(PC)
+     A            S2AVQTY4       4A  O  7108DSPATR(UL)
+     A N53                                  COLOR(PNK)
+     A  53                                  COLOR(BLU)
+     A            S2ORQTY4       4Y 0B  7114EDTCDE(Z)
+     A                                      SFLCSRPRG
+     A N34                                  COLOR(YLW)
+     A N34                                  DSPATR(UL)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A            S2AVQTY5       4A  O  7121DSPATR(UL)
+     A N54                                  COLOR(PNK)
+     A  54                                  COLOR(BLU)
+     A            S2ORQTY5       4Y 0B  7127EDTCDE(Z)
+     A                                      SFLCSRPRG
+     A N35                                  COLOR(YLW)
+     A N35                                  DSPATR(UL)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A                                  7119'|'
+     A                                      COLOR(BLU)
+     A                                  7106'|'
+     A                                      COLOR(BLU)
+     A                                  7 93'|'
+     A                                      COLOR(BLU)
+     A                                  7 80'|'
+     A                                      COLOR(BLU)
+     A                                  7 67'|'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Control Part
+     A*
+     A*
+     A          R PLGCTL2                   SFLCTL(PLGSFL2)
+     A*%%TS  SD  20190412  095956  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(0019)
+     A                                      SFLPAG(0018)
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'Backward')
+     A                                      CF08(08 'Forward')
+     A                                      CF09(09 'Confirm')
+     A                                      CF10(10 'Summary')
+     A                                      CF12(12 'Cancel')
+     A                                      PAGEDOWN(13 'PageDown')
+     A                                      OVERLAY
+     A  21                                  SFLDSP
+     A  22                                  SFLDSPCTL
+     A  23                                  SFLCLR
+     A  24                                  SFLEND(*MORE)
+     A            S02RRN         4S 0H      SFLRCDNBR
+     A            H01FRRN        5S 0H      SFLSCROLL
+     A*
+     A                                  1  2'WSPLG002FM'
+     A                                      COLOR(BLU)
+     A                                  1 53'  Plug Order Entry Screen   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1124DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2124TIME
+     A                                      COLOR(BLU)
+     A*?Manual Entry Fields
+     A                                  2 16'Size'
+     A                                      DSPATR(HI)
+     A                                  2 21'Item '
+     A                                      DSPATR(HI)
+     A                                  2 28'Qty '
+     A                                      DSPATR(HI)
+     A                                  2 35'Date(*MDY)'
+     A                                      DSPATR(HI)
+     A                                  3  2'Manual Entry:'
+     A            ADDSIZE        3A  B  3 16DSPATR(UL)
+     A  41                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A            ADDITEM        5A  B  3 21DSPATR(UL)
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A            ADDQTY         4S 0B  3 28DSPATR(UL)
+     A  43                                  DSPATR(RI)
+     A  43                                  DSPATR(PC)
+     A            ADDDATE        6Y 0B  3 35EDTCDE(Y)
+     A                                      DSPATR(UL)
+     A  44                                  DSPATR(RI)
+     A  44                                  DSPATR(PC)
+     A                                  3 44'('
+     A                                      COLOR(PNK)
+     A  46                                  DSPATR(ND)
+     A            ADDEXIST       4Y 0O  3 46EDTCDE(Z)
+     A  45                                  DSPATR(RI)
+     A                                      COLOR(PNK)
+     A  46                                  DSPATR(ND)
+     A                                  3 51'Already Keyed )'
+     A                                      COLOR(PNK)
+     A  46                                  DSPATR(ND)
+     A*
+     A                                  3 70'Week'
+     A                                  3 83'Week'
+     A                                  3 96'Week'
+     A                                  3109'Week'
+     A                                  3122'Week'
+     A                                  4 10'Desc:'
+     A            ADDDESC       30A  O  4 16
+     A*
+     A            C02WK1         2S 0O  3 76
+     A            C02WK2         2S 0O  3 89
+     A            C02WK3         2S 0O  3102
+     A            C02WK4         2S 0O  3115
+     A            C02WK5         2S 0O  3128
+     A*
+     A            C02DTE1         L  O  4 69COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C02DTE2         L  O  4 82COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C02DTE3         L  O  4 95COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C02DTE4         L  O  4108COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A            C02DTE5         L  O  4121COLOR(PNK)
+     A                                      DATFMT(*USA)
+     A*
+     A                                  5  2'Item Size Description             -
+     A                                             Alpha          '
+     A                                      COLOR(WHT)
+     A                                  5 59'Price'
+     A                                      COLOR(WHT)
+     A*
+     A            SMITEM         5A  B  6  2COLOR(YLW)
+     A                                      DSPATR(UL)
+     A  47                                  DSPATR(PC)
+     A            SMSIZE         3A  B  6  8COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SMDES1        30A  B  6 12COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            SMLOOK        15A  B  6 43COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  6 69'Show Only Ordered Items:'
+     A            FILTER         1A  B  6 94COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  6 96'(Y/N)'
+     A                                  5 67'|Avail OrdQty|Avail OrdQty|Avail O-
+     A                                      rdQty|Avail OrdQty|Avail OrdQty'
+     A                                      DSPATR(HI)
+     A                                  3 67'|'
+     A                                      COLOR(BLU)
+     A                                  4 67'|'
+     A                                      COLOR(BLU)
+     A                                  3 80'|'
+     A                                      COLOR(BLU)
+     A                                  4 80'|'
+     A                                      COLOR(BLU)
+     A                                  3 93'|'
+     A                                      COLOR(BLU)
+     A                                  4 93'|'
+     A                                      COLOR(BLU)
+     A                                  3106'|'
+     A                                      COLOR(BLU)
+     A                                  4106'|'
+     A                                      COLOR(BLU)
+     A                                  3119'|'
+     A                                      COLOR(BLU)
+     A                                  4119'|'
+     A                                      COLOR(BLU)
+     A                                  6119'|'
+     A                                      COLOR(BLU)
+     A                                  6106'|'
+     A                                      COLOR(BLU)
+     A                                  6 67'|'
+     A                                      COLOR(BLU)
+     A                                  2 70'Ready Bay'
+     A                                      COLOR(PNK)
+     A N61                                  DSPATR(ND)
+     A                                      DSPATR(RI)
+     A                                  2 83'Ready Bay'
+     A                                      COLOR(PNK)
+     A N62                                  DSPATR(ND)
+     A                                      DSPATR(RI)
+     A                                  2 96'Ready Bay'
+     A                                      COLOR(PNK)
+     A N63                                  DSPATR(ND)
+     A                                      DSPATR(RI)
+     A                                  2109'Ready Bay'
+     A                                      COLOR(PNK)
+     A N64                                  DSPATR(ND)
+     A                                      DSPATR(RI)
+     A                                  2121'RB'
+     A                                      COLOR(PNK)
+     A N65                                  DSPATR(ND)
+     A                                      DSPATR(RI)
+     A**********************************************************************
+     A*?Subfile Footer Part
+     A          R PLGFTR2
+     A                                 26  2'F3'
+     A                                      COLOR(WHT)
+     A                                 26  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 26 12'F7'
+     A                                      COLOR(WHT)
+     A                                 26 15'=Backward'
+     A                                      COLOR(BLU)
+     A                                 26 26'F8'
+     A                                      COLOR(WHT)
+     A                                 26 29'=Forward'
+     A                                      COLOR(BLU)
+     A                                 26 39'F9'
+     A                                      COLOR(WHT)
+     A                                 26 42'=Confirm'
+     A                                      COLOR(BLU)
+     A                                 26 52'F10'
+     A                                      COLOR(WHT)
+     A                                 26 56'=Summary'
+     A                                      COLOR(BLU)
+     A                                 26 66'F12'
+     A                                      COLOR(WHT)
+     A                                 26 70'=Cancel'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Subfile Message Display Part
+     A          R MSG                       SFL
+     A                                      SFLMSGRCD(27)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A**********************************************************************
+     A*?Subfile Message Control Part
+     A          R MSGCTL                    SFLCTL(MSG)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N12                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

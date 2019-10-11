@@ -1,0 +1,87 @@
+     A*%%TS  SD  20020328  131846  EFD         REL-V5R1M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20020328  131846  EFD         REL-V5R1M0  5722-WDS
+     A                                  1  2'SCC500A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 29' Un-Filled Order Report '
+     A                                      DSPATR(RI)
+     A                                  6 25'Enter Ship Week:'
+     A            SHPDAT         6Y 0B  6 46
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                          Press RESET')
+     A  12                                  ERRMSG('*** Date Must be a Monday D-
+     A                                      ate.    Press RESET')
+     A                                 23 25'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22 25'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9 25'Enter Size Code?'
+     A            SIZE           3A  B  9 46
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  20                                  ERRMSG('*** Invalid Size Code Enter-
+     A                                      ed.         Press RESET')
+     A                                  9 52'NOTE: Only enter a size code'
+     A                                      DSPATR(UL)
+     A                                 10 52'to limit report to that size'
+     A                                      DSPATR(UL)
+     A            LPRTR         10A  B 13 46DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                 14 25'Forms Number:'
+     A            LFORM         10A  B 14 46DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                 15 25'Number of Copies:'
+     A            LCOPY          2Y 0B 15 54
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 16 25'Run From JobQ:'
+     A            LJOBQ          1A  B 16 55
+     A  53                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 17 25'Print Status:'
+     A            VOUT           1Y 0B 17 55
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 17 60'1 = Print'
+     A                                 18 60'2 = Print/Save'
+     A                                 19 60'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 13 25'Printer I.D.:'

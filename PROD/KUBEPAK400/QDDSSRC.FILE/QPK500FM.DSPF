@@ -1,0 +1,873 @@
+     A*%%TS  SD  20010531  144949  EFD         REL-V3R7M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A          R QPK500A
+     A*%%TS  SD  20010531  144949  EFD         REL-V3R7M0  5716-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'QPK500A'
+     A            SCREEN         1A  I  1 14DFT('A')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1 29' TRUCK SCHEDULING '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A            DATE           8A  O  1 73DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 67'Time:'
+     A            TIME           8A  O  2 73DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  4  2'Truck #:'
+     A            TRUCK          4A  B  4 11DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A                                  4 23'Ship Date:'
+     A            SHPDAT         8A  B  4 34DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A            ERR           72   O 22  4
+     A  99                                  MSGID(USR &MIC0000001 &MBR0000001)
+     A                                      MSGID(*NONE)
+     A  99                                  DSPATR(RI)
+     A                                 24  2'          Enter to Process        -
+     A                                        F3/F7=End of Job                 -
+     A                                               '
+     A                                  2  2USER
+     A            MIC0000001     4A  P
+     A            MBR0000001     2A  P
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R QPK500B
+     A*%%TS  SD  20010531  144949  EFD         REL-V3R7M0  5716-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF05
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  3'QPK500B'
+     A            SCREEN         1A  I  1 16DFT('B')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1 32' TRUCK SCHEDULING '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A            DATE           8A  O  1 73DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 67'Time:'
+     A            TIME           8A  O  2 73DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  3  2'Truck #:'
+     A            TRUCK          4A  O  3 11DSPATR(HI)
+     A                                  3 18'Ship Date:'
+     A            SHPDAT         8A  O  3 29DSPATR(HI)
+     A                                  3 40'Driver:'
+     A            VDRIV          6A  B  3 48DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PC)
+     A                                      DSPATR(MDT)
+     A                                  3 58'1st Stop:'
+     A            VSTOP         10A  B  3 68DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A                                  5  2'Action:'
+     A            ACTION         1X  B  5 11DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A                                  5 15'Seq:'
+     A            SEQ            2D  B  5 20CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  42                                  DSPATR(PC)
+     A                                  5 25'Cust #:'
+     A            CUST           6D  B  5 33CHECK(RB)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  41                                  DSPATR(PC)
+     A                                  5 41'Quantities:'
+     A            QTY1           4D  B  5 53CHECK(RB)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  43                                  DSPATR(PC)
+     A            QTY2           4D  B  5 59CHECK(RB)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A            QTY3           4D  B  5 65CHECK(RB)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      COLOR(YLW)
+     A                                  6  2'Seq Cus                           -
+     A                                                                         -
+     A                                                  #   #    Name          -
+     A                                                 City           St  Phone-
+     A                                           '
+     A            VHDG1          4A  O  7 67DSPATR(UL)
+     A            VHDG2          4A  O  7 72DSPATR(UL)
+     A            VHDG3          4A  O  7 77DSPATR(UL)
+     A            SEQX1          2A  O  8  2
+     A            CUSX1          4A  O  8  5
+     A            NAMX1         25A  O  8 10
+     A            CTYX1         14A  O  8 36
+     A            STX1           2A  O  8 51
+     A            PHNX1         12A  O  8 54
+     A            QT1X1          4A  O  8 67
+     A            QT2X1          4A  O  8 72
+     A            QT3X1          4A  O  8 77
+     A            SEQX2          2A  O  9  2
+     A            CUSX2          4A  O  9  5
+     A            NAMX2         25A  O  9 10
+     A            CTYX2         14A  O  9 36
+     A            STX2           2A  O  9 51
+     A            PHNX2         12A  O  9 54
+     A            QT1X2          4A  O  9 67
+     A            QT2X2          4A  O  9 72
+     A            QT3X2          4A  O  9 77
+     A            SEQX3          2A  O 10  2
+     A            CUSX3          4A  O 10  5
+     A            NAMX3         25A  O 10 10
+     A            CTYX3         14A  O 10 36
+     A            STX3           2A  O 10 51
+     A            PHNX3         12A  O 10 54
+     A            QT1X3          4A  O 10 67
+     A            QT2X3          4A  O 10 72
+     A            QT3X3          4A  O 10 77
+     A            SEQX4          2A  O 11  2
+     A            CUSX4          4A  O 11  5
+     A            NAMX4         25A  O 11 10
+     A            CTYX4         14A  O 11 36
+     A            STX4           2A  O 11 51
+     A            PHNX4         12A  O 11 54
+     A            QT1X4          4A  O 11 67
+     A            QT2X4          4A  O 11 72
+     A            QT3X4          4A  O 11 77
+     A            SEQX5          2A  O 12  2
+     A            CUSX5          4A  O 12  5
+     A            NAMX5         25A  O 12 10
+     A            CTYX5         14A  O 12 36
+     A            STX5           2A  O 12 51
+     A            PHNX5         12A  O 12 54
+     A            QT1X5          4A  O 12 67
+     A            QT2X5          4A  O 12 72
+     A            QT3X5          4A  O 12 77
+     A            SEQX6          2A  O 13  2
+     A            CUSX6          4A  O 13  5
+     A            NAMX6         25A  O 13 10
+     A            CTYX6         14A  O 13 36
+     A            STX6           2A  O 13 51
+     A            PHNX6         12A  O 13 54
+     A            QT1X6          4A  O 13 67
+     A            QT2X6          4A  O 13 72
+     A            QT3X6          4A  O 13 77
+     A            SEQX7          2A  O 14  2
+     A            CUSX7          4A  O 14  5
+     A            NAMX7         25A  O 14 10
+     A            CTYX7         14A  O 14 36
+     A            STX7           2A  O 14 51
+     A            PHNX7         12A  O 14 54
+     A            QT1X7          4A  O 14 67
+     A            QT2X7          4A  O 14 72
+     A            QT3X7          4A  O 14 77
+     A            SEQX8          2A  O 15  2
+     A            CUSX8          4A  O 15  5
+     A            NAMX8         25A  O 15 10
+     A            CTYX8         14A  O 15 36
+     A            STX8           2A  O 15 51
+     A            PHNX8         12A  O 15 54
+     A            QT1X8          4A  O 15 67
+     A            QT2X8          4A  O 15 72
+     A            QT3X8          4A  O 15 77
+     A            SEQX9          2A  O 16  2
+     A            CUSX9          4A  O 16  5
+     A            NAMX9         25A  O 16 10
+     A            CTYX9         14A  O 16 36
+     A            STX9           2A  O 16 51
+     A            PHNX9         12A  O 16 54
+     A            QT1X9          4A  O 16 67
+     A            QT2X9          4A  O 16 72
+     A            QT3X9          4A  O 16 77
+     A            SEQX10         2A  O 17  2
+     A            CUSX10         4A  O 17  5
+     A            NAMX10        25A  O 17 10
+     A            CTYX10        14A  O 17 36
+     A            STX10          2A  O 17 51
+     A            PHNX10        12A  O 17 54
+     A            QT1X10         4A  O 17 67
+     A            QT2X10         4A  O 17 72
+     A            QT3X10         4A  O 17 77
+     A            SEQX11         2A  O 18  2
+     A            CUSX11         4A  O 18  5
+     A            NAMX11        25A  O 18 10
+     A            CTYX11        14A  O 18 36
+     A            STX11          2A  O 18 51
+     A            PHNX11        12A  O 18 54
+     A            QT1X11         4A  O 18 67
+     A            QT2X11         4A  O 18 72
+     A            QT3X11         4A  O 18 77
+     A            SEQX12         2A  O 19  2
+     A            CUSX12         4A  O 19  5
+     A            NAMX12        25A  O 19 10
+     A            CTYX12        14A  O 19 36
+     A            STX12          2A  O 19 51
+     A            PHNX12        12A  O 19 54
+     A            QT1X12         4A  O 19 67
+     A            QT2X12         4A  O 19 72
+     A            QT3X12         4A  O 19 77
+     A            SEQX13         2A  O 20  2
+     A            CUSX13         4A  O 20  5
+     A            NAMX13        25A  O 20 10
+     A            CTYX13        14A  O 20 36
+     A            STX13          2A  O 20 51
+     A            PHNX13        12A  O 20 54
+     A            QT1X13         4A  O 20 67
+     A            QT2X13         4A  O 20 72
+     A            QT3X13         4A  O 20 77
+     A            SEQX14         2A  O 21  2
+     A            CUSX14         4A  O 21  5
+     A            NAMX14        25A  O 21 10
+     A            CTYX14        14A  O 21 36
+     A            STX14          2A  O 21 51
+     A            PHNX14        12A  O 21 54
+     A            QT1X14         4A  O 21 67
+     A            QT2X14         4A  O 21 72
+     A            QT3X14         4A  O 21 77
+     A            SEQX15         2A  O 22  2
+     A            CUSX15         4A  O 22  5
+     A            NAMX15        25A  O 22 10
+     A            CTYX15        14A  O 22 36
+     A            STX15          2A  O 22 51
+     A            PHNX15        12A  O 22 54
+     A            QT1X15         4A  O 22 67
+     A            QT2X15         4A  O 22 72
+     A            QT3X15         4A  O 22 77
+     A            ERR           58A  O 23  2
+     A  99                                  MSGID(USR &MIC0000001 &MBR0000001)
+     A                                      MSGID(*NONE)
+     A  99                                  DSPATR(RI)
+     A                                 23 61'Total'
+     A            TQTY1          4A  O 23 67DSPATR(HI)
+     A            TQTY2          4A  O 23 72DSPATR(HI)
+     A            TQTY3          4A  O 23 77DSPATR(HI)
+     A                                 24  3'F1=Roll   F2=Chg Req Date   F3=Chg-
+     A                                       Seq   F5=Cust Alpha   F6=Restart  -
+     A                                       F7=EOJ'
+     A            MIC0000001     4A  P
+     A            MBR0000001     2A  P
+     A          R QPK500C
+     A*%%TS  SD  20000413  144936  EFD         REL-V3R7M0  5716-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'QPK500C'
+     A            FL0002         1A  I  1 14DFT('C')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1 27' CUSTOMER ALPHA SEARCH '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A            UDATE          8A  O  1 73
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A            TIMOD          8A  O  2 73
+     A                                  5 18'Enter Alpha Search Name:'
+     A            VSEARC        15A  B  5 46DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A  14                                  DSPATR(RI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24 15'Enter to Process   F6=Restart   F7-
+     A                                      =End of Job'
+     A          R QPK500Y1
+     A*%%TS  SD  19931015  152706  GINNY       REL-V2R1M0  5738-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      CF05
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF09
+     A                                      CF10
+     A                                      CF11
+     A                                      CF12
+     A                                      CF13
+     A                                      CF14
+     A                                      CF15
+     A                                      CF16
+     A                                      CF17
+     A                                      CF18
+     A                                      CF19
+     A                                      CF20
+     A                                      CF21
+     A                                      CF22
+     A                                      CF23
+     A                                      CF24
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  3'QPK500Y'
+     A                                  1 67'Date:'
+     A            VDATE          8A  O  1 73
+     A                                  2 31' CUSTOMER ALPHA SEARCH '
+     A                                      DSPATR(RI)
+     A                                  2 67'Time:'
+     A            VTIME          8A  O  2 73
+     A                                  4  3'Search Field: '
+     A            VSEARC        15A  O  4 18DSPATR(RI)
+     A                                  7  2'Ln  Number        Name            -
+     A                                        Address                  City    -
+     A                                            ST '
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process     F1=Search    -
+     A                                       F6=Restart     F7=End of Job'
+     A                                  1 33' TRUCK SCHEDULING '
+     A                                      DSPATR(RI)
+0220 A          R QPK500Y2
+0220 A                                      DSPMOD(*DS3)
+0220 A                                      PRINT(*PGM)
+0220 A                                      INVITE
+0220 A                                      SLNO(*VAR)
+0220 A                                      CLRL(01)
+0220 A                                      ALWROL
+0220 A                                      CF01 CF02 CF03 CF04 CF05 CF06 CF07
+0220 A                                      CF08 CF09 CF10 CF11 CF12 CF13 CF14
+0220 A                                      CF15 CF16 CF17 CF18 CF19 CF20 CF21
+0220 A                                      CF22 CF23 CF24
+0220 A                                      ROLLUP ROLLDOWN CLEAR HLPRTN HOME
+0220 A                                      HELP
+0221 A            VLIN        0002   O 01002DSPATR(HI)
+0222 A            VCUS#       0006   O 01006DSPATR(HI)
+0223 A            VCUSNM      0020   O 01014DSPATR(HI)
+0224 A            VCUSAD      0020   O 01036DSPATR(HI)
+0225 A            VCITY       0018   O 01058DSPATR(HI)
+0226 A            VSTAT       0002   O 01077DSPATR(HI)
+0227 A            VCSTAT         1   O 01080DSPATR(HI)
+     A          R QPK500Y3
+     A*%%TS  SD  19931015  152706  GINNY       REL-V2R1M0  5738-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(22)
+     A                                      CLRL(02)
+     A                                      OVERLAY
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A            SCRTYP         1A  I  1  2DFT('Y')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1  5'Enter Line Number:'
+     A            VLIN#          2M  I  1 26DFT('01')
+     A                                      CHECK(RZ)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(MDT)
+     A          R QPK500D
+     A*%%TS  SD  20000413  144936  EFD         REL-V3R7M0  5716-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF02
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A            MIC0000001     4A  P
+     A            MBR0000001     2A  P
+     A                                  1  2'QPK500D'
+     A            SCREEN         1A  I  1 16DFT('D')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1 32' Truck Scheduling '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A            DATE           8A  O  1 73DSPATR(HI)
+     A                                  2 67'Time:'
+     A            TIME           8A  O  2 73DSPATR(HI)
+     A                                  3  2'Truck #:'
+     A            TRUCK          4A  O  3 11DSPATR(HI)
+     A                                  3 23'Ship Date:'
+     A            SHPDAT         8A  O  3 34DSPATR(HI)
+     A                                  6  2'Seq Cus                           -
+     A                                                                         -
+     A                                                  #   #    Name          -
+     A                                                 City           St  Phone-
+     A                                           '
+     A            VHDG1          4A  O  7 67DSPATR(UL)
+     A            VHDG2          4A  O  7 72DSPATR(UL)
+     A            VHDG3          4A  O  7 77DSPATR(UL)
+     A            SEQ1           2D  B  8  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  70                                  DSPATR(PR)
+     A  70                                  DSPATR(ND)
+     A N70                                  DSPATR(CS)
+     A            CUSX1          4A  O  8  5
+     A            NAMX1         25A  O  8 10
+     A            CTYX1         14A  O  8 36
+     A            STX1           2A  O  8 51
+     A            PHNX1         12A  O  8 54
+     A            QT1X1          4A  O  8 67
+     A            QT2X1          4A  O  8 72
+     A            QT3X1          4A  O  8 77
+     A            SEQX2          2D  B  9  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  71                                  DSPATR(PR)
+     A  71                                  DSPATR(ND)
+     A N71                                  DSPATR(CS)
+     A            CUSX2          4A  O  9  5
+     A            NAMX2         25A  O  9 10
+     A            CTYX2         14A  O  9 36
+     A            STX2           2A  O  9 51
+     A            PHNX2         12A  O  9 54
+     A            QT1X2          4A  O  9 67
+     A            QT2X2          4A  O  9 72
+     A            QT3X2          4A  O  9 77
+     A            SEQX3          2D  B 10  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  72                                  DSPATR(PR)
+     A  72                                  DSPATR(ND)
+     A N72                                  DSPATR(CS)
+     A            CUSX3          4A  O 10  5
+     A            NAMX3         25A  O 10 10
+     A            CTYX3         14A  O 10 36
+     A            STX3           2A  O 10 51
+     A            PHNX3         12A  O 10 54
+     A            QT1X3          4A  O 10 67
+     A            QT2X3          4A  O 10 72
+     A            QT3X3          4A  O 10 77
+     A            SEQX4          2D  B 11  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  73                                  DSPATR(PR)
+     A  73                                  DSPATR(ND)
+     A N73                                  DSPATR(CS)
+     A            CUSX4          4A  O 11  5
+     A            NAMX4         25A  O 11 10
+     A            CTYX4         14A  O 11 36
+     A            STX4           2A  O 11 51
+     A            PHNX4         12A  O 11 54
+     A            QT1X4          4A  O 11 67
+     A            QT2X4          4A  O 11 72
+     A            QT3X4          4A  O 11 77
+     A            SEQX5          2D  B 12  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  74                                  DSPATR(PR)
+     A  74                                  DSPATR(ND)
+     A N74                                  DSPATR(CS)
+     A            CUSX5          4A  O 12  5
+     A            NAMX5         25A  O 12 10
+     A            CTYX5         14A  O 12 36
+     A            STX5           2A  O 12 51
+     A            PHNX5         12A  O 12 54
+     A            QT1X5          4A  O 12 67
+     A            QT2X5          4A  O 12 72
+     A            QT3X5          4A  O 12 77
+     A            SEQX6          2D  B 13  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  75                                  DSPATR(PR)
+     A  75                                  DSPATR(ND)
+     A N75                                  DSPATR(CS)
+     A            CUSX6          4A  O 13  5
+     A            NAMX6         25A  O 13 10
+     A            CTYX6         14A  O 13 36
+     A            STX6           2A  O 13 51
+     A            PHNX6         12A  O 13 54
+     A            QT1X6          4A  O 13 67
+     A            QT2X6          4A  O 13 72
+     A            QT3X6          4A  O 13 77
+     A            SEQX7          2D  B 14  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  76                                  DSPATR(PR)
+     A  76                                  DSPATR(ND)
+     A N76                                  DSPATR(CS)
+     A            CUSX7          4A  O 14  5
+     A            NAMX7         25A  O 14 10
+     A            CTYX7         14A  O 14 36
+     A            STX7           2A  O 14 51
+     A            PHNX7         12A  O 14 54
+     A            QT1X7          4A  O 14 67
+     A            QT2X7          4A  O 14 72
+     A            QT3X7          4A  O 14 77
+     A            SEQX8          2D  B 15  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  77                                  DSPATR(PR)
+     A  77                                  DSPATR(ND)
+     A N77                                  DSPATR(CS)
+     A            CUSX8          4A  O 15  5
+     A            NAMX8         25A  O 15 10
+     A            CTYX8         14A  O 15 36
+     A            STX8           2A  O 15 51
+     A            PHNX8         12A  O 15 54
+     A            QT1X9          4A  O 15 67
+     A            QT2X8          4A  O 15 72
+     A            QT3X8          4A  O 15 77
+     A            SEQX9          2D  B 16  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  78                                  DSPATR(PR)
+     A  78                                  DSPATR(ND)
+     A N78                                  DSPATR(CS)
+     A            CUSX9          4A  O 16  5
+     A            NAMX9         25A  O 16 10
+     A            CTYX9         14A  O 16 36
+     A            STX9           2A  O 16 51
+     A            PHNX9         12A  O 16 54
+     A            QT1X10         4A  O 16 67
+     A            QT2X9          4A  O 16 72
+     A            QT3X9          4A  O 16 77
+     A            SEQX10         2D  B 17  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  79                                  DSPATR(PR)
+     A  79                                  DSPATR(ND)
+     A N79                                  DSPATR(CS)
+     A            CUSX10         4A  O 17  5
+     A            NAMX10        25A  O 17 10
+     A            CTYX10        14A  O 17 36
+     A            STX10          2A  O 17 51
+     A            PHNX10        12A  O 17 54
+     A            QT1X11         4A  O 17 67
+     A            QT2X10         4A  O 17 72
+     A            QT3X10         4A  O 17 77
+     A            SEQX11         2D  B 18  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  80                                  DSPATR(PR)
+     A  80                                  DSPATR(ND)
+     A N80                                  DSPATR(CS)
+     A            CUSX11         4A  O 18  5
+     A            NAMX11        25A  O 18 10
+     A            CTYX11        14A  O 18 36
+     A            STX11          2A  O 18 51
+     A            PHNX11        12A  O 18 54
+     A            QT1X13         4A  O 18 67
+     A            QT2X11         4A  O 18 72
+     A            QT3X11         4A  O 18 77
+     A            SEQX12         2D  B 19  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  81                                  DSPATR(PR)
+     A  81                                  DSPATR(ND)
+     A N81                                  DSPATR(CS)
+     A            CUSX12         4A  O 19  5
+     A            NAMX12        25A  O 19 10
+     A            CTYX12        14A  O 19 36
+     A            STX12          2A  O 19 51
+     A            PHNX12        12A  O 19 54
+     A            QT1X14         4A  O 19 67
+     A            QT2X12         4A  O 19 72
+     A            QT3X12         4A  O 19 77
+     A            SEQX13         2D  B 20  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  82                                  DSPATR(PR)
+     A  82                                  DSPATR(ND)
+     A N82                                  DSPATR(CS)
+     A            CUSX13         4A  O 20  5
+     A            NAMX13        25A  O 20 10
+     A            CTYX13        14A  O 20 36
+     A            STX13          2A  O 20 51
+     A            PHNX13        12A  O 20 54
+     A            QT1X15         4A  O 20 67
+     A            QT2X13         4A  O 20 72
+     A            QT3X13         4A  O 20 77
+     A            SEQX14         2D  B 21  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  83                                  DSPATR(PR)
+     A  83                                  DSPATR(ND)
+     A N83                                  DSPATR(CS)
+     A            CUSX14         4A  O 21  5
+     A            NAMX14        25A  O 21 10
+     A            CTYX14        14A  O 21 36
+     A            STX14          2A  O 21 51
+     A            PHNX14        12A  O 21 54
+     A            QT1X16         4A  O 21 67
+     A            QT2X14         4A  O 21 72
+     A            QT3X14         4A  O 21 77
+     A            SEQX15         2D  B 22  2CHECK(RB)
+     A                                      DSPATR(MDT)
+     A  84                                  DSPATR(PR)
+     A  84                                  DSPATR(ND)
+     A N84                                  DSPATR(CS)
+     A            CUSX15         4A  O 22  5
+     A            NAMX15        25A  O 22 10
+     A            CTYX15        14A  O 22 36
+     A            STX15          2A  O 22 51
+     A            PHNX15        12A  O 22 54
+     A            QT1X17         4A  O 22 67
+     A            QT2X15         4A  O 22 72
+     A            QT3X15         4A  O 22 77
+     A            ERR           58A  O 23  2
+     A                                 23 61'Total'
+     A            TQTY1          4A  O 23 67DSPATR(HI)
+     A            TQTY2          4A  O 23 72DSPATR(HI)
+     A            TQTY3          4A  O 23 77DSPATR(HI)
+     A  99                                  MSGID(USR &MIC0000001 &MBR0000001)
+     A                                      MSGID(*NONE)
+     A  99                                  DSPATR(RI)
+     A                                 24  2' F1=Roll     F2=Accept Changes    -
+     A                                       F6=Restart     F7=End of Job'
+     A          R QPK500E
+     A*%%TS  SD  19931015  152706  GINNY       REL-V2R1M0  5738-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT(*PGM)
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF01
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'QPK500E'
+     A            SCREEN         1A  I  1 16DFT('E')
+     A                                      DSPATR(PR)
+     A                                      DSPATR(ND)
+     A                                      DSPATR(MDT)
+     A                                  1 29' TRUCK SCHEDULING '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A            DATE           8A  O  1 73DSPATR(HI)
+     A                                  2 67'Time:'
+     A            TIME           8A  O  2 73DSPATR(HI)
+     A                                  3  2'Truck #:'
+     A            TRUCK          4A  O  3 11DSPATR(HI)
+     A                                  3 19'Ship Date:'
+     A            SHPDAT         8A  O  3 30DSPATR(HI)
+     A                                  6  2'Seq Cus                           -
+     A                                                                         -
+     A                                                  #   #    Name          -
+     A                                                 City           St  Phone-
+     A                                           '
+     A            SEQ1           2A  O  8  2
+     A            SEQX2          2A  O  9  2
+     A            SEQX3          2A  O 10  2
+     A            SEQX4          2A  O 11  2
+     A            SEQX5          2A  O 12  2
+     A            SEQX6          2A  O 13  2
+     A            SEQX7          2A  O 14  2
+     A            SEQX8          2A  O 15  2
+     A            SEQX9          2A  O 16  2
+     A            SEQX10         2A  O 17  2
+     A            SEQX11         2A  O 18  2
+     A            SEQX12         2A  O 19  2
+     A            SEQX13         2A  O 20  2
+     A            SEQX14         2A  O 21  2
+     A            SEQX15         2A  O 22  2
+     A            CUSX1          4A  O  8  5
+     A            CUSX2          4A  O  9  5
+     A            CUSX3          4A  O 10  5
+     A            CUSX4          4A  O 11  5
+     A            CUSX5          4A  O 12  5
+     A            CUSX6          4A  O 13  5
+     A            CUSX7          4A  O 14  5
+     A            CUSX8          4A  O 15  5
+     A            CUSX9          4A  O 16  5
+     A            CUSX10         4A  O 17  5
+     A            CUSX11         4A  O 18  5
+     A            CUSX12         4A  O 19  5
+     A            CUSX13         4A  O 20  5
+     A            CUSX14         4A  O 21  5
+     A            CUSX15         4A  O 22  5
+     A            QT1X1          4A  O  8 67
+     A            QT1X2          4A  O  9 67
+     A            QT1X3          4A  O 10 67
+     A            QT1X4          4A  O 11 67
+     A            QT1X5          4A  O 12 67
+     A            QT1X6          4A  O 13 67
+     A            QT1X7          4A  O 14 67
+     A            QT1X9          4A  O 15 67
+     A            QT1X10         4A  O 16 67
+     A            QT1X11         4A  O 17 67
+     A            QT1X13         4A  O 18 67
+     A            QT1X14         4A  O 19 67
+     A            QT1X15         4A  O 20 67
+     A            QT1X16         4A  O 21 67
+     A            QT1X17         4A  O 22 67
+     A            QT2X1          4A  O  8 72
+     A            QT2X2          4A  O  9 72
+     A            QT2X3          4A  O 10 72
+     A            QT2X4          4A  O 11 72
+     A            QT2X5          4A  O 12 72
+     A            QT2X6          4A  O 13 72
+     A            QT2X7          4A  O 14 72
+     A            QT2X8          4A  O 15 72
+     A            QT2X9          4A  O 16 72
+     A            QT2X10         4A  O 17 72
+     A            QT2X11         4A  O 18 72
+     A            QT2X12         4A  O 19 72
+     A            QT2X13         4A  O 20 72
+     A            QT2X14         4A  O 21 72
+     A            QT2X15         4A  O 22 72
+     A            QT3X1          4A  O  8 77
+     A            QT3X2          4A  O  9 77
+     A            QT3X3          4A  O 10 77
+     A            QT3X4          4A  O 11 77
+     A            QT3X5          4A  O 12 77
+     A            QT3X6          4A  O 13 77
+     A            QT3X7          4A  O 14 77
+     A            QT3X8          4A  O 15 77
+     A            QT3X9          4A  O 16 77
+     A            QT3X10         4A  O 17 77
+     A            QT3X11         4A  O 18 77
+     A            QT3X12         4A  O 19 77
+     A            QT3X13         4A  O 20 77
+     A            QT3X14         4A  O 21 77
+     A            QT3X15         4A  O 22 77
+     A            NAMX1         25A  O  8 10
+     A            NAMX2         25A  O  9 10
+     A            NAMX3         25A  O 10 10
+     A            NAMX4         25A  O 11 10
+     A            NAMX5         25A  O 12 10
+     A            NAMX6         25A  O 13 10
+     A            NAMX7         25A  O 14 10
+     A            NAMX8         25A  O 15 10
+     A            NAMX9         25A  O 16 10
+     A            NAMX10        25A  O 17 10
+     A            NAMX11        25A  O 18 10
+     A            NAMX12        25A  O 19 10
+     A            NAMX13        25A  O 20 10
+     A            NAMX14        25A  O 21 10
+     A            NAMX15        25A  O 22 10
+     A            CTYX1         14A  O  8 36
+     A            CTYX2         14A  O  9 36
+     A            CTYX3         14A  O 10 36
+     A            CTYX4         14A  O 11 36
+     A            CTYX5         14A  O 12 36
+     A            CTYX6         14A  O 13 36
+     A            CTYX7         14A  O 14 36
+     A            CTYX8         14A  O 15 36
+     A            CTYX9         14A  O 16 36
+     A            CTYX10        14A  O 17 36
+     A            CTYX11        14A  O 18 36
+     A            CTYX12        14A  O 19 36
+     A            CTYX13        14A  O 20 36
+     A            CTYX14        14A  O 21 36
+     A            CTYX15        14A  O 22 36
+     A            STX1           2A  O  8 51
+     A            STX2           2A  O  9 51
+     A            STX3           2A  O 10 51
+     A            STX4           2A  O 11 51
+     A            STX5           2A  O 12 51
+     A            STX6           2A  O 13 51
+     A            STX7           2A  O 14 51
+     A            STX8           2A  O 15 51
+     A            STX9           2A  O 16 51
+     A            STX10          2A  O 17 51
+     A            STX11          2A  O 18 51
+     A            STX12          2A  O 19 51
+     A            STX13          2A  O 20 51
+     A            STX14          2A  O 21 51
+     A            STX15          2A  O 22 51
+     A            PHNX1         12A  O  8 54
+     A            PHNX2         12A  O  9 54
+     A            PHNX3         12A  O 10 54
+     A            PHNX4         12A  O 11 54
+     A            PHNX5         12A  O 12 54
+     A            PHNX6         12A  O 13 54
+     A            PHNX7         12A  O 14 54
+     A            PHNX8         12A  O 15 54
+     A            PHNX9         12A  O 16 54
+     A            PHNX10        12A  O 17 54
+     A            PHNX11        12A  O 18 54
+     A            PHNX12        12A  O 19 54
+     A            PHNX13        12A  O 20 54
+     A            PHNX14        12A  O 21 54
+     A            PHNX15        12A  O 22 54
+     A            ERR           58A  O 23  2
+     A  99                                  MSGID(USR &MIC0000001 &MBR0000001)
+     A                                      MSGID(*NONE)
+     A  99                                  DSPATR(RI)
+     A            TQTY1          4A  O 23 67DSPATR(HI)
+     A            TQTY2          4A  O 23 72DSPATR(HI)
+     A            TQTY3          4A  O 23 77DSPATR(HI)
+     A                                 23 61'Total'
+     A                                  3 42'New Ship Date:'
+     A            VNSHDT         8A  B  3 58DSPATR(CS)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(MDT)
+     A  61                                  DSPATR(RI)
+     A            VHDG1          4A  O  7 67DSPATR(UL)
+     A            VHDG2          4A  O  7 72DSPATR(UL)
+     A            VHDG3          4A  O  7 77DSPATR(UL)
+     A                                 24  4'F1=Roll           F6=Restart      -
+     A                                           F7=End of Job'
+     A            MIC0000001     4A  P
+     A            MBR0000001     2A  P

@@ -1,0 +1,368 @@
+000100140319     H/COPY QFunctDefn,@CopyRight                                               Copyright Info.
+000200140319     H DftActGrp(*No)                                                           Default Activation
+000300140319     H BndDir('*LIBL/KPFUNCTION')                                               Use KP Functions
+000400140319     H DatFmt(*Usa)                                                             Date Format
+000500000000      *:````````````````````````````````````````````````````````````:
+000600160330      *: FPR130.01                                                  :
+000700000000      *:............................................................:
+000800000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+000900160208      * : Created:  2016                  Kube-Pak Corporation     :
+001000000000      * :      by:  William J. Behr                                  :
+001100000000      * :............................................................:
+001200000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+001300000000      * :   Program Description                                     :
+001400000000      * : ```````````````````````                                   :
+001500140512      * :                                                           :
+001600140512      * :                                                           :
+001700140512      * :                                                           :
+001800000000      * :............................................................:
+001900000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+002000000000      * :  Function Usage                                          :
+002100000000      * :                                                           :
+002200000000      * :  FUNCT  -FUNCT DESRIPTION HERE                           :
+002300000000      * :............................................................:
+002400000000      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+002500140516      * :  Change Log                                              :
+002600000000      * :                                                           :
+002700160330      * :  FPR130.01Original Version                               :
+002800140516      * :............................................................:
+002900140516      * :"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":
+003000140516      * :  Indicator Usage                                         :
+003100140516      * :                                                           :
+003200140319      * :  26      Sets Position to Indicator                      :
+003300000000      * :  03      Exit                                            :
+003400000000      * :  LR      Does this really need a description ?           :
+003500000000      * :............................................................:
+003600000000
+003700160330     FFPR130FM  CF   E             WORKSTN
+003800160330     F                                     SFILE(FPR13001S:RRN01)
+003900140319
+004000000000
+004100140319      //  Main procedure prototype & interface
+004200160330     D FPR130          PR                  ExtPgm('FPR130')
+004300160330     D FPR130          PI
+004400160307
+004500000000      * Function Prototypes
+004600140603     D Load01          PR
+004700140603     D Scrn01          PR
+004800140603     D Edit01          PR
+004900160302
+005000160314     D FindItem        PR                  ExtPgm('FPR055')
+005100160314     D  #Find#                       20A   CONST
+005200160314
+005300140603    D/COPY QFunctDefn,$_Dates
+005400140319    D/COPY QFunctDefn,$ErrMsg
+005500140505    D/COPY QFunctDefn,$DftPrt
+005600140505     D/COPY QFunctDefn,$ChgPrt
+005700140505     D/COPY QFunctDefn,$isPrinter
+005800140505     D/COPY QFunctDefn,$User
+005900140505     D/COPY QFunctDefn,$TimeStamp
+006000140505     D/COPY QFunctDefn,$RtvMsgD
+006100160307     D/COPY QFunctDefn,$Monday
+006200160302     D/COPY QFunctDefn,$Now
+006300140513    D/COPY QFunctDefn,QCMDEXC
+006400000000
+006500000000      * Data Structures
+006600000000     D                SDS
+006700140319     D  $PGM             *PROC
+006800000000
+006900160307     D FFINPPDTAG_DS E DS
+007000160331     D FMINVT_DS     E DS
+007100160331
+007200160331     D SQLData_DS      DS
+007300160331     D  Size                               Like(IMSize)
+007400160331     D  Look                               Like(IMLook)
+007500160331     D  Item                               Like(IMItem)
+007600160331     D  Des1                               Like(IMDes1)
+007700160331     D  MinWeek                            Like(FPWeek)
+007800160331     D  MaxWeek                            Like(FPWeek)
+007900160331     D  SumQtyProj                         Like(FPQtyProj)
+008000160331     D  SumQtyActl                         Like(FPQtyActl)
+008100160331     D  SumQtyCntd                         Like(FPQtyCntd)
+008200160323
+008300000000      * Field Definitions
+008400140319     D   Screen        S              3S 0 Inz(0)                               Screen Number
+008500160216     D   RRN01         S              4S 0 Inz(*Zero)                           RRN SFL Scrn 03
+008600140505     D   SelDate7      S              7S 0 Inz(0)                               Ship Date YMD7
+008700160216     D   Now           S              6S 0 Inz(0)                               Time Now
+008800160216     D   Today         S              6S 0 Inz(0)                               Today
+008900160216     D   Today7        S              7S 0 Inz(0)                               Today YMD7
+009000140508     D   Pink          S              1A   Inz('')                             Color Code -PINK
+009100140319     D   White         S              1A   Inz('')                              Color Code - White
+009200160307     D   LastFPPPD#    S              6S 0
+009300160307     D   User          S             10A
+009400160307     D   X             S              5S 0 Inz(0)
+009500160308     D   dftDate1      S               D   Inz
+009600160308     D   dftDate2      S               D   Inz(d'01/01/2000')
+009700160308     D   selFPWEEK     S               D   Inz(d'01/01/2000')
+009800160308     D   selFPDATE     S               D   Inz(d'01/01/2000')
+009900160322     D   ActlTran      S              6S 0
+010000160322     D   ProjTran      S              6S 0
+010100160322     D   ProjB4        S              6S 0
+010200160323     D   LastRcdKey    S             64
+010300160323     D   LastItemSize  S             15
+010400160328     D   IN52          S               N   Inz(*Off)
+010500160328     D   DEC155        S             15P 5 Inz(0)
+010600000000
+010700140319      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+010800140319      // : Main Logic                                                       :
+010900140319      // :..................................................................:
+011000140319      /Free
+011100140319
+011200140319         DoW *InLR <> *On;
+011300140319           Select;
+011400140319             When Screen = 01;
+011500140319               Edit01();
+011600140319             Other;
+011700160302               *In50 = *On;
+011800140319               $ERR_PROG = $PGM;
+011900160302               Today=$MDYDATE($Date(0));
+012000160302               Today7=$DATE7($Date(0));
+012100160302               User = $User();
+012200160323               SelCstm  = 'B';
+012300160328               *In51 = *Off;  // Sort by PPD #
+012400160314               Exec SQL  // Get Latest Week...
+012500160314                 SELECT     Max(FPWEEK)
+012600160314                 Into      :SelFPWEEK
+012700160314                 FROM       FFINPPDTAG
+012800160328                 WHERE      FPPRTD <> 'D';
+012900140903               Load01();
+013000160216               Scrn01();
+013100160302               *In50 = *Off;
+013200140319           ENDSL;
+013300140319         ENDDO;
+013400140319
+013500140319         *InLR = *On;
+013600140319
+013700140319      /End-Free
+013800140319
+013900140505
+014000140505      // :'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''':
+014100160216      // : Screen 01 SubProcedures                                          :
+014200140505      // :..................................................................:
+014300140505
+014400160216     P Load01          B
+014500160216     D Load01          PI
+014600140916     D  #Truck         S              8A
+014700140529     D  #TimeStamp     S               Z
+014800140529     D  #User          S             10A
+014900140505      /Free
+015000140505
+015100160303         SFLPOSTO1 = 1;
+015200160216         RRN01 = 0;
+015300140505         *In80 = *On;   // Clear Subfile
+015400160330         Write FPR13001;
+015500140505         *In26 = *Off;  // Empty Subfile
+015600140505         *In80 = *Off;
+015700160302         *In28 = *Off;  // SFLNXTCHG
+015800160216         RRN01 = 0;
+015900160307         LastFPPPD# = *Zero;
+016000160322         ProjB4   = 0;
+016100160322         ProjTran = 0;
+016200160322         ActlTran = 0;
+016300160328         Clear DEC155;
+016400140507
+016500160216         SQLState = '00000';
+016600160323         Clear LastRcdKey;
+016700160216         DoW SQLState = '00000';
+016800160331           Exec SQL
+016900160331             SELECT     FMINVT.IMSIZE
+017000160331                  ,     FMINVT.IMLOOK
+017100160331                  ,     FMINVT.IMITEM
+017200160331                  ,     min(FMINVT.IMDES1)
+017300160331                  ,     min(FFINPPDTAG.FPWEEK)
+017400160331                  ,     max(FFINPPDTAG.FPWEEK)
+017500160331                  ,     sum(FFINPPDTAG.FPQTYPROJ)
+017600160331                  ,     sum(FFINPPDTAG.FPQTYACTL)
+017700160331                  ,     sum(FFINPPDTAG.FPQTYCNTD)
+017800160331             Into      :SQLData_DS
+017900160331             FROM       ffinppdtag,fminvt
+018000160331             WHERE      FFINPPDTAG.FPITEM= FMINVT.IMITEM
+018100160331               and      FFINPPDTAG.FPSIZE= FMINVT.IMSIZE
+018200160331               and      year(FFINPPDTAG.FPWEEK) = 2016
+018300160331               and      FMINVT.IMSIZE||FMINVT.IMLOOK||FMINVT.IMITEM > :RRRRR
+018400160331               and      FPPRTD <> 'D'
+018500160331               and      FPPPD#  > :LastFPPPD#
+018600160331               and  (   date(FPWEEK)  = date(:SelFPWEEK)
+018700160331                    or :SelFPWEEK = :DftDate2 )
+018800160331               and  (   FPITEM  = :SelITEM
+018900160331                    or :SelITEM =  ' ' )
+019000160331               and  (   FPSIZE  = :SelSIZE
+019100160331                    or :SelSIZE =  ' ' )
+019200160331               and  (   FPCUST  = :SelCUST
+019300160331                    or :SelCUST =  0   )
+019400160331               and  (  (FPCUST  = 0 and :SelCstm = 'N')
+019500160331                    or (FPCUST <> 0 and :SelCstm = 'Y')
+019600160331                    or :SelCstm = 'B' )
+019700160331               and  (                              :FILTER = 0                  // all
+019800160331                    or                             :FILTER = 1                  // all
+019900160331                    or (FPQTYACTL <  FPQTYPROJ and :FILTER = 2)                 // open
+020000160331                    or (FPQTYCNTD <  FPQTYPROJ and :FILTER = 2)                 // open
+020100160331                    or (FPQTYACTL <  FPQTYPROJ and
+020200160331                        FPQTYACTL >  0         and :FILTER = 3)                 // short
+020300160331                    or (FPQTYCNTD <  FPQTYPROJ and
+020400160331                        FPQTYCNTD >  0         and :FILTER = 3)                 // short
+020500160331                    or (FPQTYCNTD =  0         and
+020600160331                        FPQTYACTL =  0         and :FILTER = 3)                 // short
+020700160331                    or (FPQTYACTL >= FPQTYPROJ and
+020800160331                        FPQTYCNTD >= FPQTYPROJ and :FILTER = 4)  )              // done
+020900160331             GROUP   BY FMINVT.IMSIZE, FMINVT.IMLOOK, FMINVT.IMITEM
+021000160331             ORDER   BY FMINVT.IMSIZE, FMINVT.IMLOOK, FMINVT.IMITEM
+021100160331             Fetch First Row Only;
+021200160331           *In41 = isEven(RRN01);
+021300160331           LastRcdKey = FMINVT.IMSIZE + FMINVT.IMLOOK + FMINVT.IMITEM;
+021400160323
+021500160216           If SQLState = '00000';
+021600160330             QTYFOUND = 0;
+021700160330             Exec SQL
+021800160330               Select  sum(FLQTY)
+021900160330               into   :QTYFOUND
+022000160330               From    FFINLOC
+022100160330               Where   FLITEM = :FPITEM
+022200160330                 and   FLSIZE = :FPSIZE
+022300160330                 and   FLPLTG = :FPPLTG
+022400160330                 and   FLSHIP = :FPSHIP
+022500160330                 and   FLCUST = :FPCUST;
+022600160330             SQLState = '00000';
+022700160216             RRN01 += 1;
+022800160308             In41  = *In41;
+022900160328             ITEMSIZE = %Trim(FPITEM) + '-' + %Trim(FPSIZE);
+023000160328             If FPCUST <> 0;
+023100160328               CSTMYN = 'Y';
+023200160328              Else;
+023300160328               CSTMYN = ' ';
+023400160328             EndIf;
+023500160322             In41 = *IN41;
+023600160330             Write FPR13001S;
+023700160216             *In26 = *On;
+023800160307             LastFPPPD# = FPPPD#;
+023900160216           EndIf;
+024000160216         EndDo;
+024100160216
+024200160330         Select;
+024300160330           When FILTER = 1;
+024400160330             filterText = '  Showing ALL  ';
+024500160330           When FILTER = 2;
+024600160330             filterText = ' Showing OPEN  ';
+024700160330           When FILTER = 3;
+024800160330             filterText = ' Showing SHORT ';
+024900160330           When FILTER = 4;
+025000160330             filterText = ' Showing DONE  ';
+025100160330           Other;
+025200160330             filterText = '  Showing ALL  ';
+025300160330         EndSl;
+025400160216         Records = RRN01;
+025500160216
+025600140505      /End-Free
+025700160216     P Load01          E
+025800140505
+025900140505      //_____________________________________________________________________
+026000140505      //
+026100140505
+026200160216     P Scrn01          B
+026300160216     D Scrn01          PI
+026400140505      /Free
+026500160216         Screen = 01;
+026600160216         If SFLPOSTO1 <= *Zero;
+026700160216           SFLPOSTO1 = 1;
+026800160216         EndIf;
+026900140505         write ASSUME;
+027000160330         write FPR13001F;
+027100140505         If *In50;
+027200140505           write msgctl;
+027300140505         ENDIF;
+027400160330         exfmt FPR13001;
+027500160216         If SFLCSRRRN > 0;
+027600160216           SFLPOSTO1 = SFLCSRRRN;
+027700160216         EndIf;
+027800140505         $ClrError();
+027900140505      /End-Free
+028000160216     P Scrn01          E
+028100140505
+028200140505      //_____________________________________________________________________
+028300140505      //
+028400140505
+028500160216     P Edit01          B
+028600160216     D Edit01          PI
+028700140505      /Free
+028800140505         Select;
+028900140506           When *In03;
+029000140506             *InLR = *On;
+029100160302           When *In05;                 // Refresh
+029200160302             Load01();
+029300160302             Scrn01();
+029400160328           When *In08;                 // - Week
+029500160328             SELFPWEEK = $AddDate(SELFPWEEK:-7);
+029600160328             Load01();
+029700160328             Scrn01();
+029800160328           When *In09;                 // + Week
+029900160328             SELFPWEEK = $AddDate(SELFPWEEK:+7);
+030000160328             Load01();
+030100160328             Scrn01();
+030200160323           When *In10;                 // Change Sort
+030300160328             *In51 = not *In51;
+030400160323             Load01();
+030500160323             Scrn01();
+030600160330           When FILTER <> 0;           // Change Filter
+030700160330             Load01();
+030800160330             Scrn01();
+030900160314          When *In22;  //Left Mouse Click - Find Records
+031000160330            Chain SFLCSRRRN FPR13001S;
+031100160315             FindItem(%Trim(FPITEM) + ' ' +
+031200160329                      %Trim(FPSIZE));
+031300160314             *In28 = *On;
+031400160314             *In41 = In41;
+031500160330            Update FPR13001S;
+031600160314             *In28 = *Off;
+031700160314             Scrn01();
+031800140508           Other;         // Process Scan and Subfile
+031900160216             SflS01();
+032000160216             Load01();
+032100160216             Scrn01();
+032200140505         EndSl;
+032300140505      /End-Free
+032400160216     P Edit01          E
+032500140505
+032600140507      //_____________________________________________________________________
+032700140507      //
+032800140507
+032900160216     P UpdS01          B
+033000160216     D UpdS01          PI
+033100140507      /Free
+033200140505      /End-Free
+033300160216     P UpdS01          E
+033400140505
+033500140507      //_____________________________________________________________________
+033600140507      //
+033700140507
+033800160216     P SflS01          B
+033900160216     D SflS01          PI
+034000140507      /Free
+034100140507      /End-Free
+034200160216     P SflS01          E
+034300140512
+034400160302
+034500140508      //_____________________________________________________________________
+034600140508      //
+034700140916     P isEven          B
+034800140916     D isEven          PI              N
+034900140916     D   #number                     10S 0 CONST
+035000140916     D   #integer      S             10S 0
+035100140916     D   #decimal      S             15S 5
+035200140916      /Free
+035300140916
+035400140916         #decimal = #number / 2;
+035500140916         #integer = #number / 2;
+035600140916         if #decimal = #integer;
+035700140916           Return *On;
+035800140916          else;
+035900140916           Return *Off;
+036000140916         endif;
+036100140916
+036200140916      /End-Free
+036300140916     P isEven          E
+036400160216
+036500140930      //_____________________________________________________________________
+036600140930      //
+036700140505
+036800140319    D/COPY QFunctDefn,$ErrMsgSP

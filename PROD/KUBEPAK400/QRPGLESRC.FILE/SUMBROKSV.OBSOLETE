@@ -1,0 +1,239 @@
+000100980518      *%*******************************************************************
+000200980518      *%                                                                 **
+000300980518      *%                                                                 **
+000400980518      *%  System     - AS/400                                          **
+000500030520      *%  Application- Broker Sales Summary                            **
+000600980518      *%                                                               **
+000700980518      *%*******************************************************************
+000800980518      *********************************************************************
+000900980518      *                                                                   *
+001000030520      * Program- SUMBROK                                                *
+001100980518      *                                                                   *
+001200030520      * Purpose- Summarize Sales by Broker                              *
+001300980518      *                                                                   *
+001400980518      *   Date  Programmer     Comment                              *
+001500030520      *  05/20/03  R. Piasecki      Program Created                       *
+001600980518      *                                                                   *
+001700980518      *********************************************************************
+0018000305200022 FFSHISTL1  IP   E           K DISK
+0019000305200022 FBRKSUM    UF A E           K DISK
+002000030520     F                                     RENAME(RSHIST:BSHIST)
+002100030520     FXATABL    IF   E           K DISK
+002200030520     FFMCUST    IF   E           K DISK
+002300030520      **                                                               ***
+002400990329      ********************************************************************
+002500990329      * Program Status Data Structure                                  *
+002600990329      ********************************************************************
+002700990329     D                SDS
+002800990329     D  ##PGM            *PROC
+002900990329     D  ##PARM           *PARMS
+003000990329     D  ##PERR                91    169
+003100990329     D  ##JOB                244    253
+003200990329     D  ##USER               254    263
+003300990329     D  ##JOBN               264    269
+003400990329     D  ##JBDT               276    281  0
+003500990329     D  ##JBTM               282    287  0
+003600030520     IBSHIST        01
+003700030520     I              SICUST                      BICUST
+003800030520     I              SICQ01                      BICQ01
+003900030520     I              SICQ02                      BICQ02
+004000030520     I              SICQ03                      BICQ03
+004100030520     I              SICQ04                      BICQ04
+004200030520     I              SICQ05                      BICQ05
+004300030520     I              SICQ06                      BICQ06
+004400030520     I              SICQ07                      BICQ07
+004500030520     I              SICQ08                      BICQ08
+004600030520     I              SICQ09                      BICQ09
+004700030520     I              SICQ10                      BICQ10
+004800030520     I              SICQ11                      BICQ11
+004900030520     I              SICQ12                      BICQ12
+005000030520     I              SICQ13                      BICQ13
+005100030520      **                                                               ***
+005200030520     I              SICS01                      BICS01
+005300030520     I              SICS02                      BICS02
+005400030520     I              SICS03                      BICS03
+005500030520     I              SICS04                      BICS04
+005600030520     I              SICS05                      BICS05
+005700030520     I              SICS06                      BICS06
+005800030520     I              SICS07                      BICS07
+005900030520     I              SICS08                      BICS08
+006000030520     I              SICS09                      BICS09
+006100030520     I              SICS10                      BICS10
+006200030520     I              SICS11                      BICS11
+006300030520     I              SICS12                      BICS12
+006400030520     I              SICS13                      BICS13
+006500030520      **                                                               ***
+006600030520     I              SILQ01                      BILQ01
+006700030520     I              SILQ02                      BILQ02
+006800030520     I              SILQ03                      BILQ03
+006900030520     I              SILQ04                      BILQ04
+007000030520     I              SILQ05                      BILQ05
+007100030520     I              SILQ06                      BILQ06
+007200030520     I              SILQ07                      BILQ07
+007300030520     I              SILQ08                      BILQ08
+007400030520     I              SILQ09                      BILQ09
+007500030520     I              SILQ10                      BILQ10
+007600030520     I              SILQ11                      BILQ11
+007700030520     I              SILQ12                      BILQ12
+007800030520     I              SILQ13                      BILQ13
+007900030520      **                                                               ***
+008000030520     I              SILS01                      BILS01
+008100030520     I              SILS02                      BILS02
+008200030520     I              SILS03                      BILS03
+008300030520     I              SILS04                      BILS04
+008400030520     I              SILS05                      BILS05
+008500030520     I              SILS06                      BILS06
+008600030520     I              SILS07                      BILS07
+008700030520     I              SILS08                      BILS08
+008800030520     I              SILS09                      BILS09
+008900030520     I              SILS10                      BILS10
+009000030520     I              SILS11                      BILS11
+009100030520     I              SILS12                      BILS12
+009200030520     I              SILS13                      BILS13
+009300990330      ********************************************************************
+009400990329      ******************  Program Main Line  ***************************
+009500990329      ********************************************************************
+009600030520     C                   CLEAR                   BSHIST
+009700030520     C                   MOVEA     '000'         *IN(97)
+009800030520     C     SICUST        CHAIN     FMCUST                             99
+009900030520     C     *IN99         IFEQ      *OFF
+010000030520     C     CMBABB        ANDGT     *BLANKS
+010100030520     C     'BR'          CAT(P)    CMBABB:0      TBTBCD            8
+010200030520     C     TBTBCD        CHAIN     XATABL                             98
+010300030520     C     *IN98         IFEQ      *OFF
+010400030520     C                   Z-ADD     TBBROK        CUST#             6 0
+010500030520     C     CUST#         CHAIN     BRKSUM                             97
+010600030520     C     *IN97         IFEQ      *ON
+010700030520     C                   EXSR      ADDIT
+010800030520     C                   ELSE
+010900030520     C                   EXSR      UPDIT
+011000030520     C                   ENDIF
+011100030520     C                   ENDIF
+011200030520     C                   ENDIF
+011300990330      ********************************************************************
+011400030520      * ADDIT: Add Record to Broker Summary File                       *
+011500990330      ********************************************************************
+011600030520     CSR   ADDIT         BEGSR
+011700030520     C                   Z-ADD     CUST#         BICUST
+011800030520     C                   Z-ADD     SICQ01        BICQ01
+011900030520     C                   Z-ADD     SICQ02        BICQ02
+012000030520     C                   Z-ADD     SICQ03        BICQ03
+012100030520     C                   Z-ADD     SICQ04        BICQ04
+012200030520     C                   Z-ADD     SICQ05        BICQ05
+012300030520     C                   Z-ADD     SICQ06        BICQ06
+012400030520     C                   Z-ADD     SICQ07        BICQ07
+012500030520     C                   Z-ADD     SICQ08        BICQ08
+012600030520     C                   Z-ADD     SICQ09        BICQ09
+012700030520     C                   Z-ADD     SICQ10        BICQ10
+012800030520     C                   Z-ADD     SICQ11        BICQ11
+012900030520     C                   Z-ADD     SICQ12        BICQ12
+013000030520     C                   Z-ADD     SICQ13        BICQ13
+013100030520      **                                                               ***
+013200030520     C                   Z-ADD     SICS01        BICS01
+013300030520     C                   Z-ADD     SICS02        BICS02
+013400030520     C                   Z-ADD     SICS03        BICS03
+013500030520     C                   Z-ADD     SICS04        BICS04
+013600030520     C                   Z-ADD     SICS05        BICS05
+013700030520     C                   Z-ADD     SICS06        BICS06
+013800030520     C                   Z-ADD     SICS07        BICS07
+013900030520     C                   Z-ADD     SICS08        BICS08
+014000030520     C                   Z-ADD     SICS09        BICS09
+014100030520     C                   Z-ADD     SICS10        BICS10
+014200030520     C                   Z-ADD     SICS11        BICS11
+014300030520     C                   Z-ADD     SICS12        BICS12
+014400030520     C                   Z-ADD     SICS13        BICS13
+014500030520      **                                                               ***
+014600030520     C                   Z-ADD     SILQ01        BILQ01
+014700030520     C                   Z-ADD     SILQ02        BILQ02
+014800030520     C                   Z-ADD     SILQ03        BILQ03
+014900030520     C                   Z-ADD     SILQ04        BILQ04
+015000030520     C                   Z-ADD     SILQ05        BILQ05
+015100030520     C                   Z-ADD     SILQ06        BILQ06
+015200030520     C                   Z-ADD     SILQ07        BILQ07
+015300030520     C                   Z-ADD     SILQ08        BILQ08
+015400030520     C                   Z-ADD     SILQ09        BILQ09
+015500030520     C                   Z-ADD     SILQ10        BILQ10
+015600030520     C                   Z-ADD     SILQ11        BILQ11
+015700030520     C                   Z-ADD     SILQ12        BILQ12
+015800030520     C                   Z-ADD     SILQ13        BILQ13
+015900030520      **                                                               ***
+016000030520     C                   Z-ADD     SILS01        BILS01
+016100030520     C                   Z-ADD     SILS02        BILS02
+016200030520     C                   Z-ADD     SILS03        BILS03
+016300030520     C                   Z-ADD     SILS04        BILS04
+016400030520     C                   Z-ADD     SILS05        BILS05
+016500030520     C                   Z-ADD     SILS06        BILS06
+016600030520     C                   Z-ADD     SILS07        BILS07
+016700030520     C                   Z-ADD     SILS08        BILS08
+016800030520     C                   Z-ADD     SILS09        BILS09
+016900030520     C                   Z-ADD     SILS10        BILS10
+017000030520     C                   Z-ADD     SILS11        BILS11
+017100030520     C                   Z-ADD     SILS12        BILS12
+017200030520     C                   Z-ADD     SILS13        BILS13
+017300030520      **                                                               ***
+017400030520     C                   WRITE     BSHIST
+017500030520      **                                                               ***
+017600030520     C                   ENDSR
+017700030520      ********************************************************************
+017800030520      * UPDIT: Update Record in Broker Summary File                    *
+017900030520      ********************************************************************
+018000030520     CSR   UPDIT         BEGSR
+018100030520     C                   ADD       SICQ01        BICQ01
+018200030520     C                   ADD       SICQ02        BICQ02
+018300030520     C                   ADD       SICQ03        BICQ03
+018400030520     C                   ADD       SICQ04        BICQ04
+018500030520     C                   ADD       SICQ05        BICQ05
+018600030520     C                   ADD       SICQ06        BICQ06
+018700030520     C                   ADD       SICQ07        BICQ07
+018800030520     C                   ADD       SICQ08        BICQ08
+018900030520     C                   ADD       SICQ09        BICQ09
+019000030520     C                   ADD       SICQ10        BICQ10
+019100030520     C                   ADD       SICQ11        BICQ11
+019200030520     C                   ADD       SICQ12        BICQ12
+019300030520     C                   ADD       SICQ13        BICQ13
+019400030520      **                                                               ***
+019500030520     C                   ADD       SICS01        BICS01
+019600030520     C                   ADD       SICS02        BICS02
+019700030520     C                   ADD       SICS03        BICS03
+019800030520     C                   ADD       SICS04        BICS04
+019900030520     C                   ADD       SICS05        BICS05
+020000030520     C                   ADD       SICS06        BICS06
+020100030520     C                   ADD       SICS07        BICS07
+020200030520     C                   ADD       SICS08        BICS08
+020300030520     C                   ADD       SICS09        BICS09
+020400030520     C                   ADD       SICS10        BICS10
+020500030520     C                   ADD       SICS11        BICS11
+020600030520     C                   ADD       SICS12        BICS12
+020700030520     C                   ADD       SICS13        BICS13
+020800030520      **                                                               ***
+020900030520     C                   ADD       SILQ01        BILQ01
+021000030520     C                   ADD       SILQ02        BILQ02
+021100030520     C                   ADD       SILQ03        BILQ03
+021200030520     C                   ADD       SILQ04        BILQ04
+021300030520     C                   ADD       SILQ05        BILQ05
+021400030520     C                   ADD       SILQ06        BILQ06
+021500030520     C                   ADD       SILQ07        BILQ07
+021600030520     C                   ADD       SILQ08        BILQ08
+021700030520     C                   ADD       SILQ09        BILQ09
+021800030520     C                   ADD       SILQ10        BILQ10
+021900030520     C                   ADD       SILQ11        BILQ11
+022000030520     C                   ADD       SILQ12        BILQ12
+022100030520     C                   ADD       SILQ13        BILQ13
+022200030520      **                                                               ***
+022300030520     C                   ADD       SILS01        BILS01
+022400030520     C                   ADD       SILS02        BILS02
+022500030520     C                   ADD       SILS03        BILS03
+022600030520     C                   ADD       SILS04        BILS04
+022700030520     C                   ADD       SILS05        BILS05
+022800030520     C                   ADD       SILS06        BILS06
+022900030520     C                   ADD       SILS07        BILS07
+023000030520     C                   ADD       SILS08        BILS08
+023100030520     C                   ADD       SILS09        BILS09
+023200030520     C                   ADD       SILS10        BILS10
+023300030520     C                   ADD       SILS11        BILS11
+023400030520     C                   ADD       SILS12        BILS12
+023500030520     C                   ADD       SILS13        BILS13
+023600030520      **                                                               ***
+023700030520     C                   UPDATE    BSHIST
+023800030520      **                                                               ***
+023900030520     C                   ENDSR

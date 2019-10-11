@@ -1,0 +1,31 @@
+000100121025      // $InsOrdLin   - Insert a line in an Order Using BIR104
+000200121025      // $CpyOrd      - Copy an Order to a New Customer Using BIR107
+000300121017
+000400121025      /If Not Defined($InsOrdLin)
+000500121025     *$InsOrdLin      EXTPROCReturns decimal value
+000600121025    *$InsOrdLin   - Insert a line in an Order Using BIR104
+000700121025    D $InsOrdLin      PR                  ExtPgm('BIR104')
+000800180213PARM D  $Ord#_6S0                     6S 0 Const                                Order Number
+000900180213PARM D  $Seq#_3S0                     3S 0 Const                                Order Sequence #
+001000180213PARM D  $Lines_3S0                    3S 0 Const                                # Lines to Insert
+001100121023      /EndIf
+001200121109
+001300121109      /If Not Defined($CpyOrd)
+001400121109     *$CpyOrd         EXTPROCReturns decimal value
+001500121109    *$CpyOrd      - Copies an Order to a new Customer
+001600121109    D $CpyOrd         PR                  ExtPgm('BIR107')
+001700121109PARM D  $Ord#_6P0                     6P 0 Const                                Order Number
+001800121109PARM D  $Cust_6P0                     6P 0 Const                                Customer Number
+001900121109      /EndIf
+002000121025
+002100121109      /If Not Defined($DlcLotInv)
+002200121109      // $DlcLotInv - Procedure to Deallocate Lot Inventory
+002300121128     D $DlcLotInv      PR                  ExtProc('$DlcLotInv')
+002400121109     D  $Ord#_6P0                     6P 0 Const                                Order Number
+002500121109     D  $Seq#_3P0                     3P 0 Const                                Order Sequence #
+002600121127     D  $OQty_11P1                   11P 1 Const                                Order Qty to Reduce
+002700121109     D  $Item_12A                    12A   Const
+002800121109     D  $Size_3A                      3A   Const
+002900121128     D  $SowD_6P0                     7P 0 Const
+003000121128     D  $CRdy_6P0                     7P 0 Const
+003100121025      /EndIf

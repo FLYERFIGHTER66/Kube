@@ -1,0 +1,173 @@
+     A*%%***********************************************************************
+     A*%%TS  RD  20160726  132425  BILLB       REL-V7R1M0  5770-WDS
+     A*%%FI+10661100000000000000000000000000000000000000000000000000
+     A*%%FI       0000000000001000000000000000000000000000000000000
+     A*%%***********************************************************************
+      *****************************************************************
+      **                                                             **
+      **  FILE:       SDR362P                                        **
+      **  FUNCTION:   Print Cost Vs. Price Report                    **
+      **  CREATED BY: R. PIASECKI 8/18/2003                          **
+      **                                                             **
+      **                                                             **
+      *****************************************************************
+     A                                      REF(*LIBL/KPREF  KPREFR)
+     A          R HEADER
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 011
+     A*%%***********************************************************************
+     A                                      SKIPB(012)
+     A                                     1
+     A                                      'Reqd by:'
+     A                                      SPACEB(001)
+     A            USER          10A  O    +1
+     A                                    35
+     A                                      'Unsown Prefilled Trays'
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A                                    77
+     A                                      'Date:'
+     A            RUNDATE        6S 0O    +1
+     A                                      EDTCDE(Y)
+     A                                     1
+     A                                      'SOW035R'
+     A                                      SPACEB(001)
+     A  63                               +22
+     A                                      'Unconfirmed Transplantings Report'
+     A  62                                35
+     A                                      'Rooted Cuttings Report'
+     A  61                                36
+     A                                      'Unsown Recip. Report'
+     A                                    76
+     A                                      'Page:'
+     A                                    86
+     A                                      PAGNBR
+     A                                      EDTCDE(Z)
+     A                                     1
+     A                                      '                                  -
+     A                                                                         -
+     A                                      Seeds                '
+     A                                      HIGHLIGHT
+     A                                      SPACEB(002)
+     A                                     1
+     A                                      '  Sow       Ready                 -
+     A                                                                  Sow    -
+     A                                      Per                  '
+     A                                      SPACEB(001)
+     A                                      HIGHLIGHT
+     A                                     1
+     A                                      '  Date      Date   Size/Item   Des-
+     A                                      cription                    Factor -
+     A                                      Cell Trays    Seeds  '
+     A                                      SPACEB(001)
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CL 001
+     A*%%CL 002
+     A*%%CL 001
+     A*%%CL 001
+     A*%%NP
+     A*%%***********************************************************************
+     A          R CONTINUE
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 011
+     A*%%***********************************************************************
+     A                                      SKIPB(012)
+     A                                     1
+     A                                      'Continuation...'
+     A                                      SPACEB(001)
+     A                                    +2
+     A                                      'Line:'
+     A            LINE           1A  O    +1
+     A                                    35
+     A                                      'Unsown Prefilled Trays'
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A                                    +8
+     A                                      'Date:'
+     A            ASOFDATE       6S 0O    +1
+     A                                      EDTCDE(Y)
+     A                                    +4
+     A                                      'Page'
+     A            CUSTPAGE       3S 0O    +1
+     A                                      EDTCDE(Z)
+     A                                     1
+     A                                      '                                  -
+     A                                                                         -
+     A                                      Seeds                '
+     A                                      HIGHLIGHT
+     A                                      SPACEB(002)
+     A                                     1
+     A                                      '  Sow       Ready                 -
+     A                                                                  Sow    -
+     A                                      Per                  '
+     A                                      SPACEB(001)
+     A                                      HIGHLIGHT
+     A                                     1
+     A                                      '  Date      Date   Size/Item   Des-
+     A                                      cription                    Factor -
+     A                                      Cell Trays    Seeds  '
+     A                                      SPACEB(001)
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CL 002
+     A*%%CL 001
+     A*%%CL+001
+     A*%%CL                           Seeds
+     A*%%***********************************************************************
+      *
+     A          R DETAIL
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%***********************************************************************
+     A                                      SPACEB(001)
+     A            SOWDATE6       6S 0      1
+     A                                      EDTCDE(Y)
+     A            RDYDATE6       6S 0     +2
+     A                                      EDTCDE(Y)
+     A            SIZE      R             +2
+     A                                      REFFLD(RTRAYR/TRSIZE *LIBL/FTRAYR)
+     A            ITEM5          5A       +1
+     A            DESC01    R             +1
+     A                                      REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A            FACTOR         5S 3     +2
+     A                                      EDTWRD('  .   ')
+     A            SEED_CELL R             +2
+     A                                      REFFLD(RMINVT/IM#SED *LIBL/FMINVT)
+     A            TRAY_COUNT     4S 0     +2
+     A                                      EDTCDE(4)
+     A            SEED_NEED      7S 0     +2
+     A                                      EDTCDE(2)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%***********************************************************************
+     A          R NODATA
+     A*%%***********************************************************************
+     A*%%RI 00000
+     A*%%FS 046
+     A*%%***********************************************************************
+     A                                      SPACEB(047)
+     A                                    35
+     A                                      'No Unsown Trays Found'
+     A                                      SPACEB(001)
+     A*%%***********************************************************************
+     A*%%SS
+     A*%%CL 001
+     A*%%CP+999CRTPRTF
+     A*%%CP+    FILE(KUBEPAK400/SOW035P)
+     A*%%CP+    DEVTYPE(*SCS)
+     A*%%CP+    PAGESIZE(*N 096)
+     A*%%CP+    CPI(12)
+     A*%%CP+    PAGRTT(0)
+     A*%%CP+    REDUCE(*NONE)
+     A*%%CP+    FORMTYPE(*NAR)
+     A*%%CP     USRDTA('Not Sown')
+     A*%%***********************************************************************

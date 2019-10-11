@@ -1,0 +1,124 @@
+000100000000    H/COPY QFunctDefn,@CopyRight
+000200000000    H DftActGrp(*no)
+000300000000    H DatFmt(*usa)
+000400000000    H BndDir('*LIBL/KPFUNCTION')
+000500000000
+000600000000      *                                                              
+000700000000      *|                                                            |
+000800060222      *|            Fix Lot Inventory                               |
+000900000000      *|                                                            |
+001000000000
+001100000000      * :````````````````````````````````````````````````````````````:
+001200000000      * : Created:  February, 2006        Kube-Pak Corporation     :
+001300000000      * :      by:  William J. Behr                                  :
+001400000000      * :............................................................:
+001500000000      * :````````````````````````````````````````````````````````````:
+001600000000      * :  Program Description                                    :
+001900000000      * :............................................................:
+002000000000      *                                                              
+002100000000      * |  Subroutine Usage                                        |
+002200000000      * |                                                           |
+002300000000      * | *InzSr     - Must I explain this ?!?!?                   |
+002400000000      *|                                                            |
+002500000000      *                                                              
+002600000000      * |  Function Usage                                          |
+002700000000      * |                                                           |
+002800000000      * | $MDYDate   - Return MDY Date from Date Field             |
+002900000000      * | $Date      - Return Date field from Number               |
+003000000000      * | $User      - Return Current User I.D.                    |
+003100000000      * | $Now       - Return Current Time as Number               |
+003200000000      *|                                                            |
+003300000000      *                                                              
+003400000000      * |  Indicator Usage                                         |
+003500000000      * |                                                           |
+003600000000      * |  LR      Does this really need a description ?           |
+003700000000      *|                                                            |
+003800000000      *                                                              
+003900000000      * |  Edit Log                                                |
+004000000000      * |                                                           |
+004100000000      * |WJB10/14/05-Initial Programming                        |
+004200000000      * |   mm/dd/yy-                                           |
+004300000000      *|                                                            |
+004400000000
+004500060222     FFDLOTREADYUF   E           K DISK                                         Lot Master File
+004600060222     FFDLOTRDCLTIF   E           K DISK                                         Lot by Customer
+004800000000
+004900000000      * Function Prototypes
+005000000000    D/COPY QFunctDefn,$MDYDate
+005100000000    D/COPY QFunctDefn,$AddDate
+005200000000    D/COPY QFunctDefn,$Date7
+005300000000    D/COPY QFunctDefn,$Date
+005400000000    D/COPY QFunctDefn,$User
+005500000000    D/COPY QFunctDefn,$Now
+005600000000
+005700000000      * Field Definitions
+005701060222    D DftWHSE         S                   Like(LDWHSE) Inz(*Blanks)
+005702060222    D Tot_LRQTOH      S                   Like(LRQTOH)
+005703060222    D Tot_LRQTAL      S                   Like(LRQTAL)
+005704060222    D Tot_LRQTCM      S                   Like(LRQTCM)
+005705060222    D Tot_LRQTSL      S                   Like(LRQTSL)
+005706060222    D Tot_LRQADJ      S                   Like(LRQADJ)
+005707060222    D Tot_LRQTAV      S                   Like(LRQTAV)
+005900000000
+006000000000      * Indicators
+006300000000
+006400000000     *   ................................................
+006500000000     *   :   Main Calcs                                 :
+006600000000     *   :..............................................:
+006700000000
+006800000000      *   Process all Available Inventory Allocated to Customers
+006900060222    C     1060101       SetLL     FDLOTREADY
+007000060222    C                   Read      FDLOTREADY
+007100000000
+007200060222    C                   DoW       not %EOF(FDLOTREADY)
+007500060222      *   Check the Available on FDLOTRD
+007600060222    C     LotRDKey      SetLL     FDLOTRDCLT
+007601060222     C                   If        %Equal(FDLOTRDCLT)
+007700060222    C     LotRDKey      ReadE     FDLOTRDCLT
+007800060222    C                   DoW       not %EOF(FDLOTRDCLT)
+008100060222      *   Add Up all Buckets
+008101060222     C                   Eval      Tot_LRQTOH = Tot_LRQTOH + LRQTOH
+008102060222     C                   Eval      Tot_LRQTAL = Tot_LRQTAL + LRQTAL
+008103060222     C                   Eval      Tot_LRQTCM = Tot_LRQTCM + LRQTCM
+008104060222     C                   Eval      Tot_LRQTSL = Tot_LRQTSL + LRQTSL
+008105060222     C                   Eval      Tot_LRQADJ = Tot_LRQADJ + LRQADJ
+008106060222     C                   Eval      Tot_LRQTAV = Tot_LRQTAV + LRQTAV
+008900060222    C     LotRDKey      ReadE     FDLOTRDCLT
+009000000000    C                   EndDo
+009001060222     C                   Eval      LDQTAL = Tot_LRQTAL
+009002060222     C                   Eval      LDQTAV = Tot_LRQTAV
+010300000000    C                   Update    RDLOT
+010301060222     C                   Eval      Tot_LRQTOH = *Zero
+010302060222     C                   Eval      Tot_LRQTAL = *Zero
+010303060222     C                   Eval      Tot_LRQTCM = *Zero
+010304060222     C                   Eval      Tot_LRQTSL = *Zero
+010305060222     C                   Eval      Tot_LRQADJ = *Zero
+010306060222     C                   Eval      Tot_LRQTAV = *Zero
+010307060222     C                   EndIf
+010500000000
+010600060222    C                   Read      FDLOTREADY
+010700000000    C                   EndDo
+010800000000
+010900000000     C                   Eval      *InLr = *On
+011000000000
+011100000000
+011200000000     *   ................................................
+011300000000     *   :      *InzSr - Initialization Subroutine      :
+011400000000     *   :..............................................:
+011500000000
+011600000000     C     *InzSr        BegSr
+011700000000
+011800060222    C*    *Entry        PList
+011900060222    C*                  KFld                    LDITEM                         Item
+012000060222    C*                  KFld                    LDSIZE                         Size
+012100060222    C*                  KFld                    LDSOWD                         Sow Date
+012200060222    C*                  KFld                    LDCRDY                         Ready Date
+012300000000
+012301060222    C     LotRDKey      KList
+012302060222    C                   KFld                    LDITEM                         Item
+012303060222    C                   KFld                    LDSIZE                         Size
+012304060222    C                   KFld                    DftWHSE                        Default Location
+012305060222    C                   KFld                    LDSOWD                         Sow Date
+012306060222    C                   KFld                    LDCRDY                         Ready Date
+012307060222
+012600000000     C                   EndSr

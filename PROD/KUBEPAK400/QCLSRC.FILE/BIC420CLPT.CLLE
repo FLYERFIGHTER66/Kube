@@ -1,0 +1,18 @@
+             PGM        PARM(&ORDER@ &PRINTER)
+
+             DCL        VAR(&ORDER@)  TYPE(*CHAR) LEN(6)
+             DCL        VAR(&PRINTER) TYPE(*CHAR) LEN(10)
+
+             CHGDTAARA  DTAARA(*LDA (1 37)) +
+                          VALUE('01N000000000000############0000000000')
+             CHGDTAARA  DTAARA(*LDA (16 6)) VALUE(&ORDER@)
+             CHGDTAARA  DTAARA(*LDA (22 6)) VALUE(&ORDER@)
+
+             QSYS/OVRPRTF FILE(BIR421) TOFILE(*LIBL/QSYSPRT) +
+                          DEV(&PRINTER) PAGESIZE(66 80) LPI(6) +
+                          CPI(10) SPOOL(*YES) OUTQ(&PRINTER) +
+                          FORMTYPE(*NAR) COPIES(1) HOLD(*NO) SAVE(*NO)
+
+             CALL       PGM(BIR421)
+
+ END:        ENDPGM

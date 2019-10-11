@@ -1,0 +1,20 @@
+             PGM        PARM(&USRLAB@ &COPIES@)
+             DCL        VAR(&USRLAB@) TYPE(*char) LEN(8)
+             DCL        VAR(&COPIES@) TYPE(*CHAR) LEN(4)
+             DCL        VAR(&OUTQ) TYPE(*CHAR) LEN(10)
+
+             ADDLIBLE   LIB(TLABARCODE)
+             MONMSG     MSGID(CPF2103)
+
+             CALL       PGM(PRTUSRLAB) PARM(&USRLAB@)
+
+             RTVDTAARA  DTAARA(USRLABOUTQ (1 10)) RTNVAR(&OUTQ)
+
+             TLABARCODE/LBLBATCH LBLNAM('USRLAB') QTYOVR(&COPIES@) +
+                          OUTQ(&OUTQ) MRGFILE(USRLABPF) +
+                          MRGLIB(*LIBL) MRGMBR(USRLABPF)
+
+             RMVLIBLE   LIB(TLABARCODE)
+             MONMSG     MSGID(CPF2104)
+
+             ENDPGM

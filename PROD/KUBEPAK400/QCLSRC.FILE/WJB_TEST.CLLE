@@ -1,0 +1,10 @@
+             PGM
+
+             RUNSQL     REQUEST('Drop Table qtemp/FMCUST')
+             MONMSG     MSGID(SQL9010 QWM2701)
+
+             RUNSQL     REQUEST('CREATE TABLE QTEMP/FMCUST AS +
+                          (SELECT * FROM tgmsdata/fmcust except +
+                          SELECT * FROM testdata/fmcust ) with data')
+
+             ENDPGM

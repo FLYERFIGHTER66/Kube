@@ -1,0 +1,15 @@
+             PGM        PARM(&ITEMSIZE) /* Item or Item-Size */
+             DCL        VAR(&itemsize) TYPE(*CHAR) LEN(16)
+             DCL        VAR(&CMD) TYPE(*CHAR) LEN(256) +
+                          VALUE('"\\10.151.151.1\www\zendphp7\htdocs\+
+                          PICTURES\')
+
+             CHGVAR     VAR(&CMD) VALUE(&CMD *TCAT &ITEMSIZE *TCAT +
+                          '.jpg"')
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+             STRPCCMD   PCCMD(&CMD) PAUSE(*NO)
+
+             ENDPGM

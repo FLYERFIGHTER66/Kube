@@ -1,0 +1,428 @@
+000100060913     H/COPY QFunctDefn,@CopyRight                                               Copyright Info.
+000200000000     H DftActGrp(*No)
+000300000000     H BndDir('*LIBL/KPFUNCTION')                                               Use KP Functions
+000400000000     H DatFmt(*Usa)
+000500000000      *:````````````````````````````````````````````````````````````:
+000600000000      *:                     Ready Bay Check Out                    :
+000700000000      *:............................................................:
+000800000000      * :````````````````````````````````````````````````````````````:
+000900000000      * : Created:  April 2004            Kube-Pak Corporation     :
+001000000000      * :      by:  William J. Behr                                  :
+001100000000      * :............................................................:
+001200000000      * :````````````````````````````````````````````````````````````:
+001300000000      * :   Program Description                                     :
+001400000000      * : ```````````````````````                                   :
+001500000000      * :                                                           :
+001600000000      * :............................................................:
+001700000000      * :````````````````````````````````````````````````````````````:
+001800000000      * :  Subroutine Usage                                        :
+001900000000      * :                                                           :
+002000000000      * :  Scrn01   -Display Screen 01                             :
+002100000000      * :  Scrn02   -Display Screen 02                             :
+002200000000      * :  Scrn03   -Display Screen 03                             :
+002300000000      * :  Scrn04   -Display Screen 04                             :
+002400000000      * :  Scrn05   -Display Screen 05                             :
+002500000000      * :  Load01   -Load Screen 01                                :
+002600000000      * :  Load02   -Load Screen 02                                :
+002700000000      * :  Load03   -Load Screen 03                                :
+002900000000      * :  Load05   -Load Screen 05                                :
+003000000000      * :  Load06   -Load Screen 06                                :
+003100000000      * :  Load07   -Load Screen 07                                :
+003200000000      * :  Edit01   -EDIT Screen 01                                :
+003300000000      * :  Edit02   -EDIT Screen 02                                :
+003400000000      * :  Edit03   -EDIT Screen 03                                :
+003500000000      * :  Edit04   -EDIT Screen 04                                :
+003600000000      * :  Edit05   -EDIT Screen 05                                :
+003700000000      * :  Edit06   -EDIT Screen 06                                :
+003800000000      * :  Edit07   -EDIT Screen 07                                :
+003900000000      * :  ClrError -Clear Error MEssage Subfile                   :
+004000000000      * :  SndError -Send an Error Message to the PGMMSGQ          :
+004100000000      * :  SRMSGF   -Clear or send messages to Pgm msg queue       :
+004200000000      * :  *INZSR   -Initialization Subroutine                     :
+004300000000      * :............................................................:
+004400000000      * :````````````````````````````````````````````````````````````:
+004500000000      * :  Function Usage                                          :
+004600000000      * :                                                           :
+004700000000      * :  FUNCT  -FUNCT DESRIPTION HERE                           :
+004800000000      * :............................................................:
+004900000000      * :````````````````````````````````````````````````````````````:
+005000000000      * :  Indicator Usage                                         :
+005100000000      * :                                                           :
+005200000000      * :  01 - 24 Return Screen Functions                         :
+005300000000      * :  03      Exit                                            :
+005400000000      * :  06      Restart                                         :
+005500000000      * :                                                          :
+005600000000      * :  25      SFLDSP, SFLDSPCTL, SFLCLR(N)                    :
+005700000000      * :  26      SFLDSP (Subfile has Data)                       :
+005800000000      * :  27      SFLEND                                          :
+005900000000      * :  28      SFLNXTCHG                                       :
+006000000000      * :  40      Lookup Indicator                                :
+006100000000      * :  50      Error Indicator (All Errors)                    :
+006200000000      * :  70      Push Buttone Default 70 = Yes, N70 = No         :
+006300000000      * :  LR      Does this really need a description ?           :
+006400000000      * :............................................................:
+006500000000      * :````````````````````````````````````````````````````````````:
+006600000000      * :  Edit Log                                                :
+006700000000      * :                                                           :
+006800000000WJB   * :  WJB    - 5/11/04 - Added Logic to Update FMCUST         :
+006900000000WJB   * :  WJB    - 5/14/04 - Added Logic to write correct info    :
+007000000000WJB   * :                     to FALITEM. (Chain to FDLOTRD)       :
+007100000000      * :............................................................:
+007200051123     FFXG040FM  CF   E             WORKSTN
+007500000000     F                                     DEVID(WSID)
+007600051110WJB  FFMCARTS   IF   E           K DISK                                         Carts Master
+007700051123WJB  FFCARTDT   UF   E           K DISK                                         Cart Details
+007800051123WJB  FFTRAY     UF   E           K DISK                                         Tray File
+007900051123WJB  FFLOSSD    IF   E           K DISK                                         Loss Details
+008000000000
+008100000000      * Function Prototypes
+008200000000    D/COPY QFunctDefn,$Date
+008300000000    D/COPY QFunctDefn,$Date7
+008400000000    D/COPY QFunctDefn,$MDYDate
+008500000000    D/COPY QFunctDefn,$Monday
+008600000000    D/COPY QFunctDefn,$TimeStamp
+008700051109    D/COPY QFunctDefn,$AllocCart
+008800000000    D/COPY QFunctDefn,$PrintPick
+008900000000    D/COPY QFunctDefn,$DftPrt
+009000000000    D/COPY QFunctDefn,$User
+009100000000
+009200000000      * Field Definitions
+009800000000     D   x             S              4S 0 Inz(0)                               Array Counter
+010000000000     D   Today         S               D                                        Today
+010100000000     D   TodayMDY      S              6S 0 Inz(0)                               Today  ( MDY )
+010200000000     D   TodayYMD7     S              7S 0 Inz(0)                               Today  ( CYMD7 )
+010300000000     D   ThisMonday    S              6S 0 Inz(0)                               Monday ( MDY )
+010400000000     D   ThisMonCYMD   S              7S 0 Inz(0)                               Monday ( CYMD )
+011500051109     D   WrkLLOC       S                   Like(CMLLOC)                         Last Known Location
+011501051202     D   Cart#         S                   Like(CMCART)                         Last Known Location
+011600000000
+011700000000      * Indicators
+012200051109     D  UseLockedCart  S               N   Inz(*Off)                            Use Locked Carts
+012300051109     D  BadCartIsOK    S               N   Inz(*Off)                            OK to use bad cart
+012400000000
+012500000000      * Arrays
+012600000000     D   Res           S             15A   Dim(0003) CTDATA                     Reasons
+012700000000     D   RCD           S              3A   Dim(0003) CTDATA                     Reason Codes
+013200000000
+013300000000      * Data Structures
+013400000000     D                SDS
+013500000000     D  ##PGM            *PROC
+013600000000     D  User                 254    263
+013700000000
+014200000000     C     *INLR         DOUEQ     *ON                                          COMMENT
+014300000000
+014400000000    C                   SELECT                                                 
+014900000000    C     Screen        WhenEq    3                                            
+015000000000     C                   ExSr      Edit03                                       
+015300000000    C     Screen        WhenEq    5                                            
+015400000000     C                   ExSr      Edit05                                       
+015500000000    C     Screen        WhenEq    6                                            
+015600000000     C                   ExSr      Edit06                                       
+015700000000    C                   ENDSL                                                  
+015800000000
+015900000000     C                   ENDDO                                                  
+016000000000
+016100000000      *  ...........................................................
+016200000000      *  :      Scrn03 - Display Screen 03                         :
+016300000000      *  :.........................................................:
+016400000000    C     Scrn03        BegSr                                                  
+016500000000     C                   Z-Add     03            Screen            3 0          Screen  Number
+016600051109    C                   Write     ASSUME                                       
+016700051109    C                   Write     MSGCTL                                       
+016800051123    C                   ExFmt     FXG04003
+016900000000     C                   ExSr      ClrError                                     
+017000000000    C                   EndSr                                                  
+018300000000      *  ...........................................................
+018400000000      *  :      Scrn05 - Display Screen 05                         :
+018500000000      *  :.........................................................:
+018600000000    C     Scrn05        BegSr                                                  
+018700000000     C                   Z-Add     05            Screen            3 0          Screen  Number
+018800000000    C                   Write     MSGCTL                                       
+018900051123    C                   ExFmt     FXG04005                                     
+019000000000     C                   ExSr      ClrError                                     
+019100000000    C                   EndSr                                                  
+019200000000      *  ...........................................................
+019300000000      *  :      Scrn06 - Display Screen 06                         :
+019400000000      *  :.........................................................:
+019500000000    C     Scrn06        BegSr                                                  
+019600000000     C                   Z-Add     06            Screen            3 0          Screen  Number
+019700000000    C                   Write     MSGCTL                                       
+019800051123    C                   ExFmt     FXG04006                                     
+019900000000     C                   ExSr      ClrError                                     
+020000000000    C                   EndSr                                                  
+020100000000      *  ...........................................................
+020200000000      *  :      Load03 - Load Screen 03                            :
+020300000000      *  :.........................................................:
+020400000000    C     Load03        BegSr                                                  
+020500000000
+020700000000     C                   Eval      BadCartIsOK = *Off
+020800000000
+020900000000    C                   EndSr                                                  
+021600000000      *  ...........................................................
+021700000000      *  :      Load05 - Load Screen 05                            :
+021800000000      *  :.........................................................:
+021900000000    C     Load05        BegSr                                                  
+022000000000
+022200000000     C                   Eval      *In70 = *Off                                 Dft to "No"
+022300000000
+022400000000    C                   EndSr                                                  
+022500000000      *  ...........................................................
+022600000000      *  :      Load06 - Load Screen 06                            :
+022700000000      *  :.........................................................:
+022800000000    C     Load06        BegSr                                                  
+022900051123
+023000051123     C                   Eval      SORIG = *Zero
+023100051123     C                   Eval      SUSED = *Zero
+023200051123     C                   Eval      SFIXD = *Zero
+023201051206     C                   Eval      SPART = *Zero
+023202051206     C                   Eval      SOTHR = *Zero
+023300000000
+023400051123    C     Cart#         SetLL     FCARTDT
+023500051123    C     Cart#         ReadE     FCARTDT
+023600051123     C                   DoW       not %EOF(FCARTDT)
+023700051123     C                   Eval      SORIG = SORIG + 1
+023800051206    C     CDTAG#        Chain     FLOSSD
+023900051206     C                   If        %Found(FLOSSD)
+023901051206    C                   Select                                                 
+023902051206    C                   When      LDCODE = 'F'
+024000051123     C                   Eval      SUSED = SUSED + 1
+024001051206    C                   When      LDCODE = 'P'
+024002051206     C                   Eval      SPART = SPART + 1
+024003051206    C                   Other
+024200051206     C                   Eval      SOTHR = SOTHR + 1
+024201051206    C                   EndSl
+024202051206     C                   Else
+024203051206     C                   Eval      SFIXD = SFIXD + 1
+024204051206     C                   EndIf
+024400000000
+024500051123    C     Cart#         ReadE     FCARTDT
+024600051123     C                   EndDo
+024700051123
+024800000000    C                   EndSr                                                  
+024900000000      *  ...........................................................
+025000000000      *  :      Edit03 - EDIT Screen 03                            :
+025100000000      *  :.........................................................:
+025200000000    C     Edit03        BegSr                                                  
+025300000000
+025301051202     C                   Eval      Cart# = SCart#
+025400051110    C     Cart#         Chain     FMCARTS
+025500000000
+025600000000    C                   SELECT                                                 
+025700000000      * Check Functions
+025800000000      * - Exit
+025900000000    C                   When      *In03 = *ON                                  
+026000000000     C                   MOVE      *ON           *INLR                          
+026100051123      * - Bad Cart Found
+026200051123    C                   When      not %Found(FMCARTS)
+026300051109     C                   Eval      $#MSGD = %char(Cart#)                        Cart Number
+026400051123     C                   Eval      $#MSID = 'FXG0001'                           
+026500000000     C                   ExSr      SndError                                     
+026600051109     C                   ExSr      Scrn03
+026700051123      * - Cart is not allocated to fixing
+026800051123    C                   When          CMSTAT <> 'F'
+026900051109     C                   Eval      $#MSGD = %char(Cart#)
+027000051123     C                   Eval      %subst($#MSGD:9:15) =  'Fixing Process'        
+027100051123     C                   Eval      %subst($#MSGD:24:15) = 'Cart Check-out'        
+027200051123     C                   Eval      $#MSID = 'FXG0005'                           
+027300051109     C                   ExSr      SndError                                     
+027400051109     C                   ExSr      Scrn03
+027500000000      * Edit Fields
+027600000000
+027700051109      * If no Actions then Display Screen 04
+027800000000    C                   Other                                                  
+027900000000
+027901051206     C                   Call      'FXG062'
+027902051206
+028000051206     C                   ExSr      Load05                                       
+028100051206     C                   ExSr      Scrn05                                       
+028200000000    C                   ENDSL                                                  
+028300000000
+028400000000    C                   EndSr                                                  
+028500000000
+029200000000      *  ...........................................................
+029300000000      *  :      Edit05 - EDIT Screen 05                            :
+029400000000      *  :.........................................................:
+029500000000    C     Edit05        BegSr                                                  
+029600000000
+029700000000    C                   SELECT                                                 
+029800000000      * Check Functions
+029900000000    C                   When      *In06 = *ON                                  
+030000000000     C                   Eval      $#MSID = 'RBR0005'                           
+030100000000     C                   ExSr      SndError                                     
+030200000000     C                   ExSr      Load03                                       
+030300000000     C                   ExSr      Scrn03                                       
+030400000000
+030500000000    C                   When          SMORES <> 1
+030600000000     C                             and SMORES <> 2
+030700000000     C                             and SMORES <> 3
+030800000000     C                   Eval      $#MSID = 'RBR0002'                           
+030900000000     C                   ExSr      SndError                                     
+031000000000     C                   ExSr      Scrn05                                       
+031100000000
+031200000000    C                   When         SMORES = 1                                1=Yes
+031201051206    C                             or SMORES = 3                                1=Yes
+031301051206     C                   Call      'FXG062'
+031303051206     C                   ExSr      Load05                                       
+031304051206     C                   ExSr      Scrn05                                       
+031600000000
+031700000000    C                   When      SMORES = 2                                   2=No
+031800000000     C                   ExSr      Load06                                       
+031900000000     C                   ExSr      Scrn06                                       
+032000000000
+032100000000    C                   Other                                                  
+032200000000     C                   ExSr      Scrn05                                       
+032300000000    C                   ENDSL                                                  
+032400000000
+032500000000    C                   EndSr                                                  
+032600000000      *  ...........................................................
+032700000000      *  :      Edit06 - EDIT Screen 06                            :
+032800000000      *  :.........................................................:
+032900000000    C     Edit06        BegSr                                                  
+033000000000
+033100000000    C                   SELECT                                                 
+033200000000      * Check Functions
+033300000000    C                   When      *In06 = *ON                                  
+033400000000     C                   Eval      $#MSID = 'RBR0005'                           
+033500000000     C                   ExSr      SndError                                     
+033600000000     C                   ExSr      Load03                                       
+033700000000     C                   ExSr      Scrn03                                       
+033800000000
+033900000000    C                   When          Complete <> 1                            1=Yes
+034000000000     C                             and Complete <> 2                            2=No
+034100000000     C                             and Complete <> 3                            3=Yes
+034200000000     C                   Eval      $#MSID = 'RBR0002'                           
+034300000000     C                   ExSr      SndError                                     
+034400000000     C                   ExSr      Scrn06                                       
+034500000000
+034600000000    C                   When         Complete = 1
+034601051206    C                             or Complete = 3
+034800051123     C                   Eval      WrkLLOC = 'Fixing Complete'
+034900051123     C                   ExSr      ReleaseCart
+035000051123     C*                  ExSr      Clr_CARTDT                                   
+035100000000     C                   ExSr      Load03                                       
+035200000000     C                   ExSr      Scrn03                                       
+035300000000
+035400000000    C                   When      Complete = 2
+035401051206     C                   Call      'FXG062'
+035402051206     C                   ExSr      Load05                                       
+035403051206     C                   ExSr      Scrn05                                       
+035700000000
+035800000000    C                   Other                                                  
+035900000000     C                   ExSr      Scrn06                                       
+036000000000    C                   ENDSL                                                  
+036100000000
+036200000000    C                   EndSr                                                  
+036300000000      *  ...........................................................
+036400000000      *  :      ClrError - Clear Error MEssage Subfile             :
+036500000000      *  :.........................................................:
+036600000000    C     ClrError      BegSr                                                  
+036700000000
+036800000000     C                   MOVE      'C'           $#MSFN            1            
+036900000000     C                   ExSr      SRMSGF                                       
+037100000000     C                   Eval      *In50 = *Off                                 Error Indicator
+037200000000
+037300000000    C                   EndSr                                                  
+037400000000      *  ...........................................................
+037500000000      *  :      SndError - Send an Error Message to the PGMMSGQ    :
+037600000000      *  :.........................................................:
+037700000000    C     SndError      BegSr                                                  
+037800000000
+037900000000     C                   MOVE      'S'           $#MSFN            1            
+038000000000     C                   ExSr      SRMSGF                                       
+038200000000     C                   Eval      *In50 = *On                                  Error Indicator
+038300000000
+038400000000    C                   EndSr                                                  
+038500000000
+038600000000      *  ...........................................................
+038700000000      *  :      SRMSGF - Clear or send messages to Pgm msg queue   :
+038800000000      *  :.........................................................:
+038900000000    C     SRMSGF        BegSr                                                  
+039000000000
+039100000000      * Define Parameter List - define variables         
+039200000000
+039300000000     C     PLMSGF        PLIST                                                  
+039400000000     C                   Parm                    $#PGMQ           10            Pgm Msg Queue
+039500000000     C                   Parm                    $#MSGF           10            Message File
+039600000000     C                   Parm                    $#MSGL           10            Library
+039700000000     C                   Parm                    $#MSID            7            Message Id
+039800000000     C                   Parm                    $#MSGD          100            Message Data
+039900000000     C                   Parm                    $#MSKY            4            Message Key
+040000000000     C                   Parm                    $#MSFN            1            Send or Clear
+040100000000
+040200000000      * Call Msg processing CL                           
+040300000000
+040400000000     C                   CALL      'XAMSFC'      PLMSGF                         
+040500000000
+040600000000    C                   EndSr                                                  
+040700000000
+040800000000      *  ...........................................................
+040900051109      *  :      AllocCart - Allocate the cart to checkin           :
+041000000000      *  :.........................................................:
+041100051109    C     AllocCart     BegSr                                                  
+041200000000
+041300051109     C                   Eval      CMTIME =                                     Allocate Cart
+041400051109     C                             $AllocCart(Cart#:'F':WrkLLOC:##PGM)
+041500051109
+041600051109    C                   EndSr                                                  
+041700051109
+041800051109      *  ...........................................................
+041900051109      *  :      ReleaseCart - Release Cart Checkin Cancelled       :
+042000051109      *  :.........................................................:
+042100051109    C     ReleaseCart   BegSr                                                  
+042200051109
+042300051109     C                   Eval      CMTIME =                                     Allocate Cart
+042400051109     C                             $AllocCart(Cart#:'A':WrkLLOC:##PGM)
+042500051109
+042600051109    C                   EndSr                                                  
+042700051123
+042800051123
+042900000000      *  ...........................................................
+043000051123      *  :      Clr_CARTDT - Write Fixed Data to FTRAY and Clear   :
+043100000000      *  :.........................................................:
+043200000000    C     Clr_CARTDT    BegSr                                                  
+043300000000
+043400051123    C     Cart#         SetLL     FCARTDT
+043500051123    C     Cart#         ReadE     FCARTDT
+043600051123     C                   DoW       not %EOF(FCARTDT)
+043700051123    C     CDTAG#        Chain     FTRAY
+043800051123     C                   If        %Found(FTRAY)
+043900051123     C                   Eval      TRCNTD = 'F'
+044000051123    C                   Update    RTRAY
+044100051123     C                   EndIf
+044200051123
+044300051123    C                   Delete    RCARTDT
+044400051123    C     Cart#         ReadE     FCARTDT
+044500051123     C                   EndDo
+044600000000
+044700000000    C                   EndSr                                                  
+044800000000
+044900000000
+045000000000      *  ...........................................................
+045100000000      *  :      *INZSR - Initialization Subroutine                 :
+045200000000      *  :.........................................................:
+045300000000    C     *INZSR        BegSr                                                  
+045400000000
+045500000000     C                   MOVE      ##PGM         $#PGMQ                         PGM MSG QUEUE
+045600000000     C                   MOVEL     'KPMSGF'      $#MSGF                         MSG FILE N/A
+045700000000     C                   MOVEL     '*LIBL'       $#MSGL                         LIBRARY  N/A
+045800000000     C                   MOVE      '*******'     $#MSID                         MESSAGE ID
+045900000000
+046000000000     C                   Eval      Today = $Date(0)                             Today MDY
+046100000000     C                   Eval      TodayMDY = $MDYDate(Today)                   Today MDY
+046200000000     C                   Eval      TodayYMD7 = $Date7(Today)                    Today CYMD7
+046300000000     C                   Eval      ThisMonday = $MDYDate($Monday(Today:'SAT'))  Monday MDY
+046400000000     C                   Eval      ThisMonCYMD = $Date7($Monday(Today:'SAT'))   Monday CYMD
+046500000000
+046600000000     C                   ExSr      Load03                                       
+046700051110     C                   ExSr      ClrError                                     
+046800000000     C                   ExSr      Scrn03                                       
+046900000000
+047000000000    C                   EndSr                                                  
+047100000000**  +....|....+<<<<< RES 15A Dim(3)
+047200000000 Fixing Losses
+047300000000  Trays Dumped
+047400000000Trays Destroyed
+047500000000**  +....|....+<<<<< RCD 1A Dim(3)
+047600000000FIX  Fixing Losses
+047700000000DMP  Trays Dumped
+047800000000BAD  Trays Destroyed

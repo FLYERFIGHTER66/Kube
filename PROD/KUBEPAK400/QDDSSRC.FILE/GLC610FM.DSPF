@@ -1,0 +1,257 @@
+     A*%%TS  SD  20050407  081127  BILLB       REL-V5R2M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  20050407  081127  BILLB       REL-V5R2M0  5722-WDS
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A                                  1  2'GLC610 '
+     A                                  1 27' Year End Preliminary Close '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  7 25'Printer ID:'
+     A            LPRTR         10A  B  7 47CHECK(FE)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                  8 25'Forms Number:'
+     A            LFORM         10A  B  8 47CHECK(FE)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.     Press Reset')
+     A                                  9 25'Number of Copies:'
+     A            LCOPY          2Y 0B  9 55
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                 10 25'Print Status:'
+     A            VOUT           1Y 0B 10 56
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A                                      CHECK(RB)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 10 60'1 = Print'
+     A                                 11 60'2 = Print/Save'
+     A                                 12 60'3 = Hold'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                               F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                 14 28'! ! ! W A R N I N G ! ! !'
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A                                 16 13'PRESSING ENTER ON THIS SCREEN WILL-
+     A                                       START THE SOFT CLOSE'
+     A                                      COLOR(RED)
+     A          R HELP
+     A*%%TS  SD  19990803  200050  TGMS        REL-V4R2M0  5769-PW1
+     A                                  1  3' G/L Year End Preliminary Close   -
+     A                                                                      Ove-
+     A                                      rview   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  3  3' After you have closed the month i-
+     A                                      n all of the other EFD applications-
+     A                                       that   '
+     A                                      DSPATR(HI)
+     A                                  4  3' you are running, you can run the -
+     A                                      general ledger preliminary close (s-
+     A                                      oft     '
+     A                                      DSPATR(HI)
+     A                                  5  3' close).                          -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  6  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3' The preliminary close:           -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  3'     1. Validates that all current-
+     A                                       year entries are posted in g/l.  I-
+     A                                      f there '
+     A                                      DSPATR(HI)
+     A                                 10  3'        are any unposted entries, -
+     A                                      you will get a message and a report-
+     A                                      .  You  '
+     A                                      DSPATR(HI)
+     A                                 11  3'        must run post g/l balances-
+     A                                       again.                            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3'     2. Copies your current year g-
+     A                                      /l files to year end files allowing-
+     A                                       you    '
+     A                                      DSPATR(HI)
+     A                                 13  3'        to enter your year end ent-
+     A                                      ries on the Final Close Menu.      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3'     3. Copies the current year ba-
+     A                                      lances to prior year for balance sh-
+     A                                      eet     '
+     A                                      DSPATR(HI)
+     A                                 15  3'        accounts and zeros out the-
+     A                                       current year balances.            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  19990804  061021  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A                                  1  2'GLC610 '
+     A                                  1 27' Year End Preliminary Close '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                               F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  8 15' There are unposted entries in the-
+     A                                       g/l detail file. '
+     A                                      DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 11  8' Go back to g/l monthly processing-
+     A                                       and run #3 - Post G/L Balances.'
+     A                                      DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 14  8' After the post is run, you can ru-
+     A                                      n the Preliminary Close again. '
+     A                                      DSPATR(HI)
+     A                                      COLOR(RED)
+     A          R SCRNE
+     A*%%TS  SD  20000120  170356  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'GLC610E'
+     A                                  1 27' Year End Preliminary Close '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                               F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  8 13' The Soft Close for This Company h-
+     A                                      as already been Run. '
+     A                                      DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 11  6' Either run the Hard Close for pre-
+     A                                      vious year or work with last Year. '
+     A                                      DSPATR(HI)
+     A                                      COLOR(RED)

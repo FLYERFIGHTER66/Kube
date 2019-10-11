@@ -1,0 +1,601 @@
+     A* Free Form Menu: APM040
+     A*%%TS  SD  20091216  102907  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+0001 A* FREE  FORM MENU
+     A          R APM040
+     A*%%TS  SD  19990727  082034  TGMS        REL-V4R2M0  5769-PW1
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF03
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'COMMAND'
+     A* CMDPROMPT  Do not delete this DDS spec.
+     A                                019  2'Ready for option number or command-
+     A                                          '
+     A                                  2 27' EFD A/P Monthly Processing '
+     A                                      DSPATR(RI)
+     A                                  4  7'Monthly Reports'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  5  2'1. - Disbursements Journal'
+     A                                 15  1'10. - A/P Month End'
+     A                                  6  2'2. - Expense Distribution'
+     A                                 12 45'17. - Reconciled Check Report'
+     A                                 13 45'18. - Outstanding Check Report'
+     A                                  7  2'3. - Vendor Analysis'
+     A                                  8  2'4. - Open Payables by Vendor'
+     A                                  9  2'5. - Vendor Aging'
+     A                                 15 36'Selections'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                 16 30'20. - A/P Menu'
+     A                                 10 51'Reconcile Checks'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                 11 45'16. - Reconcile Checks'
+     A                                 17 30'23. - Master Menu'
+     A                                 14  6' ** IMPORTANT ** '
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                 10  2'6. - Transfer to General Ledger'
+     A                                 11  2'7. - Summary Month End'
+     A                                  2  2USER
+     A                                  1 35'MENU: APM040'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 16'Help'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                  4 51'Inquiries'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                  5 45'12. - Payables By Vendor'
+     A                                  6 45'13. - Cash Requirements/Due Date'
+     A                                  7 45'14. - Company Summary Balance'
+     A                                  8 45'15. - Vendor Payment History'
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                 18 30'90. - Sign Off'
+     A                                 14 45'19. - Purge Reconciled Checks'
+     A                                 12  2'8. - Use Tax Report'
+     A          R #H0101
+     A*%%TS  SD  19990421  082516  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 01')
+     A                                      CLRL(*ALL)
+     A                                  4  2'The Accounts Payable Monthly Cash -
+     A                                      Disbursements prints a report showi-
+     A                                      ng the   '
+     A                                      DSPATR(HI)
+     A                                  5  2'detail information for accounts pa-
+     A                                      yable checks for a selected period.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2'Information printed includes: chec-
+     A                                      k number, check date, vendor number-
+     A                                       and     '
+     A                                      DSPATR(HI)
+     A                                  8  2'name, check source, gross amount, -
+     A                                      discount amount and net amount of c-
+     A                                      heck.    '
+     A                                      DSPATR(HI)
+     A                                  9  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'You can choose to print only compu-
+     A                                      ter generated checks (regular), onl-
+     A                                      y manual '
+     A                                      DSPATR(HI)
+     A                                 11  2'checks or both.                   -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'You can also select checks for a s-
+     A                                      pecific accounting period, or check-
+     A                                      s for    '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'a specific date range.            -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'This report prints on 8-1/2" x 11"-
+     A                                       stock computer paper.             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                    Roll - or - Pr-
+     A                                      ess Enter to Return                -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  2  2' Monthly Cash Disbursements       -
+     A                                                                    Overv-
+     A                                      iew      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0202
+     A*%%TS  SD  19990421  082516  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 02')
+     A                                      CLRL(*ALL)
+     A                                  4  2'The Accounts Payable Monthly Expen-
+     A                                      se Distribution prints a report sho-
+     A                                      wing     '
+     A                                      DSPATR(HI)
+     A                                  5  2'detail information for accounts pa-
+     A                                      yable vouchers for a selected accou-
+     A                                      nting    '
+     A                                      DSPATR(HI)
+     A                                  6  2'period.  The report groups the vou-
+     A                                      chers by the general ledger number -
+     A                                      to       '
+     A                                      DSPATR(HI)
+     A                                  7  2'which they will be posted.        -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2'You select the company and account-
+     A                                      ing period to be included in the re-
+     A                                      port.    '
+     A                                      DSPATR(HI)
+     A                                 11  2'The report includes: the general l-
+     A                                      edger number and description, accou-
+     A                                      nting    '
+     A                                      DSPATR(HI)
+     A                                 13  2'number and name and the amount of -
+     A                                      the distribution.                  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'period date, voucher number, invoi-
+     A                                      ce number, voucher description, ven-
+     A                                      dor      '
+     A                                      DSPATR(HI)
+     A                                 15  2'Totals are given for each general -
+     A                                      ledger number.                     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  2'This report prints on 8-1/2" x 11"-
+     A                                       stock computer paper.             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  2  2' Monthly Expense Distribution     -
+     A                                                                     Over-
+     A                                      view     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                     Roll - or - P-
+     A                                      ress Enter to Return               -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0303
+     A*%%TS  SD  19990421  082516  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 03')
+     A                                      CLRL(*ALL)
+     A                                  4  2'The Vendor Analysis prints a repor-
+     A                                      t showing the vendor number, vendor-
+     A                                       name,   '
+     A                                      DSPATR(HI)
+     A                                  6  2'year. The total discounts taken an-
+     A                                      d lost for both fiscal years are to-
+     A                                      taled.   '
+     A                                      DSPATR(HI)
+     A                                  8  2'You select:  The date to print on -
+     A                                      the report                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2'             Include all vendors --
+     A                                       or only vendors with activity - or-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                          only vendors with no activity  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'This report prints on 8-1/2" x 11"-
+     A                                       stock computer paper.             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2'             The report sequence --
+     A                                       either vendor number or vendor alp-
+     A                                      ha       '
+     A                                      DSPATR(HI)
+     A                                 13  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'             A specific vendor typ-
+     A                                      e - optionally                     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  5  2'total purchases and payments for b-
+     A                                      oth this fiscal year and the previo-
+     A                                      us fiscal'
+     A                                      DSPATR(HI)
+     A                                  7  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                     Roll - or - P-
+     A                                      ress Enter to Return               -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2' Vendor Analysis Report           -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0404
+     A*%%TS  SD  19990421  082516  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 04')
+     A                                      CLRL(*ALL)
+     A                                  4  2'The Accounts Payable Monthly Open -
+     A                                      Payables prints a report showing al-
+     A                                      l the    '
+     A                                      DSPATR(HI)
+     A                                  5  2'line items for a vendor that have -
+     A                                      an amount still owing as of the dat-
+     A                                      e of     '
+     A                                      DSPATR(HI)
+     A                                  6  2'the report.  Vouchers and payments-
+     A                                       with an accounting period date lat-
+     A                                      er than  '
+     A                                      DSPATR(HI)
+     A                                  7  2'the report date will not be printe-
+     A                                      d on the report.                   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2'You select the sequence in which t-
+     A                                      he report should print - either by -
+     A                                      vendor   '
+     A                                      DSPATR(HI)
+     A                                 12  2'The report includes: the vendor nu-
+     A                                      mber and name, payable description,-
+     A                                       voucher '
+     A                                      DSPATR(HI)
+     A                                 14  2'discount available, discount taken-
+     A                                      , amount paid through report date, -
+     A                                      and net  '
+     A                                      DSPATR(HI)
+     A                                 13  2'number, invoice number, invoice da-
+     A                                      te, invoice due date, invoice amoun-
+     A                                      t,       '
+     A                                      DSPATR(HI)
+     A                                 17  2'Totals are given for each vendor a-
+     A                                      nd for the company.                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'number or alphabetically by vendor-
+     A                                       alpha search.                     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'amount due.                       -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  2'                  Roll - or - Pres-
+     A                                      s Enter to Return                  -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2' Monthly Open Payables Report     -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R #H0606
+     A*%%TS  SD  19990421  082516  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 06')
+     A                                      CLRL(*ALL)
+     A                                  4  2'This option transfer all of the ac-
+     A                                      counts payable transactions to gene-
+     A                                      ral      '
+     A                                      DSPATR(HI)
+     A                                  7  2'                      * vouchers  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'This can be run at any time.      -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  5  2'ledger that have not been previous-
+     A                                      ly transferred. Transactions includ-
+     A                                      e:       '
+     A                                      DSPATR(HI)
+     A                                  8  2'                      * payments  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  2'                      * voided pro-
+     A                                      cessed checks                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'                      * deleted op-
+     A                                      en payables                        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'No report is printed.             -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  2'                     Roll - or - P-
+     A                                      ress Enter to Return               -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2' Transfer to General Ledger       -
+     A                                                                     Over-
+     A                                      view     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H1717
+     A*%%TS  SD  19990421  082516  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 17')
+     A                                      CLRL(*ALL)
+     A                                  4  2'The Reconciled Check Report prints-
+     A                                       a report showing all the accounts -
+     A                                      payable  '
+     A                                      DSPATR(HI)
+     A                                  5  2'checks that have been reconciled o-
+     A                                      n a particular bank statment.  You -
+     A                                      are      '
+     A                                      DSPATR(HI)
+     A                                  6  2'prompted to enter the date of the -
+     A                                      bank statement.                    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'Information printed includes: chec-
+     A                                      k number, check date, vendor number-
+     A                                       and     '
+     A                                      DSPATR(HI)
+     A                                  9  2'name, the date of reconciliation a-
+     A                                      nd the amount of the check.        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2'This report prints on 8-1/2" x 11"-
+     A                                       stock computer paper.             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'                   Roll - or - Pre-
+     A                                      ss Enter to Return                 -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2' Reconciled Check Report          -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H1818
+     A*%%TS  SD  19990421  082516  AP          REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 18')
+     A                                      CLRL(*ALL)
+     A                                  4  2'The Outstanding Check Register pri-
+     A                                      nts a report showing all accounts p-
+     A                                      ayable   '
+     A                                      DSPATR(HI)
+     A                                  5  2'checks that have not been reconcil-
+     A                                      ed and whose check date is equal to-
+     A                                       or      '
+     A                                      DSPATR(HI)
+     A                                  6  2'prior to the report date.         -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'Information printed includes: chec-
+     A                                      k number, check date, vendor number-
+     A                                       and     '
+     A                                      DSPATR(HI)
+     A                                  9  2'name, and amount of check.        -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  2'This report prints on 8-1/2" x 11"-
+     A                                       stock computer paper.             -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'                   Roll - or - Pre-
+     A                                      ss Enter to Return                 -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2' Outstanding Check Register       -
+     A                                                                     Over-
+     A                                      view     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H1919
+     A*%%TS  SD  19990715  071830  TGMS        REL-V4R2M0  5769-PW1
+     A                                      TEXT('Help for Menu Option 19')
+     A                                      CLRL(*ALL)
+     A                                  4  2'After you have reconciled your a/p-
+     A                                       checks and printed the reconciled -
+     A                                      check    '
+     A                                      DSPATR(HI)
+     A                                  5  2'report and have validated that eve-
+     A                                      rything is correct, you should purg-
+     A                                      e your   '
+     A                                      DSPATR(HI)
+     A                                  6  2'old reconciled check records.     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  2'You will be prompted to enter a da-
+     A                                      te.  All checks with a date equal o-
+     A                                      r prior  '
+     A                                      DSPATR(HI)
+     A                                  9  2'to the date entered, that have bee-
+     A                                      n reconciled, will be deleted from -
+     A                                      the      '
+     A                                      DSPATR(HI)
+     A                                 10  2'system.                           -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  2'No report is printed.             -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  2'                            Press -
+     A                                      Enter to Return                    -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  2' Purge Reconciled Checks          -
+     A                                                                      Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)

@@ -1,0 +1,214 @@
+     A*%%TS  SD  20020206  180919  EFD         REL-V4R4M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF06
+     A                                      CF03
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20020206  113909  EFD         REL-V4R4M0  5769-PW1
+     A                                  1  2'DILSOHA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 21' Shipped Order History by Item Inq-
+     A                                      uiry '
+     A                                      DSPATR(RI)
+     A                                  7 22'Item Number?'
+     A            ITEM          12   B  7 35
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.     Press RESET')
+     A                                  9 22'Size?'
+     A            SIZE           3   B  9 35DSPATR(CS)
+     A                                 12 22'Location?'
+     A            LOCAT          3   B 12 35
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invalid Location Entere-
+     A                                      d.     Press RESET')
+     A                                 22 16'Enter to Process       F6=Restart -
+     A                                            F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 21 16'                                  -
+     A                                                      '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNB
+     A*%%TS  SD  20020206  180919  EFD         REL-V4R4M0  5769-PW1
+     A                                  1  2'DILSOHB'
+     A                                  1 23' Item Shipped Order History Inquir-
+     A                                      y '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A                                  3 13'Item:'
+     A            ITEM          12A  O  3 19
+     A                                  3 32'Size:'
+     A            SIZE           3A  O  3 38
+     A            IMDES1        30A  O  3 42
+     A                                  4 13'Location:'
+     A            LOCAT          3A  O  4 23
+     A            WHDESC        30A  O  4 27
+     A                                  5 69'Quantity'
+     A                                  6 56'On-Hand:'
+     A            ONHAND         6Y 0O  6 70EDTCDE(J)
+     A                                  5 16'Cost'
+     A                                  5 43'Price'
+     A                                  7 56'Cust. Order:'
+     A            ALLOC          6Y 0O  7 70EDTCDE(J)
+     A                                      DSPATR(UL)
+     A                                  6  2'N.S.U.:'
+     A            NSUCST         9Y 4O  6 11EDTCDE(1)
+     A                                  6 28'Regular:'
+     A            SELPRC         9Y 4O  6 39EDTCDE(1)
+     A                                  8 56'Available:'
+     A            AVAIL          6Y 0O  8 70EDTCDE(J)
+     A                                  7  2'Average:'
+     A            IMUCST         9Y 4O  7 11EDTCDE(1)
+     A                                  7 28'Stand.Ord:'
+     A            STOPRC         9Y 4O  7 39EDTCDE(1)
+     A                                  9 56'On P.O.:'
+     A            ONPO           6Y 0O  9 70EDTCDE(J)
+     A                                      DSPATR(UL)
+     A                                 10 56'Total Avail.:'
+     A            AVALPO         6Y 0O 10 70EDTCDE(J)
+     A            YEARC          4S 0O  9 17
+     A            YEARL          4S 0O  9 27
+     A            YEAR2          4S 0O  9 37
+     A            YEAR3          4S 0O  9 47
+     A                                 10  2'January:'
+     A            YRC1           6Y 0B 10 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL1           6Y 0B 10 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR21           6Y 0B 10 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR31           6Y 0B 10 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 11  2'February:'
+     A            YRC2           6Y 0B 11 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL2           6Y 0B 11 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR22           6Y 0B 11 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR32           6Y 0B 11 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 12  2'March:'
+     A            YRC3           6Y 0B 12 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL3           6Y 0B 12 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR23           6Y 0B 12 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR33           6Y 0B 12 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 13  2'April:'
+     A            YRC4           6Y 0B 13 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL4           6Y 0B 13 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR24           6Y 0B 13 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR34           6Y 0B 13 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 14  2'May:'
+     A            YRC5           6Y 0B 14 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL5           6Y 0B 14 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR25           6Y 0B 14 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR35           6Y 0B 14 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 15  2'June:'
+     A            YRC6           6Y 0B 15 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL6           6Y 0B 15 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR26           6Y 0B 15 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR36           6Y 0B 15 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 16  2'July:'
+     A            YRC7           6Y 0B 16 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL7           6Y 0B 16 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR27           6Y 0B 16 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR37           6Y 0B 16 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 17  2'August:'
+     A            YRC8           6Y 0B 17 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL8           6Y 0B 17 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR28           6Y 0B 17 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR38           6Y 0B 17 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 18  2'September:'
+     A            YRC9           6Y 0B 18 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL9           6Y 0B 18 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR29           6Y 0B 18 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR39           6Y 0B 18 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 19  2'October:'
+     A            YRC10          6Y 0B 19 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL10          6Y 0B 19 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR210          6Y 0B 19 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR310          6Y 0B 19 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 20  2'November:'
+     A            YRC11          6Y 0B 20 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRL11          6Y 0B 20 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR211          6Y 0B 20 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR311          6Y 0B 20 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 21  2'December:'
+     A            YRC12          6Y 0B 21 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(UL)
+     A            YRL12          6Y 0B 21 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(UL)
+     A            YR212          6Y 0B 21 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(UL)
+     A            YR312          6Y 0B 21 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                      DSPATR(UL)
+     A                                  4 59'UOM:'
+     A            IMPUOM         2A  O  4 64
+     A                                 22  2'Total:'
+     A            YRCTOT         6Y 0B 22 14DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YRLTOT         6Y 0B 22 24DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR2TOT         6Y 0B 22 34DSPATR(PR)
+     A                                      EDTCDE(K)
+     A            YR3TOT         6Y 0B 22 44DSPATR(PR)
+     A                                      EDTCDE(K)
+     A                                 24 28'F6=New Item    F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 28'                         '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)

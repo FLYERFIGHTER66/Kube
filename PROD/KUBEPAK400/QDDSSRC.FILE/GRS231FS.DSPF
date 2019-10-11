@@ -1,0 +1,163 @@
+     A*%%TS  SD  20070312  100745  BILLB       REL-V5R3M0  5722-WDS
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  19990125  141543  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      CF04
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1 27' Weekly Availability Update '
+     A                                      DSPATR(RI)
+     A                                  7  6'Enter Monday Date:'
+     A            FRMDAT         6Y 0B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                  7 36'or Year ex. 1998:'
+     A            BEGYY          4Y 0B  7 54
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  7 59'and Week Number:'
+     A            BEGWW          2Y 0B  7 76
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 19 15' Verify Data if OK Press Enter, El-
+     A                                      se Make Changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  1  2'GRS231A'
+     A            DES           30   O  3 26DSPATR(RI)
+     A          R AVLSFL                    SFL
+     A*%%TS  SD  20070312  100745  BILLB       REL-V5R3M0  5722-WDS
+     A            LRITEM    R        H      REFFLD(RDLOTRD/LRITEM *LIBL/FDLOTRD)
+     A            LRSIZE    R        H      REFFLD(RDLOTRD/LRSIZE *LIBL/FDLOTRD)
+     A            LRSOWD    R        H      REFFLD(RDLOTRD/LRSOWD *LIBL/FDLOTRD)
+     A            LRCRDY    R        H      REFFLD(RDLOTRD/LRCRDY *LIBL/FDLOTRD)
+     A            LRGLOC    R        H      REFFLD(RDLOTRD/LRGLOC *LIBL/FDLOTRD)
+     A            LRCLOC    R        H      REFFLD(RDLOTRD/LRCLOC *LIBL/FDLOTRD)
+     A            LRCODE    R        H      REFFLD(RDLOTRD/LRCODE *LIBL/FDLOTRD)
+     A            LRCUST    R        H      REFFLD(RDLOTRD/LRCUST *LIBL/FDLOTRD)
+      *
+     A            LDITEM    R        H      REFFLD(RDLOT/LDITEM *LIBL/FDLOT)
+     A            LDSIZE    R        H      REFFLD(RDLOT/LDSIZE *LIBL/FDLOT)
+     A            LDWHSE    R        H      REFFLD(RDLOT/LDWHSE *LIBL/FDLOT)
+     A            LDSOWD    R        H      REFFLD(RDLOT/LDSOWD *LIBL/FDLOT)
+     A            LDGLOC    R        H      REFFLD(RDLOT/LDGLOC *LIBL/FDLOT)
+     A            VITEM         12A  B  8  6
+     A  10N18                               DSPATR(RI)
+     A N18                                  DSPATR(CS)
+     A  10N18                               DSPATR(PC)
+     A  18                                  DSPATR(ND)
+     A  15
+     AO 18                                  DSPATR(PR)
+     A            VSIZE          3A  B  8  2
+     A  10N18                               DSPATR(RI)
+     A N18                                  DSPATR(CS)
+     A  18                                  DSPATR(ND)
+     A  15
+     AO 18                                  DSPATR(PR)
+     A            IMDES1        30A  O  8 19
+     A            QTYOH          7Y 0B  8 61EDTCDE(M)
+     A                                      DSPATR(PR)
+     A N18                                  DSPATR(UL)
+     A            NEWQTY         9Y 0B  8 70EDTCDE(M)
+     A N18                                  DSPATR(CS)
+     A  18                                  DSPATR(ND)
+     A  19                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A            OLDLOT         1A  H
+     A            QTYAL          7Y 0B  8 50EDTCDE(M)
+     A                                      DSPATR(PR)
+     A N18                                  DSPATR(UL)
+     A          R AVLCTL                    SFLCTL(AVLSFL)
+     A*%%TS  SD  20010119  130354  EFD         REL-V3R7M0  5716-PW1
+     A  *DS3                                SFLSIZ(1500)
+     A  *DS4                                SFLSIZ(0500)
+     A  *DS3                                SFLPAG(0017)
+     A  *DS4                                SFLPAG(0001)
+     A                                      CF06
+     A                                      CF23
+     A  98                                  CF01
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  11                                  SFLMSG('*** Invalid Item/Size Enter-
+     A                                      ed.         Press RESET')
+     A                                  1  2'GRS231SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 24' Weekly Availability Update for: '
+     A            FRMDAT         6Y 0B  2 28EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A            BEGYY          4Y 0B  2 44DSPATR(PR)
+     A            BEGWW          2Y 0B  2 62DSPATR(PR)
+     A                                  2 22'Date:'
+     A                                  2 38'Year:'
+     A                                  2 49'Week Number:'
+     A                                  7  1'Size? Item?         Description   -
+     A                                                     Allocated  Current  -
+     A                                      Adjustment'
+     A                                      DSPATR(UL)
+     A                                  6 62'On-Hand Quantity'
+     A                                  4  2'Enter to Verify           F6=Resta-
+     A                                      rt(NO Update)           F23=Zero En-
+     A                                      tire Week'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  5 27' Data OK F1 to Update Lots '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  6  2' F23 to confirm Zero or F6 to Rest-
+     A                                      art '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                  5 64' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  6 51'Qty.'
+     A            DES           30A  O  3 26DSPATR(RI)

@@ -1,0 +1,979 @@
+     A* Free Form Menu: ARM030
+     A*%%TS  SD  20041101  133403  BILLB       REL-V5R2M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+0001 A* FREE  FORM MENU
+     A          R ARM030
+     A*%%TS  SD  20041101  133403  BILLB       REL-V5R2M0  5722-WDS
+     A                                      DSPMOD(*DS3)
+     A                                      PRINT
+     A                                      INVITE
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                      ALWROL
+     A                                      CF03
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                  1  2'COMMAND'
+     A* CMDPROMPT  Do not delete this DDS spec.
+     A                                019  2'Ready for option number or command-
+     A                                          '
+     A                                  2 26' Monthly Accounts Receivable '
+     A                                      DSPATR(RI)
+     A                                  4 10'Processing'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(HI)
+     A                                  4 55'Journals'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(HI)
+     A                                  5  5'1. -'
+     A                                  5 49'11. - Invoice'
+     A                                  7  5'3. - A/R Paid Item Removal'
+     A                                  6 49'12. - Credit Memo'
+     A                                  8  5'4. - Statements'
+     A                                  7 49'13. - Cash'
+     A                                  9  5'5. - Salesperson Commission'
+     A                                  8 49'14. - Sales'
+     A                                 10  5'6. - Transfer to G/L'
+     A                                  9 49'15. - Late Charges'
+     A                                 10 49'16. - Taxes by Jurisdiction'
+     A                                 12 10'Aging Reports'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(HI)
+     A                                 11 49'17. - Summary Month End'
+     A                                 13  5'7. - Customer Detail'
+     A                                 14  5'8. - Customer Summary'
+     A                                 14 55'Selections'
+     A                                      DSPATR(UL)
+     A                                      COLOR(TRQ)
+     A                                      DSPATR(HI)
+     A                                 15  5'9. - Salesperson Detail'
+     A                                 15 49'20. - A/R Menu'
+     A                                 16  4'10. - Salesperson Summary'
+     A                                 16 49'23. - Master Menu'
+     A                                  1 35'MENU: ARM030'
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  2 73TIME
+     A                                  1 67'Date:'
+     A                                  2 67'Time:'
+     A                                  6  5'2. -'
+     A                                  2  2USER
+     A                                  5 10'Print Late Charge Edit Report '
+     A                                      COLOR(BLU)
+     A                                  6 10'Create Late Charges           '
+     A                                      COLOR(BLU)
+     A          R #H0101
+     A*%%TS  SD  20000131  061958  TGMS        REL-V4R4M0  5769-PW1
+     A                                      TEXT('Help for Menu Option 01 - Lat-
+     A                                      e Charge Edit Report')
+     A                                      CLRL(*ALL)
+     A                                  3  3' This selection will calculate lat-
+     A                                      e charges for customers that are co-
+     A                                      ded     '
+     A                                      DSPATR(HI)
+     A                                  4  3' to be charged late charges.  A re-
+     A                                      port will print listing these custo-
+     A                                      mers,   '
+     A                                      DSPATR(HI)
+     A                                 10  3' 2.  A customer is coded as Y (Yes-
+     A                                      ) to apply late charges in their cu-
+     A                                      stomer  '
+     A                                      DSPATR(HI)
+     A                                 11  3'     master record.               -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' 3.  The customer has an a/r balan-
+     A                                      ce that is overdue equal or more th-
+     A                                      an the  '
+     A                                      DSPATR(HI)
+     A                                 16  3' charge code prior to creating the-
+     A                                       late charge charge.               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'     number of days defined in the-
+     A                                       a/r control file.                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3' After printing and reviewing this-
+     A                                       report, you can change a customers-
+     A                                       late   '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 1. - Print Late Charg-
+     A                                      e Edit Report                 Overv-
+     A                                      iew     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5  3' their total a/r amount, the amoun-
+     A                                      t overdue and the calculated late c-
+     A                                      harge   '
+     A                                      DSPATR(HI)
+     A                                  6  3' amount.  NO RECORDS ARE CREATED. -
+     A                                       THIS ONLY PRINTS THE EDIT REPORT. -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  3' Late charges are calculated based-
+     A                                       on:                               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  3' 1.  Company is coded as Y to char-
+     A                                      ge late charges in the a/r control -
+     A                                      file.   '
+     A                                      DSPATR(HI)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' After reviewing report, run #2, w-
+     A                                      hich will create the late charge re-
+     A                                      cords.  '
+     A                                      DSPATR(HI)
+     A          R #H0202
+     A*%%TS  SD  20000131  061958  TGMS        REL-V4R4M0  5769-PW1
+     A                                      TEXT('Help for Menu Option 02 - Cre-
+     A                                      ate Late Charges')
+     A                                      CLRL(*ALL)
+     A                                  3  3' This selection will calculate lat-
+     A                                      e charges for customers that are co-
+     A                                      ded     '
+     A                                      DSPATR(HI)
+     A                                  4  3' to be charged late charges.  Late-
+     A                                       Charge records will be created and-
+     A                                       added  '
+     A                                      DSPATR(HI)
+     A                                 13  3' 2.  A customer is coded as Y (Yes-
+     A                                      ) to apply late charges in their cu-
+     A                                      stomer  '
+     A                                      DSPATR(HI)
+     A                                 14  3'     master record.               -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3' 3.  The customer has an a/r balan-
+     A                                      ce that is overdue equal or more th-
+     A                                      an the  '
+     A                                      DSPATR(HI)
+     A                                 16  3'     number of days defined in the-
+     A                                       a/r control file.                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 2. - Create Late Char-
+     A                                      ges                           Overv-
+     A                                      iew     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5  3' to the customers open accounts re-
+     A                                      ceivable file.                     -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3' Late charges are calculated based-
+     A                                       on:                               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' 1.  Company is coded as Y to char-
+     A                                      ge late charges in the a/r control -
+     A                                      file.   '
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  6  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3' The reference number for the late-
+     A                                       charge record will be the "As Of D-
+     A                                      ate"    '
+     A                                      DSPATR(HI)
+     A                                  8  3' as entered when creating late cha-
+     A                                      rges.  Each record will have a suff-
+     A                                      ix of   '
+     A                                      DSPATR(HI)
+     A                                  9  3' "LC".                            -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' A report prints as an audit of al-
+     A                                      l of the late charges added to a/r.-
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R #H0303
+     A*%%TS  SD  20000131  064634  TGMS        REL-V4R4M0  5769-PW1
+     A                                      TEXT('Help for Menu Option 03 - Pai-
+     A                                      d Item Removal')
+     A                                      CLRL(*ALL)
+     A                                  3  3' This selection deletes A/R transa-
+     A                                      ctions: invoices, credit memos, lat-
+     A                                      e        '
+     A                                      DSPATR(HI)
+     A                                  4  3' charges, payments and adjustments-
+     A                                       that zero balance from the Open A/-
+     A                                      R file.  '
+     A                                      DSPATR(HI)
+     A                                  5  3' All transactions coded with the s-
+     A                                      ame reference number and suffix mus-
+     A                                      t equal  '
+     A                                      DSPATR(HI)
+     A                                  6  3' zero when added together for the -
+     A                                      transactions to be deleted.        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  3' For example:  Invoice # =     123-
+     A                                      45      Amount = $100.00           -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  3'               Payment # =     123-
+     A                                      45      Amount = $ 50.00CR         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  3'               Adjustment # =  123-
+     A                                      45      Amount = $ 50.00CR         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  3' These will be deleted - the total-
+     A                                       for 12345 equals zero.            -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  3'               Invoice # =     678-
+     A                                      90      Amount = $100.00           -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  3'               Payment # =     678-
+     A                                      90      Amount = $ 50.00CR         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 3. - Paid Item Remova-
+     A                                      l                                 O-
+     A                                      verview  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 17  3' These will not be deleted - the t-
+     A                                      otal for 67890 is not zero.        -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  3'                        Roll or Pr-
+     A                                      ess Enter to Return                -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0404
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 04 State-
+     A                                      ments')
+     A                                      CLRL(*ALL)
+     A                                  3  3' Accounts Receivable statements pr-
+     A                                      int a summary of each customers acc-
+     A                                      ount     '
+     A                                      DSPATR(HI)
+     A                                  4  3' as of a specific date.  Statement-
+     A                                      s are a useful tool for collection -
+     A                                      of the   '
+     A                                      DSPATR(HI)
+     A                                  5  3' monies due your company.         -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  3' A/R provides a variety of methods-
+     A                                       for producing statements:         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  3'    1. Each customer can be coded -
+     A                                      as to whether or not they receive a-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  3'       statement.  If Statement Co-
+     A                                      de in the Customer Master File is  -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  3'       coded 0, no statement will -
+     A                                      print for this customer.           -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  3'    2. You can run statements for -
+     A                                      a single customer number, or a     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  3'       range of customer numbers. -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 15  3'    3. Statements can be printed a-
+     A                                      t different times during the month -
+     A                                      based    '
+     A                                      DSPATR(HI)
+     A                                  6  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 4. - A/R Statements  -
+     A                                                                        O-
+     A                                      verview  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'       on cycle codes.  You can co-
+     A                                      de a customer for a specific statem-
+     A                                      ent      '
+     A                                      DSPATR(HI)
+     A                                 17  3'       cycle.                     -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 19  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0505
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 05 Sales-
+     A                                      person Commission')
+     A                                      CLRL(*ALL)
+     A                                  3  3'     The Salesperson Commission Re-
+     A                                      port prints a detail list of all th-
+     A                                      e        '
+     A                                      DSPATR(HI)
+     A                                  4  3'     invoices for each customer fo-
+     A                                      r each salesperson.  The report sho-
+     A                                      ws       '
+     A                                      DSPATR(HI)
+     A                                  5  3'     the salesperson name, custome-
+     A                                      r name, invoice number and date, th-
+     A                                      e        '
+     A                                      DSPATR(HI)
+     A                                  6  3'     commissionable amount for eac-
+     A                                      h line item on the invoice, the cos-
+     A                                      t        '
+     A                                      DSPATR(HI)
+     A                                  7  3'     of that line item, the commis-
+     A                                      sion percent and the calculated    -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  3'     commission amount.           -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  3'     There is no prompt screen for-
+     A                                       this option.                      -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 5. - Salesperson Comm-
+     A                                      ission Report                     O-
+     A                                      verview  '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                 12  3'                        Roll or Pr-
+     A                                      ess Enter to Return                -
+     A                                               '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A          R #H0606
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 06 Trans-
+     A                                      fer to G/L')
+     A                                      CLRL(*ALL)
+     A                                  3  3' All unposted entries from both th-
+     A                                      e billing and cash receipts applica-
+     A                                      tions    '
+     A                                      DSPATR(HI)
+     A                                  4  3' will be transferred to general le-
+     A                                      dger.                              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6  3' The Daily Order Post procedure tr-
+     A                                      ansfers unposted transactions to ge-
+     A                                      neral    '
+     A                                      DSPATR(HI)
+     A                                  5  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  3' ledger.  However, if any cash rec-
+     A                                      eipts or summary a/r entries have b-
+     A                                      een      '
+     A                                      DSPATR(HI)
+     A                                  8  3' entered since the last Daily Orde-
+     A                                      r Post, you should run this option.-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  3' This can be run at any time, but -
+     A                                      should definitely be included in yo-
+     A                                      ur month '
+     A                                      DSPATR(HI)
+     A                                 11  3' end process if you run general le-
+     A                                      dger on the system.                -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 6. - Transfer to Gene-
+     A                                      ral Ledger                         -
+     A                                      Overview '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R #H0707
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 07 Detai-
+     A                                      l Aging By Customer')
+     A                                      CLRL(*ALL)
+     A                                  3  3' The Detail Aging by Customer Repo-
+     A                                      rt is an itemized list of all the o-
+     A                                      pen      '
+     A                                      DSPATR(HI)
+     A                                  4  3' accounts receivable transactions -
+     A                                      in customer alpha sequence.  It sho-
+     A                                      ws       '
+     A                                      DSPATR(HI)
+     A                                  5  3' the total amount due as well as s-
+     A                                      eparate amounts and totals for each-
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6  3' user defined aging period.  The c-
+     A                                      ustomer name, telephone number, con-
+     A                                      tact     '
+     A                                      DSPATR(HI)
+     A                                  7  3' name and credit limit are all pri-
+     A                                      nted.                              -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  3' The report gives totals for each -
+     A                                      customer and final totals for the r-
+     A                                      eport.   '
+     A                                      DSPATR(HI)
+     A                                  8  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 11  3' You can print this report as ofte-
+     A                                      n as needed and it will be as curre-
+     A                                      nt as    '
+     A                                      DSPATR(HI)
+     A                                 12  3' the last time you posted invoices-
+     A                                       and/or entered cash receipts.     -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 7. - Detail Aging By -
+     A                                      Customer                       Over-
+     A                                      view     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                        Roll or Pr-
+     A                                      ess Enter to Return                -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H0808
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 08 Summa-
+     A                                      ry Aging By Customer')
+     A                                      CLRL(*ALL)
+     A                                  3  3' The Summary Aging by Customer rep-
+     A                                      ort is a one line summary of how mu-
+     A                                      ch       '
+     A                                      DSPATR(HI)
+     A                                  4  3' each customer owes you.  The info-
+     A                                      rmation includes: customer name, cr-
+     A                                      edit     '
+     A                                      DSPATR(HI)
+     A                                  5  3' limit, summary amounts for each u-
+     A                                      ser defined aging period and total -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  6  3' amount due.                      -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  8  3' The report gives totals for each -
+     A                                      aging period for the company select-
+     A                                      ed.      '
+     A                                      DSPATR(HI)
+     A                                 10  3' You can print this report as ofte-
+     A                                      n as needed and it will be as curre-
+     A                                      nt as    '
+     A                                      DSPATR(HI)
+     A                                 11  3' the last time you posted invoices-
+     A                                       or entered cash receipts.         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  7  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  9  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 8. - Summary Aging By-
+     A                                       Customer                       Ove-
+     A                                      rview    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  3'                        Roll or Pr-
+     A                                      ess Enter to Return                -
+     A                                               '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A          R #H0909
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 09 Detai-
+     A                                      l Aging By Salesperso')
+     A                                      CLRL(*ALL)
+     A                                  3  3' The Detail Aging by Salesperson r-
+     A                                      eport shows the same information as-
+     A                                       the '
+     A                                      DSPATR(HI)
+     A                                  4  3' Customer Detail Aging Report.    -
+     A                                                                         -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                  5  3'                                  -
+     A                                                                         -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                  6  3' The difference is that the report-
+     A                                       is sequenced by customer within   -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                  7  3' salesperson.  Totals are given fo-
+     A                                      r each customer and salesperson.   -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                  8  3'                                  -
+     A                                                                         -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                  9  3' The report skips to a new page fo-
+     A                                      r each new salesperson.            -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                           '
+     A                                      DSPATR(HI)
+     A                                 11  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1  3' Menu Option 9. - Detail Aging By -
+     A                                      Salesperson                    Over-
+     A                                      view   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                           '
+     A                                      DSPATR(HI)
+     A          R #H1010
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 10 Summa-
+     A                                      ry Aging By Salespers')
+     A                                      CLRL(*ALL)
+     A                                  3  3' The Summary Aging by Salesperson -
+     A                                      report shows the same information a-
+     A                                      s the   '
+     A                                      DSPATR(HI)
+     A                                  4  3' Customer Summary Aging Report.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  5  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  6  3' The difference is that the report-
+     A                                       is sequenced by customer within   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3' salesperson.  Totals are given fo-
+     A                                      r each salesperson.                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  3' The report skips to a new page fo-
+     A                                      r each new salesperson.            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  1  3' Menu Option 10. - Summary Aging b-
+     A                                      y Salesperson                  Over-
+     A                                      view    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H1115
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Options 11 - 15-
+     A                                       Monthly Journals')
+     A                                      CLRL(*ALL)
+     A                                  3  3' The Monthly Journals print a deta-
+     A                                      iled list of all the transactions f-
+     A                                      or a   '
+     A                                      DSPATR(HI)
+     A                                  4  3' specified accounting period for e-
+     A                                      ach specific transation type.      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                  6  3'       Option 10. - Prints a summa-
+     A                                      ry list of all the invoices printed-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                  7  3'       Option 11. - Prints a summa-
+     A                                      ry list of all credit memos printed-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                  8  3'       Option 12. - Prints a list -
+     A                                      of all cash receipts.              -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  3'       Option 13. - Prints a detai-
+     A                                      led list of all line items billed. -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3'       Option 14. - Prints a list -
+     A                                      of all the late charges.           -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  5  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  1  3' Monthly A/R Journals             -
+     A                                                                     Over-
+     A                                      view    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' While they are called monthly jou-
+     A                                      rnals, they can be run at any time.-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R #H1616
+     A*%%TS  SD  19990603  081424  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 16')
+     A                                      CLRL(*ALL)
+     A                                  1  3' Menu Option 16. - Taxes By Tax Ju-
+     A                                      risdiction                       Ov-
+     A                                      erview  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  3  3'  This selection prints a list of -
+     A                                      all State, County and Municipal Tax-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  4  3'  data for each Tax Jurisdiction. -
+     A                                       The report is sequences by tax    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  5  3'  jurisdiction.   The information -
+     A                                      included on the report is: tax code-
+     A                                      ,       '
+     A                                      DSPATR(HI)
+     A                                  6  3'  jurisdiction description, gross -
+     A                                      sales for the month, total nontaxab-
+     A                                      le      '
+     A                                      DSPATR(HI)
+     A                                  7  3'  sales for the month, total taxab-
+     A                                      le sales for the month, tax rates  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  3'  and the total tax due for state,-
+     A                                       county and municipality taxes with-
+     A                                      in      '
+     A                                      DSPATR(HI)
+     A                                  9  3'  each jurisdiction.              -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'  You are prompted to enter the mo-
+     A                                      nth and the year whose tax data sho-
+     A                                      uld     '
+     A                                      DSPATR(HI)
+     A                                 12  3'  be included on the report.      -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R #H1717
+     A*%%TS  SD  19990531  082126  APGL        REL-V3R1M0  5763-PW1
+     A                                      TEXT('Help for Menu Option 17')
+     A                                      CLRL(*ALL)
+     A                                  1  2'HELP'
+     A                                      COLOR(BLU)
+     A                                  1 10' Help for Menu Option 16:  Monthly-
+     A                                        Closing '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  7' The monthly closing procedures in-
+     A                                      clude the closing of the '
+     A                                  5  7' Distribution Applications (Billin-
+     A                                      g, Inventory, Accounts '
+     A                                  6  6'  Receivable, Sales Analysis)  and-
+     A                                       the deletion of shipped '
+     A                                  7  7' orders.  '
+     A          R #H1818
+     A*%%TS  SD  20000128  074145  ADV         REL-V4R4M0  5769-PW1
+     A                                      TEXT('Help for Menu Option 01')
+     A                                      CLRL(*ALL)
+     A                                  3  3' This selection will calculate and-
+     A                                       apply late charges as set up in th-
+     A                                      e       '
+     A                                      DSPATR(HI)
+     A                                  4  3' A/R Control File for all customer-
+     A                                      s that are coded to receive late ch-
+     A                                      arges.  '
+     A                                      DSPATR(HI)
+     A                                  9  3' It is recommended that you run an-
+     A                                       edit list prior to creating the la-
+     A                                      te      '
+     A                                      DSPATR(HI)
+     A                                 10  3' charge records. The edit list all-
+     A                                      ows you to validate what customers -
+     A                                      are     '
+     A                                      DSPATR(HI)
+     A                                 11  3' going to be charged late charges -
+     A                                      and make any corrections prior to t-
+     A                                      he      '
+     A                                      DSPATR(HI)
+     A                                 12  3' late charges being posted to the -
+     A                                      customers account.                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3' Late charges should be created pr-
+     A                                      ior to printing customer statements-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                 16  3' Late charges are added to the ope-
+     A                                      n accounts receivable file.  The re-
+     A                                      ference '
+     A                                      DSPATR(HI)
+     A                                 17  3' number is the date entered as the-
+     A                                       As Of Date with a suffix of LC.   -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  2  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  1  3' Menu Option 1. - Print Late Charg-
+     A                                      e Edit Report                 Overv-
+     A                                      iew     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  5  3' With this option you can:  Print -
+     A                                      an edit list of the late charges th-
+     A                                      at      '
+     A                                      DSPATR(HI)
+     A                                  6  3'                            will b-
+     A                                      e charged to a customer            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3'              - or -        Create-
+     A                                       the late charge record            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                       Roll or Pre-
+     A                                      ss Enter to Return                 -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)

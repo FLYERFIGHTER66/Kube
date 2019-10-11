@@ -1,0 +1,82 @@
+     A*%%TS  SD  20020111  152914  JEFF        REL-V4R4M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF04
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20020111  152914  JEFF        REL-V4R4M0  5769-PW1
+     A                                  1  2'VAL400FM'
+     A                                  1 28' Value400 Report Selection '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 73TIME
+     A            USDEPT         3A  O  3 24DSPATR(HI)
+     A            DEDESC        30A  O  3 28DSPATR(HI)
+     A                                  5  3'Enter Location:'
+     A                                      DSPATR(HI)
+     A            VWHSE          3A  B  5 19
+     A  71                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  71                                  DSPATR(PC)
+     A  71                                  ERRMSG('*** Invalid Department.  Mu-
+     A                                      st be "D", "L", or "S".  Press RESE-
+     A                                      T')
+     A                                  8 13' Enter LOW and HIGH Group Numbers -
+     A                                      to print Group Values: '
+     A                                      DSPATR(HI)
+     A                                 10 17'Low Group No:'
+     A                                      DSPATR(HI)
+     A            VGRP1          4Y 0B 10 32
+     A  72                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  19                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  72                                  ERRMSG('Enter either Group #s or "X-
+     A                                      ".     ** PRESS RESET**')
+     A                                      CHECK(RZ)
+     A                                 10 45'High Group No:'
+     A                                      DSPATR(HI)
+     A            VGRP2          4Y 0B 10 61
+     A  73                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  73                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  73                                  ERRMSG('High Grp No. must be EQ or -
+     A                                      GT Low Grp No.**Reset**')
+     A                                      CHECK(RZ)
+     A                                 12  8'--OR--'
+     A                                      DSPATR(HI)
+     A            VEOM           1A  B 14 14
+     A  74                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  74                                  DSPATR(PC)
+     A  74                                  ERRMSG('*** Must be Blank or "X".  -
+     A                                      Press Reset ****         Press RESE-
+     A                                      T')
+     A                                 14 17'<- Enter "X" here to print the VAL-
+     A                                      UE400 books for all'
+     A                                      DSPATR(HI)
+     A                                 15 20'three Supply branches as they prin-
+     A                                      t at end of month'
+     A                                      DSPATR(HI)
+     A                                 21 16'Validate Data - Change or Press En-
+     A                                      ter to Accept'
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 23  2'            Enter to Process      -
+     A                                                  F3/F7 End of Job       -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 16 20'(prints groups 0100-9989 and 9990--
+     A                                      9998 Rotoscrub).'
+     A                                      DSPATR(HI)

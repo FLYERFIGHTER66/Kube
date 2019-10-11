@@ -1,0 +1,146 @@
+     A*%%TS  SD  20060807  104332  BILLB       REL-V5R3M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R FXG04003
+     A*%%TS  SD  20051202  123845  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Confirm Customer Information')
+     A                                      CF03(03 'Exit')
+     A                                      CF01(01 'Create New Cart Record')
+     A                                      CF02(02 'Use Allocated Cart')
+     A                                      OVERLAY
+     A                                  1  2'FXG04003'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  1 26'  Cart Check-out from Fixing  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 26'Scan the Cart Number:'
+     A            SCART#         5Y 0B  9 49EDTCDE(4)
+     A                                      CHECK(ER)
+     A                                 20  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 22 10'=Continue'
+     A                                      COLOR(BLU)
+     A                                 22 72'F3'
+     A                                      DSPATR(HI)
+     A                                 22 75'=Exit'
+     A                                      COLOR(BLU)
+     A          R FXG04005
+     A*%%TS  SD  20051202  123108  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Scan more items ?')
+     A                                      CF06(06 'Restart')
+     A                                      CF02
+     A                                      OVERLAY
+     A                                  1  2'FXG04005'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  1 26'   Cart Check-in to Fixing    '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  9 33'Scan more items?'
+     A            SMORES         2Y 0B 11 35PSHBTNFLD
+     A  70                                  PSHBTNCHC(1 '>YES')
+     A                                      PSHBTNCHC(2 '>NO')
+     A N70                                  PSHBTNCHC(3 '>YES')
+     A                                 21  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 54'       '
+     A                                  3 35'Cart'
+     A            SCART#         5Y 0O  3 41EDTCDE(4)
+     A          R FXG04006
+     A*%%TS  SD  20060807  104332  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Order Complete ?')
+     A                                      CF06(06 'Restart')
+     A                                      OVERLAY
+     A                                  1  2'FXG04006'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A                                  1 26'  Cart Check-out from Fixing  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  6 31'CART CHECKOUT SUMMARY'
+     A                                      DSPATR(HI)
+     A            SFIXD          4Y 0O 11 25EDTCDE(3)
+     A                                 11 31'Flat(s) Fixed  '
+     A                                 13 33'Is this Correct?'
+     A            COMPLETE       2Y 0B 14 33PSHBTNFLD
+     A  70                                  PSHBTNCHC(1 '>YES')
+     A                                      PSHBTNCHC(2 '>NO')
+     A N70                                  PSHBTNCHC(3 '>YES')
+     A                                 17 25'Ensure that the Flats Fixed count'
+     A                                      COLOR(PNK)
+     A                                 18 25'matches the number of fixed trays'
+     A                                      COLOR(PNK)
+     A                                 21  1'                                  -
+     A                                                                         -
+     A                                                 '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 23 54'       '
+     A                                 19 35'on the cart.'
+     A                                      COLOR(PNK)
+     A            SORIG          4Y 0O  7 25EDTCDE(3)
+     A                                  7 31'Flat(s) counted total      '
+     A            SUSED          4Y 0O 10 25EDTCDE(3)
+     A                                      DSPATR(UL)
+     A                                 10 31'Flat(s) used for Fixing    '
+     A                                      DSPATR(UL)
+     A                                 10 23'-'
+     A                                  3 35'Cart'
+     A            SCART#         5Y 0O  3 41EDTCDE(4)
+     A                                  8 23'-'
+     A            SPART          4Y 0O  8 25EDTCDE(3)
+     A                                  8 31'Partial Flat(s) Used to Fix'
+     A                                  9 23'-'
+     A            SOTHR          4Y 0O  9 25EDTCDE(3)
+     A                                  9 31'Other Misc. Losses'
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20040406  091800  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME '

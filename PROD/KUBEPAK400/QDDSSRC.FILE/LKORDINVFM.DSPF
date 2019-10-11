@@ -1,0 +1,125 @@
+     A*? Program        : WSORDINVFM
+     A*?
+     A*? Description    : This Display file used for Invoice by Order Number
+     A*?
+     A*? Created By     : S.Uthayadurga
+     A*?
+     A*? Date           : 18 June 2019
+     A**********************************************************************
+     A*?                :---------------:
+     A*?                : Modifications :
+     A*?                :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*****************************************************************
+     A*? Indicator Area
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A*****************************************************************
+     A*? Subfile Display Part
+     A          R ORDINVS01                 SFL
+     A*
+     A  17                                  SFLNXTCHG
+     A*
+     A            S01TYPE        6A  H
+     A            S01RRN         4S 0H
+     A            S01OPT         1Y 0B  5  3EDTCDE(Z)
+     A  18                                  DSPATR(RI)
+     A  19                                  DSPATR(PC)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A            S01INV#        6Y 0O  5  7EDTCDE(Z)
+     A            S01NAME       30A  O  5 16
+     A            S01INDT        6Y 0O  5 48
+     A                                      EDTWRD('  /  / 0')
+     A            S01AMT        11Y 2O  5 58EDTCDE(K)
+     A
+     A            S01POS         1A  O  5 75
+     A*****************************************************************
+     A*? Subfile Control Part
+     A          R ORDINVC01                 SFLCTL(ORDINVS01)
+     A*
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0017)
+     A*
+     A                                      CF03(03 'Exit')
+     A                                      CF11(11 'Detail')
+     A                                      OVERLAY
+     A*
+     A                                      SFLCSRRRN(&H01CSRRRN)
+     A  13                                  SFLDSP
+     A  14                                  SFLDSPCTL
+     A  15                                  SFLCLR
+     A  16                                  SFLEND(*MORE)
+     A*
+     A            S01RRN         4S 0H      SFLRCDNBR(CURSOR)
+     A            H01CSRRRN      5S 0H
+     A*
+     A            C01PGM        10A  O  1  2COLOR(BLU)
+     A                                  1 27'Invoice Inquiry by Order Number'
+     A                                      COLOR(WHT)
+     A                                  1 61'ORDINVS01'
+     A                                      COLOR(BLU)
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A            C01SYS        10A  O  2  2COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  3  2'Option: 1=Select'
+     A                                      COLOR(BLU)
+     A                                  3 24'Order#:'
+     A            ORDER#         6S 0O  3 32COLOR(PNK)
+     A                                  3 40'Bill To:'
+     A            BILLTO        30A  O  3 49COLOR(PNK)
+     A*
+     A                                  4  2'Opt'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4  7'Invoice'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 16'ShipTo                        '
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 48'Inv Date'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 58'Invoice Amount'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A                                  4 75'POS'
+     A                                      COLOR(WHT)
+     A                                      DSPATR(UL)
+     A*****************************************************************
+     A*? Subfile Footer Part
+     A          R ORDINVF01
+     A                                 23  2'F3=Exit  F11= On Line for Detail'
+     A                                      COLOR(BLU)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGRCD                    SFL
+     A                                      SFLMSGRCD(24)
+     A            MSGQ                      SFLMSGKEY
+     A            PGMQ                      SFLPGMQ(10)
+     A*****************************************************************
+     A*? Message Subfile Display Part
+     A          R MSGCTL                    SFLCTL(MSGRCD)
+     A*
+     A                                      HELP
+     A                                      OVERLAY
+     A*
+     A                                      SFLDSP
+     A                                      SFLDSPCTL
+     A                                      SFLINZ
+     A N03                                  SFLEND
+     A*
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            PGMQ                      SFLPGMQ(10)

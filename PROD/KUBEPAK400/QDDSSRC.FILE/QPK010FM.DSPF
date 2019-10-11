@@ -1,0 +1,107 @@
+     A*%%TS  SD  19990622  152134  TGMS        REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19990622  152134  TGMS        REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF13
+     A                                      HOME
+     A                                      HELP
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 31' Freight Zone File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6  2'Action:'
+     A            VACT           1X  B  6 11
+     A N50                                  DSPATR(CS)
+     A  26                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  26                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.     Press Reset')
+     A                                  6 27'Freight Zone?'
+     A            VZONE          1   B  6 51
+     A  19                                  DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  19                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  20                                  ERRMSG('*** Freight Zone Is Require-
+     A                                      d.     Press Reset')
+     A  21                                  ERRMSG('*** Record Is Already On Fi-
+     A                                      le.    Press Reset')
+     A  22                                  ERRMSG('*** Record Is Not On File. -
+     A                                          Press Reset')
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  8 27'Description:'
+     A N50                                  DSPATR(ND)
+     A            FUDESC        20A  B  8 46
+     A  50N23                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50
+     AO 23                                  DSPATR(PR)
+     A  57 50                               DSPATR(RI)
+     A  50
+     AO 57                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description Is Required-
+     A                                      .     Press Reset')
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                 10 27'Charge per Unit:'
+     A N50                                  DSPATR(ND)
+     A            FUCHRG         5Y 2B 10 49
+     A  55 32                               DSPATR(RI)
+     A  50N23                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  32                                  DSPATR(PC)
+     A N50
+     AO 23                                  DSPATR(PR)
+     A                                      EDTCDE(3)
+     A                                      CHECK(FE)
+     A                                      CHECK(RB)
+     A  55                                  ERRMSG('*** Charge Per Flat Is Requ-
+     A                                      ired.    Press Reset')
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process    F6=Restart   -
+     A                                        F3/F7=End of Job    F13=Print Fil-
+     A                                      e Listing'
+     A                                      DSPATR(UL)

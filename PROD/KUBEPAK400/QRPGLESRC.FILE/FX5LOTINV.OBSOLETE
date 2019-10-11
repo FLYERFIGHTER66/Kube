@@ -1,0 +1,123 @@
+000100000000    H/COPY QFunctDefn,@CopyRight
+000200000000    H DftActGrp(*no)
+000300000000    H DatFmt(*usa)
+000400000000    H BndDir('*LIBL/KPFUNCTION')
+000500000000
+000600000000      *                                                              
+000700000000      *|                                                            |
+000800000000      *|            Fix Lot Inventory                               |
+000900000000      *|                                                            |
+001000000000
+001100000000      * :````````````````````````````````````````````````````````````:
+001200000000      * : Created:  February, 2006        Kube-Pak Corporation     :
+001300000000      * :      by:  William J. Behr                                  :
+001400000000      * :............................................................:
+001500000000      * :````````````````````````````````````````````````````````````:
+001600000000      * :  Program Description                                    :
+001700000000      * :............................................................:
+001800000000      *                                                              
+001900000000      * |  Subroutine Usage                                        |
+002000000000      * |                                                           |
+002100000000      * | *InzSr     - Must I explain this ?!?!?                   |
+002200000000      *|                                                            |
+002300000000      *                                                              
+002400000000      * |  Function Usage                                          |
+002500000000      * |                                                           |
+002600000000      * | $MDYDate   - Return MDY Date from Date Field             |
+002700000000      * | $Date      - Return Date field from Number               |
+002800000000      * | $User      - Return Current User I.D.                    |
+002900000000      * | $Now       - Return Current Time as Number               |
+003000000000      *|                                                            |
+003100000000      *                                                              
+003200000000      * |  Indicator Usage                                         |
+003300000000      * |                                                           |
+003400000000      * |  LR      Does this really need a description ?           |
+003500000000      *|                                                            |
+003600000000      *                                                              
+003700000000      * |  Edit Log                                                |
+003800000000      * |                                                           |
+003900000000      * |WJB10/14/05-Initial Programming                        |
+004000000000      * |   mm/dd/yy-                                           |
+004100000000      *|                                                            |
+004200000000
+004400060314     FFDLOTREADYUF A E           K DISK                                         Lot by Customer
+004401060224     FFMINVT    IF   E           K DISK                                         ITEM MASTER FILE
+004500060224
+004600000000      * Function Prototypes
+004601060224    D/COPY QFunctDefn,$DATE
+004602060224    D/COPY QFunctDefn,$MDYDATE
+004603060224    D/COPY QFunctDefn,$NOW
+004604060224    D/COPY QFunctDefn,$USER
+004700000000
+004800000000      * Field Definitions
+004900000000
+005000000000      * Indicators
+005100000000
+005200000000     *   ................................................
+005300000000     *   :   Main Calcs                                 :
+005400000000     *   :..............................................:
+005500000000
+005600060314      *   Process the Lot Master from next week on.
+005700060314    C     NextWeek      SetLL     FDLOTREADY
+005800060314    C                   Read      FDLOTREADY
+005900000000
+006000060314    C                   DoW       not %EOF(FDLOTREADY)
+006202060314      *   Check to make sure the lot is Fixed.
+006203060314     C                   If        LDFIXD = 'Y'
+006300000000    C     LotRDKey      SetLL     FDLOTRDCLT
+006301060224      *   ...  if not, create one.
+006400060224     C                   If        not %Equal(FDLOTRDCLT)
+006500060224    C     ItemKey       Chain     FMINVT
+006501060224    C     ItemKey       KList
+006502060224    C                   KFld                    AIITEM
+006503060224    C                   KFld                    AISIZE
+006600000000     C                   Eval      LRSTAT = 'A'                                 STATUS A/D/C
+006700000000     C                   Eval      LRITEM = AIITEM                              ITEM #
+006800000000     C                   Eval      LRSIZE = AISIZE                              SIZE CODE
+006900000000     C                   Eval      LRWHSE = AIWHSE                              LOCATION
+007000000000     C                   Eval      LRSOWD = AISOWD                              SOW DATE CYMD
+007100000000     C                   Eval      LRGLOC = AIGLOC                              GROW LOC. ORIG
+007200000000     C                   Eval      LRPHYT = AIPHYT                              PHYTO CODE
+007300000000     C                   Eval      LRCRDY = AICRDY                              CURR. READY DATE
+007400000000     C                   Eval      LRCPHY = AIPHYT                              CURR PHYTO CODE
+007500000000     C                   Eval      LRCLOC = AIGLOC                              LOC. CURR
+007600000000     C                   Eval      LRCODE = 'A'                                 CODE A/H/R/S/T
+007700000000     C                   Eval      LRCUST = AICUST                              RESERV. CUST #
+007800000000     C                   Eval      LRAREA = *Blanks                             AREA
+007900000000     C                   Eval      LRCOMP = AICOMP                              COMPANY NO
+008000000000     C                   Eval      LRQTOH = *Zero                               QTY O/H
+008100000000     C                   Eval      LRDTLA = $MDYDate($Date(0))                  LAST ACTIVITY DATE
+008200000000     C                   Eval      LRTIME = $Now()                              TIME
+008300000000     C                   Eval      LRUSER = $User                               USER
+008400000000     C                   Eval      LRALPH = IMLOOK                              ALPHA SEARCH
+008500000000     C                   Eval      LRPRCL = IMPCL1                              PRODUCT CLASS
+008600000000     C                   Eval      LRQTAL = *Zero                               QTY ALOC
+008700000000     C                   Eval      LRDESC = IMDES1                              DESCRIPTION
+008800000000     C                   Eval      LRQTCM = *Zero                               QTY COMIT
+008900000000     C                   Eval      LRQTSL = *Zero                               QTY SOLD
+009000000000     C                   Eval      LRQADJ = *Zero                               QTY ADJ
+009100000000     C                   Eval      LRQTAV = *Zero                               QTY AVAIL
+009200000000    C                   Write     RDLOTRD
+009300000000     C                   EndIf
+009400000000
+009500060224    C                   Read      FALITEMLOT
+009600000000    C                   EndDo
+009700000000
+009800000000     C                   Eval      *InLr = *On
+009900000000
+010000000000
+010100000000     *   ................................................
+010200000000     *   :      *InzSr - Initialization Subroutine      :
+010300000000     *   :..............................................:
+010400000000
+010500000000     C     *InzSr        BegSr
+010600000000
+010700000000    C     LotRDKey      KList
+010800000000    C                   KFld                    AIITEM                         Item
+010900000000    C                   KFld                    AISIZE                         Size
+011000000000    C                   KFld                    AIWHSE                         Default Location
+011100000000    C                   KFld                    AISOWD                         Sow Date
+011200000000    C                   KFld                    AICRDY                         Ready Date
+011300000000    C                   KFld                    AICUST                         CUSTOMER
+011400000000
+011500000000     C                   EndSr

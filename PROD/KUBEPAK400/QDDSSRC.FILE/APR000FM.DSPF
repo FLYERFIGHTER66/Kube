@@ -1,0 +1,1168 @@
+     A*%%TS  SD  19990814  143934  TGMS        REL-V4R2M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      ERRSFL
+     A          R SCRNA
+     A*%%TS  SD  19990725  094038  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HELP)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A                                  1 15'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 32' A/P Control File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Action Codes Are -
+     A                                      A, C or D.  Press Reset')
+     A                                  5 31'Company Number:'
+     A            VCO            2Y 0B  5 49
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  21                                  ERRMSG('*** Company Number Not Defi-
+     A                                      ned In Company Control File.     Pr-
+     A                                      ess Reset')
+     A  22                                  ERRMSG('*** Control File Exists For-
+     A                                       This Company.    Press Reset')
+     A  23                                  ERRMSG('*** No Control File Exists -
+     A                                      For This Company.   Press Reset')
+     A  24                                  ERRMSG('*** Company 00 Must Be Defi-
+     A                                      ned First.    Press Reset')
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'     Enter to Process           F3-
+     A                                      /F7=End of Job                     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1  3'APR000A'
+     A          R HELP
+     A*%%TS  SD  19990706  062842  TGMS        REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 13  3' Accounts Payable Control File Ove-
+     A                                      rview                              -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3' The company control file defines -
+     A                                      specific information about your com-
+     A                                      panies '
+     A                                      DSPATR(HI)
+     A                                 16  3' and the way you do business in ac-
+     A                                      counts payable.  If you are running-
+     A                                       more  '
+     A                                      DSPATR(HI)
+     A                                 17  3' than 1 company in accounts payabl-
+     A                                      e, you must define the a/p controls-
+     A                                       for   '
+     A                                      DSPATR(HI)
+     A                                 18  3' each company.                    -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' In addition to companies 01 - 99,-
+     A                                       you are REQUIRED to enter a compan-
+     A                                      y 00.  '
+     A                                      DSPATR(HI)
+     A                                 21  3' This MUST be the first company yo-
+     A                                      u enter.  Company 00 defines global-
+     A                                       data  '
+     A                                      DSPATR(HI)
+     A                                 22  3' used by all companies in accounts-
+     A                                       payable.                          -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R SCRNB
+     A*%%TS  SD  19990725  094038  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF03
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HVEND)
+     A  *DS3                                HLPARA(11 051 11 056)
+     A  *DS4                                HLPARA(11 051 11 056)
+     A          H                           HLPRCD(HVOUC)
+     A  *DS3                                HLPARA(11 051 11 056)
+     A  *DS4                                HLPARA(11 051 11 056)
+     A          H                           HLPRCD(HPCOMP)
+     A  *DS3                                HLPARA(06 055 06 056)
+     A  *DS4                                HLPARA(06 055 06 056)
+     A          H                           HLPRCD(HMISC)
+     A  *DS3                                HLPARA(14 048 17 056)
+     A  *DS4                                HLPARA(17 048 17 056)
+     A          H                           HLPRCD(HNOCO)
+     A  *DS3                                HLPARA(09 055 09 056)
+     A  *DS4                                HLPARA(09 056 09 057)
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 32' A/P Control File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Company Name:'
+     A            VCO            2S 0O  4 16DSPATR(HI)
+     A            CNAME         30A  O  4 19DSPATR(HI)
+     A                                  6 25'Primary Company For A/P:'
+     A            AZPRCO         2Y 0B  6 55DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A  10                                  ERRMSG('*** Enter A Valid Company N-
+     A                                      umber.      Press Reset')
+     A                                  8 25'# of Companies'
+     A                                  9 25'Run in A/P:'
+     A            AZNMCO         2Y 0B  9 55DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  15                                  DSPATR(RI)
+     A  15                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A  15                                  ERRMSG('*** Number Between 01 - 99 -
+     A                                      Required.   Press Reset')
+     A                                 11 25'Next Vendor Number:'
+     A            AZVEND         6Y 0B 11 51DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  20                                  ERRMSG('*** Next Vendor Number Is R-
+     A                                      equired.  Press Reset')
+     A                                 13 25'Miscellaneous 1099'
+     A                                 14 25'Minimum Amount:'
+     A            AZMIS$         7Y 2B 14 48DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  30                                  ERRMSG('*** 1099 Amount Is Required-
+     A                                      .  Press Reset')
+     A                                 16 25'Interest 1099'
+     A                                 17 25'Minimum Amount:'
+     A            AZINT$         7Y 2B 17 48DSPATR(CS)
+     A                                      EDTCDE(1)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  40                                  ERRMSG('*** Interest 1099 Amount Is-
+     A                                       Required.  Press Reset')
+     A                                 20 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  1  2'APR000B'
+     A          R HPCOMP
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 15  3' Primary Company                  -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' When running a/p programs, you ar-
+     A                                      e requested to enter the company nu-
+     A                                      mber    '
+     A                                      DSPATR(HI)
+     A                                 18  3' whose data should be included.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' Enter the number here for the com-
+     A                                      pany that you will most frequently -
+     A                                      be      '
+     A                                      DSPATR(HI)
+     A                                 21  3' running.                         -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HNOCO
+     A*%%TS  SD  19990511  052059  GLAP        REL-V3R1M0  5763-PW1
+     A                                 16  3' Number of Companies Run in A/P   -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' When running a/p programs, if you-
+     A                                       are running more than one company,-
+     A                                       you    '
+     A                                      DSPATR(HI)
+     A                                 19  3' will be prompted to enter the com-
+     A                                      pany number.   If you are only runn-
+     A                                      ing one '
+     A                                      DSPATR(HI)
+     A                                 20  3' company, the system assumes the c-
+     A                                      ompany number entered for the prima-
+     A                                      ry      '
+     A                                      DSPATR(HI)
+     A                                 21  3' company and no prompt will appear-
+     A                                       for entering a company number.    -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HVEND
+     A*%%TS  SD  19990511  053517  GLAP        REL-V3R1M0  5763-PW1
+     A                                 17  3' Starting Vendor Number           -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' A/P automatically assigns the ven-
+     A                                      dor number when adding new vendors.-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' Enter the first number to be assi-
+     A                                      gned when you add your first vendor-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HMISC
+     A*%%TS  SD  19990415  073309  EFD         REL-V3R1M0  5763-PW1
+     A                                  5  3' 1099 Minimum Amounts             -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3' For example, in 1999 a qualifying-
+     A                                       vendor would have to have been pai-
+     A                                      d       '
+     A                                      DSPATR(HI)
+     A                                 17  3' more than $600.00 in miscellaneou-
+     A                                      s income or more than $10.00 in int-
+     A                                      erest.  '
+     A                                      DSPATR(HI)
+     A                                 21  3' Refer to your accountant for addi-
+     A                                      tional information.                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3' exceeded during a calendar year i-
+     A                                      n order to necessitate sending a 10-
+     A                                      99.     '
+     A                                      DSPATR(HI)
+     A                                 13  3' For each type of 1099 there is a -
+     A                                      minimum amount that must have been -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 11  3'                        2.  Intere-
+     A                                      st                                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 10  3'                        1.  Miscel-
+     A                                      laneous                            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  7  3' The IRS requires that a company s-
+     A                                      end vendors a 1099 form if certain -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  8  3' conditions prevail.  There are tw-
+     A                                      o different kinds of 1099s:        -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  6  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' If you are making both types of p-
+     A                                      ayments to a single vendor, you mus-
+     A                                      t       '
+     A                                      DSPATR(HI)
+     A                                 19  3' create two separate numbers for t-
+     A                                      his vendor.                        -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SCRNC
+     A*%%TS  SD  19990814  143934  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF06
+     A                                      CF07
+     A                                      HELP
+     A                                      CF03
+     A                                      MSGALARM
+     A                                      SLNO(01)
+     A                                      CLRL(*END)
+     A          H                           HLPRCD(HAPAGE)
+     A  *DS3                                HLPARA(10 015 10 032)
+     A  *DS4                                HLPARA(04 021 04 050)
+     A          H                           HLPRCD(HGL)
+     A  *DS3                                HLPARA(06 032 06 032)
+     A  *DS4                                HLPARA(06 032 06 032)
+     A          H                           HLPRCD(HVHIST)
+     A  *DS3                                HLPARA(07 032 07 032)
+     A  *DS4                                HLPARA(07 032 07 032)
+     A          H                           HLPRCD(HRECON)
+     A  *DS3                                HLPARA(08 032 08 032)
+     A  *DS4                                HLPARA(06 064 06 064)
+     A          H                           HLPRCD(HRPRT)
+     A  *DS3                                HLPARA(06 064 06 073)
+     A  *DS4                                HLPARA(07 064 07 073)
+     A          H                           HLPRCD(HLPRT)
+     A  *DS3                                HLPARA(07 064 07 073)
+     A  *DS4                                HLPARA(08 064 08 073)
+     A          H                           HLPRCD(HPAYSEL)
+     A  *DS3                                HLPARA(09 064 09 064)
+     A  *DS4                                HLPARA(11 064 11 064)
+     A          H                           HLPRCD(HNXTCK)
+     A  *DS3                                HLPARA(10 064 10 069)
+     A  *DS4                                HLPARA(12 064 12 069)
+     A          H                           HLPRCD(HCKPRT)
+     A  *DS3                                HLPARA(12 064 12 073)
+     A  *DS4                                HLPARA(13 064 13 073)
+     A          H                           HLPRCD(HTERMS)
+     A  *DS3                                HLPARA(15 016 15 017)
+     A  *DS4                                HLPARA(14 016 14 017)
+     A          H                           HLPRCD(HCREDL)
+     A  *DS3                                HLPARA(14 016 14 027)
+     A  *DS4                                HLPARA(13 016 13 027)
+     A          H                           HLPRCD(HVOUCH)
+     A  *DS3                                HLPARA(09 027 09 032)
+     A  *DS4                                HLPARA(09 027 09 032)
+     A          H                           HLPRCD(HSTUB)
+     A  *DS3                                HLPARA(11 064 11 065)
+     A  *DS4                                HLPARA(12 064 12 065)
+     A          H                           HLPRCD(HAPGL)
+     A  *DS3                                HLPARA(11 032 11 032)
+     A  *DS4                                HLPARA(11 032 11 032)
+     A                                  1  2'APR000C'
+     A                                  1 17'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 32' A/P Control File '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Company Name:'
+     A            VCO            2S 0O  4 16DSPATR(HI)
+     A            MCNAME        30A  O  4 19DSPATR(HI)
+     A                                  6  2'Run G/L For This Company:'
+     A            AZGL           1A  B  6 32DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                  6 42'Printer For Reports:'
+     A            AZPRTR        10A  B  6 64DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Report Printer ID Is Re-
+     A                                      quired.   Press Reset')
+     A                                  7  2'Keep Vendor Payment History:'
+     A            AZPAYH         1A  B  7 32DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSGID(EFD0002 EFDSYS/EFDMSG)
+     A                                  8  2'Reconcile A/P Checks:'
+     A            AZREC          1A  B  8 32DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSGID(EFD0002 EFDSYS/EFDMSG)
+     A                                  8 42'Payment Processing Defaults'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  9  2'Next Voucher Number:'
+     A            AZVOUC         6Y 0B  9 27DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  37                                  DSPATR(RI)
+     A  37                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  37                                  ERRMSG('*** Next Voucher Number Is -
+     A                                      Required.   Press Reset')
+     A                                  9 42'Pay Select Default:'
+     A            AZPSEL         1A  B  9 64DSPATR(CS)
+     A  55                                  DSPATR(RI)
+     A  55                                  DSPATR(PC)
+     A  55                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 10  2'Aging Days:'
+     A            AZAGPY         3Y 0B 10 15DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  41                                  ERRMSG('*** Aging Days Is Required.-
+     A                                         Press Reset')
+     A                                      CHECK(RB)
+     A            AZAGP2         3Y 0B 10 20DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  42                                  DSPATR(RI)
+     A  42                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  42                                  ERRMSG('*** Second Aging Days Must -
+     A                                      Be Higher Than First Aging Days.   -
+     A                                      Press Reset')
+     A            AZAGP3         3Y 0B 10 25DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  43                                  DSPATR(RI)
+     A  43                                  DSPATR(PC)
+     A  43                                  ERRMSG('*** Third Aging Days Must B-
+     A                                      e Higher Than Second Aging Days.   -
+     A                                      Press Reset')
+     A                                      CHECK(RB)
+     A            AZAGP4         3Y 0B 10 30DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  44                                  DSPATR(RI)
+     A  44                                  DSPATR(PC)
+     A  44                                  ERRMSG('*** Fourth Aging Days Must -
+     A                                      Be Higher Than Third Aging Days.   -
+     A                                      Press Reset')
+     A                                      CHECK(RB)
+     A                                 10 42'Next Check Number:'
+     A            AZCHEK         6Y 0B 10 64DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  60                                  DSPATR(RI)
+     A  60                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  60                                  ERRMSG('*** Next Check Number Is Re-
+     A                                      quired.    Press Reset')
+     A                                 11  2'Override A/P-G/L Number:'
+     A            AZAPGL         1A  B 11 32DSPATR(CS)
+     A  56                                  DSPATR(RI)
+     A  56                                  DSPATR(PC)
+     A  57                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A  58                                  ERRMSG('*** Cannot Be Yes If Run G/-
+     A                                      L Is No.   Press Reset')
+     A                                 11 42'Detail Lines/Stub:'
+     A            AZSTBL         3Y 0B 11 64DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  62                                  DSPATR(RI)
+     A  62                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  62                                  ERRMSG('*** Number Of Line Per Chec-
+     A                                      k Stub Is Required.    Press Reset')
+     A                                 12 42'Printer For Checks:'
+     A            AZPRTC        10A  B 12 64DSPATR(CS)
+     A  38                                  DSPATR(RI)
+     A  38                                  DSPATR(PC)
+     A  38                                  ERRMSG('*** Check Printer ID Is Req-
+     A                                      uired.   Press Reset')
+     A                                 13  2'Vendor Defaults'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                 14  2'Credit Limit:'
+     A            AZCRL$         9Y 2B 14 16EDTCDE(1)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                 14 42'Track Use Tax:'
+     A            AZUSET         1A  B 14 57DSPATR(CS)
+     A  66                                  DSPATR(RI)
+     A  66                                  DSPATR(PC)
+     A  66                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 14 60'Percent:'
+     A            AZUSEP         7Y 4B 14 69EDTCDE(1)
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  67                                  DSPATR(RI)
+     A  67                                  DSPATR(PC)
+     A  67                                  ERRMSG('*** Percent Is Required Whe-
+     A                                      n Use Tax = Yes.      Press Reset')
+     A                                 15  2'Terms Code?'
+     A            AZTMCD         2A  B 15 16DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Enter A Valid Terms Cod-
+     A                                      e.     Press Reset')
+     A            DESC          30A  O 15 19
+     A                                 16 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 17  2'             This data is automati-
+     A                                      cally updated during processing    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(WHT)
+     A                                 18  2'Last Check Run:'
+     A            AZDTCK         6Y 0O 18 23EDTCDE(Y)
+     A                                 18 42'Last Monthly Close:'
+     A            AZDTMC         6Y 0O 18 67EDTCDE(Y)
+     A                                 19  2'Last Check Number:'
+     A            LSCK           6Y 0O 19 25EDTCDE(Z)
+     A                                 19 42'Last G/L Transfer:'
+     A            AZDTGL         6Y 0O 19 67EDTCDE(Y)
+     A                                 20  2'Last Check Post:'
+     A            AZDTCP         6Y 0O 20 23EDTCDE(Y)
+     A                                 20 42'Last Fiscal Year Close:'
+     A            AZDTYC         6Y 0O 20 67EDTCDE(Y)
+     A                                 21 42'Last 1099 Print:'
+     A            AZDT10         6Y 0O 21 67EDTCDE(Y)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process       F6=-
+     A                                      Restart       F3/F7=End of Job     -
+     A                                               '
+     A                                      DSPATR(UL)
+     A          R HGL
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 18  3' Do You Run General Ledger For Thi-
+     A                                      s Company                Y or N Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  3' If you run the EFD general ledger-
+     A                                       application and want the data auto-
+     A                                      -       '
+     A                                      DSPATR(HI)
+     A                                 21  3' matically transfered to G/L from -
+     A                                      accounts payable - enter Y.        -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HVHIST
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 17  2' Do You Want To Keep Vendor Paymen-
+     A                                      t History                Y or N Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  2' With vendor payment history you c-
+     A                                      an display or print a report showin-
+     A                                      g the   '
+     A                                      DSPATR(HI)
+     A                                 20  2' payment history for a vendor.  Th-
+     A                                      e data includes payment description-
+     A                                      , check '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  2' number, date and amount.  To keep-
+     A                                       vendor payment history - enter Y. -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HRECON
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 18  2' Do You Reconcile A/P Checks On Co-
+     A                                      mputer                   Y or N Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2' If you want to reconcile the acco-
+     A                                      unts payable checks to your bank st-
+     A                                      atement '
+     A                                      DSPATR(HI)
+     A                                 21  2' - enter Y.                       -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HRPRT
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 18  2' Printer For A/P Reports          -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2' Enter the ID of the printer to wh-
+     A                                      ich all a/p reports will default.  -
+     A                                      This    '
+     A                                      DSPATR(HI)
+     A                                 21  2' printer can be changed for each r-
+     A                                      eport, if needed.                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HLPRT
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 18  2' Printer For A/P Labels           -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2' Enter the ID of the printer to wh-
+     A                                      ich vendor labels will default.  Th-
+     A                                      is      '
+     A                                      DSPATR(HI)
+     A                                 21  2' printer can be changed when you r-
+     A                                      un labels.                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HVOUCH
+     A*%%TS  SD  19990111  205329  EFD         REL-V3R1M0  5763-PW1
+     A                                 17  3' Next Voucher Number              -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' A/P automatically assigns the vou-
+     A                                      cher number when your are entering -
+     A                                      vendor  '
+     A                                      DSPATR(HI)
+     A                                 20  3' invoices. You can change the next-
+     A                                       voucher number here but it must be-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  2'  higher than the number displayed-
+     A                                       on this screen.                   -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HAPAGE
+     A*%%TS  SD  19971126  055936  GINNY       REL-V3R1M0  5763-PW1
+     A                                  8  3' Accounts Payable Aging Days      -
+     A                                                                   Requir-
+     A                                      ed     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  9  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 10  3' The days you enter here determine-
+     A                                      s the number of days used for each -
+     A                                      aging  '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 14  3' For example, if you enter 7, 14, -
+     A                                      21, 28 and you run an Open Payables-
+     A                                       Aging '
+     A                                      DSPATR(HI)
+     A                                 15  3' Report dated 1/1/99.  All vendor -
+     A                                      invoices with an invoice due date b-
+     A                                      efore  '
+     A                                      DSPATR(HI)
+     A                                 16  3' 1/1/99 would be considerd past du-
+     A                                      e, due dates between 1/2/99 and 1/8-
+     A                                      /99    '
+     A                                      DSPATR(HI)
+     A                                 17  3' would be displayed in the firt ag-
+     A                                      ing column, due dates between 1/9/9-
+     A                                      9 and  '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' You can change these days anytime-
+     A                                       if you wish to look at your open A-
+     A                                      /P     '
+     A                                      DSPATR(HI)
+     A                                 21  3' cash requirements for different p-
+     A                                      eriods.                            -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  3' period.  Remember that accounts p-
+     A                                      ayable ages forward to help you pla-
+     A                                      n your '
+     A                                      DSPATR(HI)
+     A                                 12  3' cash requirements.               -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3' 1/15/99 would be in the second ag-
+     A                                      in column, etc.                    -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HTERMS
+     A*%%TS  SD  19971201  055432  GINNY       REL-V3R1M0  5763-PW1
+     A                                 12  3' Vendor Terms Code                -
+     A                                                                   Requir-
+     A                                      ed     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3' vendors payment terms.           -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 20  3' If you do not know the valid code-
+     A                                      s - enter a ? in that field and a l-
+     A                                      ist    '
+     A                                      DSPATR(HI)
+     A                                 21  3' of terms codes will be displayed.-
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  3' automatically display on the scre-
+     A                                      en but can be changed to reflect ea-
+     A                                      ch     '
+     A                                      DSPATR(HI)
+     A                                 16  3' by the majority of your vendors. -
+     A                                       When you add a new vendor this cod-
+     A                                      e will '
+     A                                      DSPATR(HI)
+     A                                 15  3' as 1% 10 - Net 30.   Enter the co-
+     A                                      de in this control file for the ter-
+     A                                      ms used'
+     A                                      DSPATR(HI)
+     A                                 14  3' The Terms Code defines the paymen-
+     A                                      t terms offered to you by a vendor,-
+     A                                       such  '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R HPAYSEL
+     A*%%TS  SD  19990420  074634  AP          REL-V3R1M0  5763-PW1
+     A                                 13  2' Pay Select Default               -
+     A                                                               Required Y-
+     A                                       or N   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  2' When you select which vendor invo-
+     A                                      ices you want to pay in the Payment-
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  2' Selection program - do you want s-
+     A                                      elect for payment to default to Y o-
+     A                                      r N.    '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 17  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  2' Select Yes if you usually pay mos-
+     A                                      t of your open accounts payable whe-
+     A                                      n you   '
+     A                                      DSPATR(HI)
+     A                                 19  2' write checks.                    -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  2' Select No if you usually pay just-
+     A                                       specific invoices when you write c-
+     A                                      hecks.  '
+     A                                      DSPATR(HI)
+     A          R HNXTCK
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                  7  2' Next Check Number                -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  8  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                  9  2' This is the next check number tha-
+     A                                      t will print on the accounts payabl-
+     A                                      e checks'
+     A                                      DSPATR(HI)
+     A                                 10  2' when you print them.             -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  2' Enter the beginning check number -
+     A                                      to be used when you are first start-
+     A                                      ing     '
+     A                                      DSPATR(HI)
+     A                                 13  2' accounts payable.                -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2' number only.  If you have changed-
+     A                                       your numbers to a lower sequence, -
+     A                                      you must'
+     A                                      DSPATR(HI)
+     A                                 21  2' change the number here.          -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  2' checks and is automatically updat-
+     A                                      ed with the next check number after-
+     A                                       checks '
+     A                                      DSPATR(HI)
+     A                                 15  2' This check number is displayed as-
+     A                                       the beginning check number when yo-
+     A                                      u print '
+     A                                      DSPATR(HI)
+     A                                 19  2' When running checks, you can chan-
+     A                                      ge the beginning check number to a -
+     A                                      higher  '
+     A                                      DSPATR(HI)
+     A                                 18  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  2' have printed.                    -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HCKPRT
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 18  2' Printer For A/P Checks           -
+     A                                                                      Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2' Enter the ID of the printer to wh-
+     A                                      ich vendor checks will default.  Th-
+     A                                      is      '
+     A                                      DSPATR(HI)
+     A                                 21  2' printer can be changed when you r-
+     A                                      un checks.                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HCREDL
+     A*%%TS  SD  19990511  053752  GLAP        REL-V3R1M0  5763-PW1
+     A                                 18  2' Credit Limit                     -
+     A                                                                      Opt-
+     A                                      ional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  2' If your vendors usually set up a -
+     A                                      credit limit for your purchases - e-
+     A                                      nter    '
+     A                                      DSPATR(HI)
+     A                                 21  2' the credit limit here.           -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  2'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HSTUB
+     A*%%TS  SD  19990308  060359  EFD         REL-V3R1M0  5763-PW1
+     A                                 18  2' Number Of Detail Line On Check St-
+     A                                      ub                                R-
+     A                                      equired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 20  2' Since different companies may be -
+     A                                      using different a/p check forms, yo-
+     A                                      u must   '
+     A                                      DSPATR(HI)
+     A                                 21  2' enter the maximum number of lines-
+     A                                       (vouchers being paid) that can be -
+     A                                      printed  '
+     A                                      DSPATR(HI)
+     A                                 22  2' on the remittance stub of your ch-
+     A                                      eck form.                          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                 24  2'                            Press -
+     A                                      Enter to Return                   R-
+     A                                      equired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HAPGL
+     A*%%TS  SD  19990421  115656  AP          REL-V3R1M0  5763-PW1
+     A                                 18  3' Override the A/P Default G/L Numb-
+     A                                      er                       Y or N Req-
+     A                                      uired   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3' If you run g/l on the system and -
+     A                                      want the ability to override the de-
+     A                                      fault   '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' accounts payable g/l number durin-
+     A                                      g voucher entry - enter Y.         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)

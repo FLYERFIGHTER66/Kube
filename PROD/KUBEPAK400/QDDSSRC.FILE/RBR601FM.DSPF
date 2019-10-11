@@ -1,0 +1,433 @@
+     A*%%TS  SD  20140120  164511  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A          R RBR60101
+     A*%%TS  SD  20131031  132159  BILLB       REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A                                      PAGEUP(06)
+     A                                      PAGEDOWN(07)
+     A                                      CF03(03 'Exit')
+     A                                      CF11(11 'Change Printer')
+     A                                  1  2'RBR60101'
+     A                                      COLOR(BLU)
+     A                                  1 16'  Scan Ready Bay Select Material I-
+     A                                      nto Ready Bay  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                 11 26'Enter the Batch Date:'
+     A            BATCHDATE6     6Y 0B 11 48EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A                                 15 27'Auto Print Batch Reports:'
+     A            AUTOBATCH      1A  B 15 53COLOR(TRQ)
+     A                                 17 28'Auto Print Cart Reports:'
+     A            AUTOCART       1A  B 17 53COLOR(TRQ)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 22 10'=Continue'
+     A                                      COLOR(BLU)
+     A                                 22 59'|'
+     A                                      COLOR(BLU)
+     A                                 22 61'Printer:'
+     A            PRINTER       10A  O 22 70COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 23  7'F3'
+     A                                      DSPATR(HI)
+     A                                 23 10'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 59'|'
+     A                                      COLOR(BLU)
+     A                                 23 61'F11'
+     A                                      DSPATR(HI)
+     A                                 23 65'=Change Printer'
+     A                                      COLOR(BLU)
+     A                                 11 59'(Pg Up/Pg Dn)'
+     A                                      COLOR(BLU)
+     A          R RBR60102
+     A*%%TS  SD  20131028  094112  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'New Batch')
+     A                                      CF09(09 'Batch Report')
+     A                                      CF11(11 'Change Printer')
+     A                                      CF12(12 'Previous Screen')
+     A                                      OVERLAY
+     A  50
+     AO 55
+     AO 60                                  ALARM
+     A                                  1  2'RBR60102'
+     A                                      COLOR(BLU)
+     A                                  1 16'  Scan Ready Bay Select Material I-
+     A                                      nto Ready Bay  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3 24'Batch Date:'
+     A            BATCHDATE6     6Y 0B  3 37EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  3 47'Auto:'
+     A            AUTOBATCH      1A  O  3 53COLOR(PNK)
+     A                                  3 55'/'
+     A                                      COLOR(PNK)
+     A            AUTOCART       1A  O  3 57COLOR(PNK)
+     A                                 11 29'Enter Batch Number:'
+     A            BATCH#         3Y 0B 11 49EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 22 10'=Continue'
+     A                                      COLOR(BLU)
+     A                                 22 24'F6'
+     A                                      DSPATR(HI)
+     A                                 22 27'=New Batch'
+     A                                      COLOR(BLU)
+     A                                 22 42'F9'
+     A                                      DSPATR(HI)
+     A                                 22 45'=Batch Report'
+     A                                      COLOR(BLU)
+     A                                 22 59'|'
+     A                                      COLOR(BLU)
+     A                                 22 61'Printer:'
+     A            PRINTER       10A  O 22 70COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 23  7'F3'
+     A                                      DSPATR(HI)
+     A                                 23 10'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 59'|'
+     A                                      COLOR(BLU)
+     A                                 23 61'F11'
+     A                                      DSPATR(HI)
+     A                                 23 65'=Change Printer'
+     A                                      COLOR(BLU)
+     A            BATCHDATE R        O  4 36REFFLD(RRBBATCH/BATCHDATE *LIBL/FRB-
+     A                                      BATCH)
+     A          R RBR60103
+     A*%%TS  SD  20140114  095950  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'New Batch')
+     A                                      CF08(08 'Skip Cart #')
+     A                                      CF11(11 'Change Printer')
+     A                                      CF12(12 'Previous Screen')
+     A                                      CF09(09 'Batch Report')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                  1  2'RBR60103'
+     A                                      COLOR(BLU)
+     A                                  1 16'  Scan Ready Bay Select Material I-
+     A                                      nto Ready Bay  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3 17'Batch Date:'
+     A            BATCHDATE6     6Y 0B  3 29EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  3 40'Auto:'
+     A            AUTOBATCH      1A  O  3 46COLOR(PNK)
+     A                                  3 48'/'
+     A                                      COLOR(PNK)
+     A            AUTOCART       1A  O  3 50COLOR(PNK)
+     A                                  3 54'Batch:'
+     A            BATCH#         3S 0O  3 61COLOR(PNK)
+     A                                 11 28'Enter the Cart Number:'
+     A            CART#          5Y 0B 11 51EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 22 10'=Continue'
+     A                                      COLOR(BLU)
+     A                                 22 24'F6'
+     A                                      DSPATR(HI)
+     A                                 22 27'=New Batch'
+     A                                      COLOR(BLU)
+     A                                 22 42'F9'
+     A                                      DSPATR(HI)
+     A                                 22 45'=Batch Report'
+     A                                      COLOR(BLU)
+     A                                 22 59'|'
+     A                                      COLOR(BLU)
+     A                                 22 61'Printer:'
+     A            PRINTER       10A  O 22 70COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 23  2'F3'
+     A                                      DSPATR(HI)
+     A                                 23  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 24'F8'
+     A                                      DSPATR(HI)
+     A                                 23 59'|'
+     A                                      COLOR(BLU)
+     A                                 23 61'F11'
+     A                                      DSPATR(HI)
+     A                                 23 65'=Change Printer'
+     A                                      COLOR(BLU)
+     A                                 23 27'=Skip Cart'
+     A                                      COLOR(BLU)
+     A                                 23 11'F12'
+     A                                      DSPATR(HI)
+     A                                 23 15'=Prev'
+     A                                      COLOR(BLU)
+     A          R RBR60104
+     A*%%TS  SD  20140120  164511  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF03(03 'Exit')
+     A                                      CF06(06 'New Batch')
+     A                                      CF08(08 'Skip Cart #')
+     A                                      CF11(11 'Change Printer')
+     A                                      CF12(12 'Previous Screen')
+     A                                      CF10(10 'Cart Report')
+     A                                      CF09(09 'Batch Report')
+     A                                      OVERLAY
+     A                                  1  2'RBR60104'
+     A                                      COLOR(BLU)
+     A                                  1 16'  Scan Ready Bay Select Material I-
+     A                                      nto Ready Bay  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  3 10'Batch Date:'
+     A            BATCHDATE6     6Y 0B  3 22EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  3 33'Auto:'
+     A            AUTOBATCH      1A  O  3 39COLOR(PNK)
+     A                                  3 41'/'
+     A                                      COLOR(PNK)
+     A            AUTOCART       1A  O  3 43COLOR(PNK)
+     A                                  3 47'Batch:'
+     A            BATCH#         3S 0O  3 54COLOR(PNK)
+     A                                  3 60'Cart:'
+     A            CART#          5S 0O  3 66COLOR(PNK)
+     A                                  5  2'Scan Tray Tag:'
+     A            TAG#           8Y 0B  5 17EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                      CHECK(ER)
+     A                                 13  6'Last Tag#:'
+     A            LASTTAG#       8S 0O 13 17COLOR(PNK)
+     A                                      DSPATR(RI)
+     A                                  5 57'     Batch Summary     '
+     A                                      DSPATR(RI)
+     A                                  6 60'Trays Scanned:'
+     A            QTYSCAN        5S 0O  6 75DSPATR(HI)
+     A                                  7 57'Exceptions Noted:'
+     A            QTYEXCPTNS     5S 0O  7 75COLOR(RED)
+     A                                 21  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                 22  2'<ENTER>'
+     A                                      DSPATR(HI)
+     A                                 22 10'=Continue'
+     A                                      COLOR(BLU)
+     A                                 22 24'F6'
+     A                                      DSPATR(HI)
+     A                                 22 27'=New Batch'
+     A                                      COLOR(BLU)
+     A                                 22 42'F9'
+     A                                      DSPATR(HI)
+     A                                 22 45'=Batch Report'
+     A                                      COLOR(BLU)
+     A                                 22 59'|'
+     A                                      COLOR(BLU)
+     A                                 22 61'Printer:'
+     A            PRINTER       10A  O 22 70COLOR(YLW)
+     A                                      DSPATR(UL)
+     A                                 23  7'F3'
+     A                                      DSPATR(HI)
+     A                                 23 10'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 24'F8'
+     A                                      DSPATR(HI)
+     A                                 23 27'=New Cart'
+     A                                      COLOR(BLU)
+     A                                 23 42'F10'
+     A                                      DSPATR(HI)
+     A                                 23 46'=Cart Report'
+     A                                      COLOR(BLU)
+     A                                 23 59'|'
+     A                                      COLOR(BLU)
+     A                                 23 61'F11'
+     A                                      DSPATR(HI)
+     A                                 23 65'=Change Printer'
+     A                                      COLOR(BLU)
+     A            TAGSTATUS    256A  O 14  1COLOR(PNK)
+     A  51                              6 26'      C o n t a i n s         '
+     A                                      DSPATR(RI)
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A  51                              5 26'     T h i s   B a t c h      '
+     A                                      DSPATR(RI)
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A  51                              7 26'    E X C E P T I O N S !!    '
+     A                                      DSPATR(RI)
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A            TRSTAT    R        O 10 28REFFLD(RTRAY/TRSTAT *LIBL/FTRAY)
+     A                                      COLOR(BLU)
+     A            TRITEM    R        O 10 31REFFLD(RTRAY/TRITEM *LIBL/FTRAY)
+     A                                      COLOR(BLU)
+     A            TRSIZE    R        O 10 44REFFLD(RTRAY/TRSIZE *LIBL/FTRAY)
+     A                                      COLOR(BLU)
+     A            TRSCYM    R        O 10 48REFFLD(RTRAY/TRSCYM *LIBL/FTRAY)
+     A                                      COLOR(BLU)
+     A            TRCRDT    R        O 10 59REFFLD(RTRAY/TRCRDT *LIBL/FTRAY)
+     A                                      COLOR(BLU)
+     A            TRCNTD    R        O 10 70REFFLD(RTRAY/TRCNTD *LIBL/FTRAY)
+     A                                      COLOR(BLU)
+     A            TRREAS    R        O 10 74REFFLD(RTRAY/TRREAS *LIBL/FTRAY)
+     A                                      COLOR(BLU)
+     A                                  9 26' Sts Item        Size      Sow    -
+     A                                        Ready  Cnt Reas   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 26' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 10 79' '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11 26'                                  -
+     A                                                          '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13 26'Status:'
+     A            RETURNCODE     7   O 13 34COLOR(PNK)
+     A                                      DSPATR(RI)
+     A          R RBR60105S                 SFL
+     A*%%TS  SD  20131010  140545  BILLB       REL-V7R1M0  5770-WDS
+     A            BATCHDATE8     8Y 0O 11  3EDTWRD('  /  /    ')
+     A            BATCH#         3S 0O 11 15
+     A            CART#          5S 0O 11 20
+     A            USERID        10A  O 11 27
+     A            TRAYCOUNT      5S 0O 11 39
+     A          R RBR60105                  SFLCTL(RBR60105S)
+     A*%%TS  SD  20130925  092444  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(0100)
+     A                                      SFLPAG(0012)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      OVERLAY
+     A                                 10  2' Batch Date Batch  Cart  User ID  -
+     A                                         Trays  Exceptions               -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages Control')
+     A                                      OVERLAY
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

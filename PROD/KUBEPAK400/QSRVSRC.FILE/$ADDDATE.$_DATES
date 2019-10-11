@@ -1,0 +1,29 @@
+000100040617     H/Copy QFunctDefn,@CopyRight                                               Copyright Info.
+000200000000     H DATFMT(*USA)
+000300000000     H NOMAIN
+000400000000
+000500040412      * Function Prototype(s)
+000600000000     D/Copy QFunctDefn,$addDate
+000700000000
+000800000000
+000900000000     *   ..................................................................
+001000000000     *   :  $AddDate                                             function :
+001100000000     *   :................................................................:
+001200000000
+001300000000     P $adddate        B                   Export
+001400000000     D $adddate        PI              D
+001500040412     D   Date                          D   DatFmt(*usa) const
+001600000000     D   Days                         5S 0 const
+001700000000
+001800000000    *  The $adddate function returns a date field value for a given date and number of days
+001900000000    *  added together.
+002000000000    *  ie. you pass 01/15/2006 and 20 you get 02/04/2006
+002100000000    *      you pass 01/15/2006 and -20 you get 12/27/2005
+002200000000
+002300000000     D   wkDate        S               D   DatFmt(*USA)
+002400000000
+002500000000     C                   Eval      wkDate = Date
+002600000000     C                   AddDur    Days:*D       wkDate
+002700000000     C                   return    wkDate
+002800000000
+002900000000     P   $adddate      E

@@ -1,0 +1,105 @@
+     A*%%TS  SD  20000209  133208  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000208  210048  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'ICR201A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Inventory Transfer Entry '
+     A                                      DSPATR(RI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2' Enter to Process               F6-
+     A                                      =Restart                      F3/F7-
+     A                                      =End Job '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 24'Transfer To?'
+     A                                  8 24'Transfer Date:'
+     A            TOBRN          3   B  6 39
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Transfer To Bra-
+     A                                      nch Entered. Press RESET')
+     A            TRNDAT         6Y 0B  8 39
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  21                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  22                                  ERRMSG('*** Transfer does not exist-
+     A                                       and date is prior to today.      P-
+     A                                      ress RESET')
+     A                                 14  4' You cannot enter transfers you ar-
+     A                                      e not assigned to a shipping locati-
+     A                                      on. '
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A                                 15 30' Press enter to end. '
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A          R TRNSFL                    SFL
+     A*%%TS  SD  20000208  210048  EFD         REL-V3R7M0  5716-PW1
+     A            ACTION         1   B  9  2
+     A            ITEMO         12   B  9  4
+     A            SIZEO          3   B  9 17
+     A            QTYO           8  1O  9 21EDTWRD('       . ')
+     A            ITEMI         12   B  9 31
+     A            SIZEI          3   B  9 44
+     A            DESCO         30   O  9 48
+     A          R TRNCTL                    SFLCTL(TRNSFL)
+     A*%%TS  SD  20000209  000853  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0500)
+     A                                      SFLPAG(0001)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'ICR201SFL'
+     A                                  2  2USER
+     A                                  1 28' Inventory Transfer Entry '
+     A                                      DSPATR(RI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  8  2'A Item?       Size Quantity  Item?-
+     A                                             Size Description            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7  4'------OUT-------'
+     A                                  7 31'-------IN-------'
+     A                                  7  2'|'
+     A                                  6  2'Action D=Delete'
+     A                                      DSPATR(UL)
+     A                                  5 31'NOTE: If item has same number in b-
+     A                                      oth depts.'
+     A                                  6 37'leave IN item number Blank.'
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Enter to Verify           Roll key-
+     A                                      s for more             F6=Restart(N-
+     A                                      O Update)'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 13' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  2 55' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  2 33' F2=New Transfer'
+     A  98N99                               DSPATR(RI)
+     A N98
+     AO 99                                  DSPATR(ND)

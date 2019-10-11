@@ -1,0 +1,278 @@
+000100111213    H/COPY QFunctDefn,@CopyRight
+000200111213    H DftActGrp(*no)
+000300111213    H DatFmt(*usa)
+000400111213    H BndDir('*LIBL/KPFUNCTION')
+000500000000      *
+000600000000     FFMINVT    IF   E           K DISK
+000700000000     FFPUTORD   UF A E           K DISK
+000800000000      *
+000900000000     ***********************
+001000000000     * PROG DATA STRUCTURE *
+001100000000     ***********************
+001200000000     D                SDS
+001300130321     D  PROGID                 1     10                                         PROGRAM NAME
+001400130321     D  RLIBR                 81     90                                         RUN LIBRARY
+001500130321     D  USERID               254    263                                         USER I.D.
+001600130321     D  SLIBR                314    323                                         SOURCE LIBRARY
+001700000000     ****************
+001800000000     *   LDA        *
+001900000000     ****************
+002000000000     D                UDS
+002100000000     D  PLDATE                11     16  0
+002200000000     D  LPRTR                100    109
+002300000000     D  LFORM                110    119
+002400000000     D  LCOPY                120    121  0
+002500000000     D  LJOBQ                122    122
+002600000000     D  LHOLD                123    126
+002700000000     D  LSAVE                127    130
+002800000000     D  LCANCL               133    133
+002900000000     D  RPRTR                134    143
+003000000000WJB  D  LX1521               144    144
+003100090227WJB  D  LMASTER              145    146S 0
+003200090227
+003300090227     D  Included       S               N
+003400090227     D  OIITEMKey      S                   Like(OIITEM)
+003500090227     D  SDateYMD7      S              7S 0                                      Ship Date YMD7
+003600111213
+003700111213      * Function Prototypes
+003800111213    D/COPY QFunctDefn,$Date
+003900111213    D/COPY QFunctDefn,$Date7
+004000111213    D/COPY QFunctDefn,$AddDate
+004100000000
+004200000000
+004300000000     ***********************
+004400000000     ** START HERE        **
+004500000000     ***********************
+004600000000
+004700130325      * 12/13/2011 Use the Monday Friday Ready Bay date instead.
+004800130426     C                   Z-ADD     *Zero         WKCYMD            7 0
+004900130426     C                   Z-ADD     *Zero         THRCYM            7 0
+005000111213     C     *DTAARA       DEFINE                  PSC191            1 0
+005100111213     C                   IN        PSC191
+005200130325     C                   Eval      THRCYM =
+005300111213     C                             $Date7($AddDate($date(CLCYMD):-1*PSC191))
+005400130426      /Free
+005500130426
+005600130426         Exec SQL
+005700130426              SELECT
+005800130426              888888       as PDORD# ,
+005900130426              0            as PDSEQ# ,
+006000130426              LRCRDY       as PDSHPD ,
+006100130426              LRCUST       as PDCUST ,
+006200130426              Case When   LRCUST <> '999997'
+006300130426                   then   LRITEM
+006400130426                   else   substr(LRITEM,1,11)||'P'
+006500130426              end          as PDITEM ,
+006600130426              LRSIZE       as PDSIZE ,
+006700130426              LRQTAV       as PDQORD ,
+006800130426              0.0          as PDQSCH ,
+006900130426              0.0          as PDQSCN ,
+007000130426              'Y'          as PDLOTC ,
+007100130426              ' '          as PDPRTD ,
+007200130426              LRALPH       as PDLOOK ,
+007300130426              '  888888'   as PDLOC  ,
+007400130426              LRCRDY       as PDORDY ,
+007500130426              ' '          as PDBORD ,
+007600130426              ' '          as PDSTA  ,
+007700130426              ' '          as PDRDYB
+007800130426              FROM         tgmsdata/FDLOTRD4RB
+007900130426              WHERE        LRCRDY = 1130429 ;
+008000130426
+008100130426      /End-Free
+008200000000     ** REBUILD
+008300130426    C     WKCYMD        SETLL     FDLOTRD
+008400000000     C     NXT           TAG
+008500000000    C     WKCYMD        READE     FIORDRSL                               91
+008600000000     C   91              GOTO      END
+008700000000    C     ORDERKEY      SetLL     FIORDRPART
+008800000000WJB  C                   If        %Equal(FIORDRPART)
+008900000000WJB  C                   Eval      OIITEMKey = OIITEM
+009000000000WJB  C                   Eval      OIITEM = %subst(OIITEM:1:11)+'P'
+009100090227WJB  C                   Else
+009200090227WJB  C                   Eval      OIITEMKey = OIITEM
+009300090227WJB  C                   EndIf
+009400000000
+009500000000     ** Test Record to verify inclusion...  if it fails a test go back to NXT tag.
+009600000000     *  -  Check Customer
+009700000000     C     OIITYP        IFGT      *BLANKS
+009800000000     C     OICUST        OREQ      2730
+009900000000WJB  C     OICUST        OREQ      1521
+010000000000WJB  C     LX1521        ANDEQ     'Y'
+010100000000     C                   GOTO      NXT
+010200000000     C                   END
+010300000000
+010400000000     *  -  Check Status
+010500000000WJB  C     OISTAT        IFEQ      'D'
+010600000000WJB  C                   GOTO      NXT
+010700000000WJB  C                   EndIf
+010800000000
+010900000000     *  -  Check Open Balance
+011000000000     C     OIQORD        SUB       OIQSHP        OPEN             11 1
+011100000000     C     OPEN          IFLE      0
+011200000000     C                   GOTO      NXT
+011300000000     C                   END
+011400000000
+011500000000     *  -  Check Valid Item
+011600000000     C     OIITEM        IFNE      IMITEM
+011700000000     C     OISIZE        ORNE      IMSIZE
+011800000000    C     ITMKEY        CHAIN     FMINVT                             92
+011900000000     C   92              GOTO      NXT
+012000000000WJB  C                   Eval      IMITEM = OIITEM
+012100000000     C                   MOVE      IMBIN#        LOC               1
+012200000000     C                   END
+012300000000
+012400000000     *  -  Check Lot Control
+012500000000     C     IMLOTC        IFNE      'Y'
+012600000000     C                   GOTO      NXT
+012700000000     C                   END
+012800000000
+012900000000     *  -  Check Order Header
+013000000000    C     OIORD#        CHAIN     FHORDR                             93
+013100000000     C   93              GOTO      NXT
+013200000000     C                   If        OHSTAT <> 'A'
+013300000000     C                   GOTO      NXT
+013400000000     C                   EndIf
+013500000000
+013600000000     *  -  Check Multiple Master
+013700090227     C                   If        LMASTER <> 0
+013800090227     C                   Eval      OKORDOK = ' '
+013900130325     C     OKKEY         KList
+014000130325     C                   KFld                    WKCYMD
+014100130325     C                   KFld                    LMASTER
+014200130325     C                   KFld                    OHORD#
+014300130325    C     OKKEY         Chain     FPUTORDOK
+014400090227     C                   If        not %Found(FPUTORDOK)
+014500090227    C                   Call      'MMR015'
+014600090227    C                   Parm      OHORD#        ORDER             6 0
+014700090227    C                   Parm      LMASTER       PMASTER           2 0
+014800090227    C                   Parm      OIRVDT        SDateYMD7         7 0
+014900090227    C                   Parm                    Included
+015000090227     C                   Eval      OKORD# = OHORD#
+015100090227     C                   If        Included = *On
+015200090227     C                   Eval      OKORDOK  = 'Y'
+015300090227     C                   Else
+015400090227     C                   Eval      OKORDOK  = 'N'
+015500090227     C                   EndIf
+015600130325     C                   Eval      OKSHPD = WKCYMD
+015700130325     C                   Eval      OKMAST = LMASTER
+015800130325     C                   Write     RPUTORDOK
+015900090227     C                   Else
+016000090227     C                   If        OKORDOK = 'Y'
+016100090227     C                   Eval      Included = *On
+016200090227     C                   Else
+016300090227     C                   Eval      Included = *Off
+016400090227     C                   EndIf
+016500090227     C                   EndIf
+016600090227     C                   If        not Included
+016700090227     C                   Goto      NXT
+016800090227     C                   EndIf
+016900090227     C                   EndIf
+017000090227     *  ---------------------------------------------------------End Inclusion Check
+017100000000
+017200000000
+017300000000
+017400000000    C     PUTKEY        CHAIN     FPUTORD                            94
+017500000000    C   94              DO
+017600000000     C                   CLEAR                   RPUTORD
+017700000000     C                   Z-ADD     OHORD#        PDORD#
+017800000000     C                   Z-ADD     OISEQ#        PDSEQ#
+017900000000     C                   Z-ADD     WKCYMD        PDSHPD
+018000130325     C                   Z-ADD     LMASTER       PDMAST
+018100000000    C                   ENDDO                                                  94 DO
+018200000000     C     LOC           IFLE      *BLANKS
+018300000000     C                   MOVEL     OHLOC         PDLOC
+018400000000     C                   ELSE
+018500000000    C     OIORD#        CHAIN     FPPO                               71
+018600000000     C     LOC           IFEQ      '1'
+018700000000     C                   MOVEL     POLOWC        PDLOC
+018800000000     C                   ELSE
+018900000000     C                   MOVEL     POLOWF        PDLOC
+019000000000     C                   END
+019100000000     C                   END
+019200000000
+019300000000     ** RIGHT JUSTIFY LOCATION
+019400000000     C                   MOVE      *BLANKS       LIN
+019500000000     C                   MOVE      *BLANKS       LOUT
+019600000000     C                   MOVEA     PDLOC         LIN
+019700000000     C                   Z-ADD     8             X                 2 0
+019800000000     C                   Z-ADD     8             Y                 2 0
+019900000000     C     NXTX          TAG
+020000000000     C     LIN(X)        IFGT      *BLANKS
+020100000000     ** CHECK IF WE NEED A ZERO FOR POST
+020200000000     C     Y             IFEQ      7
+020300000000     C     LIN(X)        ANDLT     '0'
+020400000000     C     LOUT(8)       ANDGE     '0'
+020500000000     C                   MOVE      '0'           LOUT(Y)
+020600000000     C                   SUB       1             Y
+020700000000     C                   END                                                    Y=7
+020800000000     C                   MOVE      LIN(X)        LOUT(Y)
+020900000000     C                   SUB       1             Y
+021000000000     C                   END                                                    LIN,X>" "
+021100000000     C                   SUB       1             X
+021200000000     C     X             IFGT      0
+021300000000     C                   GOTO      NXTX
+021400000000     C                   END
+021500000000     C                   MOVE      *BLANKS       PDLOC
+021600000000     C                   MOVEA     LOUT          PDLOC
+021700000000     C                   Z-ADD     OHCUST        PDCUST
+021800000000     C                   Z-ADD     OHORDY        PDORDY
+021900000000     C                   MOVEL     OIITEM        PDITEM
+022000000000     C                   MOVEL     OISIZE        PDSIZE
+022100000000     C                   Z-ADD     OPEN          PDQORD
+022200000000     C                   MOVEL     IMLOOK        PDLOOK
+022300000000     C                   MOVEL     OILOTC        PDLOTC
+022400000000
+022500000000     ** CHECK STA
+022600000000     C     OHSTA         IFEQ      'Y'
+022700000000     C                   MOVEL     'Y'           PDSTA
+022800000000     C                   ELSE
+022900000000     C                   MOVE      *BLANKS       PDSTA
+023000000000     C                   END
+023100000000
+023200000000     ** CHECK IF READY BAY ORDER
+023300110315     C     PDORDY        IFGE      THRCYM
+023400110315     C     OHSHPC        andNE     '38'                                         |Search & Rescue
+023500000000     C                   MOVEL     'Y'           PDRDYB
+023600000000     C                   ELSE
+023700000000     C                   MOVE      *BLANKS       PDRDYB
+023800000000     C                   END                                                    PDORDY>THRCY
+023900000000
+024000000000     ** CHECK BACKORDER
+024100000000     C     OIPRBO        IFEQ      'B'
+024200000000     C     OIBOLN        OREQ      'B'
+024300000000     C                   MOVEL     'B'           PDBORD
+024400000000     C                   ELSE
+024500000000     C                   MOVE      *BLANKS       PDBORD
+024600000000     C                   END                                                    OIPRBO=B
+024700000000     C   94              WRITE     RPUTORD
+024800000000     C  N94              UPDATE    RPUTORD
+024900000000     C                   GOTO      NXT
+025000000000
+025100000000     *** END PROGRAM
+025200000000     C     END           TAG
+025300000000
+025400000000     C                   SETON                                        LR
+025500000000
+025600000000     ***********************
+025700000000     ** START UP ROUTINE  **
+025800000000     ***********************
+025900000000    C     *INZSR        BEGSR
+026000000000     C                   TIME                    TIMOD             6 0
+026100000000     C                   TIME                    TMWRK            12 0
+026200000000     C                   MOVE      TMWRK         TDATE             6 0
+026300000000    C     ORDERKEY      KLIST
+026400000000    C                   KFLD                    OIORD#
+026500000000    C                   KFLD                    OISEQ#
+026600000000    C     ITMKEY        KLIST
+026700000000    C                   KFLD                    OIITEMKey
+026800000000    C                   KFLD                    OISIZE
+026900000000    C     PUTKEY        KLIST
+027000000000    C                   KFLD                    OIORD#
+027100000000    C                   KFLD                    OISEQ#
+027200000000    C                   KFLD                    WKCYMD
+027300130325    C                   KFLD                    LMASTER
+027400000000    C     TROKEY        KLIST
+027500000000    C                   KFLD                    PDSHPD
+027600000000    C                   KFLD                    PDORD#
+027700000000    C                   KFLD                    PDSEQ#
+027800000000    C                   ENDSR

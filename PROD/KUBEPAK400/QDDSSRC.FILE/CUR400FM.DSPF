@@ -1,0 +1,302 @@
+     A                                      DSPSIZ(27 132 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A**************************************************************************
+     A          R SCRNA
+     A                                  1  2'CUR400A'
+     A            VMVEND         6S 0O  2 52COLOR(BLU)
+     A            VMNAME        30A  O  2 59COLOR(PNK)
+     A                                  2 44'Vendor:'
+     A                                      DSPATR(HI)
+     A                                  2  2USER
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                  2123TIME
+     A                                  1 52' Cutting Requirements Inquiry '
+     A                                      DSPATR(RI)
+     A                                 10 35'Sow Date:'
+     A            SOWDAT         6Y 0B 10 45
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A                                      EDTWRD('  /  /  ')
+     A  40N41                               ERRMSG('*** Invalid Date Entered.  -
+     A                                             Press RESET')
+     A  41                                  ERRMSG('*** Sow Date Must Be a Mond-
+     A                                      ay.    Press RESET')
+     A                                 10 54'or Year ex. 2001:'
+     A            YEAR           4Y 0B 10 72
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  45N46                               ERRMSG('*** Invalid Year Entered.  -
+     A                                             Press RESET')
+     A  46                                  ERRMSG('*** Invalid Year/Week Combi-
+     A                                      nation entered.      Press RESET')
+     A                                 10 77'and Week Number:'
+     A            WEEK           2Y 0B 10 94
+     A  48                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  48                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  48N45                               ERRMSG('*** Week number must be Bet-
+     A                                      ween 1 and 53.  Press RESET')
+     A                                 24 47'Enter to Process           F3/F7=E-
+     A                                      nd Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 47'                                  -
+     A                                            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  6' There is NO Open report to work w-
+     A                                      ith. Return to Menu and run Option -
+     A                                      1. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  7 35'Item Number?'
+     A            ITEMI         12A  B  7 48
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N11                               ERRMSG('*** Invalid Item Number Ent-
+     A                                      ered.      Press RESET')
+     A  11                                  ERRMSG('*** There is no information-
+     A                                       for this item number.   Press RESE-
+     A                                      T')
+     A                                 13 35'Only enter an Item number if you o-
+     A                                      nly want that item.'
+     A                                      DSPATR(HI)
+     A                                 15 35'Only enter a Sow date if you only -
+     A                                      want that sow date.'
+     A                                      DSPATR(HI)
+     A**************************************************************************
+     A          R RECSFL                    SFL
+     A            CLVEND         6S 0H
+     A            CLITEM        12A  H
+     A            CLSIZE         3A  H
+     A            CLSOWD         7S 0H
+     A            CLLOOK        15A  H
+     A            CLQTOH         7S 0H
+     A            IMDES1        30A  H
+     A            ITEM           5A  O  8  2
+     A N52N53                               COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A  53                                  COLOR(PNK)
+     A            IMSIZE    R        O  8  9REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A N52N53                               COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A  53                                  COLOR(PNK)
+     A            IMDES1S       27A  O  8 14
+     A N52N53                               COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A  53                                  COLOR(PNK)
+     A  30                                  DSPATR(UL)
+     A            SOWD           6Y 0O  8 43EDTWRD('  /  /  ')
+     A N52N53                               COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A  53                                  COLOR(PNK)
+     A            SOLD           6Y 0O  8 62EDTCDE(M)
+     A  51                                  DSPATR(HI)
+     A N52                                  COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A            ONHAND         6Y 0O  8 71EDTCDE(M)
+     A  51                                  DSPATR(HI)
+     A N52                                  COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A            ONORD          6Y 0O  8 80EDTCDE(M)
+     A  51                                  DSPATR(HI)
+     A N52                                  COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A            AVAIL          6Y 0O  8 89EDTCDE(M)
+     A  25                                  DSPATR(RI)
+     A  51                                  DSPATR(HI)
+     A N52                                  COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A                                  9 29'Ship Date:'
+     A                                      COLOR(BLU)
+     A  51                                  DSPATR(ND)
+     A            READY6         6Y 0O  9 40EDTWRD('  /  /  ')
+     A                                      DSPATR(UL)
+     A  50
+     AO 51                                  DSPATR(ND)
+     A                                  9 49'Sown on Skip Week'
+     A                                      COLOR(RED)
+     A N50
+     AO 51                                  DSPATR(ND)
+     A            SUPQTY         7Y 0O  8 53EDTCDE(M)
+     A  51                                  DSPATR(HI)
+     A N52                                  COLOR(GRN)
+     A  52                                  COLOR(BLU)
+     A**************************************************************************
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A                                      SFLSIZ(2500)
+     A                                      SFLPAG(0008)
+     A                                      CF02
+     A                                      CF06
+     A                                      CF10
+     A                                      CF04
+     A                                      CF05
+     A                                      CF08
+     A                                      CF09
+     A                                      CF14
+     A                                      KEEP
+     A                                      OVERLAY
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLDROP(CF11)
+     A            CHGVIEW        2Y 0B  4 55PSHBTNFLD(*RSTCSR)
+     A                                      PSHBTNCHC(1 '>SHORT')
+     A                                      PSHBTNCHC(2 '>OVER')
+     A                                      PSHBTNCHC(3 '>ALL')
+     A            VMVEND         6S 0O  2 53COLOR(BLU)
+     A            VMNAME        30A  O  2 60COLOR(PNK)
+     A                                  2 45'Vendor:'
+     A                                      DSPATR(HI)
+     A                                  1  2'CUR400SFL'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2123TIME
+     A                                      COLOR(BLU)
+     A                                  1 53' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A            LINE           5S 0H
+     A                                  7  2'Item / Siz  Description           -
+     A                                             Sow Date   SupQty  CusOrd   -
+     A                                      Conf''d   On Ord   Balance'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'Start With:'
+     A            ALPHA         15A  B  3 14DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                  4 10'Item:'
+     A                                      COLOR(PNK)
+     A            ITEMI         12A  B  4 16COLOR(YLW)
+     A  60                              5 64'Viewing All Cuttings'
+     A  60                                  COLOR(YLW)
+     A  61                              5 65'Viewing Shortages'
+     A  61                                  COLOR(YLW)
+     A  62                              5 65'Viewing Overages'
+     A  62                                  COLOR(YLW)
+     A                                  4 32'Sow Date:'
+     A                                      COLOR(PNK)
+     A                                  5  2'F3'
+     A                                      DSPATR(HI)
+     A                                  5  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                  5 12'F5'
+     A                                      DSPATR(HI)
+     A                                  5 15'=Orders'
+     A                                      COLOR(BLU)
+     A            SOWDAT6        6Y 0B  4 42EDTCDE(Y)
+     A                                      CHECK(ER)
+     A                                      COLOR(YLW)
+     A                                  5 24'F6'
+     A                                      DSPATR(HI)
+     A                                  5 27'=Restart'
+     A                                      COLOR(BLU)
+     A                                  5 48'F11'
+     A                                      DSPATR(HI)
+     A                                  5 52'=More'
+     A                                      COLOR(BLU)
+     A                                  4  2'FILTER:'
+     A                                      COLOR(PNK)
+     A                                  6 40'F8/F9'
+     A                                      DSPATR(HI)
+     A                                  6 46'=-/+Week'
+     A                                      COLOR(BLU)
+     A                                  5 37'F10'
+     A                                      DSPATR(HI)
+     A                                  5 41'=Move'
+     A                                      COLOR(BLU)
+     A                                  6  2'F4'
+     A                                      DSPATR(HI)
+     A                                  6  5'=Details'
+     A                                      COLOR(BLU)
+     A                                  3 32'Force Zero Records to Show:'
+     A            FORCE          1A  B  3 60COLOR(YLW)
+     A                                  7 76'd'
+     A                                  7 80'On'
+     A                                  7 83'Ord'
+     A                                  7 89'Balance'
+     A                                  6 58'--------------Cuttings-------------
+     A                                      --'
+     A                                      COLOR(WHT)
+     A                                  6 15'F14'
+     A                                      COLOR(WHT)
+     A                                  6 19'=Supp Qty by Vendor'
+     A                                      COLOR(BLU)
+     A**************************************************************************
+     A          R SCRND
+     A                                      CF06
+     A                                      CF10
+     A                                  1  2'CUR300D'
+     A                                  2  2USER
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                  2123TIME
+     A                                  1 52' Cutting Requirements Update '
+     A                                      DSPATR(RI)
+     A                                  8 41' You have requested that we delete-
+     A                                       this work file. '
+     A                                      DSPATR(RI)
+     A                                 10 32'There are:'
+     A            TOTREC         9Y 0O 10 43DSPATR(HI)
+     A                                      EDTCDE(1)
+     A                                 10 55'Cuttings you have received, they w-
+     A                                      ill be lost.'
+     A                                 12 34' Press F10 to confirm delete, or P-
+     A                                      ress F6 to return with no delete.'
+     A                                      DSPATR(RI)
+     A**************************************************************************
+     A          R SCRNE
+     A                                      WINDOW(09 39 12 50)
+     A                                      CF12
+     A                                  2  9'   Move Confirmed Vendor Orders   '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  7 12'Size'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 20'Sow Date'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 30'Quant.'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  9  4'FROM:'
+     A                                      DSPATR(HI)
+     A                                 11  6'TO:'
+     A                                      DSPATR(HI)
+     A            CLSIZE    R        O  9 13REFFLD(RCUTLOT/CLSIZE *LIBL/FCUTLOT)
+     A            CLQTOH    R        O  9 29REFFLD(RCUTLOT/CLQTOH *LIBL/FCUTLOT)
+     A                                      EDTCDE(M)
+     A            SOWD           6Y 0O  9 20EDTCDE(Y)
+     A            ITEM           5A  O  4  9COLOR(PNK)
+     A            IMDES1    R        O  4 15REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A                                      COLOR(PNK)
+     A            TOSIZE         3A  B 11 13DSPATR(CS)
+     A                                  6 30'Avail.'
+     A                                      DSPATR(HI)
+     A            TOSOWD         6Y 0O 11 20EDTCDE(Y)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(UL)
+     A                                  6 39'Quant.'
+     A                                      DSPATR(HI)
+     A                                  7 39'to Move'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            MOVEQTY        6S 0B 11 39DSPATR(CS)
+     A                                  6  1'F12'
+     A                                      DSPATR(HI)
+     A                                  6  5'=Cancel'
+     A                                      COLOR(BLU)

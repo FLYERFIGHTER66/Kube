@@ -1,0 +1,15 @@
+             PGM        PARM(&DEVD)
+
+             DCL        VAR(&DEVD) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&DEVA) TYPE(*CHAR) LEN(10)
+
+             RTVOBJD    OBJ(&DEVD) OBJTYPE(*DEVD) OBJATR(&DEVA)
+             MONMSG     MSGID(CPF9814) EXEC(SNDPGMMSG MSGID(VFY0001) +
+                          MSGF(KPMSGF) MSGTYPE(*ESCAPE))
+             MONMSG     MSGID(CPF0000) EXEC(SNDPGMMSG MSGID(VFY0001) +
+                          MSGF(KPMSGF) MSGTYPE(*ESCAPE))
+             IF         COND(&DEVA *NE 'PRTVRT' *AND &DEVA *NE +
+                          'PRTLCL' *AND &DEVA *NE 'PRTLAN') +
+                          THEN(SNDPGMMSG MSGID(VFY0002) MSGF(KPMSGF))
+
+             ENDPGM

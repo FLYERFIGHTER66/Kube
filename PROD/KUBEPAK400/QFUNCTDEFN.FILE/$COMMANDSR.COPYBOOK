@@ -1,0 +1,57 @@
+000100000000      *  ..........................................................
+000200000000      *  :   Run system command                                   :
+000300000000      *  :........................................................:
+000400000000     C     $Command      BegSR
+000500000000      * Format the command String.  Put vaiable in place in the string.
+000600000000
+000700000000      *   |P=Printer ID    Put the Printer Name in the Override command
+000800050203     C                   DoW       %Scan('|P':$CMD_Command) <> 0
+000900050203     C                   Eval      $CMD_Command = %REPLACE
+001000050203     C                             (%Trim($CMD_Printer): $CMD_Command :
+001100050203     C                               %SCAN('|P': $CMD_Command))
+001200000000     C                   EndDo
+001300000000
+001400050203      *   |L=Library       Put the Library Name in the Command
+001500050203     C                   DoW       %Scan('|L':$CMD_Command) <> 0
+001600050203     C                   Eval      $CMD_Command = %REPLACE
+001700050203     C                             (%Trim($CMD_Library): $CMD_Command :
+001800050203     C                               %SCAN('|L': $CMD_Command))
+001900050203     C                   EndDo
+002000050203
+002100050203      *   |F=File Name     Put the File Name in the Command
+002200050203     C                   DoW       %Scan('|F':$CMD_Command) <> 0
+002300050203     C                   Eval      $CMD_Command = %REPLACE
+002400050203     C                             (%Trim($CMD_FileName): $CMD_Command :
+002500050203     C                               %SCAN('|F': $CMD_Command))
+002600050203     C                   EndDo
+002700050203
+002800050203      *   |M=Member        Put the Member Name in the Command
+002900050203     C                   DoW       %Scan('|M':$CMD_Command) <> 0
+003000050203     C                   Eval      $CMD_Command = %REPLACE
+003100050203     C                             (%Trim($CMD_Member): $CMD_Command :
+003200050203     C                               %SCAN('|M': $CMD_Command))
+003300050203     C                   EndDo
+003400050203
+003500050203      *   |J=Job Name      Put the Job Name in the Command
+003600050203     C                   DoW       %Scan('|J':$CMD_Command) <> 0
+003700050203     C                   Eval      $CMD_Command = %REPLACE
+003800050203     C                             (%Trim($CMD_JobName): $CMD_Command :
+003900050203     C                               %SCAN('|J': $CMD_Command))
+004000050203     C                   EndDo
+004100050203
+004200000000      *   ~ =Blank that needs to be removedReplace with nothing
+004300050203     C                   DoW       %Scan('~':$CMD_Command) <> 0
+004400050203     C                   Eval      $CMD_Command =
+004500050203     C                               %SubSt($CMD_Command:1:
+004600050203     C                               %Scan('~':$CMD_Command)-1)
+004700050203     C                             + %SubSt($CMD_Command:
+004800050203     C                               %Scan('~':$CMD_Command)+1:
+004900050203     C                               %Len($CMD_Command) -
+005000050203     C                               %Scan('~':$CMD_Command))
+005100000000     C                   EndDo
+005200000000
+005300000000      * Execute the Command using QCMDEXC.
+005400050203     C                   CALLP     QCmdExc($CMD_Command:
+005500050203     C                                     %len(%Trim($CMD_Command)))
+005600000000
+005700000000     C                   EndSR

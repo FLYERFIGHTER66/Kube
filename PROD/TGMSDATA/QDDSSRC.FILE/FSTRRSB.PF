@@ -1,0 +1,53 @@
+     A*     READY ROSE ORDER SUBSTITUTE FILE
+     A*     FILE NAME - FSTRRSB
+     A*
+     A*
+     A                                      UNIQUE
+     A          R RSTRRSB                   TEXT('R.R. ORDER SUB.')
+     A            RSSTAT         1A         TEXT('STATUS')
+     A                                      COLHDG('Status')
+      ** THE FOLLOWING TWO FIELDS ARE KEY TO FSTANDI
+     A            RSORD#         6S 0       TEXT('ORDER NUMBER')
+     A                                      COLHDG('Order #')
+     A                                      EDTCDE(Z)
+     A            RSSEQ#         3S 0       TEXT('SEQ NUMBER')
+     A                                      COLHDG('Item' 'Seq #')
+     A                                      EDTCDE(4)
+      ** THE FOLLOWING field determines the sequence we try to subst.
+      ** in.
+     A            RSPSEQ         3S 0       TEXT('PRIORITY')
+     A                                      COLHDG('Item' 'Prior.')
+     A                                      EDTCDE(4)
+     A            RSITEM        12A         TEXT('ITEM NUMBER')
+     A                                      COLHDG('Item #')
+     A            RSSIZE         3A         TEXT('SIZE')
+     A                                      COLHDG('Size')
+     A            RSCOMP         2S 0       TEXT('COMPANY #')
+     A                                      COLHDG('Company #')
+     A                                      EDTCDE(4)
+     A            RSWHSE         3A         TEXT('LOCATION')
+     A                                      COLHDG('Location')
+     A            RSUPRI         9P 4       TEXT('UNIT PRICE')
+     A                                      COLHDG('Unit Price')
+     A                                      EDTCDE(3)
+      *** THE FOLLOWING IS BASE PRICE CODE
+      *** M=MARKET  S=STANDING ORDER PRICE O=PRICE IN STANDI RECORD
+      *** " "(BLANK)=PRICE IN THIS RECORD
+     A            RSPRCD         1A         TEXT('BASE PRICE CODE')
+     A                                      COLHDG('Base' 'Price' 'Code')
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF %=110.00 then price will be marked up 10%
+      ** IF %= 90.00 then price will be discounted 10%
+     A            RSDISP         5S 2       TEXT('Mark-up/Disc. %')
+     A                                      COLHDG('Mark-up' 'Disc. %')
+     A                                      EDTCDE(3)
+      ** THE FOLLOWING FIELD IS USED FOR MARK-UP OR DISCOUNT
+      ** IF $=  .50 then .50 will be added to base price.
+      ** IF $=  .50- Then .50 will be subtracted form base price.
+     A            RSDIS$         5S 2       TEXT('Mark-up/Disc. $')
+     A                                      COLHDG('Mark-up' 'Disc. $')
+     A                                      EDTCDE(M)
+     A*
+     A          K RSORD#
+     A          K RSSEQ#
+     A          K RSPSEQ

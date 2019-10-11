@@ -1,0 +1,95 @@
+000100970924      *--------------------------------------------------------------
+000200970924      *
+000300970924      *  COPYRIGHT EFD ENTERPRISES, INC.    1997
+000400970924      *
+000500970924      *       THIS MATERIAL WAS PREPARED BY AND IS PROPRIETARY TO
+000600970924      *       EFD ENTERPRISES, INC.     ALL RIGHTS RESERVED.  THE
+000700970924      *       METHODS AND TECHNIQUES DESCRIBED HEREIN ARE CONSIDERED
+000800970924      *       TRADE SECRETS AND/OR CONFIDENTIAL.  REPRODUCTION OR
+000900970924      *       DISTRIBUTION, IN WHOLE OR IN PART, IS FORBIDDEN EXCEPT
+001000970924      *       BY EXPRESS WRITTEN PERMISSION OF
+001100970924      *            EFD ENTERPRISES, INC.     215-643-5352
+001200970924      *
+001300970924      *--------------------------------------------------------------
+001400970924      **PROGRAM NAME-------- SED900
+001500970924      **COMPANY------------- EFD ENTERPRISES, INC.
+001600970924      **SYSTEM-------------- TGMS
+001700970924      **PROGRAMMER---------- EFD
+001800971105      **APPLICATION--------- SUBTRACT SOWLINE JOBS
+001900970924      *
+002000970924      *            CHANGE--DATE-------DESCRIPTION
+002100970924      *
+002200971105     FFPLUGX    UF   E           K DISK
+002300971105     FFSEDLOT   UF   E           K DISK
+002400971105     FFMINVT    UF   E           K DISK
+002500970924      *
+002600970924      *
+002700970924      *
+002800970924      ***********************
+002900970924      * PROG DATA STRUCTURE *
+003000970924      ***********************
+003100970924     D                SDS
+003200970924      ** PROGRAM NAME
+003300970924     D  PROGID                 1     10                                         ARC380
+003400970924      ** RUN LIBRARY
+003500970924     D  RLIBR                 81     90                                         ARC380
+003600970924      * USER I.D.
+003700970924     D  USERID               254    263                                         ARC380
+003800970924      ** SOURCE LIBRARY
+003900970924     D  SLIBR                314    323                                         ARC380
+004000970924      ****************
+004100970924      *   LDA        *
+004200970924      ****************
+004300970924     D                UDS
+004400970924     D  LDAPTO                 1      1  0                                      ARC380
+004500970924      ***********************
+004600970924      ** START HERE        **
+004700970924      ***********************
+004800970924     C                   MOVEL     'SED'         WRKSIZ            3
+004900980430     C                   Z-ADD     199818        STRWK             6 0
+005000971105     C     STRWK         SETLL     FPLUGX
+005100971105     C     NXTPLG        TAG
+005200971111     C     STRWK         READE     FPLUGX                                 90
+005300971105     C   90              GOTO      END
+005400971105     C     PLIREA        IFEQ      'Y'
+005500971105     C                   GOTO      NXTPLG
+005600971105     C                   END
+005700971105     C                   MOVEL     PLITEM        ITEM              5
+005800971105     C                   MOVE      PLITEM        SIZE              3
+005900971105     C                   MOVEL     ITEM          IMITEM
+006000971105     C                   MOVEL     SIZE          IMSIZE
+006100971105     C                   MOVEL     SIZE          SIZ               3 0
+006200971105     C     ITMKEY        KLIST
+006300971105     C                   KFLD                    IMITEM
+006400971105     C                   KFLD                    IMSIZE
+006500971105     C     ITMKEY        CHAIN     FMINVT                             71
+006600971105     C   71              GOTO      NXTPLG
+006700971105     C     IM#SED        MULT      SIZ           TRSED             9 0
+006800971111     C     PLDPSW        MULT      TRSED         USED              9 0
+006900971105     C                   MOVEL     'SED'         IMSIZE
+007000971105     C     ITMKEY        CHAIN     FMINVT                             71
+007100971105     C   71              GOTO      NXTPLG
+007200971105     C                   SUB       USED          IMQTOH
+007300971105     C     IMQTOH        SUB       IMQTAL        IMQTAV
+007400971105     C                   UPDATE    RMINVT
+007500971105     C     SEDKEY        KLIST
+007600971105     C                   KFLD                    IMITEM
+007700971105     C                   KFLD                    IMSIZE
+007800971105     C     SEDKEY        CHAIN     FSEDLOT                            77
+007900971105     C                   ADD       USED          SLQTIS
+008000971105     C                   SUB       USED          SLQTOH
+008100971105     C  N77              UPDATE    RSEDLOT
+008200971105     C                   MOVEL     'Y'           PLIREA
+008300971105     C                   UPDATE    RPLUG
+008400971105     C                   GOTO      NXTPLG
+008500970924      ** END PROGRAM
+008600970924     C     END           TAG
+008700970924     C                   SETON                                        LR
+008800970924      ***********************
+008900970924      ** START UP ROUTINE  **
+009000970924      ***********************
+009100970924     C     *INZSR        BEGSR
+009200970924     C                   TIME                    TIMOD             6 0
+009300970924     C                   TIME                    TMWRK            12 0
+009400970924     C                   MOVE      TMWRK         TDATE             6 0
+009500970924     C                   ENDSR

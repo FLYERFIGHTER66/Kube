@@ -1,0 +1,713 @@
+     A*%%TS  SD  20001018  155430  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A          R SCRNA
+     A*%%TS  SD  19990505  092748  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 28' Dillon Customer Inquiry '
+     A                                      DSPATR(RI)
+     A                                  6 16'Customer Number:'
+     A            VCUST          6Y 0B  6 34
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Customer Number-
+     A                                       Entered.   Press RESET')
+     A                                 10 16'Alpha Search:'
+     A            VALPHA        15A  B 10 34DSPATR(CS)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process             F6=Re-
+     A                                      start                          F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 19'- or -'
+     A                                 12 19'- or -'
+     A                                 14 16'Telephone Search:'
+     A            TELE          10A  B 14 34
+     A          R SCRNMNU
+     A*%%TS  SD  20001018  155430  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300MNU'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 23' Dillon Customer Inquiry Selection-
+     A                                       '
+     A                                      DSPATR(RI)
+     A            VCUST          6Y 0B  3 24EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 24  2'Enter to Process                  -
+     A                                                                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 14'Customer:'
+     A            CMNAME        30A  O  3 31
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 27'1. - Select New Customer'
+     A                                  9 42'10. - Display Points Information'
+     A                                 10 42'11. - Display Current Month Sales'
+     A                                 11 42'12. - Display Branch Sales Y.T.D.'
+     A                                 12 42'13. - Display Company Sales Y.T.D.'
+     A                                 21  2'Enter Option Wanted:'
+     A            OPTION         2Y 0B 21 24DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                  5 32'Change Customer'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8  7'Customer Information'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9  2'2. - Name Address Etc.'
+     A                                  8 48'D.P.C. Information'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 10  2'3. - Delivery Information'
+     A                                 13 42'14. - Display Goals'
+     A                                  4 19'A/R Status:'
+     A            ASDESC        30A  O  4 31
+     A                                 11  2'4. - Month to Date Sales Inquiry'
+     A          R SCRNPTS
+     A*%%TS  SD  19990623  170953  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300PTS'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 24' Dillon Premier Customer Inquiry '
+     A                                      DSPATR(RI)
+     A            VCUST          6Y 0B  3 12EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 24  2'Enter to Process                  -
+     A                                                                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'Customer:'
+     A            CMNAME        30A  O  3 19
+     A                                 18 45'January:'
+     A                                 19 45'February:'
+     A                                 14 14'March and'
+     A                                 15 14'April:'
+     A                                 16 14'May:'
+     A                                 17 14'June:'
+     A                                 18 14'July:'
+     A                                 19 14'August:'
+     A                                 14 45'September:'
+     A                                 15 45'October:'
+     A                                 16 45'November:'
+     A                                 17 45'December:'
+     A                                  3 50'Status:'
+     A            DPSTAT         1A  B  3 58
+     A  10                                  ERRMSG('*** Invalid Status Entered.-
+     A                                                  Press RESET')
+     A                                      DSPATR(PR)
+     A                                  7 42'Points Earned Year to Date:'
+     A            DPPTTD         7Y 0B  7 70EDTCDE(1)
+     A                                      DSPATR(PR)
+     A            DPPTRD         7Y 0B  8 70DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(PR)
+     A                                  8 49'Issued Year to Date:'
+     A                                  9 59'Available:'
+     A            POIAVL         7Y 0B  9 70EDTCDE(1)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(PR)
+     A                                  8  2'Sales Prior 12 Months:'
+     A            P12MSL        11Y 2B  8 25EDTCDE(J)
+     A                                      DSPATR(PR)
+     A                                  7  3'Sales Last 12 Months:'
+     A            L12MSL        11Y 2B  7 25EDTCDE(J)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                  9  3'Increase/Decrease(-):'
+     A            NETSL         11Y 2B  9 25EDTCDE(J)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(PR)
+     A                                 13 14'-------------Current Year Points E-
+     A                                      arned-------------'
+     A            DPPTJA         7Y 0O 18 57EDTCDE(1)
+     A            DPPTFB         7Y 0O 19 57EDTCDE(1)
+     A            DPPTMR         7Y 0O 14 25EDTCDE(1)
+     A                                      DSPATR(ND)
+     A            DPPTAP         7Y 0O 15 25EDTCDE(1)
+     A            DPPTMA         7Y 0O 16 25EDTCDE(1)
+     A            DPPTJN         7Y 0O 17 25EDTCDE(1)
+     A            DPPTJL         7Y 0O 18 25EDTCDE(1)
+     A            DPPTAG         7Y 0O 19 25EDTCDE(1)
+     A            DPPTSP         7Y 0O 14 57EDTCDE(1)
+     A            DPPTOC         7Y 0O 15 57EDTCDE(1)
+     A            DPPTNV         7Y 0O 16 57EDTCDE(1)
+     A            DPPTDC         7Y 0O 17 57EDTCDE(1)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  7'Added:'
+     A            DATADD         8Y 0O  4 14EDTWRD('  /  /    ')
+     A                                  4 25'Dropped:'
+     A            DATDRP         8Y 0O  4 34EDTWRD('  /  /    ')
+     A                                  4 45'Re-Activated:'
+     A            DATREA         8Y 0O  4 59EDTWRD('  /  /    ')
+     A                                  4  2'Date'
+     A                                 21 29'Total Year to Date Points:'
+     A            YTDPOI         7Y 0O 21 57EDTCDE(1)
+     A            STDESC        21A  O  3 60
+     A                                 20 57'========='
+     A                                 11 14'NOTE: Points are calculated at the-
+     A                                       end of the Month.'
+     A                                      DSPATR(UL)
+     A                                  6 45'D.P.C. Year March thru February'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNC
+     A*%%TS  SD  19990622  195946  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300C'
+     A                                  2  2USER
+     A                                  2  1DATE
+     A                                      EDTCDE(Y)
+     A                                  3  1TIME
+     A                                  1 24' Dillon Premier Customer Inquiry '
+     A                                      DSPATR(RI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process                  -
+     A                                                                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 14'Customer:'
+     A            CMCUST         6Y 0O  2 24DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            CMNAME        30A  O  2 31DSPATR(HI)
+     A            YTD1           7Y 0O  8 14EDTCDE(K)
+     A            BRGL1          7Y 0O  8 25EDTCDE(K)
+     A            YTDPC1         7Y 2O  8 36EDTCDE(K)
+     A            CURM1          7Y 0O  8 49EDTCDE(K)
+     A            MGL1           7Y 0O  8 60EDTCDE(K)
+     A            MGPC1          7Y 2O  8 71EDTCDE(K)
+     A                                  8  2'Fresh Cut:'
+     A                                      DSPATR(HI)
+     A                                 10  3'Scranton:'
+     A                                      DSPATR(HI)
+     A                                 12  7'L.V.:'
+     A                                      DSPATR(HI)
+     A                                 14  7'P.K.:'
+     A                                      DSPATR(HI)
+     A                                 16  5'Supply:'
+     A                                      DSPATR(HI)
+     A            YTD2           7Y 0O 10 14EDTCDE(K)
+     A            BRGL2          7Y 0O 10 25EDTCDE(K)
+     A            YTDPC2         7Y 2O 10 36EDTCDE(K)
+     A            CURM2          7Y 0O 10 49EDTCDE(K)
+     A            MGL2           7Y 0O 10 60EDTCDE(K)
+     A            MGPC2          7Y 2O 10 71EDTCDE(K)
+     A            YTD3           7Y 0O 12 14EDTCDE(K)
+     A            BRGL3          7Y 0O 12 25EDTCDE(K)
+     A            YTDPC3         7Y 2O 12 36EDTCDE(K)
+     A            CURM3          7Y 0O 12 49EDTCDE(K)
+     A            MGL3           7Y 0O 12 60EDTCDE(K)
+     A            MGPC3          7Y 2O 12 71EDTCDE(K)
+     A            YTD7           7Y 0O 14 14EDTCDE(K)
+     A            BRGL7          7Y 0O 14 25EDTCDE(K)
+     A            YTDPC7         7Y 2O 14 36EDTCDE(K)
+     A            CURM7          7Y 0O 14 49EDTCDE(K)
+     A            MGL7           7Y 0O 14 60EDTCDE(K)
+     A            MGPC7          7Y 2O 14 71EDTCDE(K)
+     A            YTD9           7Y 0O 16 14EDTCDE(K)
+     A            BRGL9          7Y 0O 16 25EDTCDE(K)
+     A            YTDPC9         7Y 2O 16 36EDTCDE(K)
+     A            CURM9          7Y 0O 16 49EDTCDE(K)
+     A            MGL9           7Y 0O 16 60EDTCDE(K)
+     A            MGPC9          7Y 2O 16 71EDTCDE(K)
+     A                                 18 15'========'
+     A                                 18 26'========'
+     A                                 18 37'========'
+     A                                 18 50'========'
+     A                                 18 61'========'
+     A                                 18 72'========'
+     A            YTDT           7Y 0O 19 14EDTCDE(K)
+     A            BRGLT          7Y 0O 19 25EDTCDE(K)
+     A            YTDPCT         7Y 2O 19 36EDTCDE(K)
+     A            CURMT          7Y 0O 19 49EDTCDE(K)
+     A            MGLT           7Y 0O 19 60EDTCDE(K)
+     A            MGPCT          7Y 2O 19 71EDTCDE(K)
+     A                                 19  2'Total====>'
+     A                                  7 14'   Sales       Goal   % of Goal'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 14'------D.P.C. Year to Date------'
+     A                                      DSPATR(HI)
+     A                                  7 49'   Sales       Goal   % of Goal'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 49'---------Current Month---------'
+     A                                      DSPATR(HI)
+     A            SLSM1         30A  O  9  2
+     A            SLSM2         30A  O 11  2
+     A            SLSM3         30A  O 13  2
+     A            SLSM7         30A  O 15  2
+     A            SLSM9         30A  O 17  2
+     A            CMONTH         9A  O  5 60DSPATR(HI)
+     A                                  6  2'Branch/'
+     A                                      DSPATR(HI)
+     A                                  7  2'Team Member'
+     A                                  3  2'D.P.C. Status:'
+     A            TYPE          30A  O  3 17
+     A                                  4 50'March and April are combined.'
+     A                                  5 14'NOTE: D.P.C. Year=March to Feb.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 20 18'Last Years Sales this Month:'
+     A  80                                  DSPATR(HI)
+     A N80                                  DSPATR(ND)
+     A            GO3F1          7Y 0O 20 49
+     A  80                                  DSPATR(HI)
+     A N80                                  DSPATR(ND)
+     A  80                                  DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                 21 19'Sales needed to go 3 for 1:'
+     A  80                                  DSPATR(HI)
+     A N80                                  DSPATR(ND)
+     A            LFT3F1         7Y 0O 21 49
+     A  80                                  DSPATR(HI)
+     A N80                                  DSPATR(ND)
+     A                                      EDTCDE(1)
+     A                                 21 61' 3 For 1 '
+     A  80 81                               DSPATR(RI)
+     A N80
+     AON81                                  DSPATR(ND)
+     A  80 81                               DSPATR(BL)
+     A                                  4  3'Month:'
+     A            VMTH           2Y 0B  4 10
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10                                  ERRMSG('*** Invalid Month Entered. -
+     A                                           Press  RESET')
+     A          R SCRNBR
+     A*%%TS  SD  19990623  180003  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300BR'
+     A                                  2  2USER
+     A                                  2  1DATE
+     A                                      EDTCDE(Y)
+     A                                  3  1TIME
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process             F6=Re-
+     A                                      start                          F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 14'Customer:'
+     A            CMCUST         6Y 0O  2 24DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            CMNAME        30A  O  2 31DSPATR(HI)
+     A                                  3  2'D.P.C. Status:'
+     A            TYPE          30A  O  3 17
+     A            BMC1           9Y 2O  8 12EDTCDE(K)
+     A            BMP1           9Y 2O  8 55EDTCDE(K)
+     A            BMC2           9Y 2O  9 12EDTCDE(K)
+     A            BMC3           9Y 2O 10 12EDTCDE(K)
+     A            BMC4           9Y 2O 11 12EDTCDE(K)
+     A            BMC5           9Y 2O 12 12EDTCDE(K)
+     A            BMC6           9Y 2O 13 12EDTCDE(K)
+     A            BMC7           9Y 2O 14 12EDTCDE(K)
+     A            BMC8           9Y 2O 15 12EDTCDE(K)
+     A            BMC9           9Y 2O 16 12EDTCDE(K)
+     A            BMC10          9Y 2O 17 12EDTCDE(K)
+     A            BMC11          9Y 2O 18 12EDTCDE(K)
+     A            BMC12          9Y 2O 19 12EDTCDE(K)
+     A            TOTTY$         9Y 2O 21 12EDTCDE(K)
+     A            BMP2           9Y 2O  9 55EDTCDE(K)
+     A            BMP3           9Y 2O 10 55EDTCDE(K)
+     A            BMP4           9Y 2O 11 55EDTCDE(K)
+     A            BMP5           9Y 2O 12 55EDTCDE(K)
+     A            BMP6           9Y 2O 13 55EDTCDE(K)
+     A            BMP7           9Y 2O 14 55EDTCDE(K)
+     A            BMP8           9Y 2O 15 55EDTCDE(K)
+     A            BMP9           9Y 2O 16 55EDTCDE(K)
+     A            BMP10          9Y 2O 17 55EDTCDE(K)
+     A            BMP11          9Y 2O 18 55EDTCDE(K)
+     A            BMP12          9Y 2O 19 55EDTCDE(K)
+     A            TOTLY$         9Y 2O 21 55EDTCDE(K)
+     A            MTH1           9A  O  8  2
+     A            MTH2           9A  O  9  2
+     A            MTH3           9A  O 10  2
+     A            MTH4           9A  O 11  2
+     A            MTH5           9A  O 12  2
+     A            MTH6           9A  O 13  2
+     A            MTH7           9A  O 14  2
+     A            MTH8           9A  O 15  2
+     A            MTH9           9A  O 16  2
+     A            MTH10          9A  O 17  2
+     A            MTH11          9A  O 18  2
+     A            MTH12          9A  O 19  2
+     A                                  1 13' Branch Year to Date Sales, Goals -
+     A                                      and Last Year to Date '
+     A                                      DSPATR(RI)
+     A            GLM1           7Y 0O  8 27EDTCDE(2)
+     A            GLM2           7Y 0O  9 27EDTCDE(2)
+     A            GLM3           7Y 0O 10 27EDTCDE(2)
+     A            GLM4           7Y 0O 11 27EDTCDE(2)
+     A            GLM5           7Y 0O 12 27EDTCDE(2)
+     A            GLM6           7Y 0O 13 27EDTCDE(2)
+     A            GLM7           7Y 0O 14 27EDTCDE(2)
+     A            GLM8           7Y 0O 15 27EDTCDE(2)
+     A            GLM9           7Y 0O 16 27EDTCDE(2)
+     A            GLM10          7Y 0O 17 27EDTCDE(2)
+     A            GLM11          7Y 0O 18 27EDTCDE(2)
+     A            GLM12          7Y 0O 19 27EDTCDE(2)
+     A            TOTCGL         7Y 0O 21 27EDTCDE(2)
+     A            GPCT1          8Y 4O  8 37EDTWRD('    .    -%')
+     A            GPCT2          8Y 4O  9 37EDTWRD('    .    -%')
+     A            GPCT3          8Y 4O 10 37EDTWRD('    .    -%')
+     A                                      DSPATR(ND)
+     A            GPCT4          8Y 4O 11 37EDTWRD('    .    -%')
+     A            GPCT5          8Y 4O 12 37EDTWRD('    .    -%')
+     A            GPCT6          8Y 4O 13 37EDTWRD('    .    -%')
+     A            GPCT7          8Y 4O 14 37EDTWRD('    .    -%')
+     A            GPCT8          8Y 4O 15 37EDTWRD('    .    -%')
+     A            GPCT9          8Y 4O 16 37EDTWRD('    .    -%')
+     A            GPCT10         8Y 4O 17 37EDTWRD('    .    -%')
+     A            GPCT11         8Y 4O 18 37EDTWRD('    .    -%')
+     A            GPCT12         8Y 4O 19 37EDTWRD('    .    -%')
+     A            TCMPCT         8Y 4O 21 37EDTWRD('    .    -%')
+     A            LYTYP1         8Y 4O  8 69EDTWRD('    .    -%')
+     A            LYTYP2         8Y 4O  9 69EDTWRD('    .    -%')
+     A            LYTYP3         8Y 4O 10 69EDTWRD('    .    -%')
+     A                                      DSPATR(ND)
+     A            LYTYP4         8Y 4O 11 69EDTWRD('    .    -%')
+     A            LYTYP5         8Y 4O 12 69EDTWRD('    .    -%')
+     A            LYTYP6         8Y 4O 13 69EDTWRD('    .    -%')
+     A            LYTYP7         8Y 4O 14 69EDTWRD('    .    -%')
+     A            LYTYP8         8Y 4O 15 69EDTWRD('    .    -%')
+     A            LYTYP9         8Y 4O 16 69EDTWRD('    .    -%')
+     A            LYTP10         8Y 4O 17 69EDTWRD('    .    -%')
+     A            LYTP11         8Y 4O 18 69EDTWRD('    .    -%')
+     A            LYTP12         8Y 4O 19 69EDTWRD('    .    -%')
+     A            TLYPYP         8Y 4O 21 69EDTWRD('    .    -%')
+     A                                 20 12'============'
+     A                                 20 27'========='
+     A                                 20 37'========='
+     A                                 20 55'============'
+     A                                 20 69'========='
+     A                                  7  2'Month     Current Year       Goal -
+     A                                        % Diff.             Last Year   %-
+     A                                       Diff.   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  1'Branch?'
+     A            DEDESC        30A  O  5 13
+     A            USNAME        30A  O  5 51
+     A                                  5 46'Rep:'
+     A            DGBR           3A  B  5  9
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Branch Code Ent-
+     A                                      ered.       Press RESET')
+     A          R SCRNCO
+     A*%%TS  SD  19990623  180003  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300CO'
+     A                                  2  2USER
+     A                                  2  1DATE
+     A                                      EDTCDE(Y)
+     A                                  3  1TIME
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process                  -
+     A                                                                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 14'Customer:'
+     A            CMCUST         6Y 0O  2 24DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            CMNAME        30A  O  2 31DSPATR(HI)
+     A                                  3  2'D.P.C. Status:'
+     A            TYPE          30A  O  3 17
+     A            COC1          10Y 2O  8 12EDTCDE(K)
+     A            COC2          10Y 2O  9 12EDTCDE(K)
+     A            COC3          10Y 2O 10 12EDTCDE(K)
+     A            COC4          10Y 2O 11 12EDTCDE(K)
+     A            COC5          10Y 2O 12 12EDTCDE(K)
+     A            COC6          10Y 2O 13 12EDTCDE(K)
+     A            COC7          10Y 2O 14 12EDTCDE(K)
+     A            COC8          10Y 2O 15 12EDTCDE(K)
+     A            COC9          10Y 2O 16 12EDTCDE(K)
+     A            COC10         10Y 2O 17 12EDTCDE(K)
+     A            COC11         10Y 2O 18 12EDTCDE(K)
+     A            COC12         10Y 2O 19 12EDTCDE(K)
+     A            TOTTC$        10Y 2O 21 12EDTCDE(K)
+     A            COL1          10Y 2O  8 54EDTCDE(K)
+     A            COL2          10Y 2O  9 54EDTCDE(K)
+     A            COL3          10Y 2O 10 54EDTCDE(K)
+     A            COL4          10Y 2O 11 54EDTCDE(K)
+     A            COL5          10Y 2O 12 54EDTCDE(K)
+     A            COL6          10Y 2O 13 54EDTCDE(K)
+     A            COL7          10Y 2O 14 54EDTCDE(K)
+     A            COL8          10Y 2O 15 54EDTCDE(K)
+     A            COL9          10Y 2O 16 54EDTCDE(K)
+     A            COL10         10Y 2O 17 54EDTCDE(K)
+     A            COL11         10Y 2O 18 54EDTCDE(K)
+     A            COL12         10Y 2O 19 54EDTCDE(K)
+     A            TOTLC$        10Y 2O 21 54EDTCDE(K)
+     A            MTH1           9A  O  8  2
+     A            MTH2           9A  O  9  2
+     A            MTH3           9A  O 10  2
+     A            MTH4           9A  O 11  2
+     A            MTH5           9A  O 12  2
+     A            MTH6           9A  O 13  2
+     A            MTH7           9A  O 14  2
+     A            MTH8           9A  O 15  2
+     A            MTH9           9A  O 16  2
+     A            MTH10          9A  O 17  2
+     A            MTH11          9A  O 18  2
+     A            MTH12          9A  O 19  2
+     A                                  1 12' Company Year to Date Sales, Goals-
+     A                                       and Last Year to Date '
+     A                                      DSPATR(RI)
+     A            GLM1           7Y 0O  8 28EDTCDE(2)
+     A            GLM2           7Y 0O  9 28EDTCDE(2)
+     A            GLM3           7Y 0O 10 28EDTCDE(2)
+     A            GLM4           7Y 0O 11 28EDTCDE(2)
+     A            GLM5           7Y 0O 12 28EDTCDE(2)
+     A            GLM6           7Y 0O 13 28EDTCDE(2)
+     A            GLM7           7Y 0O 14 28EDTCDE(2)
+     A            GLM8           7Y 0O 15 28EDTCDE(2)
+     A            GLM9           7Y 0O 16 28EDTCDE(2)
+     A            GLM10          7Y 0O 17 28EDTCDE(2)
+     A            GLM12          7Y 0O 18 28EDTCDE(2)
+     A            GLM13          7Y 0O 19 28EDTCDE(2)
+     A            TOTCGL         7Y 0O 21 28EDTCDE(2)
+     A            GPCT1          8Y 4O  8 39EDTWRD('    .    -%')
+     A            GPCT2          8Y 4O  9 39EDTWRD('    .    -%')
+     A            GPCT3          8Y 4O 10 39EDTWRD('    .    -%')
+     A                                      DSPATR(ND)
+     A            GPCT4          8Y 4O 11 39EDTWRD('    .    -%')
+     A            GPCT5          8Y 4O 12 39EDTWRD('    .    -%')
+     A            GPCT6          8Y 4O 13 39EDTWRD('    .    -%')
+     A            GPCT7          8Y 4O 14 39EDTWRD('    .    -%')
+     A            GPCT8          8Y 4O 15 39EDTWRD('    .    -%')
+     A            GPCT9          8Y 4O 16 39EDTWRD('    .    -%')
+     A            GPCT10         8Y 4O 17 39EDTWRD('    .    -%')
+     A            GPCT11         8Y 4O 18 39EDTWRD('    .    -%')
+     A            GPCT12         8Y 4O 19 39EDTWRD('    .    -%')
+     A            TCMPCT         8Y 4O 21 39EDTWRD('    .    -%')
+     A            LYTYP1         8Y 4O  8 69EDTWRD('    .    -%')
+     A            LYTYP2         8Y 4O  9 69EDTWRD('    .    -%')
+     A            LYTYP3         8Y 4O 10 69EDTWRD('    .    -%')
+     A                                      DSPATR(ND)
+     A            LYTYP4         8Y 4O 11 69EDTWRD('    .    -%')
+     A            LYTYP5         8Y 4O 12 69EDTWRD('    .    -%')
+     A            LYTYP6         8Y 4O 13 69EDTWRD('    .    -%')
+     A            LYTYP7         8Y 4O 14 69EDTWRD('    .    -%')
+     A            LYTYP8         8Y 4O 15 69EDTWRD('    .    -%')
+     A            LYTYP9         8Y 4O 16 69EDTWRD('    .    -%')
+     A            LYTP10         8Y 4O 17 69EDTWRD('    .    -%')
+     A            LYTP11         8Y 4O 18 69EDTWRD('    .    -%')
+     A            LYTP12         8Y 4O 19 69EDTWRD('    .    -%')
+     A            TLYPYP         8Y 4O 21 69EDTWRD('    .    -%')
+     A                                 20 12'============='
+     A                                 20 28'========='
+     A                                 20 39'========='
+     A                                 20 54'============='
+     A                                 20 69'========='
+     A                                  7  2'Month     Current Year       Goal -
+     A                                          % Diff.          Last Year     -
+     A                                      % Diff.  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNM
+     A*%%TS  SD  19990525  153944  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300M'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            VCUST          6Y 0B  3 12EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                 24  2'Enter to Process                  -
+     A                                                                     F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  2'Customer:'
+     A            #SL1          32A  O  4  7DSPATR(HI)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 25' Customer Master File Inquiry '
+     A                                      DSPATR(RI)
+     A            #SL2          32A  O  5  7DSPATR(HI)
+     A            #SL3          32A  O  6  7DSPATR(HI)
+     A            #SL4          32A  O  7  7DSPATR(HI)
+     A            #SL5          32A  O  8  7DSPATR(HI)
+     A                                  9  1'A/R Contact:'
+     A                                  3 20'Old Cust.#:'
+     A            OLDNO          5A  O  3 32DSPATR(HI)
+     A            CMCNAM        30A  O  9 15DSPATR(HI)
+     A                                  9 49'Phone:'
+     A            CMPHON        10Y 0O  9 56EDTWRD('   -   -    ')
+     A                                      DSPATR(HI)
+     A                                 10  1'Contact 2:'
+     A            CMCNME        30A  O 10 15DSPATR(HI)
+     A                                 10 49'Phone:'
+     A            CMPHO2        10Y 0O 10 56EDTWRD('   -   -    ')
+     A                                      DSPATR(HI)
+     A                                  4 41'Terms:'
+     A            CMTMCD         2A  O  4 48DSPATR(HI)
+     A            TCDESC        30A  O  4 51DSPATR(HI)
+     A                                 21  2'Comments:'
+     A            CCCOM1        30A  O 21 13DSPATR(HI)
+     A            CCCOM2        30A  O 21 44DSPATR(HI)
+     A                                  5 52'C.O.D. Plus Amount:'
+     A            CODAMT         3Y 0O  5 72EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                  7 41'Tax Exempt:'
+     A            CMTXST         1A  O  7 53DSPATR(HI)
+     A                                  7 55'Tax ID:'
+     A            CMTXID         9A  O  7 63DSPATR(HI)
+     A                                  8 55'Tax Juristiction:'
+     A            CMTXJU         3A  O  8 73DSPATR(HI)
+     A                                  6 41'Credit Limit:'
+     A            CMCRL$         9Y 2O  6 55EDTCDE(2)
+     A                                      DSPATR(HI)
+     A                                 11 50'Fax#:'
+     A            HSFAX         10Y 0O 11 56EDTWRD('   -   -    ')
+     A                                      DSPATR(HI)
+     A                                 11 69' Call 1st. '
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A                                 11  1'E-Mail:'
+     A            CAEMAL        40A  O 11  9DSPATR(HI)
+     A                                 12  1'WEB ID:'
+     A            CAEWEB        50A  O 12  9DSPATR(HI)
+     A                                 13  1'Alternate Info'
+     A            CAPH1         10Y 0O 14  3EDTWRD('   -   -    ')
+     A                                      DSPATR(HI)
+     A            CAALT1        50A  O 14 16DSPATR(HI)
+     A            CAPH2         10Y 0O 15  3EDTWRD('   -   -    ')
+     A                                      DSPATR(HI)
+     A            CAALT2        50A  O 15 16DSPATR(HI)
+     A                                 12 60'Speed Dial:'
+     A            CASPDL         3S 0O 12 72DSPATR(HI)
+     A                                 16  1'Owner Info:'
+     A            OWNER1        42A  O 16 16DSPATR(HI)
+     A            OWNER2        42A  O 17 16DSPATR(HI)
+     A            OWNER3        42A  O 18 16DSPATR(HI)
+     A          R SCRNDEL
+     A*%%TS  SD  19990622  232609  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC300DEL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 23' Dillon Customer Inquiry Selection-
+     A                                       '
+     A                                      DSPATR(RI)
+     A            VCUST          6Y 0B  2 30EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  2 20'Customer:'
+     A            CMNAME        30A  O  2 37
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 24  2'                            Enter -
+     A                                      to Return                          -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  3'Monday'
+     A                                  5  3'Tuesday'
+     A                                  6  3'Wednesday'
+     A            CMRTE1         2A  O  4 13DSPATR(HI)
+     A            CMRTE2         2A  O  5 13DSPATR(HI)
+     A            CMRTE3         2A  O  6 13DSPATR(HI)
+     A            CMSTP1         3Y 0O  4 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            CMSTP2         3Y 0O  5 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A            CMSTP3         3Y 0O  6 17DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  4 22'Thursday'
+     A            CMRTE4         2A  O  4 31DSPATR(HI)
+     A            CMSTP4         3Y 0O  4 35DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  5 22'Friday'
+     A            CMRTE5         2A  O  5 31DSPATR(HI)
+     A            CMSTP5         3Y 0O  5 35DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  6 22'Saturday'
+     A            CMRTE6         2A  O  6 31DSPATR(HI)
+     A            CMSTP6         3Y 0O  6 35DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                  3 11'Route'
+     A                                  3 17'Stop'
+     A                                  3 29'Route'
+     A                                  3 35'Stop'
+     A                                  3 46'Special Instructions'
+     A            CMSPIN        30A  O  4 51
+     A                                  5 46'Shipping Instructions'
+     A            CMSHIN        30A  O  6 51
+     A                                  8  2'Map Coordinates:'
+     A            CMCOR1         2A  O  8 19DSPATR(HI)
+     A                                  8 22'-'
+     A            CMCOR2         2A  O  8 24DSPATR(HI)
+     A                                 10  2'Directions:'
+     A            CMDR01        72A  O 11  7
+     A            CMDR02        72A  O 12  7
+     A            CMDR03        72A  O 13  7
+     A            CMDR04        72A  O 14  7
+     A            CMDR05        72A  O 15  7
+     A            CMDR06        72A  O 16  7
+     A            CMDR07        72A  O 17  7
+     A            CMDR08        72A  O 18  7
+     A            CMDR09        72A  O 19  7
+     A            CMDR10        72A  O 20  7
+     A            CMDR11        72A  O 21  7

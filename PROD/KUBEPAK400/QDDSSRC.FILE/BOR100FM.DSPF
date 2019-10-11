@@ -1,0 +1,304 @@
+     A*%%TS  SD  20160727  092850  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  20000518  160228  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                  1  2'BOR100A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 29' Back Order Processing '
+     A                                      DSPATR(RI)
+     A                                  7 29'Order Number:'
+     A            VORDER         6Y 0B  7 43
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  10N13N12                            ERRMSG('*** Invalid Order Number.  -
+     A                                                  Press RESET')
+     A  10 13N12                            ERRMSG('*** Requested Order is Clos-
+     A                                      ed.         Press RESET')
+     A  10N13 12                            ERRMSG('*** Requested Order is from-
+     A                                       another department.    Press RESET-
+     A                                      ')
+     A                                 24  3'Enter to Process                  -
+     A                                                                    F3/F7-
+     A                                      =End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  9  5' Selected order has been confirmed-
+     A                                       but not invoiced. You cannot relea-
+     A                                      se '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                 10  5' backorders until the order has be-
+     A                                      en invoiced. Press Enter to restart-
+     A                                      . '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                 12  8' Selected order has NO backordered-
+     A                                       items. Press Enter to restart. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R SCRNB
+     A*%%TS  SD  20000518  150111  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF06
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BOR100B'
+     A                                  1 33' Order Header '
+     A                                      DSPATR(RI)
+     A                                  1 50'Order #:'
+     A            VORDER         6Y 0O  1 60EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'Ship To:'
+     A            OHCUST         6Y 0O  2 12EDTCDE(Z)
+     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+     A                                  2 43'Bill To:'
+     A            OHBLCU         6Y 0O  2 53EDTCDE(Z)
+     A                                  2 73TIME
+     A            OHNAME        30A  B  3  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            OHSLD1        30A  O  3 46
+     A            OHSHP2        30A  B  4  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            OHSLD2        30A  O  4 46
+     A            OHSHP3        30A  B  5  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            OHSLD3        30A  O  5 46
+     A            OHSHP4        30A  B  6  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            OHSLD4        30A  O  6 46
+     A            OHSHCT        18A  B  7  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            OHSHST         2A  B  7 24DSPATR(PR)
+     A            VZIPA1         5A  B  7 27DSPATR(PR)
+     A                                  7 33'-'
+     A            VZIPA2         4A  B  7 35DSPATR(PR)
+     A            OHSLCT        18A  O  7 46
+     A            OHSLST         2A  O  7 65
+     A            VZIPB1         5A  O  7 68
+     A                                  7 74'-'
+     A            VZIPB2         4A  O  7 76
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                  9  2'New Ship Date:'
+     A            NEWSHP         6Y 0B  9 17EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid date entered.  -
+     A                                                  Press RESET')
+     A                                 13  2'P.O. #:'
+     A            OHPONO        15A  B 13 11DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  20                                  ERRMSG('*** Purchase Order Is Requi-
+     A                                      red For This Ship To Customer.   Pr-
+     A                                      ess Reset')
+     A                                  9 55'Order Date:'
+     A            OHDTOR         6Y 0B  9 67EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  9 33'Company:'
+     A            OHCOMP         2S 0O  9 42
+     A                                 11  2'Ship From:'
+     A            OHSHFR         3A  B 11 14DSPATR(PR)
+     A            WHDESC        30A  O 11 18DSPATR(HI)
+     A                                 15  2'Ship Via?'
+     A            OHSHPC         2A  B 15 15DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** This Is Not A Valid Shi-
+     A                                      p Via Code.   Press Reset')
+     A            SVDESC        30A  O 15 18DSPATR(HI)
+     A                                 17  2'Inv. Comnt:'
+     A            OHSPIN        30A  B 17 15DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      CHECK(LC)
+     A                                 19  2'Ship Instr:'
+     A            OHSHIN        30A  B 19 15DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      CHECK(LC)
+     A                                 21  2'Location:'
+     A            OHLOC          8A  B 21 12DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                 21 23'Route:'
+     A            OHROUT         2A  B 21 30DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                 21 34'Stop:'
+     A            OHSTOP         3Y 0B 21 40DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                      CHECK(RB)
+     A                                      COLOR(YLW)
+     A                                 23  2'Notes:'
+     A            CCCOM1        30A  O 23 12DSPATR(HI)
+     A                                      COLOR(RED)
+     A            CCCOM2        30A  O 23 45DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 24  2'    Enter to Process              -
+     A                                                  F6=Restart/With No Upda-
+     A                                      te     '
+     A                                      DSPATR(UL)
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  20160727  092850  BILLB       REL-V7R1M0  5770-WDS
+     A            OIITEM        12A  H
+     A            OISEQ#         3S 0O  9  2
+     A            OITEM5         5A  O  9  8
+     A            OISIZE         3A  O  9 14
+     A            VDESC         30A  O  9 19
+     A            QTYORD         6Y 0O  9 54EDTCDE(4)
+     A            QTYOPN         6Y 0O  9 61EDTCDE(4)
+     A            CANCOD         1A  B  9 77
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A            QTYSHP         6Y 0B  9 69EDTCDE(4)
+     A  13                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  13                                  DSPATR(PC)
+     A                                 10 24'Ext.'
+     A            QTYINV         6S 0H
+     A            UPRIC          9Y 2O 10 13EDTCDE(4)
+     A            EXTAMT         9Y 2O 10 29EDTCDE(4)
+     A                                 10  7'Price'
+     A                                 10 40'Comment:'
+     A            COMNT         30A  B 10 49
+     A  31                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  31                                  DSPATR(PC)
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  20050921  103613  BILLB       REL-V5R3M0  5722-WDS
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0007)
+     A  98                                  CF02
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF12
+     A                                      CF01
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLDROP(CF11)
+     A  22                                  SFLMSG('*** Code Must be " "(Blank)-
+     A                                       C or O.    Press RESET')
+     A  23                                  SFLMSG('*** Ship qty less than open-
+     A                                       and code Not Equal C.     Press RE-
+     A                                      SET')
+     A  24                                  SFLMSG('*** Ship qty greater than o-
+     A                                      pen and code Not equal  O.      Pre-
+     A                                      ss RESET')
+     A  25                                  SFLMSG('*** Ship qty equals open an-
+     A                                      d code = O. Press RESET')
+     A  26                                  SFLMSG('*** Ship qty equals open an-
+     A                                      d code = c. Press RESET')
+     A  32                                  SFLMSG('*** Comment entered and no -
+     A                                      Ship Qty.   Press RESET')
+     A  33                                  SFLMSG('*** No activity on this ord-
+     A                                      er.         Press RESET')
+     A                                  1  2'BOR200SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 30' Backorder Processing '
+     A                                      DSPATR(RI)
+     A                                  3  2'Order #'
+     A            VORDER         6S 0O  3 10
+     A                                  3 17'Customer'
+     A            OHCUST         6S 0O  3 26
+     A            OHNAME        30A  O  3 33
+     A                                  8  2'Seq   Item Size  Description      -
+     A                                                        Order   Open  To -
+     A                                      Ship Can?'
+     A                                      DSPATR(UL)
+     A                                  6  2'New Ship Date:'
+     A            NEWSHP         6Y 0B  6 17EDTCDE(Y)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                  7 55'------Quantity------'
+     A                                  4  2'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Enter to Verify   F6=Restart No Up-
+     A                                      date   F12=Previous Screen   F3/F7=-
+     A                                      End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 56' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  1 13' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  2 23' Input OK Press F2 to Update Order-
+     A                                      . '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  6 33'F1=Cancel All Open   F11=More Info'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A          R SCRNE
+     A*%%TS  SD  19980929  192452  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'BOR100E'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 31' Back-Order Release '
+     A                                      DSPATR(RI)
+     A                                  8  9' User has no Department Ship From.-
+     A                                       You cannot run this program.'
+     A                                      DSPATR(RI)
+     A                                 11 26' Press ENTER to end program. '
+     A                                      DSPATR(RI)
+     A          R SCRNCOD
+     A*%%TS  SD  19981201  181416  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                  1  2'BOR100COD'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  2 29' Back Order Processing '
+     A                                      DSPATR(RI)
+     A                                  6  5'Selection  Code  Description'
+     A                                      DSPATR(UL)
+     A                                  8 16'Blank'
+     A                                  8 22'No Action needed, either we are no-
+     A                                      t releasing any or we'
+     A                                  9 22'are releasing all the open quantit-
+     A                                      y.'
+     A            BLNK           1A  B  8  7DSPATR(CS)
+     A            CODC           1A  B 11  7DSPATR(CS)
+     A                                 11 17'C'
+     A                                 11 22'Ship the released quantity and can-
+     A                                      cel the rest. If none'
+     A                                 12 22'released then cancel all open.'
+     A            CODO           1A  B 14  7DSPATR(CS)
+     A                                 14 17'O'
+     A                                 14 22'We are releasing a quantity greate-
+     A                                      r than the open quantity.'
+     A                                 17 14'NOTE: Place an  X  on selection wa-
+     A                                      nted and press ENTER'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A  66                                  DSPATR(RI)

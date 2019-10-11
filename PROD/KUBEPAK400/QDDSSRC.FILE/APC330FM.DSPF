@@ -1,0 +1,141 @@
+     A*%%TS  SD  20020103  143729  EFD         REL-V5R1M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      USRDSPMGT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20020103  143729  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HLPRTN
+     A                                      HOME
+     A                                      HELP
+     A                                      ALWROL
+     A                                      INVITE
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A  99                                  PUTOVR
+     A                                      PRINT(*PGM)
+     A            PROGID        10A  O  1  2
+     A                                  1 32' A/P Check Print '
+     A                                      DSPATR(RI)
+     A  99                                  OVRATR
+     A                                  1 66'Date:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 66'Time:'
+     A                                  2 72TIME
+     A                                  4 24'Date to Print on Check:'
+     A            VDATE          6Y 0B  4 51
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                      Press Reset')
+     A  12                                  ERRMSG('*** Payment Approval Has No-
+     A                                      t Been Run - or - Has Errors.    Pr-
+     A                                      ess Reset')
+     A  15                                  ERRMSG('*** Check Date Earlier Than-
+     A                                       Beginning Of Fiscal Year.   Press -
+     A                                      Reset')
+     A  62                                  ERRMSG('*** Previous Check Run Must-
+     A                                       Be Posted Before Printing Checks. -
+     A                                       Press Reset')
+     A  16                                  ERRMSG('*** Warning - Check Date Is-
+     A                                       A Future Date, Change or Press Res-
+     A                                      et to Accept.')
+     A                                  6 24'Beginning Check Number:'
+     A            VCHECK         6Y 0B  6 53
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  21                                  ERRMSG('*** Check Number Is Require-
+     A                                      d.    Press Reset')
+     A  22                                  ERRMSG('*** Check Number Must Be Hi-
+     A                                      gher Than Last Check Number Used.  -
+     A                                      Press Reset')
+     A                                  8 24'Number of Checks to Void:'
+     A            VVOID          2Y 0B  8 57DSPATR(CS)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A                                 10 24'Is This a Rerun?'
+     A            VRERUN         1X  B 10 58CHECK(FE)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  99                                  OVRATR
+     A  50N63                               ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A  50 63                               ERRMSG('*** Rerun Must be  N -no pr-
+     A                                      evious check run is un-posted.   Pr-
+     A                                      ess RESET')
+     A                                 12 15'Checks:'
+     A                                 12 24'Forms Number:'
+     A            LFORM1        10A  B 12 49DSPATR(CS)
+     A  99                                  OVRATR
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Check Forms Number Is R-
+     A                                      equired.   Press Reset')
+     A                                 13 24'Printer ID:'
+     A            VPRTR1        10A  B 13 49CHECK(FE)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A  99                                  OVRATR
+     A  52                                  ERRMSG('*** Check Printer ID Is Req-
+     A                                      uired.    Press Reset')
+     A                                 15 15'Report:'
+     A                                 15 24'Forms Number:'
+     A            LFORM2        10A  B 15 49DSPATR(CS)
+     A  99                                  OVRATR
+     A                                 16 24'Printer ID:'
+     A            VPRTR2        10A  B 16 49CHECK(FE)
+     A                                      DSPATR(CS)
+     A  99                                  OVRATR
+     A                                 17 24'Print Status:'
+     A            VOUT           1Y 0B 17 58
+     A  53                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(PC)
+     A                                      EDTCDE(Z)
+     A  53                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.     Press Reset')
+     A                                 17 62'1 = Print'
+     A                                 18 62'2 = Print/Save'
+     A                                 19 19'Last Check Number Used ==>'
+     A            LSTCHK         6Y 0O 19 49EDTCDE(Z)
+     A                                      DSPATR(RI)
+     A                                      COLOR(YLW)
+     A                                 19 62'3 = Hold'
+     A                                 20  3' WARNING: Beginning Check # Is Mor-
+     A                                      e Than 10 Numbers Higher Than Last -
+     A                                      Check # '
+     A  96                                  DSPATR(RI)
+     A N96                                  DSPATR(ND)
+     A            MESAGE        52A  O 21 15
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A  99                                  OVRATR
+     A                                 23  2'                  Enter to Process-
+     A                                               F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)

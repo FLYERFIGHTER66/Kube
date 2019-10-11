@@ -1,0 +1,116 @@
+     A*%%TS  SD  19970508  130352  EFD         REL-V3R6M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  19970508  083924  EFD         REL-V3R6M0  5716-PW1
+     A                                  1  2'ITMXUPA'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 19' Dillon Item Number Cross Referenc-
+     A                                      e Update '
+     A                                      DSPATR(RI)
+     A                                  7  5'Enter Selection:'
+     A                                  7 27'NOTE:'
+     A                                  7 33'One and only one of the following -
+     A                                      fields'
+     A                                      DSPATR(UL)
+     A                                  8 33'Must be entered.'
+     A                                      DSPATR(UL)
+     A                                 11  5'Product Class?'
+     A            PRDCL          2   B 11 20
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N98                               ERRMSG('Invalid Product Class Enter-
+     A                                      ed.         Press RESET')
+     A                                 13  5'List Code?'
+     A            LSTCDE         4   B 13 17
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20N98                               ERRMSG('Invalid List Code Entered. -
+     A                                                  Press RESET')
+     A                                 15  5'New Item #?'
+     A            ITEM          12   B 15 17
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30N98                               ERRMSG('Invalid Item/Size Entered. -
+     A                                                  Press RESET')
+     A                                 15 30'Size:'
+     A            SIZE           3   B 15 36
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 24  3'Enter to Process               F6 -
+     A                                      - Restart                  F3/F7 - -
+     A                                      End Job'
+     A                                 18 20' You MUST Select one of the above -
+     A                                      options '
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A                                 19 18' You May Only select one of the ab-
+     A                                      ove options '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A          R ITMSFL                    SFL
+     A*%%TS  SD  19970508  130352  EFD         REL-V3R6M0  5716-PW1
+     A            IMITEM        12A  O  7 13
+     A            IMSIZE         3A  O  7 26
+     A            PRDCDE        10A  B  7  2
+     A  10N17                               DSPATR(RI)
+     A N17                                  DSPATR(CS)
+     A  10N17                               DSPATR(PC)
+     A  17                                  DSPATR(ND)
+     A  17                                  DSPATR(PR)
+     A            IMDES         25A  O  7 30
+     A            DLDESC        25A  O  7 56
+     A          R ITMCTL                    SFLCTL(ITMSFL)
+     A*%%TS  SD  19970508  114504  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF04
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0017)
+     A  11                                  SFLMSG('*** Invalid Dillon Part Num-
+     A                                      ber.        Press RESET')
+     A                                  1  2'ITMXUPSFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 23' Dillon Item Number Cross Referenc-
+     A                                      e '
+     A                                      DSPATR(RI)
+     A                                  6  2'S-36 Item  AS/400 Item Size Descri-
+     A                                      ption               S-36 Discriptio-
+     A                                      n         '
+     A                                      DSPATR(UL)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Roll Keys to View More       Enter-
+     A                                       to Verify Data       F6-Restart(NO-
+     A                                       UPDATE) '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'Note: Place * in S-36 Item number -
+     A                                      to copy the number above'
+     A                                  2 13' Correct ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  2 44' Data OK Press F4 to Update '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)

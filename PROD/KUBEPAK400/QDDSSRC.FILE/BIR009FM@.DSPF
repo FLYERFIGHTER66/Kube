@@ -1,0 +1,267 @@
+     A*%%TS  SD  19970611  130238  EFD         REL-V3R6M0  5716-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19960815  110208  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HPRINT)
+     A  *DS3                                HLPARA(16 039 18 067)
+     A  *DS4                                HLPARA(16 039 18 067)
+     A          H                           HLPRCD(HELPO)
+     A  *DS3                                HLPARA(04 012 04 044)
+     A  *DS4                                HLPARA(04 012 04 044)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(06 041 06 071)
+     A  *DS4                                HLPARA(06 041 06 071)
+     A          H                           HLPRCD(HAVAIL)
+     A  *DS3                                HLPARA(08 054 08 070)
+     A  *DS4                                HLPARA(08 054 08 070)
+     A          H                           HLPRCD(HSUMM)
+     A  *DS3                                HLPARA(10 060 10 060)
+     A  *DS4                                HLPARA(10 054 10 054)
+     A          H                           HLPRCD(HVOL)
+     A  *DS3                                HLPARA(12 060 12 060)
+     A  *DS4                                HLPARA(12 060 12 060)
+     A                                  1  2'BIR009'
+     A                                  1 14'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 26' Department File Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12
+     A N50                                  DSPATR(CS)
+     A                                      DSPATR(HI)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  99 26                               ERRMSG('*** Valid Action Codes = A -
+     A                                      C D.     Press Reset')
+     A                                  4 25'Deparment?'
+     A            VDEPT          3A  B  4 42
+     A  10                                  DSPATR(RI)
+     A N50                                  DSPATR(CS)
+     A  50                                  DSPATR(PR)
+     A  19                                  ERRMSG('*** Department Is Required.-
+     A                                            Press Reset')
+     A  27                                  ERRMSG('*** This Department Is On F-
+     A                                      ile.     Press Reset')
+     A  20                                  ERRMSG('*** This Department Is Not -
+     A                                      On File. Press Reset')
+     A                                  6  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  6 25'Description:'
+     A N50                                  DSPATR(ND)
+     A            VDESC         30A  B  6 40
+     A  57 50                               DSPATR(RI)
+     A  50N25                               DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  57
+     AO 50                                  DSPATR(PC)
+     A N50                                  DSPATR(PR)
+     A                                      CHECK(LC)
+     A  57                                  ERRMSG('*** Description is Required-
+     A                                      .     Press Reset')
+     A                                  7  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  8  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                  8 20'Default Printers:'
+     A N50                                  DSPATR(ND)
+     A            DEPINV        10A  B  8 40
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                  8 53'Invoices'
+     A N50                                  DSPATR(ND)
+     A            DEPPCK        10A  B  9 40
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                  9 53'Pick Slips'
+     A N50                                  DSPATR(ND)
+     A            DEPREP        10A  B 10 40
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                 10 53'Reports'
+     A N50                                  DSPATR(ND)
+     A            DEPPO         10A  B 11 40
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                 11 53'Purchase Orders'
+     A N50                                  DSPATR(ND)
+     A                                 13 15'G/L Department Number:'
+     A N50                                  DSPATR(ND)
+     A            DEGLNO         4Y 0B 13 40
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                      EDTCDE(Z)
+     A                                 17 16'WSID For PC Transfer:'
+     A                                      DSPATR(ND)
+     A            DEWSID        10A  B 17 40DSPATR(ND)
+     A                                      DSPATR(PR)
+     A                                 20 14' Press Enter to Delete or F6 to Re-
+     A                                      start without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process  F6=Restart   F3-
+     A                                      /F7=End of Job   F13=Print Departme-
+     A                                      nt List  '
+     A                                      DSPATR(UL)
+     A            DEPPC2        10A  B  9 69
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A N50                                  DSPATR(PR)
+     A                                  9 35'1.'
+     A N50                                  DSPATR(ND)
+     A                                  9 65'2.'
+     A N50                                  DSPATR(ND)
+     A            DESHFR         3A  B 15 40
+     A  75                                  DSPATR(RI)
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(PR)
+     A  75                                  DSPATR(PC)
+     A  75                                  ERRMSG('*** Enter A Valid Ship From-
+     A                                       Location.  Press Reset')
+     A N50                                  DSPATR(ND)
+     A                                 15 27'Ship From?'
+     A N50                                  DSPATR(ND)
+     A            SDESC         30   O 15 46
+     A N50                                  DSPATR(ND)
+     A          R SCRNB
+     A*%%TS  SD  19970611  130238  EFD         REL-V3R6M0  5716-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR009B'
+     A                                  1 14'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 26' Department File Maintenance '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 14'Deparment:'
+     A            VDEPT          3A  B  3 25
+     A                                      DSPATR(PR)
+     A  19                                  ERRMSG('*** Department Is Required.-
+     A                                            Press Reset')
+     A  27                                  ERRMSG('*** This Department Is On F-
+     A                                      ile.     Press Reset')
+     A  20                                  ERRMSG('*** This Department Is Not -
+     A                                      On File. Press Reset')
+     A                                      DSPATR(HI)
+     A            VDESC         30A  B  3 30
+     A                                      DSPATR(PR)
+     A                                      CHECK(LC)
+     A                                      DSPATR(HI)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process  F6=Restart   F3-
+     A                                      /F7=End of Job   F13=Print Departme-
+     A                                      nt List  '
+     A                                      DSPATR(UL)
+     A                                  7  4'Cash and Carry Discount %:'
+     A            DISC           7  4B  7 32EDTWRD('   .    ')
+     A                                      DSPATR(CS)
+     A                                      CHECK(RB)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A                                  9  4'Allow Cash and Carry Discount on A-
+     A                                      ll "T" Type Ship Via.:'
+     A            ALLCNC         1   B  9 61
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10N11                               DSPATR(PC)
+     A  10N11                               ERRMSG('*** Allow Cash and Carry Mu-
+     A                                      st Be Y or N. Press RESET')
+     A  10 11                               ERRMSG('*** If Allow Cash and Carry-
+     A                                       = Y You must enter a Discount Perc-
+     A                                      ent. Press RESET')
+     A                                  9 63'(Y or N)'
+     A                                 11  4'User I.D. of Users allowed to Over-
+     A                                      -ride Department Values.'
+     A                                 13  4'Over-ride User 1:'
+     A            OVRU1         10   B 13 22
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20N21                               ERRMSG('*** User Not Enrolled in Us-
+     A                                      er  File.   Press RESET')
+     A  21                                  ERRMSG('*** There MUST Be at least -
+     A                                      1 over-ride User Entered.   Press R-
+     A                                      ESET')
+     A                                 14  4'Over-ride User 2:'
+     A            OVRU2         10   B 14 22
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20N21                               ERRMSG('*** User Not Enrolled in Us-
+     A                                      er  File.   Press RESET')
+     A  21                                  ERRMSG('*** There MUST Be at least -
+     A                                      1 over-ride User Entered.   Press R-
+     A                                      ESET')
+     A            U1NAME        30   O 13 34
+     A            U2NAME        30   O 14 34
+     A                                 16  4'Price Code Range for minimum and m-
+     A                                      aximum Price Allowed.'
+     A                                 18  4'Minimum Price Code:'
+     A                                 19  4'Maximum Price Code:'
+     A            MIPC           1   B 18 24
+     A            MAPC           1   B 19 24

@@ -1,0 +1,910 @@
+     A*%%TS  SD  20160429  103505  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF06
+     A                                      CF03
+     A                                      CF07
+     A                                      CF02
+     A                                      CF24
+     A          R FCR10101
+     A*%%TS  SD  20130329  102157  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Date')
+     A                                      CF13
+     A                                      OVERLAY
+     A                                      MOUBTN(*ULP *ULR CF24)
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1  2'FCR10101'
+     A                                      COLOR(BLU)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  5  3'Date:'
+     A            FRMDAT         6Y 0B  5  9
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11N12                            ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A  12                                  ERRMSG('*** Weekly Control record i-
+     A                                      s not in file. Press RESET')
+     A                                  8  3'Enter to Process'
+     A                                  9  4'F3=Cancel Job'
+     A            IPADDRESS     15   O  2 33COLOR(PNK)
+     A          R FCR10102
+     A*%%TS  SD  20090316  102622  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Select Range')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1  2'FCR10102'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 12EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  3  2'Enter/Select Range:'
+     A            RANGE          1Y 0B  4  6COLOR(YLW)
+     A                                      EDTCDE(Z)
+     A            SRANGE         2Y 0B  4 10PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 '1')
+     A                                      PSHBTNCHC(2 '2')
+     A                                      PSHBTNCHC(3 '3')
+     A                                 10  2'F2=Previous Screen'
+     A                                 11  2'F3=Cancel Job'
+     A                                  9  2'F6=Scan Tags'
+     A                                  7  1'or'
+     A                                  7  4'Scan'
+     A                                  7  9'Location:'
+     A            LOCCODE        7A  B  8  6COLOR(YLW)
+     A                                      DSPATR(PC)
+     A          R FCR10103
+     A*%%TS  SD  20090313  112833  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Select Section')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A            SSECT01        2A  P
+     A            SSECT02        2A  P
+     A            SSECT03        2A  P
+     A            SSECT04        2A  P
+     A            SSECT05        2A  P
+     A                                  1  2'FCR10103'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 12EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  4  2'Enter/Select Section'
+     A            SECT           2Y 0B  5  6
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            SSECT          2Y 0B  5 12PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 &SSECT01)
+     A                                      PSHBTNCHC(2 &SSECT02)
+     A                                      PSHBTNCHC(3 &SSECT03)
+     A                                      PSHBTNCHC(4 &SSECT04)
+     A                                      PSHBTNCHC(5 &SSECT05)
+     A                                 11  2'F2=Previous Screen'
+     A                                 12  2'F3=Cancel Job'
+     A          R FCR10104
+     A*%%TS  SD  20160429  103505  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Bay')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A            SBAY01         2A  P
+     A            SBAY02         2A  P
+     A            SBAY03         2A  P
+     A            SBAY04         2A  P
+     A            SBAY05         2A  P
+     A            SBAY06         2A  P
+     A            SBAY07         2A  P
+     A            SBAY08         2A  P
+     A            SBAY09         2A  P
+     A            SBAY10         2A  P
+     A            SBAY11         2A  P
+     A            SBAY12         2A  P
+     A            SBAY13         2A  P
+     A            SBAY14         2A  P
+     A            SBAY15         2A  P
+     A            SBAY16         2A  P
+     A            SBAY17         2A  P
+     A            SBAY18         2A  P
+     A            SBAY19         2A  P
+     A            SBAY20         2A  P
+     A            SBAY21         2A  P
+     A            SBAY22         2A  P
+     A            SBAY23         2A  P
+     A            SBAY24         2A  P
+     A            SBAY25         2A  P
+     A            SBAY26         2A  P
+     A            SBAY27         2A  P
+     A            SBAY28         2A  P
+     A            SBAY29         2A  P
+     A            SBAY30         2A  P
+     A            SBAY31         2A  P
+     A            SBAY32         2A  P
+     A            SBAY33         2A  P
+     A            SBAY34         2A  P
+     A            SBAY35         2A  P
+     A            SBAY36         2A  P
+     A            SBAY37         2A  P
+     A            SBAY38         2A  P
+     A            SBAY39         2A  P
+     A            SBAY40         2A  P
+     A            SBAY41         2A  P
+     A            SBAY42         2A  P
+     A            SBAY43         2A  P
+     A            SBAY44         2A  P
+     A            SBAY45         2A  P
+     A            SBAY46         2A  P
+     A            SBAY47         2A  P
+     A            SBAY48         2A  P
+     A            SBAY49         2A  P
+     A            SBAY50         2A  P
+     A            SBAY51         2A  P
+     A            SBAY52         2A  P
+     A            SBAY53         2A  P
+     A            SBAY54         2A  P
+     A            SBAY55         2A  P
+     A            SBAY56         2A  P
+     A            SBAY57         2A  P
+     A            SBAY58         2A  P
+     A            SBAY59         2A  P
+     A            SBAY60         2A  P
+     A            SBAY61         2A  P
+     A            SBAY62         2A  P
+     A            SBAY63         2A  P
+     A            SBAY64         2A  P
+     A            SBAY65         2A  P
+     A            SBAY66         2A  P
+     A            SBAY67         2A  P
+     A            SBAY68         2A  P
+     A            SBAY69         2A  P
+     A            SBAY70         2A  P
+     A            SBAY71         2A  P
+     A            SBAY72         2A  P
+     A                                  1  2'FCR10104'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  2 13'Sect:'
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  4  2'Enter/Select Bay:'
+     A            BAY            2Y 0B  4 20
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            SBAY           2Y 0B  5  3PSHBTNFLD(*RSTCSR (*NUMCOL 4))
+     A                                      PSHBTNCHC(1 &SBAY01)
+     A                                      PSHBTNCHC(2 &SBAY02)
+     A                                      PSHBTNCHC(3 &SBAY03)
+     A                                      PSHBTNCHC(4 &SBAY04)
+     A                                      PSHBTNCHC(5 &SBAY05)
+     A                                      PSHBTNCHC(6 &SBAY06)
+     A                                      PSHBTNCHC(7 &SBAY07)
+     A                                      PSHBTNCHC(8 &SBAY08)
+     A                                      PSHBTNCHC(9 &SBAY09)
+     A                                      PSHBTNCHC(10 &SBAY10)
+     A                                      PSHBTNCHC(11 &SBAY11)
+     A                                      PSHBTNCHC(12 &SBAY12)
+     A                                      PSHBTNCHC(13 &SBAY13)
+     A                                      PSHBTNCHC(14 &SBAY14)
+     A                                      PSHBTNCHC(15 &SBAY15)
+     A                                      PSHBTNCHC(16 &SBAY16)
+     A                                      PSHBTNCHC(17 &SBAY17)
+     A                                      PSHBTNCHC(18 &SBAY18)
+     A                                      PSHBTNCHC(19 &SBAY19)
+     A                                      PSHBTNCHC(20 &SBAY20)
+     A                                      PSHBTNCHC(21 &SBAY21)
+     A                                      PSHBTNCHC(22 &SBAY22)
+     A                                      PSHBTNCHC(23 &SBAY23)
+     A                                      PSHBTNCHC(24 &SBAY24)
+     A                                      PSHBTNCHC(25 &SBAY25)
+     A                                      PSHBTNCHC(26 &SBAY26)
+     A                                      PSHBTNCHC(27 &SBAY27)
+     A                                      PSHBTNCHC(28 &SBAY28)
+     A                                      PSHBTNCHC(29 &SBAY29)
+     A                                      PSHBTNCHC(30 &SBAY30)
+     A                                      PSHBTNCHC(31 &SBAY31)
+     A                                      PSHBTNCHC(32 &SBAY32)
+     A                                      PSHBTNCHC(33 &SBAY33)
+     A                                      PSHBTNCHC(34 &SBAY34)
+     A                                      PSHBTNCHC(35 &SBAY35)
+     A                                      PSHBTNCHC(36 &SBAY36)
+     A                                      PSHBTNCHC(37 &SBAY37)
+     A                                      PSHBTNCHC(38 &SBAY38)
+     A                                      PSHBTNCHC(39 &SBAY39)
+     A                                      PSHBTNCHC(40 &SBAY40)
+     A                                      PSHBTNCHC(41 &SBAY41)
+     A                                      PSHBTNCHC(42 &SBAY42)
+     A                                      PSHBTNCHC(43 &SBAY43)
+     A                                      PSHBTNCHC(44 &SBAY44)
+     A                                      PSHBTNCHC(45 &SBAY45)
+     A                                      PSHBTNCHC(46 &SBAY46)
+     A                                      PSHBTNCHC(47 &SBAY47)
+     A                                      PSHBTNCHC(48 &SBAY48)
+     A                                      PSHBTNCHC(49 &SBAY49)
+     A                                      PSHBTNCHC(50 &SBAY50)
+     A                                      PSHBTNCHC(51 &SBAY51)
+     A                                      PSHBTNCHC(52 &SBAY52)
+     A                                      PSHBTNCHC(53 &SBAY53)
+     A                                      PSHBTNCHC(54 &SBAY54)
+     A                                      PSHBTNCHC(55 &SBAY55)
+     A                                      PSHBTNCHC(56 &SBAY56)
+     A                                      PSHBTNCHC(57 &SBAY57)
+     A                                      PSHBTNCHC(58 &SBAY58)
+     A                                      PSHBTNCHC(59 &SBAY59)
+     A                                      PSHBTNCHC(60 &SBAY60)
+     A                                      PSHBTNCHC(61 &SBAY61)
+     A                                      PSHBTNCHC(62 &SBAY62)
+     A                                      PSHBTNCHC(63 &SBAY63)
+     A                                      PSHBTNCHC(64 &SBAY64)
+     A                                      PSHBTNCHC(65 &SBAY65)
+     A                                      PSHBTNCHC(66 &SBAY66)
+     A                                      PSHBTNCHC(67 &SBAY67)
+     A                                      PSHBTNCHC(68 &SBAY68)
+     A                                      PSHBTNCHC(69 &SBAY69)
+     A                                      PSHBTNCHC(70 &SBAY70)
+     A                                      PSHBTNCHC(71 &SBAY71)
+     A                                      PSHBTNCHC(72 &SBAY72)
+     A                                  1 30'F2=Previous Screen'
+     A                                  2 30'F3=Cancel Job'
+     A          R FCR10105
+     A*%%TS  SD  20090316  135358  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Select North or South')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A            SNOS01         2A  P
+     A            SNOS02         2A  P
+     A            SNOS03         2A  P
+     A            SNOS04         2A  P
+     A            SNOS05         2A  P
+     A            SNOS06         2A  P
+     A            SNOS07         2A  P
+     A            SNOS08         2A  P
+     A            SNOS09         2A  P
+     A            SNOS10         2A  P
+     A                                  1  2'FCR10105'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0O  1 13EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  2 13'Sect:'
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  5  2'Enter/Select Side'
+     A            NOS            2A  B  6  4
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A            SNOS           2Y 0B  7  3PSHBTNFLD(*RSTCSR (*NUMCOL 3))
+     A                                      PSHBTNCHC(1 &SNOS01)
+     A                                      PSHBTNCHC(2 &SNOS02)
+     A                                      PSHBTNCHC(3 &SNOS03)
+     A                                      PSHBTNCHC(4 &SNOS04)
+     A                                      PSHBTNCHC(5 &SNOS05)
+     A                                      PSHBTNCHC(6 &SNOS06)
+     A                                      PSHBTNCHC(7 &SNOS07)
+     A                                      PSHBTNCHC(8 &SNOS08)
+     A                                      PSHBTNCHC(9 &SNOS09)
+     A                                      PSHBTNCHC(10 &SNOS10)
+     A                                 11  2'F2=Previous Screen'
+     A                                 12  2'F3=Cancel Job'
+     A          R FCR10106
+     A*%%TS  SD  20090313  112833  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Enter Pole #')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1  2'FCR10106'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 12EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  2 12'Sect:'
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  7  2'Pole:'
+     A            POLE           2Y 0B  7  9
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A            POLEDS         6A  O  7 13
+     A                                 11  2'F2=Previous Screen'
+     A                                 12  2'F3=Cancel Job'
+     A          R FCR10107
+     A*%%TS  SD  20090313  112833  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Enter Tag Number')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1  2'FCR10107'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 12EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  2 12'Sect:'
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  4  2'Pole:'
+     A            POLE           2Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  6  2'Tag Number:'
+     A            TAG#           8Y 0B  6 14
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                      CHECK(ER)
+     A                                      DSPATR(HI)
+     A                                  8  2'F2=Previous Screen'
+     A                                  9  2'F3=Cancel Job'
+     A                                  7  3'Last'
+     A                                  7  8'Tag:'
+     A            LASTTAG#       8Y 0O  7 14EDTCDE(4)
+     A                                      COLOR(BLU)
+     A          R FCR10108
+     A*%%TS  SD  20090313  112833  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Enter Number of Trays or Pole-
+     A                                      s')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1  2'FCR10108'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 12EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  2 12'Sect:'
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  4  2'Pole:'
+     A            POLE           2Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A            DES1          30A  O  5  1DSPATR(HI)
+     A                                  6  1'Plant Date:'
+     A                                  8 12'Poles'
+     A            TRAYIN         4Y 0B  9  7
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                  9 12'Poles'
+     A            POLEIN         4Y 2B  9 18
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                 11  2'F2=Previous Screen'
+     A                                 12  2'F3=Cancel Job'
+     A                                  4 12'Planting'
+     A            FLPLTG    R        O  4 21REFFLD(RFINLOC/FLPLTG *LIBL/FFINLOC)
+     A                                      COLOR(PNK)
+     A            FLDATE    R        O  6 13REFFLD(RFINLOC/FLDATE *LIBL/FFINLOC)
+     A                                      COLOR(PNK)
+     A                                  8  1'Qty:'
+     A            FLTOTP    R        O  8 18REFFLD(RFINLOC/FLTOTP *LIBL/FFINLOC)
+     A                                      COLOR(PNK)
+     A            FLQTY     R        O  8  6REFFLD(RFINLOC/FLQTY *LIBL/FFINLOC)
+     A                                      EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  9  1'Qty:'
+     A          R FCR10109
+     A*%%TS  SD  20080924  164420  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Enter Chemical and PPM')
+     A                                      OVERLAY
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A                                  1  2'FCR10109'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 12EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  2'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  2 12'Sect:'
+     A            SECT           2Y 0O  2 19EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3  2'Bay:'
+     A            BAY            2Y 0O  3  8EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 11DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  4  2'Pole:'
+     A            POLE           2Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  5  1'Trays'
+     A            TRAYIN         4Y 0B  5  7EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  5 12'Poles'
+     A            POLEIN         4Y 2B  5 18EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  7  2'Chem'
+     A            PROD           4A  B  7  8
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** You must enter a produc-
+     A                                      t code.   Press RESET')
+     A  12                                  ERRMSG('*** Product/PPM entered not-
+     A                                       on this week schedule.  Press RESE-
+     A                                      T')
+     A  13                                  ERRMSG('*** Invalid Product code en-
+     A                                      tered.  Press RESET')
+     A                                  8  2'PPM'
+     A            PPM            7Y 2B  8  6CHECK(ER)
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20
+     AON31                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** You must enter Parts pe-
+     A                                      r Million.  Press RESET')
+     A                                      EDTCDE(4)
+     A            SPDES1        10A  O  7 13COLOR(PNK)
+     A                                 10  2'F2=Previous Screen'
+     A                                 11  2'F3=Cancel Job'
+     A            DES1          30A  O  6  1DSPATR(HI)
+     A          R FCR10110
+     A*%%TS  SD  20160407  160517  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Chemical')
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 71TIME
+     A                                      COLOR(BLU)
+     A                                  3 71USER
+     A                                      COLOR(BLU)
+     A                                  4 71SYSNAME
+     A                                      COLOR(BLU)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1 40'FCR10110'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  1 50EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2 40'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  2 50'Sect:'
+     A            SECT           2Y 0O  2 56EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  3 40'Bay:'
+     A            BAY            2Y 0O  3 46EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  3 49DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  4 40'Pole:'
+     A            POLE           2Y 0B  4 46EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  5 40'Trays'
+     A            TRAYIN         4Y 0B  5 46EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  5 51'Poles'
+     A            POLEIN         4Y 2B  5 57EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  2  6'Select Chemical'
+     A                                      DSPATR(HI)
+     A            CHM01         10A  B  3  2COLOR(TRQ)
+     A            CHM02         10A  B  3 14COLOR(TRQ)
+     A            CHM03         10A  B  4  2COLOR(TRQ)
+     A            CHM04         10A  B  4 14COLOR(TRQ)
+     A            CHM05         10A  B  5  2COLOR(TRQ)
+     A            CHM06         10A  B  5 14COLOR(TRQ)
+     A            CHM07         10A  B  6  2COLOR(TRQ)
+     A            CHM08         10A  B  6 14COLOR(TRQ)
+     A            CHM09         10A  B  7  2COLOR(TRQ)
+     A            CHM10         10A  B  7 14COLOR(TRQ)
+     A            CHM11         10A  B  8  2COLOR(TRQ)
+     A            CHM12         10A  B  8 14COLOR(TRQ)
+     A            CHM13         10A  B  9  2COLOR(TRQ)
+     A            CHM14         10A  B  9 14COLOR(TRQ)
+     A            CHM15         10A  B 10  2COLOR(TRQ)
+     A            CHM16         10A  B 10 14COLOR(TRQ)
+     A            CHM17         10A  B 11  2COLOR(TRQ)
+     A            CHM18         10A  B 11 14COLOR(TRQ)
+     A            CHM19         10A  B 12  2COLOR(TRQ)
+     A            CHM20         10A  B 12 14COLOR(TRQ)
+     A            CHM21         10A  B 13  2COLOR(TRQ)
+     A            CHM22         10A  B 13 14COLOR(TRQ)
+     A            CHM23         10A  B 14  2COLOR(TRQ)
+     A            CHM24         10A  B 14 14COLOR(TRQ)
+     A            CHM25         10A  B 15  2COLOR(TRQ)
+     A            CHM26         10A  B 15 14COLOR(TRQ)
+     A            CHM27         10A  B 16  2COLOR(TRQ)
+     A            CHM28         10A  B 16 14COLOR(TRQ)
+     A            CHM29         10A  B 17  2COLOR(TRQ)
+     A            CHM30         10A  B 17 14COLOR(TRQ)
+     A            CHM31         10A  B 18  2COLOR(TRQ)
+     A            CHM32         10A  B 18 14COLOR(TRQ)
+     A            CHM33         10A  B 19  2COLOR(TRQ)
+     A            CHM34         10A  B 19 14COLOR(TRQ)
+     A            CHM35         10A  B 20  2COLOR(TRQ)
+     A            CHM36         10A  B 20 14COLOR(TRQ)
+     A            CHM37         10A  B 21  2COLOR(TRQ)
+     A            CHM38         10A  B 21 14COLOR(TRQ)
+     A            CHM39         10A  B 22  2COLOR(TRQ)
+     A            CHM40         10A  B 22 14COLOR(TRQ)
+     A                                  7 40'F2=Previous Screen'
+     A                                  8 40'F3=Cancel Job'
+     A            DES1          30A  O  1  2DSPATR(HI)
+     A          R FCR10111
+     A*%%TS  SD  20160407  160517  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select PPM')
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A                                  1 70DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 70TIME
+     A                                      COLOR(BLU)
+     A                                  3 70USER
+     A                                      COLOR(BLU)
+     A                                  4 70SYSNAME
+     A                                      COLOR(BLU)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  3 40'FCR10111'
+     A                                      COLOR(BLU)
+     A            FRMDAT         6Y 0B  3 49EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  4 40'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  4 50'Sect:'
+     A            SECT           2Y 0O  4 57EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  5 40'Bay:'
+     A            BAY            2Y 0O  5 46EDTCDE(4)
+     A                                      COLOR(PNK)
+     A            NSEWTEXT       9A  O  5 49DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  6 40'Pole:'
+     A            POLE           2Y 0B  6 46EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  7 40'Trays'
+     A            TRAYIN         4Y 0B  7 46EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  7 51'Poles'
+     A            POLEIN         4Y 2B  7 57EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A            SPDES1        10A  O  2  7DSPATR(HI)
+     A            PPM01          7Y 2B  3  1EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM02          7Y 2B  3 10EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM03          7Y 2B  3 19EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM04          7Y 2B  4  1EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM05          7Y 2B  4 10EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM06          7Y 2B  4 19EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM07          7Y 2B  5  1EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM08          7Y 2B  5 10EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM09          7Y 2B  5 19EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM10          7Y 2B  6  1EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM11          7Y 2B  6 10EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM12          7Y 2B  6 19EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM13          7Y 2B  7  1EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM14          7Y 2B  7 10EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM15          7Y 2B  7 19EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM16          7Y 2B  8  1EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM17          7Y 2B  8 10EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM18          7Y 2B  8 19EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM19          7Y 2B  9  1EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM20          7Y 2B  9 10EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A            PPM21          7Y 2B  9 19EDTCDE(4) COLOR(TRQ)
+     A            PPM22          7Y 2B 10  1EDTCDE(4) COLOR(TRQ)
+     A            PPM23          7Y 2B 10 10EDTCDE(4) COLOR(TRQ)
+     A            PPM24          7Y 2B 10 19EDTCDE(4) COLOR(TRQ)
+     A            PPM25          7Y 2B 11  1EDTCDE(4) COLOR(TRQ)
+     A            PPM26          7Y 2B 11 10EDTCDE(4) COLOR(TRQ)
+     A            PPM27          7Y 2B 11 19EDTCDE(4) COLOR(TRQ)
+     A            PPM28          7Y 2B 12  1EDTCDE(4) COLOR(TRQ)
+     A            PPM29          7Y 2B 12 10EDTCDE(4) COLOR(TRQ)
+     A            PPM30          7Y 2B 12 19EDTCDE(4) COLOR(TRQ)
+     A            PPM31          7Y 2B 13  1EDTCDE(4) COLOR(TRQ)
+     A            PPM32          7Y 2B 13 10EDTCDE(4) COLOR(TRQ)
+     A            PPM33          7Y 2B 13 19EDTCDE(4) COLOR(TRQ)
+     A            PPM34          7Y 2B 14  1EDTCDE(4) COLOR(TRQ)
+     A            PPM35          7Y 2B 14 10EDTCDE(4) COLOR(TRQ)
+     A            PPM36          7Y 2B 14 19EDTCDE(4) COLOR(TRQ)
+     A            PPM37          7Y 2B 15  1EDTCDE(4) COLOR(TRQ)
+     A            PPM38          7Y 2B 15 10EDTCDE(4) COLOR(TRQ)
+     A            PPM39          7Y 2B 15 19EDTCDE(4) COLOR(TRQ)
+     A            PPM40          7Y 2B 16  1EDTCDE(4) COLOR(TRQ)
+     A                                  1 40'F2=Previous Screen'
+     A                                  2 40'F3=Cancel Job'
+     A            DES1          30A  O  1  2DSPATR(HI)
+     A          R FCR10112
+     A*%%TS  SD  20080909  133946  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Select PPM')
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  3'Section:'
+     A            SECT           2Y 0O  1 12EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  1 15'Bay:'
+     A            BAY            2Y 0B  1 20EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  1 45'FCR10111'
+     A            FRMDAT         6Y 0B  1 54EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A            DIRECT         5A  O  3  3DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  3 14'Pole:'
+     A            POLE           2Y 0B  3 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A            EORW           1A  O  3  9DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  3 72TIME
+     A            SPDES1        10A  O  5  9DSPATR(HI)
+     A                                  4  2'Trays'
+     A            TRAYIN         4Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  4 14'Poles'
+     A            POLEIN         4Y 2B  4 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                 13  2'F2=Previous Screen'
+     A                                 14  2'F3=Cancel Job'
+     A                                  2  3'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  9  5'TOO'
+     A                                  9  9'FAR'
+     A          R FCR10113
+     A*%%TS  SD  20080905  135122  BILLB       REL-V5R3M0  5722-WDS
+     A                                      TEXT('Select PPM')
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD)
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A                                  1  3'Section:'
+     A            SECT           2Y 0O  1 12EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  1 15'Bay:'
+     A            BAY            2Y 0B  1 20EDTCDE(4)
+     A                                      COLOR(PNK)
+     A                                  1 45'FCR10111'
+     A            FRMDAT         6Y 0B  1 54EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A            DIRECT         5A  O  3  3DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  3 14'Pole:'
+     A            POLE           2Y 0B  3 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A            EORW           1A  O  3  9DSPATR(UL)
+     A                                      COLOR(PNK)
+     A                                  3 72TIME
+     A            SPDES1        10A  O  5  9DSPATR(HI)
+     A                                  4  2'Trays'
+     A            TRAYIN         4Y 0B  4  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                  4 14'Poles'
+     A            POLEIN         4Y 2B  4 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                      COLOR(PNK)
+     A                                 13  2'F2=Previous Screen'
+     A                                 14  2'F3=Cancel Job'
+     A                                  2  3'FINISHED'
+     A                                      DSPATR(HI)
+     A                                  8  5'EVEN'
+     A                                  8 10'FURTHER'
+     A                                  9  6'TOO'
+     A                                  9 10'FAR'
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20050221  152634  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  92                                  SFLDSP
+     A  92                                  SFLDSPCTL
+     A  92                                  SFLINZ
+     A  92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

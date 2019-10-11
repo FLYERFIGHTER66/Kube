@@ -1,0 +1,105 @@
+     A*%%TS  SD  19961126  055801  GINNY       REL-V3R1M0  5763-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A          R SCRNA
+     A*%%TS  SD  19961126  055801  GINNY       REL-V3R1M0  5763-PW1
+     A                                      CF07
+     A                                      CF03
+     A                                      CF06
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF13
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'BIR085 '
+     A                                  1 30' Alternate Price Code '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1A  B  4 12
+     A N50                                  DSPATR(CS)
+     A N50                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  26                                  DSPATR(RI)
+     A  26                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.         Press Reset')
+     A                                  6  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  7  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  4 31'Price Code?'
+     A            VALTP          1A  B  4 46DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  50                                  DSPATR(PR)
+     A  30                                  ERRMSG('*** Enter A Valid Price Cod-
+     A                                      e.   Press Reset')
+     A                                  8  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                 19 14' Press Enter to Delete or F6 to Re-
+     A                                      start without Delete '
+     A  23                                  DSPATR(RI)
+     A N23                                  DSPATR(ND)
+     A                                 20 28'Press Enter to Continue'
+     A  25                                  DSPATR(RI)
+     A N25                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A N98                                  DSPATR(RI)
+     A  98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'  Enter to Process   F6=Restart   -
+     A                                      F3/F7=End of Job  F13=Print Price C-
+     A                                      ode List '
+     A                                      DSPATR(UL)
+     A                                  7 18'Price Effective:'
+     A N50                                  DSPATR(ND)
+     A                                  7 37'From:'
+     A N50                                  DSPATR(ND)
+     A                                  9 39'To:'
+     A N50                                  DSPATR(ND)
+     A            VBDTE          8Y 0B  7 46EDTWRD('  /  /    ')
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  50 61                               DSPATR(RI)
+     A  61                                  ERRMSG('*** Enter A Valid Date Less-
+     A                                       Than To Date.     Press Reset')
+     A  50                                  DSPATR(PC)
+     A            VEDTE          8Y 0B  9 46EDTWRD('  /  /    ')
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  62 50                               DSPATR(RI)
+     A  62                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                           Press Reset')
+     A                                 12 31'Unit Price:'
+     A N50                                  DSPATR(ND)
+     A            VUPRC          9Y 4B 12 46EDTCDE(4)
+     A  50                                  DSPATR(CS)
+     A N50                                  DSPATR(ND)
+     A  60 50                               DSPATR(RI)
+     A  60                                  ERRMSG('*** Unit Price Is Required.-
+     A                                            Press Reset')
+     A                                      CHECK(RB)
+     A                                  7 60'i.e. 01/01/2001'
+     A N50                                  DSPATR(ND)

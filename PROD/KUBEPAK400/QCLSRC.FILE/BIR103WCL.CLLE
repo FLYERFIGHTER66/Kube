@@ -1,0 +1,17 @@
+             PGM        PARM(&DATE &ORDER &CARTS &SHOWYN)
+
+             DCL        VAR(&DATE) TYPE(*DEC) LEN(6)
+             DCL        VAR(&ORDER) TYPE(*DEC) LEN(6)
+             DCL        VAR(&CARTS) TYPE(*DEC) LEN(5 2)
+             DCL        VAR(&SHOWYN) TYPE(*CHAR) LEN(1)
+
+             OVRDBF     FILE(FIORDR) TOFILE(*LIBL/FIORDRWORK) +
+                          MBR(*FIRST)
+
+             CALL       PGM(BIR103) PARM(&DATE &ORDER &CARTS &SHOWYN)
+             MONMSG     MSGID(CPF0000) EXEC(DO)
+             DLTOVR     FILE(FIORDR)
+             RETURN
+             ENDDO
+
+             ENDPGM

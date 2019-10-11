@@ -1,0 +1,187 @@
+     A*%%TS  SD  19990804  133733  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A          R SCRNA
+     A*%%TS  SD  19990804  133733  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF05
+     A                                  1  2'DPC020A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 17' Maintain Dillon Premier Customer -
+     A                                      Yearly Goals '
+     A                                      DSPATR(RI)
+     A                                  9 24'User I.D.?'
+     A            VUSER         10A  B  9 36
+     A  10
+     AO 11                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Used I.D. Enter-
+     A                                      ed.   Press RESET')
+     A  11                                  ERRMSG('*** Selected User is not as-
+     A                                      signed to a Department.   Press RES-
+     A                                      ET')
+     A            USDEPT         3A  O  3 23
+     A            DEDESC        30A  O  3 27
+     A                                  7 11'Enter User I.D. for the Team Membe-
+     A                                      r that you want to update.'
+     A                                      DSPATR(UL)
+     A                                 24  2'  Enter to Process    F5=Update Un-
+     A                                      assigned         F6=Restart    F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 11 27'D.P.C.:'
+     A            DPCONL         1A  B 11 36
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Valid Entries Are  Y or-
+     A                                       N.         Press RESET')
+     A                                 11 39'Y=DPC Customers  N=Non-DPC Custome-
+     A                                      rs'
+     A          R SCRNB
+     A*%%TS  SD  19981222  173734  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'DPC010B'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 21' Maintain Dillon Premier Customer -
+     A                                      List '
+     A                                      DSPATR(RI)
+     A            VCUST          6Y 0B  3 23EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                 24  2'Enter to Process             F6=Re-
+     A                                      start(NO UPDATE)               F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3 13'Customer:'
+     A            CMNAME        30A  O  3 30
+     A                                 16 14'January:'
+     A                                 17 14'February:'
+     A                                 18 14'March:'
+     A                                 19 14'April:'
+     A                                 20 14'May:'
+     A                                 21 14'June:'
+     A                                 16 45'July:'
+     A                                 17 45'August:'
+     A                                 18 45'September:'
+     A                                 19 45'October:'
+     A                                 20 45'November:'
+     A                                 21 45'December:'
+     A                                  5  1'Status:'
+     A            DPSTAT         1A  B  5  9
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Invalid Status Entered.-
+     A                                                  Press RESET')
+     A                                  5 13'NOTE: Status 1=New  2=On list for -
+     A                                      more than 1 month 5=Reactivated'
+     A  10                                  DSPATR(RI)
+     A                                  6 19'F=Force on List   X=Force off of L-
+     A                                      ist   Blank=Never on List'
+     A  10                                  DSPATR(RI)
+     A                                  8  1'==================================-
+     A                                      ===================================-
+     A                                      ==========='
+     A                                      DSPATR(HI)
+     A                                  9 42'Points Earned Plan to Date:'
+     A            DPPTTD         7Y 0B  9 70EDTCDE(1)
+     A                                      DSPATR(PR)
+     A            DPPTRD         7Y 0B 10 70DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      DSPATR(PR)
+     A                                 10 47'Redeemed Plan to Date:'
+     A                                 11 59'Available:'
+     A            POIAVL         7Y 0B 11 70EDTCDE(1)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(PR)
+     A                                  9  2'Sales Prior 12 Months:'
+     A            P12MSL        11Y 2B  9 25EDTCDE(J)
+     A                                      DSPATR(PR)
+     A                                 10  3'Sales Last 12 Months:'
+     A            L12MSL        11Y 2B 10 25EDTCDE(J)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PR)
+     A                                 11  3'Increase/Decrease(-):'
+     A            NETSL         11Y 2B 11 25EDTCDE(J)
+     A                                      DSPATR(RI)
+     A                                      DSPATR(PR)
+     A                                 15 14'-------------Current Year Points E-
+     A                                      arned-------------'
+     A            DPPTJA         7Y 0O 16 25EDTCDE(1)
+     A            DPPTFB         7Y 0O 17 25EDTCDE(1)
+     A            DPPTMR         7Y 0O 18 25EDTCDE(1)
+     A            DPPTAP         7Y 0O 19 25EDTCDE(1)
+     A            DPPTMA         7Y 0O 20 25EDTCDE(1)
+     A            DPPTJN         7Y 0O 21 25EDTCDE(1)
+     A            DPPTJL         7Y 0O 16 57EDTCDE(1)
+     A            DPPTAG         7Y 0O 17 57EDTCDE(1)
+     A            DPPTSP         7Y 0O 18 57EDTCDE(1)
+     A            DPPTOC         7Y 0O 19 57EDTCDE(1)
+     A            DPPTNV         7Y 0O 20 57EDTCDE(1)
+     A            DPPTDC         7Y 0O 21 57EDTCDE(1)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 13  8'Added:'
+     A            DATADD         8Y 0O 13 15EDTWRD('  /  /    ')
+     A                                 13 26'Dropped:'
+     A            DATDRP         8Y 0O 13 35EDTWRD('  /  /    ')
+     A                                 13 46'Re-Activated:'
+     A            DATREA         8Y 0O 13 60EDTWRD('  /  /    ')
+     A                                 13  3'Date'
+     A                                 22 29'Total Year to Date Points:'
+     A            YTDPOI         7Y 0O 22 57EDTCDE(1)
+     A          R DFCSFL                    SFL
+     A*%%TS  SD  19990728  111609  EFD         REL-V3R7M0  5716-PW1
+     A            DGCUST         6Y 0O  9  2EDTCDE(4)
+     A            CMNAME        30A  O  9  9
+     A            CMCITY        18A  O  9 40
+     A            YRGOAL         7Y 0B  9 61DSPATR(CS)
+     A                                      EDTCDE(K)
+     A  58                                  DSPATR(PR)
+     A            DGUSER        10   H
+     A            DGBR           3   H
+     A          R DFCCTL                    SFLCTL(DFCSFL)
+     A*%%TS  SD  19990728  111609  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0015)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'DFC020SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            VUSER         10A  O  4 23
+     A            USNAME        30A  O  4 34
+     A            USDEPT         3A  O  2 23
+     A            DEDESC        30A  O  2 27
+     A                                  8  2'Cust # Name                       -
+     A                                          City                 Yearly Goa-
+     A                                      l'
+     A                                      DSPATR(UL)
+     A                                  6  2'Enter to Process   Roll Keys   F6=-
+     A                                      Restart(NO Update)   F3/F7=End Job(-
+     A                                      NO Update)'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            HEAD          44   O  1 19DSPATR(RI)

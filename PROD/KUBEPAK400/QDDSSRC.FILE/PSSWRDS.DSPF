@@ -1,0 +1,49 @@
+     A*%%TS  SD  19990420  141519  STEVE       REL-V4R2M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CF03(03 'RETURN NO UPDATE')
+     A          R SC01
+     A*%%TS  SD  19990420  141519  STEVE       REL-V4R2M0  5769-PW1
+     A                                      KEEP
+     A                                      OVERLAY
+     A            ##ROW          3S 0H
+     A            ##COL          3S 0H
+     A            ##RCD         10A  H
+     A            ##FLD         10A  H
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                  2 72TIME
+     A                                  2  3USER
+     A                                  1 34'Dietz & Watson'
+     A                                      DSPATR(HI)
+     A                                 23 17'ENTER=Continue'
+     A                                      COLOR(BLU)
+     A                                  2 30'Password Entry Prompt'
+     A                                      DSPATR(HI)
+     A                                 12 24'Enter the password:'
+     A  13                                  DSPATR(RI)
+     A                                  1  3'PASSWORD'
+     A                                 23 49'F3=Exit'
+     A                                      COLOR(BLU)
+     A            S1PSWD        10   B 12 45DSPATR(ND)
+     A                                      DSPATR(UL)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A          R MSGDATA                   SFL
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $#MSKY                    SFLMSGKEY
+     A            $#PGMQ                    SFLPGMQ
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A                                      TEXT('Program Messages')
+     A                                      OVERLAY
+     A N92                                  SFLDSP
+     A N92                                  SFLDSPCTL
+     A N92                                  SFLINZ
+     A N92                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $#PGMQ                    SFLPGMQ

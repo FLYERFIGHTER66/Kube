@@ -1,0 +1,121 @@
+     A*?Program        : WSPLG001FM
+     A*?
+     A*?Description    : This display file for WS-Plug Order Entry Main Screen
+     A*?
+     A*?Created By     : S.Uthayadurga
+     A*?
+     A*?Date           : 13 Jul 2018
+     A**********************************************************************
+     A*?               :---------------:
+     A*?               : Modifications :
+     A*?               :---------------:
+     A* ------  --------   ----------   ------------------------------------
+     A* MOD#    MOD Date   Programmer   Description
+     A* ------  --------   ----------   ------------------------------------
+     A*
+     A*
+     A**********************************************************************
+     A*?Indicator Area
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CHGINPDFT
+     A                                      INDARA
+     A**********************************************************************
+     A*?Main Screen
+     A          R PLGSCRN01
+     A                                      CF03(03 'Exit')
+     A                                      CF07(07 'PrevWeek')
+     A                                      CF08(08 'NextWeek')
+     A                                      CLEAR
+     A                                      CLRL(*ALL)
+     A*
+     A                                  1  2'PLGSCRN01'
+     A                                      COLOR(BLU)
+     A                                  1 28'Plug Order Entry Main Screen'
+     A                                      COLOR(WHT)
+     A                                  1 66'Date:'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A*
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  2 66'Time:'
+     A                                      COLOR(BLU)
+     A                                  2 72TIME
+     A                                      COLOR(BLU)
+     A*
+     A                                  6 20'Ship To Customer # :'
+     A            CUST#          6Y 0B  6 41EDTCDE(Z)
+     A N11                                  COLOR(YLW)
+     A N11                                  DSPATR(UL)
+     A  11                                  DSPATR(PC)
+     A  11                                  DSPATR(RI)
+     A*
+     A            NAME          30A  O  6 49DSPATR(HI)
+     A*
+     A                                  7 20'Requested Ship Date:'
+     A            REQDTE         6Y 0B  7 41EDTCDE(Y)
+     A N12                                  COLOR(YLW)
+     A N12                                  DSPATR(UL)
+     A  12                                  DSPATR(PC)
+     A  12                                  DSPATR(RI)
+     A                                  7 51'(MM/DD/YY)'
+     A*
+     A                                  8 20'Cust Alpha Search  :'
+     A            ALPHA         15A  B  8 41COLOR(YLW)
+     A                                      DSPATR(UL)
+     A*
+     A                                  9 16'Or'
+     A                                  9 20'Telephone # Search :'
+     A            TELE#         10Y 0B  9 41EDTCDE(Z)
+     A                                      COLOR(YLW)
+     A                                      DSPATR(UL)
+     A*
+     A                                 10 16'Or'
+     A                                 10 20'Zip Code Search    :'
+     A            ZIP#           9A  B 10 41COLOR(YLW)
+     A                                      DSPATR(UL)
+     A*
+     A                                 12 20'Item        :'
+     A            ITEMS          5A  B 12 34
+     A N13                                  COLOR(YLW)
+     A N13                                  DSPATR(UL)
+     A  13                                  DSPATR(PC)
+     A  13                                  DSPATR(RI)
+     A*
+     A                                 13 20'Size        :'
+     A            SIZES          3A  B 13 34
+     A N14                                  COLOR(YLW)
+     A N14                                  DSPATR(UL)
+     A  14                                  DSPATR(PC)
+     A  14                                  DSPATR(RI)
+     A*
+     A                                 14 20'Description :'
+     A            DESC          30A  B 14 34COLOR(YLW)
+     A                                      DSPATR(UL)
+     A*
+     A                                 15 20'Item Alpha  :'
+     A            ALPHAS        15A  B 15 34COLOR(YLW)
+     A                                      DSPATR(UL)
+     A**********************************************************************
+     A*?Record Footer
+     A                                 23  2'F3'
+     A                                      COLOR(WHT)
+     A                                 23  5'=Exit'
+     A                                      COLOR(BLU)
+     A                                 23 12'F7'
+     A                                      COLOR(WHT)
+     A                                 23 15'=Prev Week'
+     A                                      COLOR(BLU)
+     A                                 23 27'F8'
+     A                                      COLOR(WHT)
+     A                                 23 30'=Next Week'
+     A                                      COLOR(BLU)
+     A                                 23 42'Enter'
+     A                                      COLOR(WHT)
+     A                                 23 48'=Process'
+     A                                      COLOR(BLU)
+     A**********************************************************************
+     A*?Error Message
+     A            ERRMSG        60A  O 24  2COLOR(WHT)

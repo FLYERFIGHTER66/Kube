@@ -1,0 +1,89 @@
+000100000000    H/COPY QFunctDefn,@CopyRight
+000200000000    H DftActGrp(*no)
+000300000000    H DatFmt(*usa)
+000400000000    H BndDir('*LIBL/KPFUNCTION')
+000500000000
+000600000000      *                                                              
+000700000000      *|                                                            |
+000800060223      *|            Fix Lot Inventory - Delete Fixer Allocations    |
+000900000000      *|                                                            |
+001000000000
+001100000000      * :````````````````````````````````````````````````````````````:
+001200000000      * : Created:  February, 2006        Kube-Pak Corporation     :
+001300000000      * :      by:  William J. Behr                                  :
+001400000000      * :............................................................:
+001500000000      * :````````````````````````````````````````````````````````````:
+001600000000      * :  Program Description                                    :
+001900000000      * :............................................................:
+002000000000      *                                                              
+002100000000      * |  Subroutine Usage                                        |
+002200000000      * |                                                           |
+002300000000      * | *InzSr     - Must I explain this ?!?!?                   |
+002400000000      *|                                                            |
+002500000000      *                                                              
+002600000000      * |  Function Usage                                          |
+002700000000      * |                                                           |
+002800000000      * | $MDYDate   - Return MDY Date from Date Field             |
+002900000000      * | $Date      - Return Date field from Number               |
+003000000000      * | $User      - Return Current User I.D.                    |
+003100000000      * | $Now       - Return Current Time as Number               |
+003200000000      *|                                                            |
+003300000000      *                                                              
+003400000000      * |  Indicator Usage                                         |
+003500000000      * |                                                           |
+003600000000      * |  LR      Does this really need a description ?           |
+003700000000      *|                                                            |
+003800000000      *                                                              
+003900000000      * |  Edit Log                                                |
+004000000000      * |                                                           |
+004100000000      * |WJB10/14/05-Initial Programming                        |
+004200000000      * |   mm/dd/yy-                                           |
+004300000000      *|                                                            |
+004400000000
+004500060223     FFALITEML  UF   E           K DISK                                         Order Allocations
+004600060222     FFDLOTRDCLTIF   E           K DISK                                         Lot by Customer
+004800000000
+004900000000      * Function Prototypes
+005600000000
+005700000000      * Field Definitions
+005900000000
+006000000000      * Indicators
+006300000000
+006400000000     *   ................................................
+006500000000     *   :   Main Calcs                                 :
+006600000000     *   :..............................................:
+006700000000
+006800060223      *   Process all Fixer Allocations
+007000060223    C     999999        SetLL     FALITEML
+007001060223    C                   Read      FALITEML
+007100000000
+007200060223    C                   DoW       not %EOF(FALITEML  )
+007500060223      *   If Fixer Allocation is not on FDLOTRD then delete RALITEM for this fixer.
+007501060223     C                   If        AICUST = 999999
+007600060222    C     LotRDKey      SetLL     FDLOTRDCLT
+007601060223     C                   If        not %Equal(FDLOTRDCLT)
+007602060223    C                   Delete    RALITEM
+009000060223     C                   EndIf
+009001060223     C                   EndIf
+010500000000
+010600060223    C                   Read      FALITEML
+010700000000    C                   EndDo
+010800000000
+010900000000     C                   Eval      *InLr = *On
+011000000000
+011100000000
+011200000000     *   ................................................
+011300000000     *   :      *InzSr - Initialization Subroutine      :
+011400000000     *   :..............................................:
+011500000000
+011600000000     C     *InzSr        BegSr
+012300000000
+012301060222    C     LotRDKey      KList
+012302060223    C                   KFld                    AIITEM                         Item
+012303060223    C                   KFld                    AISIZE                         Size
+012304060223    C                   KFld                    AIWHSE                         Default Location
+012305060223    C                   KFld                    AISOWD                         Sow Date
+012306060223    C                   KFld                    AISHPD                         Ready Date
+012307060223    C                   KFld                    AICUST                         Customer 999999
+012308060222
+012600000000     C                   EndSr

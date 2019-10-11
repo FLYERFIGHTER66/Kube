@@ -1,0 +1,32 @@
+             PGM
+
+             DCL        VAR(&DATE) TYPE(*DEC) LEN(6 0)
+             DCL        VAR(&DATE@) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&BEGD) TYPE(*DEC) LEN(6 0) VALUE(010116)
+             DCL        VAR(&ENDD) TYPE(*DEC) LEN(6 0) VALUE(123147)
+             DCL        VAR(&TODAY) TYPE(*CHAR) LEN(6)
+             DCL        VAR(&TXT1) TYPE(*CHAR) LEN(40) VALUE('Select the +
+                          Date that the checks were')
+             DCL        VAR(&TXT2) TYPE(*CHAR) LEN(40) VALUE('processed +
+                          without regard for the actual')
+             DCL        VAR(&TXT3) TYPE(*CHAR) LEN(40) VALUE('check date.')
+             DCL        VAR(&TXT4) TYPE(*CHAR) LEN(40) VALUE(' ')
+             DCL        VAR(&TXT5) TYPE(*CHAR) LEN(40) VALUE('Pressing +
+                          [Enter] will send Positive Pay')
+
+             RTVSYSVAL  SYSVAL(QDATE) RTNVAR(&today)
+             CHGVAR     VAR(&ENDD) VALUE(&TODAY)
+
+             CALL       PGM(#GETDATE) PARM(&DATE &BEGD &ENDD '1111111' '1' +
+                          '0' '1' &TXT1 &TXT2 &TXT3 &TXT4 &TXT5)
+
+             IF         COND(&DATE *EQ 0) THEN(GOTO CMDLBL(EOJ))
+
+             CHGVAR     VAR(&DATE@) VALUE(&DATE)
+
+       /*    CALL       PGM(POSITIVE) PARM(&DATE@)   */
+             SBMJOB     CMD(CALL PGM(POSITIVE) PARM(&DATE@)) +
+                          JOB(SEND_PPAY) JOBD(*LIBL/KUBEPAK) JOBQ(QBATCH2) +
+                          USER(QSSH)
+
+ EOJ:        ENDPGM

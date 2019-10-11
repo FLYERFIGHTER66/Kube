@@ -1,0 +1,162 @@
+     A*%%TS  SD  19990804  133843  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF07
+     A                                      CF06
+     A          R SCRNA
+     A*%%TS  SD  19990804  133843  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF11
+     A                                      CF05
+     A                                  1  2'DPC030A'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 17' Maintain Dillon Premier Customer -
+     A                                      Monthly Goals '
+     A                                      DSPATR(RI)
+     A                                  9 24'User I.D.?'
+     A            VUSER         10A  B  9 36
+     A  10
+     AO 11                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10N11N12                            ERRMSG('*** Invalid Used I.D. Enter-
+     A                                      ed.   Press RESET')
+     A  11                                  ERRMSG('*** Selected User is not as-
+     A                                      signed to a Department.   Press RES-
+     A                                      ET')
+     A  12                                  ERRMSG('*** Selected User is not in-
+     A                                       your department.  Press RESET')
+     A            USDEPT         3A  O  3 23
+     A            DEDESC        30A  O  3 27
+     A                                  7 11'Enter User I.D. for the Team Membe-
+     A                                      r that you want to update.'
+     A                                      DSPATR(UL)
+     A                                 24  2'Enter to Process     F5=Update Una-
+     A                                      ssigned       F6=Restart     F3/F7=-
+     A                                      End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 13 18'Month To Update:'
+     A            MT#            2Y 0B 13 36
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('*** Invalid Month Number En-
+     A                                      tered, Must be between 1 and 12.   -
+     A                                        Press RESET')
+     A  21                                  ERRMSG('** It is Past the 10th of t-
+     A                                      he selected month. Press RESET and -
+     A                                      F11 to continue')
+     A                                 13 39'NOTE: 1=January  12=December etc.'
+     A                                      DSPATR(UL)
+     A                                 11 27'D.P.C.:'
+     A            DPCONL         1A  B 11 36
+     A  25                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  25                                  DSPATR(PC)
+     A  25                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.       Press RESET')
+     A                                 11 39'Y=DPC Customers  N=Non-DPC Custome-
+     A                                      rs'
+     A          R DFCSFL                    SFL
+     A*%%TS  SD  19990728  111102  EFD         REL-V3R7M0  5716-PW1
+     A            DGCUST         6Y 0O  9  2EDTCDE(4)
+     A            CMNAME        30A  O  9  9
+     A            CMCITY        18A  O  9 40
+     A            GOAL           7Y 0B  9 61DSPATR(CS)
+     A                                      EDTCDE(K)
+     A  58                                  DSPATR(PR)
+     A            DGUSER        10   H
+     A            DGBR           3   H
+     A          R DFCCTL                    SFLCTL(DFCSFL)
+     A*%%TS  SD  19990728  094908  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0015)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'DPC030SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            VUSER         10A  O  4 23
+     A            USNAME        30A  O  4 34
+     A            USDEPT         3A  O  2 23
+     A            DEDESC        30A  O  2 27
+     A                                  8  2'Cust # Name                       -
+     A                                          City                Monthly Goa-
+     A                                      l'
+     A                                      DSPATR(UL)
+     A                                  6  2'Enter to Process   Roll Keys   F6=-
+     A                                      Restart(NO Update)   F3/F7=End Job(-
+     A                                      NO Update)'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  5  2'                                  -
+     A                                                                         -
+     A                                                '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            MTHNAM        11A  O  7 60DSPATR(HI)
+     A            HEAD          45   O  1 18DSPATR(RI)
+     A          R SCRNE
+     A*%%TS  SD  19990209  180850  EFD         REL-V3R7M0  5716-PW1
+     A  22                                  CF11
+     A                                  1  2'DPC030E'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 17' Maintain Dillon Premier Customer -
+     A                                      Monthly Goals '
+     A                                      DSPATR(RI)
+     A                                  9 24'User I.D.:'
+     A            VUSER         10A  B  9 36DSPATR(CS)
+     A                                      DSPATR(PR)
+     A            USDEPT         3A  O  3 23
+     A            DEDESC        30A  O  3 27
+     A                                  7 11'Enter User I.D. for the Team Membe-
+     A                                      r that you want to update.'
+     A                                      DSPATR(UL)
+     A                                 24  2'  Enter to Process             F6=-
+     A                                      Restart                    F3/F7=En-
+     A                                      d Job  '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23  2'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 12 24'Month To Update:'
+     A            MT#            2Y 0B 12 41DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('*** Invalid Month Number En-
+     A                                      tered, Must be between 1 and 12.   -
+     A                                        Press RESET')
+     A  21                                  ERRMSG('** It is Past the 10th of t-
+     A                                      he selected month. Press RESET and -
+     A                                      F11 to continue')
+     A                                      DSPATR(PR)
+     A                                 12 46'NOTE: 1=January  12=December etc.'
+     A                                      DSPATR(UL)
+     A                                 16  4' You Can NOT Update monthly goals -
+     A                                      after the 10th of the month. See Ka-
+     A                                      ty. '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(RI)
+     A                                 18 29' USE F 11 to Over-Ride '
+     A  22                                  DSPATR(RI)
+     A N22                                  DSPATR(ND)

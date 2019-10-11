@@ -1,0 +1,1230 @@
+     A*%%TS  SD  20010918  161056  EFD         REL-V4R4M0  5769-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19980611  162150  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      CF08
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      CF01
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HSCUS)
+     A                                      HLPARA(04 046 04 051)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Action Codes are -
+     A                                      A - C - D - S.  Press Reset')
+     A                                  4 23'Ship To Customer #:'
+     A            VSCUST         6Y 0B  4 46EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  11
+     AO 17                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A                                      CHECK(RB)
+     A  11                                  ERRMSG('*** Enter Either a Customer-
+     A                                       Number or a Search Argument.   Pre-
+     A                                      ss Reset')
+     A                                  5 23'Alpha Search'
+     A            VSALPH        15A  B  5 46DSPATR(CS)
+     A  16                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                  6  2' A = Add    '
+     A                                  6 23'Telephone # Search'
+     A            VSTELE        10A  B  6 46
+     A  16                                  DSPATR(PR)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(CS)
+     A                                  7  2' C = Change '
+     A            CMNAME        30A  O  7 46DSPATR(HI)
+     A                                  8  2' D = Delete '
+     A                                  8 23'Order Number:'
+     A            VORDER         6Y 0B  8 46EDTCDE(Z)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A  21                                  ERRMSG('*** Order Number Not Allowe-
+     A                                      d on Action A.  Press Reset')
+     A  22                                  ERRMSG('*** Order Number Required o-
+     A                                      n Action C - D - S.   Press Reset')
+     A  23                                  ERRMSG('*** This Is Not An Open Ord-
+     A                                      er Number.   Press Reset')
+     A  24                                  ERRMSG('*** This order is from anot-
+     A                                      her Department. Press RESET')
+     A  25                                  ERRMSG('*** Order is Already Suspen-
+     A                                      ded.        Press RESET')
+     A                                  9 23'Company Number:'
+     A            VCO            2Y 0B  9 50DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Enter a Valid Company N-
+     A                                      umber.    Press Reset')
+     A                                 11 23'Last Order:'
+     A            LDAORD         6Y 0O 11 46EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process                  -
+     A                                       F6=Restart                    F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(UL)
+     A                                  1  2'STR010A'
+     A                                  9  2' S = Suspend'
+     A                                  8 54' F1=Search Standing Orders '
+     A                                      DSPATR(RI)
+     A                                  1 30' Standing Order Entry '
+     A                                      DSPATR(RI)
+     A                                 14  6' Order is currently marked S-Suspe-
+     A                                      nded. Press enter to continue and m-
+     A                                      ark '
+     A  78                                  DSPATR(RI)
+     A N78                                  DSPATR(ND)
+     A                                 15  6' the order as active. or Press F6 -
+     A                                      To Restart with no Update. '
+     A  78                                  DSPATR(RI)
+     A N78                                  DSPATR(ND)
+     A          R HSCUS
+     A*%%TS  SD  19960109  162353  GINNY       REL-V3R1M0  5763-PW1
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 13  3' Ship To Customer                 -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 15  3' This is the customer and address -
+     A                                      to which the goods will be shipped.-
+     A                                              '
+     A                                 16  3' In the customer file, it defines -
+     A                                      the customer to whom the invoice is-
+     A                                       sent,  '
+     A                                 17  3' the customer where the accounts r-
+     A                                      eceivable data will be updated and -
+     A                                      the     '
+     A                                 18  3' customer that will be credited wi-
+     A                                      th the sales analysis data.        -
+     A                                              '
+     A                                 21  3' next screen.                     -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 20  3' You can change the shipping name -
+     A                                      and address for this order only on -
+     A                                      the     '
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R SCRNB
+     A*%%TS  SD  20010918  161056  EFD         REL-V4R4M0  5769-PW1
+     A                                      CF06
+     A                                      HELP
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HTDISC)
+     A                                      HLPARA(11 014 11 018)
+     A          H                           HLPRCD(HPONO)
+     A                                      HLPARA(09 030 09 044)
+     A          H                           HLPRCD(HORDTE)
+     A                                      HLPARA(09 059 09 066)
+     A          H                           HLPRCD(HPRCDE)
+     A                                      HLPARA(10 014 10 014)
+     A          H                           HLPRCD(HSHPFR)
+     A                                      HLPARA(10 047 10 049)
+     A          H                           HLPRCD(HTDISC)
+     A                                      HLPARA(06 005 06 010)
+     A          H                           HLPRCD(HSHVIA)
+     A                                      HLPARA(11 047 11 048)
+     A          H                           HLPRCD(HTERMS)
+     A                                      HLPARA(12 014 12 015)
+     A          H                           HLPRCD(HINVCD)
+     A                                      HLPARA(12 069 12 069)
+     A          H                           HLPRCD(HBO)
+     A                                      HLPARA(13 069 13 069)
+     A          H                           HLPRCD(HORDLS)
+     A                                      HLPARA(14 014 14 019)
+     A                                  1  2'STR010B'
+     A                                  1 33' Order Header '
+     A                                      DSPATR(RI)
+     A                                  1 50'Order #:'
+     A            SHORD#         6Y 0O  1 60EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'Ship To:'
+     A            VSCUST         6Y 0O  2 12EDTCDE(Z)
+     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+     A                                  2 43'Bill To:'
+     A            CMBLCU         6Y 0O  2 53EDTCDE(Z)
+     A                                  2 73TIME
+     A            CMNAME        30A  B  3  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMNAME        30A  O  3 46
+     A            CMADD2        30A  B  4  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMADD2        30A  O  4 46
+     A            CMADD3        30A  B  5  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMADD3        30A  O  5 46
+     A            CMADD4        30A  B  6  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMADD4        30A  O  6 46
+     A            CMCITY        18A  B  7  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            CMSTST         2A  B  7 24DSPATR(PR)
+     A            VZIPA1         5A  B  7 27DSPATR(PR)
+     A                                  7 33'-'
+     A            VZIPA2         4A  B  7 35DSPATR(PR)
+     A            BMCITY        18A  O  7 46
+     A            BMSTST         2A  O  7 65
+     A            VZIPB1         5A  O  7 68
+     A                                  7 74'-'
+     A            VZIPB2         4A  O  7 76
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                  9  1'Start Date:'
+     A            SHSTRD         6Y 0B  9 14DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  DSPATR(RI)
+     A                                      EDTWRD('  /  /  ')
+     A  10                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A                                  9 24'P.O. #:'
+     A            SHPONO        15A  B  9 32DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  20                                  ERRMSG('*** Purchase Order Is Requi-
+     A                                      red For This Ship To Customer.   Pr-
+     A                                      ess Reset')
+     A                                  9 48'Order Date:'
+     A            SHDTOR         6Y 0B  9 60EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  9 69'Company:'
+     A            SHCOMP         2S 0O  9 78
+     A                                 10 33'Ship From:'
+     A            SHSHFR         3A  B 10 46DSPATR(PR)
+     A            WHDESC        30A  O 10 50DSPATR(HI)
+     A                                 11 51'Trade Disc:'
+     A            SHTRDC         4Y 2B 11 63DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                      DSPATR(HI)
+     A                                 11  1'Ship Via?'
+     A            SHSHPC         2A  B 11 14DSPATR(CS)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** This Is Not A Valid Shi-
+     A                                      p Via Code.   Press Reset')
+     A            SVDESC        30A  O 11 17DSPATR(HI)
+     A                                 20  1'Inv. Comnt:'
+     A            SHSPIN        30A  B 20 20DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      CHECK(LC)
+     A                                 21  1'Ship Instr:'
+     A            SHSHIN        30A  B 21 20DSPATR(CS)
+     A                                      DSPATR(MDT)
+     A                                      CHECK(LC)
+     A                                 10  1'Expire Date:'
+     A            SHEXPD         6Y 0B 10 14DSPATR(CS)
+     A                                      EDTWRD('  /  /  ')
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30N31                               ERRMSG('*** Invalid Date.       Pre-
+     A                                      ss RESET')
+     A  30 31                               ERRMSG('*** Expire date can NOT be -
+     A                                      less than start date.  Press RESET')
+     A                                 21 51'Location:'
+     A            SHLOC          8A  B 21 61DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                 22 51'Route:'
+     A            SHROUT         2A  B 22 58DSPATR(CS)
+     A                                      COLOR(YLW)
+     A                                 22 62'Stop:'
+     A            SHSTOP         3Y 0B 22 68DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                      CHECK(RB)
+     A                                      COLOR(YLW)
+     A                                 23  1'Notes:'
+     A            CCCOM1        30A  O 23 14DSPATR(HI)
+     A                                      COLOR(RED)
+     A            CCCOM2        30A  O 23 45DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 24  2'    Enter to Process              -
+     A                                                  F6=Restart/With No Upda-
+     A                                      te     '
+     A                                      DSPATR(UL)
+     A                                 13  1'Sales Rep. I.D.?'
+     A            SHRUSR        10A  B 13 19
+     A  40                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  40                                  DSPATR(PC)
+     A  40N49                               ERRMSG('*** Invalid User I.D. Enter-
+     A                                      ed.      Press RESET')
+     A  49                                  ERRMSG('*** User is not from this D-
+     A                                      epartment. Press RESET')
+     A                                 14 11'Mon. Tue. Wed. Thu. Fri. Sat. Sun.'
+     A                                 15  1'Sched Day:'
+     A                                 16  1'Notify:'
+     A            SHSH1          1A  B 15 12
+     A  41                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  41                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Select MUST Be A,P,O,E -
+     A                                      or Blank.       Press RESET')
+     A  61                                  ERRMSG('*** You Must Select at leas-
+     A                                      t 1 Scheduled Day.    Press RESET')
+     A            SHSH2          1A  B 15 17
+     A  42                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  42                                  DSPATR(PC)
+     A            SHSH3          1A  B 15 22
+     A  43                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  43                                  DSPATR(PC)
+     A            SHSH4          1A  B 15 27
+     A  44                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  44                                  DSPATR(PC)
+     A            SHSH5          1A  B 15 32
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A            SHSH6          1A  B 15 37
+     A  46                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  46                                  DSPATR(PC)
+     A            SHSH7          1A  B 15 42
+     A  47                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  47                                  DSPATR(PC)
+     A            SHNT1          1A  B 16 12
+     A  51                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(PC)
+     A  62                                  ERRMSG('*** You Must select at leas-
+     A                                      t 1 Notify Day.     Press RESET')
+     A            SHNT2          1A  B 16 17
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A            SHNT3          1A  B 16 22
+     A  53                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  53                                  DSPATR(PC)
+     A            SHNT4          1A  B 16 27
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A            SHNT5          1A  B 16 32
+     A  55                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  55                                  DSPATR(PC)
+     A            SHNT6          1A  B 16 37
+     A  56                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  56                                  DSPATR(PC)
+     A            SHNT7          1A  B 16 42
+     A  57                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  57                                  DSPATR(PC)
+     A                                 15 44'NOTE: Enter A for AM  P for PM'
+     A                                      DSPATR(UL)
+     A  50                                  DSPATR(RI)
+     A                                 18  1'Order Description:'
+     A            SHDESC        30A  B 18 20
+     A  60                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  60                                  DSPATR(PC)
+     A  60                                  ERRMSG('*** You Must enter a descri-
+     A                                      ption for this Standing Order.    P-
+     A                                      ress RESET')
+     A                                 19  1'Customer Contact:'
+     A            SHCNME        30A  B 19 20
+     A                                 19 51'Phone:'
+     A            SHPHON        10Y 0B 19 58EDTWRD('   -   -    ')
+     A            USNAME        30A  O 13 30DSPATR(HI)
+     A                                 17 50'or Leave Blank for none.'
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                 16 50'O for Odd  E for Even Weeks'
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                 14 47'Today is week #:'
+     A            WEEK#          2Y 0O 14 64DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                 14 67'-'
+     A                                      DSPATR(HI)
+     A            ODDEVN         4   O 14 69DSPATR(HI)
+     A          R SCRNBD
+     A*%%TS  SD  19980322  162710  EFD         REL-V3R1M0  5763-PW1
+     A                                      CF06
+     A                                      CF23
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'STR010B'
+     A                                  1 33' Order Header '
+     A                                      DSPATR(RI)
+     A                                  1 50'Order #:'
+     A            SHORD#         6Y 0O  1 60EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2'Ship To:'
+     A            VSCUST         6Y 0O  2 12EDTCDE(Z)
+     A            CMPHON        10Y 0O  2 20EDTWRD('   -   -    ')
+     A                                  2 43'Bill To:'
+     A            CMBLCU         6Y 0O  2 53EDTCDE(Z)
+     A                                  2 73TIME
+     A            CMNAME        30A  B  3  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMNAME        30A  O  3 46
+     A            CMADD2        30A  B  4  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMADD2        30A  O  4 46
+     A            CMADD3        30A  B  5  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMADD3        30A  O  5 46
+     A            CMADD4        30A  B  6  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            BMADD4        30A  O  6 46
+     A            CMCITY        18A  B  7  5CHECK(LC)
+     A                                      DSPATR(PR)
+     A            CMSTST         2A  B  7 24DSPATR(PR)
+     A            VZIPA1         5A  B  7 27DSPATR(PR)
+     A                                  7 33'-'
+     A            VZIPA2         4A  B  7 35DSPATR(PR)
+     A            BMCITY        18A  O  7 46
+     A            BMSTST         2A  O  7 65
+     A            VZIPB1         5A  O  7 68
+     A                                  7 74'-'
+     A            VZIPB2         4A  O  7 76
+     A                                  8  2'-----------------------------------
+     A                                      ------------------------------------
+     A                                      ---------'
+     A                                  9  1'Start Date:'
+     A            SHSTRD         6Y 0B  9 14DSPATR(CS)
+     A                                      EDTWRD('  /  /  ')
+     A                                      DSPATR(PR)
+     A                                  9 24'P.O. #:'
+     A            SHPONO        15A  B  9 32DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                  9 48'Order Date:'
+     A            SHDTOR         6Y 0B  9 60EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  9 69'Company:'
+     A            SHCOMP         2S 0O  9 78
+     A                                 10 33'Ship From:'
+     A            SHSHFR         3A  B 10 46DSPATR(PR)
+     A            WHDESC        30A  O 10 50DSPATR(HI)
+     A                                 11 51'Trade Disc:'
+     A            SHTRDC         4Y 2B 11 63DSPATR(CS)
+     A                                      EDTCDE(3)
+     A                                      DSPATR(PR)
+     A                                 11  1'Ship Via?'
+     A            SHSHPC         2A  B 11 14DSPATR(CS)
+     A                                      DSPATR(PR)
+     A            SVDESC        30A  O 11 17DSPATR(HI)
+     A                                 21  1'Inv. Comnt:'
+     A            SHSPIN        30A  B 21 20DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                 22  1'Ship Instr:'
+     A            SHSHIN        30A  B 22 20DSPATR(CS)
+     A                                      CHECK(LC)
+     A                                      DSPATR(PR)
+     A                                 10  1'Expire Date:'
+     A            SHEXPD         6Y 0B 10 14DSPATR(CS)
+     A                                      EDTWRD('  /  /  ')
+     A                                 24  2'    Enter to Process              -
+     A                                                  F6=Restart/With No Upda-
+     A                                      te     '
+     A                                      DSPATR(UL)
+     A                                 19  1'Order Description:'
+     A            SHDESC        30A  B 19 20DSPATR(CS)
+     A                                      DSPATR(PR)
+     A                                 20  1'Customer Contact:'
+     A            SHCNME        30A  B 20 20DSPATR(PR)
+     A                                 20 51'Phone:'
+     A            SHPHON        10Y 0B 20 58EDTWRD('   -   -    ')
+     A                                      DSPATR(PR)
+     A                                 14  2' You have selected the delete opti-
+     A                                      on for this entire order. If you de-
+     A                                      lete    '
+     A                                 15  2' this order it canNOT be reactivat-
+     A                                      ed. You may want to use the S-Optio-
+     A                                      n and   '
+     A                                 16  2' Suspend the order until you react-
+     A                                      ivate it by selecting the change op-
+     A                                      tion.   '
+     A                                 13  2' F23=Confirm Delete of Entire Orde-
+     A                                      r                       F6=Restart -
+     A                                      NO Delete'
+     A                                      DSPATR(RI)
+     A                                 17  2' F23=Confirm Delete of Entire Orde-
+     A                                      r                       F6=Restart -
+     A                                      NO Delete'
+     A                                      DSPATR(RI)
+     A          R HRDATE
+     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Requested Ship Date              -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' This is the date that the custome-
+     A                                      r has requested for delivery of you-
+     A                                      r       '
+     A                                 19  3' material.  The format is MMDDYY. -
+     A                                       There is a default requested ship -
+     A                                      date    '
+     A                                 20  3' in the company control file which-
+     A                                       automatically displays when a new -
+     A                                      order   '
+     A                                 21  3' is entered.  This default date ca-
+     A                                      n be overridden.                   -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HPONO
+     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Customer Purchase Order Number   -
+     A                                                            Required/Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Enter up to 15 characters for the-
+     A                                       customer purchase order number.  T-
+     A                                      his     '
+     A                                 19  3' will print on the customer invoic-
+     A                                      e.  A customer can be coded that a -
+     A                                              '
+     A                                 20  3' purchase order number is required-
+     A                                       for all orders.  If no purchase or-
+     A                                      der is  '
+     A                                 21  3' entered for these customers, an e-
+     A                                      rror will be displayed.            -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HORDTE
+     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Order Date                       -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' This is the date that the order h-
+     A                                      as been placed by the customer.  It-
+     A                                              '
+     A                                 19  3' defaults to the current date, but-
+     A                                       can be overridden.                -
+     A                                              '
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HPRCDE
+     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Price Code                       -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' For every item in inventory you c-
+     A                                      an enter up to 5 different prices. -
+     A                                       Each   '
+     A                                 19  3' customer is coded with a default -
+     A                                      price code number to indicate which-
+     A                                       price  '
+     A                                 20  3' level they are normally charged. -
+     A                                       The code in this customer''s recor-
+     A                                      d is     '
+     A                                 21  3' displayed when an order is entere-
+     A                                      d.  If overridden on the order head-
+     A                                      er, it  '
+     A                                 22  3' changes the price level for the e-
+     A                                      ntire order.                       -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A          R HSHPFR
+     A*%%TS  SD  19951215  090112  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Ship From Location               -
+     A                                                                     Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' If you maintain inventory in mult-
+     A                                      iple locations - you can enter the -
+     A                                              '
+     A                                 19  3' location from which this order sh-
+     A                                      ould be shipped.                   -
+     A                                              '
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 21  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HTDISC
+     A*%%TS  SD  19960104  094232  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Trade Discount                   -
+     A                                                                     Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Trade discounts apply to the tota-
+     A                                      l dollar amount of the order after -
+     A                                      all     '
+     A                                 19  3' prices for each line item have be-
+     A                                      en calculated.  If a customer''s re-
+     A                                      cord     '
+     A                                 20  3' contains a trade discount it will-
+     A                                       be displayed here.  This discount -
+     A                                      can     '
+     A                                 21  3' be changed for each order if requ-
+     A                                      ired.                              -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HSHVIA
+     A*%%TS  SD  19960104  114425  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Ship Via Code                    -
+     A                                                                     Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Enter the Ship Via Code that desc-
+     A                                      ribes the method of shipping for th-
+     A                                      is      '
+     A                                 19  3' order.   This code is contained i-
+     A                                      n the Ship To Customer record and t-
+     A                                      his     '
+     A                                 20  3' code will be displayed when a new-
+     A                                       order is entered.  This code can b-
+     A                                      e       '
+     A                                 21  3' changed for this order if necessa-
+     A                                      ry.                                -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HTERMS
+     A*%%TS  SD  19960104  115157  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Terms Code                       -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' This code determines the terms yo-
+     A                                      u extend to this customer for payme-
+     A                                      nts of  '
+     A                                 19  3' invoices, such as Net 30 Days.  T-
+     A                                      his code is contained in the custom-
+     A                                      er      '
+     A                                 20  3' record and will be displayed when-
+     A                                       a new order is entered.  This code-
+     A                                       can be '
+     A                                 21  3' changed for this order if necessa-
+     A                                      ry.                                -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A          R HINVCD
+     A*%%TS  SD  19960104  121933  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Invoice Only Code                -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  3' Invoice Only Code N   Open Order -
+     A                                          Invoice Only Code Y r Invoice  -
+     A                                              '
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 20  3' Open orders require pick slips an-
+     A                                      d shipment confirmation prior to in-
+     A                                      voicing.'
+     A                                 21  3' Orders coded for invoice will pri-
+     A                                      nt on the next invoice print run wi-
+     A                                      thout   '
+     A                                 22  3' having to be shipment confirmed. -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A          R HBO
+     A*%%TS  SD  19960104  153333  GINNY       REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 16  3' Backorders Allowed               -
+     A                                                                     Requ-
+     A                                      ired    '
+     A                                      DSPATR(RI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 18  2'  Valid Entries are Y = Backorders-
+     A                                       are allowed for this order by this-
+     A                                       customer'
+     A                                 19  2'                    N = Backorders-
+     A                                       are not allowed                   -
+     A                                               '
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 21  3' However, if any inventory item on-
+     A                                       this order is coded Backorders NO -
+     A                                      - that  '
+     A                                 22  3' will override any backorder entry-
+     A                                       made on this screen.              -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A          R HORDLS
+     A*%%TS  SD  19980322  162710  EFD         REL-V3R1M0  5763-PW1
+     A                                 15  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 14  3' Order List Number                -
+     A                                                                     Opti-
+     A                                      onal    '
+     A                                      DSPATR(RI)
+     A                                 16  3' This code determines which order -
+     A                                      list will display first if you sele-
+     A                                      ct      '
+     A                                 17  3' telephone order entry for this or-
+     A                                      der.   The code most ofter used by -
+     A                                      each    '
+     A                                 18  3' customer is contained in the cust-
+     A                                      omer record and this code will disp-
+     A                                      lay when'
+     A                                 19  3' a new order is entered.  This cod-
+     A                                      e can be changed for this order.   -
+     A                                              '
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                 24  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                 21  3' If this is an order for tags ONLY-
+     A                                       - enter TAG as the Order List Numb-
+     A                                      er.     '
+     A                                 20  3'                                  -
+     A                                        -or-                             -
+     A                                              '
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  19980701  092140  EFD         REL-V3R7M0  5716-PW1
+     A            ITEM          12A  B  8  5
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A            SIZE           3A  B  8 18
+     A  10                                  DSPATR(CS)
+     A            PRICE          9Y 4B  9 36EDTWRD('     .    ')
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A            PRCD           1A  B  9 20
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A            IMDES1        30A  O  8 22
+     A            SISEQ#         3Y 0H
+     A            QTYORD         7Y 0B  8 53EDTCDE(4)
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A            MAXQTY         7Y 0B  8 61EDTCDE(4)
+     A  25                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A            PCT            5Y 2B  9 62EDTWRD('   .  %')
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A            DOLL           5Y 2B  9 72
+     A  55                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  55                                  DSPATR(PC)
+     A                                      EDTWRD('$   .  -')
+     A                                  9  3'Base Price Code?'
+     A                                  9 23'Fixed Price:'
+     A                                  9 48'Mark-up/Disc:'
+     A            UPRICE         9  4O  8 70
+     A  32                                  DSPATR(RI)
+     A                                      EDTCDE(4)
+     A            DELET          1A  B  8  3
+     A  05                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  05                                  DSPATR(PC)
+     A                                 10  3'Line has Substitutes:'
+     A            HASSUB         1A  O 10 25
+     A                                 10 28'Add/Update Subs:'
+     A            ADDSUB         1A  B 10 45DSPATR(CS)
+     A                                      VALUES(' ' 'Y' 'N')
+     A                                 10 47'Y//N'
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  19980528  202849  EFD         REL-V3R7M0  5716-PW1
+     A                                      SFLSIZ(0200)
+     A                                      SFLPAG(0005)
+     A                                      CF02
+     A                                      CF12
+     A                                      CF23
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  31                                  SFLMSG('*** No Unit Price was able -
+     A                                      to be calculated.      Press RESET')
+     A  11                                  SFLMSG('*** Invalid Item/Size Enter-
+     A                                      ed.         Press RESET')
+     A  06                                  SFLMSG('*** Delete code must be " "-
+     A                                      (Blank) or "D".   Press RESET')
+     A  20                                  SFLMSG('*** Quantity Ordered Cannot-
+     A                                       be 0 (ZERO).      Press RESET')
+     A  26                                  SFLMSG('*** Max. Quantity must be g-
+     A                                      reater than or equal to the order q-
+     A                                      uantity. Press RESET')
+     A  41                                  SFLMSG('*** Price Code must be M, S-
+     A                                      , or Blank. Press RESET')
+     A  46                                  SFLMSG('*** If Price Code is Blank -
+     A                                      You Must enter a Price.      Press -
+     A                                      RESET')
+     A  47                                  SFLMSG('*** If Price Code is Not Bl-
+     A                                      ank You Can NOT Enter a Price.     -
+     A                                      Press RESET')
+     A  48                                  SFLMSG('*** If A Price is entered Y-
+     A                                      ou May Not enter a Mark-up/Discount-
+     A                                      .  Press RESET')
+     A                                  1  2'STR010SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 26' Standing Order Update Screen '
+     A                                      DSPATR(RI)
+     A                                  2 13' CORRECT ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  2 53' CORRECT ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  4  2'Enter to Verify   F2=New Order   F-
+     A                                      12=Previous Screen   F23=Delete Ent-
+     A                                      ire Order'
+     A                                      DSPATR(UL)
+     A                                  5  2'Customer:'
+     A            SHCUST         6Y 0O  5 12EDTCDE(4)
+     A            CMNAME        30A  O  5 19
+     A            SHDESC        30A  O  5 50
+     A                                  7  3'D Item?       Size Description    -
+     A                                                       Order     Max.  Un-
+     A                                      it Price'
+     A                                      DSPATR(UL)
+     A                                  6  3'D=Delete Line.'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 54'---Quantity---'
+     A                                  2 31'Order Number'
+     A            SHORD#         6Y 0O  2 44EDTCDE(4)
+     A          R SUBSFL                    SFL
+     A*%%TS  SD  19980701  092140  EFD         REL-V3R7M0  5716-PW1
+     A            SSITEM        12A  B 13  8
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A            SSSIZE         3A  B 13 21
+     A  10                                  DSPATR(CS)
+     A            SSPRCD         1A  B 14 22
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A            SBDES1        30A  O 13 25
+     A            SISEQ#         3Y 0H
+     A            SSDISP         5Y 2B 14 62EDTWRD('   .  %')
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A            SSDIS$         5Y 2B 14 72
+     A  55                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  55                                  DSPATR(PC)
+     A                                      EDTWRD('$   .  -')
+     A                                 14 10'Price Code?'
+     A                                 14 48'Mark-up/Disc:'
+     A            SPRICE         9Y 4O 13 70
+     A  32                                  DSPATR(RI)
+     A                                      EDTCDE(4)
+     A            NWPSEQ         3Y 0B 13  3DSPATR(CS)
+     A                                      EDTCDE(4)
+     A                                 14 24'Fixed Price:'
+     A            SSUPRI         9Y 4B 14 37EDTWRD('     .    ')
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                 13 57'Calc. price:'
+     A            SSWHSE         3A  H
+     A          R SUBCTL                    SFLCTL(SUBSFL)
+     A*%%TS  SD  19980605  152041  EFD         REL-V3R7M0  5716-PW1
+     A  98                                  CF04
+     A                                      CF06
+     A                                      CF23
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(0999)
+     A                                      SFLPAG(0006)
+     A  31                                  SFLMSG('*** No Unit Price was able -
+     A                                      to be calculated.      Press RESET')
+     A  11                                  SFLMSG('*** Invalid Item/Size Enter-
+     A                                      ed.         Press RESET')
+     A  41                                  SFLMSG('*** Price Code must be M, S-
+     A                                      , or Blank. Press RESET')
+     A  46                                  SFLMSG('*** If Price Code is Blank -
+     A                                      You Must enter a Price.      Press -
+     A                                      RESET')
+     A  47                                  SFLMSG('*** If Price Code is Not Bl-
+     A                                      ank You Can NOT Enter a Price.     -
+     A                                      Press RESET')
+     A  48                                  SFLMSG('*** If A Price is entered Y-
+     A                                      ou May Not enter a Mark-up/Discount-
+     A                                      .  Press RESET')
+     A  12                                  SFLMSG('*** Assortments may NOT be -
+     A                                      used as a substitute    Press RESET-
+     A                                      ')
+     A                                  1  2'STR010SUB'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 24' Standing Order Substitute Screen '
+     A                                      DSPATR(RI)
+     A                                  2 13' CORRECT ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  2 53' CORRECT ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  5  2'Customer:'
+     A            SHCUST         6Y 0O  5 12EDTCDE(4)
+     A            CMNAME        30A  O  5 19
+     A            SHDESC        30A  O  5 50
+     A                                  2 31'Order Number'
+     A            SHORD#         6Y 0O  2 44EDTCDE(4)
+     A                                  6  2'Item:'
+     A            ORGITM        12A  O  6  8
+     A                                  6 21'Size:'
+     A            ORGSIZ         3A  O  6 27
+     A            ORGDES        30A  O  6 31
+     A            ORGQTY         7Y 0O  7  8EDTCDE(4)
+     A                                  7  2'Qty:'
+     A                                  7 34'Price Code:'
+     A            ORPRCD         1A  O  7 46
+     A                                  7 48'Mark-up/Disc:'
+     A            ORPCT          5Y 2O  7 62EDTWRD('   .  ')
+     A            ORDOLL         5Y 2O  7 72EDTWRD('$   .  -')
+     A            ORPRIC         9Y 4O  6 70EDTWRD('     .    ')
+     A                                  6 62'Ord Prc'
+     A                                  9  2'*Sequence to try to fill order. En-
+     A                                      ter a number between 1 and 999 for -
+     A                                      each item'
+     A                                 10  3'the items will be checked from the-
+     A                                       lowest number(1) to the highest. T-
+     A                                      o Delete'
+     A                                 11  3'an item leave the sequence blank.'
+     A                                 12  2'*Seq  Item        Size Description-
+     A                                                                        U-
+     A                                      nit Price'
+     A                                      DSPATR(UL)
+     A                                  3  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'Enter to verify     F6=Return(NO u-
+     A                                      pdate)     F23=Delete All Subs for -
+     A                                      this item'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8  2' Data OK F4=Update '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  8 22' F23 to confirm delete all  or F6 -
+     A                                      to restart(NO DELETE) '
+     A  97                                  DSPATR(RI)
+     A N97                                  DSPATR(ND)
+     A          R SCRPRICE
+     A*%%TS  SD  19980528  202849  EFD         REL-V3R7M0  5716-PW1
+     A                                  1  2'STR210PRC'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 22' Price Code and Priceing Explanati-
+     A                                      on '
+     A                                      DSPATR(RI)
+     A                                  5  8'Price Code Blank, We use the price-
+     A                                       entered in the fixed price field.'
+     A                                  6 10'No Mark-up/Discount allowed.'
+     A                                  8  8'NOTE: The following Price Codes ca-
+     A                                      n have Mark-up/Discounts applied'
+     A                                  9 13'against the selected price. Exampl-
+     A                                      e You enter Market Price and'
+     A                                 10 13'a Mark-up/Disc % of 110 if the mar-
+     A                                      ket price =.50 the price will'
+     A                                 11 13'be .55. Or if You enter Market pri-
+     A                                      ce and a Mark-up/Discount $'
+     A                                 12 13'of .05- the price will be .45. You-
+     A                                       Can NOT enter a Fixed Price'
+     A                                 13 13'with any of these codes. The price-
+     A                                       will be calculated with the'
+     A                                 14 13'value of the selected price when t-
+     A                                      he order is released.'
+     A                                 16  8'M = Market Price.'
+     A                                 18  8'S = Standing Order Price'
+     A                                 20  8'O = Use price from primary line of-
+     A                                       standing order.(ONLY ALLOWED on'
+     A N98                                  DSPATR(ND)
+     A                                 21 12'substitute item entry screen)'
+     A N98                                  DSPATR(ND)
+     A            SELB           1A  B  5  4DSPATR(RI)
+     A                                      DSPATR(CS)
+     A            SELM           1A  B 16  4DSPATR(RI)
+     A                                      DSPATR(CS)
+     A            SELS           1A  B 18  4DSPATR(RI)
+     A                                      DSPATR(CS)
+     A            SELO           1A  B 20  4
+     A  98                                  DSPATR(RI)
+     A  98                                  DSPATR(CS)
+     A N98                                  DSPATR(ND)
+     A N98                                  DSPATR(PR)
+     A                                  3  4'X=Select this Price Code'
+     A                                      DSPATR(UL)
+     A                                 24 13'Select the price code you want wit-
+     A                                      h an X and press ENTER'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 23 13'                                  -
+     A                                                            '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  4'|'
+     A          R WRKSFL                    SFL
+     A*%%TS  SD  19980605  123831  EFD         REL-V3R7M0  5716-PW1
+     A            WKITEM        12A  B  4  2
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A            WKSIZE         3A  B  4 15
+     A  10                                  DSPATR(CS)
+     A            WKPRCD         1A  B  5 16
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A            WKDES1        30A  O  4 19
+     A            SISEQ#         3Y 0H
+     A            WKDISP         5Y 2B  5 56EDTWRD('   .  %')
+     A  50                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  50                                  DSPATR(PC)
+     A            WKDIS$         5Y 2B  5 66
+     A  55                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  55                                  DSPATR(PC)
+     A                                      EDTWRD('$   .  -')
+     A                                  5  4'Price Code?'
+     A                                  5 42'Mark-up/Disc:'
+     A            WPRICE         9Y 4O  4 64EDTWRD('     .    ')
+     A  32                                  DSPATR(RI)
+     A                                  5 18'Fixed Price:'
+     A            WKUPRI         9Y 4B  5 31EDTWRD('     .    ')
+     A  45                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  45                                  DSPATR(PC)
+     A                                  4 51'Calc. price:'
+     A          R WRKCTL                    SFLCTL(WRKSFL)
+     A*%%TS  SD  19980604  190805  EFD         REL-V3R7M0  5716-PW1
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0010)
+     A  41                                  SFLMSG('*** Price Code must be M, S-
+     A                                      , or Blank. Press RESET')
+     A  46                                  SFLMSG('*** If Price Code is Blank -
+     A                                      You Must enter a Price.      Press -
+     A                                      RESET')
+     A  47                                  SFLMSG('*** If Price Code is Not Bl-
+     A                                      ank You Can NOT Enter a Price.     -
+     A                                      Press RESET')
+     A  48                                  SFLMSG('*** If A Price is entered Y-
+     A                                      ou May Not enter a Mark-up/Discount-
+     A                                      .  Press RESET')
+     A                                  1  2'STR010WRK'
+     A                                  1 19' THIS SCREEN IS NEVER DISPLAYED ON-
+     A                                      LY USED AS A WORK FILE '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(BL)

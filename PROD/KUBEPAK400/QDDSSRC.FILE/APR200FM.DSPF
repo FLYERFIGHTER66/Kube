@@ -1,0 +1,1121 @@
+     A*%%TS  SD  20190305  133046  BILLB       REL-V7R2M0  5770-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990808  152833  TGMS        REL-V4R2M0  5769-PW1
+     A                                      CF03
+     A                                      CF04
+     A                                      CF05
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A  85                                  CF02
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HACT)
+     A  *DS3                                HLPARA(04 012 04 012)
+     A  *DS4                                HLPARA(04 012 04 012)
+     A          H                           HLPRCD(HVEND)
+     A  *DS3                                HLPARA(04 048 05 062)
+     A  *DS4                                HLPARA(04 048 05 062)
+     A          H                           HLPRCD(HACTPER)
+     A  *DS3                                HLPARA(08 048 08 055)
+     A  *DS4                                HLPARA(08 048 08 055)
+     A                                  1  2'APR200A'
+     A                                  1 17'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 31' A/P Voucher Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 32'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  3'Action:'
+     A            VACT           1X  B  4 12DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10N01                               DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Action Co-
+     A                                      de.    Press Reset')
+     A  13                                  ERRMSG('*** This Voucher/Invoice No-
+     A                                      t On File For Change Or Delete.    -
+     A                                      Press Reset')
+     A                                  4 28'Vendor Number:'
+     A            VVEND          6Y 0B  4 48DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A  12                                  DSPATR(RI)
+     A  01N85
+     AO 12N85                               DSPATR(PC)
+     A  12                                  ERRMSG('*** Enter A Valid Vendor Nu-
+     A                                      mber.      Press Reset')
+     A                                  5 28'or Alpha Search'
+     A            VALPHA        15A  B  5 48DSPATR(CS)
+     A                                  6  2' A = Add    '
+     A                                      DSPATR(RI)
+     A            VMNAME        30A  O  6 48
+     A                                  7  2' C = Change '
+     A                                      DSPATR(RI)
+     A                                  8  2' D = Delete '
+     A                                      DSPATR(RI)
+     A                                  8 28'Acctg Period Date:'
+     A N88                                  DSPATR(ND)
+     A            VDATE          6Y 0B  8 48
+     A  88                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                      EDTWRD('  /  / 0')
+     A N88                                  DSPATR(ND)
+     A  21                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  22                                  ERRMSG('*** Accounting Period Date -
+     A                                      Earlier Than First Fiscal Year Date-
+     A                                      .  Press Reset')
+     A  23                                  ERRMSG('*** Acctg Period Is A Futur-
+     A                                      e Date, Change or Press Reset and E-
+     A                                      nter To Accept.')
+     A N88                                  DSPATR(PR)
+     A                                 12  3'For Change or Delete==>'
+     A N85                                  DSPATR(ND)
+     A                                 12 28'Voucher Number:'
+     A N85                                  DSPATR(ND)
+     A            VVOUCH         6Y 0B 12 48
+     A  85                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A                                      EDTCDE(Z)
+     A  33                                  DSPATR(RI)
+     A  33
+     AO 85                                  DSPATR(PC)
+     A N85                                  DSPATR(ND)
+     A N85                                  DSPATR(PR)
+     A  33N13                               ERRMSG('*** Voucher Number Required-
+     A                                       For Change Or Delete.      Press R-
+     A                                      eset')
+     A  33 13                               ERRMSG('*** Voucher/Invoice Number -
+     A                                      does NOT exist.    Press RESET')
+     A                                 14 28'Invoice Number:'
+     A N85                                  DSPATR(ND)
+     A            VINV          10A  B 14 48
+     A  85                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A  34                                  DSPATR(RI)
+     A  34                                  DSPATR(PC)
+     A  34                                  ERRMSG('*** Invoice Number Required-
+     A                                       For Change Or Delete.    Press Res-
+     A                                      et')
+     A N85                                  DSPATR(ND)
+     A N85                                  DSPATR(PR)
+     A                                 16 28'Type:'
+     A N85                                  DSPATR(ND)
+     A            VTYPE          1A  B 16 48
+     A  85                                  DSPATR(CS)
+     A                                      CHECK(RB)
+     A  35                                  DSPATR(RI)
+     A  35                                  DSPATR(PC)
+     A  35                                  ERRMSG('*** Enter A Valid Type - Bl-
+     A                                      ank, I, C, M or F.       Press Rese-
+     A                                      t')
+     A N85                                  DSPATR(ND)
+     A N85                                  DSPATR(PR)
+     A                                 21  4'Last Vendor:'
+     A            LSTVND         6Y 0O 21 17EDTCDE(Z)
+     A                                 21 27'Last Voucher:'
+     A            LSTVOU         6Y 0O 21 41EDTCDE(Z)
+     A                                 21 51'Last Invoice:'
+     A            LSTINV        10A  O 21 65
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2' Enter to Process     F4=Refresh S-
+     A                                      creen     F5=Add Vendor    F3/F7=En-
+     A                                      d of Job '
+     A                                      DSPATR(UL)
+     A                                 12 60'F2=Invoice Search'
+     A N85                                  DSPATR(ND)
+     A          R HACT
+     A*%%TS  SD  19981228  055031  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 17  3' Action Code                      -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' Enter:      A = to add new vouche-
+     A                                      r                                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'             C = to change an exis-
+     A                                      ting voucher                       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'             D = to delete existin-
+     A                                      g voucher                          -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HVEND
+     A*%%TS  SD  19981228  055031  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 13  3' Vendor Number                    -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3' Enter the number of the vendor wh-
+     A                                      ose invoice you are entering.  If y-
+     A                                      ou do   '
+     A                                      DSPATR(HI)
+     A                                 16  3' not know the vendor number - ente-
+     A                                      r the first few letters of the vend-
+     A                                      or name '
+     A                                      DSPATR(HI)
+     A                                 17  3' in the alpha search field to look-
+     A                                       up the vendor number.             -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' If this vendor is not in the Vend-
+     A                                      or Master file - you can add it by -
+     A                                      entering'
+     A                                      DSPATR(HI)
+     A                                 20  3' F5.  This will take you to the ve-
+     A                                      ndor master maintenance program and-
+     A                                       you can'
+     A                                      DSPATR(HI)
+     A                                 21  3' enter the required data for this -
+     A                                      vendor.                            -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HACTPER
+     A*%%TS  SD  19981228  075437  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 15  3' Accounting Period Date           -
+     A                                                       Required (If Runni-
+     A                                      ng G/L) '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' This date determines to which acc-
+     A                                      ounting period this expense will be-
+     A                                       posted.'
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' This date must be a date in your -
+     A                                      current fiscal year or a future dat-
+     A                                      e.  It  '
+     A                                      DSPATR(HI)
+     A                                 20  3' cannot be a date that is earlier -
+     A                                      than the first date of your current-
+     A                                       fiscal '
+     A                                      DSPATR(HI)
+     A                                 21  3' year.                            -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  20190305  133046  BILLB       REL-V7R2M0  5770-WDS
+     A                                      CF02
+     A                                      CF03
+     A                                      CF04
+     A                                      CF06
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF23
+     A                                      CF01
+     A                                      DSPMOD(*DS3)
+     A          H                           HLPRCD(HVOUACT)
+     A  *DS3                                HLPARA(12 010 12 010)
+     A  *DS4                                HLPARA(12 010 12 010)
+     A          H                           HLPRCD(HINVOICE)
+     A  *DS3                                HLPARA(14 002 14 011)
+     A  *DS4                                HLPARA(14 002 14 011)
+     A          H                           HLPRCD(HINVDTE)
+     A  *DS3                                HLPARA(14 016 14 023)
+     A  *DS4                                HLPARA(14 016 14 023)
+     A          H                           HLPRCD(HINVAMT)
+     A  *DS3                                HLPARA(14 027 14 039)
+     A  *DS4                                HLPARA(14 027 14 039)
+     A          H                           HLPRCD(HTYPE)
+     A  *DS3                                HLPARA(14 043 14 043)
+     A  *DS4                                HLPARA(14 043 14 043)
+     A          H                           HLPRCD(HDESC)
+     A  *DS3                                HLPARA(15 008 15 037)
+     A  *DS4                                HLPARA(15 008 15 037)
+     A          H                           HLPRCD(HCHKNO)
+     A  *DS3                                HLPARA(17 012 17 017)
+     A  *DS4                                HLPARA(17 012 17 017)
+     A          H                           HLPRCD(HCHKDT)
+     A  *DS3                                HLPARA(17 040 17 047)
+     A  *DS4                                HLPARA(17 040 17 047)
+     A          H                           HLPRCD(HGLAP)
+     A  *DS3                                HLPARA(18 022 18 030)
+     A  *DS4                                HLPARA(18 022 18 030)
+     A          H                           HLPRCD(HOLD)
+     A  *DS3                                HLPARA(14 078 14 078)
+     A  *DS4                                HLPARA(14 078 14 078)
+     A                                  1  2'APR200B'
+     A                                  1 16'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 31' A/P Voucher Entry '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A            ACTION         8A  O  2 37DSPATR(RI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3  2'Company:'
+     A            VCO            2S 0O  3 15DSPATR(HI)
+     A                                  4  2'Voucher:'
+     A            VOUCH          6Y 0O  4 11EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  4 39'Terms:'
+     A            VMTMCD         2A  O  4 46DSPATR(HI)
+     A            TCDESC        30A  O  4 49DSPATR(HI)
+     A                                  5  3'Vendor:'
+     A            VVEND          6Y 0O  5 11EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A                                  5 19'Acct:'
+     A            VMOFIL        10A  O  5 25DSPATR(HI)
+     A                                  5 39'Acctg Period:'
+     A N88                                  DSPATR(ND)
+     A                                  5 53'From:'
+     A N88                                  DSPATR(ND)
+     A            BDATE          6Y 0O  5 59EDTCDE(Y)
+     A N88                                  DSPATR(ND)
+     A  88                                  DSPATR(HI)
+     A                                  5 68'To:'
+     A N88                                  DSPATR(ND)
+     A            EDATE          6Y 0O  5 72EDTCDE(Y)
+     A N88                                  DSPATR(ND)
+     A  88                                  DSPATR(HI)
+     A            VEN1          32A  O  6  3DSPATR(HI)
+     A            VEN2          32A  O  7  3DSPATR(HI)
+     A                                  7 39'Inv Types:'
+     A                                  7 50'" " = Regular  I = Immed. Pay '
+     A                                      DSPATR(HI)
+     A            VEN3          32A  O  8  3DSPATR(HI)
+     A                                  8 50' C  = Credit   M = Manual Chk '
+     A                                      DSPATR(HI)
+     A            VEN4          32A  O  9  3DSPATR(HI)
+     A                                  9 50' F  = Freight  W = Wire       '
+     A                                      DSPATR(HI)
+     A            VEN5          32A  O 10  3DSPATR(HI)
+     A                                 11  2'==================================-
+     A                                      ===================================-
+     A                                      ========='
+     A                                 12  2'Action:'
+     A            VACTB          1A  B 12 10
+     A N84                                  DSPATR(CS)
+     A  17                                  DSPATR(RI)
+     A  17N02                               DSPATR(PC)
+     A  17                                  ERRMSG('*** Valid Entries Are A, C -
+     A                                      or D.    Press Reset')
+     A  84                                  DSPATR(PR)
+     A                                 12 48'Due      ---- Discount ---- Hold'
+     A N50                                  DSPATR(ND)
+     A                                 13  2'Inv Number      Amount         Dat-
+     A                                      e    Type'
+     A                                      DSPATR(UL)
+     A                                 13 46'  Date     Available  Percent  Inv-
+     A                                       '
+     A                                      DSPATR(UL)
+     A N50                                  DSPATR(ND)
+     A            VINV#         10A  B 14  2CHECK(RB)
+     A N84                                  DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A N67                                  DSPATR(PC)
+     A                                      CHECK(FE)
+     A  84
+     AO 67                                  DSPATR(PR)
+     A  11                                  ERRMSG('*** Invoice Number Is Requi-
+     A                                      red.    Press Reset')
+     A  12                                  ERRMSG('*** This Invoice # Has Alre-
+     A                                      ady Been Entered For This Vendor.  -
+     A                                       Press Reset')
+     A  13                                  ERRMSG('*** This Invoice Is Not Ava-
+     A                                      ilable To Be Changed Or Deleted.   -
+     A                                        Press Reset')
+     A            VAMT           9Y 2B 14 15
+     A N84                                  DSPATR(CS)
+     A                                      EDTCDE(K)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Invoice Amount Is Requi-
+     A                                      red.   Press Reset')
+     A                                      CHECK(RB)
+     A  84                                  DSPATR(PR)
+     A            VIDATE         6Y 0B 14 31
+     A N84                                  DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  84                                  DSPATR(PR)
+     A            VTYPE          1X  B 14 43
+     A N84                                  DSPATR(CS)
+     A  40                                  DSPATR(RI)
+     A  40                                  DSPATR(PC)
+     A  40                                  ERRMSG('*** Enter A Valid Type.    -
+     A                                        Press Enter')
+     A  84                                  DSPATR(PR)
+     A            VIDDTE         6Y 0B 14 46
+     A  50N84                               DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N50                                  DSPATR(ND)
+     A  50 60                               DSPATR(RI)
+     A  50 60                               DSPATR(PC)
+     A  60                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  84
+     AON50                                  DSPATR(PR)
+     A            VDISC          7Y 2B 14 57
+     A  50N84                               DSPATR(CS)
+     A                                      EDTCDE(L)
+     A N50                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A  84
+     AON50                                  DSPATR(PR)
+     A            TCTRAT         4Y 2B 14 68
+     A  50N84                               DSPATR(CS)
+     A                                      EDTCDE(3)
+     A N50                                  DSPATR(ND)
+     A                                      CHECK(RB)
+     A  84
+     AON50                                  DSPATR(PR)
+     A            VHOLD          1A  B 14 78
+     A  70 50                               DSPATR(PC)
+     A N50
+     AO 84                                  DSPATR(PR)
+     A N50                                  DSPATR(ND)
+     A  70                                  DSPATR(RI)
+     A  50N84                               DSPATR(CS)
+     A  70                                  ERRMSG('*** Valid Entries Are H To -
+     A                                      Hold or N Not to Hold.     Press Re-
+     A                                      set')
+     A                                 15  2'Desc:'
+     A            VDESC         30A  B 15  8
+     A N84                                  DSPATR(CS)
+     A                                      CHECK(LC)
+     A  84                                  DSPATR(PR)
+     A                                 15 40'P.O.#'
+     A            VPONO          6Y 0B 15 46EDTCDE(Z)
+     A N84                                  DSPATR(CS)
+     A  84                                  DSPATR(PR)
+     A                                 16 59'Use Tax:'
+     A N81                                  DSPATR(ND)
+     A                                      COLOR(BLU)
+     A            VUTAX          1X  B 16 68
+     A N84 81                               DSPATR(CS)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A  84                                  DSPATR(PR)
+     A  65                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Enter')
+     A N81                                  DSPATR(ND)
+     A            VUTAX$         6Y 2B 16 70EDTCDE(M)
+     A N81                                  DSPATR(ND)
+     A                                 16 79' '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A N81                                  DSPATR(ND)
+     A                                 17 56'Tax Exempt:'
+     A                                      COLOR(BLU)
+     A N81                                  DSPATR(ND)
+     A            VXTAX          1X  B 17 68
+     A N84 81                               DSPATR(CS)
+     A  65                                  DSPATR(RI)
+     A  65                                  DSPATR(PC)
+     A  84                                  DSPATR(PR)
+     A  65                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Enter')
+     A N81                                  DSPATR(ND)
+     A            VXTAX$         6Y 2B 17 70EDTCDE(M)
+     A N81                                  DSPATR(ND)
+     A                                 17 79' '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A N81                                  DSPATR(ND)
+     A N53                             19  2'Check #:'
+     A N50
+     AON51                                  DSPATR(ND)
+     A            VCHECK         6Y 0B 19 12EDTCDE(Z)
+     A  50 51N84                            DSPATR(CS)
+     A N50
+     AON51                                  DSPATR(ND)
+     A  50 51 62                            DSPATR(RI)
+     A  50 51
+     AO 50 51 62                            DSPATR(PC)
+     A                                      CHECK(RB)
+     A N50
+     AO 84
+     AON51
+     AO 53                                  DSPATR(PR)
+     A  26                                  ERRMSG('*** Check Number Is Require-
+     A                                      d For Manual Check Entry.   Press R-
+     A                                      eset')
+     A  25                                  ERRMSG('*** This Check Number Has A-
+     A                                      lready Been Used.       Press Reset-
+     A                                      ')
+     A N53                             19 20'Manual Check Date:'
+     A N50
+     AON51                                  DSPATR(ND)
+     A            VCKDTE         6Y 0B 19 40
+     A  50 51N84                            DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A N50
+     AON51                                  DSPATR(ND)
+     A  50 51
+     AO 50 51 61                            DSPATR(PC)
+     A  50 51 61                            DSPATR(RI)
+     A N50
+     AO 84
+     AON51                                  DSPATR(PR)
+     A  63                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                       Press Reset')
+     A  64                                  ERRMSG('*** Check Date Is Not Withi-
+     A                                      n Accounting Period Dates.     Pres-
+     A                                      s Reset')
+     A N53                             19 49'Check Amount:'
+     A N50
+     AON51                                  DSPATR(ND)
+     A            CKAMT          9Y 2O 19 63EDTCDE(K)
+     A N50
+     AON51                                  DSPATR(ND)
+     A  50 51                               DSPATR(RI)
+     A                                 20  2'G/L A/P Default #:'
+     A  87
+     AO 51 87
+     AON50 87                               DSPATR(ND)
+     A            VAPGL          8Y 0B 20 22EDTWRD('    -    ')
+     A  50N87N51
+     AON84 50N87                            DSPATR(CS)
+     A N50 87
+     AO 87
+     AO 51 87                               DSPATR(ND)
+     A N50
+     AON88
+     AO 84                                  DSPATR(PR)
+     A  16                                  DSPATR(RI)
+     A  16                                  DSPATR(PC)
+     A  16                                  ERRMSG('*** Enter A Valid G/L Numbe-
+     A                                      r.    Press Enter')
+     A            APDESC        30A  O 20 34
+     A N50                                  DSPATR(ND)
+     A            MESAGE        61A  O 22 10
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 21  2'Last Invoice Entered:'
+     A            LSTINV        10A  O 21 24
+     A                                 21 36'Voucher Total:'
+     A            VTOTAL        11Y 2O 21 52EDTCDE(J)
+     A                                 23  2'Enter to Process  F1=Show Vend.Inf-
+     A                                      o  F6=Restart (No Update)   F3/F7=E-
+     A                                      nd of Job'
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A                                 15 54'    S a l e s   T a x     '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A N81                                  DSPATR(ND)
+     A                                 16 54' '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A N81                                  DSPATR(ND)
+     A                                 17 54' '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A N81                                  DSPATR(ND)
+     A                                 18 54'                          '
+     A                                      COLOR(BLU)
+     A                                      DSPATR(RI)
+     A N81                                  DSPATR(ND)
+     A  53                             19  2'Wire #:'
+     A N50                                  DSPATR(ND)
+     A  53                             19 20'        Wire Date:'
+     A N50
+     AON51                                  DSPATR(ND)
+     A  53                             19 49' Wire Amount:'
+     A N50
+     AON51                                  DSPATR(ND)
+     A          R HVOUACT
+     A*%%TS  SD  19981208  133653  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 15  3' Voucher Action Code              -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' The code describes the action to -
+     A                                      take place on this invoice.        -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3' Enter:      A   to add new invoic-
+     A                                      e                                  -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'             C   to change an exis-
+     A                                      ting invoice                       -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3'             D - to delete existin-
+     A                                      g invoice                          -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HINVOICE
+     A*%%TS  SD  19981228  070528  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 13  3' Invoice Number                   -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3' Enter the invoice number for the -
+     A                                      vendors invoice.  You can enter up -
+     A                                      to 10   '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3' characters and/or numbers.       -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' After entering the invoice number-
+     A                                       - Press Field Exit.               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' This invoice number must be uniqu-
+     A                                      e for this vendor and invoice type.-
+     A                                        This  '
+     A                                      DSPATR(HI)
+     A                                 19  3' is to avoid entering duplicate in-
+     A                                      voices for the same vendor.        -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HINVDTE
+     A*%%TS  SD  19981228  070528  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 18  3' Invoice Date                     -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' Enter the date of the vendor invo-
+     A                                      ice.  This date is used to calculat-
+     A                                      e the   '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' invoice and discount due dates ba-
+     A                                      sed on the vendors terms.          -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HINVAMT
+     A*%%TS  SD  19981228  070528  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 12  3' Invoice Amount                   -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 14  3' Enter the amount of the invoice f-
+     A                                      or this type.  For example, the tot-
+     A                                      al      '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3' invoice is 108.00 with 100.00 bei-
+     A                                      ng a material purchase and 8.00 bei-
+     A                                      ng      '
+     A                                      DSPATR(HI)
+     A                                 16  3' freight.  You can enter both the -
+     A                                      100.00 with a type regular and the -
+     A                                      8.00    '
+     A                                      DSPATR(HI)
+     A                                 20  3' Enter the amount for all invoice -
+     A                                      types as a positive number.  The in-
+     A                                      voice   '
+     A                                      DSPATR(HI)
+     A                                 17  3' with the type "F" with the same i-
+     A                                      nvoice number since they are differ-
+     A                                      ent     '
+     A                                      DSPATR(HI)
+     A                                 18  3' invoice types.                   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' type code will determine if it sh-
+     A                                      ould be posted as a credit or debit-
+     A                                      .       '
+     A                                      DSPATR(HI)
+     A          R HTYPE
+     A*%%TS  SD  19981228  070528  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 10  3' Invoice Type                     -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' The type code describes this invo-
+     A                                      ice:                               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'   " " = Reqular invoice          -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'   "C" = Credit memo              -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'   "F" = Freight invoice          -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'   "I" = Immediate pay invoice - w-
+     A                                      ill automatically code the invoice -
+     A                                      to be   '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                 i-
+     A                                      ncluded in the next check run      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'   "M" = Manually paid invoice - t-
+     A                                      o be used to enter vendor invoices -
+     A                                      for     '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                 e-
+     A                                      xpense was entered in accounts paya-
+     A                                      ble     '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                 w-
+     A                                      hich a manual check has be written -
+     A                                      before  '
+     A                                      DSPATR(HI)
+     A          R HDESC
+     A*%%TS  SD  19981228  073930  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 18  3' Invoice Description              -
+     A                                                                    Optio-
+     A                                      nal     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' Enter up to 30 characters to desc-
+     A                                      ribe this invoice.  This descriptio-
+     A                                      n will  '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 21  3' print on reports.                -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R HOLD
+     A*%%TS  SD  19990727  070222  TGMS        REL-V4R2M0  5769-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 10  3' Hold Invoice                     -
+     A                                                                      Opt-
+     A                                      ional   '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 12  3' The type code describes this invo-
+     A                                      ice:                               -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 14  3'   " " = Reqular invoice          -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 15  3'   "C" = Credit memo              -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 13  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 16  3'   "F" = Freight invoice          -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3'   "I" = Immediate pay invoice - w-
+     A                                      ill automatically code the invoice -
+     A                                      to be   '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                 i-
+     A                                      ncluded in the next check run      -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'   "M" = Manually paid invoice - t-
+     A                                      o be used to enter vendor invoices -
+     A                                      for     '
+     A                                      DSPATR(HI)
+     A                                 21  3'                                 e-
+     A                                      xpense was entered in accounts paya-
+     A                                      ble     '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                 w-
+     A                                      hich a manual check has be written -
+     A                                      before  '
+     A                                      DSPATR(HI)
+     A          R HCHKNO
+     A*%%TS  SD  19981228  075437  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 19  3' Check Number                     -
+     A                                                       Required For Manua-
+     A                                      l Check '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' Enter the number of the check for-
+     A                                       this manual check.                -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HCHKDT
+     A*%%TS  SD  19990419  073332  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 19  3' Check Date                       -
+     A                                                       Required For Manua-
+     A                                      l Check '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' Enter the date of the manual chec-
+     A                                      k.                                 -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A          R HGLAP
+     A*%%TS  SD  19990419  073332  EFD         REL-V3R1M0  5763-PW1
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                 15  3' G/L A/P Default #                -
+     A                                                                    Requi-
+     A                                      red     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' Voucher expenses are automaticall-
+     A                                      y posted to the a/p liability accou-
+     A                                      nt set  '
+     A                                      DSPATR(HI)
+     A                                 22  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 23  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 18  3' up in the g/l default file.      -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 19  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 20  3' You can override that default acc-
+     A                                      ount for a particular invoice here.-
+     A                                        You   '
+     A                                      DSPATR(HI)
+     A                                 21  3' must enter a valid g/l number.   -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A          R RECSFL                    SFL
+     A*%%TS  SD  19991002  140101  TGMS        REL-V4R2M0  5769-PW1
+     A            ODESC         30A  H
+     A            OGLNO          8  0H
+     A            APSEQ#         3S 0H
+     A            GLNO           8Y 0B 12  3EDTWRD('    -    ')
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A            DEBIT         11Y 2B 12 16EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A                                      CHECK(RB)
+     A            CREDIT        11Y 2B 12 31EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(RI)
+     A                                      CHECK(RB)
+     A            DESC          30A  B 12 48DSPATR(CS)
+     A                                      CHECK(LC)
+     A          R RECCTL                    SFLCTL(RECSFL)
+     A*%%TS  SD  19990419  073332  EFD         REL-V3R1M0  5763-PW1
+     A  *DS3                                SFLSIZ(0200)
+     A  *DS4                                SFLSIZ(0200)
+     A  *DS3                                SFLPAG(0012)
+     A  *DS4                                SFLPAG(0012)
+     A                                      CF01
+     A                                      CF02
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  11                                  SFLMSG('*** Invalid G/L Number.    -
+     A                                          Press Reset')
+     A  32                                  SFLMSG('*** Only A Debit or Credit -
+     A                                      Amount.     Press Reset')
+     A  31                                  SFLMSG('*** Enter Either A Debit or-
+     A                                       Credit Amount.   Press Reset')
+     A  40                                  SFLMSG('*** G/L Distribution Does N-
+     A                                      ot Equal Payable Amount.   Press Re-
+     A                                      set')
+     A            LINE           5S 0H
+     A                                  1 19' Roll to Enter Addl Dist.  F1=Acce-
+     A                                      pt Entry '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                  2 33' Voucher Entry '
+     A                                      DSPATR(UL)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  4  2'Accounting Period:'
+     A            BDATE          6  0O  4 21EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4 30'-'
+     A            EDATE          6  0O  4 32EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  4 42'Company:'
+     A            VCO            2  0O  4 51DSPATR(HI)
+     A                                  4 62' Correct Errors '
+     A  99                                  DSPATR(RI)
+     A  99                                  DSPATR(BL)
+     A N99                                  DSPATR(ND)
+     A                                  6  2'Vendor Name                       -
+     A                                              Invoice   Inv Date  Tp     -
+     A                                        Amount '
+     A                                      DSPATR(UL)
+     A            VVEND          6Y 0O  7  2EDTCDE(Z)
+     A                                      DSPATR(HI)
+     A            VEN1          32A  O  7  9DSPATR(HI)
+     A            VINV#         10A  O  7 42DSPATR(HI)
+     A            VIDATE         6Y 0O  7 54EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            VTYPE          1A  O  7 65DSPATR(HI)
+     A            DAMT           9Y 2O  7 68EDTCDE(J)
+     A                                      DSPATR(HI)
+     A                                  8 44'Balance to Distribute:'
+     A            BAL            9Y 2O  8 68EDTCDE(J)
+     A                                      DSPATR(RI)
+     A                                 10 30' Expense Distribution '
+     A                                      DSPATR(UL)
+     A                                 10  1'F2=Lookup G/L#'
+     A                                 11  2' G/L Acct           Debit         -
+     A                                      Credit      Account Description    -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  8  2'Desc:'
+     A            VDESC         30A  O  8  9DSPATR(HI)
+     A                                  1  3'APR200SFL'
+     A                                  2  3USER
+     A          R SCRBLNK
+     A*%%TS  SD  19990727  104518  TGMS        REL-V4R2M0  5769-PW1
+     A                                  1  2'APR200BLNK'

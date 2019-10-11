@@ -1,0 +1,60 @@
+     A*%%TS  SD  20000718  194523  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R ITMSFL                    SFL
+     A*%%TS  SD  19991011  062200  TGMS        REL-V4R2M0  5769-PW1
+     A            FLD001         1A  B  7  2DSPATR(ND)
+     A            LKITEM        12A  O  7 10
+     A            LKSIZE         3A  O  7 23
+     A            LKDES1        30A  O  7 27
+     A            QTYNOW         6Y 0O  7 58EDTCDE(M)
+     A            QTYNXT         6Y 0O  7 66EDTCDE(M)
+     A            LINE#          5Y 0O  7  4EDTCDE(4)
+     A            LKUPRI         6Y 2O  7 74EDTCDE(4)
+     A          R ITMCTL                    SFLCTL(ITMSFL)
+     A*%%TS  SD  20000718  194523  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF01
+     A                                      CF02
+     A                                      CF05
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                      SFLSIZ(1000)
+     A                                      SFLPAG(0017)
+     A                                  1  2'LKITEMSFL'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A                                  1 31' Item Search Screen '
+     A                                      DSPATR(RI)
+     A                                  6  2' Line # Item        Size Descripti-
+     A                                      on                      Now    Next-
+     A                                          Price'
+     A                                      DSPATR(UL)
+     A                                  4  3'Select Line:'
+     A            VLINE          5Y 0B  4 16DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  70                                  DSPATR(RI)
+     A                                      DSPATR(PC)
+     A  70                                  ERRMSG('*** Selected Line is Not on-
+     A                                       Screen.    Press RESET')
+     A                                  3  3'Enter New Search:'
+     A            ALPHA         15A  B  3 21DSPATR(HI)
+     A                                      DSPATR(CS)
+     A            DEDESC        30A  O  2 26
+     A            LINE           5S 0H
+     A                                  5 60'---Qty.----'
+     A                                  3 38'New Size?'
+     A            NSIZE          3A  B  3 48DSPATR(HI)
+     A                                      DSPATR(CS)
+     A                                  4 22'- or Position Cursor on Line and P-
+     A                                      ress Enter'
+     A                                  4 69'F6=Return'
+     A            FLD001         1A  B  5  2
+     A                                  5  4'F1=Show Next   F2=Show Additional -
+     A                                      Description'

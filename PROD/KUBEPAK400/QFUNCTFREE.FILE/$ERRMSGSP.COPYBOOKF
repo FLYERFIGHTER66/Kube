@@ -1,0 +1,52 @@
+000001180424      /If Not Defined( $clrError )
+000301180424        dcl-proc $clrError;
+000700180424          $ERR_SorC = 'C';
+000800180424          $msgfSP($ERR_MsgID:$ERR_MsgData);
+000900180424          *In50 = *Off;
+000901180424        end-proc $clrError;
+000902180424      /EndIf
+001001170810
+001002170810      /If not defined( $sndError )
+001003170810       dcl-proc $sndError;
+001004170811         dcl-pi *n;
+001005170810           $ERR_MsgID char(7) Const;
+001006170810           $ERR_MsgData char(100) Const;
+001007170811         end-pi;
+002300131002         $ERR_SorC = 'S';
+002400131003         $MsgfSP($ERR_MsgID:$ERR_MsgData);
+002500131002         *In50 = *On;
+002501170811       end-proc;
+002502180424      /EndIf
+002503180424
+002504180424      /If not defined ( $msgfSP )
+002505180424        dcl-proc $msgfSP;
+002506180424          dcl-pi *n;
+002507180424            $ERR_MsgID  char(7) Const;
+002508180424            $ERR_MsgData char(80) Const;
+002509180424          END-PI;
+002900180424        end-proc;
+002901180424      /EndIf
+002902180424
+002903180424      /If not defined ( XAMSFC )
+002904180424         //  $XAMSFC     EXTPROC Call the Subfile Error Messaging Program
+003803180424        dcl-pr XAMSFC ExtPgm('XAMSFC');
+003804180424          // prototype for Error Message Program
+003805180424          dcl-pi *n;
+003806180424            #ERR_PROG char(10);
+003807180424            #ERR_MSGF char(10);
+003808180424            #ERR_LIBR char(10);
+003809180424            #ERR_MsgID char(7) Const;
+003810180424            #ERR_MsgData char(80) Const;
+003811180424            #ERR_MKEY char(4);
+003812180424            #ERR_SORC char(1);
+003813180424           END-PI;
+003814180424
+004800180424           $ERR_MSGF = 'KPMSGF';
+004900180424           $ERR_LIBR = '*LIBL';
+005000131003
+005100180424           XAMSFC($ERR_PROG:$ERR_MSGF:$ERR_LIBR:
+005200180424           $ERR_MsgID:$ERR_MsgData:$ERR_MKEY:$ERR_SORC);
+005201170811
+005300170811       END-PROC;
+005301180424      /EndIf
+005302180424

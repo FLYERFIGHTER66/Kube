@@ -1,0 +1,60 @@
+     A*%%TS  SD  20000414  131145  JEFF        REL-V3R7M0  5716-PW1
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A*
+     A          R SCRNA
+     A*%%TS  SD  20000414  131145  JEFF        REL-V3R7M0  5716-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'COD005FM'
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  1 29'Print Driver''s COD List'
+     A                                      DSPATR(HI)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 13'(When requesting COD lists, be sur-
+     A                                      e to use'
+     A                                  5 56'DELIVERY'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 65'Date)'
+     A                                  8 34'Route?'
+     A            VROUTE         2A  B  8 42DSPATR(CS)
+     A  71                                  DSPATR(RI)
+     A  71                                  DSPATR(PC)
+     A                                      DSPATR(HI)
+     A  71                                  ERRMSG('*** Invalid Route.  Enter A-
+     A                                       Valid Route or "F3" to End. ***  P-
+     A                                      ress Reset')
+     A                                      COLOR(WHT)
+     A                                 11 10'Enter Requested Delivery Date:'
+     A            VSHPDT         6Y 0B 11 42DSPATR(CS)
+     A  75                                  DSPATR(PC)
+     A  75                                  DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                      EDTWRD('  /  /  ')
+     A  72                                  ERRMSG('*** Invalid Delivery Date. -
+     A                                      Enter A Valid Date or "F3" to End. -
+     A                                      *** Press Reset')
+     A  73                                  ERRMSG('*** No Deliveries on this R-
+     A                                      oute for Requested Date.   ***  Pre-
+     A                                      ss Reset')
+     A                                      COLOR(WHT)
+     A                                 20 21'Press F3 or F7 to TERMINATE this r-
+     A                                      equest'
+     A                                      DSPATR(HI)

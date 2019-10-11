@@ -1,0 +1,714 @@
+     A*%%TS  SD  20161208  123918  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R MOV50100
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Date')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF07(07 'Sub Day')
+     A                                      CF08(08 'Add Day')
+     A                                  1 25DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 25TIME
+     A                                      COLOR(BLU)
+     A                                  4 25'MOV50100'
+     A                                      COLOR(BLU)
+     A                                  5 25SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 25USER
+     A                                      COLOR(BLU)
+     A                                  5  3'Date:'
+     A            TODAT          6Y 0B  5  9
+     A  51                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A                                      CHECK(ER)
+     A            DATEPLUS       2Y 0B  7  2PSHBTNFLD(*RSTCSR (*NUMROW 1))
+     A                                      PSHBTNCHC(1 'Sub Day' CF07)
+     A                                      PSHBTNCHC(2 'Add Day' CF08)
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F3=Exit' CF03)
+     A                                      PSHBTNCHC(2 ' Enter to Continue')
+     A                                  1  3'Moving'
+     A                                  1 10'Program'
+     A                                  3 25'MOVE ??'
+     A                                      DSPATR(HI)
+     A          R MOV50101
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter Date')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF02(02 'Previous')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF07(07 'Sub Day')
+     A                                      CF08(08 'Add Day')
+     A            BTNMOV01       8A  P
+     A            BTNMOV02       8A  P
+     A            BTNMOV03       8A  P
+     A            BTNMOV04       8A  P
+     A            BTNMOV05       8A  P
+     A            BTNMOV06       8A  P
+     A            BTNMOV07       8A  P
+     A            BTNMOV08       8A  P
+     A            BTNMOV09       8A  P
+     A            BTNMOV10       8A  P
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  4 30'MOV50101'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A            BTNMOV         2Y 0B  3  2PSHBTNFLD(*RSTCSR (*NUMROW 5) (*GUT-
+     A                                      TER 1))
+     A                                      DSPATR(PC)
+     A                                      PSHBTNCHC(1 &BTNMOV01)
+     A                                      PSHBTNCHC(2 &BTNMOV02)
+     A                                      PSHBTNCHC(3 &BTNMOV03)
+     A                                      PSHBTNCHC(4 &BTNMOV04)
+     A                                      PSHBTNCHC(5 &BTNMOV05)
+     A                                      PSHBTNCHC(6 &BTNMOV06)
+     A                                      PSHBTNCHC(7 &BTNMOV07)
+     A                                      PSHBTNCHC(8 &BTNMOV08)
+     A                                      PSHBTNCHC(9 &BTNMOV09)
+     A                                      PSHBTNCHC(10 &BTNMOV10)
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F3=Exit' CF03)
+     A                                      PSHBTNCHC(2 'F2=Previous Screen' CF-
+     A                                      02)
+     A                                      PSHBTNCHC(3 'Enter to Continue')
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      CHECK(ER)
+     A                                  3 30'SELECTING MOVE'
+     A                                      DSPATR(HI)
+     A          R MOV50102
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Section')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  4 30'MOV50102'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  2  2'   Select Section:   '
+     A                                      DSPATR(RI)
+     A            BTNSECT        2Y 0B  3  3PSHBTNFLD(*RSTCSR (*NUMROW 5) (*GUT-
+     A                                      TER 1))
+     A                                      PSHBTNCHC(1 ' 1')
+     A                                      PSHBTNCHC(2 ' 2')
+     A                                      PSHBTNCHC(3 ' 3')
+     A                                      PSHBTNCHC(4 ' 4')
+     A                                      PSHBTNCHC(5 ' 5')
+     A                                      PSHBTNCHC(6 ' 6')
+     A                                      PSHBTNCHC(7 ' 7')
+     A                                      PSHBTNCHC(8 ' 8')
+     A                                      PSHBTNCHC(9 ' 9')
+     A                                      PSHBTNCHC(10 '10')
+     A                                      PSHBTNCHC(11 '11')
+     A                                      PSHBTNCHC(12 '12')
+     A                                      PSHBTNCHC(13 '13')
+     A                                      PSHBTNCHC(14 '14')
+     A                                      PSHBTNCHC(15 '15')
+     A            FUNCTION       2Y 0B 10  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F2=Previous Screen' C-
+     A                                      F02)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A          R MOV50103
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Bay')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A            MOVLIT         8A  O  3 30DSPATR(HI)
+     A                                  4 30'MOV50103'
+     A                                      COLOR(BLU)
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A            BTNBAY01       2A  P
+     A            BTNBAY02       2A  P
+     A            BTNBAY03       2A  P
+     A            BTNBAY04       2A  P
+     A            BTNBAY05       2A  P
+     A            BTNBAY06       2A  P
+     A            BTNBAY07       2A  P
+     A            BTNBAY08       2A  P
+     A            BTNBAY09       2A  P
+     A            BTNBAY10       2A  P
+     A            BTNBAY11       2A  P
+     A            BTNBAY12       2A  P
+     A            BTNBAY13       2A  P
+     A            BTNBAY14       2A  P
+     A            BTNBAY15       2A  P
+     A            BTNBAY16       2A  P
+     A            BTNBAY17       2A  P
+     A            BTNBAY18       2A  P
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 12'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'     Select Bay:     '
+     A                                      DSPATR(RI)
+     A            BTNBAY         2Y 0B  3  3PSHBTNFLD(*RSTCSR (*NUMROW 6) (*GUT-
+     A                                      TER 1))
+     A  61                                  PSHBTNCHC(1 &BTNBAY01)
+     A  62                                  PSHBTNCHC(2 &BTNBAY02)
+     A  63                                  PSHBTNCHC(3 &BTNBAY03)
+     A  64                                  PSHBTNCHC(4 &BTNBAY04)
+     A  65                                  PSHBTNCHC(5 &BTNBAY05)
+     A  66                                  PSHBTNCHC(6 &BTNBAY06)
+     A  67                                  PSHBTNCHC(7 &BTNBAY07)
+     A  68                                  PSHBTNCHC(8 &BTNBAY08)
+     A  69                                  PSHBTNCHC(9 &BTNBAY09)
+     A  70                                  PSHBTNCHC(10 &BTNBAY10)
+     A  71                                  PSHBTNCHC(11 &BTNBAY11)
+     A  72                                  PSHBTNCHC(12 &BTNBAY12)
+     A  73                                  PSHBTNCHC(13 &BTNBAY13)
+     A  74                                  PSHBTNCHC(14 &BTNBAY14)
+     A  75                                  PSHBTNCHC(15 &BTNBAY15)
+     A  76                                  PSHBTNCHC(16 &BTNBAY16)
+     A  77                                  PSHBTNCHC(17 &BTNBAY17)
+     A  78                                  PSHBTNCHC(18 &BTNBAY18)
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F5=Refresh' CF05)
+     A                                      PSHBTNCHC(2 'F2=Previous Screen' C-
+     A                                      F02)
+     A          R MOV50104
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select North or South')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A                                  4 30'MOV50104'
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 12'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A                                  3  2'    North/South:     '
+     A                                      DSPATR(RI)
+     A            BTNNORS        2Y 0B  6  4PSHBTNFLD
+     A                                      PSHBTNCHC(1 'North')
+     A                                      PSHBTNCHC(2 'South')
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F5=Refresh' CF05)
+     A                                      PSHBTNCHC(2 'F2=Previous Screen' C-
+     A                                      F02)
+     A          R MOV50105
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Left or Right')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A                                  4 30'MOV50105'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 12'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A            NORSLIT        5A  O  2  9DSPATR(UL)
+     A                                  3  2'    Left/Right:      '
+     A                                      DSPATR(RI)
+     A            BTNLORR        2Y 0B  6  4PSHBTNFLD
+     A                                      PSHBTNCHC(1 'Left')
+     A                                      PSHBTNCHC(2 'Right')
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F5=Refresh' CF05)
+     A                                      PSHBTNCHC(2 'F2=Previous Screen' C-
+     A                                      F02)
+     A          R MOV50106
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Pole')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A            BTNPOL01       2A  P
+     A            BTNPOL02       2A  P
+     A            BTNPOL03       2A  P
+     A            BTNPOL04       2A  P
+     A            BTNPOL05       2A  P
+     A            BTNPOL06       2A  P
+     A            BTNPOL07       2A  P
+     A            BTNPOL08       2A  P
+     A            BTNPOL09       2A  P
+     A            BTNPOL10       2A  P
+     A            BTNPOL11       2A  P
+     A            BTNPOL12       2A  P
+     A            BTNPOL13       2A  P
+     A            BTNPOL14       2A  P
+     A            BTNPOL15       2A  P
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A                                  4 30'MOV50106'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 12'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A            NORSLIT        5A  O  2  9DSPATR(UL)
+     A            LORRLIT        5A  O  2 15DSPATR(UL)
+     A                                  3  2'       Pole:         '
+     A                                      DSPATR(RI)
+     A            BTNPOL         2Y 0B  4  3PSHBTNFLD(*RSTCSR (*NUMROW 5) (*GUT-
+     A                                      TER 1))
+     A  61                                  PSHBTNCHC(1 &BTNPOL01)
+     A  62                                  PSHBTNCHC(2 &BTNPOL02)
+     A  63                                  PSHBTNCHC(3 &BTNPOL03)
+     A  64                                  PSHBTNCHC(4 &BTNPOL04)
+     A  65                                  PSHBTNCHC(5 &BTNPOL05)
+     A  66                                  PSHBTNCHC(6 &BTNPOL06)
+     A  67                                  PSHBTNCHC(7 &BTNPOL07)
+     A  68                                  PSHBTNCHC(8 &BTNPOL08)
+     A  69                                  PSHBTNCHC(9 &BTNPOL09)
+     A  70                                  PSHBTNCHC(10 &BTNPOL10)
+     A  71                                  PSHBTNCHC(11 &BTNPOL11)
+     A  72                                  PSHBTNCHC(12 &BTNPOL12)
+     A  73                                  PSHBTNCHC(13 &BTNPOL13)
+     A  74                                  PSHBTNCHC(14 &BTNPOL14)
+     A  75                                  PSHBTNCHC(15 &BTNPOL15)
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F5=Refresh' CF05)
+     A                                      PSHBTNCHC(2 'F2=Previous Screen' C-
+     A                                      F02)
+     A          R MOV50107
+     A*%%TS  SD  20161208  123918  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Destination Section')
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF10(10 'SINGLE MOVE/DEST.')
+     A                                      CF11(11 'MULT MOVE/DEST.')
+     A                                      CF12(12 'NO DESTINATION')
+     A                                      CF07(07 'NO MOVE')
+     A                                      CF08(08 'NEXT POLE')
+     A                                      CF09(09 'NEW POLE')
+     A                                      CF06(06 'NEW MOVE NUMBER')
+     A                                      CF04(04 'NEW LOCATION')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8A  O  3 30DSPATR(HI)
+     A                                  4 30'MOV50107'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 11'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A            NORSLIT        5A  O  2  9DSPATR(UL)
+     A            LORRLIT        5A  O  2 15DSPATR(UL)
+     A            POLE           2Y 0O  2 21EDTCDE(4)
+     A                                      DSPATR(UL)
+     A                                  3  2' Select Destination: '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A            BTNDSEC        2Y 0B  4  3PSHBTNFLD(*RSTCSR (*NUMROW 5) (*GUT-
+     A                                      TER 1))
+     A                                      PSHBTNCHC(1 ' 1')
+     A                                      PSHBTNCHC(2 ' 2')
+     A                                      PSHBTNCHC(3 ' 3')
+     A                                      PSHBTNCHC(4 ' 4')
+     A                                      PSHBTNCHC(5 ' 5')
+     A                                      PSHBTNCHC(6 ' 6')
+     A                                      PSHBTNCHC(7 ' 7')
+     A                                      PSHBTNCHC(8 ' 8')
+     A                                      PSHBTNCHC(9 ' 9')
+     A                                      PSHBTNCHC(10 '10')
+     A                                      PSHBTNCHC(11 '11')
+     A                                      PSHBTNCHC(12 '12')
+     A                                      PSHBTNCHC(13 '13')
+     A                                      PSHBTNCHC(14 '14')
+     A                                      PSHBTNCHC(15 '15')
+     A            FUNCTION       2Y 0B 10  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F2=Previous Screen' CF-
+     A                                      02)
+     A                                      PSHBTNCHC(2 'F10=Single Moves' CF10)
+     A                                      PSHBTNCHC(3 'F11=Multiple Moves' CF-
+     A                                      11)
+     A                                      PSHBTNCHC(4 'F12=No Destination' CF-
+     A                                      12)
+     A                                      PSHBTNCHC(5 'F07=Do Not Move' CF07)
+     A                                      PSHBTNCHC(6 'F08=Next Pole' CF08)
+     A                                      PSHBTNCHC(7 'F09=New Pole' CF09)
+     A                                      PSHBTNCHC(8 'F06=New Move Type' CF0-
+     A                                      6)
+     A                                      PSHBTNCHC(9 'F04=New Location' CF04)
+     A  80                              9  3'Single Move/Dest.'
+     A                                      COLOR(YLW)
+     A N80                              9  2'Multiple Move/Dest.'
+     A                                      COLOR(YLW)
+     A          R MOV50108
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Select Destination Area')
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A                                  4 30'MOV50108'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 12'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A            NORSLIT        5A  O  2  9DSPATR(UL)
+     A            LORRLIT        5A  O  2 15DSPATR(UL)
+     A            POLE           2Y 0O  2 21EDTCDE(4)
+     A                                      DSPATR(UL)
+     A                                  3  2'To:'
+     A                                      DSPATR(HI)
+     A            DSEC           2S 0O  3  6DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DAREALIT      12A  O  3  9DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'  Destination Area:  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(PNK)
+     A            BTNDAREA       2Y 0B  5  3PSHBTNFLD(*RSTCSR (*NUMROW 2) (*GUT-
+     A                                      TER 1))
+     A                                      PSHBTNCHC(1 'NE')
+     A                                      PSHBTNCHC(2 'SE')
+     A                                      PSHBTNCHC(3 'NT')
+     A                                      PSHBTNCHC(4 'ST')
+     A                                      PSHBTNCHC(5 'NW')
+     A                                      PSHBTNCHC(6 'SW')
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F5=Refresh' CF05)
+     A                                      PSHBTNCHC(2 'F2=Previous Screen' C-
+     A                                      F02)
+     A          R MOV50109
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Scan Tray')
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'New Bay')
+     A                                      CF07(07 'No Move')
+     A                                      CF08(08 'Next Pole')
+     A                                      CF09(09 'New Pole')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A                                  4 30'MOV50109'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 12'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A            NORSLIT        5A  O  2  9DSPATR(UL)
+     A            LORRLIT        5A  O  2 15DSPATR(UL)
+     A            POLE           2Y 0B  2 21EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  3  2'To:'
+     A                                      DSPATR(HI)
+     A            DSEC           2S 0O  3  6DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DAREALIT      12A  O  3  9DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4  2'     Scan a Tray     '
+     A                                      DSPATR(RI)
+     A  40                                  DSPATR(UL)
+     A  40                              5  2'  Scan for "No Move" '
+     A                                      DSPATR(RI)
+     A  40                              6  2'     '
+     A                                      DSPATR(RI)
+     A            TAG#           8Y 0B  6  8EDTCDE(4)
+     A                                      CHECK(ER)
+     A                                      DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  40                              6 17'      '
+     A                                      DSPATR(RI)
+     A            FUNCTION       2Y 0B  7  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A N40                                  PSHBTNCHC(1 'Do Not Move' CF07)
+     A  40                                  PSHBTNCHC(2 'Cancel No Move' CF05)
+     A N40                                  PSHBTNCHC(3 'Next Pole' CF08)
+     A N40                                  PSHBTNCHC(4 'New Pole' CF09)
+     A N40                                  PSHBTNCHC(5 'New Bay' CF06)
+     A                                      PSHBTNCHC(6 'F2=Previous Screen' C-
+     A                                      F02)
+     A          R MOV50110
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Enter # of Trays or Poles')
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A                                  5 30'MOV50110'
+     A                                      COLOR(BLU)
+     A                                  6 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  7 30USER
+     A                                      COLOR(BLU)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  1 12'Section:'
+     A            SECT           2S 0O  1 21DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A            NORSLIT        5A  O  2  9DSPATR(UL)
+     A            LORRLIT        5A  O  2 15DSPATR(UL)
+     A            POLE           2Y 0B  2 21EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  3  2'To:'
+     A            DSEC           2S 0O  3  6DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DAREALIT      12A  O  3  9DSPATR(HI)
+     A            DAREA          3A  O  3 25DSPATR(HI)
+     A            DES1          30A  O  4  2
+     A                                  5  2'Ready Date:'
+     A            RDYDAT         6Y 0O  5 14EDTCDE(Y)
+     A                                  6  2'Sown'
+     A            SOWQ           4Y 0O  6  7EDTCDE(4)
+     A                                  6 13'Series'
+     A            SERTOT         4Y 0O  6 20EDTCDE(4)
+     A                                  8  2'Trays'
+     A            TRAYS          4Y 0B  8  8DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A                                  8 15'Poles'
+     A            POLES          2Y 0B  8 21EDTCDE(4)
+     A                                      CHECK(ER)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(RI)
+     A  52                                  DSPATR(PC)
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'Rest of this Bay')
+     A                                      PSHBTNCHC(2 'F5=Refresh' CF05)
+     A                                      PSHBTNCHC(3 'F2=Previous Screen' C-
+     A                                      F02)
+     A          R MOV50111
+     A*%%TS  SD  20120213  101800  BILLB       REL-V7R1M0  5770-WDS
+     A                                      TEXT('Confirmation Screen (Omit)')
+     A  50                                  ALARM
+     A                                      OVERLAY
+     A                                      CF02(02 'Previous Screen')
+     A                                      CF03(03 'Exit')
+     A                                      CF05(05 'Refresh')
+     A                                  1 30DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 30TIME
+     A                                      COLOR(BLU)
+     A            MOVLIT         8   O  3 30DSPATR(HI)
+     A                                  4 30'MOV50109'
+     A                                      COLOR(BLU)
+     A                                  5 30SYSNAME
+     A                                      COLOR(BLU)
+     A                                  6 30USER
+     A                                      COLOR(BLU)
+     A                                  7 30'MOV50111'
+     A                                      COLOR(BLU)
+     A                                  1 11'Section:'
+     A            SECT           2S 0O  1 20DSPATR(UL)
+     A                                  2  2'In:'
+     A            BAY            2S 0O  2  6DSPATR(UL)
+     A            NORSLIT        5A  O  2  9DSPATR(UL)
+     A            LORRLIT        5A  O  2 15DSPATR(UL)
+     A            POLE           2Y 0B  2 21EDTCDE(4)
+     A                                  3  2'To:'
+     A            DSEC           2S 0O  3  6DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            DAREALIT      12A  O  3  9DSPATR(HI)
+     A            DAREA          3A  O  2 44DSPATR(HI)
+     A            TODAT          6Y 0B  1  2EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  6  2'Trays'
+     A            TRAYIN         4Y 0B  6  8EDTCDE(4)
+     A                                      DSPATR(PR)
+     A                                  6 14'Poles'
+     A            POLEIN         2Y 0B  6 20EDTCDE(4)
+     A                                      DSPATR(PR)
+     A            FUNCTION       2Y 0B  9  2PSHBTNFLD(*RSTCSR (*NUMCOL 1))
+     A                                      PSHBTNCHC(1 'F3=Exit' CF03)
+     A                                      PSHBTNCHC(2 'F2=Previous Screen' C-
+     A                                      F02)
+     A                                  4  2'    Confirmation:    '
+     A                                      DSPATR(RI)
+     A            LORR           1A  O  1 44
+     A            NORS           1A  O  1 46
+     A          R MSGDATA                   SFL
+     A*%%TS  SD  20040405  131906  BILLB       REL-V5R1M0  5722-WDS
+     A                                      TEXT('Program Messages')
+     A                                      SFLMSGRCD(24)
+     A            $ERR_MKEY                 SFLMSGKEY
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R MSGCTL                    SFLCTL(MSGDATA)
+     A*%%TS  SD  20050224  084519  BILLB       REL-V5R2M0  5722-WDS
+     A                                      TEXT('Program Messages Control')
+     A  50                                  SFLDSP
+     A  50                                  SFLDSPCTL
+     A  50                                  SFLINZ
+     A  50                                  SFLEND
+     A                                      SFLSIZ(0002)
+     A                                      SFLPAG(0001)
+     A            $ERR_PROG                 SFLPGMQ(10)
+     A          R ASSUME
+     A*%%TS  SD  20040423  114217  BILLB       REL-V5R1M0  5722-WDS
+     A                                      ASSUME
+     A                                  1  3' ASSUME                           -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                         -
+     A                                                                  '

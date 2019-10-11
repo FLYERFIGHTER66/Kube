@@ -1,0 +1,296 @@
+     A*%%TS  SD  20090228  103301  BILLB       REL-V5R3M0  5722-WDS
+     A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A          R SCRNA
+     A*%%TS  SD  20010914  162558  EFD         REL-V5R1M0  5722-WDS
+     A                                      CF07
+     A                                      HELP
+     A                                      CF03
+     A                                      CF06
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                Enter to Process  -
+     A                                          F3/F7=End of Job               -
+     A                                               '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' OTHER Schedule Maintainence '
+     A                                      DSPATR(RI)
+     A            TDATE          6Y 0O  2 37DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                  2 47'Week:'
+     A            CYEAR          4S 0O  2 53
+     A                                  2 58'-'
+     A            CWEEK          2Y 0O  2 60EDTCDE(4)
+     A                                  2 23'Current Date:'
+     A                                  7  6'Enter Monday Date:'
+     A            FRMDAT         6Y 0B  7 25
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  10N11                               ERRMSG('*** Invalid Date Entered.  -
+     A                                                  Press RESET')
+     A  10 11                               ERRMSG('*** Entered Date is not A M-
+     A                                      onday Date. Press RESET')
+     A                                  7 36'or Year ex. 2001:'
+     A            BEGYY          4Y 0B  7 54
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20                                  ERRMSG('Invalid Year Entered.      -
+     A                                                  Press RESET')
+     A                                  7 59'and Week Number:'
+     A            BEGWW          2Y 0B  7 76
+     A  21                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  21                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  21                                  ERRMSG('*** Invalid Week Number Ent-
+     A                                      ered.       Press RESET')
+     A                                 19 15' Verify Data if OK Press Enter, El-
+     A                                      se Make Changes. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 11 11' The OTHER work file has not been -
+     A                                      built for selected week. '
+     A  61                                  DSPATR(RI)
+     A N61                                  DSPATR(ND)
+     A                                 12 12' Return to menu and select Build T-
+     A                                      ruck Work File option. '
+     A  61                                  DSPATR(RI)
+     A N61                                  DSPATR(ND)
+     A                                 14  9' The OTHER schedule has already be-
+     A                                      en created for selected week. '
+     A  62                                  DSPATR(RI)
+     A N62                                  DSPATR(ND)
+     A                                 15 11' Return to menu and select Maintai-
+     A                                      n OTHER Schedule option. '
+     A  62                                  DSPATR(RI)
+     A N62                                  DSPATR(ND)
+     A          R TRKSFL                    SFL
+     A*%%TS  SD  20090228  103301  BILLB       REL-V5R3M0  5722-WDS
+     A            TSSHPD         7S 0H
+     A            TSSEQ#         6S 0H
+     A            TSORD#         6S 0H
+     A            TS#ORD         3S 0H
+     A            TSCUST         6S 0H
+     A            CMCUST         6S 0H
+     A            TSSVIA         2A  H
+     A            DAY            1Y 0B  8  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A  10N55                               DSPATR(RI)
+     A  10N55                               DSPATR(PC)
+     A                                      SFLCSRPRG
+     A            ROUT           2A  B  8  4DSPATR(CS)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            STOP           3Y 0B  8  7EDTCDE(4)
+     A                                      DSPATR(CS)
+     A  55                                  DSPATR(ND)
+     A  55                                  DSPATR(PR)
+     A            CMFILL         2A  O  8 11
+     A  59                                  DSPATR(RI)
+     A N59                                  DSPATR(ND)
+     A            NAME          27A  O  8 14
+     A  55                                  DSPATR(HI)
+     A  55                                  DSPATR(UL)
+     A            CITY          12A  O  8 42
+     A  55                                  DSPATR(HI)
+     A  55                                  DSPATR(UL)
+     A            CMSTST         2A  O  8 55
+     A  55                                  DSPATR(ND)
+     A            CMZIP          9A  O  8 58
+     A  55                                  DSPATR(ND)
+     A            TRAYS          5Y 0O  8 68EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A            CARTS          5Y 1O  8 74EDTCDE(4)
+     A  55                                  DSPATR(ND)
+     A          R TRKCTL                    SFLCTL(TRKSFL)
+     A*%%TS  SD  20090228  103301  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLSIZ(0500)
+     A  *DS4                                SFLSIZ(0500)
+     A  *DS3                                SFLPAG(0016)
+     A  *DS4                                SFLPAG(0016)
+     A                                      CF03
+     A                                      CF07
+     A                                      CF11
+     A                                      CF02
+     A  57                                  CF04
+     A                                      CF06
+     A                                      SFLCSRRRN(&LINE)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  11                                  SFLMSG('*** Day number Must be 0 th-
+     A                                      ru 7.   Press RESET')
+     A                                  1  2'PUR100SFL'
+     A                                  2  2USER
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2 73TIME
+     A            PAGE#          4S 0H      SFLRCDNBR(*TOP)
+     A                                  1 19' OTHER Schedule for: '
+     A            FLD001         2S 0O  1 48
+     A            BEGYY          4S 0O  1 41
+     A                                  1 46'-'
+     A                                  5  2'| 2=Tue 5=Fri |'
+     A                                  6  2'| 3=Wed 6=Sat |'
+     A                                      DSPATR(UL)
+     A                                  3  2'|----Day #----|'
+     A                                  4  2'| 1=Mon 4=Thr |'
+     A                                  7  2'|Rout Stop  Customer              -
+     A                                            City       State Zip      Fla-
+     A                                      ts Carts '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A            LINE           5S 0H
+     A                                  3 20'To Change Ship Via. Position curso-
+     A                                      r on line and Press F11'
+     A                                  4 20'To Review orders, Position Cursor -
+     A                                      on line and press F2.'
+     A                                  6 19'NT'
+     A                                      DSPATR(RI)
+     A                                  6 22'= No Trailer'
+     A                                  2 14'Enter to Process      F6=Restart  -
+     A                                            F3/F7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 36' Data OK. Press F4 to Create OTHER-
+     A                                       Schedule '
+     A  57                                  DSPATR(RI)
+     A N57                                  DSPATR(ND)
+     A          R SCRNB
+     A*%%TS  SD  20090228  103301  BILLB       REL-V5R3M0  5722-WDS
+     A                                      CF07
+     A                                      HELP
+     A                                      CF03
+     A                                      CF06
+     A                                      ALWROL
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'Enter to Process            F6=Res-
+     A                                      tart(No UPDATE)           F3/F7=End-
+     A                                       of Job  '
+     A                                      DSPATR(UL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' OTHER Schedule Maintainence '
+     A                                      DSPATR(RI)
+     A                                 20 15'Verif Data if OK Press Enter, Else-
+     A                                       Make Changes.   '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  3 17'Order Number:'
+     A            OHORD#         6Y 0O  3 31EDTCDE(4)
+     A                                  4  2'Ship to:'
+     A            OHCUST         6Y 0O  4 11EDTCDE(4)
+     A            OHNAME        30A  O  5  7
+     A            OHSHP2        30A  O  6  7
+     A            OHSHP3        30A  O  7  7
+     A            OHSHP4        30A  O  8  7
+     A            OHSHCT        18A  O  9  7
+     A            OHSHST         2A  O  9 26
+     A            OHSHZP         9A  O  9 29
+     A                                  3 43'Order Date:'
+     A            OHDTOR         6Y 0O  3 55EDTCDE(Y)
+     A                                  4 40'Bill to:'
+     A            OHARCU         6Y 0O  4 49EDTCDE(4)
+     A            OHSLD1        30A  O  5 45
+     A            OHSLD2        30A  O  6 45
+     A            OHSLD3        30A  O  7 45
+     A            OHSLD4        30A  O  8 45
+     A            OHSLCT        18A  O  9 45
+     A            OHSLST         2A  O  9 64
+     A            OHSLZP         9A  O  9 67
+     A                                 11  3'Current Ship Via:'
+     A            TSSVIA         2A  O 11 21
+     A            CSDESC        30A  O 11 24
+     A                                 13 10'New Ship Via?'
+     A            NVIA           2A  B 13 24
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(PC)
+     A  10                                  ERRMSG('** Invalid Code entered.   -
+     A                                         Press RESET')
+     A                                  2 32' Change Ship Via. '
+     A                                      DSPATR(RI)
+     A            SVDESC        30A  O 13 27
+     A  10                                  DSPATR(ND)
+     A                                 15  2'NOTE Sample Ship Via codes:'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 30'01-N/A Truck'
+     A                                 17 45'99-Remove order from OTHER schedul-
+     A                                      e.'
+     A                                 16 30'02-Pick Up  '
+     A                                 17 30'03-UPS Ground'
+     A                                 15 45'04-UPS Air  '
+     A                                 16 45'19-D.H.L.   '
+     A                                 20 13' '
+     A                                 21 80' '
+     A                                 20 11' '
+     A                                 21 78' '
+     A          R ORDSFL                    SFL
+     A*%%TS  SD  20010417  183131  EFD         REL-V3R7M0  5716-PW1
+     A            OIORD#         6Y 0O  7  6EDTCDE(4)
+     A            OISEQ#         3Y 0O  7 13EDTCDE(4)
+     A            OIITEM        12   O  7 17
+     A            OISIZE         3   O  7 30
+     A            OIDES1        30   O  7 34
+     A            QTYOPN         7Y 0O  7 66EDTCDE(4)
+     A          R ORDCTL                    SFLCTL(ORDSFL)
+     A*%%TS  SD  20090228  103301  BILLB       REL-V5R3M0  5722-WDS
+     A  *DS3                                SFLSIZ(1000)
+     A  *DS4                                SFLSIZ(1000)
+     A  *DS3                                SFLPAG(0018)
+     A  *DS4                                SFLPAG(0018)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A                                  1  2'PUR100ORDSFL'
+     A                                  2  2USER
+     A                                  1 23' OTHER Schedule Order Inquiry '
+     A                                      DSPATR(RI)
+     A                                  2 73TIME
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  4  2'Customer:'
+     A            CMCUST         6Y 0O  4 12EDTCDE(4)
+     A            CMNAME        30A  O  4 19
+     A                                  6  6'Order  Seq Item        Size Descri-
+     A                                      ption                    Qty. Open'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  4 51'No Trailer'
+     A  59                                  DSPATR(RI)
+     A N59                                  DSPATR(ND)

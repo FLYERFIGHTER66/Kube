@@ -1,0 +1,154 @@
+      *****************************************************************
+      **                                                             **
+      **  FILE:       HG0013P                                        **
+      **  FUNCTION:   PRINT PURCHASE ORDER RECEIPT                   **
+      **  CREATED BY: R. PIASECKI 4/28/2004)                         **
+      **                                                             **
+      *****************************************************************
+                                            REF(*LIBL/KPREF  KPREFR)
+     A          R HEADER
+      *
+     A                                      SKIPB(002)
+     A                                    30'**********************'
+     A                                    70
+     A                                      'Page:'
+     A                                    76
+     A                                      PAGNBR
+     A                                      EDTCDE(Z)
+     A                                      SPACEA(001)
+      *
+     A                                    30'***   P/O RECEIPT  ***'
+     A                                      SPACEA(001)
+      *
+     A                                    30'**********************'
+     A                                      SPACEA(002)
+      *
+     A                                    45'RECEIVED AT:'
+     A                                      SPACEA(001)
+      *
+     A            PRCNAM        30A  O     5
+     A            PRWNAM        30A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD1        30A  O     5
+     A            PRWAD1        35A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD2        30A  O     5
+     A            PRWAD2        35A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD3        30A  O     5
+     A            PRWAD3        35A  O    45
+     A                                      SPACEA(001)
+      *
+     A            PRCAD4        30A  O     5
+     A            PRWAD4        35A  O    45
+     A                                      SPACEA(001)
+     A                                    15'RECEIVED:'
+     A            RECDTE         6S 0O    25EDTCDE(Y)
+     A                                    45'ENTERED:'
+     A            PRENDT         6S 0O    54EDTCDE(Y)
+     A                                    63'DUE:'
+     A            PDUEDT         6S 0O    68EDTCDE(Y)
+     A                                      SPACEA(002)
+      *
+     A                                     1'SPECIAL INSTRUCTIONS/COMMENTS:'
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A                                       SPACEA(001)
+     A            DGCOM1        70A  O     3
+     A                                       SPACEA(001)
+     A  50        DGCOM2        70A  O     3
+     A                                       SPACEA(001)
+     A  51        DGCOM3        70A  O     3
+     A                                       SPACEA(001)
+      *
+     A                                    50'DATE'
+     A                                      UNDERLINE
+     A                                    58'P/O NUMBER'
+     A                                      UNDERLINE
+     A                                    70'REC#'
+     A                                      UNDERLINE
+     A                                      SPACEA(001)
+      *
+     A
+     A            PRDATE         6S 0O    48EDTCDE(Y)
+     A                                    57'HG'
+     A            PRPOYR         2S 0O    59
+     A                                    61'-'
+     A            PRDGPO         6S 0O    62
+     A            PRREC#         3S 0O    70EDTCDE(4)
+     A                                      SPACEA(002)
+      *
+     A                                     3'VENDOR:'
+     A            PRVNDR         6S 0O    10EDTCDE(4)
+     A            PRJNAM        30A  O    18
+     A                                      SPACEA(001)
+      *
+     A            PRJAD1        35A  O    18
+     A                                      SPACEA(001)
+      *
+     A            PRJAD2        35A  O    18
+     A                                      SPACEA(001)
+      *
+     A            PRJAD3        35A  O    18
+     A                                      SPACEA(002)
+      *
+     A                                     1'                                  '
+     A                                      UNDERLINE
+     A                                    35'                                  '
+     A                                      UNDERLINE
+     A                                    69'              '
+     A                                      UNDERLINE
+     A                                      SPACEA(001)
+      *
+     A                                     1'        QTY.    QTY.'
+     A                                    56' P/O  '
+     A                                    72' EXTENDED'
+     A                                      SPACEA(001)
+     A                                     1'ITEM# ORDERED  RECVD. DESCRIPTION '
+     A                                      UNDERLINE
+     A                                    35'                    PRICE   '
+     A                                      UNDERLINE
+     A                                    63'            PRICE '
+     A                                      UNDERLINE
+     A                                      SPACEA(001)
+      *
+      *****************************************************************
+      *
+     A          R DETAIL
+      *
+     A            PRITEM         7A  O     1
+     A*           PRSIZE         3A  O     9
+     A            PRQORD         7S 0O     7EDTCDE(4)
+     A            PRRCQT         7S 0O    15EDTCDE(4)
+     A*           PRFPRC         9S 4O    60EDTCDE(4)
+     A            PRVPRC         9S 4O    60EDTCDE(4)
+     A            PRDESC        27A  O    23
+     A            PRRPRC         9S 4O    49EDTCDE(4)
+     A            PRLTTL         9S 2O    71EDTCDE(4)
+     A*           ASTRSK         2A  O    72
+     A                                      SPACEA(001)
+      *
+     A*         R DETAIL2
+     A*                                   28'Lot#'
+     A*           PRLOT#        10A  O    33
+      *
+      *
+      *****************************************************************
+      *
+     A          R TOTAL
+      *
+     A                                    69'              '
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A                                       SPACEA(001)
+     A                                    50'TOTAL RECEIVED'
+     A                                      HIGHLIGHT
+     A            PRPTTL         9S 2O    69EDTCDE(1)
+     A                                      HIGHLIGHT
+     A                                      UNDERLINE
+     A                                       SPACEA(002)
+     A* 76                                 5'** NOTE ** Some Item prices charge+
+     A*                                      d are not PREFERRED VENDOR PRICES'

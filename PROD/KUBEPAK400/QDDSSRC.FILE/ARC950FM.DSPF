@@ -1,0 +1,222 @@
+     A*%%TS  SD  20040324  113759  BILLB       REL-V5R1M0  5722-WDS
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      CHGINPDFT
+     A                                      PRINT
+     A                                      INDARA
+     A                                      USRDSPMGT
+     A*  PROMPT SCREEN FOR PAID ITEM REMOVAL
+     A          R SCRNA
+     A*%%TS  SD  20040324  113759  BILLB       REL-V5R1M0  5722-WDS
+     A  99                                  CF01(01)
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF04
+     A                                      CHANGE(28)
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(HALL)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(03 002 03 005)
+     A                                  1  2'ARC950'
+     A                                  1 13'Help'
+     A                                      DSPATR(UL)
+     A                                      COLOR(YLW)
+     A                                  1 25' Delete Records in A/R History '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5 26'Delete Records'
+     A            LDATE          6Y 0B  5 47DSPATR(CS)
+     A                                      EDTCDE(Y)
+     A  10                                  DSPATR(RI)
+     A  10                                  DSPATR(PC)
+     A  11                                  ERRMSG('*** Enter A Valid Date.    -
+     A                                        Press Reset')
+     A  12                                  ERRMSG('*** Date Is Beyond Current -
+     A                                      Date - Change Date or Press Reset T-
+     A                                      o Accept.')
+     A  13                                  ERRMSG('*** Enter Either A Date or -
+     A                                      A Customer Number.    Press Reset')
+     A                                  6 26'Dated On or Before:'
+     A                                  8 26'Delete Records For'
+     A            LCUST          6Y 0B  8 49DSPATR(CS)
+     A                                      EDTCDE(Z)
+     A                                  9 26'Customer Number:'
+     A                                 11 26'Print Report of'
+     A            LPRINT         1X  B 11 49
+     A  30                                  DSPATR(PC)
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.          Press Reset')
+     A                                 12 26'Purged Items:'
+     A  98                             21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'        Enter to Process      F4=L-
+     A                                      ookup Customer      F3/F7=Cancel Jo-
+     A                                      b        '
+     A                                      DSPATR(UL)
+     A                                 20  6' WARNING: Not specifying a custome-
+     A                                      r will clear all customer accounts '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                      DSPATR(HI)
+     A  99                             21 18' Validate Data - Change or Press F-
+     A                                      1 to Accept '
+     A  99                                  DSPATR(RI)
+     A                                      DSPATR(HI)
+     A          R HALL
+     A*%%TS  SD  20040324  093635  BILLB       REL-V5R1M0  5722-WDS
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                              '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 11  3' Delete Records in A/R History Fil-
+     A                                      e                             Overv-
+     A                                      iew     '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 15  3' invoice or credit memo date equal-
+     A                                       or lower that the date entered her-
+     A                                      e.      '
+     A                                      DSPATR(HI)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 17  3' You can also select to delete a d-
+     A                                      ate for history records for just a -
+     A                                      one     '
+     A                                      DSPATR(HI)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 21  3' You can choose to print a report -
+     A                                      showing all the transactios that ha-
+     A                                      ve      '
+     A                                      DSPATR(HI)
+     A                                 19  3' the customer master file and ther-
+     A                                      e are history records for that cust-
+     A                                      omer.   '
+     A                                      DSPATR(HI)
+     A                                 20  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 18  3' customer.  This is necessary if y-
+     A                                      ou want to delete a customer record-
+     A                                       from   '
+     A                                      DSPATR(HI)
+     A                                 13  3' Over time, your A/R History file -
+     A                                      can get very large and the older da-
+     A                                      ta may  '
+     A                                      DSPATR(HI)
+     A                                 14  3' no longer be useful.  This progra-
+     A                                      m will delete ALL history records w-
+     A                                      ith an  '
+     A                                      DSPATR(HI)
+     A                                 16  3'                                  -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A                                 22  3' been deleted.                    -
+     A                                                                         -
+     A                                              '
+     A                                      DSPATR(HI)
+     A*         R SCRNA
+     A          R SCRNB
+     A*%%TS  SD  20000207  060949  TGMS        REL-V4R4M0  5769-PW1
+     A                                      CF03
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1  2'ARC950'
+     A                                  1 25' Delete Records in A/R History '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  6 26'Printer ID:'
+     A            LPRTR         10A  B  6 45DSPATR(CS)
+     A  50                                  DSPATR(RI)
+     A  50                                  DSPATR(PC)
+     A  50                                  ERRMSG('*** Printer ID Is Required.-
+     A                                           Press Reset')
+     A                                  7 26'Forms Number:'
+     A            LFORM         10A  B  7 45DSPATR(CS)
+     A  51                                  DSPATR(RI)
+     A  51                                  DSPATR(PC)
+     A  51                                  ERRMSG('*** Forms Number Is Require-
+     A                                      d.    Press Reset')
+     A                                  8 26'Number of Copies:'
+     A            LCOPY          2Y 0B  8 53
+     A  52                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  52                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  52                                  ERRMSG('*** Number of Copies Is Req-
+     A                                      uired.    Press Reset')
+     A                                  9 26'Run From JobQ:'
+     A            LJOBQ          1A  B  9 54DSPATR(CS)
+     A  53                                  DSPATR(RI)
+     A  53                                  DSPATR(PC)
+     A  53                                  ERRMSG('*** Valid Entries Are Y or -
+     A                                      N.     Press Reset')
+     A                                 10 26'Print Status:'
+     A            VOUT           1Y 0B 10 54
+     A  54                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  54                                  DSPATR(PC)
+     A                                      CHECK(RZ)
+     A                                      EDTCDE(Z)
+     A  54                                  ERRMSG('*** Valid Entries Are 1, 2 -
+     A                                      or 3.    Press Reset')
+     A                                 10 58'1 = Print'
+     A                                 11 58'2 = Print/Save'
+     A                                 12 58'3 = Hold'
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'                  Enter to Process-
+     A                                               F3/F7=Cancel Job          -
+     A                                               '
+     A                                      DSPATR(UL)

@@ -1,0 +1,171 @@
+     A*%%TS  SD  19990609  125825  EFD         REL-V3R7M0  5716-PW1
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R SCRNA
+     A*%%TS  SD  19990609  125825  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  1  2'DPC440A'
+     A                                 23  2'Enter to Process                F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6 27'Certificate Number:'
+     A            CERT#          6Y 0B  6 47
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  20N21N22
+     A N23                                  ERRMSG('*** You Must enter a certif-
+     A                                      icate Number.  Press RESET')
+     A  20 21                               ERRMSG('*** Certificate Number Does-
+     A                                       Not Exist.   Press RESET')
+     A  20 22                               ERRMSG('*** Certificate is Marked a-
+     A                                      s VOID.     Press RESET')
+     A  20 23                               ERRMSG('*** Certificate has been Re-
+     A                                      deemed.     Press RESET')
+     A                                 16  4' Verify Data if OK, Press Enter. I-
+     A                                      f not OK make changes and press Ent-
+     A                                      er. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  1 25' Void/Redeem D.P.C. Certificate '
+     A                                      DSPATR(RI)
+     A                                  9 27'Issued to:'
+     A            CMNAME        30   O  9 47
+     A          R SCRNB
+     A*%%TS  SD  19990609  125825  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  4  2'Customer:'
+     A            CCCUST         6Y 0B  4 12EDTCDE(Z)
+     A                                      CHECK(RB)
+     A                                      DSPATR(PR)
+     A            CMNAME        30A  O  4 19DSPATR(HI)
+     A                                  1  2'DPC440B'
+     A                                  1 28' D.P.C. Certificate Entry '
+     A                                      DSPATR(RI)
+     A                                 23  2'Enter to Process                F6-
+     A                                      =Restart                       F3/F-
+     A                                      7=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  2 28'Certificate Number:'
+     A            CERT#          6Y 0B  2 48EDTCDE(4)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(PR)
+     A                                 20  4' Verify Data if OK, Press Enter. I-
+     A                                      f not OK make changes and press Ent-
+     A                                      er. '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                  8 13'Type:'
+     A            CCTYPE         1A  B  8 26
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Type must be T or C.   -
+     A                                                  Press RESET')
+     A                                 13 13'Amount:'
+     A            CC$AMT         7Y 2O 13 25DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                 17 13'Expire Date:'
+     A            EXWRK          6Y 0O 17 26DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                  8 32'NOTE: Type T=Travel C=Computer'
+     A                                 15 13'Issue Date:'
+     A            TDATE          6Y 0O 15 26DSPATR(UL)
+     A                                      EDTCDE(Y)
+     A                                  6 13'Action:'
+     A            CCSTAT         1A  B  6 26
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  20                                  ERRMSG('*** Valid Status Entries ar-
+     A                                      e V or R.   Press RESET')
+     A                                  6 32'NOTE: Action V=Void  R=Redeemed'
+     A                                 10 13'Cost:'
+     A            CC$CST         7Y 2B 10 26
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A  30                                  ERRMSG('*** Cost canNOT be greater -
+     A                                      than value. Press RESET')
+     A                                      EDTCDE(4)
+     A          R SCRNE
+     A*%%TS  SD  19990512  170221  EFD         REL-V3R7M0  5716-PW1
+     A                                      CF07
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      CF03
+     A                                      HOME
+     A                                      HELP
+     A                                      CF06
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  1  2'DPC440E'
+     A                                  1 25' D.P.C. Certificate Void Entry '
+     A                                      DSPATR(RI)
+     A                                  6 11'Certificate Number:'
+     A            CERT#          6Y 0O  6 31EDTCDE(4)
+     A                                  6 38'Does NOT exist in the File.'
+     A                                  8 11'The only option is to Void an un-i-
+     A                                      ssued certificate.'
+     A                                 10 11'Is this what you wnat to do?'
+     A            ANS            1   B 10 40
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  ERRMSG('*** Valid Entries are Y or -
+     A                                      N.          Press RESET')
+     A                                 10 42'NOTE: Enter Y to void the certific-
+     A                                      ate'
+     A                                 11 48'Enter N to return to prior screen'

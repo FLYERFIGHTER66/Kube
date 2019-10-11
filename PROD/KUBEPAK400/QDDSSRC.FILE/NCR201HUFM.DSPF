@@ -1,0 +1,158 @@
+     A*%%TS  SD  20160513  135037  BILLB       REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A                                      MSGALARM
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A          R SCRNA
+     A*%%TS  SD  20160513  130518  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF11
+     A                                  1 23'NCR210A'
+     A                                      COLOR(BLU)
+     A                                  2 23USER
+     A                                      COLOR(BLU)
+     A                                  3 23DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4 23TIME
+     A                                      COLOR(BLU)
+     A                                  3  3'Enter Ship Date:'
+     A            SHPDAT         6Y 0B  4  7
+     A  10                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(Y)
+     A  11                                  ERRMSG('*** Invalid Date Entered.  -
+     A                                          Press RESET')
+     A  12                                  ERRMSG('*** Date Must be a Monday D-
+     A                                      ate.    Press RESET')
+     A                                  7  2'Enter to process     F3=End Job'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  6  2'                               '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1  3' One Item Carts '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  5  3'Master:'
+     A            SMASTER        2Y 0B  5 12EDTCDE(4)
+     A                                      COLOR(TRQ)
+     A                                  8  2'F11=Change Printer:'
+     A            PRINTER       10   O  8 22COLOR(YLW)
+     A                                      DSPATR(UL)
+     A          R SCR20101S                 SFL
+     A*%%TS  SD  20090908  130046  BILLB       REL-V5R3M0  5722-WDS
+     A  28                                  SFLNXTCHG
+     A            QTY            2Y 0B  6 15DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            UPC           12Y 0B  6  2DSPATR(CS)
+     A                                      EDTCDE(4)
+     A            ITEMSIZE       7   H
+     A          R SCR20101C                 SFLCTL(SCR20101S)
+     A*%%TS  SD  20160513  130518  BILLB       REL-V7R1M0  5770-WDS
+     A                                      CF10
+     A                                      CF11
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A                                      SFLSIZ(0030)
+     A                                      SFLPAG(0015)
+     A                                  1 33'NCR20101'
+     A                                      COLOR(BLU)
+     A                                  2 33USER
+     A                                      COLOR(BLU)
+     A                                  2  2'Ship Week:'
+     A            SHPDAT         6Y 0B  2 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  4  5'Cart #:'
+     A            CARTNO         8Y 0B  4 13
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20
+     AO 60                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                  3 33DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4 33TIME
+     A                                      COLOR(BLU)
+     A  21                              4 23'<-Invalid'
+     A                                      COLOR(RED)
+     A                                      DSPATR(BL)
+     A                                  5  2'Item UPC'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  5 14'Qty'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  1  2'  Multi-Item Carts  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  3  5'Master:'
+     A            SMASTER        2Y 0B  3 13DSPATR(PR)
+     A                                      EDTCDE(4)
+     A                                  5 18'F11=Change Printer:'
+     A                                      COLOR(BLU)
+     A            PRINTER       10   O  5 38COLOR(YLW)
+     A                                      DSPATR(UL)
+     A          R SCR20102S                 SFL
+     A*%%TS  SD  20160513  130518  BILLB       REL-V7R1M0  5770-WDS
+     A            QTY            2Y 0B  7  2
+     A  30                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  30                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            IMDES1    R        O  7  5REFFLD(RMINVT/IMDES1 *LIBL/FMINVT)
+     A            ITEM      R        O  7 40REFFLD(RMINVT/IMITEM *LIBL/FMINVT)
+     A            SIZE      R        O  7 36REFFLD(RMINVT/IMSIZE *LIBL/FMINVT)
+     A            UPCCODE   R        O  7 53REFFLD(RMUPC/UPCCODE *LIBL/FMUPC)
+     A                                      EDTWRD(' -     -     - ')
+     A          R SCR20102C                 SFLCTL(SCR20102S)
+     A*%%TS  SD  20160513  135037  BILLB       REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(0030)
+     A                                      SFLPAG(0015)
+     A                                      CF08(08 'Toggle Item Length')
+     A                                      CF11
+     A  25 26                               SFLDSP
+     A  25                                  SFLDSPCTL
+     A N25                                  SFLCLR
+     A  27                                  SFLEND
+     A                                  1 33'NCR20102'
+     A                                      COLOR(BLU)
+     A                                  2 33USER
+     A                                      COLOR(BLU)
+     A                                  2  2'Ship Week:'
+     A            SHPDAT         6Y 0B  2 13EDTCDE(Y)
+     A                                      DSPATR(PR)
+     A                                  4  5'Cart #:'
+     A            CARTNO         8Y 0B  4 13EDTCDE(4)
+     A                                  3 33DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  4 33TIME
+     A                                      COLOR(BLU)
+     A                                  6 36'Size/Item       '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6  1'Qty'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  1  2'  Multi-Item Carts  '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  5  6'TOTAL:'
+     A                                      DSPATR(HI)
+     A            TOTQTY         4S 0B  5 13DSPATR(HI)
+     A                                  6 53'UPC Code       '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  6  5'Description                   '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  3  5'Master:'
+     A            SMASTER        2Y 0B  3 13DSPATR(PR)
+     A                                      EDTCDE(4)

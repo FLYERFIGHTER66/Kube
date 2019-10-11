@@ -1,0 +1,207 @@
+     A*%%TS  SD  19991221  075654  TGMS        REL-V4R4M0  5769-PW1
+0000 A*0IGC 0DS4  V2R1M0                    901214
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3                  -
+     A                                             27 132 *DS4)
+     A                                      PRINT
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF02
+     A          R SCRNA
+     A*%%TS  SD  19991221  075654  TGMS        REL-V4R4M0  5769-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A          H                           HLPRCD(OVER)
+     A  *DS3                                HLPARA(01 002 24 080)
+     A  *DS4                                HLPARA(01 002 24 080)
+     A            PROGID        10A  O  1  2
+     A                                  1 15'Help'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  1 26' Billing And A/R Reason Codes '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  5  3'Action:'
+     A            VACT           1X  B  5 12DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A  10                                  DSPATR(RI)
+     A  10                                  ERRMSG('*** Valid Action Codes = A -
+     A                                      C D.     Press Reset')
+     A                                  5 31'Reason Code?'
+     A            VREAS          3A  B  5 46
+     A  20                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  20                                  DSPATR(PC)
+     A  21                                  ERRMSG('*** Reason Code Is Required-
+     A                                      .      Press Reset')
+     A  22                                  ERRMSG('*** This Reason Code Is On -
+     A                                      File.     Press Reset')
+     A  23                                  ERRMSG('*** This Reason Code Is Not-
+     A                                       On File. Press Reset')
+     A  24                                  ERRMSG('*** TAX and DLV Are Reserve-
+     A                                      d Codes. You Cannot Delete Them.   -
+     A                                      Press Reset')
+     A                                  8  2' A = Add    '
+     A                                      DSPATR(RI)
+     A  50N21                               DSPATR(ND)
+     A                                  8 33' Reserved Codes '
+     A                                      DSPATR(UL)
+     A                                  9  2' C = Change '
+     A                                      DSPATR(RI)
+     A  50N22                               DSPATR(ND)
+     A                                  9 30'TAX = Sales Tax Credit'
+     A                                 10  2' D = Delete '
+     A                                      DSPATR(RI)
+     A  50N23                               DSPATR(ND)
+     A                                 10 30'DLV = Freight Charge Credit'
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'    Enter to Process       F3/F7=E-
+     A                                      nd of Job      F13=Print Reason Cod-
+     A                                      e List   '
+     A                                      DSPATR(UL)
+     A          R OVER
+     A*%%TS  SD  19991002  153836  TGMS        REL-V4R2M0  5769-PW1
+     A                                 11  3' Reason Code Overview             -
+     A                                                                      Req-
+     A                                      uired  '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 23  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 24  3'                           Press E-
+     A                                      nter to Return                     -
+     A                                             '
+     A                                      DSPATR(RI)
+     A                                      COLOR(BLU)
+     A                                 12  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 13  3' Reason codes are used in both bil-
+     A                                      ling and accounts receivable.      -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 14  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 15  3' In billing, you must enter a reas-
+     A                                      on code for a credit memo.   The re-
+     A                                      ason   '
+     A                                      DSPATR(HI)
+     A                                 16  3' code entered here is for analysis-
+     A                                       purposes only.  If a general ledge-
+     A                                      r      '
+     A                                      DSPATR(HI)
+     A                                 17  3' is assigned to a reason code, it -
+     A                                      is ignored by credit memos.        -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 18  3'                                  -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A                                 19  3' In accounts receivable, you must -
+     A                                      enter a reason code for any adjustm-
+     A                                      ent    '
+     A                                      DSPATR(HI)
+     A                                 20  3' that you are entering in cash rec-
+     A                                      eipts.  The amount of the adjustmen-
+     A                                      t is   '
+     A                                      DSPATR(HI)
+     A                                 21  3' posted to the general ledger acco-
+     A                                      unt assigned to this reason code, i-
+     A                                      f you  '
+     A                                      DSPATR(HI)
+     A                                 22  3' are running general ledger.      -
+     A                                                                         -
+     A                                             '
+     A                                      DSPATR(HI)
+     A          R SCRNB
+     A*%%TS  SD  19991221  074718  TGMS        REL-V4R4M0  5769-PW1
+     A                                      ROLLUP
+     A                                      ROLLDOWN
+     A                                      CLEAR
+     A                                      HOME
+     A                                      HELP
+     A                                      CF13
+     A                                      CF23
+     A                                      DSPMOD(*DS3)
+     A                                      SLNO(01)
+     A                                      CLRL(*ALL)
+     A            PROGID        10A  O  1  2
+     A                                  1 26' Billing And A/R Reason Codes '
+     A                                      DSPATR(RI)
+     A                                  1 67'Date:'
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A                                  2 33'For Company:'
+     A            LCO            2S 0O  2 46DSPATR(HI)
+     A                                  2 67'Time:'
+     A                                  2 73TIME
+     A                                  3 37' Delete '
+     A  88                                  DSPATR(RI)
+     A N88                                  DSPATR(ND)
+     A                                  5 25'Reason Code:'
+     A            VREAS          3A  O  5 40DSPATR(HI)
+     A                                  7 25'Description:'
+     A            CRDESC        30A  B  7 40
+     A  10                                  DSPATR(RI)
+     A N88                                  DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  10                                  ERRMSG('*** Description Is Required-
+     A                                      .     Press Reset')
+     A  88                                  DSPATR(HI)
+     A  88                                  DSPATR(PR)
+     A                                  9 18'G/L Account Number:'
+     A            CRGLNO         8Y 0B  9 40
+     A N88                                  DSPATR(CS)
+     A                                      EDTWRD('    -    ')
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A  88                                  DSPATR(HI)
+     A  88                                  DSPATR(PR)
+     A  20                                  ERRMSG('*** Enter A Valid G/L Numbe-
+     A                                      r.    Press Reset')
+     A                                 14 23'Note: G/L Account Number Is Requir-
+     A                                      ed'
+     A                                 15 29'If You Are Running General Ledger.'
+     A                                 20 12' Press F23 to Delete - or - F6 to -
+     A                                      Restart without Delete '
+     A  88                                  DSPATR(RI)
+     A N88                                  DSPATR(ND)
+     A                                 21 16' Validate Data - Change or Press E-
+     A                                      nter to Accept '
+     A  98                                  DSPATR(RI)
+     A N98                                  DSPATR(ND)
+     A                                 22  2'                                  -
+     A                                                                         -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                 23  2'     Enter to Process   F2=Lookup -
+     A                                      G/L    F6=Restart    F3/F7=End of J-
+     A                                      ob       '
+     A                                      DSPATR(UL)

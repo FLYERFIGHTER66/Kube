@@ -1,0 +1,33 @@
+             PGM        PARM(&FILE &PATH)
+
+             DCL        VAR(&PATH) TYPE(*CHAR) LEN(80)
+             DCL        VAR(&FILE) TYPE(*CHAR) LEN(80)
+             DCL        VAR(&EXCEL) TYPE(*CHAR ) LEN(80)
+
+             STRPCO
+             MONMSG     MSGID(IWS4010)
+
+           /* Clear kp_excel batch file  */
+             STRPCCMD   PCCMD('del c:\Temp\kp_excel.bat')
+
+
+           /* Get the Location of Excel and set it in .bat file */
+             RTVDTAARA  DTAARA(#EXCEL) RTNVAR(&EXCEL)
+
+             STRPCCMD   PCCMD('cmd /c echo set a=' *TCAT &EXCEL *BCAT ' +
+                          >>c:\Temp\kp_excel.bat') PAUSE(*NO)
+
+           /* Load path location and name of file in .bat file  */
+             STRPCCMD   PCCMD('cmd /c echo set b=' *TCAT &PATH *BCAT ' +
+                          >>c:\Temp\kp_excel.bat') PAUSE(*NO)
+             STRPCCMD   PCCMD('cmd /c echo set c=' *TCAT &FILE *BCAT ' +
+                          >>c:\Temp\kp_excel.bat') PAUSE(*NO)
+
+           /* String together Excel Location and File Location */
+             STRPCCMD   PCCMD('cmd /c echo %a%%b%%c%' *TCAT ' +
+                          >>c:\Temp\kp_excel.bat') PAUSE(*NO)
+
+        /*   STRPCCMD   PCCMD('start c:\Temp\kp_excel.bat')   */
+
+
+             ENDPGM

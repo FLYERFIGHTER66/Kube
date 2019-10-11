@@ -1,0 +1,133 @@
+     A*%%TS  SD  20180129  151656  BILLB       REL-V7R2M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      PRINT
+     A          R LOTSFL                    SFL
+     A*%%TS  SD  20120813  170242  BILLB       REL-V7R1M0  5770-WDS
+     A            READDT         6Y 0O 10  2EDTCDE(Y)
+     A  30                                  DSPATR(ND)
+     A            ALQTY          5Y 0B 10 11
+     A  12N30                               DSPATR(RI)
+     A N30                                  DSPATR(CS)
+     A  10                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(RB)
+     A  30                                  DSPATR(ND)
+     A  30                                  DSPATR(PR)
+     A            DQTAV          6Y 0O 10 18EDTCDE(J)
+     A  30                                  DSPATR(ND)
+     A            DQTAL          6Y 0O 10 27EDTCDE(J)
+     A  30                                  DSPATR(ND)
+     A            DQTOH          6Y 0O 10 36EDTCDE(J)
+     A  30                                  DSPATR(ND)
+     A            DPCQT          6Y 0O 10 45EDTCDE(K)
+     A  30                                  DSPATR(ND)
+     A            CNAME         25A  O 10 54COLOR(PNK)
+     A            LRSOWD         7S 0H
+     A            LRCUST         6S 0H
+     A            LRGLOC         3A  H
+     A            LRCLOC         3A  H
+     A            LRCODE         1A  H
+     A            LRCRDY         7S 0H
+     A            LRQTAL        11  1H
+     A          R LOTCTL                    SFLCTL(LOTSFL)
+     A*%%TS  SD  20180129  151656  BILLB       REL-V7R2M0  5770-WDS
+     A                                      SFLSIZ(0050)
+     A                                      SFLPAG(0015)
+     A                                      CF24
+     A  54                                  CF04(04)
+     A  99                                  CF20(20)
+     A N80                                  SFLDSP
+     A N80                                  SFLDSPCTL
+     A  80                                  SFLCLR
+     A  10                                  SFLMSG('You have Allocated More tha-
+     A                                      n you need. Press RESET')
+     A  11                                  SFLMSG('You have not Allocated Enou-
+     A                                      gh.         Press RESET')
+     A  13                                  SFLMSG('You have Allocated more tha-
+     A                                      n there are Available. Press RESET')
+     A                                  1  2'GETLOTSFL'
+     A                                      COLOR(BLU)
+     A                                  2  2USER
+     A                                      COLOR(BLU)
+     A                                  1 73DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(BLU)
+     A                                  2 73TIME
+     A                                      COLOR(BLU)
+     A                                  1 27' Select Lot for Allocation '
+     A                                      DSPATR(RI)
+     A                                      DSPATR(HI)
+     A                                  4  2'Item:'
+     A            IMITEM        12A  O  4  8COLOR(PNK)
+     A                                  4 21'Size:'
+     A            IMSIZE         3A  O  4 27COLOR(PNK)
+     A            IMDES1        30A  O  4 32DSPATR(HI)
+     A                                  6  2'Requested Ship Date:'
+     A            REQDAT         6Y 0O  6 23EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                  6 34'Quantity Ordered:'
+     A            QTYORD         6Y 0O  6 52
+     A  10
+     AO 11                                  DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      COLOR(PNK)
+     A            QTYAL          6Y 0O  6 73
+     A  10
+     AO 11                                  DSPATR(RI)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(1)
+     A                                      COLOR(PNK)
+     A                                  6 62'Allocated:'
+     A                                  9  2'   Date   Qty     Avail.   Alloc. -
+     A                                      On-Hand  Committed   Customer      -
+     A                                               '
+     A                                      DSPATR(UL)
+     A                                  7  2' Roll To View More '
+     A  20                                  DSPATR(RI)
+     A N20                                  DSPATR(ND)
+     A                                  7 51'Press F24 to Confirm Cancel'
+     A  24                                  DSPATR(RI)
+     A N24                                  DSPATR(ND)
+     A                                  5 33' Correct ERRORS '
+     A  99                                  DSPATR(RI)
+     A N99                                  DSPATR(ND)
+     A                                  1 58'Order:'
+     A            OIORD#         6S 0O  1 65COLOR(PNK)
+     A                                  2 60'Seq:'
+     A            OISEQ#         3S 0O  2 65COLOR(PNK)
+     A N54                              8  2' Enter To Update                  -
+     A                                                            F24-Cancel(NO-
+     A                                       UPDATE) '
+     A                                      DSPATR(RI)
+     A  54                              8  2' Enter To Update      F4-Update & -
+     A                                      Remove Inventory      F24-Cancel(NO-
+     A                                       UPDATE) '
+     A                                      DSPATR(RI)
+     A  99                              7 23'Press F20 to do it anyway'
+     A                                      COLOR(YLW)
+     A                                      DSPATR(RI)
+     A                                  5 13'Sow Date:'
+     A            SOWDAT         6Y 0O  5 23EDTCDE(Y)
+     A                                      COLOR(PNK)
+     A                                      DSPATR(RI)
+     A          R AREYOUSURE
+     A*%%TS  SD  20120425  164639  BILLB       REL-V7R1M0  5770-WDS
+     A                                      WINDOW(10 30 9 20)
+     A  54                                  CF16(16 'Remove from Onhand')
+     A                                  2  1'Are you sure you    '
+     A                                  3  1'want to remove'
+     A            INV2DEL        5Y 0O  3 16EDTCDE(3)
+     A                                  4  1'of this item from   '
+     A                                  5  1'Availability?       '
+     A                                  7  3'If so,'
+     A                                  1  1'    Confirmation    '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8  1'Press'
+     A                                      COLOR(PNK)
+     A                                  8  7'F16'
+     A                                      DSPATR(HI)
+     A                                  8 11'to confirm'
+     A                                      COLOR(PNK)

@@ -1,0 +1,33 @@
+000100040514     FFMVEND    UP   E             DISK
+000200040329
+000300040514     D  SaveFill       S                   like(VMOFIL)
+000400040510
+000500040514     C                   Eval      SaveFill = VMOFIL
+000600040514
+000700040514     C                   IF            %Subst(VMMSG:1:4) = 'ACCT'
+000800040514     C                             and VMOFIL = *Blanks
+000900040514     C                   Select
+001000040514
+001100040514     C                   When      %Subst(VMMSG:1:7) = 'ACCT # '
+001200040514     C                             and %Len(%Trim(VMMSG))-7 <= 10
+001300040514     C                   Eval      VMOFIL = %Subst(VMMSG:8:10)
+001400040514
+001500040514     C                   When      %Subst(VMMSG:1:6) = 'ACCT #'
+001600040514     C                             and %Len(%Trim(VMMSG))-6 <= 10
+001700040514     C                   Eval      VMOFIL = %Subst(VMMSG:7:10)
+001800040514
+001900040514     C                   When      %Subst(VMMSG:1:6) = 'ACCT# '
+002000040514     C                             and %Len(%Trim(VMMSG))-6 <= 10
+002100040514     C                   Eval      VMOFIL = %Subst(VMMSG:7:10)
+002200040514
+002300040514     C                   When      %Subst(VMMSG:1:5) = 'ACCT#'
+002400040514     C                             and %Len(%Trim(VMMSG))-5 <= 10
+002500040514     C                   Eval      VMOFIL = %Subst(VMMSG:6:10)
+002600040514
+002700040514     C                   EndSl
+002800040514     C                   EndIf
+002900040514
+003000040514     C                   If        SaveFill <> VMOFIL
+003100040514     C                   Eval      VMMSG = *Blanks
+003200040514     C                   Update    RMVEND
+003300040514     C                   EndIf
