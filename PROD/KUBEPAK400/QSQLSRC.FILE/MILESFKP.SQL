@@ -15,7 +15,7 @@ CREATE OR REPLACE FUNCTION MILESFKP (inDest char(256))
       Set GOOGLE_URL =  'https://maps.googleapis.com/maps/api/distancematrix/xml?' ||
                         'units=imperial'||
                         '&origins=Kube-Pak+194+County+Rd+526,+Allentown,+NJ+08501'||
-                        '&destinations='|| trim(inDest) ||
+                        '&destinations='|| trim(replace(inDest,' ','+') ||
                         '&key=AIzaSyDZiahnNevsqaXr_2X4P5oWO1DYsnj-xMA';
 
 SELECT cast(int(trim(elementDistanceValue)) *  0.000621371 as numeric(7,2)) into outMiles
