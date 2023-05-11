@@ -16,7 +16,7 @@ CREATE OR REPLACE FUNCTION MILESFKP (inDest char(256))
                         'units=imperial'||
                         '&origins=Kube-Pak+194+County+Rd+526,+Allentown,+NJ+08501'||
                         '&destinations='|| trim(replace(inDest,' ','+') ||
-                        '&key=AIzaSyDZiahnNevsqaXr_2X4P5oWO1DYsnj-xMA';
+                        '&key=insert-your-api-key-here';
 
 SELECT cast(int(trim(elementDistanceValue)) *  0.000621371 as numeric(7,2)) into outMiles
 FROM XMLTABLE('$doc/DistanceMatrixResponse'
